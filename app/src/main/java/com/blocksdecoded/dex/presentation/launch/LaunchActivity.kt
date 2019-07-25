@@ -9,6 +9,8 @@ class LaunchActivity: CoreActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MainActivity.start(this)
+
+        finish()
     }
 
 }

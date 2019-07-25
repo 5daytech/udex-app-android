@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.core.manager
 
 import android.os.Handler
 import android.os.HandlerThread
+import android.util.Log
 import com.blocksdecoded.dex.core.adapter.AdapterFactory
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.model.Coin
@@ -30,7 +31,7 @@ class AdapterManager(
             adapters.forEach { it.refresh() }
         }
 
-        ethereumKitManager.ethereumKit?.refresh()
+        ethereumKitManager.refresh()
     }
 
     override fun initAdapters(coins: List<Coin>) {
@@ -40,6 +41,8 @@ class AdapterManager(
             adapters = coins.map { adapterFactory.adapterForCoin(it) }
 
             adapters.forEach { it.start() }
+
+            adaptersUpdatedSignal.onNext(Unit)
         }
     }
 

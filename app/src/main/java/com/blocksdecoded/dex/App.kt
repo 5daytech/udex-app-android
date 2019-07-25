@@ -39,5 +39,8 @@ class App: Application() {
         // Init adapter manager
         adapterFactory = AdapterFactory(appConfiguration, ethereumKitManager)
         adapterManager = AdapterManager(adapterFactory, ethereumKitManager)
+
+
+        adapterManager.initAdapters(CoinManager.coins)
     }
 }

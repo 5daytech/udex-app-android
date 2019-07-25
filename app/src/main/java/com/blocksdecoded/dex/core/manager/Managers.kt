@@ -5,7 +5,7 @@ import com.blocksdecoded.dex.core.model.AuthData
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.zrxkit.ZrxKit
 import io.horizontalsystems.ethereumkit.core.EthereumKit
-import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import org.web3j.tx.gas.ContractGasProvider
 
 interface IEthereumKitManager {
@@ -14,6 +14,7 @@ interface IEthereumKitManager {
 
     fun ethereumKit(authData: AuthData): EthereumKit
     fun defaultKit(): EthereumKit
+    fun refresh()
     fun unlink()
 }
 
@@ -23,7 +24,7 @@ interface IZrxKitManager {
 
 interface IAdapterManager {
     val adapters: List<IAdapter>
-    val adaptersUpdatedSignal: Observable<Unit>
+    val adaptersUpdatedSignal: PublishSubject<Unit>
 
     fun refresh()
     fun initAdapters(coins: List<Coin>)
