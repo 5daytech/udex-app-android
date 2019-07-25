@@ -20,7 +20,8 @@ class ZrxKitManager(
             0,
             "BD Relayer",
             listOf(
-                ZrxKit.assetItemForAddress("") to ZrxKit.assetItemForAddress("")
+                ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("ZRX"))
+                        to ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("WETH"))
             ),
             listOf("0x2e8da0868e46fc943766a98b8d92a0380b29ce2a"),
             "0x30589010550762d2f0d06f650d8e8B6ade6dbf4b".toLowerCase(),
