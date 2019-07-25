@@ -32,4 +32,15 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    // ZrxKit
+    implementation 'com.github.blocksdecoded:zrx-kit-android:261ae91266'
+    // EthereumKit
+    implementation 'com.github.horizontalsystems:ethereum-kit-android:0.3.1'
+    // HdWalletKit
+    implementation 'com.github.horizontalsystems:hd-wallet-kit-android:a3666d8'
 }
