@@ -2,10 +2,10 @@ package com.blocksdecoded.dex.core.manager
 
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.model.AuthData
+import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.zrxkit.ZrxKit
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.Observable
-import org.web3j.crypto.Wallet
 import org.web3j.tx.gas.ContractGasProvider
 
 interface IEthereumKitManager {
@@ -26,6 +26,6 @@ interface IAdapterManager {
     val adaptersUpdatedSignal: Observable<Unit>
 
     fun refresh()
-    fun initAdapters(wallets: List<Wallet>)
+    fun initAdapters(coins: List<Coin>)
     fun stopKits()
 }

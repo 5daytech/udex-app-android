@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.blocksdecoded.dex.presentation.main.MainActivity"
+        <activity android:name=".presentation.main.MainActivity"
                   android:screenOrientation="portrait"/>
 
     </application>

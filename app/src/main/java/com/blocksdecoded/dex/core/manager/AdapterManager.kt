@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.HandlerThread
 import com.blocksdecoded.dex.core.adapter.AdapterFactory
 import com.blocksdecoded.dex.core.adapter.IAdapter
+import com.blocksdecoded.dex.core.model.Coin
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import org.web3j.crypto.Wallet
@@ -32,9 +33,13 @@ class AdapterManager(
         ethereumKitManager.ethereumKit?.refresh()
     }
 
-    override fun initAdapters(wallets: List<Wallet>) {
+    override fun initAdapters(coins: List<Coin>) {
         handler.post {
+            adapters.forEach { it.stop() }
 
+            adapters = coins.map { adapterFactory.adapterForCoin(it) }
+
+            adapters.forEach { it.start() }
         }
     }
 

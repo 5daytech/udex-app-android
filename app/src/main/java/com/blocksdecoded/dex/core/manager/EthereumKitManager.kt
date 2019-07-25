@@ -24,7 +24,7 @@ class EthereumKitManager(
     val authData: AuthData
         get() = AuthData(words, walletId = "ether")
 
-    private var kit: EthereumKit? = null
+    override var ethereumKit: EthereumKit? = null
     private var useCount = 0
     private val infuraCredentials = EthereumKit.InfuraCredentials(
         "0c3f9e6a005b40c58235da423f58b198",
@@ -36,28 +36,28 @@ class EthereumKitManager(
     override fun ethereumKit(authData: AuthData): EthereumKit {
         useCount += 1
 
-        kit?.let { return it }
+        ethereumKit?.let { return it }
 
         val syncMode = EthereumKit.SyncMode.ApiSyncMode()
         val networkType = if (testMode) EthereumKit.NetworkType.Kovan else EthereumKit.NetworkType.MainNet
-        kit = EthereumKit.getInstance(App.instance, authData.privateKey, syncMode, networkType, infuraCredentials, etherscanKey, authData.walletId)
+        ethereumKit = EthereumKit.getInstance(App.instance, authData.privateKey, syncMode, networkType, infuraCredentials, etherscanKey, authData.walletId)
         startKit()
 
-        return kit!!
+        return ethereumKit!!
     }
 
     override fun defaultKit(): EthereumKit = ethereumKit(authData)
 
     private fun startKit() {
-        kit?.start()
+        ethereumKit?.start()
     }
 
     override fun unlink() {
         useCount -= 1
 
         if (useCount < 1) {
-            kit?.stop()
-            kit = null
+            ethereumKit?.stop()
+            ethereumKit = null
         }
     }
 }
