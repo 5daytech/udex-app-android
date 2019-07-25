@@ -1,9 +1,10 @@
-package com.blocksdecoded.dex
+package com.blocksdecoded.dex.presentation.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.ui.CoreActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : CoreActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
