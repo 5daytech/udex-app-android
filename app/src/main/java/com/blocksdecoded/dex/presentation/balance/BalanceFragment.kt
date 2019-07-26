@@ -31,7 +31,7 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
             adapter.setCoins(it)
         })
 
-        viewModel.loading.observe(this, Observer {
+        viewModel.refreshing.observe(this, Observer {
             swipe_refresh.isRefreshing = it
         })
     }
@@ -46,17 +46,12 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
 
     //region ViewHolder
 
-    override fun onClick(position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun onClick(position: Int) = adapter.toggleViewHolder(position)
 
-    override fun onSendClick(position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onReceiveClick(position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun onSendClick(position: Int) = viewModel.onSendClick(position)
+    override fun onReceiveClick(position: Int) = viewModel.onReceiveClick(position)
+    override fun onTransactionsClick(position: Int) = viewModel.onTransactionsClick(position)
+    override fun onConvertClick(position: Int) = viewModel.onConvertClick(position)
 
     //endregion
 

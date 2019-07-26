@@ -8,6 +8,7 @@ import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.manager.IAdapterManager
 import com.blocksdecoded.dex.core.model.CoinValue
 import com.blocksdecoded.dex.ui.CoreViewModel
+import com.blocksdecoded.dex.ui.SingleLiveEvent
 
 class BalanceViewModel : CoreViewModel() {
     private val adaptersManager: IAdapterManager = App.adapterManager
@@ -17,11 +18,16 @@ class BalanceViewModel : CoreViewModel() {
     private val mBalances = MutableLiveData<List<CoinValue>>()
     val balances: LiveData<List<CoinValue>> = mBalances
 
-    private val mLoading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean> = mLoading
+    private val mRefreshing = MutableLiveData<Boolean>()
+    val refreshing: LiveData<Boolean> = mRefreshing
+
+    val openSendDialog = SingleLiveEvent<String>()
+    val openReceiveDialog = SingleLiveEvent<String>()
+    val openTransactions = SingleLiveEvent<String>()
+    val openConvertDialog = SingleLiveEvent<String>()
 
     init {
-        mLoading.value = true
+        mRefreshing.value = true
 
         adaptersManager.adaptersUpdatedSignal
                 .subscribe { onRefreshAdapters() }
@@ -31,7 +37,7 @@ class BalanceViewModel : CoreViewModel() {
     private fun onRefreshAdapters() {
         adapters.forEach { adapter ->
             adapter.stateUpdatedFlowable.subscribe {
-                mLoading.postValue(false)
+                mRefreshing.postValue(false)
             }
 
             adapter.balanceUpdatedFlowable.subscribe {
@@ -45,7 +51,7 @@ class BalanceViewModel : CoreViewModel() {
     private fun updateBalance() {
         mBalances.postValue(
                 adapters.mapIndexed { index, baseAdapter ->
-                    CoinValue(CoinManager.coins[index], baseAdapter.balance)
+                    CoinValue(CoinManager.coins[index], baseAdapter.balance, index in 0..1)
                 }
         )
     }
@@ -63,6 +69,14 @@ class BalanceViewModel : CoreViewModel() {
     }
 
     fun onReceiveClick(position: Int) {
+
+    }
+
+    fun onConvertClick(position: Int) {
+
+    }
+
+    fun onTransactionsClick(position: Int) {
 
     }
 }

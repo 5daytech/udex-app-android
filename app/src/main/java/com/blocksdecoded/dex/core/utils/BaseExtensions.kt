@@ -3,9 +3,9 @@ package com.blocksdecoded.dex.core.utils
 import android.content.Context
 import android.graphics.Point
 import android.view.Gravity
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
-import org.web3j.abi.datatypes.Function
 
 fun Context.showShortToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT)
@@ -32,3 +32,13 @@ val Context.screenHeight
 
 val Context.screenWidth
     get() = screenSize.x
+
+fun View.setVisible(visible: Boolean, animated: Boolean = false) {
+    this.visible = visible
+}
+
+var View.visible: Boolean
+    get() = visibility == View.VISIBLE
+    set(value) {
+        visibility = if (value) View.VISIBLE else View.GONE
+    }

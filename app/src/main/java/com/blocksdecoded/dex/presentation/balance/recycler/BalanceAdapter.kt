@@ -11,15 +11,24 @@ class BalanceAdapter(
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val mBalances = ArrayList<CoinValue>()
+    private var mExpandedViewPosition: Int? = null
+
+    override fun getItemCount(): Int = mBalances.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         BalanceViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_balance, parent, false), listener)
 
-    override fun getItemCount(): Int = mBalances.size
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = Unit
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
         when(holder) {
-            is BalanceViewHolder -> holder.onBind(mBalances[position])
+            is BalanceViewHolder -> {
+                if (payloads.isEmpty()) {
+                    holder.onBind(mBalances[position], mExpandedViewPosition == position)
+                } else if (payloads.any { it is Boolean }) {
+                    holder.bindPartial(mExpandedViewPosition == position)
+                }
+            }
         }
     }
 
@@ -27,5 +36,17 @@ class BalanceAdapter(
         mBalances.clear()
         mBalances.addAll(coins)
         notifyDataSetChanged()
+    }
+
+    fun toggleViewHolder(position: Int) {
+        mExpandedViewPosition?.let {
+            notifyItemChanged(it, false)
+        }
+
+        if (mExpandedViewPosition != position) {
+            notifyItemChanged(position, true)
+        }
+
+        mExpandedViewPosition = if (mExpandedViewPosition == position) null else position
     }
 }
