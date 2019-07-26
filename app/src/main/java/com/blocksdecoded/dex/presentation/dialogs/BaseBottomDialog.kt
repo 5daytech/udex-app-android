@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.widgets
+package com.blocksdecoded.dex.presentation.dialogs
 
 import android.app.Dialog
 import android.os.Bundle
@@ -8,7 +8,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.view.*
 import com.blocksdecoded.dex.R
 
-abstract class BaseBottomDialog(private val layoutId: Int) : BottomSheetDialogFragment() {
+abstract class BaseBottomDialog(
+        private val layoutId: Int,
+        private var keyboardAlwaysVisible: Boolean = false
+): BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = activity?.let { BottomSheetDialog(it) }

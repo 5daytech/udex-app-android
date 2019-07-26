@@ -7,6 +7,7 @@ import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.manager.IAdapterManager
 import com.blocksdecoded.dex.core.model.CoinValue
+import com.blocksdecoded.dex.core.utils.isValidIndex
 import com.blocksdecoded.dex.ui.CoreViewModel
 import com.blocksdecoded.dex.ui.SingleLiveEvent
 
@@ -60,16 +61,16 @@ class BalanceViewModel : CoreViewModel() {
         adaptersManager.refresh()
     }
 
-    fun onCoinClick(position: Int) {
-
-    }
-
     fun onSendClick(position: Int) {
-
+        if (adapters.isValidIndex(position)) {
+            openSendDialog.postValue(adapters[position].coin.code)
+        }
     }
 
     fun onReceiveClick(position: Int) {
-
+        if (adapters.isValidIndex(position)) {
+            openReceiveDialog.postValue(adapters[position].coin.code)
+        }
     }
 
     fun onConvertClick(position: Int) {

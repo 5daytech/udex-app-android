@@ -7,6 +7,8 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 
+fun <T>List<T>.isValidIndex(index: Int): Boolean = index in 0 until size
+
 fun Context.showShortToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT)
             .apply { setGravity(Gravity.TOP, 0, screenHeight / 2) }

@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.core.adapter
 
+import com.blocksdecoded.dex.core.model.Coin
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -8,10 +9,10 @@ import java.math.BigInteger
 import java.math.RoundingMode
 
 abstract class EthereumBaseAdapter(
+    override val coin: Coin,
     protected val ethereumKit: EthereumKit,
     final override val decimal: Int
 ) : IAdapter {
-
     override val feeCoinCode: String? = "ETH"
 
     override val confirmationsThreshold: Int = 12

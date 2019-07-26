@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.core.adapter
 
 import android.content.Context
+import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.TransactionAddress
 import com.blocksdecoded.dex.core.model.TransactionRecord
 import io.horizontalsystems.ethereumkit.core.EthereumKit
@@ -10,8 +11,9 @@ import io.reactivex.Single
 import java.math.BigDecimal
 
 class EthereumAdapter(
+    coin: Coin,
     kit: EthereumKit
-) : EthereumBaseAdapter(kit, 18) {
+) : EthereumBaseAdapter(coin, kit, 18) {
 
     override val state: AdapterState
         get() = when (ethereumKit.syncState) {

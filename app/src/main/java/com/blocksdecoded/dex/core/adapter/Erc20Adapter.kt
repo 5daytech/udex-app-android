@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.core.adapter
 
 import android.content.Context
+import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.TransactionAddress
 import com.blocksdecoded.dex.core.model.TransactionRecord
 import io.horizontalsystems.erc20kit.core.Erc20Kit
@@ -13,13 +14,14 @@ import io.reactivex.Single
 import java.math.BigDecimal
 
 class Erc20Adapter(
+    coin: Coin,
     context: Context,
     kit: EthereumKit,
     decimal: Int,
     private val fee: BigDecimal,
     contractAddress: String,
     override val feeCoinCode: String?
-) : EthereumBaseAdapter(kit, decimal) {
+) : EthereumBaseAdapter(coin, kit, decimal) {
 
     private val erc20Kit: Erc20Kit = Erc20Kit.getInstance(context, ethereumKit, contractAddress)
 

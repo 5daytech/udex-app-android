@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/receive_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Receive"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textColor="#000"/>
+
+    <ImageView
+        android:id="@+id/receive_qr"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/receive_raw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Receive address"
+        android:textIsSelectable="true"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+
+    <Button
+        style="@style/PrimaryButton"
+        android:id="@+id/receive_forward"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:text="Forward"/>
+</LinearLayout>

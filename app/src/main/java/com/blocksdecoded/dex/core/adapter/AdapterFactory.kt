@@ -13,10 +13,10 @@ class AdapterFactory(
 
     fun adapterForCoin(coin: Coin): IAdapter = when (coin.type) {
         is CoinType.Ethereum -> {
-            EthereumAdapter(ethereumKitManager.defaultKit())
+            EthereumAdapter(coin, ethereumKitManager.defaultKit())
         }
         is CoinType.Erc20 -> {
-            Erc20Adapter(App.instance, ethereumKitManager.defaultKit(), coin.type.decimal, BigDecimal(0.0), coin.type.address, coin.code)
+            Erc20Adapter(coin, App.instance, ethereumKitManager.defaultKit(), coin.type.decimal, BigDecimal(0.0), coin.type.address, coin.code)
         }
     }
 

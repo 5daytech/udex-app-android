@@ -1,11 +1,19 @@
 <resources>
     <string name="app_name">BD Dex</string>
+
+    <!-- Menu -->
     <string name="menu_balance">Balance</string>
     <string name="menu_exchange">Exchange</string>
     <string name="menu_orders">Orders</string>
     <string name="menu_markets">Markets</string>
     <string name="menu_account">Account</string>
+
+    <!-- Actions -->
     <string name="balance_receive">Receive</string>
     <string name="balance_send">Send</string>
     <string name="balance_transactions">Transactions</string>
+
+    <!-- Messages -->
+    <string name="error_invalid_coin">Invalid coin symbol</string>
+
 </resources>

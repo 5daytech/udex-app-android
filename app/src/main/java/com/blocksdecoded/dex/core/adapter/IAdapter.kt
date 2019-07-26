@@ -1,11 +1,13 @@
 package com.blocksdecoded.dex.core.adapter
 
+import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.TransactionRecord
 import io.reactivex.Flowable
 import io.reactivex.Single
 import java.math.BigDecimal
 
 interface IAdapter {
+    val coin: Coin
     val feeCoinCode: String?
 
     val decimal: Int

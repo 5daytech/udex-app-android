@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.balance.recycler.BalanceViewHolder
 import com.blocksdecoded.dex.presentation.balance.recycler.BalanceAdapter
+import com.blocksdecoded.dex.presentation.dialogs.receive.ReceiveDialog
+import com.blocksdecoded.dex.presentation.dialogs.send.SendDialog
 import com.blocksdecoded.dex.ui.CoreFragment
 import kotlinx.android.synthetic.main.fragment_balance.*
 
@@ -33,6 +35,18 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
 
         viewModel.refreshing.observe(this, Observer {
             swipe_refresh.isRefreshing = it
+        })
+
+        viewModel.openReceiveDialog.observe(this, Observer {
+            ReceiveDialog.open(childFragmentManager, it)
+        })
+
+        viewModel.openSendDialog.observe(this, Observer {
+            SendDialog.open(childFragmentManager, it)
+        })
+
+        viewModel.openConvertDialog.observe(this, Observer {
+
         })
     }
 
