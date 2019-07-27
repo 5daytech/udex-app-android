@@ -4,15 +4,22 @@
     <color name="colorPrimaryDark">#7083FE</color>
     <color name="colorAccent">#7083FE</color>
 
+    <color name="main_dark">#1E1E24</color>
+    
     <color name="white">#FFF</color>
     <color name="black">#000</color>
     <color name="green">#2ECC71</color>
     <color name="red">#E83958</color>
     <color name="blue">#3A62F9</color>
     <color name="yellow">#FFB23F</color>
+
+    <color name="tab_inactive">#5C5C6A</color>
+    <color name="tab_active">#7083FE</color>
+
     <color name="light_blue">#7083FE</color>
     <color name="light_grey">#B6B9BD</color>
     <color name="dark_grey">#6B7388</color>
     <color name="light_hint">#90787D88</color>
+    
     <color name="transparent">#00000000</color>
 </resources>
