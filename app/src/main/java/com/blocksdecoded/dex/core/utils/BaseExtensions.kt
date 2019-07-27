@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import com.blocksdecoded.dex.utils.AnimationHelper
 
 fun <T>List<T>.isValidIndex(index: Int): Boolean = index in 0 until size
 
@@ -36,7 +37,16 @@ val Context.screenWidth
     get() = screenSize.x
 
 fun View.setVisible(visible: Boolean, animated: Boolean = false) {
-    this.visible = visible
+    if (!animated) {
+        this.visible = visible
+        return
+    }
+
+    if (visible) {
+        AnimationHelper.expand(this)
+    } else {
+        AnimationHelper.collapse(this)
+    }
 }
 
 var View.visible: Boolean

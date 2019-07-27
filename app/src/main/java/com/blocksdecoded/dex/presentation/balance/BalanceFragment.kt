@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.balance.recycler.BalanceViewHolder
@@ -52,8 +53,13 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        balance_recycler.layoutManager = LinearLayoutManager(context)
+
+        balance_recycler.layoutManager = object: LinearLayoutManager(context) {
+            override fun supportsPredictiveItemAnimations(): Boolean = false
+        }
+
         balance_recycler.adapter = adapter
+        (balance_recycler.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
 
         swipe_refresh.setOnRefreshListener { viewModel.refresh() }
     }

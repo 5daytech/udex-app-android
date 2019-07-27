@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.presentation.balance.recycler
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -47,6 +48,8 @@ class BalanceViewHolder(
 
     fun bindPartial(expanded: Boolean) {
         itemView.isSelected = expanded
+
+        Log.d("ololo", "Partially bind")
         mButtonContainer.setVisible(expanded, true)
     }
 

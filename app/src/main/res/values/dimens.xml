@@ -2,6 +2,8 @@
 <resources>
     <dimen name="bottom_nav_bar_height">64dp</dimen>
     <dimen name="coin_size">24dp</dimen>
-    <dimen name="default_page_margin">16dp</dimen>
-    <dimen name="default_element_margin">8dp</dimen>
+    <dimen name="action_icon_size">22dp</dimen>
+    <dimen name="page_margin">16dp</dimen>
+    <dimen name="element_margin">8dp</dimen>
+    <dimen name="corner_radius">12dp</dimen>
 </resources>
