@@ -8,12 +8,8 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="MainTitle" parent="AppTheme.BoldText">
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="PrimaryButton" parent="AppTheme.RegularText">
+    <!-- Buttons -->
+    <style name="PrimaryButton" parent="RegularText">
         <item name="android:background">@drawable/bg_blue_gradient</item>
         <item name="android:foreground">?selectableItemBackground</item>
         <item name="android:textColor">@color/white</item>
@@ -22,7 +18,7 @@
         <item name="android:paddingBottom">12dp</item>
     </style>
 
-    <style name="ButtonSmallGrey" parent="AppTheme.RegularText">
+    <style name="ButtonSmallGrey" parent="RegularText">
         <item name="android:background">@drawable/bg_grey</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:letterSpacing">0</item>
@@ -35,24 +31,35 @@
         <item name="android:paddingStart">8dp</item>
     </style>
 
-    <style name="SmallHint" parent="AppTheme.LightText">
-        <item name="android:textSize">12sp</item>
+    <!-- Texts -->
+    <style name="MainTitle" parent="BoldText">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="SmallHint" parent="LightText">
+        <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/light_hint</item>
     </style>
 
-    <style name="AppTheme.BoldText">
+    <!-- Base styles -->
+    <style name="AppTheme.BaseText">
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="BoldText" parent="AppTheme.BaseText">
         <item name="android:fontFamily">sans-serif-black</item>
     </style>
 
-    <style name="AppTheme.RegularText">
+    <style name="RegularText" parent="AppTheme.BaseText">
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
-    <style name="AppTheme.SemiboldText">
+    <style name="SemiboldText" parent="AppTheme.BaseText">
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="AppTheme.LightText">
+    <style name="LightText" parent="AppTheme.BaseText">
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 

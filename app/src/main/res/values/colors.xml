@@ -13,6 +13,6 @@
     <color name="light_blue">#7083FE</color>
     <color name="light_grey">#B6B9BD</color>
     <color name="dark_grey">#6B7388</color>
-    <color name="light_hint">#80787D88</color>
+    <color name="light_hint">#90787D88</color>
     <color name="transparent">#00000000</color>
 </resources>

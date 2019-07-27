@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="coin_size">24dp</dimen>
+    <dimen name="default_page_margin">16dp</dimen>
+    <dimen name="default_element_margin">8dp</dimen>
+</resources>
