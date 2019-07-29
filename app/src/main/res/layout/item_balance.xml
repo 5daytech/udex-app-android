@@ -10,14 +10,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
+        <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
             android:id="@+id/balance_icon"
             android:layout_width="@dimen/coin_size"
             android:layout_height="@dimen/coin_size"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:src="@drawable/ic_coin_placeholder"/>
+            app:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
             android:id="@+id/balance_symbol"

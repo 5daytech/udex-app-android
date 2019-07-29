@@ -6,16 +6,27 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-    <TextView
-        android:id="@+id/send_title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/page_margin"
-        android:layout_marginLeft="@dimen/page_margin"
-        android:text="Send"
-        android:textSize="18sp"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:textColor="#000"/>
+        android:layout_marginStart="@dimen/page_margin">
+        <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+            android:id="@+id/send_coin_icon"
+            android:layout_width="@dimen/coin_size"
+            android:layout_height="@dimen/coin_size" />
+
+        <TextView
+            android:id="@+id/send_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/element_margin"
+            android:text="Send"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textColor="#000"/>
+    </LinearLayout>
 
     <com.blocksdecoded.dex.presentation.widgets.InputAmountView
         android:id="@+id/send_amount"
