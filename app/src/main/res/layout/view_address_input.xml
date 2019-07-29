@@ -29,14 +29,14 @@
             android:orientation="vertical"
             >
 
-            <EditText
+            <TextView
                 android:id="@+id/address_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
-                android:hint="Receive address"
+                android:hint="Address"
                 android:singleLine="true"
-                />
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/address_input_error"
@@ -55,6 +55,7 @@
             android:padding="8dp"
             android:src="@drawable/ic_qr"
             android:visibility="visible"
+            android:background="@drawable/bg_grey"
             />
 
         <Button
@@ -64,6 +65,15 @@
             android:layout_height="28dp"
             android:text="Paste"
             android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/address_delete"
+            style="@style/ButtonSmallGrey"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_clear"
+            android:visibility="gone" />
 
     </LinearLayout>
 

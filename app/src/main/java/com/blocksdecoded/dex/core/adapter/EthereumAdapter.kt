@@ -46,7 +46,7 @@ class EthereumAdapter(
 
     //TODO: Replace static gas price with price provider
     override fun fee(value: BigDecimal, address: String?, feePriority: FeeRatePriority): BigDecimal {
-        return ethereumKit.fee(3_000_000_000).movePointLeft(18)
+        return ethereumKit.fee(5_000_000_000).movePointLeft(18)
     }
 
     override fun availableBalance(address: String?, feePriority: FeeRatePriority): BigDecimal {

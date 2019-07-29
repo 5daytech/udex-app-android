@@ -32,8 +32,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/amount_prefix"
         app:layout_constraintEnd_toStartOf="@+id/amount_max"
         app:layout_constraintStart_toEndOf="@+id/amount_prefix"
-        tools:text="0.0021"
-        />
+        tools:text="0.0021" />
 
     <View
         android:id="@+id/amount_divider"

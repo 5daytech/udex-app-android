@@ -9,19 +9,19 @@ import androidx.core.content.ContextCompat
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 
-object HudHelper {
+object ToastHelper {
 
     private var toast: Toast? = null
 
     fun showSuccessMessage(text: Int, durationInMillis: Long = 2000) {
-        showHudNotification(text, R.color.green, durationInMillis)
+        showMessage(text, R.color.green, durationInMillis)
     }
 
     fun showErrorMessage(text: Int) {
-        showHudNotification(text, R.color.red, 2000)
+        showMessage(text, R.color.red, 2000)
     }
 
-    private fun showHudNotification(text: Int, backgroundColor: Int, durationInMillis: Long) {
+    private fun showMessage(text: Int, backgroundColor: Int, durationInMillis: Long) {
         toast?.cancel()
 
         val toast = Toast.makeText(App.instance, text, Toast.LENGTH_SHORT)

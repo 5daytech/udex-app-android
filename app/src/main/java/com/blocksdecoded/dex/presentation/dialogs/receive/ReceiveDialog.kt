@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
-import com.blocksdecoded.dex.utils.HudHelper
+import com.blocksdecoded.dex.utils.ToastHelper
 import com.blocksdecoded.dex.utils.QrUtils
 import com.blocksdecoded.dex.utils.ShareUtils
 import kotlinx.android.synthetic.main.dialog_receive.*
@@ -22,7 +22,7 @@ class ReceiveDialog: BaseBottomDialog(R.layout.dialog_receive)  {
                 .firstOrNull { it.coin.code == coinCode }
 
         if (adapter == null) {
-            HudHelper.showErrorMessage(R.string.error_invalid_coin)
+            ToastHelper.showErrorMessage(R.string.error_invalid_coin)
             return
         }
 

@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.ui
 
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
@@ -26,4 +27,9 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
         value = null
     }
 
+}
+
+fun <T> LiveData<T>.reObserve(owner: LifecycleOwner, observer: Observer<T>) {
+    removeObserver(observer)
+    observe(owner, observer)
 }

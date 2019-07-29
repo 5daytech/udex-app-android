@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.core.adapter
 
 import com.blocksdecoded.dex.core.model.Coin
+import com.blocksdecoded.dex.utils.Logger
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.Flowable
 import io.reactivex.Single
