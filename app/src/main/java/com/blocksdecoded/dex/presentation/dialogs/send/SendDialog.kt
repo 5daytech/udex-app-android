@@ -8,6 +8,9 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
+import com.blocksdecoded.dex.presentation.widgets.NumPadItem
+import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
+import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.utils.HudHelper
 import com.blocksdecoded.dex.utils.QrUtils
 import com.blocksdecoded.dex.utils.ShareUtils
@@ -15,7 +18,7 @@ import kotlinx.android.synthetic.main.dialog_receive.*
 import kotlinx.android.synthetic.main.dialog_send.*
 import kotlinx.android.synthetic.main.view_amount_input.*
 
-class SendDialog: BaseBottomDialog(R.layout.dialog_send)  {
+class SendDialog: BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Listener {
     var coinCode: String = ""
 
     @SuppressLint("SetTextI18n")
@@ -31,6 +34,8 @@ class SendDialog: BaseBottomDialog(R.layout.dialog_send)  {
             return
         }
 
+        send_title.text = "Send ${adapter.coin.title}"
+
         send_amount.bindInitial( onMaxClick = {
             amount_input.setText(adapter.availableBalance(adapter.receiveAddress, FeeRatePriority.MEDIUM).toString())
         }, onSwitchClick = {
@@ -38,6 +43,12 @@ class SendDialog: BaseBottomDialog(R.layout.dialog_send)  {
         })
 
         send_amount.updateAmountPrefix(adapter.coin.code)
+
+        send_numpad.bind(this, NumPadItemType.DOT, false)
+    }
+
+    override fun onItemClick(item: NumPadItem) {
+
     }
 
     companion object {

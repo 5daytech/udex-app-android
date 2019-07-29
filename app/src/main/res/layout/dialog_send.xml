@@ -10,9 +10,9 @@
         android:id="@+id/send_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="Receive"
+        android:layout_marginTop="@dimen/page_margin"
+        android:layout_marginLeft="@dimen/page_margin"
+        android:text="Send"
         android:textSize="18sp"
         android:fontFamily="sans-serif-condensed-medium"
         android:textColor="#000"/>
@@ -20,19 +20,30 @@
     <com.blocksdecoded.dex.presentation.widgets.InputAmountView
         android:id="@+id/send_amount"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/page_margin"/>
 
     <com.blocksdecoded.dex.presentation.widgets.InputAddressView
         android:id="@+id/send_address"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/element_margin"/>
 
     <Button
         style="@style/PrimaryButton"
         android:id="@+id/send_confirm"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/element_margin"
         android:text="Send" />
+
+    <com.blocksdecoded.dex.presentation.widgets.NumPadView
+        android:id="@+id/send_numpad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/element_margin"
+        android:layout_marginLeft="@dimen/page_margin"
+        android:layout_marginRight="@dimen/page_margin"
+        android:layout_gravity="center" />
 
 </LinearLayout>

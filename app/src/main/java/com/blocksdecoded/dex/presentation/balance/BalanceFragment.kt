@@ -38,12 +38,16 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
             swipe_refresh.isRefreshing = it
         })
 
-        viewModel.openReceiveDialog.observe(this, Observer {
-            ReceiveDialog.open(childFragmentManager, it)
+        viewModel.openReceiveDialog.observe(this, Observer { coinCode ->
+            activity?.let {
+                ReceiveDialog.open(it.supportFragmentManager, coinCode)
+            }
         })
 
-        viewModel.openSendDialog.observe(this, Observer {
-            SendDialog.open(childFragmentManager, it)
+        viewModel.openSendDialog.observe(this, Observer { coinCode ->
+            activity?.let {
+                SendDialog.open(it.supportFragmentManager, coinCode)
+            }
         })
 
         viewModel.openConvertDialog.observe(this, Observer {

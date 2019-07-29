@@ -14,7 +14,7 @@ abstract class BaseBottomDialog(
 ): BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = activity?.let { BottomSheetDialog(it) }
+        val dialog = activity?.let { BottomSheetDialog(it, R.style.BottomSheet) }
         requireNotNull(dialog)
 
         dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)

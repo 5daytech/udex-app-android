@@ -9,6 +9,24 @@
         <item name="android:statusBarColor">@color/light_bg</item>
         <item name="android:windowBackground">@color/light_bg</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:fontFamily">sans-serif-regular</item>
+    </style>
+
+    <style name="BottomSheet"  parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateHidden</item>
+        <item name="android:windowAnimationStyle">@style/BottomDialogAnimations</item>
+    </style>
+
+    <style name="BottomDialogAnimations" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
     </style>
 
     <!-- Buttons -->
