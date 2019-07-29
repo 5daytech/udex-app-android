@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.core.adapter
 
 import android.content.Context
+import com.blocksdecoded.dex.core.manager.IFeeRateProvider
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.TransactionAddress
 import com.blocksdecoded.dex.core.model.TransactionRecord
@@ -12,8 +13,9 @@ import java.math.BigDecimal
 
 class EthereumAdapter(
     coin: Coin,
-    kit: EthereumKit
-) : EthereumBaseAdapter(coin, kit, 18) {
+    kit: EthereumKit,
+    feeRateProvider: IFeeRateProvider
+) : EthereumBaseAdapter(coin, kit, feeRateProvider, 18) {
 
     override val state: AdapterState
         get() = when (ethereumKit.syncState) {
@@ -44,9 +46,8 @@ class EthereumAdapter(
         return ethereumKit.send(address, amount, gasPrice).map { Unit }
     }
 
-    //TODO: Replace static gas price with price provider
     override fun fee(value: BigDecimal, address: String?, feePriority: FeeRatePriority): BigDecimal {
-        return ethereumKit.fee(5_000_000_000).movePointLeft(18)
+        return ethereumKit.fee(feeRateProvider.ethereumGasPrice(feePriority)).movePointLeft(18)
     }
 
     override fun availableBalance(address: String?, feePriority: FeeRatePriority): BigDecimal {

@@ -58,6 +58,8 @@ dependencies {
     implementation 'com.github.horizontalsystems:ethereum-kit-android:0.3.1'
     // HdWalletKit
     implementation 'com.github.horizontalsystems:hd-wallet-kit-android:a3666d8'
+    // FeeRateKit
+    implementation 'com.github.horizontalsystems:blockchain-fee-rate-kit-android:3b97961'
 
     // Qr
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'

@@ -18,6 +18,7 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.presentation.widgets.TextWatcher
+import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.ui.reObserve
 import com.blocksdecoded.dex.utils.ToastHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -144,7 +145,7 @@ class SendDialog: BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Lis
         amount_input?.showSoftInputOnFocus = false
         inputConnection = amount_input?.onCreateInputConnection(EditorInfo())
 
-        send_confirm.setOnClickListener { viewModel.onSendClicked() }
+        send_confirm.setSingleClickListener { viewModel.onSendClicked() }
     }
 
     override fun onItemClick(item: NumPadItem) {

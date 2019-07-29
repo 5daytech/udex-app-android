@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.core.manager
 
+import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.model.AuthData
 import com.blocksdecoded.dex.core.model.Coin
@@ -29,4 +30,8 @@ interface IAdapterManager {
     fun refresh()
     fun initAdapters(coins: List<Coin>)
     fun stopKits()
+}
+
+interface IFeeRateProvider {
+    fun ethereumGasPrice(priority: FeeRatePriority): Long
 }

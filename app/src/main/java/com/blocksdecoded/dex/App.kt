@@ -18,6 +18,7 @@ class App: Application() {
         lateinit var zrxKitManager: IZrxKitManager
         lateinit var ethereumKitManager: EthereumKitManager
         lateinit var adapterManager: IAdapterManager
+        lateinit var feeRateProvider: IFeeRateProvider
 
         // Factories
 
@@ -35,9 +36,10 @@ class App: Application() {
         // Init kits
         ethereumKitManager = EthereumKitManager(testMode, appConfiguration)
         zrxKitManager = ZrxKitManager(ethereumKitManager)
+        feeRateProvider = FeeRateProvider(this)
 
         // Init adapter manager
-        adapterFactory = AdapterFactory(appConfiguration, ethereumKitManager)
+        adapterFactory = AdapterFactory(appConfiguration, ethereumKitManager, feeRateProvider)
         adapterManager = AdapterManager(adapterFactory, ethereumKitManager)
 
 

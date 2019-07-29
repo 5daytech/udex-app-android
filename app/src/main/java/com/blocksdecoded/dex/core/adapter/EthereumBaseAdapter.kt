@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.core.adapter
 
+import com.blocksdecoded.dex.core.manager.IFeeRateProvider
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.utils.Logger
 import io.horizontalsystems.ethereumkit.core.EthereumKit
@@ -12,6 +13,7 @@ import java.math.RoundingMode
 abstract class EthereumBaseAdapter(
     override val coin: Coin,
     protected val ethereumKit: EthereumKit,
+    protected val feeRateProvider: IFeeRateProvider,
     final override val decimal: Int
 ) : IAdapter {
     override val feeCoinCode: String? = "ETH"
@@ -35,12 +37,11 @@ abstract class EthereumBaseAdapter(
     override val lastBlockHeightUpdatedFlowable: Flowable<Unit>
         get() = ethereumKit.lastBlockHeightFlowable.map { Unit }
 
-    //TODO: Replace static gas price with price provider
     override fun send(address: String, value: BigDecimal, feePriority: FeeRatePriority): Single<Unit> {
         val poweredDecimal = value.scaleByPowerOfTen(decimal)
         val noScaleDecimal = poweredDecimal.setScale(0, RoundingMode.HALF_DOWN)
 
-        return sendSingle(address, noScaleDecimal.toPlainString(), 3_000_000_000)
+        return sendSingle(address, noScaleDecimal.toPlainString(), feeRateProvider.ethereumGasPrice(feePriority))
     }
 
     override fun validate(address: String) {

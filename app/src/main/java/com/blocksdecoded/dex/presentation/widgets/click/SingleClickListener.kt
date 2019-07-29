@@ -11,3 +11,9 @@ abstract class SingleClickListener: View.OnClickListener {
         }
     }
 }
+
+fun View.setSingleClickListener(listener: ((v: View) -> Unit)) {
+    setOnClickListener(object : SingleClickListener() {
+        override fun onSingleClick(v: View) = listener(v)
+    })
+}

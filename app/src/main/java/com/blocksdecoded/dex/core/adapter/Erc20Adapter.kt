@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.core.adapter
 
 import android.content.Context
+import com.blocksdecoded.dex.core.manager.IFeeRateProvider
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.TransactionAddress
 import com.blocksdecoded.dex.core.model.TransactionRecord
@@ -17,11 +18,12 @@ class Erc20Adapter(
     coin: Coin,
     context: Context,
     kit: EthereumKit,
+    feeRateProvider: IFeeRateProvider,
     decimal: Int,
     private val fee: BigDecimal,
     contractAddress: String,
     override val feeCoinCode: String?
-) : EthereumBaseAdapter(coin, kit, decimal) {
+) : EthereumBaseAdapter(coin, kit, feeRateProvider, decimal) {
 
     private val erc20Kit: Erc20Kit = Erc20Kit.getInstance(context, ethereumKit, contractAddress)
 
@@ -58,9 +60,8 @@ class Erc20Adapter(
         return balance - fee
     }
 
-    //TODO: Replace static gas price with price provider
     override fun fee(value: BigDecimal, address: String?, feePriority: FeeRatePriority): BigDecimal {
-        return erc20Kit.fee(3_000_000_000).movePointLeft(18)
+        return erc20Kit.fee(feeRateProvider.ethereumGasPrice(feePriority)).movePointLeft(18)
     }
 
     override fun validate(amount: BigDecimal, address: String?, feePriority: FeeRatePriority): List<SendStateError> {

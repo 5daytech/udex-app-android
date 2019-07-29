@@ -48,8 +48,6 @@ class BalanceViewHolder(
 
     fun bindPartial(expanded: Boolean) {
         itemView.isSelected = expanded
-
-        Log.d("ololo", "Partially bind")
         mButtonContainer.setVisible(expanded, true)
     }
 
