@@ -25,4 +25,5 @@
     <color name="light_hint">#90787D88</color>
     
     <color name="transparent">#00000000</color>
+    <color name="transparent_blue">#703A62F9</color>
 </resources>
