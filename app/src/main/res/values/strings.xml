@@ -19,5 +19,6 @@
 
     <!-- Notifications -->
     <string name="send_success">\u2713 Sent</string>
+    <string name="message_copied">Copied</string>
 
 </resources>

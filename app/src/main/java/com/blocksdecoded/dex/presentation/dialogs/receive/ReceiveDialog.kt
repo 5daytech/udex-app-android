@@ -9,6 +9,7 @@ import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.utils.ToastHelper
 import com.blocksdecoded.dex.utils.QrUtils
 import com.blocksdecoded.dex.utils.ShareUtils
+import com.blocksdecoded.dex.utils.clipboard.ClipboardManager
 import kotlinx.android.synthetic.main.dialog_receive.*
 
 class ReceiveDialog: BaseBottomDialog(R.layout.dialog_receive)  {
@@ -37,6 +38,11 @@ class ReceiveDialog: BaseBottomDialog(R.layout.dialog_receive)  {
 
         receive_forward.setOnClickListener {
             ShareUtils.shareMessage(activity, adapter.receiveAddress)
+        }
+
+        receive_raw.setOnClickListener {
+            ClipboardManager.copyText(adapter.receiveAddress)
+            ToastHelper.showSuccessMessage(R.string.message_copied, 1000)
         }
     }
 
