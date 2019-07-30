@@ -25,7 +25,7 @@ class ZrxKitManager(
             ),
             listOf("0x2e8da0868e46fc943766a98b8d92a0380b29ce2a"),
             "0x30589010550762d2f0d06f650d8e8B6ade6dbf4b".toLowerCase(),
-            RelayerConfig("http://relayer.staging.fridayte.ch", "", "v2")
+            RelayerConfig("http://relayer.ropsten.fridayte.ch", "", "v2")
         )
     )
 
@@ -36,7 +36,8 @@ class ZrxKitManager(
             relayers,
             etherKit.authData.privateKey,
             gasProvider,
-            etherKit.configuration.infuraKey
+            etherKit.configuration.infuraCredentials.secretKey ?: "",
+            ZrxKit.NetworkType.Ropsten
         )
 
         return kit!!

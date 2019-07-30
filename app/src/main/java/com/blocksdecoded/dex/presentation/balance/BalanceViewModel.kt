@@ -1,6 +1,5 @@
 package com.blocksdecoded.dex.presentation.balance
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
@@ -9,7 +8,6 @@ import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.manager.IAdapterManager
 import com.blocksdecoded.dex.core.model.CoinValue
 import com.blocksdecoded.dex.core.utils.isValidIndex
-import com.blocksdecoded.dex.core.utils.subscribeUi
 import com.blocksdecoded.dex.ui.CoreViewModel
 import com.blocksdecoded.dex.ui.SingleLiveEvent
 

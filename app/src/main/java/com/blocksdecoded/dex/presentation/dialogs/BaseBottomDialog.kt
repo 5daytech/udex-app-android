@@ -9,8 +9,7 @@ import android.view.*
 import com.blocksdecoded.dex.R
 
 abstract class BaseBottomDialog(
-        private val layoutId: Int,
-        private var keyboardAlwaysVisible: Boolean = false
+        private val layoutId: Int
 ): BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

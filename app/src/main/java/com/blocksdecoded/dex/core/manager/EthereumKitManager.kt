@@ -1,6 +1,5 @@
 package com.blocksdecoded.dex.core.manager
 
-import android.util.Log
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.model.AuthData
 import io.horizontalsystems.ethereumkit.core.EthereumKit
@@ -27,11 +26,8 @@ class EthereumKitManager(
 
     override var ethereumKit: EthereumKit? = null
     private var useCount = 0
-    private val infuraCredentials = EthereumKit.InfuraCredentials(
-        "0c3f9e6a005b40c58235da423f58b198",
-        "57b6615fb10b4749a54b29c2894a00df"
-    )
 
+    private val infuraCredentials = configuration.infuraCredentials
     private val etherscanKey = configuration.etherscanKey
 
     override fun ethereumKit(authData: AuthData): EthereumKit {
@@ -40,8 +36,16 @@ class EthereumKitManager(
         ethereumKit?.let { return it }
 
         val syncMode = EthereumKit.SyncMode.ApiSyncMode()
-        val networkType = if (testMode) EthereumKit.NetworkType.Kovan else EthereumKit.NetworkType.MainNet
-        ethereumKit = EthereumKit.getInstance(App.instance, authData.privateKey, syncMode, networkType, infuraCredentials, etherscanKey, authData.walletId)
+
+        ethereumKit = EthereumKit.getInstance(
+            App.instance,
+            authData.privateKey,
+            syncMode,
+            configuration.networkType,
+            infuraCredentials,
+            etherscanKey,
+            authData.walletId
+        )
 
         startKit()
 
