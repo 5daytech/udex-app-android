@@ -22,6 +22,21 @@ android {
         }
     }
 
+    flavorDimensions "network"
+    productFlavors {
+        devTestnet {
+            buildConfigField "boolean", "testMode", "true"
+            applicationIdSuffix ".dev.testnet"
+        }
+        devMainnet {
+            buildConfigField "boolean", "testMode", "false"
+            applicationIdSuffix ".dev"
+        }
+        productionMainnet {
+            buildConfigField "boolean", "testMode", "false"
+        }
+    }
+
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
