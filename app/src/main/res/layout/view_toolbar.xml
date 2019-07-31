@@ -29,6 +29,7 @@
         app:layout_constraintLeft_toRightOf="@+id/toolbar_menu"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginTop="@dimen/page_margin"
+        android:textAllCaps="true"
         android:text="MONDAY, 3" />
 
     <TextView

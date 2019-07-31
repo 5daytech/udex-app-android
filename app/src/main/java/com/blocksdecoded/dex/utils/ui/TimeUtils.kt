@@ -17,6 +17,6 @@ object TimeUtils {
     }
 
     fun dateSimpleFormat(date: Date): String {
-        return SimpleDateFormat("dddd dd", Locale.US).format(date)
+        return SimpleDateFormat("EEEE, dd", Locale.US).format(date)
     }
 }

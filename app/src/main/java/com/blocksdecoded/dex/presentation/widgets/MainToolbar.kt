@@ -3,9 +3,11 @@ package com.blocksdecoded.dex.presentation.widgets
 import android.content.Context
 import android.util.AttributeSet
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.utils.ui.TimeUtils
 import com.blocksdecoded.dex.utils.visible
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.view_toolbar.view.*
+import java.util.*
 
 class MainToolbar : AppBarLayout {
     var menuVisible: Boolean
@@ -43,5 +45,6 @@ class MainToolbar : AppBarLayout {
         super.onFinishInflate()
 
         toolbar_title?.text = title
+        toolbar_date?.text = TimeUtils.dateSimpleFormat(Date())
     }
 }
