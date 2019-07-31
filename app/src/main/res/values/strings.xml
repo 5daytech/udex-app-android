@@ -20,5 +20,7 @@
     <!-- Notifications -->
     <string name="send_success">\u2713 Sent</string>
     <string name="message_copied">Copied</string>
+    <string name="transaction_receive">Receive</string>
+    <string name="transaction_sent">Sent</string>
 
 </resources>

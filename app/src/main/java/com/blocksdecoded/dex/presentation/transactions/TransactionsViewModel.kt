@@ -10,16 +10,19 @@ import com.blocksdecoded.dex.utils.observeUi
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.utils.Logger
+import java.math.BigDecimal
 
 class TransactionsViewModel : CoreViewModel() {
     private val adapterManager = App.adapterManager
     private lateinit var adapter: IAdapter
 
     val coinName = MutableLiveData<String?>()
+    val balance = MutableLiveData<BigDecimal?>()
     val transactions = MutableLiveData<List<TransactionRecord>>()
 
     val errorEvent = SingleLiveEvent<Int>()
     val messageEvent = SingleLiveEvent<Int>()
+    val finishEvent = SingleLiveEvent<Int>()
 
     val showTransactionInfoEvent = SingleLiveEvent<TransactionRecord>()
 
@@ -33,6 +36,7 @@ class TransactionsViewModel : CoreViewModel() {
         }
 
         coinName.value = adapter?.coin?.title
+        balance.value = adapter?.balance
 
         adapter?.getTransactions(limit = 200)
                 ?.observeUi()
@@ -56,6 +60,10 @@ class TransactionsViewModel : CoreViewModel() {
         if (transactions.value != null && transactions.value.isValidIndex(position)) {
             showTransactionInfoEvent.postValue(transactions.value?.get(position))
         }
+    }
+
+    fun onBackClick() {
+        finishEvent.call()
     }
 
 }

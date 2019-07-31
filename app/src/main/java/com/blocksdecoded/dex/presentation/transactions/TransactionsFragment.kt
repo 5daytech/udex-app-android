@@ -10,7 +10,9 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.transactions.recycler.TransactionViewHolder
 import com.blocksdecoded.dex.presentation.transactions.recycler.TransactionsAdapter
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.utils.ui.ToastHelper
+import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import kotlinx.android.synthetic.main.fragment_transactions.*
 
 class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
@@ -33,22 +35,28 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
 
         viewModel.errorEvent.observe(this, Observer { ToastHelper.showErrorMessage(it) })
         viewModel.messageEvent.observe(this, Observer { ToastHelper.showSuccessMessage(it) })
+        viewModel.finishEvent.observe(this, Observer { activity?.finish() })
 
         viewModel.transactions.observe(this, Observer { adapter.setTransactions(it) })
         viewModel.showTransactionInfoEvent.observe(this, Observer {  })
 
         viewModel.coinName.observe(this, Observer {
-            if (it != null) toolbar.title = "$it Transactions"
+            if (it != null) toolbar?.title = "$it Transactions"
+        })
+        viewModel.balance.observe(this, Observer {
+            if (it != null) transactions_balance.text = "${it.toDisplayFormat()} $coinCode"
         })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        transactions_recycler.adapter = adapter
-        transactions_recycler.layoutManager = LinearLayoutManager(context)
+        transactions_recycler?.adapter = adapter
+        transactions_recycler?.layoutManager = LinearLayoutManager(context)
 
-        toolbar.menuVisible = false
+        toolbar?.bind(MainToolbar.ToolbarState.BACK) { viewModel.onBackClick() }
+
+        transactions_coin_icon?.bind(coinCode)
     }
 
     //endregion

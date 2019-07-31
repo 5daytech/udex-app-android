@@ -26,19 +26,14 @@ class TransactionViewHolder(
     }
 
     fun onBind(transaction: TransactionRecord, coinCode: String) {
+        val isPositive = transaction.amount > BigDecimal.ZERO
+
         iconImage.bind(coinCode)
-        val amountColor: Int
 
-        actionTxt.text = if (transaction.amount > BigDecimal.ZERO) {
-            amountColor = R.color.green
-            "Receive"
-        } else {
-            amountColor = R.color.red
-            "Sent"
-        }
+        actionTxt.setText(if (isPositive) R.string.transaction_receive else R.string.transaction_sent)
 
-        amountTxt.text = "${transaction.amount.toDisplayFormat()} $coinCode"
-        amountTxt.setTextColorRes(amountColor)
+        amountTxt.text = "${if (isPositive) "+" else "-"}${transaction.amount.abs().toDisplayFormat()} $coinCode"
+        amountTxt.setTextColorRes(if (isPositive) R.color.green else R.color.red)
 
         dateTxt.text = TimeUtils.timestampToShort(transaction.timestamp)
     }

@@ -17,8 +17,8 @@ class CoinIconImage: ImageView {
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
 
-    fun bind(coinCode: String) {
-        val coinRes = CoinResUtil.getResForCoinCode(coinCode)
+    fun bind(coinCode: String?) {
+        val coinRes = CoinResUtil.getResForCoinCode(coinCode ?: "")
         setImageResource(if (coinRes == 0) R.drawable.ic_coin_placeholder else coinRes)
     }
 }

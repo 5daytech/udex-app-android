@@ -54,12 +54,13 @@
 
     <!-- Texts -->
     <style name="MainTitle" parent="BoldText">
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">26sp</item>
         <item name="android:textColor">@color/main_dark</item>
     </style>
 
-    <style name="SmallHint" parent="LightText">
+    <style name="SmallHint" parent="RegularText">
         <item name="android:textSize">13sp</item>
+        <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/light_hint</item>
     </style>
 

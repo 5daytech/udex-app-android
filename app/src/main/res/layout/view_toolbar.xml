@@ -16,9 +16,25 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginTop="@dimen/page_margin"
-        android:src="@drawable/ic_menu" />
+        android:layout_marginStart="@dimen/element_margin"
+        android:layout_marginTop="@dimen/element_margin"
+        android:padding="8dp"
+        android:src="@drawable/ic_menu"
+        android:visibility="visible"
+        android:background="?selectableItemBackgroundBorderless"/>
+
+    <ImageView
+        android:id="@+id/toolbar_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="12dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_back"
+        android:visibility="invisible"
+        android:background="?selectableItemBackgroundBorderless"/>
 
     <TextView
         style="@style/SmallHint"
@@ -27,7 +43,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/toolbar_menu"
-        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginStart="@dimen/element_margin"
         android:layout_marginTop="@dimen/page_margin"
         android:textAllCaps="true"
         android:text="MONDAY, 3" />
@@ -39,7 +55,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_date"
         app:layout_constraintLeft_toRightOf="@+id/toolbar_menu"
-        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginStart="@dimen/element_margin"
         android:paddingBottom="@dimen/page_margin"
         android:gravity="top"
         android:text="Wallet"/>
