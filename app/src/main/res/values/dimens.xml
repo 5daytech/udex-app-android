@@ -4,6 +4,8 @@
     <dimen name="coin_size">24dp</dimen>
     <dimen name="action_icon_size">22dp</dimen>
     <dimen name="page_margin">16dp</dimen>
+    <dimen name="big_margin">24dp</dimen>
     <dimen name="element_margin">8dp</dimen>
+    <dimen name="small_margin">4dp</dimen>
     <dimen name="corner_radius">12dp</dimen>
 </resources>

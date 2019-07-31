@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="@dimen/page_margin"
+    android:paddingTop="@dimen/big_margin"
+    android:paddingLeft="@dimen/page_margin"
+    android:paddingRight="@dimen/page_margin"
+    android:background="?selectableItemBackground"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +22,7 @@
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
+            style="@style/BoldText"
             android:id="@+id/balance_symbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,30 +31,32 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginLeft="@dimen/element_margin"
             android:text="ETH"
-            android:textStyle="bold"
             android:textSize="17sp"
             android:textColor="@color/black"/>
 
         <TextView
+            style="@style/RegularText"
             android:id="@+id/balance_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@+id/balance_symbol"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/main_dark"
             android:layout_marginLeft="@dimen/element_margin"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:text="Ethereum"/>
 
         <TextView
+            style="@style/SemiboldText"
             android:id="@+id/balance_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:textStyle="bold"
-            android:textSize="16sp"
+            android:textColor="@color/main_dark"
+            android:textSize="17sp"
             android:text="0.00"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -68,7 +74,8 @@
             android:layout_weight="1.0"
             android:layout_marginStart="@dimen/element_margin"
             android:layout_marginEnd="@dimen/element_margin"
-            android:layout_marginTop="@dimen/element_margin"
+            android:layout_marginTop="@dimen/page_margin"
+            android:layout_marginBottom="@dimen/small_margin"
             android:background="@color/blue"
             app:cardBackgroundColor="@color/blue"
             android:padding="12dp"
@@ -103,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:layout_marginEnd="@dimen/element_margin"
-            android:layout_marginTop="@dimen/element_margin"
+            android:layout_marginTop="@dimen/page_margin"
             android:background="@color/blue"
             app:cardBackgroundColor="@color/white"
             android:padding="12dp"
@@ -136,7 +143,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:layout_marginTop="@dimen/element_margin"
+            android:layout_marginTop="@dimen/page_margin"
             android:background="@color/blue"
             android:layout_marginEnd="@dimen/element_margin"
             app:cardBackgroundColor="@color/white"
@@ -175,5 +182,12 @@
             android:text="Wrap/Unwrap"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/page_margin"
+        android:background="@color/light_hint"
+        android:alpha="0.3"/>
 
 </LinearLayout>
