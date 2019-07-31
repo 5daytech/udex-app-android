@@ -122,15 +122,16 @@ class SendDialog: BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Lis
         }
 
         send_title?.text = "Send ${adapter.coin.title}"
+        send_coin_icon?.bind(coinCode)
 
         send_amount?.bindInitial( onMaxClick = {
             viewModel.onMaxClicked()
-            amount_input.setText(adapter.availableBalance(adapter.receiveAddress, FeeRatePriority.MEDIUM).toString())
+            amount_input?.setText(adapter.availableBalance(adapter.receiveAddress, FeeRatePriority.MEDIUM).toString())
         }, onSwitchClick = {
             viewModel.onSwitchClick()
         })
 
-        send_address.bindAddressInputInitial(
+        send_address?.bindAddressInputInitial(
                 onBarcodeClick = viewModel::onBarcodeClick,
                 onPasteClick = viewModel::onPasteClick,
                 onDeleteClick = viewModel::onDeleteAddressClick

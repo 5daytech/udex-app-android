@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.ImageView
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.utils.ui.CoinResUtil
 
 class CoinIconImage: ImageView {
 
@@ -17,7 +18,7 @@ class CoinIconImage: ImageView {
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
 
     fun bind(coinCode: String) {
-        //TODO: Load coin icon from coinCode
-        setImageResource(R.drawable.ic_coin_placeholder)
+        val coinRes = CoinResUtil.getResForCoinCode(coinCode)
+        setImageResource(if (coinRes == 0) R.drawable.ic_coin_placeholder else coinRes)
     }
 }

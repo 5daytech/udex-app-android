@@ -10,12 +10,13 @@
     <TextView
         style="@style/RegularText"
         android:id="@+id/transaction_date"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="center"
+        android:maxLines="2"
         android:textColor="@color/light_hint"
         android:textSize="17sp"
         android:text="SEP\n27"/>

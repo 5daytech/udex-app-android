@@ -27,20 +27,21 @@ class ReceiveDialog: BaseBottomDialog(R.layout.dialog_receive)  {
             return
         }
 
-        receive_raw.text = adapter.receiveAddress
-        receive_title.text = "Receive ${adapter.coin.title}"
+        receive_raw?.text = adapter.receiveAddress
+        receive_title?.text = "Receive ${adapter.coin.title}"
+        receive_coin_icon?.bind(coinCode)
 
         try {
-            receive_qr.setImageBitmap(QrUtils.getBarcode(adapter.receiveAddress))
+            receive_qr?.setImageBitmap(QrUtils.getBarcode(adapter.receiveAddress))
         } catch (e: Exception) {
 
         }
 
-        receive_forward.setOnClickListener {
+        receive_forward?.setOnClickListener {
             ShareUtils.shareMessage(activity, adapter.receiveAddress)
         }
 
-        receive_raw.setOnClickListener {
+        receive_raw?.setOnClickListener {
             ClipboardManager.copyText(adapter.receiveAddress)
             ToastHelper.showSuccessMessage(R.string.message_copied, 1000)
         }

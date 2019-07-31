@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.CoinValue
+import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
 import com.blocksdecoded.dex.utils.setVisible
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.visible
@@ -16,7 +17,7 @@ class BalanceViewHolder(
     private val listener: IWalletVHListener
 ): RecyclerView.ViewHolder(view) {
 
-    private val mIcon: ImageView = itemView.findViewById(R.id.balance_icon)
+    private val mIcon: CoinIconImage = itemView.findViewById(R.id.balance_icon)
     private val mSymbol: TextView = itemView.findViewById(R.id.balance_symbol)
     private val mTitle: TextView = itemView.findViewById(R.id.balance_title)
     private val mBalance: TextView = itemView.findViewById(R.id.balance_amount)
@@ -38,6 +39,7 @@ class BalanceViewHolder(
 
     @SuppressLint("SetTextI18n")
     fun onBind(coinValue: CoinValue, expanded: Boolean) {
+        mIcon.bind(coinValue.coin.code)
         mSymbol.text = coinValue.coin.code
         mTitle.text = coinValue.coin.title
         mBalance.text = "${coinValue.value.toDisplayFormat()} ${coinValue.coin.code}"

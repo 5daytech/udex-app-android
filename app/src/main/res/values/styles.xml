@@ -59,7 +59,7 @@
     </style>
 
     <style name="SmallHint" parent="LightText">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/light_hint</item>
     </style>
 
