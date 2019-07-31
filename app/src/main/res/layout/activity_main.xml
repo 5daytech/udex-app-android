@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.main.MainActivity">
 
-    <androidx.viewpager.widget.ViewPager
+    <com.blocksdecoded.dex.presentation.widgets.NonScrollableViewPager
         android:id="@+id/main_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

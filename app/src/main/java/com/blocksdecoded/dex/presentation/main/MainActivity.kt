@@ -24,7 +24,7 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
 
     override fun onBackPressed() {
         if (main_view_pager.currentItem != 0) {
-            main_view_pager.currentItem = 0
+            main_view_pager.setCurrentItem(0, true)
         } else {
             super.onBackPressed()
         }
@@ -36,7 +36,7 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
 
         adapter = MainPagerAdapter(supportFragmentManager)
         main_view_pager.adapter = adapter
-        main_view_pager.offscreenPageLimit = 5
+        main_view_pager.offscreenPageLimit = 3
         main_bottom_nav.setOnNavigationItemSelectedListener(this)
 
         main_view_pager.addOnPageChangeListener(object : ViewPagerListener() {
@@ -53,7 +53,7 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        main_view_pager.currentItem = when (item.itemId) {
+        val itemPosition = when (item.itemId) {
             R.id.nav_balance -> 0
             R.id.nav_exchange -> 1
             R.id.nav_orders -> 2
@@ -61,6 +61,7 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
             R.id.nav_account -> 4
             else -> 0
         }
+        main_view_pager?.setCurrentItem(itemPosition, false)
 
         return true
     }
