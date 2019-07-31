@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.core.utils
+package com.blocksdecoded.dex.utils
 
 import io.reactivex.Flowable
 import io.reactivex.Single

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp">
+    android:background="?selectableItemBackground"
+    android:padding="@dimen/page_margin">
 
     <TextView
+        style="@style/RegularText"
         android:id="@+id/transaction_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,26 +16,41 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="center"
+        android:textColor="@color/dark_grey"
+        android:textSize="17sp"
         android:text="SEP\n27"/>
 
-    <TextView
-        android:id="@+id/transaction_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+        android:id="@+id/transaction_coin_icon"
+        android:layout_width="@dimen/coin_size"
+        android:layout_height="@dimen/coin_size"
         app:layout_constraintLeft_toRightOf="@+id/transaction_date"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/element_margin"/>
+    
+    <TextView
+        style="@style/SemiboldText"
+        android:id="@+id/transaction_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/transaction_coin_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:textColor="@color/black"
-        android:layout_marginLeft="16dp"
+        android:textSize="18sp"
+        android:layout_marginStart="@dimen/element_margin"
         android:text="Sent"/>
 
     <TextView
+        style="@style/BoldText"
         android:id="@+id/transaction_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/transaction_amount_rate"
+        android:textSize="18sp"
         android:text="+ 0.01 ETH"/>
 
     <TextView
@@ -43,6 +60,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transaction_amount"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="+ $3.00"/>
+        android:textSize="15sp"
+        android:text="+ $0.00"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

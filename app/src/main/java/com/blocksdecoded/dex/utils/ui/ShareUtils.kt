@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.utils
+package com.blocksdecoded.dex.utils.ui
 
 import android.app.Activity
 import androidx.core.app.ShareCompat

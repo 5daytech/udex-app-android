@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.core.utils
+package com.blocksdecoded.dex.utils.ui
 
 import java.math.BigDecimal
 import java.text.DecimalFormat

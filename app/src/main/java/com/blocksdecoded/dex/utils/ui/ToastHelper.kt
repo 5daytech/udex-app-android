@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.utils
+package com.blocksdecoded.dex.utils.ui
 
 import android.graphics.PorterDuff
 import android.os.Handler

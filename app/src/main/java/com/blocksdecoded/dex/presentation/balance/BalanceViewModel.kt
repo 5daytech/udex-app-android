@@ -7,9 +7,9 @@ import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.manager.IAdapterManager
 import com.blocksdecoded.dex.core.model.CoinValue
-import com.blocksdecoded.dex.core.utils.isValidIndex
-import com.blocksdecoded.dex.ui.CoreViewModel
-import com.blocksdecoded.dex.ui.SingleLiveEvent
+import com.blocksdecoded.dex.utils.isValidIndex
+import com.blocksdecoded.dex.core.ui.CoreViewModel
+import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 
 class BalanceViewModel : CoreViewModel() {
     private val adaptersManager: IAdapterManager = App.adapterManager
@@ -78,6 +78,8 @@ class BalanceViewModel : CoreViewModel() {
     }
 
     fun onTransactionsClick(position: Int) {
-
+        if (adapters.isValidIndex(position)) {
+            openTransactions.postValue(adapters[position].coin.code)
+        }
     }
 }

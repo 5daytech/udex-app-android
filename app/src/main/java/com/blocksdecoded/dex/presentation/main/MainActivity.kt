@@ -14,7 +14,7 @@ import com.blocksdecoded.dex.presentation.markets.MarketsFragment
 import com.blocksdecoded.dex.presentation.orders.OrdersFragment
 import com.blocksdecoded.dex.presentation.balance.BalanceFragment
 import com.blocksdecoded.dex.presentation.widgets.ViewPagerListener
-import com.blocksdecoded.dex.ui.CoreActivity
+import com.blocksdecoded.dex.core.ui.CoreActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 

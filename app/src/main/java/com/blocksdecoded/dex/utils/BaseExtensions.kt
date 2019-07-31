@@ -1,14 +1,17 @@
-package com.blocksdecoded.dex.core.utils
+package com.blocksdecoded.dex.utils
 
 import android.content.Context
 import android.graphics.Point
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
-import com.blocksdecoded.dex.utils.AnimationHelper
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
+import com.blocksdecoded.dex.utils.ui.AnimationHelper
 
-fun <T>List<T>.isValidIndex(index: Int): Boolean = index in 0 until size
+fun <T>List<T>?.isValidIndex(index: Int): Boolean = index in 0 until (this?.size ?: 0)
 
 fun Context.showShortToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT)
@@ -47,6 +50,10 @@ fun View.setVisible(visible: Boolean, animated: Boolean = false) {
     } else {
         AnimationHelper.collapse(this)
     }
+}
+
+fun TextView.setTextColorRes(@ColorRes colorRes: Int) {
+    setTextColor(ContextCompat.getColor(this.context, colorRes))
 }
 
 var View.visible: Boolean

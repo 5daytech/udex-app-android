@@ -2,8 +2,8 @@ package com.blocksdecoded.dex.presentation.dialogs.receive
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.ui.CoreViewModel
-import com.blocksdecoded.dex.ui.SingleLiveEvent
+import com.blocksdecoded.dex.core.ui.CoreViewModel
+import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 
 class ReceiveViewModel: CoreViewModel() {
     val title = MutableLiveData<String>()

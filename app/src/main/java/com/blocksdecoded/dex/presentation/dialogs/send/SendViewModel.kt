@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.IAdapter
-import com.blocksdecoded.dex.core.utils.observeUi
-import com.blocksdecoded.dex.ui.CoreViewModel
-import com.blocksdecoded.dex.ui.SingleLiveEvent
+import com.blocksdecoded.dex.utils.observeUi
+import com.blocksdecoded.dex.core.ui.CoreViewModel
+import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.clipboard.ClipboardManager
 import java.math.BigDecimal

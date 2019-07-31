@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.utils
+package com.blocksdecoded.dex.utils.ui
 
 import android.view.View
 import android.view.animation.Animation

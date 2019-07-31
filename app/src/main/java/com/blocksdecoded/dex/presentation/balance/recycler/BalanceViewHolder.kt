@@ -1,16 +1,15 @@
 package com.blocksdecoded.dex.presentation.balance.recycler
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.CoinValue
-import com.blocksdecoded.dex.core.utils.setVisible
-import com.blocksdecoded.dex.core.utils.toDisplayFormat
-import com.blocksdecoded.dex.core.utils.visible
+import com.blocksdecoded.dex.utils.setVisible
+import com.blocksdecoded.dex.utils.ui.toDisplayFormat
+import com.blocksdecoded.dex.utils.visible
 
 class BalanceViewHolder(
     view: View,

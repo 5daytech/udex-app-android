@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.ui
+package com.blocksdecoded.dex.core.ui
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.ui.CoreFragment
+import com.blocksdecoded.dex.core.ui.CoreFragment
 
 class AccountFragment : CoreFragment(R.layout.fragment_account) {
 

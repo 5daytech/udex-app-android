@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import androidx.fragment.app.FragmentManager
@@ -19,8 +18,8 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.presentation.widgets.TextWatcher
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
-import com.blocksdecoded.dex.ui.reObserve
-import com.blocksdecoded.dex.utils.ToastHelper
+import com.blocksdecoded.dex.core.ui.reObserve
+import com.blocksdecoded.dex.utils.ui.ToastHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
