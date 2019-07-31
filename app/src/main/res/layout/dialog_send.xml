@@ -44,8 +44,8 @@
         style="@style/PrimaryButton"
         android:id="@+id/send_confirm"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="@dimen/element_margin"
+        android:layout_height="@dimen/action_btn_height"
+        android:layout_marginTop="@dimen/page_margin"
         android:text="Send" />
 
     <com.blocksdecoded.dex.presentation.widgets.NumPadView

@@ -23,4 +23,10 @@
     <string name="transaction_receive">Receive</string>
     <string name="transaction_sent">Sent</string>
 
+    <string-array name="placeholder_items">
+        <item>WETH</item>
+        <item>ZRX</item>
+        <item>TMK</item>
+    </string-array>
+
 </resources>

@@ -8,10 +8,12 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
+import io.realm.Realm.init
 
 class NumPadView: RecyclerView {
 
@@ -23,11 +25,13 @@ class NumPadView: RecyclerView {
 
     @SuppressLint("ClickableViewAccessibility")
     fun bind(listener: NumPadItemsAdapter.Listener, bottomLeftButtonType: NumPadItemType, showLetters: Boolean = true) {
+        removeAllViewsInLayout()
+
         if (numPadAdapter != null) throw Exception("Adapter already initialized")
 
+        layoutManager = GridLayoutManager(context, 3)
         numPadAdapter = NumPadItemsAdapter(listener, bottomLeftButtonType, showLetters)
         adapter = numPadAdapter
-        layoutManager = GridLayoutManager(context, 3)
 
         //disables BottomSheet dragging in numpad area
         this.setOnTouchListener { _, event ->
