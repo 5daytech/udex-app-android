@@ -3,6 +3,8 @@ package com.blocksdecoded.dex
 import android.app.Application
 import com.blocksdecoded.dex.core.adapter.AdapterFactory
 import com.blocksdecoded.dex.core.manager.*
+import com.blocksdecoded.dex.core.zrx.IRelayerAdapterManager
+import com.blocksdecoded.dex.core.zrx.RelayerAdapterManager
 
 class App: Application() {
     companion object {
@@ -13,12 +15,15 @@ class App: Application() {
 
         lateinit var appConfiguration: AppConfiguration
 
-        // Managers
-
+        // Kit Managers
         lateinit var zrxKitManager: IZrxKitManager
         lateinit var ethereumKitManager: EthereumKitManager
-        lateinit var adapterManager: IAdapterManager
+        
+        // Helper Managers
+        
         lateinit var feeRateProvider: IFeeRateProvider
+        lateinit var adapterManager: IAdapterManager
+        lateinit var relayerAdapterManager: IRelayerAdapterManager
 
         // Factories
 
@@ -41,8 +46,9 @@ class App: Application() {
         // Init adapter manager
         adapterFactory = AdapterFactory(appConfiguration, ethereumKitManager, feeRateProvider)
         adapterManager = AdapterManager(adapterFactory, ethereumKitManager)
-
-
+    
+        relayerAdapterManager = RelayerAdapterManager(ethereumKitManager, zrxKitManager)
+        
         adapterManager.initAdapters(CoinManager.coins)
     }
 }

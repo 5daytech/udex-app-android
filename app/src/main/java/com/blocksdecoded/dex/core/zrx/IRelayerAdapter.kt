@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.core.zrx
 
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import io.reactivex.subjects.BehaviorSubject
+import java.math.BigDecimal
 
 interface IRelayerAdapter {
 	val refreshInterval: Long
@@ -22,4 +23,8 @@ interface IRelayerAdapter {
 	val myOrdersSubject: BehaviorSubject<List<UiOrder>>
 	
 	fun stop()
+	
+	fun calculateBasePrice(amount: BigDecimal): BigDecimal
+	
+	fun calculateQuotePrice(amount: BigDecimal): BigDecimal
 }

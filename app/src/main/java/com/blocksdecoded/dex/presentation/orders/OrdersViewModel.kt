@@ -3,16 +3,10 @@ package com.blocksdecoded.dex.presentation.orders
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.ui.CoreViewModel
-import com.blocksdecoded.dex.core.zrx.ZrxRelayerAdapter
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 
 class OrdersViewModel : CoreViewModel() {
-    private val zrxRelayerAdapter = ZrxRelayerAdapter(
-        App.ethereumKitManager.defaultKit(),
-        App.zrxKitManager.zrxKit(),
-        10L,
-        0
-    )
+    private val zrxRelayerAdapter = App.relayerAdapterManager.mainAdapter
     
     val selectedPairPosition = MutableLiveData<Int>()
     val buyOrders: MutableLiveData<List<UiOrder>> = MutableLiveData()
@@ -21,36 +15,36 @@ class OrdersViewModel : CoreViewModel() {
     val availablePairs = MutableLiveData<List<Pair<String, String>>>()
 
     init {
-        zrxRelayerAdapter.availablePairsSubject.subscribe { pairs ->
+        zrxRelayerAdapter?.availablePairsSubject?.subscribe { pairs ->
             availablePairs.value = pairs
-        }.let { disposables.add(it) }
+        }?.let { disposables.add(it) }
     
-        zrxRelayerAdapter.buyOrdersSubject.subscribe { orders ->
+        zrxRelayerAdapter?.buyOrdersSubject?.subscribe { orders ->
             buyOrders.value = orders
-        }.let { disposables.add(it) }
+        }?.let { disposables.add(it) }
     
-        zrxRelayerAdapter.sellOrdersSubject.subscribe { orders ->
+        zrxRelayerAdapter?.sellOrdersSubject?.subscribe { orders ->
             sellOrders.value = orders
-        }.let { disposables.add(it) }
+        }?.let { disposables.add(it) }
     
-        zrxRelayerAdapter.myOrdersSubject.subscribe { orders ->
+        zrxRelayerAdapter?.myOrdersSubject?.subscribe { orders ->
             myOrders.value = orders
-        }.let { disposables.add(it) }
+        }?.let { disposables.add(it) }
     
-        zrxRelayerAdapter.selectedPairSubject.subscribe { position ->
+        zrxRelayerAdapter?.selectedPairSubject?.subscribe { position ->
             selectedPairPosition.value = position
-        }.let { disposables.add(it) }
+        }?.let { disposables.add(it) }
         
         refreshOrders()
     }
     
     private fun refreshOrders() {
-        buyOrders.value = zrxRelayerAdapter.uiBuyOrders
-        sellOrders.value = zrxRelayerAdapter.uiSellOrders
-        myOrders.value = zrxRelayerAdapter.uiMyOrders
+        buyOrders.value = zrxRelayerAdapter?.uiBuyOrders
+        sellOrders.value = zrxRelayerAdapter?.uiSellOrders
+        myOrders.value = zrxRelayerAdapter?.uiMyOrders
     }
     
     fun onPickPair(position: Int) {
-        zrxRelayerAdapter.currentSelectedPair = position
+        zrxRelayerAdapter?.currentSelectedPair = position
     }
 }

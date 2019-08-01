@@ -12,9 +12,10 @@ import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
-class ZrxRelayerAdapter(
+class RelayerAdapter(
 	private val ethereumKit: EthereumKit,
 	private val zrxKit: ZrxKit,
 	override val refreshInterval: Long,
@@ -122,5 +123,13 @@ class ZrxRelayerAdapter(
 	
 	override fun stop() {
 		disposables.clear()
+	}
+	
+	override fun calculateBasePrice(amount: BigDecimal): BigDecimal {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
+	
+	override fun calculateQuotePrice(amount: BigDecimal): BigDecimal {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 }
