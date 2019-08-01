@@ -11,7 +11,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.account.AccountFragment
 import com.blocksdecoded.dex.presentation.exchange.ExchangeFragment
 import com.blocksdecoded.dex.presentation.markets.MarketsFragment
-import com.blocksdecoded.dex.presentation.orders.OrdersFragment
+import com.blocksdecoded.dex.presentation.orders.OrdersHostFragment
 import com.blocksdecoded.dex.presentation.balance.BalanceFragment
 import com.blocksdecoded.dex.presentation.widgets.ViewPagerListener
 import com.blocksdecoded.dex.core.ui.CoreActivity
@@ -78,7 +78,7 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
         override fun getItem(p0: Int): Fragment = when(p0) {
             0 -> BalanceFragment.newInstance()
             1 -> ExchangeFragment.newInstance()
-            2 -> OrdersFragment.newInstance()
+            2 -> OrdersHostFragment.newInstance()
             3 -> MarketsFragment.newInstance()
             else -> AccountFragment.newInstance()
         }

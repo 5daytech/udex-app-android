@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingTop="@dimen/page_margin"
+    android:paddingBottom="@dimen/page_margin"
+    android:paddingLeft="@dimen/big_margin"
+    android:paddingRight="@dimen/big_margin">
+
+    <TextView
+        style="@style/LightText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:gravity="center"
+        android:text="Current Pair"
+        android:textColor="@color/light_hint"/>
+
+    <Spinner
+        android:id="@+id/current_pair_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:entries="@array/placeholder_pairs" />
+
+</LinearLayout>

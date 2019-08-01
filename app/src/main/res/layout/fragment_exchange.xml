@@ -15,14 +15,18 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:mt_title="Exchange"/>
 
-    <com.google.android.material.tabs.TabLayout
+    <com.blocksdecoded.dex.presentation.widgets.DividedTabLayout
         android:id="@+id/exchange_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/page_margin"
+        android:layout_marginRight="@dimen/page_margin"
+        android:layout_marginTop="@dimen/big_margin"
         app:tabSelectedTextColor="@color/main_dark"
+        app:tabIndicator="@color/transparent"
         app:tabTextColor="@color/light_hint">
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -32,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="LIMIT ORDER"/>
-    </com.google.android.material.tabs.TabLayout>
+    </com.blocksdecoded.dex.presentation.widgets.DividedTabLayout>
 
     <com.blocksdecoded.dex.presentation.widgets.ExchangeView
         android:id="@+id/exchange_view"
