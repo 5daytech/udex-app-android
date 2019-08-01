@@ -92,7 +92,7 @@ class SendDialog: BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Lis
         viewModel = ViewModelProviders.of(this).get(SendViewModel::class.java)
         viewModel.init(coinCode)
 
-        disposable = amountChangeSubject.debounce(200, TimeUnit.MILLISECONDS)
+        disposable = amountChangeSubject.debounce(300, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { viewModel.onAmountChanged(it) }
     }
@@ -145,7 +145,7 @@ class SendDialog: BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Lis
         amount_input?.showSoftInputOnFocus = false
         inputConnection = amount_input?.onCreateInputConnection(EditorInfo())
 
-        send_confirm.setSingleClickListener { viewModel.onSendClicked() }
+        send_confirm?.setSingleClickListener { viewModel.onSendClicked() }
     }
 
     override fun onItemClick(item: NumPadItem) {

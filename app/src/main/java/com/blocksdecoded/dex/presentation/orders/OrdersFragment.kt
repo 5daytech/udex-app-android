@@ -1,7 +1,6 @@
 package com.blocksdecoded.dex.presentation.orders
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -11,7 +10,6 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
-import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import com.blocksdecoded.dex.presentation.orders.recycler.OrderViewHolder
 import com.blocksdecoded.dex.presentation.orders.recycler.OrdersAdapter
 import kotlinx.android.synthetic.main.fragment_orders.*
@@ -33,9 +31,9 @@ class OrdersFragment: CoreFragment(R.layout.fragment_orders), OrderViewHolder.Li
             viewModel = ViewModelProviders.of(activity!!)[OrdersViewModel::class.java]
             
             when(side) {
-                BUY -> viewModel.uiBuyOrders
-                SELL -> viewModel.uiSellOrders
-                MY -> viewModel.uiMyOrders
+                BUY -> viewModel.buyOrders
+                SELL -> viewModel.sellOrders
+                MY -> viewModel.myOrders
             }.observe(this, Observer { adapter.setOrders(it) })
         }
     }

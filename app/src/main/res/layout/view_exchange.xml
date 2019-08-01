@@ -20,7 +20,7 @@
         android:layout_margin="@dimen/page_margin"
         android:text="You send $0.00"/>
 
-    <TextView
+    <EditText
         style="@style/BoldText"
         android:id="@+id/exchange_amount_input"
         android:layout_width="wrap_content"
@@ -30,7 +30,10 @@
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginTop="@dimen/element_margin"
         android:textColor="@color/main_dark"
+        android:background="@color/transparent"
         android:textSize="19sp"
+        android:inputType="number|numberDecimal"
+        android:maxLines="1"
         android:text="0.0" />
 
     <Button

@@ -11,6 +11,7 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.presentation.widgets.NumPadView
 import kotlinx.android.synthetic.main.fragment_exchange.*
+import kotlinx.android.synthetic.main.view_amount_input.*
 
 class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAdapter.Listener {
 
@@ -28,7 +29,15 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     }
 
     override fun onItemClick(item: NumPadItem) {
-
+        when (item.type) {
+            NumPadItemType.NUMBER -> exchange_view?.inputConnection?.commitText(item.number.toString(), 1)
+            NumPadItemType.DELETE -> exchange_view?.inputConnection?.deleteSurroundingText(1, 0)
+            NumPadItemType.DOT -> {
+                if (amount_input?.text?.toString()?.contains(".") != true) {
+                    exchange_view?.inputConnection?.commitText(".", 1)
+                }
+            }
+        }
     }
 
     companion object {

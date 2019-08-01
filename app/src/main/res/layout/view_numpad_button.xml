@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:layout_margin="5dp"
+    android:layout_height="56dp"
+    android:padding="5dp"
     android:clickable="true"
     android:focusable="true"
     android:layout_columnWeight="1.0"
-    android:background="?selectableItemBackgroundBorderless">
+    android:foreground="?selectableItemBackground">
 
     <TextView
         android:id="@+id/numpad_number_txt"
