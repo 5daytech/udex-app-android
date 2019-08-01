@@ -42,7 +42,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/exchange_numpad"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        android:layout_margin="@dimen/page_margin"/>
 
     <com.blocksdecoded.dex.presentation.widgets.NumPadView
         android:id="@+id/exchange_numpad"
