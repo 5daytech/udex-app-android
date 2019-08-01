@@ -6,9 +6,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Observer
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import kotlinx.android.synthetic.main.fragment_orders_host.*
 
 class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
@@ -25,8 +27,13 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(OrdersViewModel::class.java)
-        // TODO: Use the ViewModel
+        activity?.let {
+            viewModel = ViewModelProviders.of(it).get(OrdersViewModel::class.java)
+    
+            viewModel.availablePairs.observe(this, Observer { availablePairs ->
+                orders_host_pair_picker?.refreshPairs(availablePairs)
+            })
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,6 +41,8 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
 
         orders_view_pager?.adapter = adapter
         orders_tab_layout?.setupWithViewPager(orders_view_pager)
+        
+        orders_host_pair_picker?.init { viewModel.onPickPair(it) }
     }
 
     companion object {
@@ -45,18 +54,20 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
     ): FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment {
             return when(position) {
-                0 -> OrdersFragment()
-                1 -> OrdersFragment()
+                0 -> OrdersFragment.newInstance(EOrderSide.BUY)
+                1 -> OrdersFragment.newInstance(EOrderSide.SELL)
+                2 -> OrdersFragment.newInstance(EOrderSide.MY)
                 else -> throw Exception("Orders host adapter fragment at position not exist $position")
             }
         }
 
-        override fun getCount(): Int = 2
+        override fun getCount(): Int = 3
 
         override fun getPageTitle(position: Int): CharSequence? {
             return when(position) {
-                0 -> "My Orders"
-                1 -> "Orders"
+                0 -> "Buy"
+                1 -> "Sell"
+                2 -> "My"
                 else -> ""
             }
         }

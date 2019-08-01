@@ -17,9 +17,11 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg_bottom_dialog"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <com.blocksdecoded.dex.presentation.widgets.ExchangeOrdersPairView
+            android:id="@+id/orders_host_pair_picker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/page_margin"
@@ -37,21 +39,26 @@
             app:tabSelectedTextColor="@color/main_dark"
             app:tabIndicator="@color/transparent"
             app:tabTextColor="@color/light_hint"
-            android:layout_marginTop="@dimen/page_margin">
+            android:layout_marginTop="@dimen/element_margin">
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MY ORDERS"/>
+                android:text="Buy"/>
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ORDERS"/>
+                android:text="Sell"/>
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My"/>
         </com.blocksdecoded.dex.presentation.widgets.DividedTabLayout>
 
-        <androidx.viewpager.widget.ViewPager
+        <com.blocksdecoded.dex.presentation.widgets.NonScrollableViewPager
             android:id="@+id/orders_view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/element_margin"/>
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

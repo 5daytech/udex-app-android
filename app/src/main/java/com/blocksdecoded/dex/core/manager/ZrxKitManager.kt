@@ -8,6 +8,9 @@ import java.math.BigInteger
 class ZrxKitManager(
     private val etherKit: EthereumKitManager
 ): IZrxKitManager {
+    
+    private val networkType = ZrxKit.NetworkType.Ropsten
+    
     val gasProvider: ZrxKit.GasInfoProvider = object : ZrxKit.GasInfoProvider() {
         override fun getGasLimit(contractFunc: String?): BigInteger = 200_000.toBigInteger()
         override fun getGasPrice(contractFunc: String?): BigInteger = 5_000_000_000L.toBigInteger()
@@ -21,10 +24,14 @@ class ZrxKitManager(
             "BD Relayer",
             listOf(
                 ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("ZRX"))
-                        to ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("WETH"))
+                        to ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("WETH")),
+                ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("PPA"))
+                    to ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("WETH")),
+                ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("TMKV2"))
+                    to ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("WETH"))
             ),
             listOf("0x2e8da0868e46fc943766a98b8d92a0380b29ce2a"),
-            "0x30589010550762d2f0d06f650d8e8B6ade6dbf4b".toLowerCase(),
+            networkType.exchangeAddress,
             RelayerConfig("http://relayer.ropsten.fridayte.ch", "", "v2")
         )
     )
@@ -37,7 +44,7 @@ class ZrxKitManager(
             etherKit.authData.privateKey,
             gasProvider,
             etherKit.configuration.infuraCredentials.secretKey ?: "",
-            ZrxKit.NetworkType.Ropsten
+            networkType
         )
 
         return kit!!
