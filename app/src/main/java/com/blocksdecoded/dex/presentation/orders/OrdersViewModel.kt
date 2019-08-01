@@ -23,6 +23,7 @@ class OrdersViewModel : CoreViewModel() {
     private val zrxKit = App.zrxKitManager.zrxKit()
     private val relayerManager = zrxKit.relayerManager
     private val relayer = relayerManager.availableRelayers.first()
+    private val exchangeWrapper: ZrxExchangeWrapper = zrxKit.getExchangeInstance()
     
     private val buyOrders = MutableLiveData<List<SignedOrder>>()
     private val sellOrders = MutableLiveData<List<SignedOrder>>()
@@ -30,7 +31,17 @@ class OrdersViewModel : CoreViewModel() {
     private val myOrders = MutableLiveData<List<Pair<SignedOrder, EOrderSide>>>()
     private val myOrdersInfo = MutableLiveData<List<OrderInfo>>()
     
-    private val exchangeWrapper: ZrxExchangeWrapper = zrxKit.getExchangeInstance()
+    private var currentPair: Int = 0
+        set(value) {
+            field = value
+            selectedPairPosition.value = value
+            
+            buyOrders.value = listOf()
+            sellOrders.value = listOf()
+            myOrders.value = listOf()
+            
+            refreshOrders(value)
+        }
     
     val uiBuyOrders: LiveData<List<UiOrder>> = Transformations.map(buyOrders) {
         it.map { UiOrder.fromOrder(it, EOrderSide.BUY) }.sortedByDescending { it.price }
@@ -45,19 +56,9 @@ class OrdersViewModel : CoreViewModel() {
             UiOrder.fromOrder(it.first, it.second, isMine = true, orderInfo = myOrdersInfo.value?.get(index))
         }
     }
-
-    private var currentPair: Int = 0
-        set(value) {
-            field = value
-        
-            buyOrders.value = listOf()
-            sellOrders.value = listOf()
-            myOrders.value = listOf()
-        
-            refreshOrders(value)
-        }
     
     val availablePairs = MutableLiveData<List<Pair<String, String>>>()
+    val selectedPairPosition = MutableLiveData<Int>()
 
     init {
         //TODO: Refactor

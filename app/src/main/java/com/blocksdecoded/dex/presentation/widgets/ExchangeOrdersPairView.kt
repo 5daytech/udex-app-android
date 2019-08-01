@@ -10,7 +10,15 @@ import com.blocksdecoded.dex.R
 import kotlinx.android.synthetic.main.view_current_pair.view.*
 
 class ExchangeOrdersPairView: LinearLayout {
-
+    
+    var selectedPair: Int = 0
+        set(value) {
+            field = value
+            current_pair_spinner?.let { spinner ->
+                if (!spinner.adapter.isEmpty) current_pair_spinner?.setSelection(value)
+            }
+        }
+    
     init {
         View.inflate(context, R.layout.view_current_pair, this)
     }
@@ -21,7 +29,6 @@ class ExchangeOrdersPairView: LinearLayout {
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
     
     fun init(onSelectPair: (Int) -> Unit) {
-        
         current_pair_spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) = Unit
     

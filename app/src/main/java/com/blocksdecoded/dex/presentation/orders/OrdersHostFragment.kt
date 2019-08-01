@@ -33,6 +33,10 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
             viewModel.availablePairs.observe(this, Observer { availablePairs ->
                 orders_host_pair_picker?.refreshPairs(availablePairs)
             })
+            
+            viewModel.selectedPairPosition.observe(this, Observer { selectedPair ->
+                orders_host_pair_picker?.selectedPair = selectedPair
+            })
         }
     }
 
@@ -42,7 +46,9 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
         orders_view_pager?.adapter = adapter
         orders_tab_layout?.setupWithViewPager(orders_view_pager)
         
-        orders_host_pair_picker?.init { viewModel.onPickPair(it) }
+        orders_host_pair_picker?.init {
+            viewModel.onPickPair(it)
+        }
     }
 
     companion object {
