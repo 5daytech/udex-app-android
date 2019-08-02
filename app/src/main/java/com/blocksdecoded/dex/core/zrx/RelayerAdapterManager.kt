@@ -7,7 +7,7 @@ class RelayerAdapterManager(
 	private val ethereumKitManager: IEthereumKitManager,
 	private val zrxKitManager: IZrxKitManager
 ): IRelayerAdapterManager {
-	override val refreshInterval = 10L
+	override val refreshInterval = 15L
 	
 	override var mainAdapter: RelayerAdapter? = null
 		get() {

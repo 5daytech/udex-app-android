@@ -25,8 +25,13 @@ data class UiOrder(
             val makerCoin = CoinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.makerAssetData))!!
             val takerCoin = CoinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.takerAssetData))!!
             
-            val makerAmount = order.makerAssetAmount.toBigDecimal().movePointLeft((makerCoin.type as CoinType.Erc20).decimal).stripTrailingZeros()
-            val takerAmount = order.takerAssetAmount.toBigDecimal().movePointLeft((takerCoin.type as CoinType.Erc20).decimal).stripTrailingZeros()
+            val makerAmount = order.makerAssetAmount.toBigDecimal()
+                .movePointLeft((makerCoin.type as CoinType.Erc20).decimal)
+                .stripTrailingZeros()
+
+            val takerAmount = order.takerAssetAmount.toBigDecimal()
+                .movePointLeft((takerCoin.type as CoinType.Erc20).decimal)
+                .stripTrailingZeros()
             
             val price = if (side == EOrderSide.BUY)
                 makerAmount.toDouble().div(takerAmount.toDouble())
