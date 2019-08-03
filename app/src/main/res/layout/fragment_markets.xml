@@ -4,8 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <com.blocksdecoded.dex.presentation.widgets.MainToolbar
         android:layout_width="match_parent"
@@ -13,5 +12,11 @@
         android:background="@color/transparent"
         app:elevation="0dp"
         app:mt_title="Markets"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/markets_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
