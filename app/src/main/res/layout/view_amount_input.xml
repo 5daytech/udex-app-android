@@ -18,7 +18,7 @@
         android:includeFontPadding="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="BTC"
+        tools:text="ETH"
         android:textSize="16sp"
         />
 
@@ -36,7 +36,8 @@
         app:layout_constraintEnd_toStartOf="@+id/amount_max"
         app:layout_constraintStart_toEndOf="@+id/amount_prefix"
         android:textSize="18sp"
-        tools:text="0.0021" />
+        android:hint="Amount"
+        android:text="0.00"/>
 
     <View
         android:id="@+id/amount_divider"

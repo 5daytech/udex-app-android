@@ -8,18 +8,18 @@ class RelayerAdapterManager(
 	private val zrxKitManager: IZrxKitManager
 ): IRelayerAdapterManager {
 	override val refreshInterval = 15L
-	
-	override var mainAdapter: RelayerAdapter? = null
-		get() {
-			if (field == null) {
-				field = RelayerAdapter(
-					ethereumKitManager.defaultKit(),
-					zrxKitManager.zrxKit(),
-					refreshInterval,
-					0
-				)
-			}
-			
-			return field
-		}
+	private var defaultAdapter: IRelayerAdapter? = null
+
+	override fun getMainAdapter(): IRelayerAdapter {
+		if (defaultAdapter != null) return defaultAdapter!!
+
+		defaultAdapter = RelayerAdapter(
+			ethereumKitManager.defaultKit(),
+			zrxKitManager.zrxKit(),
+			refreshInterval,
+			0
+		)
+
+		return defaultAdapter!!
+	}
 }

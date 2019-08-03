@@ -3,6 +3,7 @@ package com.blocksdecoded.dex.presentation.dialogs.send
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
@@ -60,6 +61,8 @@ class SendDialog: BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Lis
         if (amount > BigDecimal.ZERO) {
             amount_input?.setText(amount.stripTrailingZeros().toPlainString())
             amount_input?.setSelection(amount_input?.text?.length ?: 0)
+        } else {
+            amount_input?.setText("")
         }
     }
 
@@ -72,6 +75,7 @@ class SendDialog: BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Lis
                 amountText != "" -> amountText.toBigDecimalOrNull() ?: BigDecimal.ZERO
                 else -> BigDecimal.ZERO
             }
+
             viewModel.decimalSize?.let {
                 if (amountNumber.scale() > it) {
                     amountNumber = amountNumber.setScale(it, RoundingMode.FLOOR)
@@ -146,6 +150,8 @@ class SendDialog: BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Lis
         inputConnection = amount_input?.onCreateInputConnection(EditorInfo())
 
         send_confirm?.setSingleClickListener { viewModel.onSendClicked() }
+
+        amount_input?.setText("")
     }
 
     override fun onItemClick(item: NumPadItem) {

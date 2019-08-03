@@ -39,6 +39,7 @@ class SendViewModel: CoreViewModel() {
 
         sendEnabled.value = false
         decimalSize = adapter.decimal
+        amount.value = BigDecimal.ZERO
     }
 
     fun onAmountChanged(amount: BigDecimal) {

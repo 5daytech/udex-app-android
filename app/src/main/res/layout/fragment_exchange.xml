@@ -45,7 +45,9 @@
         app:layout_constraintTop_toBottomOf="@+id/exchange_tab_layout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@color/white"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/element_margin"
+        app:cardElevation="0.5dp"
         android:layout_marginTop="@dimen/big_margin"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin"/>
