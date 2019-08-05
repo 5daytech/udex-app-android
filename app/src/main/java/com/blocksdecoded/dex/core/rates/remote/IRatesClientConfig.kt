@@ -2,7 +2,7 @@ package com.blocksdecoded.dex.core.rates.remote
 
 import okhttp3.HttpUrl
 
-interface IRateClientConfig {
+interface IRatesClientConfig {
     var ipfsUrl: String
 
     val ipnsPath: String

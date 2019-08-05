@@ -6,8 +6,8 @@ import com.blocksdecoded.dex.core.bootstrap.BootstrapApiClient
 import com.blocksdecoded.dex.core.manager.*
 import com.blocksdecoded.dex.core.rates.IRatesManager
 import com.blocksdecoded.dex.core.rates.RatesManager
-import com.blocksdecoded.dex.core.rates.remote.RateApiClient
-import com.blocksdecoded.dex.core.rates.remote.RateClientConfig
+import com.blocksdecoded.dex.core.rates.remote.RatesApiClient
+import com.blocksdecoded.dex.core.rates.remote.RatesClientConfig
 import com.blocksdecoded.dex.core.shared.ISharedStorage
 import com.blocksdecoded.dex.core.shared.SharedStorage
 import com.blocksdecoded.dex.core.zrx.IRelayerAdapterManager
@@ -58,7 +58,7 @@ class App: Application() {
         zrxKitManager = ZrxKitManager(ethereumKitManager)
         feeRateProvider = FeeRateProvider(this)
 
-        ratesManager = RatesManager(BootstrapApiClient(), RateApiClient(), RateClientConfig(sharedStorage))
+        ratesManager = RatesManager(BootstrapApiClient(), RatesApiClient(), RatesClientConfig(sharedStorage))
 
         // Init adapter manager
         adapterFactory = AdapterFactory(appConfiguration, ethereumKitManager, feeRateProvider)

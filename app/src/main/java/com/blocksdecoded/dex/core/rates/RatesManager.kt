@@ -2,8 +2,8 @@ package com.blocksdecoded.dex.core.rates
 
 import com.blocksdecoded.dex.core.bootstrap.IBootstrapClient
 import com.blocksdecoded.dex.core.model.CoinRate
-import com.blocksdecoded.dex.core.rates.remote.IRateClient
-import com.blocksdecoded.dex.core.rates.remote.IRateClientConfig
+import com.blocksdecoded.dex.core.rates.remote.IRatesApiClient
+import com.blocksdecoded.dex.core.rates.remote.IRatesClientConfig
 import com.blocksdecoded.dex.utils.Logger
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -11,8 +11,8 @@ import io.reactivex.subjects.BehaviorSubject
 
 class RatesManager(
     private val bootstrapClient: IBootstrapClient,
-    private val rateClient: IRateClient,
-    private val rateClientConfig: IRateClientConfig
+    private val rateClient: IRatesApiClient,
+    private val rateClientConfig: IRatesClientConfig
 ): IRatesManager {
     private val disposables = CompositeDisposable()
 
