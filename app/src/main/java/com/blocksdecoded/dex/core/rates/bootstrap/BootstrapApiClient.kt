@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.core.bootstrap
+package com.blocksdecoded.dex.core.rates.bootstrap
 
 import com.blocksdecoded.dex.core.network.CoreApiClient
 import io.reactivex.Single

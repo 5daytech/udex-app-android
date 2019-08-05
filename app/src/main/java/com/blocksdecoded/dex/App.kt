@@ -2,7 +2,7 @@ package com.blocksdecoded.dex
 
 import android.app.Application
 import com.blocksdecoded.dex.core.adapter.AdapterFactory
-import com.blocksdecoded.dex.core.bootstrap.BootstrapApiClient
+import com.blocksdecoded.dex.core.rates.bootstrap.BootstrapApiClient
 import com.blocksdecoded.dex.core.manager.*
 import com.blocksdecoded.dex.core.rates.IRatesManager
 import com.blocksdecoded.dex.core.rates.RatesManager

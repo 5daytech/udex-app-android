@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.core.bootstrap
+package com.blocksdecoded.dex.core.rates.bootstrap
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

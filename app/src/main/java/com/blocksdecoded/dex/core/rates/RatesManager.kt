@@ -1,6 +1,6 @@
 package com.blocksdecoded.dex.core.rates
 
-import com.blocksdecoded.dex.core.bootstrap.IBootstrapClient
+import com.blocksdecoded.dex.core.rates.bootstrap.IBootstrapClient
 import com.blocksdecoded.dex.core.model.CoinRate
 import com.blocksdecoded.dex.core.rates.remote.IRatesApiClient
 import com.blocksdecoded.dex.core.rates.remote.IRatesClientConfig
