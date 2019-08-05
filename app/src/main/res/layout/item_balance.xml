@@ -31,7 +31,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginLeft="@dimen/element_margin"
             android:text="ETH"
-            android:textSize="17sp"
+            android:textSize="15sp"
             android:textColor="@color/black"/>
 
         <TextView
@@ -44,7 +44,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="@color/main_dark"
             android:layout_marginLeft="@dimen/element_margin"
-            android:textSize="17sp"
+            android:textSize="15sp"
             android:text="Ethereum"/>
 
         <TextView
@@ -56,7 +56,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="@color/main_dark"
-            android:textSize="17sp"
+            android:textSize="15sp"
             android:text="0.00"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -101,6 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/balance_receive"
+                    android:textSize="12sp"
                     android:textColor="@color/white"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -135,6 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/balance_send"
+                    android:textSize="12sp"
                     android:textColor="@color/main_dark"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -160,6 +162,7 @@
                 <ImageView
                     android:layout_width="@dimen/action_icon_size"
                     android:layout_height="@dimen/action_icon_size"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_transactions"/>
 
                 <TextView
@@ -168,6 +171,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/balance_transactions"
+                    android:textSize="12sp"
                     android:textColor="@color/main_dark"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

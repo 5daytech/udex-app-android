@@ -14,7 +14,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:textSize="15sp"
             android:textColor="@color/light_hint"
             android:text="@string/price"/>
 
@@ -24,7 +23,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:textSize="15sp"
             android:textColor="@color/light_hint"
             android:text="@string/amount"/>
 
@@ -33,7 +31,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:textSize="15sp"
             android:gravity="end"
             android:textColor="@color/light_hint"
             android:text="@string/total"/>

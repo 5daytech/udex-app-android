@@ -59,7 +59,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/transactions_coin_icon"
                 app:layout_constraintBottom_toBottomOf="@+id/transactions_coin_icon"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:text="$ 0.00"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

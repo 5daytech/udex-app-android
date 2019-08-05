@@ -54,7 +54,7 @@
 
     <!-- Texts -->
     <style name="MainTitle" parent="BoldText">
-        <item name="android:textSize">26sp</item>
+        <item name="android:textSize">23sp</item>
         <item name="android:textColor">@color/main_dark</item>
     </style>
 
