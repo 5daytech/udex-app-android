@@ -1,7 +1,7 @@
 package com.blocksdecoded.dex.presentation.account
 
-import androidx.lifecycle.ViewModel;
+import com.blocksdecoded.dex.core.ui.CoreViewModel
 
-class AccountViewModel : ViewModel() {
+class AccountViewModel : CoreViewModel() {
     // TODO: Implement the ViewModel
 }

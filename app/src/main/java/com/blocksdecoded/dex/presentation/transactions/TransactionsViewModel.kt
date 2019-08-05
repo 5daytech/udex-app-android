@@ -48,7 +48,6 @@ class TransactionsViewModel : CoreViewModel() {
 
         adapter?.transactionRecordsFlowable?.subscribe {
             updateTransactions(it)
-            Logger.d("update transactions")
         }?.let { disposables.add(it) }
     }
 

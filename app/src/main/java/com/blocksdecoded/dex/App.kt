@@ -2,7 +2,14 @@ package com.blocksdecoded.dex
 
 import android.app.Application
 import com.blocksdecoded.dex.core.adapter.AdapterFactory
+import com.blocksdecoded.dex.core.bootstrap.BootstrapApiClient
 import com.blocksdecoded.dex.core.manager.*
+import com.blocksdecoded.dex.core.rates.IRatesManager
+import com.blocksdecoded.dex.core.rates.RatesManager
+import com.blocksdecoded.dex.core.rates.remote.RateApiClient
+import com.blocksdecoded.dex.core.rates.remote.RateClientConfig
+import com.blocksdecoded.dex.core.shared.ISharedStorage
+import com.blocksdecoded.dex.core.shared.SharedStorage
 import com.blocksdecoded.dex.core.zrx.IRelayerAdapterManager
 import com.blocksdecoded.dex.core.zrx.RelayerAdapterManager
 
@@ -15,19 +22,25 @@ class App: Application() {
 
         lateinit var appConfiguration: AppConfiguration
 
-        // Kit Managers
+        // Kits
+
         lateinit var zrxKitManager: IZrxKitManager
         lateinit var ethereumKitManager: EthereumKitManager
         
-        // Helper Managers
-        
+        // Managers
+
         lateinit var feeRateProvider: IFeeRateProvider
         lateinit var adapterManager: IAdapterManager
         lateinit var relayerAdapterManager: IRelayerAdapterManager
+        lateinit var ratesManager: IRatesManager
 
         // Factories
 
         lateinit var adapterFactory: AdapterFactory
+
+        // Helpers
+
+        lateinit var sharedStorage: ISharedStorage
 
     }
 
@@ -38,10 +51,14 @@ class App: Application() {
 
         appConfiguration = AppConfiguration.DEFAULT
 
+        sharedStorage = SharedStorage(this)
+
         // Init kits
         ethereumKitManager = EthereumKitManager(testMode, appConfiguration)
         zrxKitManager = ZrxKitManager(ethereumKitManager)
         feeRateProvider = FeeRateProvider(this)
+
+        ratesManager = RatesManager(BootstrapApiClient(), RateApiClient(), RateClientConfig(sharedStorage))
 
         // Init adapter manager
         adapterFactory = AdapterFactory(appConfiguration, ethereumKitManager, feeRateProvider)
