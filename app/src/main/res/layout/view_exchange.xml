@@ -92,7 +92,7 @@
         android:textSize="19sp"
         android:text="0.0" />
 
-    <Spinner
+    <com.blocksdecoded.dex.presentation.exchange.view.CoinSpinnerView
         android:id="@+id/exchange_base_spinner"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -103,7 +103,7 @@
         android:layout_marginEnd="@dimen/page_margin"
         android:entries="@array/placeholder_items"/>
 
-    <Spinner
+    <com.blocksdecoded.dex.presentation.exchange.view.CoinSpinnerView
         android:id="@+id/exchange_quote_spinner"
         android:layout_width="0dp"
         android:layout_height="0dp"

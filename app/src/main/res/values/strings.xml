@@ -17,6 +17,9 @@
     <string name="error_invalid_coin">Invalid coin symbol</string>
     <string name="error_send">Send error</string>
 
+    <!-- Hints -->
+    <string name="markets_list_hint">market info (24h)</string>
+
     <!-- Notifications -->
     <string name="send_success">\u2713 Sent</string>
     <string name="message_copied">Copied</string>

@@ -18,7 +18,7 @@ class MarketsViewModel : CoreViewModel() {
     init {
         ratesManager.ratesStateSubject
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { Logger.d("Rates state refresh $it") }
+            .subscribe { Logger.d("Rates viewState refresh $it") }
             .let { disposables.add(it) }
 
         ratesManager.ratesUpdateSubject

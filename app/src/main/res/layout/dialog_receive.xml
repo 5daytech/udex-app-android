@@ -36,19 +36,21 @@
 
     <TextView
         android:id="@+id/receive_raw"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginEnd="@dimen/page_margin"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/big_margin"
         android:layout_marginBottom="@dimen/page_margin"
         android:paddingLeft="@dimen/page_margin"
         android:paddingRight="@dimen/page_margin"
         android:paddingTop="@dimen/element_margin"
         android:paddingBottom="@dimen/element_margin"
         android:background="?selectableItemBackground"
-        android:text="Receive address"
+        android:text="Raw address"
+        android:ellipsize="middle"
+        android:singleLine="true"
         android:fontFamily="sans-serif-condensed-medium"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:textColor="#000"
         android:gravity="center"
         android:layout_gravity="center"/>
@@ -57,7 +59,7 @@
         style="@style/PrimaryButton"
         android:id="@+id/receive_forward"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:text="Forward"/>
 </LinearLayout>

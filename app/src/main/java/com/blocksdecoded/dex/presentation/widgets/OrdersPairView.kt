@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import com.blocksdecoded.dex.R
 import kotlinx.android.synthetic.main.view_current_pair.view.*
 
-class ExchangeOrdersPairView: LinearLayout {
+class OrdersPairView: LinearLayout {
     
     var selectedPair: Int = 0
         set(value) {
@@ -29,11 +29,9 @@ class ExchangeOrdersPairView: LinearLayout {
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
     
     fun init(onSelectPair: (Int) -> Unit) {
-        current_pair_spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) = Unit
-    
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) =
-                onSelectPair(p2)
+        current_pair_spinner.onItemSelectedListener = object: ItemSelectedListener() {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) =
+                onSelectPair(position)
         }
     }
     

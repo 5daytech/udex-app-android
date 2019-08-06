@@ -12,6 +12,9 @@ object CoinManager {
         Coin("Papka", "PPA", CoinType.Erc20("0x6D00364318D008C3AEA08c097c25F5639AB5D2e6", 3)),
         Coin("Tameki", "TMK", CoinType.Erc20("0x52E64BB7aEE0E5bdd3a1995E3b070e012277c0fd", 2))
     )
+    
+    fun getCoin(code: String): Coin =
+        coins.firstOrNull { it.code == code } ?: throw Exception("Coin $code not found")
 
     fun getErcCoinForAddress(address: String): Coin? = coins.firstOrNull {
         when(it.type) {
