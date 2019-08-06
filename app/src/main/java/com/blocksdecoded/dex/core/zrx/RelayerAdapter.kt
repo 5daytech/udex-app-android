@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.core.zrx
 
 import com.blocksdecoded.dex.core.manager.CoinManager
+import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import com.blocksdecoded.dex.utils.subscribeUi
@@ -170,11 +171,32 @@ class RelayerAdapter(
 		myOrdersInfo.clear()
 	}
 	
-	override fun calculateBasePrice(amount: BigDecimal): BigDecimal {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	override fun calculateBasePrice(coinPair: Pair<String, String>, amount: BigDecimal): BigDecimal = try {
+//		Log.d("ololo", "Pair $coinPair")
+		
+		val baseCoin = CoinManager.getCoin(coinPair.first).type as CoinType.Erc20
+		val quoteCoin = CoinManager.getCoin(coinPair.second).type as CoinType.Erc20
+		
+		val pairOrders = buyOrders.getPair(
+			ZrxKit.assetItemForAddress(baseCoin.address).assetData,
+			ZrxKit.assetItemForAddress(quoteCoin.address).assetData
+		)
+		
+		val makerAmount = pairOrders.orders.first().makerAssetAmount.toBigDecimal()
+			.movePointLeft(baseCoin.decimal)
+			.stripTrailingZeros()
+		
+		val takerAmount = pairOrders.orders.first().takerAssetAmount.toBigDecimal()
+			.movePointLeft(quoteCoin.decimal)
+			.stripTrailingZeros()
+		
+		makerAmount.div(takerAmount)
+	} catch (e: Exception) {
+//		Log.d("ololo", "Price error ${e.message}")
+		BigDecimal.ZERO
 	}
 	
 	override fun calculateQuotePrice(amount: BigDecimal): BigDecimal {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		return BigDecimal.ZERO
 	}
 }

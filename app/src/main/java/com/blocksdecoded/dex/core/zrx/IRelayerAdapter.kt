@@ -24,7 +24,7 @@ interface IRelayerAdapter {
 	
 	fun stop()
 	
-	fun calculateBasePrice(amount: BigDecimal): BigDecimal
+	fun calculateBasePrice(coinPair: Pair<String, String>, amount: BigDecimal): BigDecimal
 	
 	fun calculateQuotePrice(amount: BigDecimal): BigDecimal
 }
