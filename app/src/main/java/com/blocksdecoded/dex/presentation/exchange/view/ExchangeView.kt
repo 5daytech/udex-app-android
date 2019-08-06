@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Editable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
@@ -102,8 +103,16 @@ class ExchangeView: CardView {
 	
 	@SuppressLint("SetTextI18n")
 	fun updateState(state: ExchangeViewState) {
-		exchange_amount_input?.setText(state.sendAmount.stripTrailingZeros().toString())
-		exchange_receive_input?.setText(state.receiveAmount.stripTrailingZeros().toString())
+		Log.d("ololo", "Update state $state")
+		val amount = state.sendAmount
+		if (amount > BigDecimal.ZERO) {
+			exchange_amount_input?.setText(amount.stripTrailingZeros().toPlainString())
+			exchange_amount_input?.setSelection(exchange_amount_input?.text?.length ?: 0)
+		} else {
+			exchange_amount_input?.setText("")
+		}
+		
+		exchange_receive_input?.text = state.receiveAmount.stripTrailingZeros().toString()
 		
 		exchange_base_spinner?.setSelectedPair(state.sendPair)
 		exchange_quote_spinner?.setSelectedPair(state.receivePair)

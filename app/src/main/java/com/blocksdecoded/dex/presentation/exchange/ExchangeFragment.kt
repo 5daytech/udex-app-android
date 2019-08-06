@@ -13,7 +13,7 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_exchange.*
-import kotlinx.android.synthetic.main.view_amount_input.*
+import kotlinx.android.synthetic.main.view_exchange.*
 import java.util.concurrent.TimeUnit
 
 class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAdapter.Listener {
@@ -62,7 +62,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             NumPadItemType.NUMBER -> exchange_view?.inputConnection?.commitText(item.number.toString(), 1)
             NumPadItemType.DELETE -> exchange_view?.inputConnection?.deleteSurroundingText(1, 0)
             NumPadItemType.DOT -> {
-                if (amount_input?.text?.toString()?.contains(".") != true) {
+                if (exchange_amount_input?.text?.toString()?.contains(".") != true) {
                     exchange_view?.inputConnection?.commitText(".", 1)
                 }
             }
