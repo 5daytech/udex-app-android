@@ -46,9 +46,11 @@ class RelayerAdapter(
 	override val availablePairsSubject: BehaviorSubject<List<Pair<String, String>>> =
 		BehaviorSubject.create()
 	
+	override var buyAvailableAmount: BigDecimal = BigDecimal.ZERO
 	override var uiBuyOrders: List<UiOrder> = listOf()
 	override val buyOrdersSubject: BehaviorSubject<List<UiOrder>> = BehaviorSubject.create()
 	
+	override var sellAvailableAmount: BigDecimal = BigDecimal.ZERO
 	override var uiSellOrders: List<UiOrder> = listOf()
 	override val sellOrdersSubject: BehaviorSubject<List<UiOrder>> = BehaviorSubject.create()
 	
@@ -90,14 +92,21 @@ class RelayerAdapter(
 	//region Private
 
 	private fun refreshSellOrders(pairOrders: RelayerOrders<SignedOrder>) {
+		sellAvailableAmount = BigDecimal.ZERO
 		uiSellOrders = pairOrders.orders
 			.map { UiOrder.fromOrder(it, EOrderSide.SELL) }.sortedBy { it.price }
+		
+		uiSellOrders.forEach { sellAvailableAmount += it.takerAmount  }
 		sellOrdersSubject.onNext(uiSellOrders)
 	}
 
 	private fun refreshBuyOrders(pairOrders: RelayerOrders<SignedOrder>) {
+		buyAvailableAmount = BigDecimal.ZERO
 		uiBuyOrders = pairOrders.orders
 			.map { UiOrder.fromOrder(it, EOrderSide.BUY) }.sortedByDescending { it.price }
+		
+		uiBuyOrders.forEach { buyAvailableAmount += it.takerAmount  }
+		
 		buyOrdersSubject.onNext(uiBuyOrders)
 	}
 
@@ -163,6 +172,8 @@ class RelayerAdapter(
 
 	//endregion
 	
+	//region Public
+	
 	override fun stop() {
 		disposables.clear()
 		buyOrders.clear()
@@ -171,13 +182,14 @@ class RelayerAdapter(
 		myOrdersInfo.clear()
 	}
 	
-	override fun calculateBasePrice(coinPair: Pair<String, String>, amount: BigDecimal): BigDecimal = try {
-//		Log.d("ololo", "Pair $coinPair")
-		
+	override fun calculateBasePrice(coinPair: Pair<String, String>, side: EOrderSide): BigDecimal = try {
 		val baseCoin = CoinManager.getCoin(coinPair.first).type as CoinType.Erc20
 		val quoteCoin = CoinManager.getCoin(coinPair.second).type as CoinType.Erc20
 		
-		val pairOrders = buyOrders.getPair(
+		val pairOrders = when(side) {
+			EOrderSide.BUY -> buyOrders
+			else -> sellOrders
+		}.getPair(
 			ZrxKit.assetItemForAddress(baseCoin.address).assetData,
 			ZrxKit.assetItemForAddress(quoteCoin.address).assetData
 		)
@@ -189,14 +201,17 @@ class RelayerAdapter(
 		val takerAmount = pairOrders.orders.first().takerAssetAmount.toBigDecimal()
 			.movePointLeft(quoteCoin.decimal)
 			.stripTrailingZeros()
+
+		val price = makerAmount.divide(takerAmount)
 		
-		makerAmount.div(takerAmount)
+		price
 	} catch (e: Exception) {
-//		Log.d("ololo", "Price error ${e.message}")
 		BigDecimal.ZERO
 	}
 	
 	override fun calculateQuotePrice(amount: BigDecimal): BigDecimal {
 		return BigDecimal.ZERO
 	}
+	
+	//endregion
 }

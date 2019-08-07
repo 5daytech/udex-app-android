@@ -8,6 +8,7 @@ import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.presentation.exchange.ExchangeState.*
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangeViewState
+import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import java.math.BigDecimal
 
 class ExchangeViewModel : CoreViewModel() {
@@ -18,6 +19,16 @@ class ExchangeViewModel : CoreViewModel() {
     
     private var exchangeableCoins: List<Coin> = listOf()
     private var coinPairsCodes: List<Pair<String, String>> = listOf()
+    private val currentPairPosition: Int
+        get() {
+            val sendCoin = viewState.value?.sendPair?.code ?: ""
+            val receiveCoin = viewState.value?.receivePair?.code ?: ""
+    
+            return coinPairsCodes.indexOfFirst {
+                (it.first == sendCoin && it.second == receiveCoin) ||
+                    (it.second == sendCoin && it.first == receiveCoin)
+            }
+        }
     
     private var exchangeState = BID
     
@@ -124,12 +135,13 @@ class ExchangeViewModel : CoreViewModel() {
     fun onSendAmountChange(amount: BigDecimal) {
         if (viewState.value?.sendAmount != amount) {
             viewState.value?.sendAmount = amount
-            viewState.value?.receiveAmount = amount.multiply(
-                relayer.calculateBasePrice(
-                    (viewState.value?.sendPair?.code ?: "") to (viewState.value?.receivePair?.code ?: ""),
-                    amount
-                )
+            
+            val price = relayer.calculateBasePrice(
+                coinPairsCodes[currentPairPosition],
+                if (exchangeState == BID) EOrderSide.BUY else EOrderSide.SELL
             )
+            
+            viewState.value?.receiveAmount = amount.multiply(price)
             viewState.value = viewState.value
         }
     }
