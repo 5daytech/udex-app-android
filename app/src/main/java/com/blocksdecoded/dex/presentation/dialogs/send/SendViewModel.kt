@@ -43,11 +43,13 @@ class SendViewModel: CoreViewModel() {
     }
 
     fun onAmountChanged(amount: BigDecimal) {
-        userInput.amount = amount
-
-        this.amount.value = amount
-
-        sendEnabled.value = amount > BigDecimal.ZERO && userInput.address != null
+        if (userInput.amount != amount) {
+            userInput.amount = amount
+    
+            this.amount.value = amount
+    
+            sendEnabled.value = amount > BigDecimal.ZERO && userInput.address != null
+        }
     }
 
     fun onBarcodeClick() {

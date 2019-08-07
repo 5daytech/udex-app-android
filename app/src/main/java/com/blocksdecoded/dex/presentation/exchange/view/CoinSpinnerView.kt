@@ -48,20 +48,8 @@ class CoinSpinnerView : Spinner {
 	) : BaseAdapter() {
 		private var inflater: LayoutInflater = LayoutInflater.from(context)
 		
-		override fun getCount(): Int {
-			return coins.size
-		}
-		
-		override fun getItem(i: Int): Any? {
-			return null
-		}
-		
-		override fun getItemId(i: Int): Long {
-			return 0
-		}
-		
-		override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View {
-			val itemView: View = inflater.inflate(R.layout.item_coin_spinner, parent, false)
+		private fun getAdapterView(position: Int, parent: ViewGroup?): View {
+			val itemView = inflater.inflate(R.layout.item_coin_spinner, parent, false)
 			
 			itemView.findViewById<CoinIconImage>(R.id.item_coin_spinner_icon).bind(coins[position].code)
 			itemView.findViewById<TextView>(R.id.item_coin_spinner_title).text = coins[position].code
@@ -69,14 +57,15 @@ class CoinSpinnerView : Spinner {
 			return itemView
 		}
 		
-		override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-			val itemView: View = inflater.inflate(R.layout.item_coin_spinner, parent, false)
-			
-			itemView.findViewById<CoinIconImage>(R.id.item_coin_spinner_icon).bind(coins[position].code)
-			itemView.findViewById<TextView>(R.id.item_coin_spinner_title).text = coins[position].code
-			
-			return itemView
-		}
+		override fun getCount(): Int = coins.size
+		override fun getItem(i: Int): Any? = null
+		override fun getItemId(i: Int): Long = 0
+		
+		override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View =
+			getAdapterView(position, parent)
+		
+		override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View =
+			getAdapterView(position, parent)
 		
 		fun setCoins(coins: List<ExchangePairItem>) {
 			this.coins = coins

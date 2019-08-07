@@ -29,6 +29,8 @@ class MarketsFragment : CoreFragment(R.layout.fragment_markets), MarketViewHolde
         viewModel = ViewModelProviders.of(this).get(MarketsViewModel::class.java)
         
         viewModel.markets.observe(this, Observer { adapter.setMarkets(it) })
+        
+        viewModel.loading.observe(this, Observer { markets_refresh?.isRefreshing = it })
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,6 +38,8 @@ class MarketsFragment : CoreFragment(R.layout.fragment_markets), MarketViewHolde
         
         markets_recycler?.layoutManager = LinearLayoutManager(context)
         markets_recycler?.adapter = adapter
+        
+        markets_refresh?.setOnRefreshListener { viewModel.refresh() }
     }
     
     //endregion

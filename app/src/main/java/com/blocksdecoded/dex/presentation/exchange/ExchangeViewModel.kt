@@ -122,14 +122,16 @@ class ExchangeViewModel : CoreViewModel() {
     }
 
     fun onSendAmountChange(amount: BigDecimal) {
-        viewState.value?.sendAmount = amount
-        viewState.value?.receiveAmount = amount.multiply(
-            relayer.calculateBasePrice(
-                (viewState.value?.sendPair?.code ?: "") to (viewState.value?.receivePair?.code ?: ""),
-                amount
+        if (viewState.value?.sendAmount != amount) {
+            viewState.value?.sendAmount = amount
+            viewState.value?.receiveAmount = amount.multiply(
+                relayer.calculateBasePrice(
+                    (viewState.value?.sendPair?.code ?: "") to (viewState.value?.receivePair?.code ?: ""),
+                    amount
+                )
             )
-        )
-        viewState.value = viewState.value
+            viewState.value = viewState.value
+        }
     }
 
     fun onReceiveAmountChange(amount: BigDecimal) {

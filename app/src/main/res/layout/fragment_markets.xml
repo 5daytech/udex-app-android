@@ -13,26 +13,30 @@
         app:elevation="0dp"
         app:mt_title="Markets"/>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/markets_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_bottom_dialog"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-        <TextView
-            style="@style/SmallHint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAllCaps="true"
-            android:text="@string/markets_list_hint"
-            android:layout_marginTop="@dimen/page_margin"
-            android:padding="@dimen/page_margin"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/markets_recycler"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_bottom_dialog">
+            <TextView
+                style="@style/SmallHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:text="@string/markets_list_hint"
+                android:layout_marginTop="@dimen/page_margin"
+                android:padding="@dimen/page_margin"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/markets_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
