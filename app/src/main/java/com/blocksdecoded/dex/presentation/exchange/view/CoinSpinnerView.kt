@@ -3,46 +3,84 @@ package com.blocksdecoded.dex.presentation.exchange.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
-import android.widget.Spinner
-import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.widgets.ItemSelectedListener
-import kotlinx.android.synthetic.main.view_current_pair.view.*
+import android.view.ViewGroup
+import android.view.LayoutInflater
+import android.widget.*
+import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+
 
 class CoinSpinnerView : Spinner {
-	
 	private var exchangeItems: List<ExchangePairItem> = listOf()
-	
-	init {
-	
-	}
+	private var coinsAdapter: CoinsSpinnerAdapter? = null
 	
 	constructor(context: Context?) : super(context)
 	constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 	constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 	constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
 	
-	fun init(onSelectCoin: (Int) -> Unit) {
+	fun init(onCoinSelected: (Int) -> Unit) {
 		this.onItemSelectedListener = object: ItemSelectedListener() {
 			override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) =
-				onSelectCoin(position)
+				onCoinSelected(position)
 		}
+		
+		coinsAdapter = CoinsSpinnerAdapter(context, exchangeItems)
+		this.adapter = coinsAdapter
 	}
 	
 	fun setCoins(coins: List<ExchangePairItem>) {
 		exchangeItems = coins
-		val adapter = ArrayAdapter<String>(context, R.layout.support_simple_spinner_dropdown_item)
-		adapter.addAll(coins.map { it.code })
-		
-		this.adapter = adapter
+		coinsAdapter?.setCoins(coins)
 	}
 	
 	fun setSelectedPair(selectedPair: ExchangePairItem) {
 		val index = exchangeItems.indexOfFirst { it.code == selectedPair.code }
 		if (index >= 0) {
 			setSelection(index)
+		}
+	}
+	
+	inner class CoinsSpinnerAdapter(
+		internal var context: Context,
+		private var coins: List<ExchangePairItem>
+	) : BaseAdapter() {
+		private var inflater: LayoutInflater = LayoutInflater.from(context)
+		
+		override fun getCount(): Int {
+			return coins.size
+		}
+		
+		override fun getItem(i: Int): Any? {
+			return null
+		}
+		
+		override fun getItemId(i: Int): Long {
+			return 0
+		}
+		
+		override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View {
+			val itemView: View = inflater.inflate(R.layout.item_coin_spinner, parent, false)
+			
+			itemView.findViewById<CoinIconImage>(R.id.item_coin_spinner_icon).bind(coins[position].code)
+			itemView.findViewById<TextView>(R.id.item_coin_spinner_title).text = coins[position].code
+			
+			return itemView
+		}
+		
+		override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+			val itemView: View = inflater.inflate(R.layout.item_coin_spinner, parent, false)
+			
+			itemView.findViewById<CoinIconImage>(R.id.item_coin_spinner_icon).bind(coins[position].code)
+			itemView.findViewById<TextView>(R.id.item_coin_spinner_title).text = coins[position].code
+			
+			return itemView
+		}
+		
+		fun setCoins(coins: List<ExchangePairItem>) {
+			this.coins = coins
+			notifyDataSetChanged()
 		}
 	}
 }

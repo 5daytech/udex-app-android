@@ -101,7 +101,8 @@
         app:layout_constraintLeft_toRightOf="@+id/exchange_middle_divider"
         app:layout_constraintBottom_toBottomOf="@+id/exchange_amount_input"
         android:layout_marginEnd="@dimen/page_margin"
-        android:entries="@array/placeholder_items"/>
+        android:entries="@array/placeholder_items"
+        />
 
     <com.blocksdecoded.dex.presentation.exchange.view.CoinSpinnerView
         android:id="@+id/exchange_quote_spinner"
