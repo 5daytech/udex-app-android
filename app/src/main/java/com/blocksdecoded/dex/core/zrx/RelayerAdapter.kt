@@ -3,7 +3,6 @@ package com.blocksdecoded.dex.core.zrx
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
-import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import com.blocksdecoded.dex.utils.subscribeUi
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.model.OrderInfo
@@ -25,62 +24,23 @@ class RelayerAdapter(
 	
 	private val relayerManager = zrxKit.relayerManager
 	private val relayer = relayerManager.availableRelayers[relayerId]
-	private val availablePairs = relayer.availablePairs
 	private val exchangeWrapper = zrxKit.getExchangeInstance()
 	
-	private var myOrdersInfo = RelayerOrdersList<OrderInfo>()
-	private var buyOrders = RelayerOrdersList<SignedOrder>()
-	private var sellOrders = RelayerOrdersList<SignedOrder>()
-	private var myOrders = RelayerOrdersList<Pair<SignedOrder, EOrderSide>>()
+	override var myOrdersInfo = RelayerOrdersList<OrderInfo>()
+	override var buyOrders = RelayerOrdersList<SignedOrder>()
+	override var sellOrders = RelayerOrdersList<SignedOrder>()
+	override var myOrders = RelayerOrdersList<Pair<SignedOrder, EOrderSide>>()
 
-	override var currentSelectedPair: Int = 0
-		set(value) {
-			if (field == value) return
-			field = value
-			selectedPairSubject.onNext(value)
-			updateCachedOrders()
-//			refreshOrders()
-		}
-	
-	override val selectedPairSubject: BehaviorSubject<Int> = BehaviorSubject.create()
+	override val availablePairs = relayer.availablePairs
 	override val availablePairsSubject: BehaviorSubject<List<Pair<String, String>>> =
 		BehaviorSubject.create()
 	
-	override var buyAvailableAmount: BigDecimal = BigDecimal.ZERO
-	override var uiBuyOrders: List<UiOrder> = listOf()
-	override val buyOrdersSubject: BehaviorSubject<List<UiOrder>> = BehaviorSubject.create()
-	
-	override var sellAvailableAmount: BigDecimal = BigDecimal.ZERO
-	override var uiSellOrders: List<UiOrder> = listOf()
-	override val sellOrdersSubject: BehaviorSubject<List<UiOrder>> = BehaviorSubject.create()
-	
-	override var uiMyOrders: List<UiOrder> = listOf()
-	override val myOrdersSubject: BehaviorSubject<List<UiOrder>> = BehaviorSubject.create()
-	
 	init {
 		val pairs = relayer.availablePairs.map {
-			(CoinManager.getErcCoinForAddress(it.first.address)?.code ?: "") to (CoinManager.getErcCoinForAddress(it.second.address)?.code ?: "")
+			(CoinManager.getErcCoinForAddress(it.first.address)?.code ?: "") to
+					(CoinManager.getErcCoinForAddress(it.second.address)?.code ?: "")
 		}
 		availablePairsSubject.onNext(pairs)
-
-		sellOrders.pairUpdateSubject.subscribe {
-			if (isSelectedPair(it.baseAsset, it.quoteAsset)) {
-				refreshSellOrders(it)
-			}
-		}.let { disposables.add(it) }
-
-
-		buyOrders.pairUpdateSubject.subscribe {
-			if (isSelectedPair(it.baseAsset, it.quoteAsset)) {
-				refreshBuyOrders(it)
-			}
-		}.let { disposables.add(it) }
-
-		myOrders.pairUpdateSubject.subscribe {
-			if (isSelectedPair(it.baseAsset, it.quoteAsset)) {
-				refreshMyOrders(it)
-			}
-		}.let { disposables.add(it) }
 
 		Observable.interval(refreshInterval, TimeUnit.SECONDS)
 			.subscribe { refreshOrders() }
@@ -90,51 +50,6 @@ class RelayerAdapter(
 	}
 
 	//region Private
-
-	private fun refreshSellOrders(pairOrders: RelayerOrders<SignedOrder>) {
-		sellAvailableAmount = BigDecimal.ZERO
-		uiSellOrders = pairOrders.orders
-			.map { UiOrder.fromOrder(it, EOrderSide.SELL) }.sortedBy { it.price }
-		
-		uiSellOrders.forEach { sellAvailableAmount += it.takerAmount  }
-		sellOrdersSubject.onNext(uiSellOrders)
-	}
-
-	private fun refreshBuyOrders(pairOrders: RelayerOrders<SignedOrder>) {
-		buyAvailableAmount = BigDecimal.ZERO
-		uiBuyOrders = pairOrders.orders
-			.map { UiOrder.fromOrder(it, EOrderSide.BUY) }.sortedByDescending { it.price }
-		
-		uiBuyOrders.forEach { buyAvailableAmount += it.takerAmount  }
-		
-		buyOrdersSubject.onNext(uiBuyOrders)
-	}
-
-	private fun refreshMyOrders(pairOrders: RelayerOrders<Pair<SignedOrder, EOrderSide>>) {
-		uiMyOrders = pairOrders.orders
-			.mapIndexed { index, it ->
-				UiOrder.fromOrder(
-					it.first,
-					it.second,
-					isMine = true,
-					orderInfo = myOrdersInfo.getPair(pairOrders.baseAsset, pairOrders.quoteAsset).orders[index]
-				)
-			}
-		myOrdersSubject.onNext(uiMyOrders)
-	}
-
-	private fun updateCachedOrders() {
-		val base = availablePairs[currentSelectedPair].first.assetData
-		val quote = availablePairs[currentSelectedPair].second.assetData
-
-		refreshBuyOrders(buyOrders.getPair(base, quote))
-		refreshSellOrders(sellOrders.getPair(base, quote))
-		refreshMyOrders(myOrders.getPair(base, quote))
-	}
-
-	private fun isSelectedPair(baseAsset: String, quoteAsset: String): Boolean =
-		availablePairs[currentSelectedPair].first.assetData.equals(baseAsset, true) &&
-				availablePairs[currentSelectedPair].second.assetData.equals(quoteAsset, true)
 
 	private fun refreshOrders() {
 		relayer.availablePairs.forEachIndexed { index, pair ->

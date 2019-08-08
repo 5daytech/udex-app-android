@@ -17,11 +17,11 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class ExchangeView: CardView {
+	init { View.inflate(context, R.layout.view_exchange, this) }
+	
 	constructor(context: Context) : super(context) { init() }
 	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) { init() }
 	constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)  { init() }
-
-	init { View.inflate(context, R.layout.view_exchange, this) }
 	
 	var inputConnection: InputConnection? = null
 	

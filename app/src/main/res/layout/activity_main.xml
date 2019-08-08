@@ -22,7 +22,7 @@
         android:background="@color/main_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_navigation"
-        app:labelVisibilityMode="selected"
+        app:labelVisibilityMode="labeled"
         app:itemIconTint="@drawable/selector_tab_color"
         app:itemTextColor="@drawable/selector_tab_color"
         app:itemTextAppearanceActive="@style/RegularText"
