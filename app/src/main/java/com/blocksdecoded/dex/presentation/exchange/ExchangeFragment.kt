@@ -51,7 +51,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             onSwitchClick = { viewModel.onSwitchClick() }
         )
         
-        exchange_view?.sendAmountChangeSubject?.debounce(300, TimeUnit.MILLISECONDS)
+        exchange_view?.sendAmountChangeSubject?.debounce(200, TimeUnit.MILLISECONDS)
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe { viewModel.onSendAmountChange(it) }
             ?.let { disposables.add(it) }

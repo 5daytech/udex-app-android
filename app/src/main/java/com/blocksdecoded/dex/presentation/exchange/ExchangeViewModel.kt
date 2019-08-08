@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.presentation.exchange
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.manager.CoinManager
@@ -158,7 +159,7 @@ class ExchangeViewModel : CoreViewModel() {
     }
 
     fun onExchangeClick() {
-
+        Log.d("ololo", "Exchange state ${viewState.value}")
     }
 
     fun onSwitchClick() {
