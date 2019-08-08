@@ -119,6 +119,18 @@ class ExchangeViewModel : CoreViewModel() {
         val sendCoin = state?.sendPair?.code ?: mSendCoins.first().code
         mReceiveCoins = getAvailableReceiveCoins(sendCoin)
     }
+
+    private fun updateReceivePrice() {
+        viewState.value?.sendAmount?.let { amount ->
+            val price = relayer.calculateBasePrice(
+                coinPairsCodes[currentPairPosition],
+                if (exchangeState == BID) EOrderSide.BUY else EOrderSide.SELL
+            )
+            viewState.value?.receiveAmount = amount.multiply(price)
+
+            viewState.value = viewState.value
+        }
+    }
     
     //endregion
 
@@ -131,19 +143,14 @@ class ExchangeViewModel : CoreViewModel() {
     fun onSendCoinPick(position: Int) {
         viewState.value?.sendPair = mSendCoins[position]
         refreshPairs(viewState.value, false)
+        updateReceivePrice()
     }
 
     fun onSendAmountChange(amount: BigDecimal) {
         if (viewState.value?.sendAmount != amount) {
             viewState.value?.sendAmount = amount
             
-            val price = relayer.calculateBasePrice(
-                coinPairsCodes[currentPairPosition],
-                if (exchangeState == BID) EOrderSide.BUY else EOrderSide.SELL
-            )
-            
-            viewState.value?.receiveAmount = amount.multiply(price)
-            viewState.value = viewState.value
+            updateReceivePrice()
         }
     }
 
