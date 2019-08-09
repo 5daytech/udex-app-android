@@ -8,7 +8,7 @@ import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.presentation.exchange.ExchangeState.*
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
-import com.blocksdecoded.dex.presentation.exchange.view.ExchangeViewState
+import com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderViewState
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.subscribeUi
 import java.math.BigDecimal
@@ -45,7 +45,7 @@ class ExchangeViewModel : CoreViewModel() {
             receiveCoins.value = value
         }
 
-    val viewState = MutableLiveData<ExchangeViewState>()
+    val viewState = MutableLiveData<MarketOrderViewState>()
     val exchangeEnabled = MutableLiveData<Boolean>()
 
     val sendCoins = MutableLiveData<List<ExchangePairItem>>()
@@ -78,7 +78,7 @@ class ExchangeViewModel : CoreViewModel() {
     //region Private
     
     private fun initState(sendItem: ExchangePairItem?, receiveItem: ExchangePairItem?) {
-        viewState.value = ExchangeViewState(
+        viewState.value = MarketOrderViewState(
             BigDecimal.ZERO,
             BigDecimal.ZERO,
             sendItem,
@@ -93,7 +93,6 @@ class ExchangeViewModel : CoreViewModel() {
                 .firstOrNull {
                     when(this.exchangeState) {
                         BID -> it.first == coin.code
-                        
                         ASK -> it.second == coin.code
                     }
                 } != null
@@ -118,7 +117,7 @@ class ExchangeViewModel : CoreViewModel() {
             .map { ExchangePairItem(it.code, it.title, 0.toBigDecimal(), 0.toBigDecimal()) }
     }
     
-    private fun refreshPairs(state: ExchangeViewState?, refreshSendCoins: Boolean = true) {
+    private fun refreshPairs(state: MarketOrderViewState?, refreshSendCoins: Boolean = true) {
         if (refreshSendCoins) {
             mSendCoins = getAvailableSendCoins()
         }
@@ -200,7 +199,7 @@ class ExchangeViewModel : CoreViewModel() {
             ASK -> BID
         }
         
-        val newState = ExchangeViewState(
+        val newState = MarketOrderViewState(
             sendAmount = viewState.value?.receiveAmount ?: BigDecimal.ZERO,
             receiveAmount = viewState.value?.sendAmount ?: BigDecimal.ZERO,
             sendPair = viewState.value?.receivePair!!,

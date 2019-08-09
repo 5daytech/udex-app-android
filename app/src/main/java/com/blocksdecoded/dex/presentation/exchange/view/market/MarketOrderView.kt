@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.exchange.view
+package com.blocksdecoded.dex.presentation.exchange.view.market
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,15 +9,16 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.widgets.TextWatcher
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.view_exchange.view.*
+import kotlinx.android.synthetic.main.view_market_order.view.*
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class ExchangeView: CardView {
-	init { View.inflate(context, R.layout.view_exchange, this) }
+class MarketOrderView: CardView {
+	init { View.inflate(context, R.layout.view_market_order, this) }
 	
 	constructor(context: Context) : super(context) { init() }
 	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) { init() }
@@ -78,7 +79,7 @@ class ExchangeView: CardView {
 	}
 	
 	@SuppressLint("SetTextI18n")
-	fun updateState(state: ExchangeViewState) {
+	fun updateState(state: MarketOrderViewState) {
 		val amount = state.sendAmount
 		if (amount > BigDecimal.ZERO) {
 			exchange_amount_input?.setText(amount.stripTrailingZeros().toPlainString())

@@ -45,7 +45,7 @@
                 android:text="LIMIT ORDER"/>
         </com.blocksdecoded.dex.presentation.widgets.DividedTabLayout>
 
-        <com.blocksdecoded.dex.presentation.exchange.view.ExchangeView
+        <com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderView
             android:id="@+id/exchange_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

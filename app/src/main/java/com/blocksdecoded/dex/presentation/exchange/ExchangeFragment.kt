@@ -15,7 +15,7 @@ import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_exchange.*
-import kotlinx.android.synthetic.main.view_exchange.*
+import kotlinx.android.synthetic.main.view_market_order.*
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 

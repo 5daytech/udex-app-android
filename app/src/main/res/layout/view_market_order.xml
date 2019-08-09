@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/exchange_input_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@+id/exchange_tab_layout"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintBottom_toTopOf="@+id/exchange_numpad"
+    >
+    <TextView
+        style="@style/LightText"
+        android:id="@+id/exchange_amount_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="@dimen/page_margin"
+        android:text="You send $0.00"/>
+
+    <EditText
+        style="@style/BoldText"
+        android:id="@+id/exchange_amount_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_amount_hint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/middle_divider"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginTop="@dimen/element_margin"
+        android:textColor="@color/main_dark"
+        android:background="@color/transparent"
+        android:textSize="19sp"
+        android:inputType="number|numberDecimal"
+        android:maxLines="1"
+        android:text="0.0" />
+
+    <Button
+        style="@style/ButtonSmallGrey"
+        android:id="@+id/exchange_amount_max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/exchange_amount_input"
+        app:layout_constraintBottom_toBottomOf="@+id/exchange_amount_input"
+        app:layout_constraintRight_toLeftOf="@+id/middle_divider"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Max"/>
+
+    <View
+        android:id="@+id/middle_divider"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_amount_input"
+        android:layout_marginTop="@dimen/page_margin"
+        android:background="@color/light_hint"/>
+
+    <TextView
+        style="@style/LightText"
+        android:id="@+id/exchange_receive_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/page_margin"
+        android:layout_marginStart="@dimen/page_margin"
+        android:text="You receive $0.00"/>
+
+    <TextView
+        style="@style/BoldText"
+        android:id="@+id/exchange_receive_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_receive_hint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/middle_divider"
+        android:layout_marginBottom="@dimen/page_margin"
+        android:layout_marginLeft="@dimen/page_margin"
+        android:layout_marginTop="@dimen/element_margin"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/main_dark"
+        android:textSize="19sp"
+        android:text="0.0" />
+
+    <com.blocksdecoded.dex.presentation.exchange.view.CoinSpinnerView
+        android:id="@+id/exchange_base_spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@+id/exchange_amount_hint"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/middle_divider"
+        app:layout_constraintBottom_toBottomOf="@+id/exchange_amount_input"
+        android:layout_marginEnd="@dimen/page_margin"
+        android:entries="@array/placeholder_items"
+        />
+
+    <com.blocksdecoded.dex.presentation.exchange.view.CoinSpinnerView
+        android:id="@+id/exchange_quote_spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@+id/exchange_receive_hint"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/middle_divider"
+        app:layout_constraintBottom_toBottomOf="@+id/exchange_receive_input"
+        android:layout_marginEnd="@dimen/page_margin"
+        android:entries="@array/placeholder_items"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/exchange_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/divider"
+        app:layout_constraintBottom_toBottomOf="@+id/divider"
+        app:layout_constraintLeft_toRightOf="@+id/middle_divider"
+        app:layout_constraintRight_toRightOf="parent"
+        app:backgroundTint="@color/white"
+        android:src="@drawable/ic_switch"
+        app:useCompatPadding="true"
+        app:maxImageSize="14dp"
+        app:fabCustomSize="30dp"
+        app:elevation="4dp"
+        android:clickable="true"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

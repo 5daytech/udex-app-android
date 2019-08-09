@@ -1,8 +1,9 @@
-package com.blocksdecoded.dex.presentation.exchange.view
+package com.blocksdecoded.dex.presentation.exchange.view.market
 
+import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import java.math.BigDecimal
 
-data class ExchangeViewState(
+data class MarketOrderViewState(
 	var sendAmount: BigDecimal,
 	var receiveAmount: BigDecimal,
 	var sendPair: ExchangePairItem?,
