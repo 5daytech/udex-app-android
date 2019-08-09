@@ -11,10 +11,12 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.utils.ui.ToastHelper
+import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_exchange.*
 import kotlinx.android.synthetic.main.view_exchange.*
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAdapter.Listener {
@@ -48,6 +50,14 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
 
         viewModel.exchangeEnabled.observe(this, Observer {
             exchange_confirm?.isEnabled = it
+        })
+        
+        viewModel.exchangePrice.observe(this, Observer {
+            val info = "Price per token: ${it.toDisplayFormat()}" + if (it == BigDecimal.ZERO) {
+                "\nOrderbook is empty"
+            } else { "" }
+            
+            exchange_info?.text = info
         })
     }
 

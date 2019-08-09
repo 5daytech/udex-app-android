@@ -53,6 +53,8 @@ class ExchangeViewModel : CoreViewModel() {
 
     val messageEvent = MutableLiveData<Int>()
     val successEvent = MutableLiveData<String>()
+
+    val exchangePrice = MutableLiveData<BigDecimal>()
     
     init {
         exchangeEnabled.value = false
@@ -133,6 +135,11 @@ class ExchangeViewModel : CoreViewModel() {
                 amount
             )
 
+            exchangePrice.value = relayer.calculateBasePrice(
+                coinPairsCodes[currentPairPosition],
+                if (exchangeState == BID) EOrderSide.BUY else EOrderSide.SELL
+            )
+
             viewState.value?.receiveAmount = receiveAmount
 
             viewState.value = viewState.value
@@ -162,10 +169,6 @@ class ExchangeViewModel : CoreViewModel() {
             
             updateReceivePrice()
         }
-    }
-
-    fun onReceiveAmountChange(amount: BigDecimal) {
-
     }
 
     fun onMaxClick() {
