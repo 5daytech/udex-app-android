@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.dialogs.sent.SentDialog
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
@@ -45,7 +46,8 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         })
 
         viewModel.successEvent.observe(this, Observer {
-            ToastHelper.showInfoMessage("Transaction successfully sent\n hash - $it")
+            SentDialog.show(childFragmentManager, it)
+//            ToastHelper.showInfoMessage("Transaction successfully sent\n hash - $it")
         })
 
         viewModel.exchangeEnabled.observe(this, Observer {
