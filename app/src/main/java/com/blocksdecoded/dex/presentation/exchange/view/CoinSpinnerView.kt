@@ -35,8 +35,8 @@ class CoinSpinnerView : Spinner {
 		coinsAdapter?.setCoins(coins)
 	}
 	
-	fun setSelectedPair(selectedPair: ExchangePairItem) {
-		val index = exchangeItems.indexOfFirst { it.code == selectedPair.code }
+	fun setSelectedPair(selectedPair: ExchangePairItem?) {
+		val index = exchangeItems.indexOfFirst { it.code == selectedPair?.code ?: "" }
 		if (index >= 0) {
 			setSelection(index)
 		}

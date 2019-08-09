@@ -19,6 +19,7 @@
 
     <!-- Hints -->
     <string name="markets_list_hint">market info (24h)</string>
+    <string name="message_exchange_wait">Wait till transaction is added to blockchain</string>
 
     <!-- Notifications -->
     <string name="send_success">\u2713 Sent</string>

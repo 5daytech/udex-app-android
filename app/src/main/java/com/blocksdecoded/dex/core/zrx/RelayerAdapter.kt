@@ -1,17 +1,23 @@
 package com.blocksdecoded.dex.core.zrx
 
+import android.util.Log
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.subscribeUi
 import com.blocksdecoded.zrxkit.ZrxKit
+import com.blocksdecoded.zrxkit.model.AssetItem
 import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
+import com.blocksdecoded.zrxkit.relayer.model.AssetPair
 import io.horizontalsystems.ethereumkit.core.EthereumKit
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.internal.operators.flowable.FlowableJoin
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
+import java.math.BigInteger
 import java.util.concurrent.TimeUnit
 
 class RelayerAdapter(
@@ -85,6 +91,30 @@ class RelayerAdapter(
 			})
 	}
 
+	private fun checkCoinAllowance(address: String): Flowable<Boolean> {
+		val coinWrapper = zrxKit.getErc20ProxyInstance(address)
+
+		return coinWrapper.proxyAllowance(ethereumKit.receiveAddress)
+			.flatMap { Log.d("ololo", "$address allowance $it")
+				if (it > BigInteger.ZERO) {
+					Flowable.just(true)
+				} else {
+					coinWrapper.setUnlimitedProxyAllowance().map {
+						Log.d("ololo", "$address unlocked")
+						true
+					}
+				}
+			}
+	}
+
+	private fun checkAllowance(assetPair: Pair<AssetItem, AssetItem>): Flowable<Boolean> {
+		val base = assetPair.first
+		val quote = assetPair.second
+
+		return checkCoinAllowance(base.address)
+			.flatMap { checkCoinAllowance(quote.address) }
+	}
+
 	//endregion
 	
 	//region Public
@@ -123,10 +153,31 @@ class RelayerAdapter(
 	} catch (e: Exception) {
 		BigDecimal.ZERO
 	}
-	
-	override fun calculateQuotePrice(amount: BigDecimal): BigDecimal {
-		return BigDecimal.ZERO
+
+	override fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): BigDecimal = try {
+		amount.multiply(calculateBasePrice(coinPair, side))
+	} catch (e: Exception) {
+		BigDecimal.ZERO
 	}
-	
+
+	override fun fill(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): Flowable<String> {
+		val baseCoin = CoinManager.getCoin(coinPair.first).type as CoinType.Erc20
+		val quoteCoin = CoinManager.getCoin(coinPair.second).type as CoinType.Erc20
+
+		val pairOrders = when(side) {
+			EOrderSide.BUY -> buyOrders
+			else -> sellOrders
+		}.getPair(
+			ZrxKit.assetItemForAddress(baseCoin.address).assetData,
+			ZrxKit.assetItemForAddress(quoteCoin.address).assetData
+		)
+
+		val calcAmount = amount.movePointRight(baseCoin.decimal)
+			.stripTrailingZeros()
+
+		return checkAllowance(ZrxKit.assetItemForAddress(baseCoin.address) to ZrxKit.assetItemForAddress(quoteCoin.address))
+			.flatMap { exchangeWrapper.marketBuyOrders(pairOrders.orders, calcAmount.toBigInteger()) }
+	}
+
 	//endregion
 }

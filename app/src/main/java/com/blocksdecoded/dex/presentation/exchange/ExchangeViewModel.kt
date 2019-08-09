@@ -1,8 +1,8 @@
 package com.blocksdecoded.dex.presentation.exchange
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
@@ -10,14 +10,14 @@ import com.blocksdecoded.dex.presentation.exchange.ExchangeState.*
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangeViewState
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
+import com.blocksdecoded.dex.utils.subscribeUi
 import java.math.BigDecimal
 
 class ExchangeViewModel : CoreViewModel() {
 
     private val relayer = App.relayerAdapterManager.getMainAdapter()
     private val adapterManager = App.adapterManager
-    private val exchangeWrapper = App.zrxKitManager.zrxKit().getExchangeInstance()
-    
+
     private var exchangeableCoins: List<Coin> = listOf()
     private var coinPairsCodes: List<Pair<String, String>> = listOf()
     private val currentPairPosition: Int
@@ -46,11 +46,16 @@ class ExchangeViewModel : CoreViewModel() {
         }
 
     val viewState = MutableLiveData<ExchangeViewState>()
+    val exchangeEnabled = MutableLiveData<Boolean>()
 
     val sendCoins = MutableLiveData<List<ExchangePairItem>>()
     val receiveCoins = MutableLiveData<List<ExchangePairItem>>()
+
+    val messageEvent = MutableLiveData<Int>()
+    val successEvent = MutableLiveData<String>()
     
     init {
+        exchangeEnabled.value = false
         relayer.availablePairsSubject
             .subscribe {
                 coinPairsCodes = it
@@ -70,7 +75,7 @@ class ExchangeViewModel : CoreViewModel() {
     
     //region Private
     
-    private fun initState(sendItem: ExchangePairItem, receiveItem: ExchangePairItem) {
+    private fun initState(sendItem: ExchangePairItem?, receiveItem: ExchangePairItem?) {
         viewState.value = ExchangeViewState(
             BigDecimal.ZERO,
             BigDecimal.ZERO,
@@ -122,13 +127,17 @@ class ExchangeViewModel : CoreViewModel() {
 
     private fun updateReceivePrice() {
         viewState.value?.sendAmount?.let { amount ->
-            val price = relayer.calculateBasePrice(
+            val receiveAmount = relayer.calculateFillAmount(
                 coinPairsCodes[currentPairPosition],
-                if (exchangeState == BID) EOrderSide.BUY else EOrderSide.SELL
+                if (exchangeState == BID) EOrderSide.BUY else EOrderSide.SELL,
+                amount
             )
-            viewState.value?.receiveAmount = amount.multiply(price)
+
+            viewState.value?.receiveAmount = receiveAmount
 
             viewState.value = viewState.value
+
+            exchangeEnabled.value = receiveAmount > BigDecimal.ZERO
         }
     }
     
@@ -138,6 +147,7 @@ class ExchangeViewModel : CoreViewModel() {
     
     fun onReceiveCoinPick(position: Int) {
         viewState.value?.receivePair = mReceiveCoins[position]
+        updateReceivePrice()
     }
     
     fun onSendCoinPick(position: Int) {
@@ -155,7 +165,7 @@ class ExchangeViewModel : CoreViewModel() {
     }
 
     fun onReceiveAmountChange(amount: BigDecimal) {
-    
+
     }
 
     fun onMaxClick() {
@@ -166,7 +176,19 @@ class ExchangeViewModel : CoreViewModel() {
     }
 
     fun onExchangeClick() {
-        Log.d("ololo", "Exchange state ${viewState.value}")
+        messageEvent.postValue(R.string.message_exchange_wait)
+        viewState.value?.sendAmount?.let { amount ->
+            relayer.fill(
+                coinPairsCodes[currentPairPosition],
+                if (exchangeState == BID) EOrderSide.BUY else EOrderSide.SELL,
+                if (exchangeState == BID) amount else viewState.value?.receiveAmount ?: BigDecimal.ZERO
+            ).subscribeUi(disposables, {
+                initState(viewState.value?.sendPair, viewState.value?.receivePair)
+                successEvent.postValue(it)
+            }, {
+                //TODO: Show error event
+            })
+        }
     }
 
     fun onSwitchClick() {
@@ -181,7 +203,7 @@ class ExchangeViewModel : CoreViewModel() {
             sendPair = viewState.value?.receivePair!!,
             receivePair = viewState.value?.sendPair!!
         )
-        
+
         refreshPairs(newState)
         
         viewState.value = newState

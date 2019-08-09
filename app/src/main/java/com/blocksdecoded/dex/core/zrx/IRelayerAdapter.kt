@@ -4,6 +4,7 @@ import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.zrxkit.model.AssetItem
 import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
+import io.reactivex.Flowable
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
 
@@ -22,6 +23,8 @@ interface IRelayerAdapter {
 	fun stop()
 	
 	fun calculateBasePrice(coinPair: Pair<String, String>, side: EOrderSide): BigDecimal
-	
-	fun calculateQuotePrice(amount: BigDecimal): BigDecimal
+
+	fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): BigDecimal
+
+	fun fill(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): Flowable<String>
 }

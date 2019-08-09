@@ -10,6 +10,7 @@ import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
+import com.blocksdecoded.dex.utils.ui.ToastHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_exchange.*
@@ -35,6 +36,18 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         
         viewModel.viewState.observe(this, Observer {
             exchange_view?.updateState(it)
+        })
+
+        viewModel.messageEvent.observe(this, Observer {
+            ToastHelper.showInfoMessage("Coins unlock and fill started")
+        })
+
+        viewModel.successEvent.observe(this, Observer {
+            ToastHelper.showInfoMessage("Transaction successfully sent\n hash - $it")
+        })
+
+        viewModel.exchangeEnabled.observe(this, Observer {
+            exchange_confirm?.isEnabled = it
         })
     }
 
