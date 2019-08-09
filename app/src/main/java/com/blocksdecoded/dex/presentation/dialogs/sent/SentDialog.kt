@@ -16,6 +16,8 @@ import kotlinx.android.synthetic.main.dialog_transaction_sent.*
 class SentDialog: DialogFragment() {
 	
 	var transactionHash: String? = null
+
+	//TODO: Fetch from config
 	private val etherscanUrl: String
 		get() = "https://ropsten.etherscan.io/tx/$transactionHash"
 	

@@ -5,6 +5,7 @@ import io.horizontalsystems.ethereumkit.core.toHexString
 import io.horizontalsystems.hdwalletkit.HDWallet
 import io.horizontalsystems.hdwalletkit.Mnemonic
 import java.math.BigInteger
+import java.util.*
 
 class AuthData {
     var words: List<String> = listOf()
@@ -16,7 +17,7 @@ class AuthData {
     private val wordsSeparator = " "
     private val partsSeparator = "|"
 
-    constructor(words: List<String>, walletId: String) {
+    constructor(words: List<String>, walletId: String = UUID.randomUUID().toString()) {
         this.words = words
         this.walletId = walletId
         this.seed = Mnemonic().toSeed(words)

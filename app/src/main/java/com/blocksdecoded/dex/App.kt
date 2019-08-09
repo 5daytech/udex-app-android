@@ -8,6 +8,7 @@ import com.blocksdecoded.dex.core.rates.IRatesManager
 import com.blocksdecoded.dex.core.rates.RatesManager
 import com.blocksdecoded.dex.core.rates.remote.RatesApiClient
 import com.blocksdecoded.dex.core.rates.remote.RatesClientConfig
+import com.blocksdecoded.dex.core.security.SecuredStorage
 import com.blocksdecoded.dex.core.shared.ISharedStorage
 import com.blocksdecoded.dex.core.shared.SharedStorage
 import com.blocksdecoded.dex.core.zrx.IRelayerAdapterManager
@@ -33,6 +34,7 @@ class App: Application() {
         lateinit var adapterManager: IAdapterManager
         lateinit var relayerAdapterManager: IRelayerAdapterManager
         lateinit var ratesManager: IRatesManager
+        lateinit var authManager: AuthManager
 
         // Factories
 
@@ -67,5 +69,7 @@ class App: Application() {
         relayerAdapterManager = RelayerAdapterManager(ethereumKitManager, zrxKitManager)
         
         adapterManager.initAdapters(CoinManager.coins)
+
+        authManager = AuthManager(SecuredStorage())
     }
 }
