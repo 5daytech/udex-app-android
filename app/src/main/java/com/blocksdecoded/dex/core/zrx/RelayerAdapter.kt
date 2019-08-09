@@ -4,20 +4,20 @@ import android.util.Log
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
+import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.subscribeUi
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.model.AssetItem
 import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
-import com.blocksdecoded.zrxkit.relayer.model.AssetPair
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.internal.operators.flowable.FlowableJoin
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
 import java.math.BigInteger
+import java.math.MathContext
 import java.util.concurrent.TimeUnit
 
 class RelayerAdapter(
@@ -147,15 +147,19 @@ class RelayerAdapter(
 			.movePointLeft(quoteCoin.decimal)
 			.stripTrailingZeros()
 
-		val price = makerAmount.divide(takerAmount)
-		
+		val math = MathContext.DECIMAL64
+		val price = makerAmount.divide(takerAmount, math)
+			.stripTrailingZeros()
+
 		price
 	} catch (e: Exception) {
+		Logger.e(e)
 		BigDecimal.ZERO
 	}
 
 	override fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): BigDecimal = try {
-		amount.multiply(calculateBasePrice(coinPair, side))
+		val price = calculateBasePrice(coinPair, side)
+		amount.multiply(price)
 	} catch (e: Exception) {
 		BigDecimal.ZERO
 	}
