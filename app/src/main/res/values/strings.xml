@@ -30,6 +30,7 @@
     <string name="amount">Amount</string>
     <string name="total">Total</string>
     <string name="subtitle_restore">Enter Secret Key</string>
+    <string name="error_invalid_mnemonic">Invalid mnemonic</string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>

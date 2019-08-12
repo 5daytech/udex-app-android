@@ -35,6 +35,9 @@ class App: Application() {
         lateinit var relayerAdapterManager: IRelayerAdapterManager
         lateinit var ratesManager: IRatesManager
         lateinit var authManager: AuthManager
+        lateinit var wordsManager: IWordsManager
+        
+        lateinit var localStorage: IAppLocalStorage
 
         // Factories
 
@@ -54,6 +57,7 @@ class App: Application() {
         appConfiguration = AppConfiguration.DEFAULT
 
         sharedStorage = SharedStorage(this)
+        localStorage = AppLocalStorage(sharedStorage)
 
         // Init kits
         ethereumKitManager = EthereumKitManager(testMode, appConfiguration)
@@ -71,5 +75,6 @@ class App: Application() {
         adapterManager.initAdapters(CoinManager.coins)
 
         authManager = AuthManager(SecuredStorage())
+        wordsManager = WordsManager(localStorage)
     }
 }

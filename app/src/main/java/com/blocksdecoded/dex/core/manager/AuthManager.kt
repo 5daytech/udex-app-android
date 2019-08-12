@@ -19,7 +19,6 @@ class AuthManager(
     val isLoggedIn: Boolean
         get() = !securedStorage.noAuthData()
 
-
     @Throws(UserNotAuthenticatedException::class)
     fun safeLoad() {
         authData = securedStorage.authData

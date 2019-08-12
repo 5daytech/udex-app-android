@@ -35,3 +35,26 @@ interface IAdapterManager {
 interface IFeeRateProvider {
     fun ethereumGasPrice(priority: FeeRatePriority): Long
 }
+
+interface IWordsManager {
+    var isBackedUp: Boolean
+    var backedUpSignal: PublishSubject<Unit>
+    
+    fun validate(words: List<String>)
+    fun generateWords(): List<String>
+}
+
+interface IAppLocalStorage {
+    var currentLanguage: String?
+    var isBackedUp: Boolean
+    var isBiometricOn: Boolean
+    var isLightModeOn: Boolean
+    var iUnderstand: Boolean
+    var baseCurrencyCode: String?
+    var blockTillDate: Long?
+    var failedAttempts: Int?
+    var lockoutUptime: Long?
+    var baseEthereumProvider: String?
+    
+    fun clear()
+}
