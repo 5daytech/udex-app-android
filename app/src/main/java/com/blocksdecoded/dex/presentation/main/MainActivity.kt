@@ -7,13 +7,13 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.account.AccountFragment
 import com.blocksdecoded.dex.presentation.exchange.ExchangeFragment
 import com.blocksdecoded.dex.presentation.markets.MarketsFragment
 import com.blocksdecoded.dex.presentation.orders.OrdersHostFragment
 import com.blocksdecoded.dex.presentation.balance.BalanceFragment
-import com.blocksdecoded.dex.presentation.widgets.listeners.ViewPagerListener
 import com.blocksdecoded.dex.core.ui.CoreActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -39,7 +39,7 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
         main_view_pager.offscreenPageLimit = 3
         main_bottom_nav.setOnNavigationItemSelectedListener(this)
 
-        main_view_pager.addOnPageChangeListener(object : ViewPagerListener() {
+        main_view_pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 main_bottom_nav.selectedItemId = when(position) {
                     0 -> R.id.nav_balance
@@ -72,9 +72,7 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
         }
     }
 
-    private class MainPagerAdapter(
-            fm: FragmentManager
-    ): FragmentPagerAdapter(fm) {
+    private class MainPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
         override fun getItem(p0: Int): Fragment = when(p0) {
             0 -> BalanceFragment.newInstance()
             1 -> ExchangeFragment.newInstance()
