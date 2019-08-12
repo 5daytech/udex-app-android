@@ -8,7 +8,10 @@ import com.blocksdecoded.dex.core.rates.IRatesManager
 import com.blocksdecoded.dex.core.rates.RatesManager
 import com.blocksdecoded.dex.core.rates.remote.RatesApiClient
 import com.blocksdecoded.dex.core.rates.remote.RatesClientConfig
+import com.blocksdecoded.dex.core.security.ISecuredStorage
 import com.blocksdecoded.dex.core.security.SecuredStorage
+import com.blocksdecoded.dex.core.security.encryption.EncryptionManager
+import com.blocksdecoded.dex.core.security.encryption.IEncryptionManager
 import com.blocksdecoded.dex.core.shared.ISharedStorage
 import com.blocksdecoded.dex.core.shared.SharedStorage
 import com.blocksdecoded.dex.core.zrx.IRelayerAdapterManager
@@ -36,7 +39,9 @@ class App: Application() {
         lateinit var ratesManager: IRatesManager
         lateinit var authManager: AuthManager
         lateinit var wordsManager: IWordsManager
+        lateinit var encryptionManager: IEncryptionManager
         
+        lateinit var securedStorage: ISecuredStorage
         lateinit var localStorage: IAppLocalStorage
 
         // Factories
@@ -58,6 +63,8 @@ class App: Application() {
 
         sharedStorage = SharedStorage(this)
         localStorage = AppLocalStorage(sharedStorage)
+        
+        encryptionManager = EncryptionManager()
 
         // Init kits
         ethereumKitManager = EthereumKitManager(testMode, appConfiguration)
@@ -74,7 +81,8 @@ class App: Application() {
         
         adapterManager.initAdapters(CoinManager.coins)
 
-        authManager = AuthManager(SecuredStorage())
+        securedStorage = SecuredStorage(encryptionManager, sharedStorage)
+        authManager = AuthManager(securedStorage)
         wordsManager = WordsManager(localStorage)
     }
 }
