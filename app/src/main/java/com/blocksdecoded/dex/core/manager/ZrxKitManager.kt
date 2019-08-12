@@ -1,18 +1,20 @@
 package com.blocksdecoded.dex.core.manager
 
+import com.blocksdecoded.dex.core.UnauthorizedException
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.relayer.model.Relayer
 import com.blocksdecoded.zrxkit.relayer.model.RelayerConfig
 import java.math.BigInteger
 
 class ZrxKitManager(
-    private val etherKit: EthereumKitManager
+    private val etherKit: EthereumKitManager,
+    private val authManager: AuthManager
 ): IZrxKitManager {
     
     private val networkType = ZrxKit.NetworkType.Ropsten
     
     val gasProvider: ZrxKit.GasInfoProvider = object : ZrxKit.GasInfoProvider() {
-        override fun getGasLimit(contractFunc: String?): BigInteger = 200_000.toBigInteger()
+        override fun getGasLimit(contractFunc: String?): BigInteger = 250_000.toBigInteger()
         override fun getGasPrice(contractFunc: String?): BigInteger = 5_000_000_000L.toBigInteger()
     }
 
@@ -38,15 +40,19 @@ class ZrxKitManager(
 
     override fun zrxKit(): ZrxKit {
         kit?.let { return it }
-
-        kit = ZrxKit.getInstance(
-            relayers,
-            etherKit.authData.privateKey,
-            gasProvider,
-            etherKit.configuration.infuraCredentials.secretKey ?: "",
-            networkType
-        )
-
-        return kit!!
+    
+        authManager.authData?.let { auth ->
+            kit = ZrxKit.getInstance(
+                relayers,
+                auth.privateKey,
+                gasProvider,
+                etherKit.configuration.infuraCredentials.secretKey ?: "",
+                networkType
+            )
+    
+            return kit!!
+        }
+        
+        throw UnauthorizedException()
     }
 }

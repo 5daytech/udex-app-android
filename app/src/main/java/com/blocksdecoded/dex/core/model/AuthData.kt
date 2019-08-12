@@ -12,18 +12,16 @@ class AuthData {
     var walletId: String = ""
     var seed: ByteArray = byteArrayOf()
     var privateKey: BigInteger = BigInteger.ZERO
-    private var version = 2
+    private var version = 1
 
     private val wordsSeparator = " "
     private val partsSeparator = "|"
-
+    
     constructor(words: List<String>, walletId: String = UUID.randomUUID().toString()) {
         this.words = words
         this.walletId = walletId
         this.seed = Mnemonic().toSeed(words)
-
-        val hdWallet = HDWallet(seed, 60)
-        privateKey = hdWallet.privateKey(0, 0, true).privKey
+        initPrivateKey()
     }
 
     constructor(serialized: String) {
@@ -41,6 +39,12 @@ class AuthData {
             this.walletId = walletId
             this.seed = seedString.hexStringToByteArray()
         }
+        initPrivateKey()
+    }
+    
+    private fun initPrivateKey() {
+        val hdWallet = HDWallet(seed, 60)
+        privateKey = hdWallet.privateKey(0, 0, true).privKey
     }
 
     override fun toString(): String {

@@ -14,6 +14,8 @@ class AuthManager(
     var adapterManager: IAdapterManager? = null
 
     var authData: AuthData? = null
+        get() = securedStorage.authData//TODO: Load via safeLoad
+    
     var authDataSignal = PublishSubject.create<Unit>()
 
     val isLoggedIn: Boolean
@@ -27,9 +29,10 @@ class AuthManager(
 
     @Throws(UserNotAuthenticatedException::class)
     fun login(words: List<String>) {
-        AuthData(words, "unique-wallet-id").let {
+        AuthData(words).let {
             securedStorage.saveAuthData(it)
             authData = it
+            authDataSignal.onNext(Unit)
         }
     }
 

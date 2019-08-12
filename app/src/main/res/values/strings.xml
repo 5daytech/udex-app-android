@@ -31,6 +31,7 @@
     <string name="total">Total</string>
     <string name="subtitle_restore">Enter Secret Key</string>
     <string name="error_invalid_mnemonic">Invalid mnemonic</string>
+    <string name="message_words_validated">Words validated</string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>

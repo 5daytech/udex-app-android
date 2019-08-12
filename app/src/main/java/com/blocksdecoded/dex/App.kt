@@ -64,25 +64,23 @@ class App: Application() {
         sharedStorage = SharedStorage(this)
         localStorage = AppLocalStorage(sharedStorage)
         
+	    // Auth
         encryptionManager = EncryptionManager()
+	    securedStorage = SecuredStorage(encryptionManager, sharedStorage)
+	    wordsManager = WordsManager(localStorage)
+	    authManager = AuthManager(securedStorage)
 
         // Init kits
-        ethereumKitManager = EthereumKitManager(testMode, appConfiguration)
-        zrxKitManager = ZrxKitManager(ethereumKitManager)
+        ethereumKitManager = EthereumKitManager(appConfiguration)
+        zrxKitManager = ZrxKitManager(ethereumKitManager, authManager)
         feeRateProvider = FeeRateProvider(this)
 
         ratesManager = RatesManager(BootstrapApiClient(), RatesApiClient(), RatesClientConfig(sharedStorage))
 
         // Init adapter manager
         adapterFactory = AdapterFactory(appConfiguration, ethereumKitManager, feeRateProvider)
-        adapterManager = AdapterManager(adapterFactory, ethereumKitManager)
+        adapterManager = AdapterManager(CoinManager, adapterFactory, ethereumKitManager, authManager)
     
-        relayerAdapterManager = RelayerAdapterManager(ethereumKitManager, zrxKitManager)
-        
-        adapterManager.initAdapters(CoinManager.coins)
-
-        securedStorage = SecuredStorage(encryptionManager, sharedStorage)
-        authManager = AuthManager(securedStorage)
-        wordsManager = WordsManager(localStorage)
+        relayerAdapterManager = RelayerAdapterManager(ethereumKitManager, zrxKitManager, authManager)
     }
 }

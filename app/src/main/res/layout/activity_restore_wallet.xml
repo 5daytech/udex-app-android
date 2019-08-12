@@ -31,18 +31,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/page_margin"
                 android:layout_marginEnd="@dimen/page_margin"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/page_margin"
                 android:text="@string/subtitle_restore"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:textAllCaps="false"
+                android:textSize="15sp"
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/restore_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/element_margin"
                 android:clipToPadding="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -62,6 +63,7 @@
         android:layout_marginLeft="@dimen/big_margin"
         android:layout_marginRight="@dimen/big_margin"
         android:layout_marginBottom="@dimen/big_margin"
+        android:textAllCaps="true"
         android:text="Restore"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

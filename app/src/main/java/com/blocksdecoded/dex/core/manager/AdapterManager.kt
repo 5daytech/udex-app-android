@@ -2,18 +2,18 @@ package com.blocksdecoded.dex.core.manager
 
 import android.os.Handler
 import android.os.HandlerThread
-import android.util.Log
 import com.blocksdecoded.dex.core.adapter.AdapterFactory
 import com.blocksdecoded.dex.core.adapter.IAdapter
-import com.blocksdecoded.dex.core.model.Coin
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.PublishSubject
-import org.web3j.crypto.Wallet
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
 
 class AdapterManager(
+    private val coinManager: CoinManager,
     private val adapterFactory: AdapterFactory,
-    private val ethereumKitManager: IEthereumKitManager)
-    : IAdapterManager, HandlerThread("A") {
+    private val ethereumKitManager: IEthereumKitManager,
+    private val authManager: AuthManager
+) : IAdapterManager, HandlerThread("A") {
 
     private val handler: Handler
     private val disposables = CompositeDisposable()
@@ -21,10 +21,16 @@ class AdapterManager(
     init {
         start()
         handler = Handler(looper)
+    
+        disposables.add(authManager.authDataSignal
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe { initAdapters() }
+        )
     }
 
     override var adapters: List<IAdapter> = listOf()
-    override val adaptersUpdatedSignal = PublishSubject.create<Unit>()
+    override val adaptersUpdatedSignal = BehaviorSubject.create<Unit>()
 
     override fun refresh() {
         handler.post {
@@ -34,15 +40,17 @@ class AdapterManager(
         ethereumKitManager.refresh()
     }
 
-    override fun initAdapters(coins: List<Coin>) {
+    override fun initAdapters() {
         handler.post {
-            adapters.forEach { it.stop() }
-
-            adapters = coins.map { adapterFactory.adapterForCoin(it) }
-
-            adapters.forEach { it.start() }
-
-            adaptersUpdatedSignal.onNext(Unit)
+            authManager.authData?.let { auth ->
+                adapters.forEach { it.stop() }
+                
+                adapters = coinManager.coins.map { adapterFactory.adapterForCoin(it, auth) }
+    
+                adapters.forEach { it.start() }
+    
+                adaptersUpdatedSignal.onNext(Unit)
+            }
         }
     }
 

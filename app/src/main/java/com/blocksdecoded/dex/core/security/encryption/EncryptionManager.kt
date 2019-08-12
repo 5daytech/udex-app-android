@@ -6,14 +6,14 @@ import android.content.Context
 import android.security.keystore.KeyPermanentlyInvalidatedException
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import javax.crypto.Cipher
+import javax.crypto.SecretKey
 
 class EncryptionManager : IEncryptionManager {
-
+    
     private val keyStoreWrapper = KeyStoreWrapper()
-
+    
     @Synchronized
     override fun encrypt(data: String): String {
-
         var masterKey = keyStoreWrapper.getAndroidKeyStoreSymmetricKey(MASTER_KEY)
 
         if (masterKey == null) {

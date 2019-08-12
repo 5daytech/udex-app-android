@@ -18,7 +18,8 @@ class SecuredStorage(
                 val data = sharedStorage.getPreference(AUTH_DATA, "")
                 
                 if (data.isNotEmpty()) {
-                    return AuthData(encryptionManager.decrypt(data))
+//                    return AuthData(encryptionManager.decrypt(data))
+                    return AuthData(data)
                 }
             }
             
@@ -26,7 +27,8 @@ class SecuredStorage(
         }
     
     override fun saveAuthData(authData: AuthData) {
-        sharedStorage.setPreference(AUTH_DATA, encryptionManager.encrypt(authData.toString()))
+//        sharedStorage.setPreference(AUTH_DATA, encryptionManager.encrypt(authData.toString()))
+        sharedStorage.setPreference(AUTH_DATA, authData.toString())
     }
     
     override fun noAuthData(): Boolean = sharedStorage.getPreference(AUTH_DATA, "").isEmpty()
@@ -34,15 +36,18 @@ class SecuredStorage(
     override val savedPin: String?
         get() {
             val pin = sharedStorage.getPreference(LOCK_PIN, "")
+            
             return if (TextUtils.isEmpty(pin)) {
                 null
             } else {
-                encryptionManager.decrypt(pin)
+//                encryptionManager.decrypt(pin)
+                pin
             }
         }
     
     override fun savePin(pin: String) {
-        sharedStorage.setPreference(LOCK_PIN, encryptionManager.encrypt(pin))
+//        sharedStorage.setPreference(LOCK_PIN, encryptionManager.encrypt(pin))
+        sharedStorage.setPreference(LOCK_PIN, pin)
     }
     
     override fun pinIsEmpty(): Boolean {

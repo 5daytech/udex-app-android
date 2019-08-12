@@ -153,7 +153,7 @@ class RelayerAdapter(
 
 		price
 	} catch (e: Exception) {
-		Logger.e(e)
+//		Logger.e(e)
 		BigDecimal.ZERO
 	}
 

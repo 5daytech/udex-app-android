@@ -30,7 +30,7 @@
     </style>
 
     <!-- Buttons -->
-    <style name="PrimaryButton" parent="RegularText">
+    <style name="PrimaryButton" parent="SemiboldText">
         <item name="android:background">@drawable/bg_primary_blue</item>
         <item name="android:foreground">?selectableItemBackground</item>
         <item name="android:textColor">@color/white</item>
