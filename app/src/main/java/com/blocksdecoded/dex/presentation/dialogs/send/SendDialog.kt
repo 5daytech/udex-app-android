@@ -3,7 +3,6 @@ package com.blocksdecoded.dex.presentation.dialogs.send
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
@@ -17,7 +16,7 @@ import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
-import com.blocksdecoded.dex.presentation.widgets.TextWatcher
+import com.blocksdecoded.dex.presentation.widgets.listeners.TextWatcher
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.core.ui.reObserve
 import com.blocksdecoded.dex.utils.ui.ToastHelper

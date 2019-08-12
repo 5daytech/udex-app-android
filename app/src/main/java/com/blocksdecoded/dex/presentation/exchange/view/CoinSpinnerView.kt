@@ -3,7 +3,7 @@ package com.blocksdecoded.dex.presentation.exchange.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import com.blocksdecoded.dex.presentation.widgets.ItemSelectedListener
+import com.blocksdecoded.dex.presentation.widgets.listeners.ItemSelectedListener
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.widget.*

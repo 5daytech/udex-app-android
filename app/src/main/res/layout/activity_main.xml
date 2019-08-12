@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".presentation.main.MainActivity">
 
-    <com.blocksdecoded.dex.presentation.widgets.NonScrollableViewPager
+    <com.blocksdecoded.dex.presentation.widgets.pagers.NonScrollableViewPager
         android:id="@+id/main_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

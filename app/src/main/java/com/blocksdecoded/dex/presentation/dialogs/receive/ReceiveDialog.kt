@@ -18,31 +18,33 @@ class ReceiveDialog: BaseBottomDialog(R.layout.dialog_receive)  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = App.adapterManager
-                .adapters
-                .firstOrNull { it.coin.code == coinCode }
+        val adapter = App.adapterManager.adapters
+            .firstOrNull { it.coin.code == coinCode }
 
         if (adapter == null) {
             ToastHelper.showErrorMessage(R.string.error_invalid_coin)
+            dismiss()
             return
         }
 
-        receive_raw?.text = adapter.receiveAddress
+        val receiveAddress = adapter.receiveAddress
+        
+        receive_raw?.text = receiveAddress
         receive_title?.text = "Receive ${adapter.coin.title}"
         receive_coin_icon?.bind(coinCode)
 
         try {
-            receive_qr?.setImageBitmap(QrUtils.getBarcode(adapter.receiveAddress))
+            receive_qr?.setImageBitmap(QrUtils.getBarcode(receiveAddress))
         } catch (e: Exception) {
 
         }
 
         receive_forward?.setOnClickListener {
-            ShareUtils.shareMessage(activity, adapter.receiveAddress)
+            ShareUtils.shareMessage(activity, receiveAddress)
         }
 
         receive_raw?.setOnClickListener {
-            ClipboardManager.copyText(adapter.receiveAddress)
+            ClipboardManager.copyText(receiveAddress)
             ToastHelper.showSuccessMessage(R.string.message_copied, 1000)
         }
     }

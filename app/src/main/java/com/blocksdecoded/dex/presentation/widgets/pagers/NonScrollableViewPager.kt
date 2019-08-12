@@ -1,11 +1,11 @@
-package com.blocksdecoded.dex.presentation.widgets
+package com.blocksdecoded.dex.presentation.widgets.pagers
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.viewpager.widget.ViewPager
 
-class NonScrollableViewPager: ViewPager {
+open class NonScrollableViewPager: ViewPager {
     var scrollEnabled = false
 
     constructor(context: Context) : super(context)

@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.widgets
+package com.blocksdecoded.dex.presentation.widgets.listeners
 
 import android.view.View
 import android.widget.AdapterView

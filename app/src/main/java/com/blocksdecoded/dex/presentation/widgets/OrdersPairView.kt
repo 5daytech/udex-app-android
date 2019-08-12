@@ -7,6 +7,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.presentation.widgets.listeners.ItemSelectedListener
 import kotlinx.android.synthetic.main.view_current_pair.view.*
 
 class OrdersPairView: LinearLayout {

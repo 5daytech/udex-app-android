@@ -76,7 +76,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"
-        android:text="You receive $0.00"/>
+        android:text="Price per token"/>
 
     <EditText
         style="@style/BoldText"
@@ -84,11 +84,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/limit_receive_hint"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/middle_divider"
         android:layout_marginBottom="@dimen/page_margin"
-        android:layout_marginLeft="@dimen/page_margin"
+        android:layout_marginStart="@dimen/page_margin"
         android:layout_marginTop="@dimen/element_margin"
         android:textColor="@color/main_dark"
         android:background="@color/transparent"
@@ -135,5 +134,23 @@
         app:fabCustomSize="30dp"
         app:elevation="4dp"
         android:clickable="true"/>
+
+    <TextView
+        style="@style/BoldText"
+        android:id="@+id/limit_total"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/limit_price_input"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/middle_divider"
+        android:layout_marginBottom="@dimen/page_margin"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginTop="@dimen/page_margin"
+        android:textColor="@color/main_dark"
+        android:background="@color/transparent"
+        android:textSize="19sp"
+        android:maxLines="1"
+        android:text="Total: 0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

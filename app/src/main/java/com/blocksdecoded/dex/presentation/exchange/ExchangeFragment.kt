@@ -23,8 +23,14 @@ import java.util.concurrent.TimeUnit
 class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAdapter.Listener {
 
     private lateinit var viewModel: ExchangeViewModel
-    private val disposables = CompositeDisposable()
-
+	private lateinit var exchangeAdapter: ExchangeAdapter
+	private val disposables = CompositeDisposable()
+	
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		exchangeAdapter = ExchangeAdapter()
+	}
+	
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ExchangeViewModel::class.java)
@@ -47,7 +53,6 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
 
         viewModel.successEvent.observe(this, Observer {
             SentDialog.show(childFragmentManager, it)
-//            ToastHelper.showInfoMessage("Transaction successfully sent\n hash - $it")
         })
 
         viewModel.exchangeEnabled.observe(this, Observer {
@@ -69,17 +74,20 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         exchange_numpad?.bind(this, NumPadItemType.DOT, false, scrollable = true)
         exchange_confirm?.setOnClickListener { viewModel.onExchangeClick() }
         
-        exchange_view?.bind(
-            onMaxClick = { viewModel.onMaxClick() },
-            onSendCoinPick = { viewModel.onSendCoinPick(it) },
-            onReceiveCoinPick = { viewModel.onReceiveCoinPick(it) },
-            onSwitchClick = { viewModel.onSwitchClick() }
-        )
-        
-        exchange_view?.sendAmountChangeSubject?.debounce(200, TimeUnit.MILLISECONDS)
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe { viewModel.onSendAmountChange(it) }
-            ?.let { disposables.add(it) }
+	    exchange_pager?.adapter = exchangeAdapter
+	    exchange_tab_layout?.setupWithViewPager(exchange_pager)
+     
+//        exchange_view?.bind(
+//            onMaxClick = { viewModel.onMaxClick() },
+//            onSendCoinPick = { viewModel.onSendCoinPick(it) },
+//            onReceiveCoinPick = { viewModel.onReceiveCoinPick(it) },
+//            onSwitchClick = { viewModel.onSwitchClick() }
+//        )
+//
+//        exchange_view?.sendAmountChangeSubject?.debounce(200, TimeUnit.MILLISECONDS)
+//            ?.observeOn(AndroidSchedulers.mainThread())
+//            ?.subscribe { viewModel.onSendAmountChange(it) }
+//            ?.let { disposables.add(it) }
     }
 
     override fun onItemClick(item: NumPadItem) {
