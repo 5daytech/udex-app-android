@@ -10,7 +10,7 @@ import android.view.inputmethod.InputConnection
 import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
-import com.blocksdecoded.dex.presentation.widgets.listeners.TextWatcher
+import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.view_market_order.view.*
@@ -29,7 +29,7 @@ class MarketOrderView: CardView {
 	val sendAmountChangeSubject: PublishSubject<BigDecimal> = PublishSubject.create()
 	val receiveAmountChangeSubject: PublishSubject<BigDecimal> = PublishSubject.create()
 	
-	private val sendAmountChangeWatcher = object: TextWatcher() {
+	private val sendAmountChangeWatcher = object: SimpleTextWatcher() {
 		override fun afterTextChanged(s: Editable?) {
 			val amountText = s?.toString() ?: ""
 			var amountNumber = when {

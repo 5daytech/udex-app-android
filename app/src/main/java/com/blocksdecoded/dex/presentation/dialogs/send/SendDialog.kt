@@ -16,7 +16,7 @@ import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
-import com.blocksdecoded.dex.presentation.widgets.listeners.TextWatcher
+import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.core.ui.reObserve
 import com.blocksdecoded.dex.utils.ui.ToastHelper
@@ -67,7 +67,7 @@ class SendDialog: BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Lis
 
     //endregion
 
-    private val amountChangeListener = object: TextWatcher() {
+    private val amountChangeListener = object: SimpleTextWatcher() {
         override fun afterTextChanged(s: Editable?) {
             val amountText = s?.toString() ?: ""
             var amountNumber = when {

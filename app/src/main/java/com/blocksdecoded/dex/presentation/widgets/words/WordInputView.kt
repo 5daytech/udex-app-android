@@ -5,7 +5,7 @@ import android.text.Editable
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.widgets.listeners.TextWatcher
+import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
 import kotlinx.android.synthetic.main.view_word_input.view.*
 
 class WordInputView : LinearLayout {
@@ -28,7 +28,7 @@ class WordInputView : LinearLayout {
     fun getEnteredText(): String? = word_input.text?.toString()
 
     fun setOnChangeListener(onChanged: (String) -> Unit) {
-        word_input.addTextChangedListener(object : TextWatcher() {
+        word_input.addTextChangedListener(object : SimpleTextWatcher() {
             override fun afterTextChanged(s: Editable?) {
                 onChanged.invoke(s.toString().trim())
             }
