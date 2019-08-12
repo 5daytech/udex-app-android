@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import com.blocksdecoded.dex.BuildConfig
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreActivity
 import com.blocksdecoded.dex.presentation.main.MainActivity
@@ -13,12 +14,14 @@ import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.presentation.widgets.words.WordInputViewHolder
 import com.blocksdecoded.dex.presentation.widgets.words.WordsInputAdapter
 import com.blocksdecoded.dex.utils.ui.ToastHelper
+import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.activity_restore_wallet.*
 
 class RestoreWalletActivity: CoreActivity(), WordInputViewHolder.OnWordChangeListener {
 
     private lateinit var viewModel: RestoreWalletViewModel
-
+    private val words = MutableList(12) { "" }
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restore_wallet)
@@ -41,12 +44,21 @@ class RestoreWalletActivity: CoreActivity(), WordInputViewHolder.OnWordChangeLis
         restore_recycler.adapter = WordsInputAdapter(this)
         
         restore_confirm.setOnClickListener {
-            viewModel.onRestoreClick()
+            // Only for debug purposes
+            if (BuildConfig.DEBUG && !restore_debug_input?.text.isNullOrEmpty()) {
+                restore_debug_input.text.toString().split(" ").forEachIndexed { index, s ->
+                    words[index] = s
+                }
+            }
+            
+            viewModel.onRestoreClick(words)
         }
+        
+        restore_debug_input.visible = BuildConfig.DEBUG
     }
 
     override fun onChange(position: Int, value: String) {
-        viewModel.onWordChanged(position, value)
+        words[position] = value
     }
 
     companion object {

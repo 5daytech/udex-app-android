@@ -12,13 +12,12 @@ class RestoreWalletViewModel: CoreViewModel() {
     
 	private val authManager: AuthManager = App.authManager
     private val wordsManager: IWordsManager = App.wordsManager
-    private val words = MutableList(12) { "" }
 
     val errorEvent = SingleLiveEvent<Int>()
 	val successEvent = SingleLiveEvent<Int>()
 	val navigateToMain = SingleLiveEvent<Unit>()
 
-    fun onRestoreClick() {
+    fun onRestoreClick(words: List<String>) {
         try {
             wordsManager.validate(words)
 	        successEvent.value = R.string.message_words_validated
@@ -27,9 +26,5 @@ class RestoreWalletViewModel: CoreViewModel() {
         } catch (e: Mnemonic.MnemonicException) {
             errorEvent.value = R.string.error_invalid_mnemonic
         }
-    }
-    
-    fun onWordChanged(position: Int, word: String) {
-        words[position] = word
     }
 }
