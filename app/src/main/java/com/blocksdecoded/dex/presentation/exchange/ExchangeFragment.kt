@@ -66,7 +66,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        exchange_numpad?.bind(this, NumPadItemType.DOT, false)
+        exchange_numpad?.bind(this, NumPadItemType.DOT, false, scrollable = true)
         exchange_confirm?.setOnClickListener { viewModel.onExchangeClick() }
         
         exchange_view?.bind(

@@ -24,7 +24,12 @@ class NumPadView: RecyclerView {
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
 
     @SuppressLint("ClickableViewAccessibility")
-    fun bind(listener: NumPadItemsAdapter.Listener, bottomLeftButtonType: NumPadItemType, showLetters: Boolean = true) {
+    fun bind(
+        listener: NumPadItemsAdapter.Listener,
+        bottomLeftButtonType: NumPadItemType,
+        showLetters: Boolean = true,
+        scrollable: Boolean = false
+    ) {
         removeAllViewsInLayout()
 
         if (numPadAdapter != null) throw Exception("Adapter already initialized")
@@ -33,12 +38,14 @@ class NumPadView: RecyclerView {
         numPadAdapter = NumPadItemsAdapter(listener, bottomLeftButtonType, showLetters)
         adapter = numPadAdapter
 
-        //disables BottomSheet dragging in numpad area
-        this.setOnTouchListener { _, event ->
-            when (event?.action) {
-                MotionEvent.ACTION_DOWN,
-                MotionEvent.ACTION_UP -> false
-                else -> true
+        if (!scrollable) {
+            //disables BottomSheet dragging in numpad area
+            this.setOnTouchListener { _, event ->
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN,
+                    MotionEvent.ACTION_UP -> false
+                    else -> true
+                }
             }
         }
     }
