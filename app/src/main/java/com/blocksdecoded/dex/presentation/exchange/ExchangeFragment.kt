@@ -8,17 +8,20 @@ import androidx.lifecycle.Observer
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.dialogs.sent.SentDialog
+import com.blocksdecoded.dex.presentation.exchange.ExchangeFragment.InputField.*
 import com.blocksdecoded.dex.presentation.exchange.ExchangeType.*
 import com.blocksdecoded.dex.presentation.exchange.view.limit.LimitOrderViewModel
 import com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderViewModel
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
+import com.blocksdecoded.dex.utils.currentFocus
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_exchange.*
+import kotlinx.android.synthetic.main.view_limit_order.*
 import kotlinx.android.synthetic.main.view_market_order.*
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -32,10 +35,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     private val disposables = CompositeDisposable()
     
     private val activeType: ExchangeType
-        get() = if (exchange_pager.currentItem == 0)
-            MARKET
-        else
-            LIMIT
+        get() = if (exchange_pager.currentItem == 0) MARKET else LIMIT
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -120,14 +120,38 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     }
 
     override fun onItemClick(item: NumPadItem) {
+        val inputType = getInputField()
+        
+        val inputField = when(inputType) {
+            MARKET_AMOUNT -> exchange_amount_input
+            LIMIT_AMOUNT -> limit_amount_input
+            LIMIT_PRICE -> limit_price_input
+        }
+        
+        val inputConnection = when(inputType) {
+            MARKET_AMOUNT -> exchange_market_view?.inputConnection
+            LIMIT_AMOUNT -> exchange_limit_view?.amountInputConnection
+            LIMIT_PRICE -> exchange_limit_view?.priceInputConnection
+        }
+        
         when (item.type) {
-            NumPadItemType.NUMBER -> exchange_market_view?.inputConnection?.commitText(item.number.toString(), 1)
-            NumPadItemType.DELETE -> exchange_market_view?.inputConnection?.deleteSurroundingText(1, 0)
+            NumPadItemType.NUMBER -> inputConnection?.commitText(item.number.toString(), 1)
+            NumPadItemType.DELETE -> inputConnection?.deleteSurroundingText(1, 0)
             NumPadItemType.DOT -> {
-                if (exchange_amount_input?.text?.toString()?.contains(".") != true) {
-                    exchange_market_view?.inputConnection?.commitText(".", 1)
+                if (inputField?.text?.toString()?.contains(".") != true) {
+                    inputConnection?.commitText(".", 1)
                 }
             }
+        }
+    }
+    
+    private fun getInputField(): InputField = when(currentFocus?.id) {
+        R.id.exchange_amount_input -> MARKET_AMOUNT
+        R.id.limit_amount_input -> LIMIT_AMOUNT
+        R.id.limit_price_input -> LIMIT_PRICE
+        else -> when(activeType) {
+            MARKET -> MARKET_AMOUNT
+            LIMIT -> LIMIT_AMOUNT
         }
     }
 
@@ -135,4 +159,9 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         fun newInstance() = ExchangeFragment()
     }
 
+    enum class InputField {
+        MARKET_AMOUNT,
+        LIMIT_AMOUNT,
+        LIMIT_PRICE
+    }
 }

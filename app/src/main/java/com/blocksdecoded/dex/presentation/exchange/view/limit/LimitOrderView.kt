@@ -18,11 +18,12 @@ import java.math.RoundingMode
 class LimitOrderView: CardView {
 	init { View.inflate(context, R.layout.view_limit_order, this) }
 	
-	constructor(context: Context) : super(context)
-	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-	constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+	constructor(context: Context) : super(context) { init() }
+	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) { init() }
+	constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) { init() }
 	
-	var inputConnection: InputConnection? = null
+	var amountInputConnection: InputConnection? = null
+	var priceInputConnection: InputConnection? = null
 	
 	val sendAmountChangeSubject: PublishSubject<BigDecimal> = PublishSubject.create()
 	val priceChangeSubject: PublishSubject<BigDecimal> = PublishSubject.create()
@@ -45,16 +46,40 @@ class LimitOrderView: CardView {
 				}
 			}
 			
-			limit_amount_input?.visible = amountText.isEmpty()
+			limit_amount_max?.visible = amountText.isEmpty()
 			sendAmountChangeSubject.onNext(amountNumber)
+		}
+	}
+	
+	private val priceChangeWatcher = object: SimpleTextWatcher() {
+		override fun afterTextChanged(s: Editable?) {
+			val priceText = s?.toString() ?: ""
+			var priceNumber = when {
+				priceText != "" -> priceText.toBigDecimalOrNull() ?: BigDecimal.ZERO
+				else -> BigDecimal.ZERO
+			}
+			
+			val decimalSize = 18
+			decimalSize.let {
+				if (priceNumber.scale() > it) {
+					priceNumber = priceNumber.setScale(it, RoundingMode.FLOOR)
+					val newString = priceNumber.toPlainString()
+					limit_price_input?.setText(newString)
+					limit_price_input?.setSelection(newString.length)
+				}
+			}
+			
+			priceChangeSubject.onNext(priceNumber)
 		}
 	}
 	
 	fun init() {
 		limit_amount_input?.addTextChangedListener(sendAmountChangeWatcher)
 		limit_amount_input?.showSoftInputOnFocus = false
-		inputConnection = limit_amount_input?.onCreateInputConnection(EditorInfo())
+		amountInputConnection = limit_amount_input?.onCreateInputConnection(EditorInfo())
 		
-		
+		limit_price_input?.addTextChangedListener(priceChangeWatcher)
+		limit_price_input?.showSoftInputOnFocus = false
+		priceInputConnection = limit_price_input?.onCreateInputConnection(EditorInfo())
 	}
 }

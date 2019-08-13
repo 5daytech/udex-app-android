@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 
 fun <T>List<T>?.isValidIndex(index: Int): Boolean = index in 0 until (this?.size ?: 0)
@@ -51,6 +52,9 @@ fun View.setVisible(visible: Boolean, animated: Boolean = false) {
         AnimationHelper.collapse(this)
     }
 }
+
+val Fragment.currentFocus : View?
+    get() = activity?.window?.currentFocus
 
 fun TextView.setTextColorRes(@ColorRes colorRes: Int) {
     setTextColor(ContextCompat.getColor(this.context, colorRes))
