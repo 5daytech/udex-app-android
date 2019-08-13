@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.core.zrx
 
 import android.util.Log
+import com.blocksdecoded.dex.core.CancelOrderException
 import com.blocksdecoded.dex.core.CreateOrderException
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.CoinType
@@ -248,6 +249,13 @@ class RelayerAdapter(
 		return checkAllowance(baseAsset to quoteAsset)
             .flatMap { postOrder(baseAsset.assetData, makerAmount, quoteAsset.assetData, takerAmount, side) }
 	}
+
+	override fun cancelOrder(order: SignedOrder): Flowable<String> =
+		if (order.makerAddress.equals(ethereumKit.receiveAddress, true)) {
+			exchangeWrapper.cancelOrder(order)
+		} else {
+			Flowable.error(CancelOrderException(order.makerAddress, ethereumKit.receiveAddress))
+		}
 
 	//endregion
 }

@@ -34,4 +34,6 @@ interface IRelayerAdapter {
 		amount: BigDecimal,
 		price: BigDecimal
 	): Flowable<SignedOrder>
+
+    fun cancelOrder(order: SignedOrder): Flowable<String>
 }
