@@ -46,7 +46,7 @@ class OrdersFragment: CoreFragment(R.layout.fragment_orders), OrderViewHolder.Li
     }
 
     override fun onClick(position: Int) {
-    
+        viewModel.onOrderClick(position, side)
     }
     
     companion object {

@@ -37,6 +37,7 @@
     <string name="message_order_created">Order successfully placed</string>
     <string name="error_exchange_failed">Exchange failed</string>
     <string name="error_order_place">Order place failed</string>
+    <string name="error_cancel_order">Order cancel failed</string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>

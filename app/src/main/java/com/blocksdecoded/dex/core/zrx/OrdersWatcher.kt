@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.core.zrx
 
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
+import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.zrxkit.model.SignedOrder
@@ -64,14 +65,14 @@ class OrdersWatcher(
 	
 	private fun refreshSellOrders(pairOrders: RelayerOrders<SignedOrder>) {
 		uiSellOrders = pairOrders.orders
-			.map { UiOrder.fromOrder(it, EOrderSide.SELL) }.sortedBy { it.price }
+			.map { UiOrder.fromOrder(it, SELL) }.sortedBy { it.price }
 		
 		sellOrdersSubject.onNext(uiSellOrders)
 	}
 	
 	private fun refreshBuyOrders(pairOrders: RelayerOrders<SignedOrder>) {
 		uiBuyOrders = pairOrders.orders
-			.map { UiOrder.fromOrder(it, EOrderSide.BUY) }.sortedByDescending { it.price }
+			.map { UiOrder.fromOrder(it, BUY) }.sortedByDescending { it.price }
 		
 		buyOrdersSubject.onNext(uiBuyOrders)
 	}
@@ -91,9 +92,21 @@ class OrdersWatcher(
 		Logger.e(e)
 	}
 
+	private fun getMySelectedOrders(): RelayerOrders<Pair<SignedOrder, EOrderSide>> =
+		relayerAdapter.myOrders.getPair(
+			relayerAdapter.availablePairs[currentSelectedPair].first.assetData,
+			relayerAdapter.availablePairs[currentSelectedPair].second.assetData
+		)
+	
 	private fun isSelectedPair(baseAsset: String, quoteAsset: String): Boolean =
 		relayerAdapter.availablePairs[currentSelectedPair].first.assetData.equals(baseAsset, true) &&
 				relayerAdapter.availablePairs[currentSelectedPair].second.assetData.equals(quoteAsset, true)
+	
+	//TODO: Replace with order hash
+	fun getMyOrder(position: Int, side: EOrderSide): Pair<SignedOrder, EOrderSide>? = when(side) {
+		MY -> getMySelectedOrders().orders[position]
+		else -> null
+	}
 	
 	fun start() {
 	

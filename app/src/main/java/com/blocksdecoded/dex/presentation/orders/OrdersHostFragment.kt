@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.orders.info.OrderInfoDialog
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import kotlinx.android.synthetic.main.fragment_orders_host.*
 
@@ -36,6 +37,10 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
             
             viewModel.selectedPairPosition.observe(this, Observer { selectedPair ->
                 orders_host_pair_picker?.selectedPair = selectedPair
+            })
+            
+            viewModel.orderInfoEvent.observe(this, Observer {
+                OrderInfoDialog.show(childFragmentManager, it)
             })
         }
     }
