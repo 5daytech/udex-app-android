@@ -3,18 +3,16 @@ package com.blocksdecoded.dex.presentation.exchange
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
-import com.blocksdecoded.dex.presentation.exchange.view.limit.LimitOrderView
-import com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderView
+import com.blocksdecoded.dex.R
 
 class ExchangeAdapter : PagerAdapter() {
 	override fun instantiateItem(container: ViewGroup, position: Int): Any {
-		val view = when(position) {
-			0 -> MarketOrderView(container.context)
-			else -> LimitOrderView(container.context)
+		val viewId = when(position) {
+			0 -> R.id.exchange_market_view
+			else -> R.id.exchange_limit_view
 		}
 		
-		container.addView(view)
-		return view
+		return container.findViewById(viewId)
 	}
 	
 	override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`

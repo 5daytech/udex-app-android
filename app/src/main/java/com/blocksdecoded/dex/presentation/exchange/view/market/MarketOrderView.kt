@@ -27,7 +27,6 @@ class MarketOrderView: CardView {
 	var inputConnection: InputConnection? = null
 	
 	val sendAmountChangeSubject: PublishSubject<BigDecimal> = PublishSubject.create()
-	val receiveAmountChangeSubject: PublishSubject<BigDecimal> = PublishSubject.create()
 	
 	private val sendAmountChangeWatcher = object: SimpleTextWatcher() {
 		override fun afterTextChanged(s: Editable?) {

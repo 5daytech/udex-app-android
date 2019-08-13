@@ -52,7 +52,26 @@
             app:layout_constraintTop_toBottomOf="@+id/exchange_tab_layout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="@dimen/element_margin" />
+            android:padding="@dimen/element_margin"
+            android:layout_marginTop="@dimen/element_margin" >
+            <com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderView
+                android:id="@+id/exchange_market_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="8dp"
+                android:padding="@dimen/element_margin"/>
+
+            <com.blocksdecoded.dex.presentation.exchange.view.limit.LimitOrderView
+                android:id="@+id/exchange_limit_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="8dp"
+                android:padding="@dimen/element_margin"/>
+        </com.blocksdecoded.dex.presentation.widgets.pagers.WrapContentViewPager>
 
         <com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderView
             android:id="@+id/exchange_view"
