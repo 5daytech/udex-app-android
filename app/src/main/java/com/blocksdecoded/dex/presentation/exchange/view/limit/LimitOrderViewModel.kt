@@ -1,6 +1,5 @@
 package com.blocksdecoded.dex.presentation.exchange.view.limit
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
@@ -10,6 +9,7 @@ import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
+import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.subscribeUi
 import java.math.BigDecimal
 
@@ -56,6 +56,7 @@ class LimitOrderViewModel: CoreViewModel() {
 	val receiveCoins = MutableLiveData<List<ExchangePairItem>>()
 	
 	val messageEvent = MutableLiveData<Int>()
+	val errorEvent = MutableLiveData<Int>()
 	val successEvent = MutableLiveData<String>()
 	
 	val exchangePrice = MutableLiveData<BigDecimal>()
@@ -192,7 +193,21 @@ class LimitOrderViewModel: CoreViewModel() {
 	fun onExchangeClick() {
 		viewState.value?.sendAmount?.let { amount ->
 			if (amount > BigDecimal.ZERO && mPriceInfo.sendPrice > BigDecimal.ZERO) {
-				messageEvent.postValue(R.string.message_exchange_wait)
+				messageEvent.postValue(R.string.message_order_creating)
+
+				relayer.createOrder(
+					coinPairsCodes[currentPairPosition],
+					if (exchangeState == ExchangeSide.BID) EOrderSide.SELL else EOrderSide.BUY,
+					amount,
+					mPriceInfo.sendPrice
+				).subscribeUi(disposables, {}, {
+					errorEvent.postValue(R.string.error_order_place)
+					Logger.e(it)
+				}, {
+					messageEvent.postValue(R.string.message_order_created)
+					initState(viewState.value?.sendPair, viewState.value?.receivePair)
+				})
+
 			} else {
 				messageEvent.postValue(R.string.message_invalid_amount)
 			}

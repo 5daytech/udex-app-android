@@ -5,6 +5,7 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.zrx.OrdersWatcher
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
+import com.blocksdecoded.dex.utils.Logger
 
 class OrdersViewModel : CoreViewModel() {
     private val zrxOrdersWatcher = OrdersWatcher(App.relayerAdapterManager.getMainAdapter())
@@ -16,25 +17,25 @@ class OrdersViewModel : CoreViewModel() {
     val availablePairs = MutableLiveData<List<Pair<String, String>>>()
 
     init {
-        zrxOrdersWatcher.availablePairsSubject.subscribe { pairs ->
+        zrxOrdersWatcher.availablePairsSubject.subscribe({ pairs ->
             availablePairs.value = pairs
-        }?.let { disposables.add(it) }
+        }, { Logger.e(it) })?.let { disposables.add(it) }
 
-        zrxOrdersWatcher.buyOrdersSubject.subscribe { orders ->
+        zrxOrdersWatcher.buyOrdersSubject.subscribe({ orders ->
             buyOrders.value = orders
-        }?.let { disposables.add(it) }
+        }, { Logger.e(it) })?.let { disposables.add(it) }
 
-        zrxOrdersWatcher.sellOrdersSubject.subscribe { orders ->
+        zrxOrdersWatcher.sellOrdersSubject.subscribe({ orders ->
             sellOrders.value = orders
-        }?.let { disposables.add(it) }
+        }, { Logger.e(it) })?.let { disposables.add(it) }
 
-        zrxOrdersWatcher.myOrdersSubject.subscribe { orders ->
+        zrxOrdersWatcher.myOrdersSubject.subscribe({orders ->
             myOrders.value = orders
-        }?.let { disposables.add(it) }
+        }, { Logger.e(it) })?.let { disposables.add(it) }
 
-        zrxOrdersWatcher.selectedPairSubject.subscribe { position ->
+        zrxOrdersWatcher.selectedPairSubject.subscribe({ position ->
             selectedPairPosition.value = position
-        }?.let { disposables.add(it) }
+        }, { Logger.e(it) })?.let { disposables.add(it) }
         
         refreshOrders()
     }

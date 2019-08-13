@@ -180,7 +180,7 @@ class MarketOrderViewModel: CoreViewModel() {
         viewState.value?.sendAmount?.let { amount ->
             val receiveAmount = viewState.value?.receiveAmount ?: BigDecimal.ZERO
             if (amount > BigDecimal.ZERO && receiveAmount > BigDecimal.ZERO) {
-                messageEvent.postValue(R.string.message_exchange_wait)
+                messageEvent.postValue(R.string.message_wait_blockchain)
 
                 relayer.fill(
                     coinPairsCodes[currentPairPosition],
@@ -190,7 +190,7 @@ class MarketOrderViewModel: CoreViewModel() {
                     initState(viewState.value?.sendPair, viewState.value?.receivePair)
                     successEvent.postValue(it)
                 }, {
-                    //TODO: Show error event
+                    errorEvent.postValue(R.string.error_exchange_failed)
                 })
             } else {
                 errorEvent.postValue(R.string.message_invalid_amount)

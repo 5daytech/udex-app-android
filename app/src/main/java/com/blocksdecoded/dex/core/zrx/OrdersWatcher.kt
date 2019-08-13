@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.core.zrx
 
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
+import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.zrxkit.model.SignedOrder
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
@@ -75,7 +76,7 @@ class OrdersWatcher(
 		buyOrdersSubject.onNext(uiBuyOrders)
 	}
 	
-	private fun refreshMyOrders(pairOrders: RelayerOrders<Pair<SignedOrder, EOrderSide>>) {
+	private fun refreshMyOrders(pairOrders: RelayerOrders<Pair<SignedOrder, EOrderSide>>) = try {
 		uiMyOrders = pairOrders.orders
 			.mapIndexed { index, it ->
 				UiOrder.fromOrder(
@@ -86,6 +87,8 @@ class OrdersWatcher(
 				)
 			}
 		myOrdersSubject.onNext(uiMyOrders)
+	} catch (e: Exception) {
+		Logger.e(e)
 	}
 
 	private fun isSelectedPair(baseAsset: String, quoteAsset: String): Boolean =

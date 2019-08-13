@@ -173,7 +173,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         })
     
         limitOrderViewModel.messageEvent.observe(this, Observer {
-            ToastHelper.showInfoMessage("Coins unlock and fill started")
+            ToastHelper.showSuccessMessage(it)
         })
     
         limitOrderViewModel.successEvent.observe(this, Observer {

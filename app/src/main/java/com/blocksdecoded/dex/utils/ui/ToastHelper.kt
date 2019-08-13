@@ -13,6 +13,10 @@ object ToastHelper {
 
     private var toast: Toast? = null
 
+    fun showInfoMessage(text: Int, durationInMillis: Long = 2000) {
+        showMessage(text, R.color.blue, durationInMillis)
+    }
+
     fun showInfoMessage(text: String, durationInMillis: Long = 2000) {
         showMessage(text, R.color.blue, durationInMillis)
     }

@@ -19,7 +19,8 @@
 
     <!-- Hints -->
     <string name="markets_list_hint">market info (24h)</string>
-    <string name="message_exchange_wait">Wait till transaction is added to blockchain</string>
+    <string name="message_wait_blockchain">Wait till transaction is added to blockchain</string>
+    <string name="message_order_creating">Order processing…</string>
 
     <!-- Notifications -->
     <string name="send_success">\u2713 Sent</string>
@@ -33,6 +34,9 @@
     <string name="error_invalid_mnemonic">Invalid mnemonic</string>
     <string name="message_words_validated">Words validated</string>
     <string name="message_invalid_amount">Invalid trade amount</string>
+    <string name="message_order_created">Order successfully placed</string>
+    <string name="error_exchange_failed">Exchange failed</string>
+    <string name="error_order_place">Order place failed</string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>
