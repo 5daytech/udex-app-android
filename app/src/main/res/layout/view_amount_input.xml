@@ -15,29 +15,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/element_margin"
-        android:includeFontPadding="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/light_hint"
         tools:text="ETH"
         android:textSize="16sp"
         />
 
     <EditText
-        style="@style/SemiboldText"
+        style="@style/PrimaryNumberInput"
         android:id="@+id/amount_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="9dp"
-        android:background="@android:color/transparent"
-        android:inputType="number|numberDecimal"
-        android:maxLines="1"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/amount_prefix"
+        app:layout_constraintTop_toTopOf="@+id/amount_prefix"
         app:layout_constraintEnd_toStartOf="@+id/amount_max"
-        app:layout_constraintStart_toEndOf="@+id/amount_prefix"
-        android:textSize="18sp"
-        android:hint="Amount"
-        android:text="0.00"/>
+        app:layout_constraintStart_toEndOf="@+id/amount_prefix" />
 
     <View
         android:id="@+id/amount_divider"

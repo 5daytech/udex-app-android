@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.presentation.exchange.view.limit
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Editable
 import android.util.AttributeSet
@@ -8,6 +9,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
@@ -81,5 +83,63 @@ class LimitOrderView: CardView {
 		limit_price_input?.addTextChangedListener(priceChangeWatcher)
 		limit_price_input?.showSoftInputOnFocus = false
 		priceInputConnection = limit_price_input?.onCreateInputConnection(EditorInfo())
+	}
+	
+	fun bind(
+		onMaxClick: () -> Unit,
+		onSendCoinPick: (Int) -> Unit,
+		onReceiveCoinPick: (Int) -> Unit,
+		onSwitchClick: () -> Unit
+	) {
+		limit_base_spinner?.init(onSendCoinPick)
+		limit_quote_spinner?.init(onReceiveCoinPick)
+		limit_amount_max?.setOnClickListener { onMaxClick() }
+		limit_switch?.setOnClickListener { onSwitchClick() }
+	}
+	
+	fun updateSendCoins(coins: List<ExchangePairItem>) {
+		limit_base_spinner?.setCoins(coins)
+	}
+	
+	fun updateReceiveCoins(coins: List<ExchangePairItem>) {
+		limit_quote_spinner?.setCoins(coins)
+	}
+	
+	@SuppressLint("SetTextI18n")
+	fun updateState(state: LimitOrderViewState) {
+		updateAmount(state.sendAmount)
+		
+		updatePrice(state.sendPrice)
+		
+		updateTotal(state.receiveAmount)
+		
+		limit_base_spinner?.setSelectedPair(state.sendPair)
+		limit_quote_spinner?.setSelectedPair(state.receivePair)
+	}
+	
+	private fun updateTotal(total: BigDecimal) {
+		if (total > BigDecimal.ZERO) {
+			limit_total?.text = "Total: ${total.stripTrailingZeros().toPlainString()}"
+		} else {
+			limit_total?.text = ""
+		}
+	}
+	
+	private fun updateAmount(amount: BigDecimal) {
+		if (amount > BigDecimal.ZERO) {
+			limit_amount_input?.setText(amount.stripTrailingZeros().toPlainString())
+			limit_amount_input?.setSelection(limit_amount_input?.text?.length ?: 0)
+		} else {
+			limit_amount_input?.setText("")
+		}
+	}
+	
+	private fun updatePrice(price: BigDecimal) {
+		if (price > BigDecimal.ZERO) {
+			limit_price_input?.setText(price.stripTrailingZeros().toPlainString())
+			limit_price_input?.setSelection(limit_price_input?.text?.length ?: 0)
+		} else {
+			limit_price_input?.setText("")
+		}
 	}
 }

@@ -79,17 +79,28 @@ class MarketOrderView: CardView {
 	
 	@SuppressLint("SetTextI18n")
 	fun updateState(state: MarketOrderViewState) {
-		val amount = state.sendAmount
+		updateAmount(state.sendAmount)
+		
+		updateReceiveAmount(state.receiveAmount)
+		
+		exchange_base_spinner?.setSelectedPair(state.sendPair)
+		exchange_quote_spinner?.setSelectedPair(state.receivePair)
+	}
+	
+	private fun updateAmount(amount: BigDecimal) {
 		if (amount > BigDecimal.ZERO) {
 			exchange_amount_input?.setText(amount.stripTrailingZeros().toPlainString())
 			exchange_amount_input?.setSelection(exchange_amount_input?.text?.length ?: 0)
 		} else {
 			exchange_amount_input?.setText("")
 		}
-		
-		exchange_receive_input?.text = state.receiveAmount.stripTrailingZeros().toPlainString()
-		
-		exchange_base_spinner?.setSelectedPair(state.sendPair)
-		exchange_quote_spinner?.setSelectedPair(state.receivePair)
+	}
+	
+	private fun updateReceiveAmount(amount: BigDecimal) {
+		if (amount > BigDecimal.ZERO) {
+			exchange_receive_input?.text = amount.stripTrailingZeros().toPlainString()
+		} else {
+			exchange_receive_input?.text = ""
+		}
 	}
 }

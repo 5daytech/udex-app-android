@@ -36,7 +36,13 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     
     private val activeType: ExchangeType
         get() = if (exchange_pager.currentItem == 0) MARKET else LIMIT
+    
+    private val exchangeEnableObserver = Observer<Boolean> {
+        exchange_confirm?.isEnabled = it
+    }
 
+    //region Lifecycle
+    
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		exchangeAdapter = ExchangeAdapter()
@@ -49,6 +55,59 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
 
         initLimitViewModel()
     }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        
+        exchange_numpad?.bind(this, NumPadItemType.DOT, false, scrollable = true)
+        exchange_confirm?.setOnClickListener {
+            when(activeType) {
+                MARKET -> marketOrderViewModel.onExchangeClick()
+                LIMIT -> {}
+            }
+        }
+        
+        exchange_pager?.adapter = exchangeAdapter
+        exchange_pager?.offscreenPageLimit = 2
+        exchange_tab_layout?.setupWithViewPager(exchange_pager)
+    
+        // Market view
+        
+        exchange_market_view?.bind(
+            onMaxClick = { marketOrderViewModel.onMaxClick() },
+            onSendCoinPick = { marketOrderViewModel.onSendCoinPick(it) },
+            onReceiveCoinPick = { marketOrderViewModel.onReceiveCoinPick(it) },
+            onSwitchClick = { marketOrderViewModel.onSwitchClick() }
+        )
+        
+        exchange_market_view?.sendAmountChangeSubject?.debounce(200, TimeUnit.MILLISECONDS)
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe { marketOrderViewModel.onSendAmountChange(it) }
+            ?.let { disposables.add(it) }
+    
+        // Limit view
+        
+        exchange_limit_view?.bind(
+            onMaxClick = { limitOrderViewModel.onMaxClick() },
+            onSendCoinPick = { limitOrderViewModel.onSendCoinPick(it) },
+            onReceiveCoinPick = { limitOrderViewModel.onReceiveCoinPick(it) },
+            onSwitchClick = { limitOrderViewModel.onSwitchClick() }
+        )
+    
+        exchange_limit_view?.sendAmountChangeSubject?.debounce(200, TimeUnit.MILLISECONDS)
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe { limitOrderViewModel.onSendAmountChange(it) }
+            ?.let { disposables.add(it) }
+    
+        exchange_limit_view?.priceChangeSubject?.debounce(200, TimeUnit.MILLISECONDS)
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe { limitOrderViewModel.onPriceChange(it) }
+            ?.let { disposables.add(it) }
+    }
+    
+    //endregion
+    
+    //region Init
 
     private fun initMarketViewModel() {
         marketOrderViewModel = ViewModelProviders.of(this).get(MarketOrderViewModel::class.java)
@@ -88,36 +147,41 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
 
     private fun initLimitViewModel() {
         limitOrderViewModel = ViewModelProviders.of(this).get(LimitOrderViewModel::class.java)
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        exchange_numpad?.bind(this, NumPadItemType.DOT, false, scrollable = true)
-        exchange_confirm?.setOnClickListener {
-            when(activeType) {
-                MARKET -> marketOrderViewModel.onExchangeClick()
-                LIMIT -> {}
-            }
-        }
+    
+        limitOrderViewModel.sendCoins.observe(this, Observer {
+            exchange_limit_view?.updateSendCoins(it)
+        })
+    
+        limitOrderViewModel.receiveCoins.observe(this, Observer {
+            exchange_limit_view?.updateReceiveCoins(it)
+        })
+    
+        limitOrderViewModel.viewState.observe(this, Observer {
+            exchange_limit_view?.updateState(it)
+        })
+    
+        limitOrderViewModel.messageEvent.observe(this, Observer {
+            ToastHelper.showInfoMessage("Coins unlock and fill started")
+        })
+    
+        limitOrderViewModel.successEvent.observe(this, Observer {
+            SentDialog.show(childFragmentManager, it)
+        })
+    
+        limitOrderViewModel.exchangeEnabled.observe(this, Observer {
+            exchange_confirm?.isEnabled = it
+        })
+    
+        limitOrderViewModel.exchangePrice.observe(this, Observer {
+            val info = "Price per token: ${it.toDisplayFormat()}" + if (it == BigDecimal.ZERO) {
+                "\nOrderbook is empty"
+            } else { "" }
         
-	    exchange_pager?.adapter = exchangeAdapter
-        exchange_pager?.offscreenPageLimit = 2
-	    exchange_tab_layout?.setupWithViewPager(exchange_pager)
-    
-        exchange_market_view?.bind(
-            onMaxClick = { marketOrderViewModel.onMaxClick() },
-            onSendCoinPick = { marketOrderViewModel.onSendCoinPick(it) },
-            onReceiveCoinPick = { marketOrderViewModel.onReceiveCoinPick(it) },
-            onSwitchClick = { marketOrderViewModel.onSwitchClick() }
-        )
-    
-        exchange_market_view?.sendAmountChangeSubject?.debounce(200, TimeUnit.MILLISECONDS)
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe { marketOrderViewModel.onSendAmountChange(it) }
-            ?.let { disposables.add(it) }
+            exchange_info?.text = info
+        })
     }
+    
+    //endregion
 
     override fun onItemClick(item: NumPadItem) {
         val inputType = getInputField()

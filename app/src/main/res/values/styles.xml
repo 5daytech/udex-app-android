@@ -52,6 +52,17 @@
         <item name="android:paddingStart">10dp</item>
     </style>
 
+    <!-- Inputs -->
+    <style name="PrimaryNumberInput" parent="BoldText">
+        <item name="android:textSize">19sp</item>
+        <item name="android:inputType">number|numberDecimal</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:hint">0.0</item>
+        <item name="android:textColor">@color/main_dark</item>
+        <item name="android:textColorHint">@color/main_dark</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
+
     <!-- Texts -->
     <style name="MainTitle" parent="BoldText">
         <item name="android:textSize">23sp</item>

@@ -21,7 +21,7 @@
         android:text="You send $0.00"/>
 
     <EditText
-        style="@style/BoldText"
+        style="@style/PrimaryNumberInput"
         android:id="@+id/limit_amount_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -29,13 +29,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/middle_divider"
         android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginTop="@dimen/element_margin"
-        android:textColor="@color/main_dark"
-        android:background="@color/transparent"
-        android:textSize="19sp"
-        android:inputType="number|numberDecimal"
-        android:maxLines="1"
-        android:text="0.0" />
+        android:layout_marginTop="@dimen/element_margin" />
 
     <Button
         style="@style/ButtonSmallGrey"
@@ -79,7 +73,7 @@
         android:text="Price per token"/>
 
     <EditText
-        style="@style/BoldText"
+        style="@style/PrimaryNumberInput"
         android:id="@+id/limit_price_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -88,13 +82,7 @@
         app:layout_constraintRight_toLeftOf="@+id/middle_divider"
         android:layout_marginBottom="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginTop="@dimen/element_margin"
-        android:textColor="@color/main_dark"
-        android:background="@color/transparent"
-        android:textSize="19sp"
-        android:inputType="number|numberDecimal"
-        android:maxLines="1"
-        android:text="0.0" />
+        android:layout_marginTop="@dimen/element_margin" />
 
     <com.blocksdecoded.dex.presentation.exchange.view.CoinSpinnerView
         android:id="@+id/limit_base_spinner"
@@ -151,6 +139,6 @@
         android:background="@color/transparent"
         android:textSize="19sp"
         android:maxLines="1"
-        android:text="Total: 0.0" />
+        android:hint="Total: -" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
