@@ -123,8 +123,9 @@ class LimitOrderView: CardView {
 	
 	private fun updateTotal(total: BigDecimal) {
 		if (total > BigDecimal.ZERO) {
-			limit_total?.text = "Total: ${total.stripTrailingZeros().toPlainString()}"
+			limit_total?.text = "Receive: ${total.stripTrailingZeros().toPlainString()} ${limit_quote_spinner.getSelectedSymbol()}"
 		} else {
+			limit_total?.hint = "Receive: - ${limit_quote_spinner.getSelectedSymbol()}"
 			limit_total?.text = ""
 		}
 	}

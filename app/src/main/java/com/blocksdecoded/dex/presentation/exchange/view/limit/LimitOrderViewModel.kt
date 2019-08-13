@@ -87,6 +87,12 @@ class LimitOrderViewModel: CoreViewModel() {
 			sendItem,
 			receiveItem
 		)
+
+		mTotalInfo.receiveAmount = BigDecimal.ZERO
+		totalInfo.value = mTotalInfo
+
+		mPriceInfo.sendPrice = BigDecimal.ZERO
+		priceInfo.value = mPriceInfo
 	}
 	
 	private fun getAvailableSendCoins(): List<ExchangePairItem> {
@@ -131,17 +137,17 @@ class LimitOrderViewModel: CoreViewModel() {
 	
 	private fun updateReceivePrice() {
 		viewState.value?.sendAmount?.let { amount ->
-			exchangePrice.value = relayer.calculateBasePrice(
-				coinPairsCodes[currentPairPosition],
-				if (exchangeState == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL
-			)
-			
 			val receiveAmount = amount.multiply(mPriceInfo.sendPrice)
 			mTotalInfo.receiveAmount = receiveAmount
 
 			totalInfo.value = mTotalInfo
 			
 			exchangeEnabled.value = receiveAmount > BigDecimal.ZERO
+
+			exchangePrice.value = relayer.calculateBasePrice(
+				coinPairsCodes[currentPairPosition],
+				if (exchangeState == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL
+			)
 		}
 	}
 	
@@ -184,9 +190,12 @@ class LimitOrderViewModel: CoreViewModel() {
 	}
 	
 	fun onExchangeClick() {
-		messageEvent.postValue(R.string.message_exchange_wait)
 		viewState.value?.sendAmount?.let { amount ->
-
+			if (amount > BigDecimal.ZERO && mPriceInfo.sendPrice > BigDecimal.ZERO) {
+				messageEvent.postValue(R.string.message_exchange_wait)
+			} else {
+				messageEvent.postValue(R.string.message_invalid_amount)
+			}
 		}
 	}
 	
@@ -197,7 +206,11 @@ class LimitOrderViewModel: CoreViewModel() {
 		}
 
 		val currentReceive = mTotalInfo.receiveAmount
-		val currentPrice = viewState.value?.sendAmount?.divide(mTotalInfo.receiveAmount) ?: BigDecimal.ZERO
+		val currentPrice = if (mTotalInfo.receiveAmount > BigDecimal.ZERO) {
+			viewState.value?.sendAmount?.divide(mTotalInfo.receiveAmount) ?: BigDecimal.ZERO
+		} else {
+			BigDecimal.ZERO
+		}
 		val currentSend = viewState.value?.sendAmount ?: BigDecimal.ZERO
 
 		val newState = LimitOrderViewState(

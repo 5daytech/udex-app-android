@@ -63,7 +63,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         exchange_confirm?.setOnClickListener {
             when(activeType) {
                 MARKET -> marketOrderViewModel.onExchangeClick()
-                LIMIT -> {}
+                LIMIT -> limitOrderViewModel.onExchangeClick()
             }
         }
         

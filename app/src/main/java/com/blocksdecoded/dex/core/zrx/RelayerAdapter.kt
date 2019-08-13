@@ -183,5 +183,14 @@ class RelayerAdapter(
 			.flatMap { exchangeWrapper.marketBuyOrders(pairOrders.orders, calcAmount.toBigInteger()) }
 	}
 
+	override fun createOrder(
+		coinPair: Pair<String, String>,
+		side: EOrderSide,
+		amount: BigDecimal,
+		price: BigDecimal
+	): Flowable<SignedOrder> {
+		return Flowable.empty()
+	}
+
 	//endregion
 }

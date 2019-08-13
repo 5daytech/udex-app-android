@@ -41,6 +41,8 @@ class CoinSpinnerView : Spinner {
 			setSelection(index)
 		}
 	}
+
+	fun getSelectedSymbol(): String = exchangeItems[selectedItemPosition].code
 	
 	inner class CoinsSpinnerAdapter(
 		internal var context: Context,
