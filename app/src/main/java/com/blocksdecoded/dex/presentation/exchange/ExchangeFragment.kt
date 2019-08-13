@@ -131,6 +131,10 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         marketOrderViewModel.successEvent.observe(this, Observer {
             SentDialog.show(childFragmentManager, it)
         })
+
+        marketOrderViewModel.errorEvent.observe(this, Observer {
+            ToastHelper.showErrorMessage(it)
+        })
     
         marketOrderViewModel.exchangeEnabled.observe(this, Observer {
             exchange_confirm?.isEnabled = it
@@ -158,6 +162,14 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     
         limitOrderViewModel.viewState.observe(this, Observer {
             exchange_limit_view?.updateState(it)
+        })
+
+        limitOrderViewModel.priceInfo.observe(this, Observer {
+            exchange_limit_view?.updatePrice(it)
+        })
+
+        limitOrderViewModel.totalInfo.observe(this, Observer {
+            exchange_limit_view?.updateTotal(it)
         })
     
         limitOrderViewModel.messageEvent.observe(this, Observer {

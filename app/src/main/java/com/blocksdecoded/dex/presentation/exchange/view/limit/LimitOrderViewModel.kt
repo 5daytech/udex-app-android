@@ -1,13 +1,16 @@
 package com.blocksdecoded.dex.presentation.exchange.view.limit
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
+import com.blocksdecoded.dex.utils.subscribeUi
 import java.math.BigDecimal
 
 class LimitOrderViewModel: CoreViewModel() {
@@ -40,8 +43,13 @@ class LimitOrderViewModel: CoreViewModel() {
 			field = value
 			receiveCoins.value = value
 		}
-	
+
+	private val mPriceInfo = OrderPriceInfo(BigDecimal.ZERO)
+	private val mTotalInfo = OrderTotalInfo(BigDecimal.ZERO)
+
 	val viewState = MutableLiveData<LimitOrderViewState>()
+	val priceInfo = MutableLiveData<OrderPriceInfo>()
+	val totalInfo = MutableLiveData<OrderTotalInfo>()
 	val exchangeEnabled = MutableLiveData<Boolean>()
 	
 	val sendCoins = MutableLiveData<List<ExchangePairItem>>()
@@ -75,8 +83,6 @@ class LimitOrderViewModel: CoreViewModel() {
 	
 	private fun initState(sendItem: ExchangePairItem?, receiveItem: ExchangePairItem?) {
 		viewState.value = LimitOrderViewState(
-			BigDecimal.ZERO,
-			BigDecimal.ZERO,
 			BigDecimal.ZERO,
 			sendItem,
 			receiveItem
@@ -130,10 +136,10 @@ class LimitOrderViewModel: CoreViewModel() {
 				if (exchangeState == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL
 			)
 			
-			val receiveAmount = amount.multiply(viewState.value?.sendPrice ?: BigDecimal.ZERO)
-			viewState.value?.receiveAmount = receiveAmount
-			
-			viewState.value = viewState.value
+			val receiveAmount = amount.multiply(mPriceInfo.sendPrice)
+			mTotalInfo.receiveAmount = receiveAmount
+
+			totalInfo.value = mTotalInfo
 			
 			exchangeEnabled.value = receiveAmount > BigDecimal.ZERO
 		}
@@ -163,8 +169,8 @@ class LimitOrderViewModel: CoreViewModel() {
 	}
 	
 	fun onPriceChange(price: BigDecimal) {
-		if (viewState.value?.sendPrice != price) {
-			viewState.value?.sendPrice = price
+		if (mPriceInfo.sendPrice != price) {
+			mPriceInfo.sendPrice = price
 			
 			updateReceivePrice()
 		}
@@ -178,19 +184,10 @@ class LimitOrderViewModel: CoreViewModel() {
 	}
 	
 	fun onExchangeClick() {
-//		messageEvent.postValue(R.string.message_exchange_wait)
-//		viewState.value?.sendAmount?.let { amount ->
-//			relayer.fill(
-//				coinPairsCodes[currentPairPosition],
-//				if (exchangeState == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL,
-//				if (exchangeState == ExchangeSide.BID) amount else viewState.value?.receiveAmount ?: BigDecimal.ZERO
-//			).subscribeUi(disposables, {
-//				initState(viewState.value?.sendPair, viewState.value?.receivePair)
-//				successEvent.postValue(it)
-//			}, {
-//				//TODO: Show error event
-//			})
-//		}
+		messageEvent.postValue(R.string.message_exchange_wait)
+		viewState.value?.sendAmount?.let { amount ->
+
+		}
 	}
 	
 	fun onSwitchClick() {
@@ -198,18 +195,25 @@ class LimitOrderViewModel: CoreViewModel() {
 			ExchangeSide.BID -> ExchangeSide.ASK
 			ExchangeSide.ASK -> ExchangeSide.BID
 		}
-		
+
+		val currentReceive = mTotalInfo.receiveAmount
+		val currentPrice = viewState.value?.sendAmount?.divide(mTotalInfo.receiveAmount) ?: BigDecimal.ZERO
+		val currentSend = viewState.value?.sendAmount ?: BigDecimal.ZERO
+
 		val newState = LimitOrderViewState(
-			sendAmount = viewState.value?.receiveAmount ?: BigDecimal.ZERO,
-			sendPrice = viewState.value?.sendPrice ?: BigDecimal.ZERO,
-			receiveAmount = BigDecimal.ZERO,
+			sendAmount = currentReceive,
 			sendPair = viewState.value?.receivePair!!,
 			receivePair = viewState.value?.sendPair!!
 		)
-		
+
+		mTotalInfo.receiveAmount = currentSend
+		mPriceInfo.sendPrice = currentPrice
+
 		refreshPairs(newState)
-		
+
 		viewState.value = newState
+		totalInfo.value = mTotalInfo
+		priceInfo.value = mPriceInfo
 	}
 	
 	//endregion

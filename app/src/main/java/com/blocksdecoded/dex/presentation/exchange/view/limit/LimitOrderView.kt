@@ -109,12 +109,16 @@ class LimitOrderView: CardView {
 	fun updateState(state: LimitOrderViewState) {
 		updateAmount(state.sendAmount)
 		
-		updatePrice(state.sendPrice)
-		
-		updateTotal(state.receiveAmount)
-		
 		limit_base_spinner?.setSelectedPair(state.sendPair)
 		limit_quote_spinner?.setSelectedPair(state.receivePair)
+	}
+
+	fun updateTotal(totalInfo: OrderTotalInfo) {
+		updateTotal(totalInfo.receiveAmount)
+	}
+
+	fun updatePrice(priceInfo: OrderPriceInfo) {
+		updatePrice(priceInfo.sendPrice)
 	}
 	
 	private fun updateTotal(total: BigDecimal) {

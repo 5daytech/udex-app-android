@@ -5,10 +5,16 @@ import java.math.BigDecimal
 
 data class LimitOrderViewState(
     var sendAmount: BigDecimal,
-    var sendPrice: BigDecimal,
-    var receiveAmount: BigDecimal,
     var sendPair: ExchangePairItem?,
     var receivePair: ExchangePairItem?,
     var sendError: Int = 0,
     var receiveError: Int = 0
+)
+
+data class OrderPriceInfo(
+    var sendPrice: BigDecimal
+)
+
+data class OrderTotalInfo(
+    var receiveAmount: BigDecimal
 )

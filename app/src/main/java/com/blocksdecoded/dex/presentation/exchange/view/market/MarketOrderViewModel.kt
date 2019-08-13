@@ -50,6 +50,7 @@ class MarketOrderViewModel: CoreViewModel() {
     val receiveCoins = MutableLiveData<List<ExchangePairItem>>()
 
     val messageEvent = MutableLiveData<Int>()
+    val errorEvent = MutableLiveData<Int>()
     val successEvent = MutableLiveData<String>()
 
     val exchangePrice = MutableLiveData<BigDecimal>()
@@ -176,18 +177,24 @@ class MarketOrderViewModel: CoreViewModel() {
     }
 
     fun onExchangeClick() {
-        messageEvent.postValue(R.string.message_exchange_wait)
         viewState.value?.sendAmount?.let { amount ->
-            relayer.fill(
-                coinPairsCodes[currentPairPosition],
-                if (exchangeState == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL,
-                if (exchangeState == ExchangeSide.BID) amount else viewState.value?.receiveAmount ?: BigDecimal.ZERO
-            ).subscribeUi(disposables, {
-                initState(viewState.value?.sendPair, viewState.value?.receivePair)
-                successEvent.postValue(it)
-            }, {
-                //TODO: Show error event
-            })
+            val receiveAmount = viewState.value?.receiveAmount ?: BigDecimal.ZERO
+            if (amount > BigDecimal.ZERO && receiveAmount > BigDecimal.ZERO) {
+                messageEvent.postValue(R.string.message_exchange_wait)
+
+                relayer.fill(
+                    coinPairsCodes[currentPairPosition],
+                    if (exchangeState == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL,
+                    if (exchangeState == ExchangeSide.BID) amount else viewState.value?.receiveAmount ?: BigDecimal.ZERO
+                ).subscribeUi(disposables, {
+                    initState(viewState.value?.sendPair, viewState.value?.receivePair)
+                    successEvent.postValue(it)
+                }, {
+                    //TODO: Show error event
+                })
+            } else {
+                errorEvent.postValue(R.string.message_invalid_amount)
+            }
         }
     }
 
