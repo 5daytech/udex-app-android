@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.viewpager.widget.ViewPager
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
@@ -70,6 +71,15 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         exchange_pager?.adapter = exchangeAdapter
         exchange_pager?.offscreenPageLimit = 2
         exchange_tab_layout?.setupWithViewPager(exchange_pager)
+        
+        exchange_pager?.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                exchange_confirm?.text = when(activeType) {
+                    MARKET -> "Sell"
+                    LIMIT -> "Place order"
+                }
+            }
+        })
     
         // Market view
         
