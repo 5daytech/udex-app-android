@@ -7,6 +7,7 @@ import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.manager.IAdapterManager
 import com.blocksdecoded.dex.core.model.CoinValue
+import com.blocksdecoded.dex.core.model.EConvertType.*
 import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
@@ -52,7 +53,15 @@ class BalanceViewModel : CoreViewModel() {
     private fun updateBalance() {
         mBalances.postValue(
                 adapters.mapIndexed { index, baseAdapter ->
-                    CoinValue(CoinManager.coins[index], baseAdapter.balance, index in 0..1)
+                    CoinValue(
+                        CoinManager.coins[index],
+                        baseAdapter.balance,
+                        when(index) {
+                            0 -> WRAP
+                            1 -> UNWRAP
+                            else -> NONE
+                        }
+                    )
                 }
         )
     }
@@ -74,7 +83,12 @@ class BalanceViewModel : CoreViewModel() {
     }
 
     fun onConvertClick(position: Int) {
-
+        if (mBalances.value.isValidIndex(position)) {
+            val balance = mBalances.value?.get(position)
+            balance?.let {
+            
+            }
+        }
     }
 
     fun onTransactionsClick(position: Int) {

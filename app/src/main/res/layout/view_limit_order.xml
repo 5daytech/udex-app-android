@@ -11,14 +11,14 @@
     app:layout_constraintBottom_toTopOf="@+id/exchange_numpad"
     >
     <TextView
-        style="@style/LightText"
+        style="@style/RegularText"
         android:id="@+id/limit_amount_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_margin="@dimen/page_margin"
-        android:text="You send $0.00"/>
+        android:text="Sell"/>
 
     <EditText
         style="@style/PrimaryNumberInput"
@@ -62,7 +62,7 @@
         android:background="@color/light_hint"/>
 
     <TextView
-        style="@style/LightText"
+        style="@style/RegularText"
         android:id="@+id/limit_receive_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"
-        android:text="Price per token"/>
+        android:text="Price per sell token"/>
 
     <EditText
         style="@style/PrimaryNumberInput"

@@ -12,6 +12,8 @@
     <string name="balance_receive">Receive</string>
     <string name="balance_send">Send</string>
     <string name="balance_transactions">Transactions</string>
+    <string name="balance_wrap">Wrap</string>
+    <string name="balance_unwrap">Unwrap</string>
 
     <!-- Messages -->
     <string name="message_words_validated">Words validated</string>

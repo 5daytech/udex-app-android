@@ -2,11 +2,11 @@ package com.blocksdecoded.dex.presentation.balance.recycler
 
 import android.annotation.SuppressLint
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.CoinValue
+import com.blocksdecoded.dex.core.model.EConvertType.*
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
 import com.blocksdecoded.dex.utils.setVisible
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
@@ -27,6 +27,7 @@ class BalanceViewHolder(
     private val mReceiveBtn: View = itemView.findViewById(R.id.balance_receive)
     private val mTransactionsBtn: View = itemView.findViewById(R.id.balance_transactions)
     private val mConvertBtn: View = itemView.findViewById(R.id.balance_convert)
+    private val mConvertType: TextView = itemView.findViewById(R.id.balance_convert_type)
 
     init {
         itemView.setOnClickListener { listener.onClick(adapterPosition) }
@@ -45,6 +46,20 @@ class BalanceViewHolder(
         mBalance.text = "${coinValue.value.toDisplayFormat()} ${coinValue.coin.code}"
 
         mButtonContainer.visible = expanded
+    
+        when(coinValue.convertType) {
+            NONE -> {
+                mConvertBtn.visible = false
+            }
+            WRAP -> {
+                mConvertBtn.visible = true
+                mConvertType.setText(R.string.balance_wrap)
+            }
+            UNWRAP -> {
+                mConvertBtn.visible = true
+                mConvertType.setText(R.string.balance_unwrap)
+            }
+        }
     }
 
     fun bindPartial(expanded: Boolean) {

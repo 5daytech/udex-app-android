@@ -20,8 +20,8 @@ class ExchangeAdapter : PagerAdapter() {
 	override fun getCount(): Int = 2
 	
 	override fun getPageTitle(position: Int): CharSequence? = when(position) {
-		0 -> "Exchange"
-		else -> "Limit order"
+		0 -> "Market buy"
+		else -> "Place order"
 	}
 	
 	override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
