@@ -2,9 +2,12 @@ package com.blocksdecoded.dex.presentation.account
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import androidx.lifecycle.Observer
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.backup.BackupActivity
+import kotlinx.android.synthetic.main.fragment_account.*
 
 class AccountFragment : CoreFragment(R.layout.fragment_account) {
 
@@ -13,7 +16,12 @@ class AccountFragment : CoreFragment(R.layout.fragment_account) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AccountViewModel::class.java)
-        // TODO: Use the ViewModel
+        
+        viewModel.openBackupEvent.observe(this, Observer {
+            activity?.let { BackupActivity.start(it) }
+        })
+    
+        account_backup.setOnClickListener { viewModel.onBackupClick() }
     }
 
     companion object {

@@ -14,4 +14,20 @@
         app:elevation="0dp"
         app:mt_title="Account"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        <TextView
+            style="@style/SemiboldText"
+            android:id="@+id/account_backup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/big_margin"
+            android:padding="@dimen/page_margin"
+            android:background="?selectableItemBackground"
+            android:textSize="17sp"
+            android:text="Wallet Backup"/>
+    </LinearLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

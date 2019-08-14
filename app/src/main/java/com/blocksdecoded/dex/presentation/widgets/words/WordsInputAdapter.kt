@@ -10,7 +10,7 @@ class WordsInputAdapter(private val listener: WordInputViewHolder.OnWordChangeLi
     override fun getItemCount() = 12
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordInputViewHolder {
-        val inputTextView = LayoutInflater.from(parent.context).inflate(R.layout.item_word, parent, false) as WordInputView
+        val inputTextView = LayoutInflater.from(parent.context).inflate(R.layout.item_word_input, parent, false) as WordInputView
         return WordInputViewHolder(inputTextView, listener)
     }
 
