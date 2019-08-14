@@ -69,6 +69,11 @@
         <item name="android:textColor">@color/main_dark</item>
     </style>
 
+    <style name="DialogTitle" parent="SemiboldText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/main_dark</item>
+    </style>
+
     <style name="SmallHint" parent="RegularText">
         <item name="android:textSize">12sp</item>
         <item name="android:textAllCaps">true</item>

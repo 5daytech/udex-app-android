@@ -1,14 +1,18 @@
 package com.blocksdecoded.dex.presentation.orders.info
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.dialogs.sent.SentDialog
+import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.OrderInfo
 import com.blocksdecoded.dex.utils.ui.ToastHelper
+import com.blocksdecoded.dex.utils.ui.toDisplayFormat
+import kotlinx.android.synthetic.main.dialog_order_info.*
 
 class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
 	
@@ -29,13 +33,38 @@ class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
 			ToastHelper.showErrorMessage(it)
 		})
 		
-		viewModel.successEvent.observe(this, Observer {
-			SentDialog.show(childFragmentManager, it)
+		viewModel.successEvent.observe(this, Observer { hash ->
+			fragmentManager?.let {
+				SentDialog.show(it, hash)
+			}
 		})
 		
-		viewModel.orderInfo.observe(this, Observer {
-		
+		viewModel.messageEvent.observe(this, Observer {
+			ToastHelper.showSuccessMessage(it)
 		})
+		
+		viewModel.orderInfo.observe(this, Observer { order ->
+			order_info_price.text = order.price.toDisplayFormat()
+			
+			order_info_amount.text = if (order.side == EOrderSide.BUY) {
+				"${order.takerAmount.toDisplayFormat()} ${order.takerCoin.code}"
+			} else {
+				"${order.makerAmount.toDisplayFormat()} ${order.makerCoin.code}"
+			}
+
+			order_info_receive_amount.text = if (order.side == EOrderSide.BUY) {
+				"${order.makerAmount.toDisplayFormat()} ${order.makerCoin.code}"
+			} else {
+				"${order.takerAmount.toDisplayFormat()} ${order.takerCoin.code}"
+			}
+
+			order_info_expire_date.text = order.expireDate
+		})
+	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		order_cancel.setOnClickListener { viewModel.onCancelClick() }
 	}
 	
 	companion object {

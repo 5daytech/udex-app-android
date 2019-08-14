@@ -18,6 +18,7 @@ class OrderInfoViewModel : CoreViewModel() {
 	val orderInfo = MutableLiveData<UiOrder>()
 	val dismissEvent = SingleLiveEvent<Unit>()
 	val errorEvent = SingleLiveEvent<Int>()
+	val messageEvent = SingleLiveEvent<Int>()
 	val successEvent = SingleLiveEvent<String>()
 	
 	fun init(orderInfo: OrderInfo?) {
@@ -30,9 +31,11 @@ class OrderInfoViewModel : CoreViewModel() {
 	
 	fun onCancelClick() {
 		order?.let {
+			messageEvent.postValue(R.string.message_cancel_started)
 			relayerAdapter.cancelOrder(it.order)
 				.subscribeUi(disposables, {
 					successEvent.postValue(it)
+					dismissEvent.call()
 				}, {
 					errorEvent.postValue(R.string.error_cancel_order)
 				})

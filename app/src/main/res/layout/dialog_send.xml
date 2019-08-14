@@ -18,14 +18,12 @@
             android:layout_height="@dimen/coin_size" />
 
         <TextView
+            style="@style/DialogTitle"
             android:id="@+id/send_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/element_margin"
-            android:text="Send"
-            android:textSize="18sp"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:textColor="#000"/>
+            android:text="Send" />
     </LinearLayout>
 
     <com.blocksdecoded.dex.presentation.widgets.InputAmountView

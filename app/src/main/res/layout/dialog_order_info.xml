@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,39 +8,113 @@
     android:background="@drawable/bg_bottom_dialog">
 
     <TextView
-        android:id="@+id/order_amount"
-        android:layout_width="match_parent"
+        style="@style/DialogTitle"
+        android:id="@+id/order_info_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Amount"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="Order info"/>
 
     <TextView
-        android:id="@+id/order_price"
-        android:layout_width="match_parent"
+        style="@style/RegularText"
+        android:id="@+id/order_info_amount_hint"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/element_margin"
-        android:text="Price"/>
+        app:layout_constraintTop_toBottomOf="@+id/order_info_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/page_margin"
+        android:textColor="@color/light_hint"
+        android:text="Amount:"/>
 
     <TextView
-        android:id="@+id/order_receive"
-        android:layout_width="match_parent"
+        style="@style/SemiboldText"
+        android:id="@+id/order_info_amount"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/element_margin"
-        android:text="Receive"/>
+        app:layout_constraintTop_toTopOf="@+id/order_info_amount_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/order_info_amount_hint"
+        app:layout_constraintLeft_toRightOf="@+id/order_info_amount_hint"
+        android:layout_marginStart="@dimen/element_margin"
+        android:textSize="16sp"
+        android:text="0.0"/>
 
     <TextView
-        android:id="@+id/order_expiration_date"
-        android:layout_width="match_parent"
+        style="@style/RegularText"
+        android:id="@+id/order_info_price_hint"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/element_margin"
-        android:text="Expire at"/>
+        app:layout_constraintTop_toBottomOf="@+id/order_info_amount_hint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/page_margin"
+        android:textColor="@color/light_hint"
+        android:text="Price per coin:"/>
 
+    <TextView
+        style="@style/SemiboldText"
+        android:id="@+id/order_info_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/order_info_price_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/order_info_price_hint"
+        app:layout_constraintLeft_toRightOf="@+id/order_info_price_hint"
+        android:layout_marginStart="@dimen/element_margin"
+        android:textSize="16sp"
+        android:text="0.0"/>
+
+    <TextView
+        style="@style/RegularText"
+        android:id="@+id/order_info_receive_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/order_info_price_hint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/page_margin"
+        android:textColor="@color/light_hint"
+        android:text="Total receive:"/>
+
+    <TextView
+        style="@style/SemiboldText"
+        android:id="@+id/order_info_receive_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/order_info_receive_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/order_info_receive_hint"
+        app:layout_constraintLeft_toRightOf="@+id/order_info_receive_hint"
+        android:layout_marginStart="@dimen/element_margin"
+        android:textSize="16sp"
+        android:text="0.0"/>
+
+    <TextView
+        style="@style/RegularText"
+        android:id="@+id/order_info_expire_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/order_info_receive_hint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/page_margin"
+        android:textColor="@color/light_hint"
+        android:text="Expire at:"/>
+
+    <TextView
+        style="@style/SemiboldText"
+        android:id="@+id/order_info_expire_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/order_info_expire_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/order_info_expire_hint"
+        app:layout_constraintLeft_toRightOf="@+id/order_info_expire_hint"
+        android:layout_marginStart="@dimen/element_margin"
+        android:textSize="16sp"
+        android:text="20/12/20 21:21"/>
 
     <Button
         style="@style/PrimaryButton"
         android:id="@+id/order_cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/page_margin"
+        app:layout_constraintTop_toBottomOf="@+id/order_info_expire_date"
+        android:layout_marginTop="@dimen/big_margin"
         android:text="Cancel"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

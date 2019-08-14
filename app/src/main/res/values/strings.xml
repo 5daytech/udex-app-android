@@ -14,6 +14,11 @@
     <string name="balance_transactions">Transactions</string>
 
     <!-- Messages -->
+    <string name="message_words_validated">Words validated</string>
+    <string name="message_invalid_amount">Invalid trade amount</string>
+    <string name="message_order_created">Order successfully placed</string>
+    <string name="message_cancel_started">Cancel processing…</string>
+
     <string name="error_invalid_coin">Invalid coin symbol</string>
     <string name="error_send">Send error</string>
 
@@ -21,6 +26,10 @@
     <string name="markets_list_hint">market info (24h)</string>
     <string name="message_wait_blockchain">Wait till transaction is added to blockchain</string>
     <string name="message_order_creating">Order processing…</string>
+    <string name="error_invalid_mnemonic">Invalid mnemonic</string>
+    <string name="error_exchange_failed">Exchange failed</string>
+    <string name="error_order_place">Order place failed</string>
+    <string name="error_cancel_order">Order cancel failed</string>
 
     <!-- Notifications -->
     <string name="send_success">\u2713 Sent</string>
@@ -31,13 +40,6 @@
     <string name="amount">Amount</string>
     <string name="total">Total</string>
     <string name="subtitle_restore">Enter Secret Key</string>
-    <string name="error_invalid_mnemonic">Invalid mnemonic</string>
-    <string name="message_words_validated">Words validated</string>
-    <string name="message_invalid_amount">Invalid trade amount</string>
-    <string name="message_order_created">Order successfully placed</string>
-    <string name="error_exchange_failed">Exchange failed</string>
-    <string name="error_order_place">Order place failed</string>
-    <string name="error_cancel_order">Order cancel failed</string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>
