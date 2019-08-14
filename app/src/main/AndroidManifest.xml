@@ -35,6 +35,12 @@
         <activity android:name=".presentation.restore.RestoreWalletActivity"
                   android:screenOrientation="portrait"/>
 
+        <activity android:name=".presentation.backup.BackupActivity"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".presentation.guest.GuestActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

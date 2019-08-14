@@ -68,7 +68,9 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
 
     companion object {
         fun start(context: Context) {
-            context.startActivity(Intent(context, MainActivity::class.java))
+            val intent = Intent(context, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            context.startActivity(intent)
         }
     }
 
