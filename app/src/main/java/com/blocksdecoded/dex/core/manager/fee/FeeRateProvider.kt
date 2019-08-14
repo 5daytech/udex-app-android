@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.core.manager
+package com.blocksdecoded.dex.core.manager.fee
 
 import android.content.Context
 import com.blocksdecoded.dex.core.adapter.FeeRatePriority

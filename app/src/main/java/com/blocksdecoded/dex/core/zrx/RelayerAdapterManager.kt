@@ -3,7 +3,7 @@ package com.blocksdecoded.dex.core.zrx
 import com.blocksdecoded.dex.core.UnauthorizedException
 import com.blocksdecoded.dex.core.manager.AuthManager
 import com.blocksdecoded.dex.core.manager.IEthereumKitManager
-import com.blocksdecoded.dex.core.manager.IZrxKitManager
+import com.blocksdecoded.dex.core.zrx.kit.IZrxKitManager
 
 class RelayerAdapterManager(
 	private val ethereumKitManager: IEthereumKitManager,

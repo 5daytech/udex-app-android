@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.core.manager
 
+import com.blocksdecoded.dex.core.shared.IAppLocalStorage
 import io.horizontalsystems.hdwalletkit.Mnemonic
 import io.reactivex.subjects.PublishSubject
 

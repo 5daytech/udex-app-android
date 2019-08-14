@@ -1,9 +1,9 @@
 package com.blocksdecoded.dex.core.adapter
 
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.core.manager.AppConfiguration
+import com.blocksdecoded.dex.core.AppConfiguration
 import com.blocksdecoded.dex.core.manager.IEthereumKitManager
-import com.blocksdecoded.dex.core.manager.IFeeRateProvider
+import com.blocksdecoded.dex.core.manager.fee.IFeeRateProvider
 import com.blocksdecoded.dex.core.model.AuthData
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinType

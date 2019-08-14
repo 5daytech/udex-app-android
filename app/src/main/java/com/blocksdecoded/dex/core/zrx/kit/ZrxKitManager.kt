@@ -1,6 +1,9 @@
-package com.blocksdecoded.dex.core.manager
+package com.blocksdecoded.dex.core.zrx.kit
 
 import com.blocksdecoded.dex.core.UnauthorizedException
+import com.blocksdecoded.dex.core.manager.AuthManager
+import com.blocksdecoded.dex.core.manager.CoinManager
+import com.blocksdecoded.dex.core.manager.EthereumKitManager
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.relayer.model.Relayer
 import com.blocksdecoded.zrxkit.relayer.model.RelayerConfig

@@ -1,6 +1,6 @@
 package com.blocksdecoded.dex.core.adapter
 
-import com.blocksdecoded.dex.core.manager.IFeeRateProvider
+import com.blocksdecoded.dex.core.manager.fee.IFeeRateProvider
 import com.blocksdecoded.dex.core.model.Coin
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.Flowable

@@ -4,6 +4,8 @@ import android.app.Application
 import com.blocksdecoded.dex.core.adapter.AdapterFactory
 import com.blocksdecoded.dex.core.rates.bootstrap.BootstrapApiClient
 import com.blocksdecoded.dex.core.manager.*
+import com.blocksdecoded.dex.core.manager.fee.FeeRateProvider
+import com.blocksdecoded.dex.core.manager.fee.IFeeRateProvider
 import com.blocksdecoded.dex.core.rates.IRatesManager
 import com.blocksdecoded.dex.core.rates.RatesManager
 import com.blocksdecoded.dex.core.rates.remote.RatesApiClient
@@ -12,10 +14,15 @@ import com.blocksdecoded.dex.core.security.ISecuredStorage
 import com.blocksdecoded.dex.core.security.SecuredStorage
 import com.blocksdecoded.dex.core.security.encryption.EncryptionManager
 import com.blocksdecoded.dex.core.security.encryption.IEncryptionManager
+import com.blocksdecoded.dex.core.AppConfiguration
+import com.blocksdecoded.dex.core.shared.AppLocalStorage
+import com.blocksdecoded.dex.core.shared.IAppLocalStorage
 import com.blocksdecoded.dex.core.shared.ISharedStorage
 import com.blocksdecoded.dex.core.shared.SharedStorage
 import com.blocksdecoded.dex.core.zrx.IRelayerAdapterManager
 import com.blocksdecoded.dex.core.zrx.RelayerAdapterManager
+import com.blocksdecoded.dex.core.zrx.kit.IZrxKitManager
+import com.blocksdecoded.dex.core.zrx.kit.ZrxKitManager
 
 class App: Application() {
     companion object {

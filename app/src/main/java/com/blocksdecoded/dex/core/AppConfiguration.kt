@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.core.manager
+package com.blocksdecoded.dex.core
 
 import io.horizontalsystems.ethereumkit.core.EthereumKit.*
 import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType.*

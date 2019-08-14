@@ -1,6 +1,4 @@
-package com.blocksdecoded.dex.core.manager
-
-import com.blocksdecoded.dex.core.shared.ISharedStorage
+package com.blocksdecoded.dex.core.shared
 
 class AppLocalStorage(
 	private val sharedStorage: ISharedStorage

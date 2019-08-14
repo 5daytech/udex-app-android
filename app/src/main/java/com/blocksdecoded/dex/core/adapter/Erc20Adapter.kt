@@ -1,7 +1,7 @@
 package com.blocksdecoded.dex.core.adapter
 
 import android.content.Context
-import com.blocksdecoded.dex.core.manager.IFeeRateProvider
+import com.blocksdecoded.dex.core.manager.fee.IFeeRateProvider
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.TransactionAddress
 import com.blocksdecoded.dex.core.model.TransactionRecord

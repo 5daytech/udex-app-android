@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.core.manager
 
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.model.AuthData
+import com.blocksdecoded.dex.core.AppConfiguration
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import org.web3j.tx.gas.ContractGasProvider
 import java.math.BigInteger
