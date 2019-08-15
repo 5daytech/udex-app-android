@@ -19,7 +19,7 @@
         android:layout_margin="@dimen/page_margin"/>
 
     <Button
-        style="@style/PrimaryButton"
+        style="@style/PrimaryButtonRounded"
         android:id="@+id/backup_copy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

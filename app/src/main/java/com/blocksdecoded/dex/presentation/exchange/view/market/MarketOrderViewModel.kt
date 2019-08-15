@@ -49,8 +49,6 @@ class MarketOrderViewModel: CoreViewModel() {
     val sendCoins = MutableLiveData<List<ExchangePairItem>>()
     val receiveCoins = MutableLiveData<List<ExchangePairItem>>()
 
-    val messageEvent = MutableLiveData<Int>()
-    val errorEvent = MutableLiveData<Int>()
     val successEvent = MutableLiveData<String>()
 
     val exchangePrice = MutableLiveData<BigDecimal>()

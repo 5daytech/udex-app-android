@@ -35,7 +35,7 @@ class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
 		
 		viewModel.successEvent.observe(this, Observer { hash ->
 			fragmentManager?.let {
-				SentDialog.show(it, hash)
+				SentDialog.open(it, hash)
 			}
 		})
 		

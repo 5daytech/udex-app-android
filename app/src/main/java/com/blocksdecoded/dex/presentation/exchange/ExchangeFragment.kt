@@ -16,6 +16,7 @@ import com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderViewMo
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
+import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.utils.currentFocus
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
@@ -31,6 +32,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
 
     private lateinit var limitOrderViewModel: LimitOrderViewModel
     private lateinit var marketOrderViewModel: MarketOrderViewModel
+
 	private lateinit var exchangeAdapter: ExchangeAdapter
     
     private val disposables = CompositeDisposable()
@@ -61,7 +63,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         super.onViewCreated(view, savedInstanceState)
         
         exchange_numpad?.bind(this, NumPadItemType.DOT, false, scrollable = true)
-        exchange_confirm?.setOnClickListener {
+        exchange_confirm?.setSingleClickListener {
             when(activeType) {
                 MARKET -> marketOrderViewModel.onExchangeClick()
                 LIMIT -> limitOrderViewModel.onExchangeClick()
@@ -75,7 +77,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         exchange_pager?.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 exchange_confirm?.text = when(activeType) {
-                    MARKET -> "Sell"
+                    MARKET -> "Exchange"
                     LIMIT -> "Place order"
                 }
             }
@@ -139,7 +141,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         })
     
         marketOrderViewModel.successEvent.observe(this, Observer {
-            SentDialog.show(childFragmentManager, it)
+            SentDialog.open(childFragmentManager, it)
         })
 
         marketOrderViewModel.errorEvent.observe(this, Observer {
@@ -187,7 +189,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         })
     
         limitOrderViewModel.successEvent.observe(this, Observer {
-            SentDialog.show(childFragmentManager, it)
+            SentDialog.open(childFragmentManager, it)
         })
     
         limitOrderViewModel.exchangeEnabled.observe(this, Observer {

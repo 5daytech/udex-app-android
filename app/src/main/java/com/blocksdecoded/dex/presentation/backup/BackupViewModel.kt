@@ -14,7 +14,6 @@ class BackupViewModel : CoreViewModel() {
 	val words = MutableLiveData<List<String>>()
 	
 	val successEvent = SingleLiveEvent<Int>()
-	val errorEvent = SingleLiveEvent<Int>()
 	val finishEvent = SingleLiveEvent<Int>()
 	
 	init {

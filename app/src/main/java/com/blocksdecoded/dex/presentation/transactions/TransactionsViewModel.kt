@@ -20,8 +20,6 @@ class TransactionsViewModel : CoreViewModel() {
     val balance = MutableLiveData<BigDecimal?>()
     val transactions = MutableLiveData<List<TransactionRecord>>()
 
-    val errorEvent = SingleLiveEvent<Int>()
-    val messageEvent = SingleLiveEvent<Int>()
     val finishEvent = SingleLiveEvent<Int>()
 
     val showTransactionInfoEvent = SingleLiveEvent<TransactionRecord>()

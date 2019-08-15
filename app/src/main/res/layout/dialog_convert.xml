@@ -1,7 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_dialog"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/page_margin"
+        android:layout_marginStart="@dimen/page_margin">
+        <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+            android:id="@+id/convert_coin_icon"
+            android:layout_width="@dimen/coin_size"
+            android:layout_height="@dimen/coin_size" />
+
+        <TextView
+            style="@style/DialogTitle"
+            android:id="@+id/convert_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/element_margin"
+            android:text="Wrap/Unwrap" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/page_margin">
+
+        <TextView
+            style="@style/SmallHint"
+            android:id="@+id/convert_balance_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="Available Balance"/>
+
+        <TextView
+            style="@style/MainTitle"
+            android:id="@+id/convert_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/convert_balance_hint"
+            app:layout_constraintTop_toBottomOf="@+id/convert_balance_hint"
+            android:layout_marginTop="@dimen/element_margin"
+            android:textColor="@color/blue"
+            android:text="0.00 ETH"/>
+
+        <TextView
+            style="@style/MainTitle"
+            android:id="@+id/convert_fiat_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/convert_balance"
+            app:layout_constraintBottom_toBottomOf="@+id/convert_balance"
+            android:textSize="20sp"
+            android:text="$ 0.00"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.blocksdecoded.dex.presentation.widgets.InputAmountView
+        android:id="@+id/convert_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        style="@style/SmallHint"
+        android:id="@+id/convert_receive_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/element_margin"
+        android:layout_marginStart="@dimen/element_margin"
+        android:layout_marginEnd="@dimen/element_margin"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:hint="Receive: - WETH" />
+
+    <Button
+        style="@style/PrimaryButton"
+        android:id="@+id/convert_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_btn_height"
+        android:layout_marginTop="@dimen/page_margin"
+        android:text="Convert" />
+
+    <com.blocksdecoded.dex.presentation.widgets.NumPadView
+        android:id="@+id/convert_numpad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/element_margin"
+        android:layout_marginLeft="@dimen/page_margin"
+        android:layout_marginRight="@dimen/page_margin"
+        android:layout_gravity="center" />
 
 </LinearLayout>

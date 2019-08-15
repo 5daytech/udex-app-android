@@ -6,6 +6,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
+import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
@@ -52,12 +53,10 @@ class LimitOrderViewModel: CoreViewModel() {
 	val totalInfo = MutableLiveData<OrderTotalInfo>()
 	val exchangeEnabled = MutableLiveData<Boolean>()
 	
+	val successEvent = SingleLiveEvent<String>()
+	
 	val sendCoins = MutableLiveData<List<ExchangePairItem>>()
 	val receiveCoins = MutableLiveData<List<ExchangePairItem>>()
-	
-	val messageEvent = MutableLiveData<Int>()
-	val errorEvent = MutableLiveData<Int>()
-	val successEvent = MutableLiveData<String>()
 	
 	val exchangePrice = MutableLiveData<BigDecimal>()
 	

@@ -17,8 +17,6 @@ class OrderInfoViewModel : CoreViewModel() {
 	
 	val orderInfo = MutableLiveData<UiOrder>()
 	val dismissEvent = SingleLiveEvent<Unit>()
-	val errorEvent = SingleLiveEvent<Int>()
-	val messageEvent = SingleLiveEvent<Int>()
 	val successEvent = SingleLiveEvent<String>()
 	
 	fun init(orderInfo: OrderInfo?) {

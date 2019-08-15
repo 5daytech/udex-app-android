@@ -13,7 +13,8 @@ import com.blocksdecoded.dex.utils.clipboard.ClipboardManager
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import kotlinx.android.synthetic.main.dialog_transaction_sent.*
 
-class SentDialog: DialogFragment() {
+class SentDialog private constructor()
+	: DialogFragment() {
 	
 	var transactionHash: String? = null
 
@@ -44,7 +45,7 @@ class SentDialog: DialogFragment() {
 	}
 	
 	companion object {
-		fun show(fragmentManager: FragmentManager, transactionHash: String) {
+		fun open(fragmentManager: FragmentManager, transactionHash: String) {
 			val fragment = SentDialog()
 			
 			fragment.transactionHash = transactionHash

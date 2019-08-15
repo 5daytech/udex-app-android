@@ -5,7 +5,8 @@ import androidx.fragment.app.FragmentManager
 import com.blocksdecoded.dex.core.model.Coin
 import java.math.BigDecimal
 
-class SendConfirmDialog: DialogFragment() {
+class SendConfirmDialog private constructor()
+    : DialogFragment() {
 
     companion object {
         fun show(fragmentManager: FragmentManager, data: SendConfirmData) {

@@ -14,6 +14,7 @@ import com.blocksdecoded.dex.presentation.dialogs.receive.ReceiveDialog
 import com.blocksdecoded.dex.presentation.dialogs.send.SendDialog
 import com.blocksdecoded.dex.presentation.transactions.TransactionsActivity
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.dialogs.convert.ConvertDialog
 import kotlinx.android.synthetic.main.fragment_balance.*
 
 class BalanceFragment : CoreFragment(R.layout.fragment_balance),
@@ -51,8 +52,10 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
             }
         })
 
-        viewModel.openConvertDialog.observe(this, Observer {
-
+        viewModel.openConvertDialog.observe(this, Observer { config ->
+            activity?.let {
+                ConvertDialog.open(it.supportFragmentManager, config)
+            }
         })
 
         viewModel.openTransactions.observe(this, Observer { coinCode ->

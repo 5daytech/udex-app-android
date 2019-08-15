@@ -19,7 +19,7 @@
 
     <Button
         android:id="@+id/guest_create_wallet"
-        style="@style/PrimaryButton"
+        style="@style/PrimaryButtonRounded"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/page_margin"

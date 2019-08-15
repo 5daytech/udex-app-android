@@ -6,13 +6,15 @@ import androidx.fragment.app.FragmentManager
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
+import com.blocksdecoded.dex.presentation.dialogs.convert.ConvertDialog
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.ui.QrUtils
 import com.blocksdecoded.dex.utils.ui.ShareUtils
 import com.blocksdecoded.dex.utils.clipboard.ClipboardManager
 import kotlinx.android.synthetic.main.dialog_receive.*
 
-class ReceiveDialog: BaseBottomDialog(R.layout.dialog_receive)  {
+class ReceiveDialog private constructor()
+    : BaseBottomDialog(R.layout.dialog_receive)  {
     var coinCode: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

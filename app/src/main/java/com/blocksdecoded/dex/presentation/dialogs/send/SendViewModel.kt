@@ -23,7 +23,6 @@ class SendViewModel: CoreViewModel() {
 
     val dismissEvent = SingleLiveEvent<Unit>()
     val dismissWithSuccessEvent = SingleLiveEvent<Unit>()
-    val messageEvent = SingleLiveEvent<Int>()
     val openBarcodeScannerEvent = SingleLiveEvent<Unit>()
 
     fun init(coinCode: String) {

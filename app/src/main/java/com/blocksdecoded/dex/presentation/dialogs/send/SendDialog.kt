@@ -29,7 +29,8 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
-class SendDialog: BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Listener {
+class SendDialog private constructor()
+    : BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Listener {
 
     private lateinit var viewModel: SendViewModel
     private var coinCode: String = ""
@@ -65,8 +66,6 @@ class SendDialog: BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Lis
         }
     }
 
-    //endregion
-
     private val amountChangeListener = object: SimpleTextWatcher() {
         override fun afterTextChanged(s: Editable?) {
             val amountText = s?.toString() ?: ""
@@ -89,11 +88,17 @@ class SendDialog: BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Lis
         }
     }
 
+    //endregion
+
+    //region Lifecycle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(SendViewModel::class.java)
-        viewModel.init(coinCode)
+        activity?.let {
+            viewModel = ViewModelProviders.of(it).get(SendViewModel::class.java)
+            viewModel.init(coinCode)
+        }
 
         disposable = amountChangeSubject.debounce(300, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -149,9 +154,9 @@ class SendDialog: BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Lis
         inputConnection = amount_input?.onCreateInputConnection(EditorInfo())
 
         send_confirm?.setSingleClickListener { viewModel.onSendClicked() }
-
-        amount_input?.setText("")
     }
+
+    //endregion
 
     override fun onItemClick(item: NumPadItem) {
         when (item.type) {

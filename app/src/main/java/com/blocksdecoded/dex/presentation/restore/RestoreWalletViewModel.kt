@@ -12,8 +12,7 @@ class RestoreWalletViewModel: CoreViewModel() {
     
 	private val authManager: AuthManager = App.authManager
     private val wordsManager: IWordsManager = App.wordsManager
-
-    val errorEvent = SingleLiveEvent<Int>()
+	
 	val successEvent = SingleLiveEvent<Int>()
 	val navigateToMain = SingleLiveEvent<Unit>()
 

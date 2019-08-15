@@ -6,7 +6,8 @@ import androidx.fragment.app.FragmentManager
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 
-class TransactionInfoDialog: BaseBottomDialog(R.layout.dialog_transaction_info) {
+class TransactionInfoDialog private constructor()
+	: BaseBottomDialog(R.layout.dialog_transaction_info) {
 	
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
