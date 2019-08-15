@@ -35,19 +35,23 @@ class SendViewModel: CoreViewModel() {
         } else {
             this.adapter = adapter
         }
-
+    
+        userInput = SendUserInput()
         sendEnabled.value = false
         decimalSize = adapter.decimal
-        amount.value = BigDecimal.ZERO
+        amount.value = userInput.amount
+        receiveAddress.value = userInput.address ?: ""
+    }
+    
+    private fun refreshSendEnable() {
+        sendEnabled.value = userInput.amount > BigDecimal.ZERO &&
+            userInput.address != null
     }
 
     fun onAmountChanged(amount: BigDecimal) {
         if (userInput.amount != amount) {
             userInput.amount = amount
-    
-            this.amount.value = amount
-    
-            sendEnabled.value = amount > BigDecimal.ZERO && userInput.address != null
+            refreshSendEnable()
         }
     }
 
@@ -64,13 +68,15 @@ class SendViewModel: CoreViewModel() {
     }
 
     fun onPasteClick() {
-        receiveAddress.value = ClipboardManager.getCopiedText()
-        userInput.address = receiveAddress.value
+        userInput.address = ClipboardManager.getCopiedText()
+        receiveAddress.value = userInput.address
+        refreshSendEnable()
     }
 
     fun onDeleteAddressClick() {
         receiveAddress.value = ""
         userInput.address = null
+	    refreshSendEnable()
     }
 
     fun onSendClicked() {

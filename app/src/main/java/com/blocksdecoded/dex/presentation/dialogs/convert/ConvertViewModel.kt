@@ -23,8 +23,10 @@ class ConvertViewModel : CoreViewModel() {
     private lateinit var fromCoin: Coin
     private lateinit var toCoin: Coin
     
+	private var sendAmount = BigDecimal.ZERO
+	
     var decimalSize: Int = 18
-    
+	
     val convertState = MutableLiveData<ConvertState>()
     val amount = MutableLiveData<BigDecimal>()
     val receiveAmount = MutableLiveData<BigDecimal>()
@@ -58,8 +60,10 @@ class ConvertViewModel : CoreViewModel() {
             errorEvent.postValue(R.string.error_invalid_coin)
             return
         }
-        
-        onAmountChanged(BigDecimal.ZERO)
+	
+	    sendAmount = BigDecimal.ZERO
+        onAmountChanged(sendAmount)
+	    
         decimalSize = adapter?.decimal ?: 18
     }
 
@@ -67,16 +71,21 @@ class ConvertViewModel : CoreViewModel() {
         val availableBalance = adapter?.availableBalance(null, FeeRatePriority.HIGHEST) ?: BigDecimal.ZERO
         
         onAmountChanged(availableBalance)
+	    refreshAmount()
     }
+	
+	private fun refreshAmount() {
+		this.amount.value = sendAmount
+	}
 	
 	fun onConvertClick() {
         val availableBalance = adapter?.availableBalance(null, FeeRatePriority.HIGHEST) ?: BigDecimal.ZERO
-        val sendAmount = amount.value ?: BigDecimal.ZERO
         
         if (sendAmount <= availableBalance) {
             messageEvent.postValue(R.string.message_convert_processing)
             val sendRaw = sendAmount.movePointRight(18).stripTrailingZeros().toBigInteger()
             onAmountChanged(BigDecimal.ZERO)
+	        refreshAmount()
             
             when(config.type) {
                 WRAP -> wethWrapper.deposit(sendRaw)
@@ -94,13 +103,7 @@ class ConvertViewModel : CoreViewModel() {
 	}
     
     fun onAmountChanged(amount: BigDecimal?) {
-        if (this.amount.value != amount) {
-            this.amount.value = amount ?: BigDecimal.ZERO
-            this.receiveAmount.value = amount ?: BigDecimal.ZERO
-    
-            if (amount != null) {
-                convertEnabled.value = amount > BigDecimal.ZERO
-            }
-        }
+	    sendAmount = amount ?: BigDecimal.ZERO
+	    convertEnabled.value = sendAmount > BigDecimal.ZERO
     }
 }
