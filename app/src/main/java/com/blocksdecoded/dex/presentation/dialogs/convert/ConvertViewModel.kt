@@ -18,9 +18,7 @@ class ConvertViewModel : CoreViewModel() {
 
     private lateinit var config: ConvertConfig
     private val wethWrapper = App.zrxKitManager.zrxKit().getWethWrapperInstance()
-    private val adapter: IAdapter? by lazy {
-        App.adapterManager.adapters.firstOrNull { it.coin.code == config.coinCode }
-    }
+    private var adapter: IAdapter? = null
     
     private lateinit var fromCoin: Coin
     private lateinit var toCoin: Coin
@@ -38,6 +36,9 @@ class ConvertViewModel : CoreViewModel() {
     fun init(config: ConvertConfig) {
         this.config = config
     
+        adapter = App.adapterManager.adapters
+            .firstOrNull { it.coin.code == config.coinCode }
+        
         fromCoin = CoinManager.getCoin(config.coinCode)
         toCoin = CoinManager.getCoin(
             if (config.type == WRAP)
@@ -58,21 +59,21 @@ class ConvertViewModel : CoreViewModel() {
             return
         }
         
+        onAmountChanged(BigDecimal.ZERO)
         decimalSize = adapter?.decimal ?: 18
     }
 
     fun onMaxClicked() {
         val availableBalance = adapter?.availableBalance(null, FeeRatePriority.HIGHEST) ?: BigDecimal.ZERO
         
-        amount.value = availableBalance
+        onAmountChanged(availableBalance)
     }
 	
 	fun onConvertClick() {
-        Logger.d("Convert ${amount.value?.toPlainString()}")
         val availableBalance = adapter?.availableBalance(null, FeeRatePriority.HIGHEST) ?: BigDecimal.ZERO
         val sendAmount = amount.value ?: BigDecimal.ZERO
         
-        if (sendAmount < availableBalance) {
+        if (sendAmount <= availableBalance) {
             messageEvent.postValue(R.string.message_convert_processing)
             val sendRaw = sendAmount.movePointRight(18).stripTrailingZeros().toBigInteger()
             onAmountChanged(BigDecimal.ZERO)

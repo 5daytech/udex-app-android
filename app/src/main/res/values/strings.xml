@@ -44,7 +44,7 @@
     <string name="subtitle_restore">Enter Secret Key</string>
     <string name="message_convert_processing">Convert processing...</string>
     <string name="error_convert_failed">Convert failed</string>
-    <string name="error_invalid_amount">Invalid amount</string>
+    <string name="error_invalid_amount">Not enough funds</string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>
