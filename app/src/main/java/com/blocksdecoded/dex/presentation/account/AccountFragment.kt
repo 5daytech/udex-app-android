@@ -3,6 +3,7 @@ package com.blocksdecoded.dex.presentation.account
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import com.blocksdecoded.dex.BuildConfig
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
@@ -22,6 +23,8 @@ class AccountFragment : CoreFragment(R.layout.fragment_account) {
         })
     
         account_backup.setOnClickListener { viewModel.onBackupClick() }
+    
+        app_version.text = "v ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})\n${BuildConfig.FLAVOR}"
     }
 
     companion object {

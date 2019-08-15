@@ -14,20 +14,45 @@
         app:elevation="0dp"
         app:mt_title="Account"/>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-        <TextView
-            style="@style/SemiboldText"
-            android:id="@+id/account_backup"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/big_margin"
-            android:padding="@dimen/page_margin"
-            android:background="?selectableItemBackground"
-            android:textSize="17sp"
-            android:text="Wallet Backup"/>
-    </LinearLayout>
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/SemiboldText"
+                android:id="@+id/account_backup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/big_margin"
+                android:padding="@dimen/page_margin"
+                android:background="?selectableItemBackground"
+                android:textSize="17sp"
+                android:text="Wallet Backup"/>
+
+            <TextView
+                android:id="@+id/app_version"
+                style="@style/SmallHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_bias="0.8"
+                android:textAllCaps="false"
+                android:gravity="center"
+                android:text="v 1.0.0"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
