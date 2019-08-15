@@ -11,6 +11,7 @@ import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
 import com.blocksdecoded.dex.utils.setVisible
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.visible
+import java.math.BigDecimal
 
 class BalanceViewHolder(
     view: View,
@@ -43,10 +44,22 @@ class BalanceViewHolder(
         mIcon.bind(coinValue.coin.code)
         mSymbol.text = coinValue.coin.code
         mTitle.text = coinValue.coin.title
-        mBalance.text = "${coinValue.value.toDisplayFormat()} ${coinValue.coin.code}"
+        mBalance.text = "${coinValue.balance.toDisplayFormat()} ${coinValue.coin.code}"
 
         mButtonContainer.visible = expanded
     
+        if (coinValue.balance <= BigDecimal.ZERO) {
+            mSendBtn.isEnabled = false
+            mSendBtn.alpha = 0.4f
+            mConvertBtn.isEnabled = false
+            mConvertBtn.alpha = 0.4f
+        } else {
+            mSendBtn.isEnabled = true
+            mSendBtn.alpha = 1f
+            mConvertBtn.isEnabled = true
+            mConvertBtn.alpha = 1f
+        }
+        
         when(coinValue.convertType) {
             NONE -> {
                 mConvertBtn.visible = false

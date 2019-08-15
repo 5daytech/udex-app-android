@@ -69,6 +69,7 @@
         android:layout_marginTop="8dp">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/balance_receive"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
@@ -81,7 +82,6 @@
             android:padding="12dp"
             app:cardCornerRadius="@dimen/corner_radius">
             <LinearLayout
-                android:id="@+id/balance_receive"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -107,6 +107,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/balance_send"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
@@ -117,7 +118,6 @@
             android:padding="12dp"
             app:cardCornerRadius="@dimen/corner_radius">
             <LinearLayout
-                android:id="@+id/balance_send"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -142,6 +142,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/balance_transactions"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
@@ -151,7 +152,6 @@
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="@dimen/corner_radius">
             <LinearLayout
-                android:id="@+id/balance_transactions"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -3,9 +3,9 @@ package com.blocksdecoded.dex.core.model
 import java.math.BigDecimal
 
 data class CoinValue(
-        val coin: Coin,
-        val value: BigDecimal,
-        val convertType: EConvertType
+	val coin: Coin,
+	val balance: BigDecimal,
+	val convertType: EConvertType
 )
 
 enum class EConvertType {
