@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.FeeRatePriority
+import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
@@ -19,6 +20,7 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.core.ui.reObserve
+import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -39,7 +41,7 @@ class SendDialog private constructor()
     private var disposable: Disposable? = null
 
     //region Observers
-
+    
     private val messageObserver = Observer<Int?> { error ->  error?.let { ToastHelper.showErrorMessage(it) } }
 
     private val dismissObserver = Observer<Unit> { dismiss() }
@@ -64,6 +66,12 @@ class SendDialog private constructor()
         } else {
             amount_input?.setText("")
         }
+    }
+    
+    private val coinObserver = Observer<Coin> { coin ->
+        send_title?.text = "Send ${coin.title}"
+        send_coin_icon?.bind(coinCode)
+        send_amount?.updateAmountPrefix(coin.code)
     }
 
     private val amountChangeListener = object: SimpleTextWatcher() {
@@ -114,27 +122,14 @@ class SendDialog private constructor()
         viewModel.receiveAddress.reObserve(this, addressObserver)
         viewModel.sendEnabled.reObserve(this, sendEnabledObserver)
         viewModel.amount.reObserve(this, amountObserver)
+        viewModel.coin.reObserve(this, coinObserver)
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = App.adapterManager
-                .adapters
-                .firstOrNull { it.coin.code == coinCode }
-
-        if (adapter == null) {
-            ToastHelper.showErrorMessage(R.string.error_invalid_coin)
-            return
-        }
-
-        send_title?.text = "Send ${adapter.coin.title}"
-        send_coin_icon?.bind(coinCode)
-
         send_amount?.bindInitial( onMaxClick = {
             viewModel.onMaxClicked()
-            amount_input?.setText(adapter.availableBalance(adapter.receiveAddress, FeeRatePriority.MEDIUM).toString())
         }, onSwitchClick = {
             viewModel.onSwitchClick()
         })
@@ -144,8 +139,6 @@ class SendDialog private constructor()
                 onPasteClick = viewModel::onPasteClick,
                 onDeleteClick = viewModel::onDeleteAddressClick
         )
-
-        send_amount?.updateAmountPrefix(adapter.coin.code)
 
         send_numpad?.bind(this, NumPadItemType.DOT, false)
 
@@ -176,7 +169,7 @@ class SendDialog private constructor()
 
             fragment.coinCode = coinCode
 
-            fragment.show(fm, "Send")
+            fragment.show(fm, "send")
         }
     }
 }

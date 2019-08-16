@@ -2,28 +2,23 @@ package com.blocksdecoded.dex.presentation.dialogs.sent
 
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.presentation.dialogs.BaseDialog
 import com.blocksdecoded.dex.utils.clipboard.ClipboardManager
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import kotlinx.android.synthetic.main.dialog_transaction_sent.*
 
 class SentDialog private constructor()
-	: DialogFragment() {
+	: BaseDialog(R.layout.dialog_transaction_sent) {
 	
 	var transactionHash: String? = null
 
 	//TODO: Fetch from config
 	private val etherscanUrl: String
 		get() = "https://ropsten.etherscan.io/tx/$transactionHash"
-	
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-		inflater.inflate(R.layout.dialog_transaction_sent, container, false)
 	
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)

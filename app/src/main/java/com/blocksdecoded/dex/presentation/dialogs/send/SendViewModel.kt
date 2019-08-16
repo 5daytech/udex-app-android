@@ -3,12 +3,15 @@ package com.blocksdecoded.dex.presentation.dialogs.send
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import com.blocksdecoded.dex.core.adapter.IAdapter
+import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.utils.observeUi
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.clipboard.ClipboardManager
+import kotlinx.android.synthetic.main.view_amount_input.*
 import java.math.BigDecimal
 
 class SendViewModel: CoreViewModel() {
@@ -17,10 +20,11 @@ class SendViewModel: CoreViewModel() {
 
     var decimalSize: Int? = null
 
+    val coin = MutableLiveData<Coin>()
     val receiveAddress = MutableLiveData<String>()
     val sendEnabled = MutableLiveData<Boolean>()
     val amount = MutableLiveData<BigDecimal>()
-
+    
     val dismissEvent = SingleLiveEvent<Unit>()
     val dismissWithSuccessEvent = SingleLiveEvent<Unit>()
     val openBarcodeScannerEvent = SingleLiveEvent<Unit>()
@@ -36,6 +40,7 @@ class SendViewModel: CoreViewModel() {
             this.adapter = adapter
         }
     
+        coin.value = adapter.coin
         userInput = SendUserInput()
         sendEnabled.value = false
         decimalSize = adapter.decimal
@@ -51,6 +56,7 @@ class SendViewModel: CoreViewModel() {
     fun onAmountChanged(amount: BigDecimal) {
         if (userInput.amount != amount) {
             userInput.amount = amount
+            
             refreshSendEnable()
         }
     }
@@ -60,7 +66,9 @@ class SendViewModel: CoreViewModel() {
     }
 
     fun onMaxClicked() {
-
+        val balance = adapter.availableBalance(adapter.receiveAddress, FeeRatePriority.HIGHEST)
+        onAmountChanged(balance)
+        amount.value = balance
     }
 
     fun onSwitchClick() {
