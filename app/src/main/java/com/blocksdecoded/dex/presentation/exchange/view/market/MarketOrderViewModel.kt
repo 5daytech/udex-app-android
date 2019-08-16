@@ -6,7 +6,9 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
+import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
+import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.subscribeUi
@@ -42,16 +44,15 @@ class MarketOrderViewModel: CoreViewModel() {
             field = value
             receiveCoins.value = value
         }
-
-    val viewState = MutableLiveData<MarketOrderViewState>()
-    val exchangeEnabled = MutableLiveData<Boolean>()
-
+    
     val sendCoins = MutableLiveData<List<ExchangePairItem>>()
     val receiveCoins = MutableLiveData<List<ExchangePairItem>>()
-
-    val successEvent = MutableLiveData<String>()
-
+    val viewState = MutableLiveData<MarketOrderViewState>()
+    val exchangeEnabled = MutableLiveData<Boolean>()
     val exchangePrice = MutableLiveData<BigDecimal>()
+
+    val successEvent = SingleLiveEvent<String>()
+    val confirmEvent = SingleLiveEvent<ExchangeConfirmInfo>()
 
     init {
         exchangeEnabled.value = false
@@ -143,6 +144,41 @@ class MarketOrderViewModel: CoreViewModel() {
             exchangeEnabled.value = receiveAmount > BigDecimal.ZERO
         }
     }
+    
+    private fun marketBuy() {
+        viewState.value?.sendAmount?.let { amount ->
+            val receiveAmount = viewState.value?.receiveAmount ?: BigDecimal.ZERO
+            if (amount > BigDecimal.ZERO && receiveAmount > BigDecimal.ZERO) {
+                messageEvent.postValue(R.string.message_wait_blockchain)
+            
+                relayer.fill(
+                    coinPairsCodes[currentPairPosition],
+                    if (exchangeState == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL,
+                    if (exchangeState == ExchangeSide.BID) amount else viewState.value?.receiveAmount ?: BigDecimal.ZERO
+                ).subscribeUi(disposables, {
+                    initState(viewState.value?.sendPair, viewState.value?.receivePair)
+                    successEvent.postValue(it)
+                }, {
+                    errorEvent.postValue(R.string.error_exchange_failed)
+                })
+            } else {
+                errorEvent.postValue(R.string.message_invalid_amount)
+            }
+        }
+    }
+
+    private fun showConfirm() {
+        val pair = coinPairsCodes[currentPairPosition]
+
+        val confirmInfo = ExchangeConfirmInfo(
+            pair.first,
+            pair.second,
+            viewState.value?.sendAmount ?: BigDecimal.ZERO,
+            viewState.value?.receiveAmount ?: BigDecimal.ZERO
+        ) { marketBuy() }
+
+        confirmEvent.value = confirmInfo
+    }
 
     //endregion
 
@@ -178,18 +214,7 @@ class MarketOrderViewModel: CoreViewModel() {
         viewState.value?.sendAmount?.let { amount ->
             val receiveAmount = viewState.value?.receiveAmount ?: BigDecimal.ZERO
             if (amount > BigDecimal.ZERO && receiveAmount > BigDecimal.ZERO) {
-                messageEvent.postValue(R.string.message_wait_blockchain)
-
-                relayer.fill(
-                    coinPairsCodes[currentPairPosition],
-                    if (exchangeState == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL,
-                    if (exchangeState == ExchangeSide.BID) amount else viewState.value?.receiveAmount ?: BigDecimal.ZERO
-                ).subscribeUi(disposables, {
-                    initState(viewState.value?.sendPair, viewState.value?.receivePair)
-                    successEvent.postValue(it)
-                }, {
-                    errorEvent.postValue(R.string.error_exchange_failed)
-                })
+                showConfirm()
             } else {
                 errorEvent.postValue(R.string.message_invalid_amount)
             }

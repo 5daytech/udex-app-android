@@ -39,7 +39,7 @@
         android:background="?selectableItemBackgroundBorderless"/>
 
     <TextView
-        style="@style/SmallHint"
+        style="@style/SmallHintText"
         android:id="@+id/toolbar_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
         android:text="MONDAY, 3" />
 
     <TextView
-        style="@style/MainTitle"
+        style="@style/MainTitleText"
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

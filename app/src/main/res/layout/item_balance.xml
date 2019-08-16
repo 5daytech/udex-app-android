@@ -198,7 +198,8 @@
                     android:layout_width="@dimen/action_icon_size"
                     android:layout_height="@dimen/action_icon_size"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_swap"/>
+                    android:padding="1dp"
+                    android:src="@drawable/ic_wrap"/>
 
                 <TextView
                     style="@style/BoldText"

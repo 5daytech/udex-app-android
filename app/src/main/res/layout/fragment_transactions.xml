@@ -23,7 +23,7 @@
             android:padding="@dimen/page_margin">
 
             <TextView
-                style="@style/SmallHint"
+                style="@style/SmallHintText"
                 android:id="@+id/transactions_balance_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:layout_marginTop="@dimen/element_margin"/>
 
             <TextView
-                style="@style/MainTitle"
+                style="@style/MainTitleText"
                 android:id="@+id/transactions_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                 android:text="0.00 ETH"/>
 
             <TextView
-                style="@style/MainTitle"
+                style="@style/MainTitleText"
                 android:id="@+id/transactions_fiat_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -113,7 +113,7 @@ class LimitOrderView: CardView {
 		limit_quote_spinner?.setSelectedPair(state.receivePair)
 	}
 
-	fun updateTotal(totalInfo: OrderTotalInfo) {
+	fun updateTotal(totalInfo: OrderReceiveInfo) {
 		updateTotal(totalInfo.receiveAmount)
 	}
 

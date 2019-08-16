@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/bg_bottom_dialog">
             <TextView
-                style="@style/SmallHint"
+                style="@style/SmallHintText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"

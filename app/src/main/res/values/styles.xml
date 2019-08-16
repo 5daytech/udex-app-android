@@ -24,6 +24,16 @@
         <item name="android:windowAnimationStyle">@style/BottomDialogAnimations</item>
     </style>
 
+    <style name="FloatingDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateHidden</item>
+    </style>
+
     <style name="BottomDialogAnimations" parent="@android:style/Animation.Activity">
         <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
@@ -73,20 +83,34 @@
     </style>
 
     <!-- Texts -->
-    <style name="MainTitle" parent="BoldText">
+    <style name="MainTitleText" parent="BoldText">
         <item name="android:textSize">23sp</item>
         <item name="android:textColor">@color/main_dark</item>
     </style>
 
-    <style name="DialogTitle" parent="SemiboldText">
+    <style name="DialogTitleText" parent="SemiboldText">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/main_dark</item>
     </style>
 
-    <style name="SmallHint" parent="RegularText">
+    <style name="SmallHintText" parent="RegularText">
         <item name="android:textSize">12sp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/light_hint</item>
+    </style>
+
+    <style name="HintText" parent="RegularText">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/dark_grey</item>
+    </style>
+
+    <style name="AmountText" parent="BoldText">
+        <item name="android:textSize">19sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:hint">0.0</item>
+        <item name="android:textColor">@color/main_dark</item>
+        <item name="android:textColorHint">@color/main_dark</item>
+        <item name="android:background">@color/transparent</item>
     </style>
 
     <!-- Base styles -->

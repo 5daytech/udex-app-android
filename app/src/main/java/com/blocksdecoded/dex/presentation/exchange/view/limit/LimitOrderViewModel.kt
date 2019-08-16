@@ -8,6 +8,7 @@ import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
+import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.Logger
@@ -46,19 +47,20 @@ class LimitOrderViewModel: CoreViewModel() {
 		}
 
 	private val mPriceInfo = OrderPriceInfo(BigDecimal.ZERO)
-	private val mTotalInfo = OrderTotalInfo(BigDecimal.ZERO)
-
-	val viewState = MutableLiveData<LimitOrderViewState>()
-	val priceInfo = MutableLiveData<OrderPriceInfo>()
-	val totalInfo = MutableLiveData<OrderTotalInfo>()
-	val exchangeEnabled = MutableLiveData<Boolean>()
-	
-	val successEvent = SingleLiveEvent<String>()
+	private val mReceiveInfo = OrderReceiveInfo(BigDecimal.ZERO)
 	
 	val sendCoins = MutableLiveData<List<ExchangePairItem>>()
 	val receiveCoins = MutableLiveData<List<ExchangePairItem>>()
 	
+	val viewState = MutableLiveData<LimitOrderViewState>()
+	val priceInfo = MutableLiveData<OrderPriceInfo>()
+	val totalInfo = MutableLiveData<OrderReceiveInfo>()
+	val exchangeEnabled = MutableLiveData<Boolean>()
 	val exchangePrice = MutableLiveData<BigDecimal>()
+	
+	val successEvent = SingleLiveEvent<String>()
+	
+	val confirmEvent = SingleLiveEvent<ExchangeConfirmInfo>()
 	
 	init {
 		exchangeEnabled.value = false
@@ -88,8 +90,8 @@ class LimitOrderViewModel: CoreViewModel() {
 			receiveItem
 		)
 
-		mTotalInfo.receiveAmount = BigDecimal.ZERO
-		totalInfo.value = mTotalInfo
+		mReceiveInfo.receiveAmount = BigDecimal.ZERO
+		totalInfo.value = mReceiveInfo
 
 		mPriceInfo.sendPrice = BigDecimal.ZERO
 		priceInfo.value = mPriceInfo
@@ -138,9 +140,9 @@ class LimitOrderViewModel: CoreViewModel() {
 	private fun updateReceivePrice() {
 		viewState.value?.sendAmount?.let { amount ->
 			val receiveAmount = amount.multiply(mPriceInfo.sendPrice)
-			mTotalInfo.receiveAmount = receiveAmount
+			mReceiveInfo.receiveAmount = receiveAmount
 
-			totalInfo.value = mTotalInfo
+			totalInfo.value = mReceiveInfo
 			
 			exchangeEnabled.value = receiveAmount > BigDecimal.ZERO
 
@@ -149,6 +151,43 @@ class LimitOrderViewModel: CoreViewModel() {
 				if (exchangeState == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL
 			)
 		}
+	}
+	
+	private fun placeOrder() {
+		viewState.value?.sendAmount?.let { amount ->
+			if (amount > BigDecimal.ZERO && mPriceInfo.sendPrice > BigDecimal.ZERO) {
+				messageEvent.postValue(R.string.message_order_creating)
+				
+				relayer.createOrder(
+					coinPairsCodes[currentPairPosition],
+					if (exchangeState == ExchangeSide.BID) EOrderSide.SELL else EOrderSide.BUY,
+					amount,
+					mPriceInfo.sendPrice
+				).subscribeUi(disposables, {}, {
+					errorEvent.postValue(R.string.error_order_place)
+					Logger.e(it)
+				}, {
+					messageEvent.postValue(R.string.message_order_created)
+					initState(viewState.value?.sendPair, viewState.value?.receivePair)
+				})
+				
+			} else {
+				messageEvent.postValue(R.string.message_invalid_amount)
+			}
+		}
+	}
+	
+	private fun showConfirm() {
+		val pair = coinPairsCodes[currentPairPosition]
+		
+		val confirmInfo = ExchangeConfirmInfo(
+			pair.first,
+			pair.second,
+			viewState.value?.sendAmount ?: BigDecimal.ZERO,
+			mReceiveInfo.receiveAmount
+		) { placeOrder() }
+
+		confirmEvent.value = confirmInfo
 	}
 	
 	//endregion
@@ -192,23 +231,9 @@ class LimitOrderViewModel: CoreViewModel() {
 	fun onExchangeClick() {
 		viewState.value?.sendAmount?.let { amount ->
 			if (amount > BigDecimal.ZERO && mPriceInfo.sendPrice > BigDecimal.ZERO) {
-				messageEvent.postValue(R.string.message_order_creating)
-
-				relayer.createOrder(
-					coinPairsCodes[currentPairPosition],
-					if (exchangeState == ExchangeSide.BID) EOrderSide.SELL else EOrderSide.BUY,
-					amount,
-					mPriceInfo.sendPrice
-				).subscribeUi(disposables, {}, {
-					errorEvent.postValue(R.string.error_order_place)
-					Logger.e(it)
-				}, {
-					messageEvent.postValue(R.string.message_order_created)
-					initState(viewState.value?.sendPair, viewState.value?.receivePair)
-				})
-
+				showConfirm()
 			} else {
-				messageEvent.postValue(R.string.message_invalid_amount)
+				errorEvent.postValue(R.string.message_invalid_amount)
 			}
 		}
 	}
@@ -219,9 +244,9 @@ class LimitOrderViewModel: CoreViewModel() {
 			ExchangeSide.ASK -> ExchangeSide.BID
 		}
 
-		val currentReceive = mTotalInfo.receiveAmount
-		val currentPrice = if (mTotalInfo.receiveAmount > BigDecimal.ZERO) {
-			viewState.value?.sendAmount?.divide(mTotalInfo.receiveAmount) ?: BigDecimal.ZERO
+		val currentReceive = mReceiveInfo.receiveAmount
+		val currentPrice = if (mReceiveInfo.receiveAmount > BigDecimal.ZERO) {
+			viewState.value?.sendAmount?.divide(mReceiveInfo.receiveAmount) ?: BigDecimal.ZERO
 		} else {
 			BigDecimal.ZERO
 		}
@@ -233,13 +258,13 @@ class LimitOrderViewModel: CoreViewModel() {
 			receivePair = viewState.value?.sendPair!!
 		)
 
-		mTotalInfo.receiveAmount = currentSend
+		mReceiveInfo.receiveAmount = currentSend
 		mPriceInfo.sendPrice = currentPrice
 
 		refreshPairs(newState)
 
 		viewState.value = newState
-		totalInfo.value = mTotalInfo
+		totalInfo.value = mReceiveInfo
 		priceInfo.value = mPriceInfo
 	}
 	

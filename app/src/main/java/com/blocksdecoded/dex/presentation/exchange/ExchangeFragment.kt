@@ -11,6 +11,8 @@ import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.dialogs.sent.SentDialog
 import com.blocksdecoded.dex.presentation.exchange.ExchangeFragment.InputField.*
 import com.blocksdecoded.dex.presentation.exchange.ExchangeType.*
+import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmDialog
+import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.limit.LimitOrderViewModel
 import com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderViewModel
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
@@ -42,6 +44,10 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     
     private val exchangeEnableObserver = Observer<Boolean> {
         exchange_confirm?.isEnabled = it
+    }
+    
+    private val confirmObserver = Observer<ExchangeConfirmInfo> {
+        ExchangeConfirmDialog.open(childFragmentManager, it)
     }
 
     //region Lifecycle
@@ -152,6 +158,8 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             exchange_confirm?.isEnabled = it
         })
     
+        marketOrderViewModel.confirmEvent.observe(this, confirmObserver)
+    
         marketOrderViewModel.exchangePrice.observe(this, Observer {
             val info = "Price per token: ${it.toDisplayFormat()}" + if (it == BigDecimal.ZERO) {
                 "\nOrderbook is empty"
@@ -187,6 +195,10 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         limitOrderViewModel.messageEvent.observe(this, Observer {
             ToastHelper.showSuccessMessage(it)
         })
+
+        limitOrderViewModel.errorEvent.observe(this, Observer {
+            ToastHelper.showErrorMessage(it)
+        })
     
         limitOrderViewModel.successEvent.observe(this, Observer {
             SentDialog.open(childFragmentManager, it)
@@ -195,6 +207,8 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         limitOrderViewModel.exchangeEnabled.observe(this, Observer {
             exchange_confirm?.isEnabled = it
         })
+    
+        limitOrderViewModel.confirmEvent.observe(this, confirmObserver)
     
         limitOrderViewModel.exchangePrice.observe(this, Observer {
             val info = "Price per token: ${it.toDisplayFormat()}" + if (it == BigDecimal.ZERO) {

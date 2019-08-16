@@ -15,6 +15,6 @@ data class OrderPriceInfo(
     var sendPrice: BigDecimal
 )
 
-data class OrderTotalInfo(
+data class OrderReceiveInfo(
     var receiveAmount: BigDecimal
 )

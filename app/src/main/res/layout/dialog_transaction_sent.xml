@@ -10,7 +10,7 @@
     android:gravity="center">
 
     <TextView
-        style="@style/DialogTitle"
+        style="@style/DialogTitleText"
         android:id="@+id/dialog_sent_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/page_margin"
+    android:layout_marginRight="@dimen/page_margin"
+    android:background="@color/white">
+
+    <TextView
+        style="@style/DialogTitleText"
+        android:id="@+id/exchange_confirm_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/page_margin"
+        android:layout_marginStart="@dimen/page_margin"
+        android:text="Trade:"/>
+
+    <LinearLayout
+        android:id="@+id/exchange_confirm_coins_container"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/exchange_confirm_title"
+        app:layout_constraintTop_toTopOf="@+id/exchange_confirm_title"
+        app:layout_constraintBottom_toBottomOf="@+id/exchange_confirm_title"
+        android:layout_marginLeft="@dimen/element_margin"
+        android:gravity="center"
+        android:padding="@dimen/element_margin">
+        <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+            android:id="@+id/exchange_confirm_from_coin"
+            android:layout_width="@dimen/coin_size"
+            android:layout_height="@dimen/coin_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_wrap"
+            android:layout_marginLeft="@dimen/element_margin"
+            android:layout_marginRight="@dimen/element_margin"/>
+
+        <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+            android:id="@+id/exchange_confirm_to_coin"
+            android:layout_width="@dimen/coin_size"
+            android:layout_height="@dimen/coin_size" />
+    </LinearLayout>
+
+    <!-- Send -->
+
+    <TextView
+        style="@style/HintText"
+        android:id="@+id/exchange_confirm_send_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_coins_container"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginTop="@dimen/big_margin"
+        android:text="Sell: "/>
+
+    <TextView
+        android:id="@+id/exchange_confirm_send_amount"
+        style="@style/AmountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/exchange_confirm_send_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/exchange_confirm_send_hint"
+        app:layout_constraintLeft_toRightOf="@+id/exchange_confirm_send_hint"
+        android:layout_marginStart="@dimen/element_margin"/>
+
+    <!-- Receive -->
+
+    <TextView
+        style="@style/HintText"
+        android:id="@+id/exchange_confirm_receive_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_send_hint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginTop="@dimen/page_margin"
+        android:text="Buy: "/>
+
+    <TextView
+        android:id="@+id/exchange_confirm_receive_amount"
+        style="@style/AmountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/exchange_confirm_receive_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/exchange_confirm_receive_hint"
+        app:layout_constraintLeft_toRightOf="@+id/exchange_confirm_receive_hint"
+        android:layout_marginStart="@dimen/element_margin"/>
+
+    <!-- Price -->
+
+    <TextView
+        style="@style/HintText"
+        android:id="@+id/exchange_confirm_price_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_receive_hint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginTop="@dimen/page_margin"
+        android:text="Price per token:"/>
+
+    <TextView
+        android:id="@+id/exchange_confirm_price"
+        style="@style/AmountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/exchange_confirm_price_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/exchange_confirm_price_hint"
+        app:layout_constraintLeft_toRightOf="@+id/exchange_confirm_price_hint"
+        android:layout_marginStart="@dimen/element_margin"/>
+
+    <Button
+        android:id="@+id/exchange_confirm"
+        style="@style/PrimaryButtonRounded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_price_hint"
+        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginBottom="@dimen/page_margin"
+        android:layout_marginLeft="@dimen/page_margin"
+        android:layout_marginRight="@dimen/page_margin"
+        android:text="Confirm"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
