@@ -11,14 +11,27 @@
         android:layout_width="@dimen/coin_size"
         android:layout_height="@dimen/coin_size" />
 
-    <TextView
-        style="@style/SemiboldText"
-        android:id="@+id/item_coin_spinner_title"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1.0"
-        android:paddingLeft="@dimen/element_margin"
-        android:textSize="15sp"
-        android:text="ETH"/>
+        android:layout_marginLeft="@dimen/element_margin">
+
+        <TextView
+            android:id="@+id/item_coin_spinner_title"
+            style="@style/SemiboldText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="ETH"/>
+
+        <TextView
+            android:id="@+id/item_coin_spinner_balance"
+            style="@style/SmallHintText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0.0 ETH"/>
+
+    </LinearLayout>
 
 </LinearLayout>

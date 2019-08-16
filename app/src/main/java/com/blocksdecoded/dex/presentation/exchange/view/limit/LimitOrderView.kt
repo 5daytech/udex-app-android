@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
+import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.view_limit_order.view.*
@@ -141,7 +142,7 @@ class LimitOrderView: CardView {
 	
 	private fun updatePrice(price: BigDecimal) {
 		if (price > BigDecimal.ZERO) {
-			limit_price_input?.setText(price.stripTrailingZeros().toPlainString())
+			limit_price_input?.setText(price.toLongDisplayFormat())
 			limit_price_input?.setSelection(limit_price_input?.text?.length ?: 0)
 		} else {
 			limit_price_input?.setText("")

@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
+import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.view_market_order.view.*
@@ -98,7 +99,7 @@ class MarketOrderView: CardView {
 	
 	private fun updateReceiveAmount(amount: BigDecimal) {
 		if (amount > BigDecimal.ZERO) {
-			exchange_receive_input?.text = amount.stripTrailingZeros().toPlainString()
+			exchange_receive_input?.text = amount.toLongDisplayFormat()
 		} else {
 			exchange_receive_input?.text = ""
 		}

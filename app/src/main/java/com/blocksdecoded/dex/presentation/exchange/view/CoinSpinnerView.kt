@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.widget.*
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 
 
 class CoinSpinnerView : Spinner {
@@ -55,6 +56,8 @@ class CoinSpinnerView : Spinner {
 			
 			itemView.findViewById<CoinIconImage>(R.id.item_coin_spinner_icon).bind(coins[position].code)
 			itemView.findViewById<TextView>(R.id.item_coin_spinner_title).text = coins[position].code
+			itemView.findViewById<TextView>(R.id.item_coin_spinner_balance).text =
+				"${coins[position].balance.toDisplayFormat()} ${coins[position].code}"
 			
 			return itemView
 		}

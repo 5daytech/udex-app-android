@@ -1,6 +1,5 @@
 package com.blocksdecoded.dex.presentation.dialogs.send
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
@@ -9,9 +8,7 @@ import android.view.inputmethod.InputConnection
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
@@ -20,7 +17,6 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.core.ui.reObserve
-import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

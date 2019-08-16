@@ -84,6 +84,13 @@ class MarketOrderViewModel: CoreViewModel() {
         )
     }
 
+    private fun getExchangeItem(coin: Coin): ExchangePairItem {
+        val balance = adapterManager.adapters
+            .firstOrNull { it.coin.code == coin.code }?.balance ?: BigDecimal.ZERO
+
+        return ExchangePairItem(coin.code, coin.title, BigDecimal.ZERO, balance)
+    }
+
     private fun getAvailableSendCoins(): List<ExchangePairItem> {
         // Send only available pair exchangeableCoins
         return exchangeableCoins
@@ -95,7 +102,7 @@ class MarketOrderViewModel: CoreViewModel() {
                     }
                 } != null
             }
-            .map { ExchangePairItem(it.code, it.title, 0.toBigDecimal(), 0.toBigDecimal()) }
+            .map { getExchangeItem(it) }
     }
 
     private fun getAvailableReceiveCoins(baseCoinCode: String): List<ExchangePairItem> {
@@ -112,7 +119,7 @@ class MarketOrderViewModel: CoreViewModel() {
                     }
                 } != null
             }
-            .map { ExchangePairItem(it.code, it.title, 0.toBigDecimal(), 0.toBigDecimal()) }
+            .map { getExchangeItem(it) }
     }
 
     private fun refreshPairs(state: MarketOrderViewState?, refreshSendCoins: Boolean = true) {
