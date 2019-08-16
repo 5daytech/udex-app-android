@@ -9,8 +9,8 @@
     android:background="?selectableItemBackground">
     <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
         android:id="@+id/market_coin_icon"
-        android:layout_width="@dimen/coin_size"
-        android:layout_height="@dimen/coin_size"
+        android:layout_width="@dimen/big_coin_size"
+        android:layout_height="@dimen/big_coin_size"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -48,6 +48,16 @@
         app:layout_constraintLeft_toRightOf="@+id/market_code"
         app:layout_constraintTop_toTopOf="@+id/market_code"
         />
+
+    <com.blocksdecoded.dex.presentation.widgets.MarketChart
+        android:id="@+id/market_chart"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/market_name"
+        app:layout_constraintBottom_toBottomOf="@+id/market_code"
+        app:layout_constraintHorizontal_bias="0.6"/>
 
     <TextView
         style="@style/BoldText"
