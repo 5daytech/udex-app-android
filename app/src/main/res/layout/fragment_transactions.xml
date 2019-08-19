@@ -17,51 +17,11 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:orientation="vertical">
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceView
+            android:id="@+id/transactions_total_balance"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/page_margin">
-
-            <TextView
-                style="@style/SmallHintText"
-                android:id="@+id/transactions_balance_hint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:text="Available Balance"/>
-
-            <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
-                android:id="@+id/transactions_coin_icon"
-                android:layout_width="@dimen/coin_size"
-                android:layout_height="@dimen/coin_size"
-                app:layout_constraintTop_toBottomOf="@+id/transactions_balance_hint"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="@dimen/element_margin"/>
-
-            <TextView
-                style="@style/MainTitleText"
-                android:id="@+id/transactions_balance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toRightOf="@+id/transactions_coin_icon"
-                app:layout_constraintTop_toTopOf="@+id/transactions_coin_icon"
-                app:layout_constraintBottom_toBottomOf="@+id/transactions_coin_icon"
-                android:layout_marginStart="@dimen/element_margin"
-                android:textColor="@color/blue"
-                android:text="0.00 ETH"/>
-
-            <TextView
-                style="@style/MainTitleText"
-                android:id="@+id/transactions_fiat_balance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/transactions_coin_icon"
-                app:layout_constraintBottom_toBottomOf="@+id/transactions_coin_icon"
-                android:textSize="20sp"
-                android:text="$ 0.00"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="wrap_content" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

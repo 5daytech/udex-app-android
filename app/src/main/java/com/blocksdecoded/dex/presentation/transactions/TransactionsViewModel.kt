@@ -9,14 +9,14 @@ import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.utils.uiObserver
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import java.math.BigDecimal
+import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 
 class TransactionsViewModel : CoreViewModel() {
     private val adapterManager = App.adapterManager
     private lateinit var adapter: IAdapter
 
     val coinName = MutableLiveData<String?>()
-    val balance = MutableLiveData<BigDecimal?>()
+    val balance = MutableLiveData<TotalBalanceInfo>()
     val transactions = MutableLiveData<List<TransactionRecord>>()
 
     val finishEvent = SingleLiveEvent<Int>()
@@ -28,22 +28,23 @@ class TransactionsViewModel : CoreViewModel() {
 
         if (adapter == null) {
             errorEvent.postValue(R.string.error_invalid_coin)
+            return
         } else {
             this.adapter = adapter
         }
 
-        coinName.value = adapter?.coin?.title
-        balance.value = adapter?.balance
+        coinName.value = adapter.coin.title
+        balance.value = TotalBalanceInfo(adapter.coin, adapter.balance, 0.0)
 
-        adapter?.getTransactions(limit = 200)
-                ?.uiObserver()
-                ?.subscribe({
-                    updateTransactions(it)
-                }, {
+        adapter.getTransactions(limit = 200)
+            .uiObserver()
+            .subscribe({
+                updateTransactions(it)
+            }, {
 
-                })?.let { disposables.add(it) }
+            }).let { disposables.add(it) }
 
-        adapter?.transactionRecordsFlowable?.subscribe {
+        adapter.transactionRecordsFlowable.subscribe {
             updateTransactions(it)
         }?.let { disposables.add(it) }
     }

@@ -12,7 +12,6 @@ import com.blocksdecoded.dex.presentation.transactions.recycler.TransactionsAdap
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.utils.ui.ToastHelper
-import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import kotlinx.android.synthetic.main.fragment_transactions.*
 
 class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
@@ -44,7 +43,7 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
             if (it != null) toolbar?.title = "$it Transactions"
         })
         viewModel.balance.observe(this, Observer {
-            if (it != null) transactions_balance.text = "${it.toDisplayFormat()} $coinCode"
+            if (it != null) transactions_total_balance.update(it)
         })
     }
 
@@ -55,8 +54,6 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
         transactions_recycler?.layoutManager = LinearLayoutManager(context)
 
         toolbar?.bind(MainToolbar.ToolbarState.BACK) { viewModel.onBackClick() }
-
-        transactions_coin_icon?.bind(coinCode)
     }
 
     //endregion

@@ -12,6 +12,8 @@ import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.dialogs.convert.ConvertConfig
+import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
+import java.math.BigDecimal
 
 class BalanceViewModel : CoreViewModel() {
     private val adaptersManager: IAdapterManager = App.adapterManager
@@ -20,6 +22,8 @@ class BalanceViewModel : CoreViewModel() {
 
     private val mBalances = MutableLiveData<List<CoinValue>>()
     val balances: LiveData<List<CoinValue>> = mBalances
+
+    val totalBalance = MutableLiveData<TotalBalanceInfo>()
 
     private val mRefreshing = MutableLiveData<Boolean>()
     val refreshing: LiveData<Boolean> = mRefreshing
@@ -37,6 +41,8 @@ class BalanceViewModel : CoreViewModel() {
                 .let { disposables.add(it) }
     }
 
+    //region Private
+
     private fun onRefreshAdapters() {
         adapters.forEach { adapter ->
             adapter.stateUpdatedFlowable.subscribe {
@@ -53,19 +59,40 @@ class BalanceViewModel : CoreViewModel() {
 
     private fun updateBalance() {
         mBalances.postValue(
-                adapters.mapIndexed { index, baseAdapter ->
-                    CoinValue(
-                        CoinManager.coins[index],
-                        baseAdapter.balance,
-                        when(index) {
-                            0 -> WRAP
-                            1 -> UNWRAP
-                            else -> NONE
-                        }
-                    )
-                }
+            adapters.mapIndexed { index, baseAdapter ->
+                CoinValue(
+                    CoinManager.coins[index],
+                    baseAdapter.balance,
+                    when(index) {
+                        0 -> WRAP
+                        1 -> UNWRAP
+                        else -> NONE
+                    }
+                )
+            }
+        )
+        updateTotalBalance()
+    }
+
+    private fun updateTotalBalance() {
+        val enabledRange = 0..1
+        var balance = BigDecimal.ZERO
+        for(i in enabledRange) {
+            balance += adapters[i].balance
+        }
+
+        totalBalance.postValue(
+            TotalBalanceInfo(
+                CoinManager.getCoin("ETH"),
+                balance,
+                0.0
+            )
         )
     }
+
+    //endregion
+
+    //region Public
 
     fun refresh() {
         adaptersManager.refresh()
@@ -101,4 +128,6 @@ class BalanceViewModel : CoreViewModel() {
             openTransactions.postValue(adapters[position].coin.code)
         }
     }
+
+    //endregion
 }

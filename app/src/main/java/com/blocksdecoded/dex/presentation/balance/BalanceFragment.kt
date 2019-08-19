@@ -36,8 +36,12 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
             adapter.setCoins(it)
         })
 
+        viewModel.totalBalance.observe(this, Observer {
+            balance_total?.update(it)
+        })
+
         viewModel.refreshing.observe(this, Observer {
-            swipe_refresh.isRefreshing = it
+            swipe_refresh?.isRefreshing = it
         })
 
         viewModel.openReceiveDialog.observe(this, Observer { coinCode ->

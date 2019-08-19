@@ -10,5 +10,9 @@ class AccountViewModel : CoreViewModel() {
 	fun onBackupClick() {
 		openBackupEvent.call()
 	}
+
+	fun onLogoutClick() {
+
+	}
 	
 }
