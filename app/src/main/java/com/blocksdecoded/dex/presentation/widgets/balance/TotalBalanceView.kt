@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
+import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.view_total_balance.view.*
 
 class TotalBalanceView : LinearLayout {
@@ -25,9 +26,11 @@ class TotalBalanceView : LinearLayout {
         defStyleRes
     )
 
-    fun update(balanceInfo: TotalBalanceInfo) {
+    fun update(balanceInfo: TotalBalanceInfo, iconVisible: Boolean = true) {
         total_balance?.text = "${balanceInfo.balance.toDisplayFormat()} ${balanceInfo.coin.code}"
         total_fiat_balance?.text = "$${balanceInfo.fiatBalance.toFiatDisplayFormat()}"
+        
+        total_amount_coin_icon?.visible = iconVisible
         total_amount_coin_icon?.bind(balanceInfo.coin.code)
     }
 

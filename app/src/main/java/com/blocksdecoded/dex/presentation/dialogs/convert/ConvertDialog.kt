@@ -68,8 +68,8 @@ class ConvertDialog private constructor()
             WRAP -> "Wrap "
             UNWRAP -> "Unwrap "
         } + state.fromCoin.code
-        
-        convert_balance?.text = "${state.balance.toDisplayFormat()} ${state.fromCoin.code}"
+    
+        convert_total_balance.update(state.balance, false)
         convert_coin_icon?.bind(state.fromCoin.code)
         convert_amount?.updateAmountPrefix(state.fromCoin.code)
     }

@@ -10,6 +10,7 @@ import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.dialogs.convert.ConvertConfig.ConvertType.*
+import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
@@ -18,6 +19,7 @@ class ConvertViewModel : CoreViewModel() {
 
     private lateinit var config: ConvertConfig
     private val wethWrapper = App.zrxKitManager.zrxKit().getWethWrapperInstance()
+    private val ratesConverter = App.ratesConverter
     private var adapter: IAdapter? = null
     
     private lateinit var fromCoin: Coin
@@ -40,6 +42,12 @@ class ConvertViewModel : CoreViewModel() {
     
         adapter = App.adapterManager.adapters
             .firstOrNull { it.coin.code == config.coinCode }
+    
+        if (adapter == null) {
+            errorEvent.postValue(R.string.error_invalid_coin)
+            dismissDialog.call()
+            return
+        }
         
         fromCoin = CoinManager.getCoin(config.coinCode)
         toCoin = CoinManager.getCoin(
@@ -49,17 +57,18 @@ class ConvertViewModel : CoreViewModel() {
                 "ETH"
         )
         
+        val balanceInfo = TotalBalanceInfo(
+            adapter!!.coin,
+            adapter!!.balance,
+            ratesConverter.getCoinsPrice(adapter!!.coin.code, adapter!!.balance)
+        )
+        
         convertState.value = ConvertState(
             fromCoin,
             toCoin,
-            adapter?.balance ?: BigDecimal.ZERO,
+            balanceInfo,
             config.type
         )
-        
-        if (adapter == null) {
-            errorEvent.postValue(R.string.error_invalid_coin)
-            return
-        }
 	
 	    sendAmount = BigDecimal.ZERO
         onAmountChanged(sendAmount)

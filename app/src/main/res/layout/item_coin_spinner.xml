@@ -30,6 +30,8 @@
             style="@style/SmallHintText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="0.0 ETH"/>
 
     </LinearLayout>
