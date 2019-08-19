@@ -34,7 +34,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_bottom_dialog">
-
                 <TextView
                     style="@style/SmallHintText"
                     android:layout_width="wrap_content"
@@ -43,13 +42,12 @@
                     android:paddingStart="@dimen/page_margin"
                     android:paddingEnd="@dimen/page_margin"
                     android:paddingBottom="@dimen/element_margin"
-                    android:text="Your account"/>
+                    android:text="@string/hint_your_account"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/balance_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clipToPadding="false" />
+                    android:layout_height="match_parent" />
             </LinearLayout>
         </LinearLayout>
 

@@ -25,6 +25,8 @@
     <string name="error_send">Send error</string>
 
     <!-- Hints -->
+    <string name="hint_your_account">Your account</string>
+    <string name="hint_all_transactions">All transactions</string>
     <string name="hint_available_balance">Available Balance</string>
     <string name="subtitle_restore">Enter Secret Key</string>
     <string name="markets_list_hint">market info (24h)</string>
