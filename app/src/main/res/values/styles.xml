@@ -10,7 +10,7 @@
         <item name="android:windowBackground">@color/light_bg</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">@color/black</item>
-        <item name="android:fontFamily">sans-serif-regular</item>
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
     </style>
 
     <style name="BottomSheet" parent="Theme.AppCompat.Light.Dialog">
@@ -120,19 +120,19 @@
     </style>
 
     <style name="BoldText" parent="AppTheme.BaseText">
-        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:fontFamily">@font/sf_pro_display_bold</item>
     </style>
 
     <style name="RegularText" parent="AppTheme.BaseText">
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
     </style>
 
     <style name="SemiboldText" parent="AppTheme.BaseText">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/sf_pro_display_semibold</item>
     </style>
 
     <style name="LightText" parent="AppTheme.BaseText">
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily">@font/sf_pro_display_light</item>
     </style>
 
 </resources>
