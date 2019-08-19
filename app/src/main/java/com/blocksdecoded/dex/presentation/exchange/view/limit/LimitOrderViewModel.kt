@@ -12,7 +12,7 @@ import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.Logger
-import com.blocksdecoded.dex.utils.subscribeUi
+import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
 
 class LimitOrderViewModel: CoreViewModel() {
@@ -79,6 +79,17 @@ class LimitOrderViewModel: CoreViewModel() {
 				
 				initState(mSendCoins.first(), mReceiveCoins.first())
 			}.let { disposables.add(it) }
+
+		App.adapterManager.adaptersUpdatedSignal.subscribe {
+				exchangeableCoins.forEach {  coin ->
+					App.adapterManager.adapters
+						.firstOrNull { it.coin.code == coin.code }
+						?.balanceUpdatedFlowable
+						?.uiSubscribe(disposables, {
+							refreshPairs(viewState.value)
+						})
+				}
+		}.let { disposables.add(it) }
 	}
 	
 	//region Private
@@ -170,7 +181,7 @@ class LimitOrderViewModel: CoreViewModel() {
 					if (exchangeState == ExchangeSide.BID) EOrderSide.SELL else EOrderSide.BUY,
 					amount,
 					mPriceInfo.sendPrice
-				).subscribeUi(disposables, {}, {
+				).uiSubscribe(disposables, {}, {
 					errorEvent.postValue(R.string.error_order_place)
 					Logger.e(it)
 				}, {

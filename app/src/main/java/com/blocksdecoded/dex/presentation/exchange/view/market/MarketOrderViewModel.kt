@@ -11,7 +11,7 @@ import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
-import com.blocksdecoded.dex.utils.subscribeUi
+import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
 
 class MarketOrderViewModel: CoreViewModel() {
@@ -71,6 +71,17 @@ class MarketOrderViewModel: CoreViewModel() {
 
                 initState(mSendCoins.first(), mReceiveCoins.first())
             }.let { disposables.add(it) }
+
+        App.adapterManager.adaptersUpdatedSignal.subscribe {
+            exchangeableCoins.forEach {  coin ->
+                App.adapterManager.adapters
+                    .firstOrNull { it.coin.code == coin.code }
+                    ?.balanceUpdatedFlowable
+                    ?.uiSubscribe(disposables, {
+                        refreshPairs(viewState.value)
+                    })
+            }
+        }.let { disposables.add(it) }
     }
 
     //region Private
@@ -162,7 +173,7 @@ class MarketOrderViewModel: CoreViewModel() {
                     coinPairsCodes[currentPairPosition],
                     if (exchangeState == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL,
                     if (exchangeState == ExchangeSide.BID) amount else viewState.value?.receiveAmount ?: BigDecimal.ZERO
-                ).subscribeUi(disposables, {
+                ).uiSubscribe(disposables, {
                     initState(viewState.value?.sendPair, viewState.value?.receivePair)
                     successEvent.postValue(it)
                 }, {

@@ -6,7 +6,7 @@ import com.blocksdecoded.dex.core.CreateOrderException
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
-import com.blocksdecoded.dex.utils.subscribeUi
+import com.blocksdecoded.dex.utils.uiSubscribe
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.model.AssetItem
 import com.blocksdecoded.zrxkit.model.Order
@@ -71,7 +71,7 @@ class RelayerAdapter(
 
 	private fun refreshPair(baseAsset: String, quoteAsset: String) {
 		relayerManager.getOrderbook(relayerId, baseAsset, quoteAsset)
-			.subscribeUi(disposables, {
+			.uiSubscribe(disposables, {
 				buyOrders.updatePairOrders(baseAsset, quoteAsset, it.bids.records.map { it.order })
 				sellOrders.updatePairOrders(baseAsset, quoteAsset, it.asks.records.map { it.order })
 
@@ -85,7 +85,7 @@ class RelayerAdapter(
 
 				this.myOrders.updatePairOrders(baseAsset, quoteAsset, myOrders)
 				exchangeWrapper.ordersInfo(myOrders.map { it.first })
-					.subscribeUi(disposables, { ordersInfo ->
+					.uiSubscribe(disposables, { ordersInfo ->
 						myOrdersInfo.updatePairOrders(baseAsset, quoteAsset, ordersInfo)
 						this.myOrders.updatePairOrders(baseAsset, quoteAsset, myOrders)
 					}, {

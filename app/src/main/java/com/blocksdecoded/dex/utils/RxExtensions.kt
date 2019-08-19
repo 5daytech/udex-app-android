@@ -8,22 +8,22 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 
-fun <T> Single<T>.observeUi() : Single<T> = this.subscribeOn(Schedulers.io())
+fun <T> Single<T>.uiObserver() : Single<T> = this.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 
-fun <T> Flowable<T>.observeUi() : Flowable<T> = this.subscribeOn(Schedulers.io())
+fun <T> Flowable<T>.uiObserver() : Flowable<T> = this.subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
 
-fun <T> Flowable<T>.subscribeUi(
+fun <T> Flowable<T>.uiSubscribe(
     disposables: CompositeDisposable,
     onNext: (T) -> Unit,
     onError: ((Throwable) -> Unit)? = null,
     onComplete: (() -> Unit)? = null
 ) {
-    observeUi().subscribeUi(onNext, onError, onComplete).let { disposables.add(it) }
+    uiObserver().uiSubscribe(onNext, onError, onComplete).let { disposables.add(it) }
 }
 
-fun <T> Flowable<T>.subscribeUi(
+fun <T> Flowable<T>.uiSubscribe(
     onNext: (T) -> Unit,
     onError: ((Throwable) -> Unit)? = null,
     onComplete: (() -> Unit)? = null

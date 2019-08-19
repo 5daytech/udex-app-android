@@ -6,12 +6,11 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.utils.observeUi
+import com.blocksdecoded.dex.utils.uiObserver
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.clipboard.ClipboardManager
-import kotlinx.android.synthetic.main.view_amount_input.*
 import java.math.BigDecimal
 
 class SendViewModel: CoreViewModel() {
@@ -105,7 +104,7 @@ class SendViewModel: CoreViewModel() {
         }
 
         adapter.send(address, amount, userInput.feePriority)
-                .observeUi()
+                .uiObserver()
                 .subscribe({
                     dismissWithSuccessEvent.call()
                 }, {

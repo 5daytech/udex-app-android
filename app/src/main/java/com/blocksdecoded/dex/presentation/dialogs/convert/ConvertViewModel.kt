@@ -11,7 +11,7 @@ import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.dialogs.convert.ConvertConfig.ConvertType.*
 import com.blocksdecoded.dex.utils.Logger
-import com.blocksdecoded.dex.utils.subscribeUi
+import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
 
 class ConvertViewModel : CoreViewModel() {
@@ -90,7 +90,7 @@ class ConvertViewModel : CoreViewModel() {
             when(config.type) {
                 WRAP -> wethWrapper.deposit(sendRaw)
                 UNWRAP -> wethWrapper.withdraw(sendRaw)
-            }.subscribeUi(disposables, {
+            }.uiSubscribe(disposables, {
                 dismissDialog.call()
                 transactionSentEvent.postValue(it.transactionHash)
             }, {

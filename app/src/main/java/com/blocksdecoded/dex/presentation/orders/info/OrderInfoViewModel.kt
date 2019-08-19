@@ -7,7 +7,7 @@ import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.orders.model.OrderInfoConfig
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
-import com.blocksdecoded.dex.utils.subscribeUi
+import com.blocksdecoded.dex.utils.uiSubscribe
 
 class OrderInfoViewModel : CoreViewModel() {
 	private val relayerAdapter = App.relayerAdapterManager.getMainAdapter()
@@ -34,7 +34,7 @@ class OrderInfoViewModel : CoreViewModel() {
 		order?.let {
 			messageEvent.postValue(R.string.message_cancel_started)
 			relayerAdapter.cancelOrder(it.order)
-				.subscribeUi(disposables, {
+				.uiSubscribe(disposables, {
 					successEvent.postValue(it)
 					dismissEvent.call()
 				}, {

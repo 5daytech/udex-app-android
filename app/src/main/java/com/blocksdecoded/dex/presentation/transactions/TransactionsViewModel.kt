@@ -6,10 +6,9 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.model.TransactionRecord
 import com.blocksdecoded.dex.utils.isValidIndex
-import com.blocksdecoded.dex.utils.observeUi
+import com.blocksdecoded.dex.utils.uiObserver
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import com.blocksdecoded.dex.utils.Logger
 import java.math.BigDecimal
 
 class TransactionsViewModel : CoreViewModel() {
@@ -37,7 +36,7 @@ class TransactionsViewModel : CoreViewModel() {
         balance.value = adapter?.balance
 
         adapter?.getTransactions(limit = 200)
-                ?.observeUi()
+                ?.uiObserver()
                 ?.subscribe({
                     updateTransactions(it)
                 }, {
