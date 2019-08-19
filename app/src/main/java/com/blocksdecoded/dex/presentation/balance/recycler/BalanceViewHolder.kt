@@ -10,6 +10,7 @@ import com.blocksdecoded.dex.core.model.EConvertType.*
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
 import com.blocksdecoded.dex.utils.setVisible
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
+import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.visible
 import java.math.BigDecimal
 
@@ -22,6 +23,7 @@ class BalanceViewHolder(
     private val mSymbol: TextView = itemView.findViewById(R.id.balance_symbol)
     private val mTitle: TextView = itemView.findViewById(R.id.balance_title)
     private val mBalance: TextView = itemView.findViewById(R.id.balance_amount)
+    private val mFiatBalance: TextView = itemView.findViewById(R.id.balance_fiat_amount)
     private val mButtonContainer: View = itemView.findViewById(R.id.balance_buttons_container)
     
     private val mSendBtn: View = itemView.findViewById(R.id.balance_send)
@@ -45,7 +47,7 @@ class BalanceViewHolder(
         mSymbol.text = coinValue.coin.code
         mTitle.text = coinValue.coin.title
         mBalance.text = "${coinValue.balance.toDisplayFormat()} ${coinValue.coin.code}"
-
+        mFiatBalance.text = "$${coinValue.fiatBalance.toFiatDisplayFormat()}"
         mButtonContainer.visible = expanded
     
         if (coinValue.balance <= BigDecimal.ZERO) {

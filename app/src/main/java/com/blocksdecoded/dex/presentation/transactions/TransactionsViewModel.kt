@@ -13,6 +13,7 @@ import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 
 class TransactionsViewModel : CoreViewModel() {
     private val adapterManager = App.adapterManager
+    private val ratesConverter = App.ratesConverter
     private lateinit var adapter: IAdapter
 
     val coinName = MutableLiveData<String?>()
@@ -34,7 +35,11 @@ class TransactionsViewModel : CoreViewModel() {
         }
 
         coinName.value = adapter.coin.title
-        balance.value = TotalBalanceInfo(adapter.coin, adapter.balance, 0.0)
+        balance.value = TotalBalanceInfo(
+            adapter.coin,
+            adapter.balance,
+            ratesConverter.getCoinsPrice(adapter.coin.code, adapter.balance)
+        )
 
         adapter.getTransactions(limit = 200)
             .uiObserver()

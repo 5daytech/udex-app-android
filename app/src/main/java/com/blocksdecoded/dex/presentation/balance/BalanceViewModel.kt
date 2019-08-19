@@ -8,6 +8,8 @@ import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.manager.IAdapterManager
 import com.blocksdecoded.dex.core.model.CoinValue
 import com.blocksdecoded.dex.core.model.EConvertType.*
+import com.blocksdecoded.dex.core.rates.IRatesManager
+import com.blocksdecoded.dex.core.rates.RatesConverter
 import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
@@ -16,7 +18,10 @@ import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import java.math.BigDecimal
 
 class BalanceViewModel : CoreViewModel() {
+    private val baseCoinCode = "ETH"
     private val adaptersManager: IAdapterManager = App.adapterManager
+    private val ratesManager: IRatesManager = App.ratesManager
+    private val ratesConverter: RatesConverter = App.ratesConverter
     private val adapters: List<IAdapter>
         get() = adaptersManager.adapters
 
@@ -35,10 +40,14 @@ class BalanceViewModel : CoreViewModel() {
 
     init {
         mRefreshing.value = true
-
+    
+        ratesManager.ratesUpdateSubject
+            .subscribe { onRefreshAdapters() }
+            .let { disposables.add(it) }
+        
         adaptersManager.adaptersUpdatedSignal
-                .subscribe { onRefreshAdapters() }
-                .let { disposables.add(it) }
+            .subscribe { onRefreshAdapters() }
+            .let { disposables.add(it) }
     }
 
     //region Private
@@ -59,10 +68,11 @@ class BalanceViewModel : CoreViewModel() {
 
     private fun updateBalance() {
         mBalances.postValue(
-            adapters.mapIndexed { index, baseAdapter ->
+            adapters.mapIndexed { index, adapter ->
                 CoinValue(
                     CoinManager.coins[index],
-                    baseAdapter.balance,
+                    adapter.balance,
+                    ratesConverter.getCoinsPrice(adapter.coin.code, adapter.balance),
                     when(index) {
                         0 -> WRAP
                         1 -> UNWRAP
@@ -71,21 +81,25 @@ class BalanceViewModel : CoreViewModel() {
                 )
             }
         )
+        
         updateTotalBalance()
     }
 
     private fun updateTotalBalance() {
-        val enabledRange = 0..1
         var balance = BigDecimal.ZERO
-        for(i in enabledRange) {
-            balance += adapters[i].balance
+        
+        adapters.forEach {
+            val convertedBalance = it.balance.multiply(ratesConverter.baseFrom(it.coin.code).toBigDecimal())
+            balance += convertedBalance
         }
+        
+        val fiatBalance = ratesConverter.getCoinsPrice(baseCoinCode, balance)
 
         totalBalance.postValue(
             TotalBalanceInfo(
-                CoinManager.getCoin("ETH"),
+                CoinManager.getCoin(baseCoinCode),
                 balance,
-                0.0
+                fiatBalance
             )
         )
     }

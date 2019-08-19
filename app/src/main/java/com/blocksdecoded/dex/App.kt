@@ -15,6 +15,7 @@ import com.blocksdecoded.dex.core.security.SecuredStorage
 import com.blocksdecoded.dex.core.security.encryption.EncryptionManager
 import com.blocksdecoded.dex.core.security.encryption.IEncryptionManager
 import com.blocksdecoded.dex.core.AppConfiguration
+import com.blocksdecoded.dex.core.rates.RatesConverter
 import com.blocksdecoded.dex.core.shared.AppLocalStorage
 import com.blocksdecoded.dex.core.shared.IAppLocalStorage
 import com.blocksdecoded.dex.core.shared.ISharedStorage
@@ -43,20 +44,23 @@ class App: Application() {
         lateinit var feeRateProvider: IFeeRateProvider
         lateinit var adapterManager: IAdapterManager
         lateinit var relayerAdapterManager: IRelayerAdapterManager
-        lateinit var ratesManager: IRatesManager
         lateinit var authManager: AuthManager
         lateinit var wordsManager: IWordsManager
         lateinit var encryptionManager: IEncryptionManager
+    
+        // Rates
         
-        lateinit var securedStorage: ISecuredStorage
-        lateinit var localStorage: IAppLocalStorage
-
+        lateinit var ratesManager: IRatesManager
+        lateinit var ratesConverter: RatesConverter
+        
         // Factories
 
         lateinit var adapterFactory: AdapterFactory
-
+        
         // Helpers
-
+    
+        lateinit var securedStorage: ISecuredStorage
+        lateinit var localStorage: IAppLocalStorage
         lateinit var sharedStorage: ISharedStorage
 
     }
@@ -83,7 +87,8 @@ class App: Application() {
         feeRateProvider = FeeRateProvider(this)
 
         ratesManager = RatesManager(BootstrapApiClient(), RatesApiClient(), RatesClientConfig(sharedStorage))
-
+        ratesConverter = RatesConverter(ratesManager = ratesManager)
+        
         // Init adapter manager
         adapterFactory = AdapterFactory(appConfiguration, ethereumKitManager, feeRateProvider)
         adapterManager = AdapterManager(CoinManager, adapterFactory, ethereumKitManager, authManager)

@@ -7,9 +7,9 @@ interface IRatesManager {
     val ratesUpdateSubject: BehaviorSubject<Unit>
     val ratesStateSubject: BehaviorSubject<RatesState>
 
-    fun getRates(symbols: List<String>): List<CoinRate>
+    fun getRates(codes: List<String>): List<CoinRate>
 
-    fun getRate(symbol: String): CoinRate
+    fun getRate(code: String): CoinRate
 
     fun refresh()
 
