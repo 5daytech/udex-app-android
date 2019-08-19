@@ -29,12 +29,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/balance_recycler"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                android:background="@drawable/bg_bottom_dialog">
+
+                <TextView
+                    style="@style/SmallHintText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/page_margin"
+                    android:paddingStart="@dimen/page_margin"
+                    android:paddingEnd="@dimen/page_margin"
+                    android:paddingBottom="@dimen/element_margin"
+                    android:text="Your account"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/balance_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false" />
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
