@@ -73,6 +73,7 @@ class BalanceViewModel : CoreViewModel() {
                     CoinManager.coins[index],
                     adapter.balance,
                     ratesConverter.getCoinsPrice(adapter.coin.code, adapter.balance),
+                    ratesConverter.getTokenPrice(adapter.coin.code),
                     when(index) {
                         0 -> WRAP
                         1 -> UNWRAP
@@ -89,7 +90,8 @@ class BalanceViewModel : CoreViewModel() {
         var balance = BigDecimal.ZERO
         
         adapters.forEach {
-            val convertedBalance = it.balance.multiply(ratesConverter.baseFrom(it.coin.code).toBigDecimal())
+            val priceInBase = ratesConverter.baseFrom(it.coin.code).toBigDecimal()
+            val convertedBalance = it.balance.multiply(priceInBase)
             balance += convertedBalance
         }
         

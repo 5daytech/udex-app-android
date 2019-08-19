@@ -6,6 +6,7 @@ data class CoinValue(
 	val coin: Coin,
 	val balance: BigDecimal,
 	val fiatBalance: BigDecimal,
+	val pricePerToken: Double,
 	val convertType: EConvertType
 )
 

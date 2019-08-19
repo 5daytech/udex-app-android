@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/big_margin"
+    android:paddingTop="@dimen/medium_margin"
     android:background="?selectableItemBackground"
     android:orientation="vertical">
 
@@ -33,6 +33,19 @@
             android:text="ETH"
             android:textSize="15sp"
             android:textColor="@color/black"/>
+
+        <TextView
+            style="@style/SemiboldText"
+            android:id="@+id/balance_token_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/balance_symbol"
+            app:layout_constraintTop_toBottomOf="@+id/balance_amount"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/small_margin"
+            android:textColor="@color/light_hint"
+            android:textSize="12sp"
+            android:text="0.00"/>
 
         <TextView
             style="@style/RegularText"
@@ -67,6 +80,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/balance_amount"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/small_margin"
             android:textColor="@color/light_hint"
             android:textSize="12sp"
             android:text="0.00"/>
@@ -77,8 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="visible"
-        android:layout_marginTop="8dp">
+        android:visibility="visible">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/balance_receive"
@@ -230,7 +243,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginTop="@dimen/page_margin"
+        android:layout_marginTop="@dimen/element_margin"
         android:background="@color/light_hint"
         android:alpha="0.3"/>
 

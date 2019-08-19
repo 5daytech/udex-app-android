@@ -8,6 +8,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.CoinValue
 import com.blocksdecoded.dex.core.model.EConvertType.*
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+import com.blocksdecoded.dex.utils.setTextColorRes
 import com.blocksdecoded.dex.utils.setVisible
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
@@ -24,6 +25,7 @@ class BalanceViewHolder(
     private val mTitle: TextView = itemView.findViewById(R.id.balance_title)
     private val mBalance: TextView = itemView.findViewById(R.id.balance_amount)
     private val mFiatBalance: TextView = itemView.findViewById(R.id.balance_fiat_amount)
+    private val mTokenPrice: TextView = itemView.findViewById(R.id.balance_token_price)
     private val mButtonContainer: View = itemView.findViewById(R.id.balance_buttons_container)
     
     private val mSendBtn: View = itemView.findViewById(R.id.balance_send)
@@ -48,18 +50,24 @@ class BalanceViewHolder(
         mTitle.text = coinValue.coin.title
         mBalance.text = "${coinValue.balance.toDisplayFormat()} ${coinValue.coin.code}"
         mFiatBalance.text = "$${coinValue.fiatBalance.toFiatDisplayFormat()}"
+        mTokenPrice.text = "$${coinValue.pricePerToken.toFiatDisplayFormat()} per ${coinValue.coin.code}"
+        
         mButtonContainer.visible = expanded
     
-        if (coinValue.balance <= BigDecimal.ZERO) {
-            mSendBtn.isEnabled = false
-            mSendBtn.alpha = 0.4f
-            mConvertBtn.isEnabled = false
-            mConvertBtn.alpha = 0.4f
-        } else {
+        if (coinValue.balance > BigDecimal.ZERO) {
             mSendBtn.isEnabled = true
             mSendBtn.alpha = 1f
             mConvertBtn.isEnabled = true
             mConvertBtn.alpha = 1f
+            mTitle.setTextColorRes(R.color.main_dark)
+            mBalance.setTextColorRes(R.color.main_dark)
+        } else {
+            mSendBtn.isEnabled = false
+            mSendBtn.alpha = 0.4f
+            mConvertBtn.isEnabled = false
+            mConvertBtn.alpha = 0.4f
+            mTitle.setTextColorRes(R.color.light_hint)
+            mBalance.setTextColorRes(R.color.light_hint)
         }
         
         when(coinValue.convertType) {

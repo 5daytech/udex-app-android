@@ -13,6 +13,8 @@ class RatesConverter(
 		ratesManager.getRate(code)
 	}
 	
+	fun getTokenPrice(code: String): Double = getCoinRate(code).price
+	
 	fun baseFrom(code: String): Double {
 		val baseRate = getCoinRate(baseCode)
 		val fromRate = getCoinRate(code)
