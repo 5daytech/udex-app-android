@@ -5,25 +5,28 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
-import com.blocksdecoded.dex.presentation.orders.model.OrderInfo
+import com.blocksdecoded.dex.presentation.orders.model.OrderInfoConfig
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import com.blocksdecoded.dex.utils.subscribeUi
-import com.blocksdecoded.zrxkit.model.SignedOrder
 
 class OrderInfoViewModel : CoreViewModel() {
 	private val relayerAdapter = App.relayerAdapterManager.getMainAdapter()
-	private var order: OrderInfo? = null
+	private var order: OrderInfoConfig? = null
 	
 	val orderInfo = MutableLiveData<UiOrder>()
 	val dismissEvent = SingleLiveEvent<Unit>()
 	val successEvent = SingleLiveEvent<String>()
 	
-	fun init(orderInfo: OrderInfo?) {
+	fun init(orderInfo: OrderInfoConfig?) {
 		this.order = orderInfo
 		
 		order?.let {
-			this.orderInfo.value = UiOrder.fromOrder(it.order, it.side, isMine = true)
+			this.orderInfo.value = UiOrder.fromOrder(
+				it.order,
+				it.side,
+				orderInfo = it.info,
+				isMine = true
+			)
 		} ?: dismissEvent.call()
 	}
 	

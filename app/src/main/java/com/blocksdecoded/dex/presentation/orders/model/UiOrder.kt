@@ -18,13 +18,14 @@ data class UiOrder(
         val expireDate: String,
         val side: EOrderSide,
         val isMine: Boolean,
-        val orderInfo: OrderInfo?
+        val status: String,
+        val filledAmount: BigDecimal
 ){
     companion object {
         fun fromOrder(order: IOrder, side: EOrderSide, orderInfo: OrderInfo? = null, isMine: Boolean = false): UiOrder {
             val makerCoin = CoinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.makerAssetData))!!
             val takerCoin = CoinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.takerAssetData))!!
-            
+
             val makerAmount = order.makerAssetAmount.toBigDecimal()
                 .movePointLeft((makerCoin.type as CoinType.Erc20).decimal)
                 .stripTrailingZeros()
@@ -32,7 +33,11 @@ data class UiOrder(
             val takerAmount = order.takerAssetAmount.toBigDecimal()
                 .movePointLeft((takerCoin.type as CoinType.Erc20).decimal)
                 .stripTrailingZeros()
-            
+
+            val filledAmount = orderInfo?.orderTakerAssetFilledAmount?.toBigDecimal()
+                ?.movePointLeft(makerCoin.type.decimal)
+                ?.stripTrailingZeros() ?: BigDecimal.ZERO
+
             val price = if (side == EOrderSide.BUY)
                 makerAmount.toDouble().div(takerAmount.toDouble())
             else
@@ -47,7 +52,8 @@ data class UiOrder(
                 TimeUtils.timestampToDisplay(order.expirationTimeSeconds.toLong()),
                 side,
                 isMine,
-                orderInfo
+                orderInfo?.orderStatus ?: "unknown",
+                filledAmount
             )
         }
     }

@@ -4,6 +4,7 @@ import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import com.blocksdecoded.dex.utils.Logger
+import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
@@ -97,14 +98,25 @@ class OrdersWatcher(
 			relayerAdapter.availablePairs[currentSelectedPair].first.assetData,
 			relayerAdapter.availablePairs[currentSelectedPair].second.assetData
 		)
+
+	private fun getSeletecOrdersInfo(): RelayerOrders<OrderInfo> =
+		relayerAdapter.myOrdersInfo.getPair(
+			relayerAdapter.availablePairs[currentSelectedPair].first.assetData,
+			relayerAdapter.availablePairs[currentSelectedPair].second.assetData
+		)
 	
 	private fun isSelectedPair(baseAsset: String, quoteAsset: String): Boolean =
 		relayerAdapter.availablePairs[currentSelectedPair].first.assetData.equals(baseAsset, true) &&
 				relayerAdapter.availablePairs[currentSelectedPair].second.assetData.equals(quoteAsset, true)
 	
 	//TODO: Replace with order hash
-	fun getMyOrder(position: Int, side: EOrderSide): Pair<SignedOrder, EOrderSide>? = when(side) {
-		MY -> getMySelectedOrders().orders[position]
+	fun getMyOrder(position: Int, side: EOrderSide): Triple<SignedOrder, OrderInfo, EOrderSide>? = when(side) {
+		MY -> {
+			val myOrder = getMySelectedOrders().orders[position]
+			val orderInfo = getSeletecOrdersInfo().orders[position]
+
+			Triple(myOrder.first, orderInfo, myOrder.second)
+		}
 		else -> null
 	}
 	

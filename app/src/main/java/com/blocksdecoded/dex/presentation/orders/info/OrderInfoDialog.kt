@@ -9,7 +9,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.dialogs.sent.SentDialog
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
-import com.blocksdecoded.dex.presentation.orders.model.OrderInfo
+import com.blocksdecoded.dex.presentation.orders.model.OrderInfoConfig
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import kotlinx.android.synthetic.main.dialog_order_info.*
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.dialog_order_info.*
 class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
 	
 	private lateinit var viewModel: OrderInfoViewModel
-	private var orderInfo: OrderInfo? = null
+	private var orderInfo: OrderInfoConfig? = null
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -45,19 +45,22 @@ class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
 		
 		viewModel.orderInfo.observe(this, Observer { order ->
 			order_info_price.text = order.price.toDisplayFormat()
-			
-			order_info_amount.text = if (order.side == EOrderSide.BUY) {
-				"${order.takerAmount.toDisplayFormat()} ${order.takerCoin.code}"
-			} else {
-				"${order.makerAmount.toDisplayFormat()} ${order.makerCoin.code}"
-			}
 
-			order_info_receive_amount.text = if (order.side == EOrderSide.BUY) {
-				"${order.makerAmount.toDisplayFormat()} ${order.makerCoin.code}"
-			} else {
-				"${order.takerAmount.toDisplayFormat()} ${order.takerCoin.code}"
-			}
+			order_info_amount.text = "${order.makerAmount.toDisplayFormat()} ${order.makerCoin.code}"
+//			order_info_amount.text = if (order.side == EOrderSide.BUY) {
+//				"${order.takerAmount.toDisplayFormat()} ${order.takerCoin.code}"
+//			} else {
+//				"${order.makerAmount.toDisplayFormat()} ${order.makerCoin.code}"
+//			}
 
+			order_info_receive_amount.text = "${order.takerAmount.toDisplayFormat()} ${order.takerCoin.code}"
+//			order_info_receive_amount.text = if (order.side == EOrderSide.BUY) {
+//				"${order.makerAmount.toDisplayFormat()} ${order.makerCoin.code}"
+//			} else {
+//				"${order.takerAmount.toDisplayFormat()} ${order.takerCoin.code}"
+//			}
+
+			order_info_filled_amount.text = order.filledAmount.toDisplayFormat()
 			order_info_expire_date.text = order.expireDate
 		})
 	}
@@ -68,7 +71,7 @@ class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
 	}
 	
 	companion object {
-		fun show(fragmentManager: FragmentManager, orderInfo: OrderInfo) {
+		fun show(fragmentManager: FragmentManager, orderInfo: OrderInfoConfig) {
 			val fragment = OrderInfoDialog()
 			
 			fragment.orderInfo = orderInfo

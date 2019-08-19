@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:text="Order info"/>
+        android:text="Your order info"/>
 
     <TextView
         style="@style/RegularText"
@@ -25,7 +25,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="@dimen/page_margin"
         android:textColor="@color/light_hint"
-        android:text="Amount:"/>
+        android:text="Total sell amount:"/>
 
     <TextView
         style="@style/SemiboldText"
@@ -40,11 +40,34 @@
         android:text="0.0"/>
 
     <TextView
+            style="@style/RegularText"
+            android:id="@+id/order_info_filled_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/order_info_amount_hint"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="@dimen/page_margin"
+            android:textColor="@color/light_hint"
+            android:text="Filled amount:"/>
+
+    <TextView
+            style="@style/SemiboldText"
+            android:id="@+id/order_info_filled_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/order_info_filled_hint"
+            app:layout_constraintBottom_toBottomOf="@+id/order_info_filled_hint"
+            app:layout_constraintLeft_toRightOf="@+id/order_info_filled_hint"
+            android:layout_marginStart="@dimen/element_margin"
+            android:textSize="16sp"
+            android:text="0.0"/>
+
+    <TextView
         style="@style/RegularText"
         android:id="@+id/order_info_price_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/order_info_amount_hint"
+        app:layout_constraintTop_toBottomOf="@+id/order_info_filled_hint"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="@dimen/page_margin"
         android:textColor="@color/light_hint"

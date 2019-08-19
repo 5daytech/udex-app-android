@@ -5,11 +5,10 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.zrx.OrdersWatcher
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
-import com.blocksdecoded.dex.presentation.orders.model.OrderInfo
+import com.blocksdecoded.dex.presentation.orders.model.OrderInfoConfig
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.isValidIndex
-import com.blocksdecoded.zrxkit.model.SignedOrder
 
 class OrdersViewModel : CoreViewModel() {
     private val adapter = App.relayerAdapterManager.getMainAdapter()
@@ -21,7 +20,7 @@ class OrdersViewModel : CoreViewModel() {
     val myOrders: MutableLiveData<List<UiOrder>> = MutableLiveData()
     val availablePairs = MutableLiveData<List<Pair<String, String>>>()
 
-    val orderInfoEvent = MutableLiveData<OrderInfo>()
+    val orderInfoEvent = MutableLiveData<OrderInfoConfig>()
 
     init {
         zrxOrdersWatcher.availablePairsSubject.subscribe({ pairs ->
@@ -68,7 +67,11 @@ class OrdersViewModel : CoreViewModel() {
             val order = zrxOrdersWatcher.getMyOrder(position, side)
             
             if (order != null) {
-                orderInfoEvent.postValue(OrderInfo(order.first, order.second))
+                orderInfoEvent.postValue(OrderInfoConfig(
+                    order.first,
+                    order.second,
+                    order.third
+                ))
             }
         }
     }
