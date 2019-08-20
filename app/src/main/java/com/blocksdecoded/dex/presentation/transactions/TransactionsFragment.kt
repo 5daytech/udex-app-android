@@ -37,7 +37,7 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
         viewModel.finishEvent.observe(this, Observer { activity?.finish() })
 
         viewModel.transactions.observe(this, Observer { adapter.setTransactions(it) })
-        viewModel.showTransactionInfoEvent.observe(this, Observer {  })
+        viewModel.showTransactionInfoEvent.observe(this, Observer { })
 
         viewModel.coinName.observe(this, Observer {
             if (it != null) toolbar?.title = "$it Transactions"

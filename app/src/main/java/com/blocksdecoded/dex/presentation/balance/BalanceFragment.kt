@@ -15,6 +15,8 @@ import com.blocksdecoded.dex.presentation.dialogs.send.SendDialog
 import com.blocksdecoded.dex.presentation.transactions.TransactionsActivity
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.dialogs.convert.ConvertDialog
+import com.blocksdecoded.dex.presentation.widgets.MainToolbar
+import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
 import kotlinx.android.synthetic.main.fragment_balance.*
 
 class BalanceFragment : CoreFragment(R.layout.fragment_balance),
@@ -72,14 +74,16 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        balance_recycler.layoutManager = object: LinearLayoutManager(context) {
+        balance_recycler?.layoutManager = object: LinearLayoutManager(context) {
             override fun supportsPredictiveItemAnimations(): Boolean = false
         }
 
-        balance_recycler.adapter = adapter
-        (balance_recycler.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
+        balance_recycler?.adapter = adapter
+        (balance_recycler?.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
 
-        swipe_refresh.setOnRefreshListener { viewModel.refresh() }
+        toolbar?.bind(NONE)
+        
+        swipe_refresh?.setOnRefreshListener { viewModel.refresh() }
     }
 
     //region ViewHolder

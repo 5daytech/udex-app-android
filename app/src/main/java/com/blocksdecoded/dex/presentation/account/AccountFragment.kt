@@ -8,6 +8,8 @@ import com.blocksdecoded.dex.BuildConfig
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.backup.BackupActivity
+import com.blocksdecoded.dex.presentation.widgets.MainToolbar
+import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
 import kotlinx.android.synthetic.main.fragment_account.*
 
 class AccountFragment : CoreFragment(R.layout.fragment_account) {
@@ -22,9 +24,10 @@ class AccountFragment : CoreFragment(R.layout.fragment_account) {
             activity?.let { BackupActivity.start(it) }
         })
     
-        account_backup.setOnClickListener { viewModel.onBackupClick() }
+        toolbar?.bind(NONE)
+        account_backup?.setOnClickListener { viewModel.onBackupClick() }
     
-        app_version.text = "v ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})\n${BuildConfig.FLAVOR}"
+        app_version?.text = "v ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})\n${BuildConfig.FLAVOR}"
     }
 
     companion object {

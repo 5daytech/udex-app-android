@@ -35,6 +35,10 @@ class MainToolbar : AppBarLayout {
                     toolbar_back?.visibility = View.VISIBLE
                     toolbar_menu?.visibility = View.INVISIBLE
                 }
+                NONE -> {
+                    toolbar_back?.visibility = View.GONE
+                    toolbar_menu?.visibility = View.GONE
+                }
             }
         }
 
@@ -68,14 +72,15 @@ class MainToolbar : AppBarLayout {
 
     //endregion
 
-    fun bind(state: ToolbarState = MENU, onActionClick: () -> Unit) {
+    fun bind(state: ToolbarState = MENU, onActionClick: (() -> Unit)? = null) {
         this.state = state
 
-        toolbar_menu.setOnClickListener { onActionClick() }
-        toolbar_back.setOnClickListener { onActionClick() }
+        toolbar_menu.setOnClickListener { onActionClick?.invoke() }
+        toolbar_back.setOnClickListener { onActionClick?.invoke() }
     }
 
     enum class ToolbarState {
+        NONE,
         MENU,
         BACK
     }

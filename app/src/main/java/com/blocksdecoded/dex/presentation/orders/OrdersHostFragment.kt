@@ -12,6 +12,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.orders.info.OrderInfoDialog
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
+import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import kotlinx.android.synthetic.main.fragment_orders_host.*
 
 class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
@@ -50,6 +51,8 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
 
         orders_view_pager?.adapter = adapter
         orders_tab_layout?.setupWithViewPager(orders_view_pager)
+        
+        toolbar?.bind(MainToolbar.ToolbarState.NONE)
         
         orders_host_pair_picker?.init {
             viewModel.onPickPair(it)

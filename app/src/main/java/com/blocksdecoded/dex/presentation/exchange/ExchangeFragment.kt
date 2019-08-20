@@ -2,7 +2,6 @@ package com.blocksdecoded.dex.presentation.exchange
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
@@ -16,6 +15,7 @@ import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmDialog
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.limit.LimitOrderViewModel
 import com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderViewModel
+import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
@@ -68,6 +68,8 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    
+        toolbar?.bind(MainToolbar.ToolbarState.NONE)
         
         exchange_numpad?.bind(this, NumPadItemType.DOT, false, scrollable = true)
         exchange_confirm?.setSingleClickListener {
