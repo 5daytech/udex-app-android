@@ -23,6 +23,10 @@ abstract class BaseBottomDialog(
             val bottomSheet = dialog.findViewById<View>(R.id.design_bottom_sheet)
             BottomSheetBehavior.from(bottomSheet).state = BottomSheetBehavior.STATE_EXPANDED
             BottomSheetBehavior.from(bottomSheet).isFitToContents = true
+            activity?.let {
+//                val blurredBackground = BlurUtils.blur(it)
+//                dialog.window?.setBackgroundDrawable(BitmapDrawable(context?.resources, blurredBackground))
+            }
         }
 
         return dialog

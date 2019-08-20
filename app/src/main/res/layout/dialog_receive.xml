@@ -1,63 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<FrameLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_bottom_dialog">
-
-    <LinearLayout
-        android:orientation="horizontal"
+    android:background="@color/transparent">
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginBottom="80dp"
         android:layout_marginTop="@dimen/page_margin"
-        android:layout_marginStart="@dimen/page_margin">
-        <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
-            android:id="@+id/receive_coin_icon"
-            android:layout_width="@dimen/coin_size"
-            android:layout_height="@dimen/coin_size" />
+        android:layout_marginLeft="@dimen/page_margin"
+        android:layout_marginRight="@dimen/page_margin"
+        app:cardElevation="40dp"
+        app:cardCornerRadius="@dimen/corner_radius">
 
-        <TextView
-            style="@style/DialogTitleText"
-            android:id="@+id/receive_title"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/element_margin"
-            android:text="Receive" />
-    </LinearLayout>
+            android:background="@drawable/bg_bottom_dialog"
+            android:paddingTop="@dimen/page_margin">
 
-    <ImageView
-        android:id="@+id/receive_qr"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_gravity="center"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/page_margin"
+                android:layout_marginStart="@dimen/page_margin"
+                android:layout_marginEnd="16dp"
+                android:gravity="center">
+                <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+                    android:id="@+id/receive_coin_icon"
+                    android:layout_width="@dimen/coin_size"
+                    android:layout_height="@dimen/coin_size"
+                    app:layout_constraintRight_toLeftOf="@+id/receive_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginEnd="@dimen/element_margin"/>
 
-    <TextView
-        android:id="@+id/receive_raw"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/big_margin"
-        android:layout_marginEnd="@dimen/big_margin"
-        android:layout_marginBottom="@dimen/page_margin"
-        android:paddingLeft="@dimen/page_margin"
-        android:paddingRight="@dimen/page_margin"
-        android:paddingTop="@dimen/element_margin"
-        android:paddingBottom="@dimen/element_margin"
-        android:background="?selectableItemBackground"
-        android:text="Raw address"
-        android:ellipsize="middle"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:textSize="17sp"
-        android:textColor="#000"
-        android:gravity="center"
-        android:layout_gravity="center"/>
+                <TextView
+                    style="@style/DialogTitleText"
+                    android:id="@+id/receive_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/receive_coin_name"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    android:layout_marginStart="@dimen/element_margin"
+                    android:text="Receive " />
+                <TextView
+                    style="@style/DialogTitleText"
+                    android:id="@+id/receive_coin_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@+id/receive_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textColor="@color/blue"
+                    android:text="Ethereum" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        style="@style/PrimaryButton"
-        android:id="@+id/receive_forward"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:text="Forward"/>
-</LinearLayout>
+            <ImageView
+                android:id="@+id/receive_qr"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_qr"/>
+
+            <TextView
+                style="@style/BoldText"
+                android:id="@+id/receive_raw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/big_margin"
+                android:layout_marginEnd="@dimen/big_margin"
+                android:layout_marginBottom="@dimen/page_margin"
+                android:paddingLeft="@dimen/page_margin"
+                android:paddingRight="@dimen/page_margin"
+                android:paddingTop="@dimen/element_margin"
+                android:paddingBottom="@dimen/element_margin"
+                android:background="?selectableItemBackground"
+                android:text="Raw address"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:textSize="17sp"
+                android:textColor="#000"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+
+            <Button
+                style="@style/PrimaryButton"
+                android:id="@+id/receive_forward"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/element_margin"
+                android:text="Forward"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

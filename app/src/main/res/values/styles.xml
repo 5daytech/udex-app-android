@@ -89,7 +89,7 @@
         <item name="android:textColor">@color/main_dark</item>
     </style>
 
-    <style name="DialogTitleText" parent="SemiboldText">
+    <style name="DialogTitleText" parent="BoldText">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/main_dark</item>
     </style>

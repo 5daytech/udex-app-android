@@ -7,6 +7,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 object QrUtils {
     fun getBarcode(source: String): Bitmap? {
         val barcodeEncoder = BarcodeEncoder()
-        return barcodeEncoder.encodeBitmap(source, BarcodeFormat.QR_CODE, 400, 400)
+        //TODO: Fetch size from dp
+        return barcodeEncoder.encodeBitmap(source, BarcodeFormat.QR_CODE, 1000, 1000)
     }
 }
