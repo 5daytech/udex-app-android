@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.presentation.exchange
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager

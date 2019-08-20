@@ -19,9 +19,10 @@
         android:layout_width="38dp"
         android:layout_height="@dimen/big_coin_size"
         app:layout_constraintTop_toTopOf="@+id/total_balance"
-        app:layout_constraintBottom_toBottomOf="@+id/total_balance"
+        app:layout_constraintBottom_toBottomOf="@+id/total_fiat_balance"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:paddingEnd="8dp"/>
+        android:paddingEnd="8dp"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         style="@style/MainTitleText"
@@ -35,13 +36,12 @@
         android:text="0.00 ETH"/>
 
     <TextView
-        style="@style/MainTitleText"
+        style="@style/HintText"
         android:id="@+id/total_fiat_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/total_amount_coin_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/total_amount_coin_icon"
-        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="@+id/total_balance"
+        app:layout_constraintTop_toBottomOf="@+id/total_balance"
+        android:textSize="15sp"
         android:text="$ 0.00"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

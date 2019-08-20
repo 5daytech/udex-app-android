@@ -12,11 +12,11 @@ fun Double.toFiatDisplayFormat(): String = CurrencyUtils.formatDoubleFiat(this)
 fun BigDecimal.toFiatDisplayFormat(): String = CurrencyUtils.formatBigDecimalFial(this)
 
 object CurrencyUtils {
-    val df = DecimalFormat("#,##0.00####")
+    val df = DecimalFormat("#,##0.00##")
     val longDf = DecimalFormat("#,##0.00########")
 
     private val fiatFormat = DecimalFormat("#,###.00")
-    private val smallFiatFormat = DecimalFormat("#,##0.00####")
+    private val smallFiatFormat = DecimalFormat("#,##0.00###")
     
     fun formatBigDecimalFial(value: BigDecimal): String =
         if (value < BigDecimal.TEN) {

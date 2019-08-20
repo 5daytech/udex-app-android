@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.presentation.exchange.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import com.blocksdecoded.dex.presentation.widgets.listeners.ItemSelectedListener
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.widget.*
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 
 
@@ -43,7 +45,10 @@ class CoinSpinnerView : Spinner {
 		}
 	}
 
-	fun getSelectedSymbol(): String = exchangeItems[selectedItemPosition].code
+	fun getSelectedSymbol(): String = if (exchangeItems.isValidIndex(selectedItemPosition))
+		exchangeItems[selectedItemPosition].code
+	else
+		""
 	
 	inner class CoinsSpinnerAdapter(
 		internal var context: Context,
@@ -74,6 +79,7 @@ class CoinSpinnerView : Spinner {
 		
 		fun setCoins(coins: List<ExchangePairItem>) {
 			this.coins = coins
+
 			notifyDataSetChanged()
 		}
 	}

@@ -30,9 +30,13 @@ class ZrxKitManager(
             listOf(
                 ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("ZRX"))
                         to ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("WETH")), // ZRX/WETH
-                ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("ZRX"))
-                    to ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("TMKV2")), // ZRX/TMKV2
-                ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("TMKV2"))
+                ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("DAI"))
+                        to ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("WETH")), // ZRX/WETH
+                ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("USDT"))
+                        to ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("WETH")), // ZRX/WETH
+                ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("HT"))
+                        to ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("WETH")), // ZRX/WETH
+                ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("LINK"))
                     to ZrxKit.assetItemForAddress(CoinManager.addressForSymbol("WETH")) // TMKV2/WETH
             ),
             listOf("0x2e8da0868e46fc943766a98b8d92a0380b29ce2a"),

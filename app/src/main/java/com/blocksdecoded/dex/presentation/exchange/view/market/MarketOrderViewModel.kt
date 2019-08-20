@@ -203,14 +203,19 @@ class MarketOrderViewModel: CoreViewModel() {
     //region Public
 
     fun onReceiveCoinPick(position: Int) {
-        viewState.value?.receivePair = mReceiveCoins[position]
-        updateReceivePrice()
+        if (viewState.value?.receivePair?.code != mReceiveCoins[position].code) {
+            viewState.value?.receivePair = mReceiveCoins[position]
+            updateReceivePrice()
+        }
     }
 
     fun onSendCoinPick(position: Int) {
-        viewState.value?.sendPair = mSendCoins[position]
-        refreshPairs(viewState.value, false)
-        updateReceivePrice()
+        val pair = mSendCoins[position]
+        if (viewState.value?.sendPair?.code != pair.code) {
+            viewState.value?.sendPair = mSendCoins[position]
+            refreshPairs(viewState.value, false)
+            updateReceivePrice()
+        }
     }
 
     fun onSendAmountChange(amount: BigDecimal) {

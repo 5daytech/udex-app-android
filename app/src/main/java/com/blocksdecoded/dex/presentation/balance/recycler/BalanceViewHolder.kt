@@ -59,15 +59,11 @@ class BalanceViewHolder(
             mSendBtn.alpha = 1f
             mConvertBtn.isEnabled = true
             mConvertBtn.alpha = 1f
-            mTitle.setTextColorRes(R.color.main_dark)
-            mBalance.setTextColorRes(R.color.main_dark)
         } else {
             mSendBtn.isEnabled = false
             mSendBtn.alpha = 0.4f
             mConvertBtn.isEnabled = false
             mConvertBtn.alpha = 0.4f
-            mTitle.setTextColorRes(R.color.light_hint)
-            mBalance.setTextColorRes(R.color.light_hint)
         }
         
         when(coinValue.convertType) {
