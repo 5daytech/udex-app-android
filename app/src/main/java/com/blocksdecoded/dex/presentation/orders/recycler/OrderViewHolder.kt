@@ -22,6 +22,14 @@ class OrderViewHolder(
     }
 
     fun onBind(order: UiOrder) {
+        itemView.setBackgroundResource(
+            if (adapterPosition % 2 == 0) {
+                R.color.main_dark
+            } else {
+                R.color.action_button_dark
+            }
+        )
+        
         priceTxt.text = order.price.toDisplayFormat()
         amountTxt.text = if (order.side == EOrderSide.BUY) {
             order.takerAmount.toDisplayFormat()

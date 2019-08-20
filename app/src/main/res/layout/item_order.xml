@@ -4,7 +4,6 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/ActionButtonBackground"
     android:foreground="?selectableItemBackground"
     android:padding="@dimen/page_margin">
 

@@ -248,6 +248,6 @@
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin"
         android:background="?attr/HintTextColor"
-        android:alpha="0.3"/>
+        android:alpha="0.4"/>
 
 </LinearLayout>
