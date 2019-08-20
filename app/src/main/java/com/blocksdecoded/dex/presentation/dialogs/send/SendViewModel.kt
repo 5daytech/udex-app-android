@@ -40,9 +40,13 @@ class SendViewModel: CoreViewModel() {
         }
     
         coin.value = adapter.coin
+        decimalSize = adapter.decimal
+        reset()
+    }
+
+    private fun reset() {
         userInput = SendUserInput()
         sendEnabled.value = false
-        decimalSize = adapter.decimal
         amount.value = userInput.amount
         receiveAddress.value = userInput.address ?: ""
     }
@@ -62,6 +66,14 @@ class SendViewModel: CoreViewModel() {
 
     fun onBarcodeClick() {
         openBarcodeScannerEvent.call()
+    }
+
+    fun onScanResult(contents: String?) {
+        contents?.let {
+            receiveAddress.value = it
+            userInput.address = it
+            refreshSendEnable()
+        }
     }
 
     fun onMaxClicked() {

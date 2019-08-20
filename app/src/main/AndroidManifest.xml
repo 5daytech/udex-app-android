@@ -40,7 +40,13 @@
 
         <activity android:name=".presentation.guest.GuestActivity"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".presentation.account.SecuritySettingsActivity"/>
+
+        <activity android:name=".presentation.account.SecuritySettingsActivity"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".presentation.dialogs.send.QRScannerActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.BarcodeScanner"/>
 
     </application>
 

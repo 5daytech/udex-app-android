@@ -51,6 +51,10 @@ class SendDialog private constructor()
         send_address.updateInput(it)
     }
 
+    private val barcodeObserver = Observer<Unit> {
+        startScanner()
+    }
+
     private val sendEnabledObserver = Observer<Boolean> {
         send_confirm?.isEnabled = it
     }
@@ -119,6 +123,7 @@ class SendDialog private constructor()
         viewModel.sendEnabled.reObserve(this, sendEnabledObserver)
         viewModel.amount.reObserve(this, amountObserver)
         viewModel.coin.reObserve(this, coinObserver)
+        viewModel.openBarcodeScannerEvent.reObserve(this, barcodeObserver)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -146,6 +151,12 @@ class SendDialog private constructor()
     }
 
     //endregion
+
+    private fun startScanner() {
+        activity?.let {
+            QRScannerActivity.start(it)
+        }
+    }
 
     override fun onItemClick(item: NumPadItem) {
         when (item.type) {

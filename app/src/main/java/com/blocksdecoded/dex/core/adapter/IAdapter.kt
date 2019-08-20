@@ -35,7 +35,6 @@ interface IAdapter {
     fun fee(value: BigDecimal, address: String?, feePriority: FeeRatePriority): BigDecimal
     @Throws
     fun validate(address: String)
-
     fun validate(amount: BigDecimal, address: String?, feePriority: FeeRatePriority): List<SendStateError>
 
     val receiveAddress: String

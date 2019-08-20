@@ -3,10 +3,12 @@ package com.blocksdecoded.dex.presentation.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.account.AccountFragment
@@ -15,12 +17,15 @@ import com.blocksdecoded.dex.presentation.markets.MarketsFragment
 import com.blocksdecoded.dex.presentation.orders.OrdersHostFragment
 import com.blocksdecoded.dex.presentation.balance.BalanceFragment
 import com.blocksdecoded.dex.core.ui.CoreActivity
+import com.blocksdecoded.dex.presentation.dialogs.send.SendViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var adapter: MainPagerAdapter
+    private lateinit var sendViewModel: SendViewModel
 
     override fun onBackPressed() {
         if (main_view_pager.currentItem != 0) {
@@ -34,6 +39,7 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        sendViewModel = ViewModelProviders.of(this).get(SendViewModel::class.java)
         adapter = MainPagerAdapter(supportFragmentManager)
         main_view_pager.adapter = adapter
         main_view_pager.offscreenPageLimit = 3
@@ -50,6 +56,14 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
                 }
             }
         })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        if (scanResult != null && !TextUtils.isEmpty(scanResult.contents)) {
+            sendViewModel.onScanResult(scanResult.contents)
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
