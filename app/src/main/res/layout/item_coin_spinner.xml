@@ -19,19 +19,21 @@
 
         <TextView
             android:id="@+id/item_coin_spinner_title"
-            style="@style/SemiboldText"
+            style="@style/RegularText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
+            android:textColor="?attr/HintTextColor"
             android:text="ETH"/>
 
         <TextView
+            style="@style/RegularText"
             android:id="@+id/item_coin_spinner_balance"
-            style="@style/SmallHintText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:ellipsize="end"
+            android:textColor="?attr/PrimaryTextColor"
             android:text="0.0 ETH"/>
 
     </LinearLayout>

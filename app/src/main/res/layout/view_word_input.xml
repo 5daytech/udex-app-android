@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:paddingEnd="12dp"
-        android:paddingStart="12dp">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:paddingEnd="12dp"
+    android:paddingStart="12dp">
 
     <TextView
-            android:id="@+id/word_prefix"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="1."/>
+        android:id="@+id/word_prefix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="?attr/PrimaryTextColor"
+        tools:text="1."/>
 
     <EditText
-            android:id="@+id/word_input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:background="@android:color/transparent"
-            android:maxLines="1"
-            android:inputType="text"
-            android:imeOptions="actionNext"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/word_prefix"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Word"/>
+        android:id="@+id/word_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="@android:color/transparent"
+        android:textColor="?attr/PrimaryTextColor"
+        android:textColorHint="?attr/PrimaryTextColor"
+        android:maxLines="1"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/word_prefix"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Word"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,21 +1,35 @@
 <resources>
 
+    <attr name="PrimaryLightColor" format="reference|color"/>
+    <attr name="PrimaryTextColor" format="reference|color"/>
+    <attr name="HintTextColor" format="reference|color"/>
+    <attr name="ActionButtonBackground" format="reference|color"/>
+    <attr name="SmallActionButtonColor" format="reference|color"/>
+    <attr name="MainBackground" format="reference|color"/>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor">@color/light_bg</item>
-        <item name="android:windowBackground">@color/light_bg</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/main_dark</item>
+        <item name="android:windowBackground">@color/main_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:navigationBarColor">@color/black</item>
         <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+
+        <item name="PrimaryTextColor">@color/main_light_text</item>
+        <item name="PrimaryLightColor">@color/white</item>
+        <item name="HintTextColor">@color/light_hint</item>
+        <item name="ActionButtonBackground">@color/main_dark</item>
+        <item name="MainBackground">@color/main_dark</item>
+        <item name="SmallActionButtonColor">@color/action_button_dark</item>
     </style>
 
     <!-- Screens -->
     <style name="AppTheme.BarcodeScanner">
-        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:statusBarColor">@color/main_dark</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
@@ -67,7 +81,7 @@
 
     <style name="ButtonSmallGrey" parent="BoldText">
         <item name="android:background">@drawable/bg_grey</item>
-        <item name="android:textColor">@color/small_btn_text</item>
+        <item name="android:textColor">?attr/PrimaryTextColor</item>
         <item name="android:letterSpacing">0</item>
         <item name="android:minHeight">0dp</item>
         <item name="android:minWidth">0dp</item>
@@ -85,39 +99,39 @@
         <item name="android:inputType">number|numberDecimal</item>
         <item name="android:maxLines">1</item>
         <item name="android:hint">0.0</item>
-        <item name="android:textColor">@color/main_dark</item>
-        <item name="android:textColorHint">@color/main_dark</item>
+        <item name="android:textColor">?attr/PrimaryTextColor</item>
+        <item name="android:textColorHint">?attr/PrimaryTextColor</item>
         <item name="android:background">@color/transparent</item>
     </style>
 
     <!-- Texts -->
     <style name="MainTitleText" parent="BoldText">
         <item name="android:textSize">23sp</item>
-        <item name="android:textColor">@color/main_dark</item>
+        <item name="android:textColor">?attr/PrimaryTextColor</item>
     </style>
 
     <style name="DialogTitleText" parent="BoldText">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/main_dark</item>
+        <item name="android:textColor">?attr/PrimaryTextColor</item>
     </style>
 
     <style name="SmallHintText" parent="RegularText">
         <item name="android:textSize">12sp</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/light_hint</item>
+        <item name="android:textColor">?attr/HintTextColor</item>
     </style>
 
     <style name="HintText" parent="RegularText">
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textColor">?attr/HintTextColor</item>
     </style>
 
     <style name="AmountText" parent="BoldText">
         <item name="android:textSize">19sp</item>
         <item name="android:maxLines">1</item>
         <item name="android:hint">0.0</item>
-        <item name="android:textColor">@color/main_dark</item>
-        <item name="android:textColorHint">@color/main_dark</item>
+        <item name="android:textColor">?attr/PrimaryTextColor</item>
+        <item name="android:textColorHint">?attr/PrimaryTextColor</item>
         <item name="android:background">@color/transparent</item>
     </style>
 

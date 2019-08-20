@@ -17,13 +17,16 @@
         android:layout_weight="1.0"
         android:gravity="center"
         android:text="Current Pair"
-        android:textColor="@color/light_hint"/>
+        android:textColor="?attr/HintTextColor"/>
 
     <Spinner
         android:id="@+id/current_pair_spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1.0"
-        android:entries="@array/placeholder_pairs" />
+        android:entries="@array/placeholder_pairs"
+        android:textColor="?attr/PrimaryTextColor"
+        android:backgroundTint="?attr/PrimaryTextColor"
+        android:popupBackground="@color/action_button_dark"/>
 
 </LinearLayout>

@@ -10,29 +10,26 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/page_margin">
         <TextView
-            style="@style/RegularText"
+            style="@style/HintText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:textColor="@color/light_hint"
             android:text="@string/price"/>
 
         <TextView
-            style="@style/RegularText"
+            style="@style/HintText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:textColor="@color/light_hint"
             android:text="@string/amount"/>
 
         <TextView
-            style="@style/RegularText"
+            style="@style/HintText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:gravity="end"
-            android:textColor="@color/light_hint"
             android:text="@string/total"/>
     </LinearLayout>
 

@@ -17,14 +17,14 @@
         android:text="Your order info"/>
 
     <TextView
-        style="@style/RegularText"
+        style="@style/HintText"
         android:id="@+id/order_info_amount_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/order_info_title"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="@dimen/page_margin"
-        android:textColor="@color/light_hint"
+        android:textColor="?attr/HintTextColor"
         android:text="Total sell amount:"/>
 
     <TextView
@@ -36,41 +36,43 @@
         app:layout_constraintBottom_toBottomOf="@+id/order_info_amount_hint"
         app:layout_constraintLeft_toRightOf="@+id/order_info_amount_hint"
         android:layout_marginStart="@dimen/element_margin"
+        android:textColor="?attr/PrimaryTextColor"
         android:textSize="16sp"
         android:text="0.0"/>
 
     <TextView
-            style="@style/RegularText"
-            android:id="@+id/order_info_filled_hint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/order_info_amount_hint"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="@dimen/page_margin"
-            android:textColor="@color/light_hint"
-            android:text="Filled amount:"/>
+        style="@style/HintText"
+        android:id="@+id/order_info_filled_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/order_info_amount_hint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/page_margin"
+        android:textColor="?attr/HintTextColor"
+        android:text="Filled amount:"/>
 
     <TextView
-            style="@style/SemiboldText"
-            android:id="@+id/order_info_filled_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/order_info_filled_hint"
-            app:layout_constraintBottom_toBottomOf="@+id/order_info_filled_hint"
-            app:layout_constraintLeft_toRightOf="@+id/order_info_filled_hint"
-            android:layout_marginStart="@dimen/element_margin"
-            android:textSize="16sp"
-            android:text="0.0"/>
+        style="@style/SemiboldText"
+        android:id="@+id/order_info_filled_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/order_info_filled_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/order_info_filled_hint"
+        app:layout_constraintLeft_toRightOf="@+id/order_info_filled_hint"
+        android:layout_marginStart="@dimen/element_margin"
+        android:textColor="?attr/PrimaryTextColor"
+        android:textSize="16sp"
+        android:text="0.0"/>
 
     <TextView
-        style="@style/RegularText"
+        style="@style/HintText"
         android:id="@+id/order_info_price_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/order_info_filled_hint"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="@dimen/page_margin"
-        android:textColor="@color/light_hint"
+        android:textColor="?attr/HintTextColor"
         android:text="Price per coin:"/>
 
     <TextView
@@ -82,18 +84,19 @@
         app:layout_constraintBottom_toBottomOf="@+id/order_info_price_hint"
         app:layout_constraintLeft_toRightOf="@+id/order_info_price_hint"
         android:layout_marginStart="@dimen/element_margin"
+        android:textColor="?attr/PrimaryTextColor"
         android:textSize="16sp"
         android:text="0.0"/>
 
     <TextView
-        style="@style/RegularText"
+        style="@style/HintText"
         android:id="@+id/order_info_receive_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/order_info_price_hint"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="@dimen/page_margin"
-        android:textColor="@color/light_hint"
+        android:textColor="?attr/HintTextColor"
         android:text="Total receive:"/>
 
     <TextView
@@ -105,18 +108,19 @@
         app:layout_constraintBottom_toBottomOf="@+id/order_info_receive_hint"
         app:layout_constraintLeft_toRightOf="@+id/order_info_receive_hint"
         android:layout_marginStart="@dimen/element_margin"
+        android:textColor="?attr/PrimaryTextColor"
         android:textSize="16sp"
         android:text="0.0"/>
 
     <TextView
-        style="@style/RegularText"
+        style="@style/HintText"
         android:id="@+id/order_info_expire_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/order_info_receive_hint"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="@dimen/page_margin"
-        android:textColor="@color/light_hint"
+        android:textColor="?attr/HintTextColor"
         android:text="Expire at:"/>
 
     <TextView
@@ -128,6 +132,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/order_info_expire_hint"
         app:layout_constraintLeft_toRightOf="@+id/order_info_expire_hint"
         android:layout_marginStart="@dimen/element_margin"
+        android:textColor="?attr/PrimaryTextColor"
         android:textSize="16sp"
         android:text="20/12/20 21:21"/>
 

@@ -9,7 +9,14 @@
     <color name="dark_bg">#282931</color>
 
     <color name="main_dark">#1E1E24</color>
-    
+
+    <!--Text-->
+    <color name="light_text">#FFF</color>
+    <color name="main_light_text">#E1E9FF</color>
+    <color name="light_hint">#6B7388</color>
+    <color name="dark_hint">#B6B9BD</color>
+
+    <color name="action_button_dark">#282931</color>
     <color name="white">#FFF</color>
     <color name="black">#000</color>
     <color name="green">#2ECC71</color>
@@ -24,7 +31,6 @@
     <color name="light_blue">#7083FE</color>
     <color name="light_grey">#B6B9BD</color>
     <color name="dark_grey">#6B7388</color>
-    <color name="light_hint">#90787D88</color>
     
     <color name="transparent">#00000000</color>
     <color name="transparent_blue">#703A62F9</color>

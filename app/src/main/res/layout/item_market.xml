@@ -16,14 +16,14 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
-        style="@style/RegularText"
+        style="@style/SemiboldText"
         android:id="@+id/market_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/market_coin_icon"
         android:layout_marginLeft="@dimen/page_margin"
-        android:textColor="@color/main_dark"
+        android:textColor="?attr/PrimaryTextColor"
         android:textSize="16sp"
         android:text="Ethereum"/>
 
@@ -36,8 +36,8 @@
         app:layout_constraintLeft_toRightOf="@+id/market_coin_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginLeft="@dimen/page_margin"
-        android:layout_marginTop="@dimen/element_margin"
-        android:textColor="@color/light_hint"
+        android:layout_marginTop="@dimen/small_margin"
+        android:textColor="?attr/HintTextColor"
         android:textSize="12sp"
         android:text="ETH"/>
 
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:textSize="16sp"
-        android:textColor="@color/main_dark"
+        android:textColor="?attr/PrimaryTextColor"
         android:text="$222.05"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

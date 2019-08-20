@@ -4,15 +4,17 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/ActionButtonBackground"
     android:foreground="?selectableItemBackground"
     android:padding="@dimen/page_margin">
+
     <TextView
         style="@style/RegularText"
         android:id="@+id/order_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1.0"
-        android:textColor="@color/main_dark"
+        android:textColor="?attr/PrimaryTextColor"
         android:textSize="15sp"
         android:text="Price"/>
 
@@ -23,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1.0"
         android:gravity="center"
-        android:textColor="@color/main_dark"
+        android:textColor="?attr/PrimaryTextColor"
         android:textSize="15sp"
         android:text="Amount"/>
 

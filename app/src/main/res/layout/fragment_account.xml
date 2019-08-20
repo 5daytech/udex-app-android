@@ -37,6 +37,7 @@
                 android:padding="@dimen/page_margin"
                 android:background="?selectableItemBackground"
                 android:textSize="17sp"
+                android:textColor="?attr/PrimaryTextColor"
                 android:text="Wallet Backup"/>
 
             <TextView

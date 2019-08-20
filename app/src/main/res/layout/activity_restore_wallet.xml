@@ -46,7 +46,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/element_margin"
                 android:layout_marginEnd="@dimen/element_margin"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
                 android:visibility="visible"
+                android:textColor="?attr/PrimaryTextColor"
+                android:textColorHint="?attr/HintTextColor"
+                android:background="?attr/ActionButtonBackground"
                 android:hint="Mnemonic key"/>
 
             <androidx.recyclerview.widget.RecyclerView

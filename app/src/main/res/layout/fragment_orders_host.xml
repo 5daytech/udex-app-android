@@ -37,9 +37,9 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginLeft="@dimen/page_margin"
             android:layout_marginRight="@dimen/page_margin"
-            app:tabSelectedTextColor="@color/main_dark"
+            app:tabSelectedTextColor="?attr/PrimaryTextColor"
             app:tabIndicator="@color/transparent"
-            app:tabTextColor="@color/light_hint"
+            app:tabTextColor="?attr/HintTextColor"
             android:layout_marginTop="@dimen/element_margin">
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

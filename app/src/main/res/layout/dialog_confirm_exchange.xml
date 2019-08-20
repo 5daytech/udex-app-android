@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/page_margin"
     android:layout_marginRight="@dimen/page_margin"
-    android:background="@color/white">
+    android:background="?attr/ActionButtonBackground">
 
     <TextView
         style="@style/DialogTitleText"

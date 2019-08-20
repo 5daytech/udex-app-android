@@ -26,8 +26,7 @@
             android:layout_marginEnd="6dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <TextView
                 style="@style/SemiboldText"
@@ -38,7 +37,8 @@
                 android:textSize="16sp"
                 android:hint="Address"
                 android:singleLine="true"
-                android:textColor="@color/black"/>
+                android:textColor="?attr/PrimaryTextColor"
+                android:textColorHint="?attr/PrimaryTextColor"/>
 
             <TextView
                 android:id="@+id/address_input_error"
