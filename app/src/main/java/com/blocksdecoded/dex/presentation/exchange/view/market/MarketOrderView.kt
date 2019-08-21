@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Editable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
+import com.blocksdecoded.dex.presentation.exchange.view.ExchangeReceiveInfo
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
 import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import com.blocksdecoded.dex.utils.visible
@@ -76,6 +78,10 @@ class MarketOrderView: CardView {
 	
 	fun updateReceiveCoins(coins: List<ExchangePairItem>) {
 		exchange_quote_spinner?.setCoins(coins)
+	}
+
+	fun updateReceiveInfo(receiveInfo: ExchangeReceiveInfo) {
+		updateReceiveAmount(receiveInfo.receiveAmount)
 	}
 	
 	@SuppressLint("SetTextI18n")

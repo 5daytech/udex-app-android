@@ -10,6 +10,7 @@ import android.view.inputmethod.InputConnection
 import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
+import com.blocksdecoded.dex.presentation.exchange.view.ExchangeReceiveInfo
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
 import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import com.blocksdecoded.dex.utils.visible
@@ -114,11 +115,11 @@ class LimitOrderView: CardView {
 		limit_quote_spinner?.setSelectedPair(state.receivePair)
 	}
 
-	fun updateTotal(totalInfo: OrderReceiveInfo) {
+	fun updateTotal(totalInfo: ExchangeReceiveInfo) {
 		updateTotal(totalInfo.receiveAmount)
 	}
 
-	fun updatePrice(priceInfo: OrderPriceInfo) {
+	fun updatePrice(priceInfo: ExchangePriceInfo) {
 		updatePrice(priceInfo.sendPrice)
 	}
 	

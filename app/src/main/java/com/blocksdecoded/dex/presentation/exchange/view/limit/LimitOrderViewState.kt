@@ -1,20 +1,15 @@
 package com.blocksdecoded.dex.presentation.exchange.view.limit
 
+import com.blocksdecoded.dex.presentation.exchange.view.IExchangeViewState
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import java.math.BigDecimal
 
 data class LimitOrderViewState(
-    var sendAmount: BigDecimal,
-    var sendPair: ExchangePairItem?,
-    var receivePair: ExchangePairItem?,
-    var sendError: Int = 0,
-    var receiveError: Int = 0
-)
+    override var sendAmount: BigDecimal,
+    override var sendPair: ExchangePairItem?,
+    override var receivePair: ExchangePairItem?
+) : IExchangeViewState
 
-data class OrderPriceInfo(
+data class ExchangePriceInfo(
     var sendPrice: BigDecimal
-)
-
-data class OrderReceiveInfo(
-    var receiveAmount: BigDecimal
 )

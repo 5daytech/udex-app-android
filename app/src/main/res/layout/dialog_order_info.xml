@@ -143,6 +143,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/order_info_expire_date"
         android:layout_marginTop="@dimen/big_margin"
-        android:text="Cancel"/>
+        android:text="Cancel order"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
