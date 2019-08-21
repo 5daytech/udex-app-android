@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
+        android:paddingBottom="@dimen/page_margin"
         app:elevation="0dp"
         app:mt_title="Markets"/>
 
@@ -30,7 +31,6 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
                 android:text="@string/markets_list_hint"
-                android:layout_marginTop="@dimen/page_margin"
                 android:padding="@dimen/page_margin"/>
 
             <androidx.recyclerview.widget.RecyclerView

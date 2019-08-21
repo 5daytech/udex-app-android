@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="@dimen/element_margin"
         android:layout_marginTop="@dimen/element_margin"
         android:layout_marginBottom="@dimen/element_margin"
@@ -45,7 +44,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_date"
         app:layout_constraintLeft_toRightOf="@+id/toolbar_menu"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:paddingTop="@dimen/page_margin"
         android:paddingBottom="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"
@@ -69,6 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_title"
         android:background="?attr/HintTextColor"
         android:alpha="0.3"/>
 

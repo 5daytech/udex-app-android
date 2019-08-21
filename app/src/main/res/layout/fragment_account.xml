@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
+        android:paddingBottom="@dimen/page_margin"
         app:elevation="0dp"
         app:mt_title="Account"/>
 
@@ -24,7 +25,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_content">
             <TextView
                 style="@style/SemiboldText"
                 android:id="@+id/account_backup"
@@ -33,7 +35,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/big_margin"
+                android:layout_marginTop="@dimen/page_margin"
                 android:padding="@dimen/page_margin"
                 android:background="?selectableItemBackground"
                 android:textSize="17sp"

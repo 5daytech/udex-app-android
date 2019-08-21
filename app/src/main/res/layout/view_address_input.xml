@@ -57,8 +57,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginTop="@dimen/small_margin"
             android:layout_marginBottom="@dimen/small_margin"
-            android:padding="8dp"
-            android:scaleType="fitCenter"
+            android:padding="6dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_qr"
             android:visibility="visible"
             />

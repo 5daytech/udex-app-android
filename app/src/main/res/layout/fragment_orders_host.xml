@@ -11,14 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
+        android:paddingBottom="@dimen/page_margin"
         app:elevation="0dp"
         app:mt_title="Orders"/>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_bottom_dialog"
+        android:background="@drawable/bg_content"
+        android:orientation="vertical"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <com.blocksdecoded.dex.presentation.widgets.OrdersPairView
@@ -26,40 +28,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/page_margin"
-            android:layout_marginRight="@dimen/page_margin"/>
+            android:layout_marginRight="@dimen/page_margin" />
 
         <com.blocksdecoded.dex.presentation.widgets.DividedTabLayout
             android:id="@+id/orders_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            android:layout_marginLeft="@dimen/page_margin"
+            android:layout_marginTop="@dimen/element_margin"
+            android:layout_marginRight="@dimen/page_margin"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginLeft="@dimen/page_margin"
-            android:layout_marginRight="@dimen/page_margin"
-            app:tabSelectedTextColor="?attr/PrimaryTextColor"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:tabIndicator="@color/transparent"
-            app:tabTextColor="?attr/HintTextColor"
-            android:layout_marginTop="@dimen/element_margin">
+            app:tabSelectedTextColor="?attr/PrimaryTextColor"
+            app:tabTextColor="?attr/HintTextColor">
+
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Buy"/>
+                android:text="Buy" />
+
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sell"/>
+                android:text="Sell" />
+
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My"/>
+                android:text="My" />
         </com.blocksdecoded.dex.presentation.widgets.DividedTabLayout>
 
         <com.blocksdecoded.dex.presentation.widgets.pagers.NonScrollableViewPager
             android:id="@+id/orders_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/element_margin"/>
+            android:layout_marginTop="@dimen/element_margin" />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            android:paddingBottom="@dimen/page_margin"
             app:mt_title="Exchange"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
