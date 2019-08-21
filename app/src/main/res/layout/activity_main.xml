@@ -22,12 +22,11 @@
         android:background="@color/main_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_navigation"
-        app:labelVisibilityMode="labeled"
+        app:labelVisibilityMode="unlabeled"
         app:itemIconTint="@drawable/selector_tab_color"
         app:itemTextColor="@drawable/selector_tab_color"
         app:itemTextAppearanceActive="@style/RegularText"
         app:itemHorizontalTranslationEnabled="false"
-        app:itemTextAppearanceInactive="@style/RegularText"
-        app:itemIconSize="22dp"/>
+        app:itemTextAppearanceInactive="@style/RegularText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
