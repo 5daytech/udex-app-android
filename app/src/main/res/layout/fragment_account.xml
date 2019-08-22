@@ -35,10 +35,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/page_margin"
-                android:paddingStart="@dimen/page_margin"
-                android:paddingEnd="@dimen/page_margin"
-                android:paddingTop="@dimen/big_margin"
-                android:paddingBottom="@dimen/big_margin"
+                android:padding="@dimen/page_margin"
                 android:background="?selectableItemBackground">
                 <ImageView
                     android:id="@+id/account_security_center_image"
@@ -75,10 +72,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/account_security_center"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:paddingStart="@dimen/page_margin"
-                android:paddingEnd="@dimen/page_margin"
-                android:paddingTop="@dimen/big_margin"
-                android:paddingBottom="@dimen/big_margin"
+                android:layout_marginTop="@dimen/big_margin"
+                android:padding="@dimen/page_margin"
                 android:background="?selectableItemBackground">
                 <ImageView
                     android:id="@+id/language_image"
@@ -114,21 +109,21 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/account_language"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:paddingStart="@dimen/page_margin"
-                android:paddingEnd="@dimen/page_margin"
-                android:paddingTop="@dimen/big_margin"
-                android:paddingBottom="@dimen/big_margin"
+                android:padding="@dimen/page_margin"
                 android:background="?selectableItemBackground">
                 <ImageView
                     android:id="@+id/light_mode_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ic_light_mode"/>
                 <TextView
                     style="@style/SettingsText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/page_margin"
+                    android:gravity="center_vertical"
+                    android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/light_mode_image"
                     android:text="@string/account_light_mode"/>
 
@@ -154,10 +149,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/account_light_mode"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:paddingStart="@dimen/page_margin"
-                android:paddingEnd="@dimen/page_margin"
-                android:paddingTop="@dimen/big_margin"
-                android:paddingBottom="@dimen/big_margin"
+                android:layout_marginTop="@dimen/big_margin"
+                android:padding="@dimen/page_margin"
                 android:background="?selectableItemBackground">
                 <ImageView
                     android:id="@+id/account_about_app_image"
@@ -194,10 +187,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/account_about_app"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:paddingStart="@dimen/page_margin"
-                android:paddingEnd="@dimen/page_margin"
-                android:paddingTop="@dimen/big_margin"
-                android:paddingBottom="@dimen/big_margin"
+                android:padding="@dimen/page_margin"
                 android:background="?selectableItemBackground">
                 <ImageView
                     android:id="@+id/account_share_app_image"
