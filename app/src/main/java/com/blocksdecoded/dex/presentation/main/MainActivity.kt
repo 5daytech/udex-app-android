@@ -49,8 +49,8 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
             override fun onPageSelected(position: Int) {
                 main_bottom_nav.selectedItemId = when(position) {
                     0 -> R.id.nav_balance
-                    1 -> R.id.nav_exchange
-                    2 -> R.id.nav_orders
+                    1 -> R.id.nav_orders
+                    2 -> R.id.nav_exchange
                     3 -> R.id.nav_markets
                     else -> R.id.nav_account
                 }
@@ -69,8 +69,8 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val itemPosition = when (item.itemId) {
             R.id.nav_balance -> 0
-            R.id.nav_exchange -> 1
-            R.id.nav_orders -> 2
+            R.id.nav_orders -> 1
+            R.id.nav_exchange -> 2
             R.id.nav_markets -> 3
             R.id.nav_account -> 4
             else -> 0
@@ -91,8 +91,8 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
     private class MainPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
         override fun getItem(p0: Int): Fragment = when(p0) {
             0 -> BalanceFragment.newInstance()
-            1 -> ExchangeFragment.newInstance()
-            2 -> OrdersHostFragment.newInstance()
+            1 -> OrdersHostFragment.newInstance()
+            2 -> ExchangeFragment.newInstance()
             3 -> MarketsFragment.newInstance()
             else -> AccountFragment.newInstance()
         }

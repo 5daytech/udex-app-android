@@ -8,21 +8,22 @@
 
     <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
         android:id="@+id/item_coin_spinner_icon"
-        android:layout_width="@dimen/coin_size"
-        android:layout_height="@dimen/coin_size" />
+        android:layout_width="@dimen/small_coin_size"
+        android:layout_height="@dimen/small_coin_size"
+        android:visibility="visible"/>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/element_margin">
+        android:layout_marginStart="@dimen/element_margin">
 
         <TextView
             android:id="@+id/item_coin_spinner_title"
             style="@style/RegularText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:textColor="?attr/HintTextColor"
             android:text="ETH"/>
 
@@ -33,6 +34,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:ellipsize="end"
+            android:visibility="visible"
             android:textColor="?attr/PrimaryTextColor"
             android:text="0.0 ETH"/>
 

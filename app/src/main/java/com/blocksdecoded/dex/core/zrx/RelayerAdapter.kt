@@ -5,6 +5,7 @@ import com.blocksdecoded.dex.core.CancelOrderException
 import com.blocksdecoded.dex.core.CreateOrderException
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.CoinType
+import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.uiSubscribe
 import com.blocksdecoded.zrxkit.ZrxKit
@@ -166,50 +167,29 @@ class RelayerAdapter(
 	//endregion
 	
 	//region Public
-	
-	override fun stop() {
-		disposables.clear()
-		buyOrders.clear()
-		sellOrders.clear()
-		myOrders.clear()
-		myOrdersInfo.clear()
-	}
-	
-	override fun calculateBasePrice(coinPair: Pair<String, String>, side: EOrderSide): BigDecimal = try {
+
+	override fun createOrder(
+		coinPair: Pair<String, String>,
+		side: EOrderSide,
+		amount: BigDecimal,
+		price: BigDecimal
+	): Flowable<SignedOrder> {
 		val baseCoin = CoinManager.getCoin(coinPair.first).type as CoinType.Erc20
 		val quoteCoin = CoinManager.getCoin(coinPair.second).type as CoinType.Erc20
-		
-		val pairOrders = when(side) {
-			EOrderSide.BUY -> buyOrders
-			else -> sellOrders
-		}.getPair(
-			ZrxKit.assetItemForAddress(baseCoin.address).assetData,
-			ZrxKit.assetItemForAddress(quoteCoin.address).assetData
-		)
-		
-		val makerAmount = pairOrders.orders.first().makerAssetAmount.toBigDecimal()
-			.movePointLeft(baseCoin.decimal)
-			.stripTrailingZeros()
-		
-		val takerAmount = pairOrders.orders.first().takerAssetAmount.toBigDecimal()
-			.movePointLeft(quoteCoin.decimal)
-			.stripTrailingZeros()
 
-		val math = MathContext.DECIMAL64
-		val price = makerAmount.divide(takerAmount, math)
-			.stripTrailingZeros()
+		val baseAsset = ZrxKit.assetItemForAddress(baseCoin.address)
+		val quoteAsset = ZrxKit.assetItemForAddress(quoteCoin.address)
 
-		price
-	} catch (e: Exception) {
-//		Logger.e(e)
-		BigDecimal.ZERO
-	}
+		val makerAmount = amount.movePointRight(
+			if (side == EOrderSide.BUY) quoteCoin.decimal else baseCoin.decimal
+		).stripTrailingZeros().toBigInteger()
 
-	override fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): BigDecimal = try {
-		val price = calculateBasePrice(coinPair, side)
-		amount.multiply(price)
-	} catch (e: Exception) {
-		BigDecimal.ZERO
+		val takerAmount = amount.multiply(price).movePointRight(
+			if (side == EOrderSide.BUY) baseCoin.decimal else quoteCoin.decimal
+		).stripTrailingZeros().toBigInteger()
+
+		return checkAllowance(baseAsset to quoteAsset)
+			.flatMap { postOrder(baseAsset.assetData, makerAmount, quoteAsset.assetData, takerAmount, side) }
 	}
 
 	override fun fill(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): Flowable<String> {
@@ -231,31 +211,57 @@ class RelayerAdapter(
 			.flatMap { exchangeWrapper.marketBuyOrders(pairOrders.orders, calcAmount.toBigInteger()) }
 	}
 
-	override fun createOrder(
-		coinPair: Pair<String, String>,
-		side: EOrderSide,
-		amount: BigDecimal,
-		price: BigDecimal
-	): Flowable<SignedOrder> {
-        val baseCoin = CoinManager.getCoin(coinPair.first).type as CoinType.Erc20
-        val quoteCoin = CoinManager.getCoin(coinPair.second).type as CoinType.Erc20
-
-        val baseAsset = ZrxKit.assetItemForAddress(baseCoin.address)
-        val quoteAsset = ZrxKit.assetItemForAddress(quoteCoin.address)
-
-        val makerAmount = amount.movePointRight(baseCoin.decimal).stripTrailingZeros().toBigInteger()
-        val takerAmount = amount.multiply(price).movePointRight(quoteCoin.decimal).stripTrailingZeros().toBigInteger()
-
-		return checkAllowance(baseAsset to quoteAsset)
-            .flatMap { postOrder(baseAsset.assetData, makerAmount, quoteAsset.assetData, takerAmount, side) }
-	}
-
 	override fun cancelOrder(order: SignedOrder): Flowable<String> =
 		if (order.makerAddress.equals(ethereumKit.receiveAddress, true)) {
 			exchangeWrapper.cancelOrder(order)
 		} else {
 			Flowable.error(CancelOrderException(order.makerAddress, ethereumKit.receiveAddress))
 		}
+
+	override fun calculateBasePrice(coinPair: Pair<String, String>, side: EOrderSide): BigDecimal = try {
+		val baseCoin = CoinManager.getCoin(coinPair.first).type as CoinType.Erc20
+		val quoteCoin = CoinManager.getCoin(coinPair.second).type as CoinType.Erc20
+
+		val pairOrders = when(side) {
+			EOrderSide.BUY -> buyOrders
+			else -> sellOrders
+		}.getPair(
+			ZrxKit.assetItemForAddress(baseCoin.address).assetData,
+			ZrxKit.assetItemForAddress(quoteCoin.address).assetData
+		)
+
+		val makerAmount = pairOrders.orders.first().makerAssetAmount.toBigDecimal()
+			.movePointLeft(if (side == EOrderSide.BUY) quoteCoin.decimal else baseCoin.decimal)
+			.stripTrailingZeros()
+
+		val takerAmount = pairOrders.orders.first().takerAssetAmount.toBigDecimal()
+			.movePointLeft(if (side == EOrderSide.BUY) baseCoin.decimal else quoteCoin.decimal)
+			.stripTrailingZeros()
+
+		val math = MathContext.DECIMAL64
+		val price = makerAmount.divide(takerAmount, math)
+			.stripTrailingZeros()
+
+		price
+	} catch (e: Exception) {
+//		Logger.e(e)
+		BigDecimal.ZERO
+	}
+
+	override fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): BigDecimal = try {
+		val price = calculateBasePrice(coinPair, side)
+		amount.multiply(price)
+	} catch (e: Exception) {
+		BigDecimal.ZERO
+	}
+
+	override fun stop() {
+		disposables.clear()
+		buyOrders.clear()
+		sellOrders.clear()
+		myOrders.clear()
+		myOrdersInfo.clear()
+	}
 
 	//endregion
 }

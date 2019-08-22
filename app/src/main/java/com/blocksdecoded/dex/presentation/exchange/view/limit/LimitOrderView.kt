@@ -12,6 +12,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangeReceiveInfo
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
+import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
@@ -96,7 +97,10 @@ class LimitOrderView: CardView {
 		limit_base_spinner?.init(onSendCoinPick)
 		limit_quote_spinner?.init(onReceiveCoinPick)
 		limit_amount_max?.setOnClickListener { onMaxClick() }
-		limit_switch?.setOnClickListener { onSwitchClick() }
+		limit_switch?.setOnClickListener {
+			onSwitchClick()
+			AnimationHelper.rotate(limit_switch)
+		}
 	}
 	
 	fun updateSendCoins(coins: List<ExchangePairItem>) {

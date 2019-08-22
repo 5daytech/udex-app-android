@@ -54,7 +54,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 
 			exchangePrice.value = relayer.calculateBasePrice(
 				marketCodes[currentMarketPosition],
-				if (exchangeSide == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL
+				orderSide
 			)
 		}
 	}
@@ -63,7 +63,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		state.sendAmount.let { amount ->
 			if (amount > BigDecimal.ZERO && mPriceInfo.sendPrice > BigDecimal.ZERO) {
 				messageEvent.postValue(R.string.message_order_creating)
-				
+
 				relayer.createOrder(
 					marketCodes[currentMarketPosition],
 					if (exchangeSide == ExchangeSide.BID) EOrderSide.SELL else EOrderSide.BUY,
@@ -87,8 +87,8 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		val pair = marketCodes[currentMarketPosition]
 		
 		val confirmInfo = ExchangeConfirmInfo(
-			pair.first,
-			pair.second,
+			if (exchangeSide == ExchangeSide.BID) pair.first else pair.second,
+			if (exchangeSide == ExchangeSide.BID) pair.second else pair.first,
 			state.sendAmount,
 			mReceiveInfo.receiveAmount
 		) { placeOrder() }

@@ -9,6 +9,7 @@ import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
+import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
 
@@ -18,7 +19,11 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
 
     protected abstract var state: T
     protected val mReceiveInfo = ExchangeReceiveInfo(BigDecimal.ZERO)
+
     protected var exchangeSide = ExchangeSide.BID
+    protected val orderSide: EOrderSide
+        get() = if (exchangeSide == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL
+
     protected var exchangeableCoins: List<Coin> = listOf()
     protected var marketCodes: List<Pair<String, String>> = listOf()
     protected val currentMarketPosition: Int

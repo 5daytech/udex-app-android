@@ -2,7 +2,6 @@ package com.blocksdecoded.dex.presentation.exchange.view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import com.blocksdecoded.dex.presentation.widgets.listeners.ItemSelectedListener
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
 import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
-
 
 class CoinSpinnerView : Spinner {
 	private var exchangeItems: List<ExchangePairItem> = listOf()
@@ -35,13 +33,13 @@ class CoinSpinnerView : Spinner {
 	
 	fun setCoins(coins: List<ExchangePairItem>) {
 		exchangeItems = coins
-		coinsAdapter?.setCoins(coins)
+		coinsAdapter?.setCoins(exchangeItems)
 	}
 	
 	fun setSelectedPair(selectedPair: ExchangePairItem?) {
 		val index = exchangeItems.indexOfFirst { it.code == selectedPair?.code ?: "" }
 		if (index >= 0) {
-			setSelection(index)
+			setSelection(index, true)
 		}
 	}
 
@@ -55,27 +53,29 @@ class CoinSpinnerView : Spinner {
 		private var coins: List<ExchangePairItem>
 	) : BaseAdapter() {
 		private var inflater: LayoutInflater = LayoutInflater.from(context)
-		
-		private fun getAdapterView(position: Int, parent: ViewGroup?): View {
-			val itemView = inflater.inflate(R.layout.item_coin_spinner, parent, false)
-			
-			itemView.findViewById<CoinIconImage>(R.id.item_coin_spinner_icon).bind(coins[position].code)
-			itemView.findViewById<TextView>(R.id.item_coin_spinner_title).text = coins[position].code
-			itemView.findViewById<TextView>(R.id.item_coin_spinner_balance).text =
-				"${coins[position].balance.toDisplayFormat()} ${coins[position].code}"
-			
-			return itemView
+
+		private fun getAdapterView(position: Int, convertView: View?, parent: ViewGroup?): View {
+			val view = convertView ?: inflater.inflate(R.layout.item_coin_spinner, parent, false)
+
+			view.findViewById<CoinIconImage>(R.id.item_coin_spinner_icon)?.bind(getItem(position)?.code)
+			view.findViewById<TextView>(R.id.item_coin_spinner_title)?.text = getItem(position)?.code
+			view.findViewById<TextView>(R.id.item_coin_spinner_balance)?.text =
+				"${getItem(position)?.balance?.toDisplayFormat()} ${getItem(position)?.code}"
+
+			return view
 		}
-		
+
 		override fun getCount(): Int = coins.size
-		override fun getItem(i: Int): Any? = null
-		override fun getItemId(i: Int): Long = 0
-		
-		override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View =
-			getAdapterView(position, parent)
-		
-		override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View =
-			getAdapterView(position, parent)
+
+		override fun getItemId(p0: Int): Long = 0
+
+		override fun getItem(position: Int): ExchangePairItem? = coins[position]
+
+//		override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View =
+//			getAdapterView(position, convertView, parent)
+
+		override fun getView(position: Int, convertView: View?, parent: ViewGroup): View =
+			getAdapterView(position, convertView, parent)
 		
 		fun setCoins(coins: List<ExchangePairItem>) {
 			this.coins = coins

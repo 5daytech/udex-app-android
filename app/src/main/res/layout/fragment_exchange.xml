@@ -67,7 +67,6 @@
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="?attr/ActionButtonBackground"
                     app:cardElevation="0dp"
-                    app:cardCornerRadius="8dp"
                     android:padding="@dimen/element_margin"/>
 
                 <com.blocksdecoded.dex.presentation.exchange.view.limit.LimitOrderView
@@ -76,7 +75,6 @@
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="?attr/ActionButtonBackground"
                     app:cardElevation="0dp"
-                    app:cardCornerRadius="8dp"
                     android:padding="@dimen/element_margin"/>
             </com.blocksdecoded.dex.presentation.widgets.pagers.WrapContentViewPager>
 

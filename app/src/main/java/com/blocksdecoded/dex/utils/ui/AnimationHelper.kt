@@ -1,11 +1,25 @@
 package com.blocksdecoded.dex.utils.ui
 
+import android.animation.ObjectAnimator
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.Transformation
+import android.view.animation.*
+import com.blocksdecoded.dex.R
 
 
 object AnimationHelper {
+
+    fun rotate(v: View) {
+        v.post {
+            v.clearAnimation()
+            v.rotation = 0f
+            ObjectAnimator.ofFloat(v, View.ROTATION, 0f, -180f)
+                .apply {
+                    duration = 250
+                    interpolator = AccelerateInterpolator()
+                }
+                .start()
+        }
+    }
 
     fun expand(v: View) {
         v.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))

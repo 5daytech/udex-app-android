@@ -13,6 +13,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangeReceiveInfo
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
+import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
@@ -69,7 +70,10 @@ class MarketOrderView: CardView {
 		exchange_base_spinner?.init(onSendCoinPick)
 		exchange_quote_spinner?.init(onReceiveCoinPick)
 		exchange_amount_max?.setOnClickListener { onMaxClick() }
-		exchange_switch?.setOnClickListener { onSwitchClick() }
+		exchange_switch?.setOnClickListener {
+			onSwitchClick()
+			AnimationHelper.rotate(exchange_switch)
+		}
 	}
 	
 	fun updateSendCoins(coins: List<ExchangePairItem>) {

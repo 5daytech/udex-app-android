@@ -2,6 +2,7 @@
 <resources>
     <dimen name="bottom_nav_bar_height">56dp</dimen>
     <dimen name="coin_size">24dp</dimen>
+    <dimen name="small_coin_size">20dp</dimen>
     <dimen name="big_coin_size">30dp</dimen>
     <dimen name="action_icon_size">22dp</dimen>
     <dimen name="corner_radius">12dp</dimen>

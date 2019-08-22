@@ -40,13 +40,13 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
         state.sendAmount.let { amount ->
             val receiveAmount = relayer.calculateFillAmount(
                 marketCodes[currentMarketPosition],
-                if (exchangeSide == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL,
+                orderSide,
                 amount
             )
 
             exchangePrice.value = relayer.calculateBasePrice(
                 marketCodes[currentMarketPosition],
-                if (exchangeSide == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL
+                orderSide
             )
 
             state.receiveAmount = receiveAmount
@@ -61,11 +61,12 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
             val receiveAmount = state.receiveAmount
             if (amount > BigDecimal.ZERO && receiveAmount > BigDecimal.ZERO) {
                 messageEvent.postValue(R.string.message_wait_blockchain)
-            
+
+                val amount = if (exchangeSide == ExchangeSide.BID) amount else state.receiveAmount
                 relayer.fill(
                     marketCodes[currentMarketPosition],
-                    if (exchangeSide == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL,
-                    if (exchangeSide == ExchangeSide.BID) amount else state.receiveAmount
+                    orderSide,
+                    amount
                 ).uiSubscribe(disposables, {
                     initState(state.sendPair, state.receivePair)
                     successEvent.postValue(it)
@@ -82,8 +83,8 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
         val pair = marketCodes[currentMarketPosition]
 
         val confirmInfo = ExchangeConfirmInfo(
-            pair.first,
-            pair.second,
+            if (exchangeSide == ExchangeSide.BID) pair.first else pair.second,
+            if (exchangeSide == ExchangeSide.BID) pair.second else pair.first,
             state.sendAmount,
             state.receiveAmount
         ) { marketBuy() }
