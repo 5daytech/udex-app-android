@@ -63,6 +63,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		state.sendAmount.let { amount ->
 			if (amount > BigDecimal.ZERO && mPriceInfo.sendPrice > BigDecimal.ZERO) {
 				messageEvent.postValue(R.string.message_order_creating)
+				showProcessingEvent.call()
 
 				relayer.createOrder(
 					marketCodes[currentMarketPosition],
@@ -70,9 +71,11 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 					amount,
 					mPriceInfo.sendPrice
 				).uiSubscribe(disposables, {}, {
+					processingDismissEvent.call()
 					errorEvent.postValue(R.string.error_order_place)
 					Logger.e(it)
 				}, {
+					processingDismissEvent.call()
 					messageEvent.postValue(R.string.message_order_created)
 					initState(state.sendPair, state.receivePair)
 				})

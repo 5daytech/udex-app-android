@@ -1,13 +1,11 @@
 package com.blocksdecoded.dex.presentation.exchange.view.market
 
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangeReceiveInfo
-import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
 
@@ -61,6 +59,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
             val receiveAmount = state.receiveAmount
             if (amount > BigDecimal.ZERO && receiveAmount > BigDecimal.ZERO) {
                 messageEvent.postValue(R.string.message_wait_blockchain)
+                showProcessingEvent.call()
 
                 val amount = if (exchangeSide == ExchangeSide.BID) amount else state.receiveAmount
                 relayer.fill(
@@ -68,9 +67,11 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
                     orderSide,
                     amount
                 ).uiSubscribe(disposables, {
+                    processingDismissEvent.call()
                     initState(state.sendPair, state.receivePair)
                     successEvent.postValue(it)
                 }, {
+                    processingDismissEvent.call()
                     errorEvent.postValue(R.string.error_exchange_failed)
                 })
             } else {

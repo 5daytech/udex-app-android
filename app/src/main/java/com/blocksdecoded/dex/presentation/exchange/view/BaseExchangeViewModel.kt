@@ -59,6 +59,8 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
 
     val successEvent = SingleLiveEvent<String>()
     val confirmEvent = SingleLiveEvent<ExchangeConfirmInfo>()
+    val showProcessingEvent = SingleLiveEvent<Unit>()
+    val processingDismissEvent = SingleLiveEvent<Unit>()
 
     protected fun init() {
         exchangeEnabled.value = false

@@ -3,25 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/big_margin">
-
-    <ProgressBar
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:id="@+id/step_progress"
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:progress="30"
-        android:secondaryProgress="@drawable/bg_progress"
-        android:progressDrawable="@drawable/bg_progress"/>
+    android:layout_height="wrap_content"
+    android:padding="@dimen/big_margin"
+    android:background="?attr/ActionButtonBackground">
 
     <TextView
-        style="@style/HintText"
-        android:id="@+id/progress_hint"
+        android:id="@+id/processing_title"
+        style="@style/DialogTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/element_margin"
         android:layout_gravity="center"
-        android:text="1:30"/>
+        android:gravity="center"
+        android:text="Processing..."/>
+
+    <com.blocksdecoded.dex.presentation.widgets.TimerProgress
+        android:id="@+id/processing_timer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/page_margin"/>
 
 </LinearLayout>

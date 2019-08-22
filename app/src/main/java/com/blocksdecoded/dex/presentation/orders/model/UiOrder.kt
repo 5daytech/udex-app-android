@@ -35,7 +35,7 @@ data class UiOrder(
                 .stripTrailingZeros()
 
             val filledAmount = orderInfo?.orderTakerAssetFilledAmount?.toBigDecimal()
-                ?.movePointLeft(makerCoin.type.decimal)
+                ?.movePointLeft(takerCoin.type.decimal)
                 ?.stripTrailingZeros() ?: BigDecimal.ZERO
 
             val price = if (side == EOrderSide.BUY)

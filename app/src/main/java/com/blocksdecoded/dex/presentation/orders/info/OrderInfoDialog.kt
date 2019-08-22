@@ -42,9 +42,9 @@ class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
 		viewModel.messageEvent.observe(this, Observer {
 			ToastHelper.showSuccessMessage(it)
 		})
-		
+
 		viewModel.orderInfo.observe(this, Observer { order ->
-			order_info_price.text = order.price.toDisplayFormat()
+			order_info_price.text = "${order.price.toDisplayFormat()} ${order.takerCoin.code}"
 
 			order_info_amount.text = "${order.makerAmount.toDisplayFormat()} ${order.makerCoin.code}"
 //			order_info_amount.text = if (order.side == EOrderSide.BUY) {
@@ -60,7 +60,7 @@ class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
 //				"${order.takerAmount.toDisplayFormat()} ${order.takerCoin.code}"
 //			}
 
-			order_info_filled_amount.text = order.filledAmount.toDisplayFormat()
+			order_info_filled_amount.text = "${order.filledAmount.toDisplayFormat()} ${order.takerCoin.code}"
 			order_info_expire_date.text = order.expireDate
 		})
 	}

@@ -12,7 +12,7 @@
     android:foreground="?selectableItemBackground">
 
     <TextView
-        style="@style/RegularText"
+        style="@style/BoldText"
         android:id="@+id/numpad_number_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,6 +28,7 @@
         />
 
     <TextView
+        style="@style/BoldText"
         android:id="@+id/numpad_letters_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

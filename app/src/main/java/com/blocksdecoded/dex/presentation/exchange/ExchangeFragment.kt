@@ -3,11 +3,13 @@ package com.blocksdecoded.dex.presentation.exchange
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.dialogs.processing.ProcessingDialog
 import com.blocksdecoded.dex.presentation.dialogs.sent.SentDialog
 import com.blocksdecoded.dex.presentation.exchange.ExchangeFragment.InputField.*
 import com.blocksdecoded.dex.presentation.exchange.ExchangeType.*
@@ -39,6 +41,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
 	private lateinit var exchangeAdapter: ExchangeAdapter
     
     private val disposables = CompositeDisposable()
+    private var processingDialog: DialogFragment? = null
     
     private val activeType: ExchangeType
         get() = if (exchange_pager.currentItem == 0) MARKET else LIMIT
@@ -49,6 +52,14 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     
     private val confirmObserver = Observer<ExchangeConfirmInfo> {
         ExchangeConfirmDialog.open(childFragmentManager, it)
+    }
+
+    private val processingObserver = Observer<Unit> {
+        processingDialog = ProcessingDialog.open(childFragmentManager)
+    }
+
+    private val processingDismissObserver = Observer<Unit> {
+        processingDialog?.dismiss()
     }
 
     //region Lifecycle
@@ -174,6 +185,9 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         
             exchange_info?.text = info
         })
+
+        marketOrderViewModel.showProcessingEvent.observe(this, processingObserver)
+        marketOrderViewModel.processingDismissEvent.observe(this, processingDismissObserver)
     }
 
     private fun initLimitViewModel() {
@@ -224,6 +238,9 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         
             exchange_info?.text = info
         })
+
+        limitOrderViewModel.showProcessingEvent.observe(this, processingObserver)
+        limitOrderViewModel.processingDismissEvent.observe(this, processingDismissObserver)
     }
     
     //endregion
