@@ -20,13 +20,13 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/page_margin">
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/page_margin"
+                android:layout_margin="@dimen/big_margin"
                 android:gravity="center">
                 <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
                     android:id="@+id/receive_coin_icon"
@@ -96,7 +96,7 @@
                 android:text="Raw address"
                 android:ellipsize="middle"
                 android:singleLine="true"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textColor="?attr/PrimaryTextColor"
                 android:gravity="center"
                 android:layout_gravity="center"/>

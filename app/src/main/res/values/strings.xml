@@ -48,6 +48,11 @@
     <string name="price">Price</string>
     <string name="amount">Amount</string>
     <string name="total">Total</string>
+    <string name="account_security_center">Security Center</string>
+    <string name="account_language">Language</string>
+    <string name="account_light_mode">Light Mode</string>
+    <string name="account_about_app">About App</string>
+    <string name="account_share">Tell friends</string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>

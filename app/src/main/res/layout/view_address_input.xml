@@ -41,10 +41,10 @@
                 android:textColorHint="?attr/PrimaryTextColor"/>
 
             <TextView
+                style="@style/HintText"
                 android:id="@+id/address_input_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:includeFontPadding="false"
                 android:visibility="gone"
                 />
         </LinearLayout>

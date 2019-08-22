@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.blocksdecoded.dex.presentation.widgets.MainToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/element_margin"
+        app:mt_title="Security Center"/>
+
+    <TextView
+        style="@style/SemiboldText"
+        android:id="@+id/security_center_backup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/account_security_center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/page_margin"
+        android:padding="@dimen/page_margin"
+        android:background="?selectableItemBackground"
+        android:textSize="17sp"
+        android:textColor="?attr/PrimaryTextColor"
+        android:text="Wallet Backup"/>
+</LinearLayout>

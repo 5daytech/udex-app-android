@@ -41,12 +41,14 @@
         <activity android:name=".presentation.guest.GuestActivity"
                   android:screenOrientation="portrait"/>
 
-        <activity android:name=".presentation.account.SecuritySettingsActivity"
+        <activity android:name=".presentation.account.SecurityCenterActivity"
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".presentation.dialogs.send.QRScannerActivity"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppTheme.BarcodeScanner"/>
+        <activity android:name=".presentation.account.AboutAppActivity" />
+        <activity android:name=".presentation.account.LanguageActivity" />
 
     </application>
 

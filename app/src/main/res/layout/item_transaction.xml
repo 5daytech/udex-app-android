@@ -67,13 +67,12 @@
         android:text="+ $0.00"/>
 
     <View
+        style="@style/Divider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="?attr/HintTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transaction_amount_rate"
         android:paddingTop="@dimen/page_margin"
-        android:layout_marginTop="@dimen/page_margin"
-        android:alpha="0.4"/>
+        android:layout_marginTop="@dimen/page_margin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

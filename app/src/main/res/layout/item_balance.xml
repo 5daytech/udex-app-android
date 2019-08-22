@@ -242,12 +242,11 @@
     </LinearLayout>
 
     <View
+        style="@style/Divider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginTop="@dimen/medium_margin"
         android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginEnd="@dimen/page_margin"
-        android:background="?attr/HintTextColor"
-        android:alpha="0.4"/>
+        android:layout_marginEnd="@dimen/page_margin" />
 
 </LinearLayout>

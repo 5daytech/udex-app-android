@@ -27,20 +27,206 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_content">
-            <TextView
-                style="@style/SemiboldText"
-                android:id="@+id/account_backup"
+
+            <RelativeLayout
+                android:id="@+id/account_security_center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/page_margin"
-                android:padding="@dimen/page_margin"
-                android:background="?selectableItemBackground"
-                android:textSize="17sp"
-                android:textColor="?attr/PrimaryTextColor"
-                android:text="Wallet Backup"/>
+                android:paddingStart="@dimen/page_margin"
+                android:paddingEnd="@dimen/page_margin"
+                android:paddingTop="@dimen/big_margin"
+                android:paddingBottom="@dimen/big_margin"
+                android:background="?selectableItemBackground">
+                <ImageView
+                    android:id="@+id/account_security_center_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_security"/>
+                <TextView
+                    style="@style/SettingsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/page_margin"
+                    android:layout_toEndOf="@+id/account_security_center_image"
+                    android:layout_gravity="center"
+                    android:text="@string/account_security_center"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/Divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                app:layout_constraintTop_toBottomOf="@+id/account_security_center"
+                android:layout_marginStart="@dimen/page_margin"
+                android:layout_marginEnd="@dimen/page_margin" />
+
+            <RelativeLayout
+                android:id="@+id/account_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/account_security_center"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:paddingStart="@dimen/page_margin"
+                android:paddingEnd="@dimen/page_margin"
+                android:paddingTop="@dimen/big_margin"
+                android:paddingBottom="@dimen/big_margin"
+                android:background="?selectableItemBackground">
+                <ImageView
+                    android:id="@+id/language_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_language"/>
+                <TextView
+                    style="@style/SettingsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/page_margin"
+                    android:layout_toEndOf="@+id/language_image"
+                    android:text="@string/account_language"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/Divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                app:layout_constraintTop_toBottomOf="@+id/account_language"
+                android:layout_marginStart="@dimen/page_margin"
+                android:layout_marginEnd="@dimen/page_margin" />
+
+            <RelativeLayout
+                android:id="@+id/account_light_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/account_language"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:paddingStart="@dimen/page_margin"
+                android:paddingEnd="@dimen/page_margin"
+                android:paddingTop="@dimen/big_margin"
+                android:paddingBottom="@dimen/big_margin"
+                android:background="?selectableItemBackground">
+                <ImageView
+                    android:id="@+id/light_mode_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_light_mode"/>
+                <TextView
+                    style="@style/SettingsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/page_margin"
+                    android:layout_toEndOf="@+id/light_mode_image"
+                    android:text="@string/account_light_mode"/>
+
+                <Switch
+                    android:id="@+id/account_light_mode_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:track="@drawable/bg_switch_track" />
+            </RelativeLayout>
+
+            <View
+                style="@style/Divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                app:layout_constraintTop_toBottomOf="@+id/account_light_mode"
+                android:layout_marginStart="@dimen/page_margin"
+                android:layout_marginEnd="@dimen/page_margin" />
+
+            <RelativeLayout
+                android:id="@+id/account_about_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/account_light_mode"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:paddingStart="@dimen/page_margin"
+                android:paddingEnd="@dimen/page_margin"
+                android:paddingTop="@dimen/big_margin"
+                android:paddingBottom="@dimen/big_margin"
+                android:background="?selectableItemBackground">
+                <ImageView
+                    android:id="@+id/account_about_app_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_about"/>
+                <TextView
+                    style="@style/SettingsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/page_margin"
+                    android:layout_toEndOf="@+id/account_about_app_image"
+                    android:layout_gravity="center"
+                    android:text="@string/account_about_app"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/Divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                app:layout_constraintTop_toBottomOf="@+id/account_about_app"
+                android:layout_marginStart="@dimen/page_margin"
+                android:layout_marginEnd="@dimen/page_margin" />
+
+            <RelativeLayout
+                android:id="@+id/account_share_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/account_about_app"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:paddingStart="@dimen/page_margin"
+                android:paddingEnd="@dimen/page_margin"
+                android:paddingTop="@dimen/big_margin"
+                android:paddingBottom="@dimen/big_margin"
+                android:background="?selectableItemBackground">
+                <ImageView
+                    android:id="@+id/account_share_app_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_share"/>
+                <TextView
+                    style="@style/SettingsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/page_margin"
+                    android:layout_toEndOf="@+id/account_share_app_image"
+                    android:layout_gravity="center"
+                    android:text="@string/account_share"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/Divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                app:layout_constraintTop_toBottomOf="@+id/account_share_app"
+                android:layout_marginStart="@dimen/page_margin"
+                android:layout_marginEnd="@dimen/page_margin" />
 
             <TextView
                 android:id="@+id/app_version"

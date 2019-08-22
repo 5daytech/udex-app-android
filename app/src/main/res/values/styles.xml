@@ -21,6 +21,7 @@
         <item name="android:fontFamily">@font/sf_pro_display_regular</item>
 
         <item name="selectableItemBackground">@drawable/bg_light_selectable</item>
+        <item name="SelectableRippleColor">@drawable/bg_light_selectable</item>
         <item name="PrimaryTextColor">@color/main_light_text</item>
         <item name="PrimaryLightColor">@color/white</item>
         <item name="HintTextColor">@color/light_hint</item>
@@ -33,6 +34,11 @@
     <style name="AppTheme.BarcodeScanner">
         <item name="android:statusBarColor">@color/main_dark</item>
         <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:background">?attr/HintTextColor</item>
+        <item name="android:alpha">0.5</item>
     </style>
 
     <!-- Dialogs -->
@@ -127,6 +133,11 @@
     <style name="HintText" parent="RegularText">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">?attr/HintTextColor</item>
+    </style>
+
+    <style name="SettingsText" parent="RegularText">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">?attr/PrimaryTextColor</item>
     </style>
 
     <style name="AmountText" parent="BoldText">

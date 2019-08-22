@@ -35,12 +35,12 @@
         app:layout_constraintStart_toEndOf="@+id/amount_prefix" />
 
     <View
+        style="@style/Divider"
         android:id="@+id/amount_divider"
         android:layout_width="0dp"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="6dp"
-        android:background="?attr/HintTextColor"
         app:layout_constraintEnd_toStartOf="@+id/amount_max"
         app:layout_constraintStart_toStartOf="@+id/amount_prefix"
         app:layout_constraintTop_toBottomOf="@+id/amount_prefix"
