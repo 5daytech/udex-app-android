@@ -5,28 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:paddingTop="@dimen/page_margin"
-    android:paddingBottom="@dimen/page_margin"
+    android:paddingTop="@dimen/small_margin"
+    android:paddingBottom="@dimen/small_margin"
     android:paddingLeft="@dimen/big_margin"
     android:paddingRight="@dimen/big_margin">
 
     <TextView
-        style="@style/LightText"
-        android:layout_width="0dp"
+        style="@style/HintText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1.0"
-        android:gravity="center"
+        android:gravity="center|start"
         android:text="Current Pair"
+        android:layout_marginEnd="@dimen/big_margin"
         android:textColor="?attr/HintTextColor"/>
 
     <Spinner
         android:id="@+id/current_pair_spinner"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1.0"
         android:entries="@array/placeholder_pairs"
         android:textColor="?attr/PrimaryTextColor"
         android:backgroundTint="?attr/PrimaryTextColor"
-        android:popupBackground="@color/action_button_dark"/>
+        android:popupBackground="?attr/SmallActionButtonColor"/>
 
 </LinearLayout>

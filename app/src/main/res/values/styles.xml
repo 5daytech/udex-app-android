@@ -34,6 +34,8 @@
     <style name="AppTheme.BarcodeScanner">
         <item name="android:statusBarColor">@color/main_dark</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="Divider">

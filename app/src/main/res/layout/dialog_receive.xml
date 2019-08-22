@@ -91,7 +91,7 @@
                 android:paddingRight="@dimen/element_margin"
                 android:paddingTop="@dimen/element_margin"
                 android:paddingBottom="@dimen/element_margin"
-                android:foreground="?selectableItemBackground"
+                android:foreground="@drawable/bg_light_selectable"
                 android:background="@drawable/bg_round_stroke"
                 android:text="Raw address"
                 android:ellipsize="middle"

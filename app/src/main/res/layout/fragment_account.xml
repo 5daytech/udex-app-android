@@ -36,7 +36,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/page_margin"
                 android:padding="@dimen/page_margin"
-                android:background="?selectableItemBackground">
+                android:foreground="?selectableItemBackground">
                 <ImageView
                     android:id="@+id/account_security_center_image"
                     android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/big_margin"
                 android:padding="@dimen/page_margin"
-                android:background="?selectableItemBackground">
+                android:foreground="?selectableItemBackground">
                 <ImageView
                     android:id="@+id/language_image"
                     android:layout_width="wrap_content"
@@ -110,7 +110,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/account_language"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:padding="@dimen/page_margin"
-                android:background="?selectableItemBackground">
+                android:foreground="?selectableItemBackground">
                 <ImageView
                     android:id="@+id/light_mode_image"
                     android:layout_width="wrap_content"
@@ -151,7 +151,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/big_margin"
                 android:padding="@dimen/page_margin"
-                android:background="?selectableItemBackground">
+                android:foreground="?selectableItemBackground">
                 <ImageView
                     android:id="@+id/account_about_app_image"
                     android:layout_width="wrap_content"
@@ -188,7 +188,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/account_about_app"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:padding="@dimen/page_margin"
-                android:background="?selectableItemBackground">
+                android:foreground="?selectableItemBackground">
                 <ImageView
                     android:id="@+id/account_share_app_image"
                     android:layout_width="wrap_content"
