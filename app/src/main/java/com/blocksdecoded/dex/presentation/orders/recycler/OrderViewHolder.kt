@@ -7,6 +7,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
+import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 
 class OrderViewHolder(
         view: View,
@@ -30,7 +31,7 @@ class OrderViewHolder(
             }
         )
         
-        priceTxt.text = order.price.toDisplayFormat()
+        priceTxt.text = order.price.toLongDisplayFormat()
         amountTxt.text = if (order.side == EOrderSide.BUY) {
             order.takerAmount.toDisplayFormat()
         } else {

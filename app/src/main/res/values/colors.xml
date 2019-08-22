@@ -17,6 +17,12 @@
     <color name="dark_hint">#B6B9BD</color>
 
     <color name="action_button_dark">#282931</color>
+
+    <!-- Selectable colors -->
+    <color name="light_selectable">#20E1E9FF</color>
+    <color name="dark_selectable">#201E1E24</color>
+
+    <!-- Base colors -->
     <color name="white">#FFF</color>
     <color name="black">#000</color>
     <color name="green">#2ECC71</color>

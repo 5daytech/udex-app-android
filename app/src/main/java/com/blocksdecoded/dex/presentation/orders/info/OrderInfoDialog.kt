@@ -12,6 +12,7 @@ import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.OrderInfoConfig
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
+import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import kotlinx.android.synthetic.main.dialog_order_info.*
 
 class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
@@ -44,7 +45,7 @@ class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
 		})
 
 		viewModel.orderInfo.observe(this, Observer { order ->
-			order_info_price.text = "${order.price.toDisplayFormat()} ${order.takerCoin.code}"
+			order_info_price.text = "${order.price.toLongDisplayFormat()} ${order.takerCoin.code}"
 
 			order_info_amount.text = "${order.makerAmount.toDisplayFormat()} ${order.makerCoin.code}"
 //			order_info_amount.text = if (order.side == EOrderSide.BUY) {

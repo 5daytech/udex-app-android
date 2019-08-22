@@ -9,6 +9,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseDialog
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
+import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import kotlinx.android.synthetic.main.dialog_confirm_exchange.*
 
 class ExchangeConfirmDialog: BaseDialog(R.layout.dialog_confirm_exchange) {
@@ -38,7 +39,7 @@ class ExchangeConfirmDialog: BaseDialog(R.layout.dialog_confirm_exchange) {
 		exchange_confirm_to_coin?.bind(state.toCoin.code)
 		exchange_confirm_send_amount?.text = "${state.sendAmount.toDisplayFormat()} ${state.fromCoin.code}"
 		exchange_confirm_receive_amount?.text = "${state.receiveAmount.toDisplayFormat()} ${state.toCoin.code}"
-		exchange_confirm_price?.text = "${state.price.toDisplayFormat()} ${state.toCoin.code}"
+		exchange_confirm_price?.text = "${state.price.toLongDisplayFormat()} ${state.toCoin.code}"
 	}
 
     companion object {

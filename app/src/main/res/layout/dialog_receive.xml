@@ -14,7 +14,7 @@
         android:layout_marginRight="@dimen/page_margin"
         app:cardBackgroundColor="?attr/ActionButtonBackground"
         app:cardElevation="0dp"
-        app:cardCornerRadius="@dimen/corner_radius">
+        app:cardCornerRadius="@dimen/small_corner_radius">
 
         <LinearLayout
             android:orientation="vertical"
@@ -69,20 +69,30 @@
                 android:src="@drawable/ic_qr"
                 android:background="@color/transparent"/>
 
+
+            <TextView
+                style="@style/HintText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/page_margin"
+                android:layout_gravity="center"
+                android:text="Your address" />
+
             <TextView
                 style="@style/BoldText"
                 android:id="@+id/receive_raw"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/big_margin"
-                android:layout_marginEnd="@dimen/big_margin"
+                android:layout_marginStart="@dimen/page_margin"
+                android:layout_marginEnd="@dimen/page_margin"
                 android:layout_marginBottom="@dimen/page_margin"
-                android:layout_marginTop="@dimen/page_margin"
-                android:paddingLeft="@dimen/page_margin"
-                android:paddingRight="@dimen/page_margin"
+                android:layout_marginTop="@dimen/element_margin"
+                android:paddingLeft="@dimen/element_margin"
+                android:paddingRight="@dimen/element_margin"
                 android:paddingTop="@dimen/element_margin"
                 android:paddingBottom="@dimen/element_margin"
-                android:background="?selectableItemBackground"
+                android:foreground="?selectableItemBackground"
+                android:background="@drawable/bg_round_stroke"
                 android:text="Raw address"
                 android:ellipsize="middle"
                 android:singleLine="true"
@@ -95,6 +105,7 @@
                 style="@style/PrimaryButton"
                 android:id="@+id/receive_forward"
                 android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/element_margin"
                 android:layout_height="50dp"
                 android:text="Forward"/>
         </LinearLayout>
