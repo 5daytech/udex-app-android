@@ -1,12 +1,14 @@
 package com.blocksdecoded.dex.presentation.exchange.view
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.View
 import com.blocksdecoded.dex.presentation.widgets.listeners.ItemSelectedListener
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.widget.*
+import androidx.core.content.ContextCompat
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
 import com.blocksdecoded.dex.utils.isValidIndex
@@ -34,6 +36,14 @@ class CoinSpinnerView : Spinner {
 	fun setCoins(coins: List<ExchangePairItem>) {
 		exchangeItems = coins
 		coinsAdapter?.setCoins(exchangeItems)
+
+		isEnabled = coins.size > 1
+		backgroundTintList = ColorStateList.valueOf(
+			ContextCompat.getColor(
+				context,
+				if (isEnabled) R.color.main_light_text else android.R.color.transparent
+			)
+		)
 	}
 	
 	fun setSelectedPair(selectedPair: ExchangePairItem?) {
@@ -70,9 +80,6 @@ class CoinSpinnerView : Spinner {
 		override fun getItemId(p0: Int): Long = 0
 
 		override fun getItem(position: Int): ExchangePairItem? = coins[position]
-
-//		override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View =
-//			getAdapterView(position, convertView, parent)
 
 		override fun getView(position: Int, convertView: View?, parent: ViewGroup): View =
 			getAdapterView(position, convertView, parent)
