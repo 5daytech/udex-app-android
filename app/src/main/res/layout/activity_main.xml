@@ -27,6 +27,7 @@
         app:itemTextColor="@drawable/selector_tab_color"
         app:itemTextAppearanceActive="@style/RegularText"
         app:itemHorizontalTranslationEnabled="false"
+        app:itemIconSize="20dp"
         app:itemTextAppearanceInactive="@style/RegularText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

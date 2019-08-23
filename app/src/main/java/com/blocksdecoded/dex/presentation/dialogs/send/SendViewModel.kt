@@ -5,6 +5,7 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import com.blocksdecoded.dex.core.adapter.IAdapter
+import com.blocksdecoded.dex.core.adapter.SendStateError
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.utils.uiObserver
 import com.blocksdecoded.dex.core.ui.CoreViewModel
@@ -14,6 +15,7 @@ import com.blocksdecoded.dex.utils.clipboard.ClipboardManager
 import java.math.BigDecimal
 
 class SendViewModel: CoreViewModel() {
+    private val ratesConverter = App.ratesConverter
     private lateinit var adapter: IAdapter
     private var userInput = SendUserInput()
 
@@ -23,7 +25,8 @@ class SendViewModel: CoreViewModel() {
     val receiveAddress = MutableLiveData<String>()
     val sendEnabled = MutableLiveData<Boolean>()
     val amount = MutableLiveData<BigDecimal>()
-    
+    val sendInfo = MutableLiveData<SendInfo>()
+
     val dismissEvent = SingleLiveEvent<Unit>()
     val dismissWithSuccessEvent = SingleLiveEvent<Unit>()
     val openBarcodeScannerEvent = SingleLiveEvent<Unit>()
@@ -42,6 +45,8 @@ class SendViewModel: CoreViewModel() {
         coin.value = adapter.coin
         decimalSize = adapter.decimal
         reset()
+
+        sendInfo.value = SendInfo(BigDecimal.ZERO, false)
     }
 
     private fun reset() {
@@ -53,13 +58,30 @@ class SendViewModel: CoreViewModel() {
     
     private fun refreshSendEnable() {
         sendEnabled.value = userInput.amount > BigDecimal.ZERO &&
-            userInput.address != null
+            userInput.address != null && !(sendInfo.value?.error ?: false)
     }
 
     fun onAmountChanged(amount: BigDecimal) {
         if (userInput.amount != amount) {
             userInput.amount = amount
-            
+
+            val info = SendInfo(
+                ratesConverter.getCoinsPrice(adapter.coin.code, amount),
+                false
+            )
+
+            adapter.validate(amount, null, FeeRatePriority.MEDIUM).forEach {
+                when(it) {
+                    is SendStateError.InsufficientAmount -> {
+                        info.error = true
+                    }
+                    is SendStateError.InsufficientFeeBalance -> {
+                        info.error = true
+                    }
+                }
+            }
+
+            sendInfo.value = info
             refreshSendEnable()
         }
     }

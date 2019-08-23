@@ -93,6 +93,7 @@
                 android:padding="@dimen/element_margin"
                 android:gravity="center"
                 android:textColor="?attr/PrimaryTextColor"
+                android:visibility="gone"
                 android:text="Exchange price info"/>
 
             <com.blocksdecoded.dex.presentation.widgets.NumPadView

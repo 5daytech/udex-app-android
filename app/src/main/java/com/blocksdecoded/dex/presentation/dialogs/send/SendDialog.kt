@@ -5,6 +5,7 @@ import android.text.Editable
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -18,6 +19,7 @@ import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.core.ui.reObserve
 import com.blocksdecoded.dex.utils.ui.ToastHelper
+import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
@@ -47,16 +49,20 @@ class SendDialog private constructor()
         dismiss()
     }
 
-    private val addressObserver = Observer<String> {
-        send_address.updateInput(it)
-    }
+    private val addressObserver = Observer<String> { send_address.updateInput(it) }
 
-    private val barcodeObserver = Observer<Unit> {
-        startScanner()
-    }
+    private val barcodeObserver = Observer<Unit> { startScanner() }
 
     private val sendEnabledObserver = Observer<Boolean> {
         send_confirm?.isEnabled = it
+    }
+
+    private val infoObserver = Observer<SendInfo> { info ->
+        context?.let {
+            amount_input?.setTextColor(ContextCompat.getColor(it, if (info.error) R.color.red else R.color.main_light_text))
+        }
+
+        amount_hint?.text = "You send $${info.fiatAmount.toFiatDisplayFormat()}"
     }
 
     private val amountObserver = Observer<BigDecimal> { amount ->
@@ -124,6 +130,7 @@ class SendDialog private constructor()
         viewModel.amount.reObserve(this, amountObserver)
         viewModel.coin.reObserve(this, coinObserver)
         viewModel.openBarcodeScannerEvent.reObserve(this, barcodeObserver)
+        viewModel.sendInfo.reObserve(this, infoObserver)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
