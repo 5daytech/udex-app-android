@@ -120,7 +120,7 @@
         app:layout_constraintLeft_toRightOf="@+id/middle_divider"
         app:layout_constraintRight_toRightOf="parent"
         app:backgroundTint="?attr/SmallActionButtonColor"
-        android:src="@drawable/tab_exchange"
+        android:src="@drawable/ic_switch"
         android:tint="?attr/PrimaryTextColor"
         app:useCompatPadding="true"
         app:maxImageSize="14dp"

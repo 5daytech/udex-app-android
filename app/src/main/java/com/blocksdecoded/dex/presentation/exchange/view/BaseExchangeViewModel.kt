@@ -40,13 +40,13 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     protected var mSendCoins: List<ExchangePairItem> = listOf()
         set(value) {
             field = value
-            sendCoins.value = value
+            sendCoins.postValue(value)
         }
 
     protected var mReceiveCoins: List<ExchangePairItem> = listOf()
         set(value) {
             field = value
-            receiveCoins.value = value
+            receiveCoins.postValue(value)
         }
 
     val sendCoins = MutableLiveData<List<ExchangePairItem>>()
@@ -61,6 +61,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     val confirmEvent = SingleLiveEvent<ExchangeConfirmInfo>()
     val showProcessingEvent = SingleLiveEvent<Unit>()
     val processingDismissEvent = SingleLiveEvent<Unit>()
+    val focusExchangeEvent = SingleLiveEvent<Unit>()
 
     protected fun init() {
         exchangeEnabled.value = false
@@ -145,7 +146,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             .map { getExchangeItem(it) }
     }
 
-    private fun getExchangeItem(coin: Coin): ExchangePairItem {
+    protected fun getExchangeItem(coin: Coin): ExchangePairItem {
         val balance = adapterManager.adapters
             .firstOrNull { it.coin.code == coin.code }?.balance ?: BigDecimal.ZERO
 

@@ -6,6 +6,8 @@ import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangeReceiveInfo
+import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
+import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
 
@@ -31,7 +33,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
             sendItem,
             receiveItem
         )
-        viewState.value = state
+        viewState.postValue(state)
     }
 
     private fun updateReceivePrice() {
@@ -42,10 +44,11 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
                 amount
             )
 
-            exchangePrice.value = relayer.calculateBasePrice(
+            val price = relayer.calculateBasePrice(
                 marketCodes[currentMarketPosition],
                 orderSide
             )
+            exchangePrice.value = price
 
             state.receiveAmount = receiveAmount
             receiveInfo.value = ExchangeReceiveInfo(receiveAmount)
@@ -90,12 +93,41 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
             state.receiveAmount
         ) { marketBuy() }
 
-        confirmEvent.value = confirmInfo
+        confirmEvent.postValue(confirmInfo)
     }
 
     //endregion
 
     //region Public
+
+    fun requestFillOrder(coins: Pair<String, String>, amount: BigDecimal, orderSide: EOrderSide) {
+        focusExchangeEvent.call()
+
+        val baseCoin = exchangeableCoins.firstOrNull { it.code == coins.first } ?: return
+        val quoteCoin = exchangeableCoins.firstOrNull { it.code == coins.second } ?: return
+
+        when(orderSide) {
+            BUY -> {
+                exchangeSide = ExchangeSide.BID
+                state.sendCoin = getExchangeItem(baseCoin)
+                state.receiveCoin = getExchangeItem(quoteCoin)
+                state.sendAmount = amount
+                refreshPairs(state)
+                viewState.value = state
+                updateReceivePrice()
+            }
+            SELL -> {
+                exchangeSide = ExchangeSide.ASK
+                state.sendCoin = getExchangeItem(quoteCoin)
+                state.receiveCoin = getExchangeItem(baseCoin)
+                state.sendAmount = amount
+                refreshPairs(state)
+                viewState.value = state
+                updateReceivePrice()
+            }
+            MY -> {}
+        }
+    }
 
     fun onReceiveCoinPick(position: Int) {
         if (state.receiveCoin?.code != mReceiveCoins[position].code) {

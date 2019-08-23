@@ -18,14 +18,20 @@ import com.blocksdecoded.dex.presentation.orders.OrdersHostFragment
 import com.blocksdecoded.dex.presentation.balance.BalanceFragment
 import com.blocksdecoded.dex.core.ui.CoreActivity
 import com.blocksdecoded.dex.presentation.dialogs.send.SendViewModel
+import com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderViewModel
+import com.blocksdecoded.dex.presentation.orders.model.FillOrderInfo
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity :
+    CoreActivity(),
+    BottomNavigationView.OnNavigationItemSelectedListener,
+    OrdersHostFragment.OrderFillListener {
 
     private lateinit var adapter: MainPagerAdapter
     private lateinit var sendViewModel: SendViewModel
+    private lateinit var marketOrderViewModel: MarketOrderViewModel
 
     override fun onBackPressed() {
         if (main_view_pager.currentItem != 0) {
@@ -35,14 +41,18 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
         }
     }
 
+    //region Lifecycle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         sendViewModel = ViewModelProviders.of(this).get(SendViewModel::class.java)
+        marketOrderViewModel = ViewModelProviders.of(this).get(MarketOrderViewModel::class.java)
+
         adapter = MainPagerAdapter(supportFragmentManager)
         main_view_pager.adapter = adapter
-        main_view_pager.offscreenPageLimit = 3
+        main_view_pager.offscreenPageLimit = 4
         main_bottom_nav.setOnNavigationItemSelectedListener(this)
 
         main_view_pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
@@ -64,6 +74,13 @@ class MainActivity : CoreActivity(), BottomNavigationView.OnNavigationItemSelect
         if (scanResult != null && !TextUtils.isEmpty(scanResult.contents)) {
             sendViewModel.onScanResult(scanResult.contents)
         }
+    }
+
+    //endregion
+
+    override fun requestFill(fillInfo: FillOrderInfo) {
+        main_view_pager.setCurrentItem(2, false)
+        marketOrderViewModel.requestFillOrder(fillInfo.pair, fillInfo.amount, fillInfo.side)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

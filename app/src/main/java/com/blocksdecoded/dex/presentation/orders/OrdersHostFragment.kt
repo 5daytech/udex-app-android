@@ -12,8 +12,10 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.orders.info.OrderInfoDialog
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
+import com.blocksdecoded.dex.presentation.orders.model.FillOrderInfo
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import kotlinx.android.synthetic.main.fragment_orders_host.*
+import java.math.BigDecimal
 
 class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
 
@@ -43,6 +45,10 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
             viewModel.orderInfoEvent.observe(this, Observer {
                 OrderInfoDialog.show(childFragmentManager, it)
             })
+
+            viewModel.fillOrderEvent.observe(this, Observer { fillInfo ->
+                (context as? OrderFillListener)?.requestFill(fillInfo)
+            })
         }
     }
 
@@ -61,6 +67,10 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
 
     companion object {
         fun newInstance() = OrdersHostFragment()
+    }
+
+    interface OrderFillListener {
+        fun requestFill(fillInfo: FillOrderInfo)
     }
 
     private class OrdersHostAdapter(

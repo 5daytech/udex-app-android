@@ -142,7 +142,9 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     //region Init
 
     private fun initMarketViewModel() {
-        marketOrderViewModel = ViewModelProviders.of(this).get(MarketOrderViewModel::class.java)
+        activity?.let {
+            marketOrderViewModel = ViewModelProviders.of(it).get(MarketOrderViewModel::class.java)
+        } ?: return
     
         marketOrderViewModel.sendCoins.observe(this, Observer {
             exchange_market_view?.updateSendCoins(it)
@@ -188,11 +190,16 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
 
         marketOrderViewModel.showProcessingEvent.observe(this, processingObserver)
         marketOrderViewModel.processingDismissEvent.observe(this, processingDismissObserver)
+        marketOrderViewModel.focusExchangeEvent.observe(this, Observer {
+            exchange_pager.currentItem = 0
+        })
     }
 
     private fun initLimitViewModel() {
-        limitOrderViewModel = ViewModelProviders.of(this).get(LimitOrderViewModel::class.java)
-    
+        activity?.let {
+            limitOrderViewModel = ViewModelProviders.of(it).get(LimitOrderViewModel::class.java)
+        } ?: return
+
         limitOrderViewModel.sendCoins.observe(this, Observer {
             exchange_limit_view?.updateSendCoins(it)
         })
@@ -245,6 +252,9 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
 
         limitOrderViewModel.showProcessingEvent.observe(this, processingObserver)
         limitOrderViewModel.processingDismissEvent.observe(this, processingDismissObserver)
+        limitOrderViewModel.focusExchangeEvent.observe(this, Observer {
+            exchange_pager.currentItem = 1
+        })
     }
     
     //endregion

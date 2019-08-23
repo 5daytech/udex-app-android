@@ -52,17 +52,17 @@
         android:text="Filled amount:"/>
 
     <TextView
-        style="@style/SemiboldText"
         android:id="@+id/order_info_filled_amount"
+        style="@style/SemiboldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/order_info_filled_hint"
-        app:layout_constraintBottom_toBottomOf="@+id/order_info_filled_hint"
-        app:layout_constraintLeft_toRightOf="@+id/order_info_filled_hint"
-        android:layout_marginStart="@dimen/element_margin"
+        android:text="0.0"
         android:textColor="?attr/PrimaryTextColor"
         android:textSize="16sp"
-        android:text="0.0"/>
+        app:layout_constraintBottom_toBottomOf="@+id/order_info_filled_hint"
+        app:layout_constraintLeft_toRightOf="@+id/order_info_filled_hint"
+        app:layout_constraintStart_toStartOf="@+id/order_info_amount"
+        app:layout_constraintTop_toTopOf="@+id/order_info_filled_hint" />
 
     <TextView
         style="@style/HintText"
@@ -76,17 +76,17 @@
         android:text="Price per coin:"/>
 
     <TextView
-        style="@style/SemiboldText"
         android:id="@+id/order_info_price"
+        style="@style/SemiboldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/order_info_price_hint"
-        app:layout_constraintBottom_toBottomOf="@+id/order_info_price_hint"
-        app:layout_constraintLeft_toRightOf="@+id/order_info_price_hint"
-        android:layout_marginStart="@dimen/element_margin"
+        android:text="0.0"
         android:textColor="?attr/PrimaryTextColor"
         android:textSize="16sp"
-        android:text="0.0"/>
+        app:layout_constraintBottom_toBottomOf="@+id/order_info_price_hint"
+        app:layout_constraintLeft_toRightOf="@+id/order_info_price_hint"
+        app:layout_constraintStart_toStartOf="@+id/order_info_amount"
+        app:layout_constraintTop_toTopOf="@+id/order_info_price_hint" />
 
     <TextView
         style="@style/HintText"
@@ -100,17 +100,17 @@
         android:text="Total receive:"/>
 
     <TextView
-        style="@style/SemiboldText"
         android:id="@+id/order_info_receive_amount"
+        style="@style/SemiboldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/order_info_receive_hint"
-        app:layout_constraintBottom_toBottomOf="@+id/order_info_receive_hint"
-        app:layout_constraintLeft_toRightOf="@+id/order_info_receive_hint"
-        android:layout_marginStart="@dimen/element_margin"
+        android:text="0.0"
         android:textColor="?attr/PrimaryTextColor"
         android:textSize="16sp"
-        android:text="0.0"/>
+        app:layout_constraintBottom_toBottomOf="@+id/order_info_receive_hint"
+        app:layout_constraintLeft_toRightOf="@+id/order_info_receive_hint"
+        app:layout_constraintStart_toStartOf="@+id/order_info_amount"
+        app:layout_constraintTop_toTopOf="@+id/order_info_receive_hint" />
 
     <TextView
         style="@style/HintText"
@@ -124,17 +124,17 @@
         android:text="Expire at:"/>
 
     <TextView
-        style="@style/SemiboldText"
         android:id="@+id/order_info_expire_date"
+        style="@style/SemiboldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/order_info_expire_hint"
-        app:layout_constraintBottom_toBottomOf="@+id/order_info_expire_hint"
-        app:layout_constraintLeft_toRightOf="@+id/order_info_expire_hint"
-        android:layout_marginStart="@dimen/element_margin"
+        android:text="20/12/20 21:21"
         android:textColor="?attr/PrimaryTextColor"
         android:textSize="16sp"
-        android:text="20/12/20 21:21"/>
+        app:layout_constraintBottom_toBottomOf="@+id/order_info_expire_hint"
+        app:layout_constraintLeft_toRightOf="@+id/order_info_expire_hint"
+        app:layout_constraintStart_toStartOf="@+id/order_info_receive_amount"
+        app:layout_constraintTop_toTopOf="@+id/order_info_expire_hint" />
 
     <Button
         style="@style/PrimaryButton"
