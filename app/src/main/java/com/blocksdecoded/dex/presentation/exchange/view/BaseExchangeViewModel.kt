@@ -28,8 +28,8 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     protected var marketCodes: List<Pair<String, String>> = listOf()
     protected val currentMarketPosition: Int
         get() {
-            val sendCoin = viewState.value?.sendPair?.code ?: ""
-            val receiveCoin = viewState.value?.receivePair?.code ?: ""
+            val sendCoin = viewState.value?.sendCoin?.code ?: ""
+            val receiveCoin = viewState.value?.receiveCoin?.code ?: ""
 
             return marketCodes.indexOfFirst {
                 (it.first == sendCoin && it.second == receiveCoin) ||
@@ -97,7 +97,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     abstract fun onSendAmountChange(amount: BigDecimal)
 
     fun onMaxClick() {
-        val adapter = adapterManager.adapters.firstOrNull { it.coin.code == state.sendPair?.code }
+        val adapter = adapterManager.adapters.firstOrNull { it.coin.code == state.sendCoin?.code }
         if (adapter != null) {
             val amount = adapter.availableBalance(null, FeeRatePriority.HIGH)
             onSendAmountChange(amount)
@@ -107,12 +107,12 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
 
     //region Market pairs refresh
 
-    protected fun refreshPairs(state: T?, refreshSendCoins: Boolean = true)  {
+    protected open fun refreshPairs(state: T?, refreshSendCoins: Boolean = true)  {
         if (refreshSendCoins) {
             mSendCoins = getAvailableSendCoins()
         }
 
-        val sendCoin = state?.sendPair?.code ?: mSendCoins.first().code
+        val sendCoin = state?.sendCoin?.code ?: mSendCoins.first().code
         mReceiveCoins = getAvailableReceiveCoins(sendCoin)
     }
 

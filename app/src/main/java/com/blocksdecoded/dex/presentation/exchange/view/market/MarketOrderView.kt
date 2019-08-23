@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Editable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
@@ -94,8 +93,8 @@ class MarketOrderView: CardView {
 		
 		updateReceiveAmount(state.receiveAmount)
 		
-		exchange_base_spinner?.setSelectedPair(state.sendPair)
-		exchange_quote_spinner?.setSelectedPair(state.receivePair)
+		exchange_base_spinner?.setSelectedPair(state.sendCoin)
+		exchange_quote_spinner?.setSelectedPair(state.receiveCoin)
 	}
 	
 	private fun updateAmount(amount: BigDecimal) {

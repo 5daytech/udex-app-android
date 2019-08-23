@@ -239,6 +239,10 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             exchange_info?.text = info
         })
 
+        limitOrderViewModel.averagePrice.observe(this, Observer {
+            exchange_limit_view?.updateAveragePrice(it)
+        })
+
         limitOrderViewModel.showProcessingEvent.observe(this, processingObserver)
         limitOrderViewModel.processingDismissEvent.observe(this, processingDismissObserver)
     }

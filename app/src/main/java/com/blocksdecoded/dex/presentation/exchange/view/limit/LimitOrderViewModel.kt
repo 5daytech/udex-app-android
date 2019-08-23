@@ -1,6 +1,8 @@
 package com.blocksdecoded.dex.presentation.exchange.view.limit
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
@@ -12,18 +14,43 @@ import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
 
 class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
+
+	private val ratesConverter = App.ratesConverter
+	private val ratesManager = App.ratesManager
+
 	override var state: LimitOrderViewState = LimitOrderViewState(
 		BigDecimal.ZERO,
 		null,
 		null
 	)
 
-	private val mPriceInfo = ExchangePriceInfo(BigDecimal.ZERO)
+	private val mPriceInfo = ExchangePriceInfo(
+		BigDecimal.ZERO
+	)
+
+	val averagePrice = MutableLiveData<BigDecimal>()
 
 	val priceInfo = MutableLiveData<ExchangePriceInfo>()
 
 	init {
 		init()
+
+		ratesManager.ratesStateSubject
+			.subscribe { refreshAveragePrice() }
+			.let { disposables.add(it) }
+	}
+
+	private fun refreshAveragePrice() {
+		val sendCoin = state.sendCoin?.code ?: ""
+		val receiveCoin = state.receiveCoin?.code ?: ""
+
+		Log.d("ololo", "Thread ${Thread.currentThread().name}")
+		averagePrice.postValue(ratesConverter.getCoinDiff(sendCoin, receiveCoin))
+	}
+
+	override fun refreshPairs(state: LimitOrderViewState?, refreshSendCoins: Boolean) {
+		super.refreshPairs(state, refreshSendCoins)
+		refreshAveragePrice()
 	}
 
 	//region Private
@@ -40,6 +67,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		receiveInfo.value = mReceiveInfo
 
 		mPriceInfo.sendPrice = BigDecimal.ZERO
+		averagePrice.value = BigDecimal.ZERO
 		priceInfo.value = mPriceInfo
 	}
 	
@@ -77,7 +105,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 				}, {
 					processingDismissEvent.call()
 					messageEvent.postValue(R.string.message_order_created)
-					initState(state.sendPair, state.receivePair)
+					initState(state.sendCoin, state.receiveCoin)
 				})
 				
 			} else {
@@ -104,12 +132,13 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 	//region Public
 	
 	fun onReceiveCoinPick(position: Int) {
-		state.receivePair = mReceiveCoins[position]
+		state.receiveCoin = mReceiveCoins[position]
 		updateReceiveAmount()
+		refreshAveragePrice()
 	}
 	
 	fun onSendCoinPick(position: Int) {
-		state.sendPair = mSendCoins[position]
+		state.sendCoin = mSendCoins[position]
 		refreshPairs(state, false)
 		updateReceiveAmount()
 	}
@@ -157,8 +186,8 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 
 		state = LimitOrderViewState(
 			sendAmount = currentReceive,
-			sendPair = state.receivePair,
-			receivePair = state.sendPair
+			sendCoin = state.receiveCoin,
+			receiveCoin = state.sendCoin
 		)
 
 		mReceiveInfo.receiveAmount = currentSend

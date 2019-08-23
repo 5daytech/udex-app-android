@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:textColor="?attr/HintTextColor"
+            android:textColor="?attr/PrimaryTextColor"
             android:text="ETH"/>
 
         <TextView
@@ -35,7 +35,7 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:visibility="visible"
-            android:textColor="?attr/PrimaryTextColor"
+            android:textColor="?attr/HintTextColor"
             android:text="0.0 ETH"/>
 
     </LinearLayout>

@@ -8,6 +8,6 @@ data class ExchangeReceiveInfo (
 
 interface IExchangeViewState {
     var sendAmount: BigDecimal
-    var sendPair: ExchangePairItem?
-    var receivePair: ExchangePairItem?
+    var sendCoin: ExchangePairItem?
+    var receiveCoin: ExchangePairItem?
 }

@@ -72,7 +72,7 @@
         android:textAllCaps="false"
         android:layout_marginTop="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"
-        android:text="Receive"/>
+        android:text="You Receive"/>
 
     <TextView
         style="@style/BoldText"

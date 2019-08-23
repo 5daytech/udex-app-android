@@ -68,7 +68,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
                     amount
                 ).uiSubscribe(disposables, {
                     processingDismissEvent.call()
-                    initState(state.sendPair, state.receivePair)
+                    initState(state.sendCoin, state.receiveCoin)
                     successEvent.postValue(it)
                 }, {
                     processingDismissEvent.call()
@@ -98,16 +98,16 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
     //region Public
 
     fun onReceiveCoinPick(position: Int) {
-        if (state.receivePair?.code != mReceiveCoins[position].code) {
-            state.receivePair = mReceiveCoins[position]
+        if (state.receiveCoin?.code != mReceiveCoins[position].code) {
+            state.receiveCoin = mReceiveCoins[position]
             updateReceivePrice()
         }
     }
 
     fun onSendCoinPick(position: Int) {
         val pair = mSendCoins[position]
-        if (state.sendPair?.code != pair.code) {
-            state.sendPair = mSendCoins[position]
+        if (state.sendCoin?.code != pair.code) {
+            state.sendCoin = mSendCoins[position]
             refreshPairs(state, false)
             updateReceivePrice()
         }
@@ -141,8 +141,8 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
         state = MarketOrderViewState(
             sendAmount = state.receiveAmount,
             receiveAmount = state.sendAmount,
-            sendPair = state.receivePair,
-            receivePair = state.sendPair
+            sendCoin = state.receiveCoin,
+            receiveCoin = state.sendCoin
         )
 
         refreshPairs(state)

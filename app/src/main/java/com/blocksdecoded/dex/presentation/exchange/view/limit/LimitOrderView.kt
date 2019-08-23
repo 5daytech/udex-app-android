@@ -14,6 +14,8 @@ import com.blocksdecoded.dex.presentation.exchange.view.ExchangeReceiveInfo
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
+import com.blocksdecoded.dex.utils.ui.toMediumDisplayFormat
+import com.blocksdecoded.dex.utils.ui.toPriceFormat
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.view_limit_order.view.*
@@ -26,7 +28,9 @@ class LimitOrderView: CardView {
 	constructor(context: Context) : super(context) { init() }
 	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) { init() }
 	constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) { init() }
-	
+
+	private var state: LimitOrderViewState? = null
+
 	var amountInputConnection: InputConnection? = null
 	var priceInputConnection: InputConnection? = null
 	
@@ -113,10 +117,11 @@ class LimitOrderView: CardView {
 	
 	@SuppressLint("SetTextI18n")
 	fun updateState(state: LimitOrderViewState) {
+		this.state = state
 		updateAmount(state.sendAmount)
 		
-		limit_base_spinner?.setSelectedPair(state.sendPair)
-		limit_quote_spinner?.setSelectedPair(state.receivePair)
+		limit_base_spinner?.setSelectedPair(state.sendCoin)
+		limit_quote_spinner?.setSelectedPair(state.receiveCoin)
 	}
 
 	fun updateTotal(totalInfo: ExchangeReceiveInfo) {
@@ -126,12 +131,17 @@ class LimitOrderView: CardView {
 	fun updatePrice(priceInfo: ExchangePriceInfo) {
 		updatePrice(priceInfo.sendPrice)
 	}
+
+	fun updateAveragePrice(price: BigDecimal) {
+		val rawPrice = if (price > BigDecimal.ZERO) price.toPriceFormat() else "-"
+		limit_receive_hint?.text = "Average ~$rawPrice"
+	}
 	
 	private fun updateTotal(total: BigDecimal) {
 		if (total > BigDecimal.ZERO) {
-			limit_total?.text = "Receive: ${total.stripTrailingZeros().toPlainString()} ${limit_quote_spinner.getSelectedSymbol()}"
+			limit_total?.text = "You Receive: ${total.stripTrailingZeros().toPlainString()} ${limit_quote_spinner.getSelectedSymbol()}"
 		} else {
-			limit_total?.hint = "Receive: - ${limit_quote_spinner.getSelectedSymbol()}"
+			limit_total?.hint = "You Receive: - ${limit_quote_spinner.getSelectedSymbol()}"
 			limit_total?.text = ""
 		}
 	}

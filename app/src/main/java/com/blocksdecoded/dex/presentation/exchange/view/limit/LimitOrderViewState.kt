@@ -6,8 +6,8 @@ import java.math.BigDecimal
 
 data class LimitOrderViewState(
     override var sendAmount: BigDecimal,
-    override var sendPair: ExchangePairItem?,
-    override var receivePair: ExchangePairItem?
+    override var sendCoin: ExchangePairItem?,
+    override var receiveCoin: ExchangePairItem?
 ) : IExchangeViewState
 
 data class ExchangePriceInfo(
