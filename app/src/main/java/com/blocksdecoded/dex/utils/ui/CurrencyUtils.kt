@@ -3,15 +3,14 @@ package com.blocksdecoded.dex.utils.ui
 import java.math.BigDecimal
 import java.text.DecimalFormat
 
-fun BigDecimal.toDisplayFormat(): String = CurrencyUtils.df.format(this)
-fun BigDecimal.toLongDisplayFormat(): String = CurrencyUtils.longDf.format(this)
-fun BigDecimal.toMediumDisplayFormat(): String = CurrencyUtils.mediumDf.format(this)
-fun Double.toDisplayFormat(): String = CurrencyUtils.df.format(this)
+fun BigDecimal.toDisplayFormat(): String = CurrencyUtils.df.format(this).replace(",", " ")
+fun BigDecimal.toLongDisplayFormat(): String = CurrencyUtils.longDf.format(this).replace(",", " ")
+fun Double.toDisplayFormat(): String = CurrencyUtils.df.format(this).replace(",", " ")
+fun BigDecimal.toMediumDisplayFormat(): String = CurrencyUtils.mediumDf.format(this).replace(",", " ")
 
-fun BigDecimal.toPriceFormat(): String = CurrencyUtils.formatCoinPrice(this)
-
-fun Double.toFiatDisplayFormat(): String = CurrencyUtils.formatDoubleFiat(this)
-fun BigDecimal.toFiatDisplayFormat(): String = CurrencyUtils.formatBigDecimalFiat(this)
+fun BigDecimal.toPriceFormat(): String = CurrencyUtils.formatCoinPrice(this).replace(",", " ")
+fun Double.toFiatDisplayFormat(): String = CurrencyUtils.formatDoubleFiat(this).replace(",", " ")
+fun BigDecimal.toFiatDisplayFormat(): String = CurrencyUtils.formatBigDecimalFiat(this).replace(",", " ")
 
 object CurrencyUtils {
     val df = DecimalFormat("#,##0.00##")

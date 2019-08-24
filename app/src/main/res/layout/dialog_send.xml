@@ -30,12 +30,16 @@
         android:id="@+id/send_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/element_margin"
+        android:layout_marginEnd="@dimen/element_margin"
         android:layout_marginTop="@dimen/page_margin"/>
 
     <com.blocksdecoded.dex.presentation.widgets.InputAddressView
         android:id="@+id/send_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/element_margin"
+        android:layout_marginEnd="@dimen/element_margin"
         android:layout_marginTop="@dimen/element_margin"/>
 
     <Button

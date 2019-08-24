@@ -34,7 +34,9 @@
     <com.blocksdecoded.dex.presentation.widgets.InputAmountView
         android:id="@+id/convert_amount"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/element_margin"
+        android:layout_marginEnd="@dimen/element_margin"/>
 
     <TextView
         style="@style/SmallHintText"
