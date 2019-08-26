@@ -51,10 +51,15 @@ class RatesManager(
     //region Public
 
     override fun getRates(codes: List<String>): List<CoinRate> =
-        cachedRates.filter { codes.contains(it.symbol) }
+        cachedRates.filter {
+            codes.contains(it.symbol) ||
+                 codes.indexOfFirst { symbol -> symbol.contains(it.symbol) } >= 0
+        }
 
     override fun getRate(code: String): CoinRate =
-        cachedRates.firstOrNull { it.symbol == code } ?: CoinRate(code)
+        cachedRates.firstOrNull {
+            it.symbol == code || it.symbol.contains(code, true)
+        } ?: CoinRate(code)
 
     override fun refresh() {
         ratesStateSubject.onNext(RatesState.SYNCING)

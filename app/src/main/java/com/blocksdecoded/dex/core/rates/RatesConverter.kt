@@ -7,10 +7,17 @@ class RatesConverter(
 	private val baseCoinCode: String = "ETH",
 	private val ratesManager: IRatesManager
 ) {
-	private fun getCoinRate(code: String): CoinRate = if (code.contains(baseCoinCode)) {
-		ratesManager.getRate(baseCoinCode)
-	} else {
-		ratesManager.getRate(code)
+	private val baseCoins = listOf("BTC", "ETH")
+
+	private fun getCoinRate(code: String): CoinRate {
+		if (code.isEmpty()) return CoinRate(code)
+
+		val baseIndex = baseCoins.indexOfFirst { it.contains(code.substring(1)) }
+		return if (baseIndex >= 0) {
+			ratesManager.getRate(baseCoins[baseIndex])
+		} else {
+			ratesManager.getRate(code)
+		}
 	}
 
 	fun getCoinDiff(base: String, quote: String): BigDecimal {

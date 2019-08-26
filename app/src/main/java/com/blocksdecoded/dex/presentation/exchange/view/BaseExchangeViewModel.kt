@@ -117,21 +117,19 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
         mReceiveCoins = getAvailableReceiveCoins(sendCoin)
     }
 
-    private fun getAvailableSendCoins(): List<ExchangePairItem> {
-        return exchangeableCoins
-            .filter { coin -> marketCodes
-                .firstOrNull {
-                    when(this.exchangeSide) {
-                        ExchangeSide.BID -> it.first == coin.code
-                        ExchangeSide.ASK -> it.second == coin.code
-                    }
-                } != null
-            }
-            .map { getExchangeItem(it) }
-    }
+    private fun getAvailableSendCoins(): List<ExchangePairItem> = exchangeableCoins
+        .filter { coin -> marketCodes
+            .firstOrNull {
+                when(this.exchangeSide) {
+                    ExchangeSide.BID -> it.first == coin.code
+                    ExchangeSide.ASK -> it.second == coin.code
+                }
+            } != null
+        }
+        .map { getExchangeItem(it) }
 
-    private fun getAvailableReceiveCoins(baseCoinCode: String): List<ExchangePairItem> {
-        return exchangeableCoins
+    private fun getAvailableReceiveCoins(baseCoinCode: String): List<ExchangePairItem> =
+        exchangeableCoins
             .filter { coin ->
                 marketCodes.firstOrNull {
                     when(this.exchangeSide) {
@@ -144,7 +142,6 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
                 } != null
             }
             .map { getExchangeItem(it) }
-    }
 
     protected fun getExchangeItem(coin: Coin): ExchangePairItem {
         val balance = adapterManager.adapters

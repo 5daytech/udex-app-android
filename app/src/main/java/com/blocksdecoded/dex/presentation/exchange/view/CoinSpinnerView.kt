@@ -22,7 +22,17 @@ class CoinSpinnerView : Spinner {
 	constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 	constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 	constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
-	
+
+	private fun updateEnabled() {
+		isEnabled = exchangeItems.size > 1
+		backgroundTintList = ColorStateList.valueOf(
+			ContextCompat.getColor(
+				context,
+				if (isEnabled) R.color.main_light_text else android.R.color.transparent
+			)
+		)
+	}
+
 	fun init(onCoinSelected: (Int) -> Unit) {
 		this.onItemSelectedListener = object: ItemSelectedListener() {
 			override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) =
@@ -36,20 +46,13 @@ class CoinSpinnerView : Spinner {
 	fun setCoins(coins: List<ExchangePairItem>) {
 		exchangeItems = coins
 		coinsAdapter?.setCoins(exchangeItems)
-
-		isEnabled = coins.size > 1
-		backgroundTintList = ColorStateList.valueOf(
-			ContextCompat.getColor(
-				context,
-				if (isEnabled) R.color.main_light_text else android.R.color.transparent
-			)
-		)
+		updateEnabled()
 	}
 	
-	fun setSelectedPair(selectedPair: ExchangePairItem?) {
+	fun setSelectedPair(selectedPair: ExchangePairItem?) = post {
 		val index = exchangeItems.indexOfFirst { it.code == selectedPair?.code ?: "" }
 		if (index >= 0) {
-			setSelection(index, true)
+			setSelection(index)
 		}
 	}
 

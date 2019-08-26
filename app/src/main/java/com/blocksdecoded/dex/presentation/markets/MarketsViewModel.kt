@@ -33,7 +33,7 @@ class MarketsViewModel : CoreViewModel() {
                 markets.postValue(availableMarkets.mapIndexed { index, marketCoin ->
                     Market(
                         marketCoin,
-                        rates.firstOrNull { it.symbol == marketCoin.code }
+                        rates.firstOrNull { it.symbol == marketCoin.code || marketCoin.code.contains(it.symbol)}
                             ?: CoinRate(marketCoin.code))
                 })
             }

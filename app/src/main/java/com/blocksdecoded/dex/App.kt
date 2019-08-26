@@ -83,7 +83,7 @@ class App: Application() {
 
         // Init kits
         ethereumKitManager = EthereumKitManager(appConfiguration)
-        zrxKitManager = ZrxKitManager(ethereumKitManager, authManager)
+        zrxKitManager = ZrxKitManager(appConfiguration, ethereumKitManager, authManager)
         feeRateProvider = FeeRateProvider(this)
 
         ratesManager = RatesManager(BootstrapApiClient(), RatesApiClient(), RatesClientConfig(sharedStorage))

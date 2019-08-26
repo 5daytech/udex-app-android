@@ -44,7 +44,6 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		val sendCoin = state.sendCoin?.code ?: ""
 		val receiveCoin = state.receiveCoin?.code ?: ""
 
-		Log.d("ololo", "Thread ${Thread.currentThread().name}")
 		averagePrice.postValue(ratesConverter.getCoinDiff(sendCoin, receiveCoin))
 	}
 
