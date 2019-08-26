@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
 import com.blocksdecoded.dex.utils.isValidIndex
+import com.blocksdecoded.dex.utils.ui.DimenUtils
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 
 class CoinSpinnerView : Spinner {
@@ -22,6 +23,11 @@ class CoinSpinnerView : Spinner {
 	constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 	constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 	constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
+
+    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+        super.onLayout(changed, l, t, r, b)
+        dropDownVerticalOffset = height - DimenUtils.dp(6f)
+    }
 
 	private fun updateEnabled() {
 		isEnabled = exchangeItems.size > 1
@@ -38,11 +44,11 @@ class CoinSpinnerView : Spinner {
 			override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) =
 				onCoinSelected(position)
 		}
-		
+
 		coinsAdapter = CoinsSpinnerAdapter(context, exchangeItems)
 		this.adapter = coinsAdapter
 	}
-	
+
 	fun setCoins(coins: List<ExchangePairItem>) {
 		exchangeItems = coins
 		coinsAdapter?.setCoins(exchangeItems)
@@ -60,7 +66,6 @@ class CoinSpinnerView : Spinner {
 		exchangeItems[selectedItemPosition].code
 	else
 		""
-
 
 
 	inner class CoinsSpinnerAdapter(

@@ -37,10 +37,11 @@ class OrderViewHolder(
         } else {
             order.makerAmount.toDisplayFormat()
         }
+
         totalTxt.text = if (order.side == EOrderSide.BUY) {
-            order.makerAmount.toDisplayFormat()
+            "${order.makerAmount.toDisplayFormat()} ${order.makerCoin.code}"
         } else {
-            order.takerAmount.toDisplayFormat()
+            "${order.takerAmount.toDisplayFormat()} ${order.takerCoin.code}"
         }
     }
 

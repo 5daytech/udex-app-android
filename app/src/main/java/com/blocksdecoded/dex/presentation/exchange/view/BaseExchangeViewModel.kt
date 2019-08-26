@@ -123,8 +123,16 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
 
     open fun onSendCoinPick(position: Int) {
         val pair = mSendCoins[position]
-        if (state.sendCoin?.code != pair.code) {
+
+        if (pair.code == state.receiveCoin?.code) {
+            state.sendCoin = pair
+            state.receiveCoin = null
+
+            refreshPairs(state, false)
+            viewState.value = state
+        } else if (state.sendCoin?.code != pair.code) {
             state.sendCoin = mSendCoins[position]
+
             refreshPairs(state, false)
             updateReceiveAmount()
         }

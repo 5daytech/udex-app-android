@@ -27,6 +27,9 @@ class AppConfiguration(
         }
     } ?: testCoins[1]).type as? CoinType.Erc20)?.address ?: ""
 
+    private fun getExchangePair(from: String, to: String) =
+        ZrxKit.assetItemForAddress(addressForSymbol(from)) to ZrxKit.assetItemForAddress(addressForSymbol(to))
+
     val testCoins = listOf(
         Coin("Ethereum", "ETH", CoinType.Ethereum),
         Coin("Wrapped ETH", "WETH", CoinType.Erc20("0xc778417e063141139fce010982780140aa0cd5ab", 18)),
@@ -39,17 +42,16 @@ class AppConfiguration(
     )
 
     val testExchangePairs = listOf(
-        ZrxKit.assetItemForAddress(addressForSymbol("WBTC"))
-                to ZrxKit.assetItemForAddress(addressForSymbol("WETH")), // WBTC/WETH
-        ZrxKit.assetItemForAddress(addressForSymbol("ZRX"))
-                to ZrxKit.assetItemForAddress(addressForSymbol("WETH")), // ZRX/WETH
-        ZrxKit.assetItemForAddress(addressForSymbol("DAI"))
-                to ZrxKit.assetItemForAddress(addressForSymbol("WETH")), // ZRX/WETH
-        ZrxKit.assetItemForAddress(addressForSymbol("USDT"))
-                to ZrxKit.assetItemForAddress(addressForSymbol("WETH")), // ZRX/WETH
-        ZrxKit.assetItemForAddress(addressForSymbol("HT"))
-                to ZrxKit.assetItemForAddress(addressForSymbol("WETH")), // ZRX/WETH
-        ZrxKit.assetItemForAddress(addressForSymbol("LINK"))
-                to ZrxKit.assetItemForAddress(addressForSymbol("WETH")) // TMKV2/WETH
+        getExchangePair("WBTC", "WETH"),
+        getExchangePair("ZRX", "WETH"),
+        getExchangePair("DAI", "WETH"),
+        getExchangePair("USDT", "WETH"),
+        getExchangePair("HT", "WETH"),
+        getExchangePair("LINK", "WETH"),
+        getExchangePair("ZRX", "WBTC"),
+        getExchangePair("DAI", "WBTC"),
+        getExchangePair("USDT", "WBTC"),
+        getExchangePair("HT", "WBTC"),
+        getExchangePair("LINK", "WBTC")
     )
 }
