@@ -13,6 +13,7 @@ import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
+import java.math.MathContext
 
 class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 
@@ -166,7 +167,8 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 
 		val currentReceive = mReceiveInfo.receiveAmount
 		val currentPrice = if (mReceiveInfo.receiveAmount > BigDecimal.ZERO) {
-			state.sendAmount.divide(mReceiveInfo.receiveAmount) ?: BigDecimal.ZERO
+			val mc = MathContext(18)
+			state.sendAmount.divide(mReceiveInfo.receiveAmount, mc) ?: BigDecimal.ZERO
 		} else {
 			BigDecimal.ZERO
 		}

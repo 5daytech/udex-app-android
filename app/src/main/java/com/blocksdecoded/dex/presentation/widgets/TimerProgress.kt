@@ -13,7 +13,7 @@ import kotlin.math.roundToInt
 class TimerProgress : RelativeLayout {
 	init { View.inflate(context, R.layout.view_progress, this) }
 
-	private val interval = 1000L
+	private val interval = 100L
 	private var countDownTimer: CountDownTimer? = null
 
 	constructor(context: Context?) : super(context)
@@ -26,9 +26,10 @@ class TimerProgress : RelativeLayout {
 		onFinish: () -> Unit
 	) {
 		countDownTimer?.cancel()
-		progress_bar?.max = seconds
+		val milliseconds = seconds * 1000L
+		progress_bar?.max = milliseconds.toInt()
 		
-		countDownTimer = object : CountDownTimer(seconds * 1000L, interval) {
+		countDownTimer = object : CountDownTimer(milliseconds, interval) {
 			override fun onFinish() {
 				onFinish()
 			}
@@ -37,7 +38,7 @@ class TimerProgress : RelativeLayout {
 				val secondsLeft = seconds - (p0 / 1000).toInt()
 				progress_hint?.text = "$secondsLeft:$seconds"
 
-				progress_bar?.progress = secondsLeft
+				progress_bar?.progress = (milliseconds - p0).toInt()
 			}
 		}
 		
