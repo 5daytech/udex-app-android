@@ -37,7 +37,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
         viewState.postValue(state)
     }
 
-    private fun updateReceivePrice() {
+    override fun updateReceiveAmount() {
         state.sendAmount.let { amount ->
             val receiveAmount = relayer.calculateFillAmount(
                 marketCodes[currentMarketPosition],
@@ -115,7 +115,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
                 state.sendAmount = amount
                 refreshPairs(state)
                 viewState.value = state
-                updateReceivePrice()
+                updateReceiveAmount()
             }
             SELL -> {
                 exchangeSide = ExchangeSide.ASK
@@ -124,33 +124,9 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
                 state.sendAmount = amount
                 refreshPairs(state)
                 viewState.value = state
-                updateReceivePrice()
+                updateReceiveAmount()
             }
             MY -> {}
-        }
-    }
-
-    fun onReceiveCoinPick(position: Int) {
-        if (state.receiveCoin?.code != mReceiveCoins[position].code) {
-            state.receiveCoin = mReceiveCoins[position]
-            updateReceivePrice()
-        }
-    }
-
-    fun onSendCoinPick(position: Int) {
-        val pair = mSendCoins[position]
-        if (state.sendCoin?.code != pair.code) {
-            state.sendCoin = mSendCoins[position]
-            refreshPairs(state, false)
-            updateReceivePrice()
-        }
-    }
-
-    override fun onSendAmountChange(amount: BigDecimal) {
-        if (state.sendAmount != amount) {
-            state.sendAmount = amount
-
-            updateReceivePrice()
         }
     }
 
@@ -177,6 +153,8 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
             sendCoin = state.receiveCoin,
             receiveCoin = state.sendCoin
         )
+
+        onSendAmountChange(state.sendAmount)
 
         refreshPairs(state)
 

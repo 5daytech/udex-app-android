@@ -95,7 +95,15 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     }
 
     protected abstract fun initState(sendItem: ExchangePairItem?, receiveItem: ExchangePairItem?)
-    abstract fun onSendAmountChange(amount: BigDecimal)
+    protected abstract fun updateReceiveAmount()
+
+    fun onSendAmountChange(amount: BigDecimal) {
+        if (state.sendAmount != amount) {
+            state.sendAmount = amount
+
+            updateReceiveAmount()
+        }
+    }
 
     fun onMaxClick() {
         val adapter = adapterManager.adapters.firstOrNull { it.coin.code == state.sendCoin?.code }
@@ -103,6 +111,22 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             val amount = adapter.availableBalance(null, FeeRatePriority.HIGH)
             onSendAmountChange(amount)
             viewState.value = state
+        }
+    }
+
+    open fun onReceiveCoinPick(position: Int) {
+        if (state.receiveCoin?.code != mReceiveCoins[position].code) {
+            state.receiveCoin = mReceiveCoins[position]
+            updateReceiveAmount()
+        }
+    }
+
+    open fun onSendCoinPick(position: Int) {
+        val pair = mSendCoins[position]
+        if (state.sendCoin?.code != pair.code) {
+            state.sendCoin = mSendCoins[position]
+            refreshPairs(state, false)
+            updateReceiveAmount()
         }
     }
 

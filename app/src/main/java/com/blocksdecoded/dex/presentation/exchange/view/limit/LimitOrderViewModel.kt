@@ -1,6 +1,5 @@
 package com.blocksdecoded.dex.presentation.exchange.view.limit
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
@@ -54,6 +53,32 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 	}
 
 	//region Private
+
+	override fun onReceiveCoinPick(position: Int) {
+		super.onReceiveCoinPick(position)
+		refreshAveragePrice()
+	}
+
+	override fun onSendCoinPick(position: Int) {
+		super.onSendCoinPick(position)
+		refreshAveragePrice()
+	}
+
+	override fun updateReceiveAmount() {
+		state.sendAmount.let { amount ->
+			val receiveAmount = amount.multiply(mPriceInfo.sendPrice)
+			mReceiveInfo.receiveAmount = receiveAmount
+
+			receiveInfo.value = mReceiveInfo
+
+			exchangeEnabled.value = receiveAmount > BigDecimal.ZERO
+
+			exchangePrice.value = relayer.calculateBasePrice(
+				marketCodes[currentMarketPosition],
+				orderSide
+			)
+		}
+	}
 	
 	override fun initState(sendItem: ExchangePairItem?, receiveItem: ExchangePairItem?) {
 		state = LimitOrderViewState(
@@ -69,22 +94,6 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		mPriceInfo.sendPrice = BigDecimal.ZERO
 		averagePrice.value = BigDecimal.ZERO
 		priceInfo.value = mPriceInfo
-	}
-	
-	private fun updateReceiveAmount() {
-		state.sendAmount.let { amount ->
-			val receiveAmount = amount.multiply(mPriceInfo.sendPrice)
-			mReceiveInfo.receiveAmount = receiveAmount
-
-			receiveInfo.value = mReceiveInfo
-			
-			exchangeEnabled.value = receiveAmount > BigDecimal.ZERO
-
-			exchangePrice.value = relayer.calculateBasePrice(
-				marketCodes[currentMarketPosition],
-				orderSide
-			)
-		}
 	}
 	
 	private fun placeOrder() {
@@ -130,26 +139,6 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 	//endregion
 	
 	//region Public
-	
-	fun onReceiveCoinPick(position: Int) {
-		state.receiveCoin = mReceiveCoins[position]
-		updateReceiveAmount()
-		refreshAveragePrice()
-	}
-	
-	fun onSendCoinPick(position: Int) {
-		state.sendCoin = mSendCoins[position]
-		refreshPairs(state, false)
-		updateReceiveAmount()
-	}
-	
-	override fun onSendAmountChange(amount: BigDecimal) {
-		if (state.sendAmount != amount) {
-			state.sendAmount = amount
-			
-			updateReceiveAmount()
-		}
-	}
 	
 	fun onPriceChange(price: BigDecimal) {
 		if (mPriceInfo.sendPrice != price) {
