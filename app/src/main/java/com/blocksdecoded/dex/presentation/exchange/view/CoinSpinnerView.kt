@@ -63,8 +63,6 @@ class CoinSpinnerView : Spinner {
 
 
 
-
-
 	inner class CoinsSpinnerAdapter(
 		internal var context: Context,
 		private var coins: List<ExchangePairItem>
@@ -88,8 +86,16 @@ class CoinSpinnerView : Spinner {
 
 		override fun getItem(position: Int): ExchangePairItem? = coins[position]
 
-		override fun getView(position: Int, convertView: View?, parent: ViewGroup): View =
+		override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? =
 			getAdapterView(position, convertView, parent)
+
+		override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View? {
+			return if (position == selectedItemPosition) {
+				View(context)
+			} else {
+				super.getDropDownView(position, null, parent)
+			}
+		}
 		
 		fun setCoins(coins: List<ExchangePairItem>) {
 			this.coins = coins
