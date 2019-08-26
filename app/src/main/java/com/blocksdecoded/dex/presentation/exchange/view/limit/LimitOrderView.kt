@@ -9,12 +9,10 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
-import com.blocksdecoded.dex.presentation.exchange.view.ExchangeReceiveInfo
+import com.blocksdecoded.dex.presentation.exchange.view.*
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
-import com.blocksdecoded.dex.utils.ui.toMediumDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toPriceFormat
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
@@ -107,12 +105,14 @@ class LimitOrderView: CardView {
 		}
 	}
 	
-	fun updateSendCoins(coins: List<ExchangePairItem>) {
-		limit_base_spinner?.setCoins(coins)
+	fun updateSendCoins(info: ExchangePairsInfo) {
+		limit_base_spinner?.setCoins(info.coins)
+		limit_base_spinner?.setSelectedPair(info.selectedCoin)
 	}
 	
-	fun updateReceiveCoins(coins: List<ExchangePairItem>) {
-		limit_quote_spinner?.setCoins(coins)
+	fun updateReceiveCoins(info: ExchangePairsInfo) {
+		limit_quote_spinner?.setCoins(info.coins)
+		limit_quote_spinner?.setSelectedPair(info.selectedCoin)
 	}
 	
 	@SuppressLint("SetTextI18n")

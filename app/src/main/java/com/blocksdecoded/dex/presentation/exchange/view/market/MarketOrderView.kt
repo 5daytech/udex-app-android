@@ -9,8 +9,9 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
+import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairsInfo
 import com.blocksdecoded.dex.presentation.exchange.view.ExchangeReceiveInfo
+import com.blocksdecoded.dex.presentation.exchange.view.MarketOrderViewState
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
@@ -75,12 +76,14 @@ class MarketOrderView: CardView {
 		}
 	}
 	
-	fun updateSendCoins(coins: List<ExchangePairItem>) {
-		exchange_base_spinner?.setCoins(coins)
+	fun updateSendCoins(info: ExchangePairsInfo) {
+		exchange_base_spinner?.setCoins(info.coins)
+		exchange_base_spinner?.setSelectedPair(info.selectedCoin)
 	}
 	
-	fun updateReceiveCoins(coins: List<ExchangePairItem>) {
-		exchange_quote_spinner?.setCoins(coins)
+	fun updateReceiveCoins(info: ExchangePairsInfo) {
+		exchange_quote_spinner?.setCoins(info.coins)
+		exchange_quote_spinner?.setSelectedPair(info.selectedCoin)
 	}
 
 	fun updateReceiveInfo(receiveInfo: ExchangeReceiveInfo) {

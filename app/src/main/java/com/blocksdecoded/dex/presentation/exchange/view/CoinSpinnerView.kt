@@ -49,7 +49,7 @@ class CoinSpinnerView : Spinner {
 		updateEnabled()
 	}
 	
-	fun setSelectedPair(selectedPair: ExchangePairItem?) = post {
+	fun setSelectedPair(selectedPair: ExchangePairItem?) {
 		val index = exchangeItems.indexOfFirst { it.code == selectedPair?.code ?: "" }
 		if (index >= 0) {
 			setSelection(index)
@@ -60,7 +60,11 @@ class CoinSpinnerView : Spinner {
 		exchangeItems[selectedItemPosition].code
 	else
 		""
-	
+
+
+
+
+
 	inner class CoinsSpinnerAdapter(
 		internal var context: Context,
 		private var coins: List<ExchangePairItem>

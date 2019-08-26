@@ -22,8 +22,8 @@ import com.blocksdecoded.dex.core.shared.ISharedStorage
 import com.blocksdecoded.dex.core.shared.SharedStorage
 import com.blocksdecoded.dex.core.zrx.IRelayerAdapterManager
 import com.blocksdecoded.dex.core.zrx.RelayerAdapterManager
-import com.blocksdecoded.dex.core.zrx.kit.IZrxKitManager
-import com.blocksdecoded.dex.core.zrx.kit.ZrxKitManager
+import com.blocksdecoded.dex.core.zrx.IZrxKitManager
+import com.blocksdecoded.dex.core.zrx.ZrxKitManager
 
 class App: Application() {
     companion object {
@@ -74,7 +74,7 @@ class App: Application() {
 
         sharedStorage = SharedStorage(this)
         localStorage = AppLocalStorage(sharedStorage)
-        
+
 	    // Auth
         encryptionManager = EncryptionManager()
 	    securedStorage = SecuredStorage(encryptionManager, sharedStorage)
@@ -83,7 +83,11 @@ class App: Application() {
 
         // Init kits
         ethereumKitManager = EthereumKitManager(appConfiguration)
-        zrxKitManager = ZrxKitManager(appConfiguration, ethereumKitManager, authManager)
+        zrxKitManager = ZrxKitManager(
+            appConfiguration,
+            ethereumKitManager,
+            authManager
+        )
         feeRateProvider = FeeRateProvider(this)
 
         ratesManager = RatesManager(BootstrapApiClient(), RatesApiClient(), RatesClientConfig(sharedStorage))

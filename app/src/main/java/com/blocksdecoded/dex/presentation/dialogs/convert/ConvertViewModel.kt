@@ -30,7 +30,7 @@ class ConvertViewModel : CoreViewModel() {
     var decimalSize: Int = 18
 	
     val convertState = MutableLiveData<ConvertState>()
-    val amount = MutableLiveData<BigDecimal>()
+    val convertAmount = MutableLiveData<BigDecimal>()
     val receiveAmount = MutableLiveData<BigDecimal>()
     val convertEnabled = MutableLiveData<Boolean>()
     
@@ -72,6 +72,7 @@ class ConvertViewModel : CoreViewModel() {
 	
 	    sendAmount = BigDecimal.ZERO
         onAmountChanged(sendAmount)
+        convertAmount.value = sendAmount
 	    
         decimalSize = adapter?.decimal ?: 18
     }
@@ -84,7 +85,7 @@ class ConvertViewModel : CoreViewModel() {
     }
 	
 	private fun refreshAmount() {
-		this.amount.value = sendAmount
+		this.convertAmount.value = sendAmount
 	}
 	
 	fun onConvertClick() {

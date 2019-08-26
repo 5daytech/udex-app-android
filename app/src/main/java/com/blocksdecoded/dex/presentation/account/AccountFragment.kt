@@ -18,28 +18,23 @@ class AccountFragment : CoreFragment(R.layout.fragment_account) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AccountViewModel::class.java)
-        
-        viewModel.openBackupEvent.observe(this, Observer {
-            activity?.let { BackupActivity.start(it) }
-        })
-    
+
         toolbar?.bind(NONE)
 
         account_security_center?.setOnClickListener {
-            activity?.let {
-                SecurityCenterActivity.start(it)
-            }
+            activity?.let { SecurityCenterActivity.start(it) }
         }
         account_about_app?.setOnClickListener {
-            activity?.let {
-                AboutAppActivity.start(it)
-            }
+            activity?.let { AboutAppActivity.start(it) }
         }
         account_language?.setOnClickListener {
-            activity?.let {
-                LanguageActivity.start(it)
-            }
+            activity?.let { LanguageActivity.start(it) }
         }
+
+        account_address_book?.setOnClickListener {
+            activity?.let { AddressBookActivity.start(it) }
+        }
+
         account_share_app?.setOnClickListener {  }
 
         account_light_mode?.setOnClickListener { account_light_mode_switch.isChecked = !account_light_mode_switch.isChecked }

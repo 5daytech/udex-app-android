@@ -5,6 +5,11 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    def STRING = "String"
+    def INFURA_PROJECT_ID = "INFURA_PROJECT_ID"
+    def INFURA_PROJECT_SECRET = "INFURA_PROJECT_SECRET"
+    def ETHERESCAN_KEY = "ETHERSCAN_KEY"
+
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     defaultConfig {
@@ -18,9 +23,21 @@ android {
         renderscriptSupportModeEnabled true
     }
     buildTypes {
-        release {
+        debug {
+            debuggable true
             minifyEnabled false
+            buildConfigField STRING, INFURA_PROJECT_ID, "\"0c3f9e6a005b40c58235da423f58b198\""
+            buildConfigField STRING, INFURA_PROJECT_SECRET, "\"57b6615fb10b4749a54b29c2894a00df\""
+            buildConfigField STRING, ETHERESCAN_KEY, "\"NHURUUGCB2HDQFS26CKTRT51K4PHBY7234\""
+        }
+
+        release {
+            debuggable false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField STRING, INFURA_PROJECT_ID, ""
+            buildConfigField STRING, INFURA_PROJECT_SECRET, ""
+            buildConfigField STRING, ETHERESCAN_KEY, ""
         }
     }
 

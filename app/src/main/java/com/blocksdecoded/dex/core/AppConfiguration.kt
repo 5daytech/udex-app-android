@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.core
 
+import com.blocksdecoded.dex.BuildConfig
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.zrxkit.ZrxKit
@@ -9,17 +10,17 @@ import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType.*
 class AppConfiguration(
     val testMode: Boolean = true,
     val networkType: NetworkType = if (testMode) Ropsten else MainNet,
-    val etherscanKey: String = "GKNHXT22ED7PRVCKZATFZQD1YI7FK9AAYE",
+    val etherscanKey: String = BuildConfig.ETHERSCAN_KEY,
     val infuraCredentials: InfuraCredentials = InfuraCredentials(
-    "0c3f9e6a005b40c58235da423f58b198",
-    "57b6615fb10b4749a54b29c2894a00df"
+        BuildConfig.INFURA_PROJECT_ID,
+        BuildConfig.INFURA_PROJECT_SECRET
     )
 ) {
     companion object {
         val DEFAULT = AppConfiguration()
     }
 
-    fun addressForSymbol(symbol: String): String = ((testCoins.firstOrNull {
+    private fun addressForSymbol(symbol: String): String = ((testCoins.firstOrNull {
         when(it.type) {
             is CoinType.Erc20 -> it.code.equals(symbol, true)
             else -> false

@@ -17,9 +17,6 @@ class EthereumKitManager(
         override fun getGasPrice(): BigInteger = 5_000_000_000L.toBigInteger()
     }
 
-//    private val words: List<String>
-//        get() = "fancy pond surprise panic grocery hedgehog slight relief deal wash clog female".split(" ")
-
     override var kit: EthereumKit? = null
     private var useCount = 0
 

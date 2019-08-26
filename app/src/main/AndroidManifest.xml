@@ -47,8 +47,15 @@
         <activity android:name=".presentation.dialogs.send.QRScannerActivity"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppTheme.BarcodeScanner"/>
-        <activity android:name=".presentation.account.AboutAppActivity" />
-        <activity android:name=".presentation.account.LanguageActivity" />
+
+        <activity android:name=".presentation.account.AboutAppActivity"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".presentation.account.LanguageActivity"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".presentation.account.AddressBookActivity"
+                  android:screenOrientation="portrait"/>
 
     </application>
 

@@ -12,7 +12,7 @@ class RatesConverter(
 	private fun getCoinRate(code: String): CoinRate {
 		if (code.isEmpty()) return CoinRate(code)
 
-		val baseIndex = baseCoins.indexOfFirst { it.contains(code.substring(1)) }
+		val baseIndex = baseCoins.indexOfFirst { it == code.substring(1) }
 		return if (baseIndex >= 0) {
 			ratesManager.getRate(baseCoins[baseIndex])
 		} else {

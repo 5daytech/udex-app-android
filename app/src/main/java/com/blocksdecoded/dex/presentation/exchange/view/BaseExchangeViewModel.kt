@@ -40,17 +40,17 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     protected var mSendCoins: List<ExchangePairItem> = listOf()
         set(value) {
             field = value
-            sendCoins.postValue(value)
+            sendCoins.postValue(ExchangePairsInfo(value, state.sendCoin))
         }
 
     protected var mReceiveCoins: List<ExchangePairItem> = listOf()
         set(value) {
             field = value
-            receiveCoins.postValue(value)
+            receiveCoins.postValue(ExchangePairsInfo(value, state.receiveCoin))
         }
 
-    val sendCoins = MutableLiveData<List<ExchangePairItem>>()
-    val receiveCoins = MutableLiveData<List<ExchangePairItem>>()
+    val sendCoins = MutableLiveData<ExchangePairsInfo>()
+    val receiveCoins = MutableLiveData<ExchangePairsInfo>()
     val viewState = MutableLiveData<T>()
     val receiveInfo = MutableLiveData<ExchangeReceiveInfo>()
 

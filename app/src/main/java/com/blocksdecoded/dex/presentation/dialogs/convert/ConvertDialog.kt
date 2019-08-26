@@ -19,7 +19,6 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
 import com.blocksdecoded.dex.utils.ui.ToastHelper
-import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
@@ -117,7 +116,7 @@ class ConvertDialog private constructor()
             ToastHelper.showInfoMessage(it)
         })
         
-        viewModel.amount.observe(this, Observer { amount -> updateSendAmount(amount) })
+        viewModel.convertAmount.observe(this, Observer { amount -> updateSendAmount(amount) })
         
         viewModel.receiveAmount.observe(this, Observer {amount ->
             updateReceiveAmount(amount)

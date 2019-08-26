@@ -1,9 +1,8 @@
-package com.blocksdecoded.dex.core.zrx.kit
+package com.blocksdecoded.dex.core.zrx
 
 import com.blocksdecoded.dex.core.AppConfiguration
 import com.blocksdecoded.dex.core.UnauthorizedException
 import com.blocksdecoded.dex.core.manager.AuthManager
-import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.manager.EthereumKitManager
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.relayer.model.Relayer
@@ -15,8 +14,7 @@ class ZrxKitManager(
     private val etherKit: EthereumKitManager,
     private val authManager: AuthManager
 ): IZrxKitManager {
-    
-    private val networkType = ZrxKit.NetworkType.Ropsten
+    private val networkType = if (appConfiguration.testMode) ZrxKit.NetworkType.Ropsten else ZrxKit.NetworkType.MainNet
     
     val gasProvider: ZrxKit.GasInfoProvider = object : ZrxKit.GasInfoProvider() {
         override fun getGasLimit(contractFunc: String?): BigInteger = 250_000.toBigInteger()

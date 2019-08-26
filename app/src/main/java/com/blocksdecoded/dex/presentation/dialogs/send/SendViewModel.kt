@@ -133,7 +133,7 @@ class SendViewModel: CoreViewModel() {
 
         val amount = userInput.amount
         if (amount == BigDecimal.ZERO) {
-            //TODO: Show no amount error
+            //TODO: Show no convertAmount error
             return
         }
 
