@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.dialogs.convert
+package com.blocksdecoded.dex.presentation.convert
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
@@ -9,7 +9,7 @@ import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import com.blocksdecoded.dex.presentation.dialogs.convert.ConvertConfig.ConvertType.*
+import com.blocksdecoded.dex.presentation.convert.ConvertConfig.ConvertType.*
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.uiSubscribe

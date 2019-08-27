@@ -9,8 +9,8 @@ import androidx.viewpager.widget.ViewPager
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
-import com.blocksdecoded.dex.presentation.dialogs.processing.ProcessingDialog
-import com.blocksdecoded.dex.presentation.dialogs.sent.SentDialog
+import com.blocksdecoded.dex.presentation.processing.ProcessingDialog
+import com.blocksdecoded.dex.presentation.sent.SentDialog
 import com.blocksdecoded.dex.presentation.exchange.ExchangeFragment.InputField.*
 import com.blocksdecoded.dex.presentation.exchange.ExchangeType.*
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmDialog

@@ -17,7 +17,7 @@ import com.blocksdecoded.dex.presentation.markets.MarketsFragment
 import com.blocksdecoded.dex.presentation.orders.OrdersHostFragment
 import com.blocksdecoded.dex.presentation.balance.BalanceFragment
 import com.blocksdecoded.dex.core.ui.CoreActivity
-import com.blocksdecoded.dex.presentation.dialogs.send.SendViewModel
+import com.blocksdecoded.dex.presentation.send.SendViewModel
 import com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderViewModel
 import com.blocksdecoded.dex.presentation.orders.model.FillOrderInfo
 import com.google.android.material.bottomnavigation.BottomNavigationView

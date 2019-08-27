@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.dialogs.processing
+package com.blocksdecoded.dex.presentation.processing
 
 import android.os.Bundle
 import android.view.View

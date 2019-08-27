@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.dialogs.send
+package com.blocksdecoded.dex.presentation.send
 
 import android.os.Bundle
 import android.text.Editable

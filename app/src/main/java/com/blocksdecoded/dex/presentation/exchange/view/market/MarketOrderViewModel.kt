@@ -84,7 +84,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
         }
     }
 
-    private fun showConfirm() {
+    private fun confirmExchange() {
         val pair = marketCodes[currentMarketPosition]
 
         val confirmInfo = ExchangeConfirmInfo(
@@ -134,7 +134,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
         state.sendAmount.let { amount ->
             val receiveAmount = state.receiveAmount
             if (amount > BigDecimal.ZERO && receiveAmount > BigDecimal.ZERO) {
-                showConfirm()
+                confirmExchange()
             } else {
                 errorEvent.postValue(R.string.message_invalid_amount)
             }

@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.dialogs.convert
+package com.blocksdecoded.dex.presentation.convert
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -11,8 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
-import com.blocksdecoded.dex.presentation.dialogs.convert.ConvertConfig.ConvertType.*
-import com.blocksdecoded.dex.presentation.dialogs.sent.SentDialog
+import com.blocksdecoded.dex.presentation.convert.ConvertConfig.ConvertType.*
+import com.blocksdecoded.dex.presentation.sent.SentDialog
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter

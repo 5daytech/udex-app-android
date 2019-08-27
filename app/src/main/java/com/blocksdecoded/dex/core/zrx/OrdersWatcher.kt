@@ -73,7 +73,8 @@ class OrdersWatcher(
 	
 	private fun refreshBuyOrders(pairOrders: RelayerOrders<SignedOrder>) {
 		uiBuyOrders = pairOrders.orders
-			.map { UiOrder.fromOrder(it, BUY) }.sortedByDescending { it.price }
+			.map { UiOrder.fromOrder(it, BUY) }
+			.sortedByDescending { it.price }
 		
 		buyOrdersSubject.onNext(uiBuyOrders)
 	}

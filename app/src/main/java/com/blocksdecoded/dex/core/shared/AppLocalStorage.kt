@@ -4,8 +4,9 @@ class AppLocalStorage(
 	private val sharedStorage: ISharedStorage
 ) : IAppLocalStorage {
 	override var currentLanguage: String?
-		get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-		set(value) {}
+		get() = sharedStorage.getPreference("language", "en")
+		set(value) { sharedStorage.setPreference("language", value) }
+
 	override var isBackedUp: Boolean
 		get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 		set(value) {}

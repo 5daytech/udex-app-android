@@ -9,7 +9,7 @@ import com.blocksdecoded.dex.utils.clipboard.ClipboardManager
 
 class BackupViewModel : CoreViewModel() {
 	
-	val authManager = App.authManager
+	private val authManager = App.authManager
 	
 	val words = MutableLiveData<List<String>>()
 	

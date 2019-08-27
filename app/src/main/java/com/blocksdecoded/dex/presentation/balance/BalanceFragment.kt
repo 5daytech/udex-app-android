@@ -10,12 +10,11 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.balance.recycler.BalanceViewHolder
 import com.blocksdecoded.dex.presentation.balance.recycler.BalanceAdapter
-import com.blocksdecoded.dex.presentation.dialogs.receive.ReceiveDialog
-import com.blocksdecoded.dex.presentation.dialogs.send.SendDialog
+import com.blocksdecoded.dex.presentation.receive.ReceiveDialog
+import com.blocksdecoded.dex.presentation.send.SendDialog
 import com.blocksdecoded.dex.presentation.transactions.TransactionsActivity
 import com.blocksdecoded.dex.core.ui.CoreFragment
-import com.blocksdecoded.dex.presentation.dialogs.convert.ConvertDialog
-import com.blocksdecoded.dex.presentation.widgets.MainToolbar
+import com.blocksdecoded.dex.presentation.convert.ConvertDialog
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
 import kotlinx.android.synthetic.main.fragment_balance.*
 

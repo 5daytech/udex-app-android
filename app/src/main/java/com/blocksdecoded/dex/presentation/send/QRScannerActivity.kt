@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.dialogs.send
+package com.blocksdecoded.dex.presentation.send
 
 import android.app.Activity
 import android.os.Bundle

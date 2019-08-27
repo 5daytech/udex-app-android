@@ -13,7 +13,7 @@ import com.blocksdecoded.dex.core.rates.RatesConverter
 import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import com.blocksdecoded.dex.presentation.dialogs.convert.ConvertConfig
+import com.blocksdecoded.dex.presentation.convert.ConvertConfig
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import java.math.BigDecimal
 

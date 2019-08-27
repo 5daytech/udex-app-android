@@ -20,6 +20,7 @@ import com.blocksdecoded.dex.core.shared.AppLocalStorage
 import com.blocksdecoded.dex.core.shared.IAppLocalStorage
 import com.blocksdecoded.dex.core.shared.ISharedStorage
 import com.blocksdecoded.dex.core.shared.SharedStorage
+import com.blocksdecoded.dex.core.storage.AppDatabase
 import com.blocksdecoded.dex.core.zrx.IRelayerAdapterManager
 import com.blocksdecoded.dex.core.zrx.RelayerAdapterManager
 import com.blocksdecoded.dex.core.zrx.IZrxKitManager
@@ -58,7 +59,8 @@ class App: Application() {
         lateinit var adapterFactory: AdapterFactory
         
         // Helpers
-    
+
+        lateinit var appDatabase: AppDatabase
         lateinit var securedStorage: ISecuredStorage
         lateinit var localStorage: IAppLocalStorage
         lateinit var sharedStorage: ISharedStorage
@@ -74,10 +76,11 @@ class App: Application() {
 
         sharedStorage = SharedStorage(this)
         localStorage = AppLocalStorage(sharedStorage)
-
-	    // Auth
+        appDatabase = AppDatabase.getInstance(this)
         encryptionManager = EncryptionManager()
-	    securedStorage = SecuredStorage(encryptionManager, sharedStorage)
+        securedStorage = SecuredStorage(encryptionManager, sharedStorage)
+
+        // Auth
 	    wordsManager = WordsManager(localStorage)
 	    authManager = AuthManager(securedStorage)
 
