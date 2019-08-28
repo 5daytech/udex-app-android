@@ -15,4 +15,7 @@
     <dimen name="medium_margin">12dp</dimen>
     <dimen name="page_margin">16dp</dimen>
     <dimen name="big_margin">24dp</dimen>
+
+    <dimen name="bottom_sheet_big_margin">80dp</dimen>
+    <dimen name="bottom_sheet_small_margin">40dp</dimen>
 </resources>

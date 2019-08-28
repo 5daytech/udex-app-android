@@ -67,9 +67,9 @@
         style="@style/AmountText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/exchange_confirm_send_hint"
         app:layout_constraintBottom_toBottomOf="@+id/exchange_confirm_send_hint"
         app:layout_constraintLeft_toRightOf="@+id/exchange_confirm_send_hint"
+        android:textSize="16sp"
         android:layout_marginStart="@dimen/element_margin"/>
 
     <!-- Receive -->
@@ -93,6 +93,7 @@
         app:layout_constraintTop_toTopOf="@+id/exchange_confirm_receive_hint"
         app:layout_constraintBottom_toBottomOf="@+id/exchange_confirm_receive_hint"
         app:layout_constraintLeft_toRightOf="@+id/exchange_confirm_receive_hint"
+        android:textSize="16sp"
         android:layout_marginStart="@dimen/element_margin"/>
 
     <!-- Price -->
@@ -116,6 +117,7 @@
         app:layout_constraintTop_toTopOf="@+id/exchange_confirm_price_hint"
         app:layout_constraintBottom_toBottomOf="@+id/exchange_confirm_price_hint"
         app:layout_constraintLeft_toRightOf="@+id/exchange_confirm_price_hint"
+        android:textSize="16sp"
         android:layout_marginStart="@dimen/element_margin"/>
 
     <Button
