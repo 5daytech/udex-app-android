@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_round_stroke"
+    android:foreground="?selectableItemBackground"
+    android:padding="@dimen/small_margin">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="#"
+        android:textColor="?attr/HintTextColor"
+        android:layout_marginStart="@dimen/small_margin"/>
+
+    <TextView
+        android:id="@+id/hash_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?PrimaryTextColor"
+        android:layout_marginStart="@dimen/small_margin"
+        android:singleLine="true"
+        android:ellipsize="middle"
+        android:text="hash"/>
+</LinearLayout>

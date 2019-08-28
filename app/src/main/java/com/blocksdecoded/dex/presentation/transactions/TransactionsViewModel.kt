@@ -9,6 +9,8 @@ import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.utils.uiObserver
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
+import com.blocksdecoded.dex.presentation.transactions.info.TransactionInfo
+import com.blocksdecoded.dex.presentation.transactions.info.TransactionInfoDialog
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 
 class TransactionsViewModel : CoreViewModel() {
@@ -22,7 +24,7 @@ class TransactionsViewModel : CoreViewModel() {
 
     val finishEvent = SingleLiveEvent<Int>()
 
-    val showTransactionInfoEvent = SingleLiveEvent<TransactionRecord>()
+    val showTransactionInfoEvent = SingleLiveEvent<TransactionInfo>()
 
     fun init(coinCode: String?) {
         val adapter = adapterManager.adapters.firstOrNull { it.coin.code == coinCode }
@@ -60,7 +62,9 @@ class TransactionsViewModel : CoreViewModel() {
 
     fun onTransactionClick(position: Int) {
         if (transactions.value != null && transactions.value.isValidIndex(position)) {
-            showTransactionInfoEvent.postValue(transactions.value?.get(position))
+            transactions.value?.get(position)?.let {
+                showTransactionInfoEvent.postValue(TransactionInfo(adapter.coin, it))
+            }
         }
     }
 

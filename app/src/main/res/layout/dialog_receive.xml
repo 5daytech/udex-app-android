@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"
-        android:layout_marginTop="@dimen/page_margin"
-        android:layout_marginLeft="@dimen/page_margin"
-        android:layout_marginRight="@dimen/page_margin"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginLeft="@dimen/medium_margin"
+        android:layout_marginRight="@dimen/medium_margin"
         app:cardBackgroundColor="?attr/ActionButtonBackground"
         app:cardElevation="0dp"
         app:cardCornerRadius="@dimen/small_corner_radius">
@@ -26,7 +26,8 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/big_margin"
+                android:layout_marginTop="@dimen/big_margin"
+                android:layout_marginBottom="@dimen/big_margin"
                 android:gravity="center">
                 <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
                     android:id="@+id/receive_coin_icon"

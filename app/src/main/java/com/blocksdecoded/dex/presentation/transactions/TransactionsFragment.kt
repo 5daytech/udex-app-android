@@ -10,6 +10,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.transactions.recycler.TransactionViewHolder
 import com.blocksdecoded.dex.presentation.transactions.recycler.TransactionsAdapter
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.transactions.info.TransactionInfoDialog
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import kotlinx.android.synthetic.main.fragment_transactions.*
@@ -37,7 +38,9 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
         viewModel.finishEvent.observe(this, Observer { activity?.finish() })
 
         viewModel.transactions.observe(this, Observer { adapter.setTransactions(it) })
-        viewModel.showTransactionInfoEvent.observe(this, Observer { })
+        viewModel.showTransactionInfoEvent.observe(this, Observer {
+            TransactionInfoDialog.show(childFragmentManager, it)
+        })
 
         viewModel.coinName.observe(this, Observer {
             if (it != null) toolbar?.title = "$it Transactions"
