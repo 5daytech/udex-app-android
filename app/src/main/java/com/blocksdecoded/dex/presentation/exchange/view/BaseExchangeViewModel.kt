@@ -7,6 +7,7 @@ import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
+import com.blocksdecoded.dex.core.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
@@ -14,8 +15,11 @@ import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
 
 abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
-    protected val relayer = App.relayerAdapterManager.getMainAdapter()
-    protected val adapterManager = App.adapterManager
+    private val relayerManager = App.relayerAdapterManager
+    protected val relayer: IRelayerAdapter?
+        get() = relayerManager.mainRelayer
+
+    private val adapterManager = App.adapterManager
 
     protected abstract var state: T
     protected val mReceiveInfo = ExchangeReceiveInfo(BigDecimal.ZERO)
@@ -37,13 +41,13 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             }
         }
 
-    protected var mSendCoins: List<ExchangePairItem> = listOf()
+    private var mSendCoins: List<ExchangePairItem> = listOf()
         set(value) {
             field = value
             sendCoins.postValue(ExchangePairsInfo(value, state.sendCoin))
         }
 
-    protected var mReceiveCoins: List<ExchangePairItem> = listOf()
+    private var mReceiveCoins: List<ExchangePairItem> = listOf()
         set(value) {
             field = value
             receiveCoins.postValue(ExchangePairsInfo(value, state.receiveCoin))
@@ -65,20 +69,24 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
 
     protected fun init() {
         exchangeEnabled.value = false
-        relayer.availablePairsSubject
+
+        relayerManager.mainRelayerUpdatedSignal
             .subscribe {
-                marketCodes = it
+                relayer?.availablePairsSubject
+                    ?.subscribe {
+                        marketCodes = it
 
-                exchangeableCoins = CoinManager.coins.filter { coin ->
-                    marketCodes.firstOrNull { pair ->
-                        pair.first.equals(coin.code, true) ||
-                                pair.second.equals(coin.code, true)
-                    } != null
-                }
+                        exchangeableCoins = CoinManager.coins.filter { coin ->
+                            marketCodes.firstOrNull { pair ->
+                                pair.first.equals(coin.code, true) ||
+                                        pair.second.equals(coin.code, true)
+                            } != null
+                        }
 
-                refreshPairs(null)
+                        refreshPairs(null)
 
-                initState(mSendCoins.first(), mReceiveCoins.first())
+                        initState(mSendCoins.first(), mReceiveCoins.first())
+                    }?.let { disposables.add(it) }
             }.let { disposables.add(it) }
 
         adapterManager.adaptersUpdatedSignal

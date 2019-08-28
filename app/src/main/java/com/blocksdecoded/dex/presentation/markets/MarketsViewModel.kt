@@ -7,6 +7,7 @@ import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.model.Market
 import com.blocksdecoded.dex.core.rates.RatesState.*
 import com.blocksdecoded.dex.core.ui.CoreViewModel
+import io.reactivex.schedulers.Schedulers
 
 class MarketsViewModel : CoreViewModel() {
     val markets = MutableLiveData<List<Market>>()
@@ -17,6 +18,8 @@ class MarketsViewModel : CoreViewModel() {
 
     init {
         ratesManager.ratesStateSubject
+            .observeOn(Schedulers.io())
+            .subscribeOn(Schedulers.io())
             .subscribe {
                 loading.postValue(when(it) {
                     SYNCING -> true
@@ -27,6 +30,8 @@ class MarketsViewModel : CoreViewModel() {
             .let { disposables.add(it) }
 
         ratesManager.ratesUpdateSubject
+            .observeOn(Schedulers.io())
+            .subscribeOn(Schedulers.io())
             .subscribe {
                 val rates = ratesManager.getRates(availableMarkets.map { it.code })
 

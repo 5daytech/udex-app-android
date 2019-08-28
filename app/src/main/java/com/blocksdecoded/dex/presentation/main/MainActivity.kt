@@ -52,7 +52,7 @@ class MainActivity :
 
         adapter = MainPagerAdapter(supportFragmentManager)
         main_view_pager.adapter = adapter
-        main_view_pager.offscreenPageLimit = 4
+        main_view_pager.offscreenPageLimit = 3
         main_bottom_nav.setOnNavigationItemSelectedListener(this)
 
         main_view_pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {

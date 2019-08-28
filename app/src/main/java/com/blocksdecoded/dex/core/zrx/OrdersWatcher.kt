@@ -10,7 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
 class OrdersWatcher(
-	val relayerAdapter: IRelayerAdapter
+	private val relayerAdapter: IRelayerAdapter
 ) {
 	private val disposables = CompositeDisposable()
 

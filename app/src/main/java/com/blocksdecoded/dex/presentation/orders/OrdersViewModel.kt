@@ -3,6 +3,7 @@ package com.blocksdecoded.dex.presentation.orders
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.ui.CoreViewModel
+import com.blocksdecoded.dex.core.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.core.zrx.OrdersWatcher
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
@@ -13,8 +14,11 @@ import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.isValidIndex
 
 class OrdersViewModel : CoreViewModel() {
-    private val adapter = App.relayerAdapterManager.getMainAdapter()
-    private val zrxOrdersWatcher = OrdersWatcher(adapter)
+    private val relayerManager = App.relayerAdapterManager
+
+    private val relayer: IRelayerAdapter?
+        get() = relayerManager.mainRelayer
+    private var zrxOrdersWatcher: OrdersWatcher? = null
 
     private val currentPair: Pair<String, String>?
         get() = availablePairs.value?.let { pairs ->
@@ -33,42 +37,52 @@ class OrdersViewModel : CoreViewModel() {
     val fillOrderEvent = MutableLiveData<FillOrderInfo>()
 
     init {
-        zrxOrdersWatcher.availablePairsSubject.subscribe({ pairs ->
-            availablePairs.value = pairs
+        relayerManager.mainRelayerUpdatedSignal
+            .subscribe {
+                relayer?.let {
+                    zrxOrdersWatcher = OrdersWatcher(it)
+                    onRelayerInitialized()
+                }
+            }.let { disposables.add(it) }
+    }
+
+    private fun onRelayerInitialized() {
+        zrxOrdersWatcher?.availablePairsSubject?.subscribe({ pairs ->
+            availablePairs.postValue(pairs)
         }, { Logger.e(it) })?.let { disposables.add(it) }
 
-        zrxOrdersWatcher.buyOrdersSubject.subscribe({ orders ->
-            buyOrders.value = orders
+        zrxOrdersWatcher?.buyOrdersSubject?.subscribe({ orders ->
+            buyOrders.postValue(orders)
         }, { Logger.e(it) })?.let { disposables.add(it) }
 
-        zrxOrdersWatcher.sellOrdersSubject.subscribe({ orders ->
-            sellOrders.value = orders
+        zrxOrdersWatcher?.sellOrdersSubject?.subscribe({ orders ->
+            sellOrders.postValue(orders)
         }, { Logger.e(it) })?.let { disposables.add(it) }
 
-        zrxOrdersWatcher.myOrdersSubject.subscribe({orders ->
-            myOrders.value = orders
+        zrxOrdersWatcher?.myOrdersSubject?.subscribe({orders ->
+            myOrders.postValue(orders)
         }, { Logger.e(it) })?.let { disposables.add(it) }
 
-        zrxOrdersWatcher.selectedPairSubject.subscribe({ position ->
-            selectedPairPosition.value = position
+        zrxOrdersWatcher?.selectedPairSubject?.subscribe({ position ->
+            selectedPairPosition.postValue(position)
         }, { Logger.e(it) })?.let { disposables.add(it) }
 
-        selectedPairPosition.value = 0
+        selectedPairPosition.postValue(0)
         refreshOrders()
     }
     
     private fun refreshOrders() {
-        buyOrders.value = zrxOrdersWatcher.uiBuyOrders
-        sellOrders.value = zrxOrdersWatcher.uiSellOrders
-        myOrders.value = zrxOrdersWatcher.uiMyOrders
+        buyOrders.postValue(zrxOrdersWatcher?.uiBuyOrders)
+        sellOrders.postValue(zrxOrdersWatcher?.uiSellOrders)
+        myOrders.postValue(zrxOrdersWatcher?.uiMyOrders)
     }
     
     fun onPickPair(position: Int) {
-        zrxOrdersWatcher.currentSelectedPair = position
+        zrxOrdersWatcher?.currentSelectedPair = position
     }
 
     override fun onCleared() {
-        zrxOrdersWatcher.stop()
+        zrxOrdersWatcher?.stop()
         super.onCleared()
     }
     
@@ -90,7 +104,7 @@ class OrdersViewModel : CoreViewModel() {
             }
             MY -> {
                 if (myOrders.value != null && myOrders.value!!.isValidIndex(position)) {
-                    val order = zrxOrdersWatcher.getMyOrder(position, side)
+                    val order = zrxOrdersWatcher?.getMyOrder(position, side)
 
                     if (order != null) {
                         orderInfoEvent.postValue(OrderInfoConfig(

@@ -5,12 +5,14 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
+import com.blocksdecoded.dex.core.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.presentation.orders.model.OrderInfoConfig
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import com.blocksdecoded.dex.utils.uiSubscribe
 
 class OrderInfoViewModel : CoreViewModel() {
-	private val relayerAdapter = App.relayerAdapterManager.getMainAdapter()
+	private val relayerAdapter: IRelayerAdapter?
+		get() = App.relayerAdapterManager.mainRelayer
 	private var order: OrderInfoConfig? = null
 	
 	val orderInfo = MutableLiveData<UiOrder>()
@@ -33,8 +35,8 @@ class OrderInfoViewModel : CoreViewModel() {
 	fun onCancelClick() {
 		order?.let {
 			messageEvent.postValue(R.string.message_cancel_started)
-			relayerAdapter.cancelOrder(it.order)
-				.uiSubscribe(disposables, {
+			relayerAdapter?.cancelOrder(it.order)
+				?.uiSubscribe(disposables, {
 					successEvent.postValue(it)
 					dismissEvent.call()
 				}, {

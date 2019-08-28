@@ -3,6 +3,7 @@ package com.blocksdecoded.dex.presentation.balance
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.core.adapter.AdapterState
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.manager.IAdapterManager
@@ -40,7 +41,7 @@ class BalanceViewModel : CoreViewModel() {
 
     init {
         mRefreshing.value = true
-    
+
         ratesManager.ratesUpdateSubject
             .subscribe { onRefreshAdapters() }
             .let { disposables.add(it) }
@@ -54,6 +55,9 @@ class BalanceViewModel : CoreViewModel() {
 
     private fun onRefreshAdapters() {
         adapters.forEach { adapter ->
+            if (adapter.state == AdapterState.NotSynced) {
+                mRefreshing.postValue(true)
+            }
             adapter.stateUpdatedFlowable.subscribe {
                 mRefreshing.postValue(false)
             }

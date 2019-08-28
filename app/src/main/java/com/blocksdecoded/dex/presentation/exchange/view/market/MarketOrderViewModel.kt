@@ -39,16 +39,17 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
 
     override fun updateReceiveAmount() {
         state.sendAmount.let { amount ->
-            val receiveAmount = relayer.calculateFillAmount(
+            val receiveAmount = relayer?.calculateFillAmount(
                 marketCodes[currentMarketPosition],
                 orderSide,
                 amount
-            )
+            ) ?: BigDecimal.ZERO
 
-            val price = relayer.calculateBasePrice(
+            val price = relayer?.calculateBasePrice(
                 marketCodes[currentMarketPosition],
                 orderSide
-            )
+            ) ?: BigDecimal.ZERO
+
             exchangePrice.value = price
 
             state.receiveAmount = receiveAmount
@@ -66,11 +67,11 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
                 showProcessingEvent.call()
 
                 val amount = if (exchangeSide == ExchangeSide.BID) amount else state.receiveAmount
-                relayer.fill(
+                relayer?.fill(
                     marketCodes[currentMarketPosition],
                     orderSide,
                     amount
-                ).uiSubscribe(disposables, {
+                )?.uiSubscribe(disposables, {
                     processingDismissEvent.call()
                     initState(state.sendCoin, state.receiveCoin)
                     successEvent.postValue(it)

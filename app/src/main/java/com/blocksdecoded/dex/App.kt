@@ -92,8 +92,10 @@ class App: Application() {
             ethereumKitManager,
             authManager
         )
+
         feeRateProvider = FeeRateProvider(this)
 
+        // Rates
         val ratesStorage = RatesStorage(appDatabase.ratesDao())
         ratesManager = RatesManager(ratesStorage, BootstrapApiClient(), RatesApiClient(), RatesClientConfig(sharedStorage))
         ratesConverter = RatesConverter(ratesManager = ratesManager)

@@ -74,10 +74,10 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 
 			exchangeEnabled.value = receiveAmount > BigDecimal.ZERO
 
-			exchangePrice.value = relayer.calculateBasePrice(
+			exchangePrice.value = relayer?.calculateBasePrice(
 				marketCodes[currentMarketPosition],
 				orderSide
-			)
+			) ?: BigDecimal.ZERO
 		}
 	}
 	
@@ -87,14 +87,15 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 			sendItem,
 			receiveItem
 		)
-		viewState.value = state
+		viewState.postValue(state)
 
 		mReceiveInfo.receiveAmount = BigDecimal.ZERO
-		receiveInfo.value = mReceiveInfo
+		receiveInfo.postValue(mReceiveInfo)
 
 		mPriceInfo.sendPrice = BigDecimal.ZERO
-		averagePrice.value = BigDecimal.ZERO
-		priceInfo.value = mPriceInfo
+		priceInfo.postValue(mPriceInfo)
+
+		averagePrice.postValue(BigDecimal.ZERO)
 	}
 	
 	private fun placeOrder() {
@@ -103,12 +104,12 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 				messageEvent.postValue(R.string.message_order_creating)
 				showProcessingEvent.call()
 
-				relayer.createOrder(
+				relayer?.createOrder(
 					marketCodes[currentMarketPosition],
 					if (exchangeSide == ExchangeSide.BID) EOrderSide.SELL else EOrderSide.BUY,
 					amount,
 					mPriceInfo.sendPrice
-				).uiSubscribe(disposables, {}, {
+				)?.uiSubscribe(disposables, {}, {
 					processingDismissEvent.call()
 					errorEvent.postValue(R.string.error_order_place)
 					Logger.e(it)

@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.core.manager
+package com.blocksdecoded.dex.core.network
 
 import android.content.Context
 import android.net.ConnectivityManager

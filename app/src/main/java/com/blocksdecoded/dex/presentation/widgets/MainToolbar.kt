@@ -3,14 +3,11 @@ package com.blocksdecoded.dex.presentation.widgets
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import androidx.core.view.ViewCompat
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
-import com.blocksdecoded.dex.utils.ui.TimeUtils
 import com.blocksdecoded.dex.utils.visible
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.view_toolbar.view.*
-import java.util.*
 
 class MainToolbar : AppBarLayout {
     var actionVisible: Boolean
@@ -67,7 +64,6 @@ class MainToolbar : AppBarLayout {
         setBackgroundResource(android.R.color.transparent)
         targetElevation = 0f
         toolbar_title?.text = title
-        toolbar_date?.text = TimeUtils.dateSimpleFormat(Date())
     }
 
     //endregion
