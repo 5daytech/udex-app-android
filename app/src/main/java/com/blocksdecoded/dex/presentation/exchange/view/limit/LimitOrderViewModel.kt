@@ -166,15 +166,17 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 			ExchangeSide.ASK -> ExchangeSide.BID
 		}
 
-		val currentReceive = mReceiveInfo.receiveAmount
+		var currentReceive = mReceiveInfo.receiveAmount
+		var currentSend = state.sendAmount
+
 		val currentPrice = if (mReceiveInfo.receiveAmount > BigDecimal.ZERO) {
 			val mc = MathContext(18)
 			state.sendAmount.divide(mReceiveInfo.receiveAmount, mc) ?: BigDecimal.ZERO
 		} else {
+			currentReceive = currentSend
+			currentSend = BigDecimal.ZERO
 			BigDecimal.ZERO
 		}
-
-		val currentSend = state.sendAmount
 
 		state = LimitOrderViewState(
 			sendAmount = currentReceive,
