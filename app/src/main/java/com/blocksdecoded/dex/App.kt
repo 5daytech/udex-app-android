@@ -16,6 +16,7 @@ import com.blocksdecoded.dex.core.security.encryption.EncryptionManager
 import com.blocksdecoded.dex.core.security.encryption.IEncryptionManager
 import com.blocksdecoded.dex.core.AppConfiguration
 import com.blocksdecoded.dex.core.rates.RatesConverter
+import com.blocksdecoded.dex.core.storage.RatesStorage
 import com.blocksdecoded.dex.core.shared.AppLocalStorage
 import com.blocksdecoded.dex.core.shared.IAppLocalStorage
 import com.blocksdecoded.dex.core.shared.ISharedStorage
@@ -93,7 +94,8 @@ class App: Application() {
         )
         feeRateProvider = FeeRateProvider(this)
 
-        ratesManager = RatesManager(BootstrapApiClient(), RatesApiClient(), RatesClientConfig(sharedStorage))
+        val ratesStorage = RatesStorage(appDatabase.ratesDao())
+        ratesManager = RatesManager(ratesStorage, BootstrapApiClient(), RatesApiClient(), RatesClientConfig(sharedStorage))
         ratesConverter = RatesConverter(ratesManager = ratesManager)
         
         // Init adapter manager

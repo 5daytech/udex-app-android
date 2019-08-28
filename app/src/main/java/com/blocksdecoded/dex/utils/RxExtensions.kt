@@ -10,6 +10,20 @@ import io.reactivex.schedulers.Schedulers
 fun <T> Single<T>.uiObserver() : Single<T> = this.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 
+fun <T> Single<T>.ioSubscribe(
+    disposables: CompositeDisposable? = null,
+    onNext: (T) -> Unit,
+    onError: ((Throwable) -> Unit)? = null
+) {
+    this.subscribeOn(Schedulers.io())
+        .observeOn(Schedulers.io())
+        .subscribe({
+            onNext(it)
+        }, {
+            onError?.invoke(it)
+        }).let { disposables?.add(it) }
+}
+
 fun <T> Flowable<T>.uiObserver() : Flowable<T> = this.subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
 

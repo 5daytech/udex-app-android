@@ -16,10 +16,10 @@ abstract class CoreApiClient {
 
         val httpClient = OkHttpClient.Builder()
                 .addInterceptor(logger)
-                .writeTimeout(120, TimeUnit.SECONDS)
-                .callTimeout(120, TimeUnit.SECONDS)
-                .connectTimeout(120, TimeUnit.SECONDS)
-                .readTimeout(120, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .callTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
 
         val gsonBuilder = GsonBuilder()
         gsonBuilder.setLenient()

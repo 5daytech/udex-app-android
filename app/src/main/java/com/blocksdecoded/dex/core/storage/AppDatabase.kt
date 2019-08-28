@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.blocksdecoded.dex.core.model.EnabledCoin
+import com.blocksdecoded.dex.core.model.Rate
 
 @Database(
     version = 1,
     exportSchema = false,
-    entities = [EnabledCoin::class]
+    entities = [Rate::class, EnabledCoin::class]
 )
+@TypeConverters(DatabaseConverters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun ratesDao(): RatesDao

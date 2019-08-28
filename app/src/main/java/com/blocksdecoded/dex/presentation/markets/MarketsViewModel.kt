@@ -3,7 +3,7 @@ package com.blocksdecoded.dex.presentation.markets
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.manager.CoinManager
-import com.blocksdecoded.dex.core.model.CoinRate
+import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.model.Market
 import com.blocksdecoded.dex.core.rates.RatesState.*
 import com.blocksdecoded.dex.core.ui.CoreViewModel
@@ -34,7 +34,7 @@ class MarketsViewModel : CoreViewModel() {
                     Market(
                         marketCoin,
                         rates.firstOrNull { it.symbol == marketCoin.code || marketCoin.code.contains(it.symbol)}
-                            ?: CoinRate(marketCoin.code))
+                            ?: Rate(marketCoin.code))
                 })
             }
             .let { disposables.add(it) }

@@ -1,6 +1,6 @@
 package com.blocksdecoded.dex.core.rates
 
-import com.blocksdecoded.dex.core.model.CoinRate
+import com.blocksdecoded.dex.core.model.Rate
 import java.math.BigDecimal
 
 class RatesConverter(
@@ -9,8 +9,8 @@ class RatesConverter(
 ) {
 	private val baseCoins = listOf("BTC", "ETH")
 
-	private fun getCoinRate(code: String): CoinRate {
-		if (code.isEmpty()) return CoinRate(code)
+	private fun getCoinRate(code: String): Rate {
+		if (code.isEmpty()) return Rate(code)
 
 		val baseIndex = baseCoins.indexOfFirst { it == code.substring(1) }
 		return if (baseIndex >= 0) {

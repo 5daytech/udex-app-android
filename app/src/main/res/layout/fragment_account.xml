@@ -73,6 +73,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/account_security_center"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/big_margin"
+                android:visibility="gone"
                 android:padding="@dimen/page_margin"
                 android:foreground="?selectableItemBackground">
                 <ImageView
@@ -109,6 +110,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/account_language"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="@dimen/big_margin"
                 android:padding="@dimen/page_margin"
                 android:foreground="?selectableItemBackground">
                 <ImageView
