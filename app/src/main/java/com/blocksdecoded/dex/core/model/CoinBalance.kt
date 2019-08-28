@@ -2,7 +2,7 @@ package com.blocksdecoded.dex.core.model
 
 import java.math.BigDecimal
 
-data class CoinValue(
+data class CoinBalance(
 	val coin: Coin,
 	val balance: BigDecimal,
 	val fiatBalance: BigDecimal,

@@ -42,7 +42,7 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
         })
 
         viewModel.refreshing.observe(this, Observer {
-            swipe_refresh?.isRefreshing = it
+//            swipe_refresh?.isRefreshing = it
         })
 
         viewModel.openReceiveDialog.observe(this, Observer { coinCode ->
@@ -82,7 +82,10 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
 
         toolbar?.bind(NONE)
         
-        swipe_refresh?.setOnRefreshListener { viewModel.refresh() }
+        swipe_refresh?.setOnRefreshListener {
+            viewModel.refresh()
+            swipe_refresh?.isRefreshing = false
+        }
     }
 
     //region ViewHolder

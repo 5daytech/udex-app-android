@@ -5,9 +5,9 @@ import com.blocksdecoded.dex.core.CancelOrderException
 import com.blocksdecoded.dex.core.CreateOrderException
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.CoinType
-import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
-import com.blocksdecoded.dex.utils.uiSubscribe
+import com.blocksdecoded.dex.utils.Logger
+import com.blocksdecoded.dex.utils.ioSubscribe
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.model.AssetItem
 import com.blocksdecoded.zrxkit.model.Order
@@ -17,6 +17,7 @@ import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -53,6 +54,8 @@ class RelayerAdapter(
 		availablePairsSubject.onNext(pairs)
 
 		Observable.interval(refreshInterval, TimeUnit.SECONDS)
+			.subscribeOn(Schedulers.io())
+			.observeOn(Schedulers.io())
 			.subscribe { refreshOrders() }
 			.let { disposables.add(it) }
 
@@ -72,7 +75,7 @@ class RelayerAdapter(
 
 	private fun refreshPair(baseAsset: String, quoteAsset: String) {
 		relayerManager.getOrderbook(relayerId, baseAsset, quoteAsset)
-			.uiSubscribe(disposables, {
+			.ioSubscribe(disposables, {
 				buyOrders.updatePairOrders(baseAsset, quoteAsset, it.bids.records.map { it.order })
 				sellOrders.updatePairOrders(baseAsset, quoteAsset, it.asks.records.map { it.order })
 
@@ -86,7 +89,7 @@ class RelayerAdapter(
 
 				this.myOrders.updatePairOrders(baseAsset, quoteAsset, myOrders)
 				exchangeWrapper.ordersInfo(myOrders.map { it.first })
-					.uiSubscribe(disposables, { ordersInfo ->
+					.ioSubscribe(disposables, { ordersInfo ->
 						myOrdersInfo.updatePairOrders(baseAsset, quoteAsset, ordersInfo)
 						this.myOrders.updatePairOrders(baseAsset, quoteAsset, myOrders)
 					}, {
@@ -99,12 +102,12 @@ class RelayerAdapter(
 		val coinWrapper = zrxKit.getErc20ProxyInstance(address)
 
 		return coinWrapper.proxyAllowance(ethereumKit.receiveAddress)
-			.flatMap { Log.d("ololo", "$address allowance $it")
+			.flatMap { Logger.d("$address allowance $it")
 				if (it > BigInteger.ZERO) {
 					Flowable.just(true)
 				} else {
 					coinWrapper.setUnlimitedProxyAllowance().map {
-						Log.d("ololo", "$address unlocked")
+						Logger.d("$address unlocked")
 						true
 					}
 				}
@@ -244,7 +247,6 @@ class RelayerAdapter(
 
 		price
 	} catch (e: Exception) {
-//		Logger.e(e)
 		BigDecimal.ZERO
 	}
 

@@ -7,7 +7,7 @@ import com.blocksdecoded.dex.core.adapter.AdapterState
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.manager.IAdapterManager
-import com.blocksdecoded.dex.core.model.CoinValue
+import com.blocksdecoded.dex.core.model.CoinBalance
 import com.blocksdecoded.dex.core.model.EConvertType.*
 import com.blocksdecoded.dex.core.rates.IRatesManager
 import com.blocksdecoded.dex.core.rates.RatesConverter
@@ -26,8 +26,8 @@ class BalanceViewModel : CoreViewModel() {
     private val adapters: List<IAdapter>
         get() = adaptersManager.adapters
 
-    private val mBalances = MutableLiveData<List<CoinValue>>()
-    val balances: LiveData<List<CoinValue>> = mBalances
+    private val mBalances = MutableLiveData<List<CoinBalance>>()
+    val balances: LiveData<List<CoinBalance>> = mBalances
 
     val totalBalance = MutableLiveData<TotalBalanceInfo>()
 
@@ -73,7 +73,7 @@ class BalanceViewModel : CoreViewModel() {
     private fun updateBalance() {
         mBalances.postValue(
             adapters.mapIndexed { index, adapter ->
-                CoinValue(
+                CoinBalance(
                     CoinManager.coins[index],
                     adapter.balance,
                     ratesConverter.getCoinsPrice(adapter.coin.code, adapter.balance),

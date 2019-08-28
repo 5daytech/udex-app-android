@@ -2,15 +2,16 @@ package com.blocksdecoded.dex.presentation.balance.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.model.CoinValue
+import com.blocksdecoded.dex.core.model.CoinBalance
 
 class BalanceAdapter(
     private val listener: BalanceViewHolder.IWalletVHListener
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val mBalances = ArrayList<CoinValue>()
+    private val mBalances = ArrayList<CoinBalance>()
     private var mExpandedViewPosition: Int? = null
 
     override fun getItemCount(): Int = mBalances.size
@@ -32,10 +33,11 @@ class BalanceAdapter(
         }
     }
 
-    fun setCoins(coins: List<CoinValue>) {
+    fun setCoins(coins: List<CoinBalance>) {
+        val diffResult = DiffUtil.calculateDiff(BalanceDiffUtil(mBalances, coins))
         mBalances.clear()
         mBalances.addAll(coins)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     fun toggleViewHolder(position: Int) {

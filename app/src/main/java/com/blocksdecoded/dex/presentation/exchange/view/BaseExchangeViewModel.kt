@@ -86,19 +86,19 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
                         refreshPairs(null)
 
                         initState(mSendCoins.first(), mReceiveCoins.first())
-                    }?.let { disposables.add(it) }
-            }.let { disposables.add(it) }
 
-        adapterManager.adaptersUpdatedSignal
-            .subscribe {
-                exchangeableCoins.forEach {  coin ->
-                    adapterManager.adapters
-                        .firstOrNull { it.coin.code == coin.code }
-                        ?.balanceUpdatedFlowable
-                        ?.uiSubscribe(disposables, {
-                            refreshPairs(viewState.value)
-                        })
-                }
+                        adapterManager.adaptersUpdatedSignal
+                            .subscribe {
+                                exchangeableCoins.forEach {  coin ->
+                                    adapterManager.adapters
+                                        .firstOrNull { it.coin.code == coin.code }
+                                        ?.balanceUpdatedFlowable
+                                        ?.uiSubscribe(disposables, {
+                                            refreshPairs(viewState.value)
+                                        })
+                                }
+                            }.let { disposables.add(it) }
+                    }?.let { disposables.add(it) }
             }.let { disposables.add(it) }
     }
 

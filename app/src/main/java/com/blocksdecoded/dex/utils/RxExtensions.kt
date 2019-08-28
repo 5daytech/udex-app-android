@@ -17,15 +17,26 @@ fun <T> Single<T>.ioSubscribe(
 ) {
     this.subscribeOn(Schedulers.io())
         .observeOn(Schedulers.io())
-        .subscribe({
-            onNext(it)
-        }, {
-            onError?.invoke(it)
-        }).let { disposables?.add(it) }
+        .subscribe({ onNext(it) },
+            { onError?.invoke(it) }
+        ).let { disposables?.add(it) }
 }
 
 fun <T> Flowable<T>.uiObserver() : Flowable<T> = this.subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
+
+fun <T> Flowable<T>.ioSubscribe(
+    disposables: CompositeDisposable,
+    onNext: (T) -> Unit,
+    onError: ((Throwable) -> Unit)? = null,
+    onComplete: (() -> Unit)? = null
+) {
+    observeOn(Schedulers.io()).subscribeOn(Schedulers.io())
+        .subscribe({ onNext(it) },
+            { onError?.invoke(it) },
+            { onComplete?.invoke() }
+        ).let { disposables.add(it) }
+}
 
 fun <T> Flowable<T>.uiSubscribe(
     disposables: CompositeDisposable,
@@ -33,7 +44,7 @@ fun <T> Flowable<T>.uiSubscribe(
     onError: ((Throwable) -> Unit)? = null,
     onComplete: (() -> Unit)? = null
 ) {
-    uiObserver().uiSubscribe(onNext, onError, onComplete).let { disposables.add(it) }
+    uiSubscribe(onNext, onError, onComplete).let { disposables.add(it) }
 }
 
 fun <T> Flowable<T>.uiSubscribe(
@@ -42,10 +53,7 @@ fun <T> Flowable<T>.uiSubscribe(
     onComplete: (() -> Unit)? = null
 ) : Disposable = this.subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
-    .subscribe({
-        onNext(it)
-    }, {
-        onError?.invoke(it)
-    }, {
-        onComplete?.invoke()
-    })
+    .subscribe({ onNext(it) },
+        { onError?.invoke(it) },
+        { onComplete?.invoke() }
+    )

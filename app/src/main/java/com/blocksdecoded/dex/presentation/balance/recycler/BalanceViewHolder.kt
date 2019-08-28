@@ -5,10 +5,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.model.CoinValue
+import com.blocksdecoded.dex.core.model.CoinBalance
 import com.blocksdecoded.dex.core.model.EConvertType.*
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
-import com.blocksdecoded.dex.utils.setTextColorRes
 import com.blocksdecoded.dex.utils.setVisible
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
@@ -44,17 +43,17 @@ class BalanceViewHolder(
     }
 
     @SuppressLint("SetTextI18n")
-    fun onBind(coinValue: CoinValue, expanded: Boolean) {
-        mIcon.bind(coinValue.coin.code)
-        mSymbol.text = coinValue.coin.code
-        mTitle.text = coinValue.coin.title
-        mBalance.text = "${coinValue.balance.toDisplayFormat()} ${coinValue.coin.code}"
-        mFiatBalance.text = "$${coinValue.fiatBalance.toFiatDisplayFormat()}"
-        mTokenPrice.text = "$${coinValue.pricePerToken.toFiatDisplayFormat()} per ${coinValue.coin.code}"
+    fun onBind(coinBalance: CoinBalance, expanded: Boolean) {
+        mIcon.bind(coinBalance.coin.code)
+        mSymbol.text = coinBalance.coin.code
+        mTitle.text = coinBalance.coin.title
+        mBalance.text = "${coinBalance.balance.toDisplayFormat()} ${coinBalance.coin.code}"
+        mFiatBalance.text = "$${coinBalance.fiatBalance.toFiatDisplayFormat()}"
+        mTokenPrice.text = "$${coinBalance.pricePerToken.toFiatDisplayFormat()} per ${coinBalance.coin.code}"
         
         mButtonContainer.visible = expanded
     
-        if (coinValue.balance > BigDecimal.ZERO) {
+        if (coinBalance.balance > BigDecimal.ZERO) {
             mSendBtn.isEnabled = true
             mSendBtn.alpha = 1f
             mConvertBtn.isEnabled = true
@@ -66,7 +65,7 @@ class BalanceViewHolder(
             mConvertBtn.alpha = 0.4f
         }
         
-        when(coinValue.convertType) {
+        when(coinBalance.convertType) {
             NONE -> {
                 mConvertBtn.visible = false
             }
