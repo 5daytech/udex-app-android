@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.presentation.markets.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.Market
@@ -9,7 +10,6 @@ import com.blocksdecoded.dex.core.model.Market
 class MarketsAdapter(
 	private val listener: MarketViewHolder.Listener
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-	
 	private val markets = ArrayList<Market>()
 	
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -25,8 +25,9 @@ class MarketsAdapter(
 	}
 	
 	fun setMarkets(markets: List<Market>) {
+		val diffUtil = DiffUtil.calculateDiff(MarketsDiffUtil(this.markets, markets))
 		this.markets.clear()
 		this.markets.addAll(markets)
-		notifyDataSetChanged()
+		diffUtil.dispatchUpdatesTo(this)
 	}
 }
