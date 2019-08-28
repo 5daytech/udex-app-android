@@ -11,7 +11,7 @@ android {
     def ETHERESCAN_KEY = "ETHERSCAN_KEY"
 
     compileSdkVersion 29
-    buildToolsVersion "29.0.0"
+    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.blocksdecoded.dex"
         minSdkVersion 23
