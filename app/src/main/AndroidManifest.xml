@@ -18,6 +18,7 @@
 
         <activity android:name=".LaunchActivity"
                   android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateAlwaysHidden"
                   android:theme="@style/AppTheme.LaunchScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -56,6 +57,9 @@
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".presentation.account.AddressBookActivity"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".presentation.pin.PinActivity"
                   android:screenOrientation="portrait"/>
 
     </application>

@@ -48,9 +48,24 @@
         android:id="@+id/market_change_img"
         android:layout_width="10dp"
         android:layout_height="10dp"
+        android:src="@drawable/ic_carret_up_green"
+        app:layout_constraintBottom_toBottomOf="@+id/market_code"
         app:layout_constraintLeft_toRightOf="@+id/market_code"
         app:layout_constraintTop_toTopOf="@+id/market_code"
-        />
+        android:layout_marginStart="@dimen/small_margin"/>
+
+    <TextView
+        android:id="@+id/market_change_percent"
+        style="@style/BoldText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1.11%"
+        android:textColor="@color/green"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/market_code"
+        app:layout_constraintLeft_toRightOf="@+id/market_change_img"
+        app:layout_constraintTop_toTopOf="@+id/market_code"
+        android:layout_marginStart="@dimen/small_margin"/>
 
     <com.blocksdecoded.dex.presentation.widgets.MarketChart
         android:id="@+id/market_chart"
@@ -70,9 +85,22 @@
         android:text="$222.05"
         android:textColor="?attr/PrimaryTextColor"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/market_code"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/market_name" />
+
+    <TextView
+        android:id="@+id/market_volume"
+        style="@style/RegularText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:text="Volume 0.1bn"
+        android:textColor="?attr/HintTextColor"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/market_price"
+        app:layout_constraintTop_toBottomOf="@+id/market_price" />
 
     <View
         style="@style/Divider"

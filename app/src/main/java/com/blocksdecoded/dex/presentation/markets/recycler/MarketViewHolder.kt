@@ -3,12 +3,16 @@ package com.blocksdecoded.dex.presentation.markets.recycler
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.Market
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
 import com.blocksdecoded.dex.presentation.widgets.MarketChart
+import com.blocksdecoded.dex.utils.setTextColorRes
+import com.blocksdecoded.dex.utils.ui.CurrencyUtils
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
+import kotlin.math.absoluteValue
 
 class MarketViewHolder(
 	view: View,
@@ -19,6 +23,8 @@ class MarketViewHolder(
 	private val nameTxt: TextView = itemView.findViewById(R.id.market_name)
 	private val priceTxt: TextView = itemView.findViewById(R.id.market_price)
 	private val codeTxt: TextView = itemView.findViewById(R.id.market_code)
+	private val changePercentTxt: TextView = itemView.findViewById(R.id.market_change_percent)
+	private val coinVolume: TextView = itemView.findViewById(R.id.market_volume)
 	private val changeImg: ImageView = itemView.findViewById(R.id.market_change_img)
 	private val chart: MarketChart = itemView.findViewById(R.id.market_chart)
 	
@@ -28,8 +34,10 @@ class MarketViewHolder(
 	
 	fun onBind(market: Market) {
 		val color = if (market.rate.priceChange >= 0) {
+			changeImg.setImageResource(R.drawable.ic_carret_up_green)
 			R.color.green
 		} else {
+			changeImg.setImageResource(R.drawable.ic_carret_down_red)
 			R.color.red
 		}
 		
@@ -37,7 +45,11 @@ class MarketViewHolder(
 		codeTxt.text = market.coin.code
 		coinIcon.bind(market.coin.code)
 		priceTxt.text = "$${market.rate.price.toFiatDisplayFormat()}"
-		
+
+		changePercentTxt.text = "${market.rate.priceChange.absoluteValue}%"
+		coinVolume.text = "Volume ${CurrencyUtils.withSuffix(market.rate.volume)}"
+
+		changePercentTxt.setTextColorRes(color)
 		chart.displayData(market.rate.history, color, R.color.transparent)
 	}
 	
