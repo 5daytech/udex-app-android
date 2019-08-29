@@ -50,7 +50,8 @@ class MarketViewHolder(
 		coinVolume.text = "Volume ${CurrencyUtils.withSuffix(market.rate.volume)}"
 
 		changePercentTxt.setTextColorRes(color)
-		chart.displayData(market.rate.history, color, R.color.transparent)
+//		chart.displayData(market.rate.history, color, R.color.transparent)
+		chart.displayData(listOf(), color, R.color.transparent)
 	}
 	
 	interface Listener {

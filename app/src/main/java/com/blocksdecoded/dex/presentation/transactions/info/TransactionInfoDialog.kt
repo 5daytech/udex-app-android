@@ -24,7 +24,7 @@ class TransactionInfoDialog private constructor()
 
         transaction_info_hash?.update(it.transactionHash)
 
-        transaction_info_coin_icon.bind(it.coin.code)
+        transaction_info_coin_name.text = "${it.coin.title} "
 
         transaction_info_amount.text = "${if (isPositive) "+" else "-"} ${it.coinValue.abs().toDisplayFormat()} ${it.coin.code}"
         transaction_info_fiat_amount.text = "$${it.fiatValue?.abs()?.toFiatDisplayFormat()}"

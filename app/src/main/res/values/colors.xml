@@ -23,12 +23,21 @@
     <color name="dark_selectable">#201E1E24</color>
 
     <!-- Base colors -->
+    <color name="transparent">#00000000</color>
     <color name="white">#FFF</color>
+    <color name="transparent_white">#50FFFFFF</color>
     <color name="black">#000</color>
     <color name="green">#2ECC71</color>
     <color name="red">#E83958</color>
-    <color name="blue">#3A62F9</color>
     <color name="yellow">#FFB23F</color>
+    <color name="turquoise">#56D6FF</color>
+
+    <color name="blue">#3A62F9</color>
+    <color name="transparent_blue">#503A62F9</color>
+    <color name="transparent_blue_20">#203A62F9</color>
+
+    <color name="violet">#5B41FE</color>
+    <color name="transparent_violet">#505B41FE</color>
 
     <color name="tab_inactive">#5C5C6A</color>
     <color name="tab_active">#3A62F9</color>
@@ -37,8 +46,4 @@
     <color name="light_blue">#7083FE</color>
     <color name="light_grey">#B6B9BD</color>
     <color name="dark_grey">#6B7388</color>
-    
-    <color name="transparent">#00000000</color>
-    <color name="transparent_blue">#703A62F9</color>
-    <color name="transparent_blue_20">#203A62F9</color>
 </resources>

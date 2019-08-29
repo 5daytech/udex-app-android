@@ -2,14 +2,13 @@
 <FrameLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/bottom_sheet_big_margin"
     android:background="@color/transparent">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/bottom_sheet_big_margin"
         android:layout_marginTop="@dimen/medium_margin"
         android:layout_marginLeft="@dimen/medium_margin"
         android:layout_marginRight="@dimen/medium_margin"
@@ -21,7 +20,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/page_margin"
+            android:paddingTop="@dimen/page_margin"
             android:background="@drawable/bg_bottom_dialog">
 
             <TextView
@@ -31,6 +30,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="@dimen/page_margin"
                 android:text="Your order info"/>
 
             <TextView
@@ -40,6 +40,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/order_info_title"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="@dimen/page_margin"
                 android:layout_marginTop="@dimen/page_margin"
                 android:textColor="?attr/HintTextColor"
                 android:text="Total sell amount:"/>
@@ -52,6 +53,7 @@
                 app:layout_constraintTop_toTopOf="@+id/order_info_amount_hint"
                 app:layout_constraintBottom_toBottomOf="@+id/order_info_amount_hint"
                 app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginEnd="@dimen/page_margin"
                 android:layout_marginStart="@dimen/element_margin"
                 android:textColor="?attr/PrimaryTextColor"
                 android:textSize="16sp"
@@ -64,6 +66,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/order_info_amount_hint"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="@dimen/page_margin"
                 android:layout_marginTop="@dimen/page_margin"
                 android:textColor="?attr/HintTextColor"
                 android:text="Filled amount:"/>
@@ -87,6 +90,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/order_info_filled_hint"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="@dimen/page_margin"
                 android:layout_marginTop="@dimen/page_margin"
                 android:textColor="?attr/HintTextColor"
                 android:text="Price per coin:"/>
@@ -110,6 +114,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/order_info_price_hint"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="@dimen/page_margin"
                 android:layout_marginTop="@dimen/page_margin"
                 android:textColor="?attr/HintTextColor"
                 android:text="Total receive:"/>
@@ -133,6 +138,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/order_info_receive_hint"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="@dimen/page_margin"
                 android:layout_marginTop="@dimen/page_margin"
                 android:textColor="?attr/HintTextColor"
                 android:text="Expire at:"/>
@@ -150,7 +156,7 @@
                 app:layout_constraintTop_toTopOf="@+id/order_info_expire_hint" />
 
             <Button
-                style="@style/PrimaryButtonRounded"
+                style="@style/PrimaryButton"
                 android:id="@+id/order_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -6,7 +6,7 @@
     <dimen name="big_coin_size">30dp</dimen>
     <dimen name="action_icon_size">22dp</dimen>
     <dimen name="corner_radius">12dp</dimen>
-    <dimen name="small_corner_radius">6dp</dimen>
+    <dimen name="small_corner_radius">4dp</dimen>
     <dimen name="action_btn_height">50dp</dimen>
 
     <!-- Margins -->
