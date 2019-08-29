@@ -1,252 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/small_margin"
-    android:background="?selectableItemBackground"
-    android:orientation="vertical">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/page_margin"
-        android:paddingRight="@dimen/page_margin">
-        <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
-            android:id="@+id/balance_icon"
-            android:layout_width="@dimen/coin_size"
-            android:layout_height="@dimen/coin_size"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
-
-        <TextView
-            style="@style/BoldText"
-            android:id="@+id/balance_symbol"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/balance_icon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginLeft="@dimen/element_margin"
-            android:text="ETH"
-            android:textSize="15sp"
-            android:visibility="gone"
-            android:textColor="@color/black"/>
-
-        <TextView
-            style="@style/SemiboldText"
-            android:id="@+id/balance_token_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@+id/balance_title"
-            app:layout_constraintTop_toBottomOf="@+id/balance_amount"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="@dimen/small_margin"
-            android:textColor="?attr/HintTextColor"
-            android:textSize="12sp"
-            android:text="0.00"/>
-
-        <TextView
-            style="@style/SemiboldText"
-            android:id="@+id/balance_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/balance_symbol"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:textColor="?attr/PrimaryTextColor"
-            android:layout_marginLeft="@dimen/element_margin"
-            android:textSize="15sp"
-            android:text="Ethereum"/>
-
-        <TextView
-            style="@style/SemiboldText"
-            android:id="@+id/balance_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:textColor="?attr/PrimaryTextColor"
-            android:textSize="15sp"
-            android:text="0.00"/>
-
-        <TextView
-            style="@style/SemiboldText"
-            android:id="@+id/balance_fiat_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/balance_amount"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="@dimen/small_margin"
-            android:textColor="?attr/HintTextColor"
-            android:textSize="12sp"
-            android:text="0.00"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_marginStart="@dimen/page_margin"
+    android:layout_marginEnd="@dimen/page_margin"
+    android:layout_marginBottom="@dimen/medium_margin"
+    app:cardBackgroundColor="#21222C"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="@dimen/small_margin">
 
     <LinearLayout
-        android:id="@+id/balance_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="visible">
+        android:background="?selectableItemBackground"
+        android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/balance_receive"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:layout_marginStart="@dimen/element_margin"
-            android:layout_marginEnd="@dimen/element_margin"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:layout_marginBottom="@dimen/small_margin"
-            android:background="@color/blue"
-            app:cardBackgroundColor="@color/blue"
-            android:padding="12dp"
-            app:cardCornerRadius="@dimen/corner_radius">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+            android:paddingTop="@dimen/page_margin"
+            android:paddingBottom="@dimen/page_margin"
+            android:paddingStart="@dimen/medium_margin"
+            android:paddingEnd="@dimen/medium_margin">
+            <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+                android:id="@+id/balance_icon"
+                android:layout_width="@dimen/coin_size"
+                android:layout_height="@dimen/coin_size"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                style="@style/BoldText"
+                android:id="@+id/balance_symbol"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
-                android:background="?selectableItemBackground">
-                <ImageView
-                    android:layout_width="@dimen/action_icon_size"
-                    android:layout_height="@dimen/action_icon_size"
-                    android:padding="1dp"
-                    android:src="@drawable/ic_receive"/>
+                app:layout_constraintLeft_toRightOf="@+id/balance_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginLeft="@dimen/element_margin"
+                android:text="ETH"
+                android:textSize="15sp"
+                android:visibility="gone"
+                android:textColor="@color/black"/>
 
-                <TextView
-                    style="@style/BoldText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/balance_receive"
-                    android:textSize="12sp"
-                    android:textColor="@color/white"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            <TextView
+                style="@style/SemiboldText"
+                android:id="@+id/balance_token_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@+id/balance_title"
+                app:layout_constraintTop_toBottomOf="@+id/balance_amount"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="@dimen/element_margin"
+                android:textColor="?attr/HintTextColor"
+                android:textSize="12sp"
+                android:text="0.00"/>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/balance_send"
-            android:layout_width="0dp"
+            <TextView
+                style="@style/RegularText"
+                android:id="@+id/balance_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@+id/balance_symbol"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="?attr/PrimaryTextColor"
+                android:layout_marginStart="@dimen/element_margin"
+                android:textSize="16sp"
+                android:text="Ethereum"/>
+
+            <TextView
+                style="@style/SemiboldText"
+                android:id="@+id/balance_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="?attr/PrimaryTextColor"
+                android:textSize="16sp"
+                android:text="0.00"/>
+
+            <TextView
+                style="@style/SemiboldText"
+                android:id="@+id/balance_fiat_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/balance_amount"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="@dimen/element_margin"
+                android:textColor="?attr/HintTextColor"
+                android:textSize="12sp"
+                android:text="0.00"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/balance_buttons_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:layout_marginEnd="@dimen/element_margin"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:background="@color/blue"
-            app:cardBackgroundColor="?attr/ActionButtonBackground"
-            android:padding="12dp"
-            app:cardCornerRadius="@dimen/corner_radius">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/balance_receive"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
-                android:background="?selectableItemBackground">
-                <ImageView
-                    android:layout_width="@dimen/action_icon_size"
-                    android:layout_height="@dimen/action_icon_size"
-                    android:src="@drawable/ic_send"/>
-
-                <TextView
-                    style="@style/BoldText"
-                    android:layout_width="wrap_content"
+                android:layout_weight="1.0"
+                android:layout_marginEnd="@dimen/element_margin"
+                app:cardBackgroundColor="@color/transparent"
+                android:layout_marginStart="@dimen/element_margin"
+                android:padding="12dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/corner_radius">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/balance_send"
-                    android:textSize="12sp"
-                    android:textColor="?attr/PrimaryLightColor"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:gravity="center"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:background="?selectableItemBackground">
+                    <ImageView
+                        android:layout_width="@dimen/action_icon_size"
+                        android:layout_height="@dimen/action_icon_size"
+                        android:padding="1dp"
+                        android:src="@drawable/ic_receive"/>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/balance_transactions"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:background="@color/blue"
-            android:layout_marginEnd="@dimen/element_margin"
-            app:cardBackgroundColor="?attr/ActionButtonBackground"
-            app:cardCornerRadius="@dimen/corner_radius">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+                    <TextView
+                        style="@style/BoldText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/balance_receive"
+                        android:textSize="12sp"
+                        android:textColor="#56D6FF"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/balance_send"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
-                android:background="?selectableItemBackground">
-                <ImageView
-                    android:layout_width="@dimen/action_icon_size"
-                    android:layout_height="@dimen/action_icon_size"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_transactions"/>
-
-                <TextView
-                    style="@style/BoldText"
-                    android:layout_width="wrap_content"
+                android:layout_weight="1.0"
+                android:layout_marginEnd="@dimen/element_margin"
+                android:background="@color/blue"
+                app:cardBackgroundColor="@color/transparent"
+                android:padding="12dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/corner_radius">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/balance_transactions"
-                    android:textSize="12sp"
-                    android:textColor="?attr/PrimaryLightColor"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:gravity="center"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:background="?selectableItemBackground">
+                    <ImageView
+                        android:layout_width="@dimen/action_icon_size"
+                        android:layout_height="@dimen/action_icon_size"
+                        android:src="@drawable/ic_send"/>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/balance_convert"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:background="@color/blue"
-            android:layout_marginEnd="@dimen/element_margin"
-            app:cardBackgroundColor="?attr/ActionButtonBackground"
-            app:cardCornerRadius="@dimen/corner_radius">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+                    <TextView
+                        style="@style/BoldText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/balance_send"
+                        android:textSize="12sp"
+                        android:textColor="?attr/PrimaryLightColor"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/balance_transactions"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
-                android:background="?selectableItemBackground">
-                <ImageView
-                    android:layout_width="@dimen/action_icon_size"
-                    android:layout_height="@dimen/action_icon_size"
-                    android:layout_gravity="center"
-                    android:padding="1dp"
-                    android:src="@drawable/ic_wrap"/>
-
-                <TextView
-                    style="@style/BoldText"
-                    android:id="@+id/balance_convert_type"
-                    android:layout_width="wrap_content"
+                android:layout_weight="1.0"
+                android:background="@color/blue"
+                android:layout_marginEnd="@dimen/element_margin"
+                app:cardBackgroundColor="@color/transparent"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/corner_radius">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Convert"
-                    android:textSize="12sp"
-                    android:textColor="?attr/PrimaryLightColor"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:gravity="center"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:background="?selectableItemBackground">
+                    <ImageView
+                        android:layout_width="@dimen/action_icon_size"
+                        android:layout_height="@dimen/action_icon_size"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_transactions"/>
+
+                    <TextView
+                        style="@style/BoldText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/balance_transactions"
+                        android:textSize="12sp"
+                        android:textColor="?attr/PrimaryLightColor"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/balance_convert"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:background="@color/blue"
+                app:cardBackgroundColor="@color/transparent"
+                android:layout_marginEnd="@dimen/element_margin"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/corner_radius">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:background="?selectableItemBackground">
+                    <ImageView
+                        android:layout_width="@dimen/action_icon_size"
+                        android:layout_height="@dimen/action_icon_size"
+                        android:layout_gravity="center"
+                        android:padding="1dp"
+                        android:src="@drawable/ic_wrap"/>
+
+                    <TextView
+                        style="@style/BoldText"
+                        android:id="@+id/balance_convert_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Convert"
+                        android:textSize="12sp"
+                        android:textColor="?attr/PrimaryLightColor"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <View
-        style="@style/Divider"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="@dimen/medium_margin"
-        android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginEnd="@dimen/page_margin" />
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

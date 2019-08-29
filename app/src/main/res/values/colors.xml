@@ -13,7 +13,7 @@
     <!--Text-->
     <color name="light_text">#FFF</color>
     <color name="main_light_text">#E1E9FF</color>
-    <color name="light_hint">#6B7388</color>
+    <color name="light_hint">#7F8CAD</color>
     <color name="dark_hint">#B6B9BD</color>
 
     <color name="action_button_dark">#282931</color>
