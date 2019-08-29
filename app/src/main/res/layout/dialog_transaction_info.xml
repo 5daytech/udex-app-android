@@ -35,7 +35,7 @@
                 app:layout_constraintTop_toTopOf="@+id/transaction_info_coin_icon"
                 app:layout_constraintBottom_toBottomOf="@+id/transaction_info_coin_icon"
                 app:layout_constraintLeft_toRightOf="@+id/transaction_info_coin_icon"
-                android:layout_marginLeft="@dimen/page_margin"
+                android:layout_marginStart="@dimen/element_margin"
                 android:text="Transaction"/>
 
             <com.blocksdecoded.dex.presentation.widgets.HashView
