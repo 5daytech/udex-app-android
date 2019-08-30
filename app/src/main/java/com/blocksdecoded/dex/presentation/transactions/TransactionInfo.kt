@@ -1,14 +1,13 @@
-package com.blocksdecoded.dex.presentation.transactions.info
+package com.blocksdecoded.dex.presentation.transactions
 
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.Rate
-import com.blocksdecoded.dex.core.model.TransactionRecord
 import java.math.BigDecimal
 import java.util.*
 
-data class TransactionViewData(
-	val transactionHash: String,
+data class TransactionViewItem(
 	val coin: Coin,
+	val transactionHash: String,
 	val coinValue: BigDecimal,
 	val fiatValue: BigDecimal?,
 	val from: String?,
@@ -24,8 +23,3 @@ sealed class TransactionStatus {
 	class Processing(val progress: Double) : TransactionStatus() //progress in 0..100%
 	object Completed : TransactionStatus()
 }
-
-data class TransactionInfo(
-	val coin: Coin,
-	val transactionRecord: TransactionRecord
-)

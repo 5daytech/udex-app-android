@@ -6,25 +6,26 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.model.TransactionRecord
 import com.blocksdecoded.dex.utils.isValidIndex
-import com.blocksdecoded.dex.utils.uiObserver
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import com.blocksdecoded.dex.presentation.transactions.info.TransactionInfo
-import com.blocksdecoded.dex.presentation.transactions.info.TransactionInfoDialog
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
+import com.blocksdecoded.dex.utils.ioSubscribe
+import java.math.BigDecimal
+import java.util.*
 
 class TransactionsViewModel : CoreViewModel() {
     private val adapterManager = App.adapterManager
     private val ratesConverter = App.ratesConverter
+    private val ratesManager = App.ratesManager
     private lateinit var adapter: IAdapter
 
     val coinName = MutableLiveData<String?>()
     val balance = MutableLiveData<TotalBalanceInfo>()
-    val transactions = MutableLiveData<List<TransactionRecord>>()
+    val transactions = MutableLiveData<List<TransactionViewItem>>()
 
     val finishEvent = SingleLiveEvent<Int>()
 
-    val showTransactionInfoEvent = SingleLiveEvent<TransactionInfo>()
+    val showTransactionInfoEvent = SingleLiveEvent<TransactionViewItem>()
 
     fun init(coinCode: String?) {
         val adapter = adapterManager.adapters.firstOrNull { it.coin.code == coinCode }
@@ -44,12 +45,10 @@ class TransactionsViewModel : CoreViewModel() {
         )
 
         adapter.getTransactions(limit = 200)
-            .uiObserver()
-            .subscribe({
-                updateTransactions(it)
-            }, {
-
-            }).let { disposables.add(it) }
+            .ioSubscribe(disposables,
+                { updateTransactions(it) },
+                {  }
+            )
 
         adapter.transactionRecordsFlowable.subscribe {
             updateTransactions(it)
@@ -57,13 +56,29 @@ class TransactionsViewModel : CoreViewModel() {
     }
 
     private fun updateTransactions(transactions: List<TransactionRecord>) {
-        this.transactions.value = transactions
+        this.transactions.postValue(
+            transactions.map {
+                val transactionRate = ratesManager.getRate(adapter.coin.code)
+                TransactionViewItem(
+                    adapter.coin,
+                    it.transactionHash,
+                    it.amount,
+                    BigDecimal.ZERO,
+                    it.from.firstOrNull()?.address,
+                    it.to.firstOrNull()?.address,
+                    it.to.firstOrNull()?.address == adapter.receiveAddress,
+                    Date(it.timestamp * 1000),
+                    TransactionStatus.Completed,
+                    transactionRate
+                )
+            }
+        )
     }
 
     fun onTransactionClick(position: Int) {
         if (transactions.value != null && transactions.value.isValidIndex(position)) {
             transactions.value?.get(position)?.let {
-                showTransactionInfoEvent.postValue(TransactionInfo(adapter.coin, it))
+                showTransactionInfoEvent.postValue(it)
             }
         }
     }

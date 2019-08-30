@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.model.TransactionRecord
+import com.blocksdecoded.dex.presentation.transactions.TransactionViewItem
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
 import com.blocksdecoded.dex.utils.setTextColorRes
 import com.blocksdecoded.dex.utils.ui.TimeUtils
@@ -25,17 +25,19 @@ class TransactionViewHolder(
         itemView.setOnClickListener { listener.onClick(adapterPosition) }
     }
 
-    fun onBind(transaction: TransactionRecord, coinCode: String) {
-        val isPositive = transaction.amount > BigDecimal.ZERO
+    fun onBind(transaction: TransactionViewItem) {
+        val isPositive = transaction.coinValue > BigDecimal.ZERO
 
-        iconImage.bind(coinCode)
+        iconImage.bind(transaction.coin.code)
 
         actionTxt.setText(if (isPositive) R.string.transaction_receive else R.string.transaction_sent)
 
-        amountTxt.text = "${if (isPositive) "+" else "-"}${transaction.amount.abs().toDisplayFormat()} $coinCode"
+        amountTxt.text = "${if (isPositive) "+" else "-"}${transaction.coinValue.abs().toDisplayFormat()} ${transaction.coin.code}"
         amountTxt.setTextColorRes(if (isPositive) R.color.green else R.color.red)
 
-        dateTxt.text = TimeUtils.timestampToShort(transaction.timestamp)
+        transaction.date?.let {
+            dateTxt.text = TimeUtils.dateToShort(it)
+        }
     }
 
     interface OnClickListener {

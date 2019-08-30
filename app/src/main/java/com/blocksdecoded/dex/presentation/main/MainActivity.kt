@@ -23,6 +23,7 @@ import com.blocksdecoded.dex.presentation.orders.model.FillOrderInfo
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main_content.*
 
 class MainActivity :
     CoreActivity(),
@@ -34,8 +35,8 @@ class MainActivity :
     private lateinit var marketOrderViewModel: MarketOrderViewModel
 
     override fun onBackPressed() {
-        if (main_view_pager.currentItem != 0) {
-            main_view_pager.setCurrentItem(0, true)
+        if (main_view_pager?.currentItem != 0) {
+            main_view_pager?.setCurrentItem(0, true)
         } else {
             super.onBackPressed()
         }
@@ -49,23 +50,12 @@ class MainActivity :
 
         sendViewModel = ViewModelProviders.of(this).get(SendViewModel::class.java)
         marketOrderViewModel = ViewModelProviders.of(this).get(MarketOrderViewModel::class.java)
-
         adapter = MainPagerAdapter(supportFragmentManager)
-        main_view_pager.adapter = adapter
-        main_view_pager.offscreenPageLimit = 4
-        main_bottom_nav.setOnNavigationItemSelectedListener(this)
 
-        main_view_pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
-            override fun onPageSelected(position: Int) {
-                main_bottom_nav.selectedItemId = when(position) {
-                    0 -> R.id.nav_balance
-                    1 -> R.id.nav_orders
-                    2 -> R.id.nav_exchange
-                    3 -> R.id.nav_markets
-                    else -> R.id.nav_account
-                }
-            }
-        })
+        main_view_pager_stub?.let {
+            it.setOnInflateListener { _, _ -> initViewPager() }
+            it.inflate()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -78,8 +68,26 @@ class MainActivity :
 
     //endregion
 
+    private fun initViewPager()  {
+        main_view_pager?.adapter = adapter
+        main_view_pager?.offscreenPageLimit = 4
+        main_bottom_nav?.setOnNavigationItemSelectedListener(this)
+
+        main_view_pager?.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                main_bottom_nav?.selectedItemId = when(position) {
+                    0 -> R.id.nav_balance
+                    1 -> R.id.nav_orders
+                    2 -> R.id.nav_exchange
+                    3 -> R.id.nav_markets
+                    else -> R.id.nav_account
+                }
+            }
+        })
+    }
+
     override fun requestFill(fillInfo: FillOrderInfo) {
-        main_view_pager.setCurrentItem(2, false)
+        main_view_pager?.setCurrentItem(2, false)
         marketOrderViewModel.requestFillOrder(fillInfo.pair, fillInfo.amount, fillInfo.side)
     }
 

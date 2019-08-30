@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
+import com.blocksdecoded.dex.presentation.transactions.TransactionViewItem
 import com.blocksdecoded.dex.utils.setTextColorRes
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
@@ -17,9 +18,9 @@ class TransactionInfoDialog private constructor()
 	: BaseBottomDialog(R.layout.dialog_transaction_info) {
 
     private lateinit var viewModel: TransactionInfoViewModel
-    private lateinit var transactionInfo: TransactionInfo
+    private lateinit var transactionItem: TransactionViewItem
 
-    private val transactionDataObserver = Observer<TransactionViewData> {
+    private val transactionDataObserver = Observer<TransactionViewItem> {
         val isPositive = it.coinValue > BigDecimal.ZERO
 
         transaction_info_hash?.update(it.transactionHash)
@@ -47,15 +48,15 @@ class TransactionInfoDialog private constructor()
 
             viewModel.transactionView.observe(this, transactionDataObserver)
 
-            viewModel.init(transactionInfo)
+            viewModel.init(transactionItem)
         }
     }
 	
 	companion object {
-		fun show(fragmentManager: FragmentManager, transactionInfo: TransactionInfo) {
+		fun show(fragmentManager: FragmentManager, transactionItem: TransactionViewItem) {
 			val dialog = TransactionInfoDialog()
 
-            dialog.transactionInfo = transactionInfo
+            dialog.transactionItem = transactionItem
 
 			dialog.show(fragmentManager, "transaction_info")
 		}

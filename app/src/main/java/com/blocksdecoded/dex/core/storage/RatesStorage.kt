@@ -21,7 +21,11 @@ class RatesStorage(
         }
     }.toSingle()
 
-    override fun rateSingle(symbol: String): Single<Rate> = ratesDao.getRate(symbol)
+    override fun getRate(symbol: String, timeStamp: Long): Single<Rate> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getRate(symbol: String): Single<Rate> = ratesDao.getRate(symbol)
 
     override fun save(vararg rates: Rate) = executor.execute { ratesDao.insert(*rates) }
 

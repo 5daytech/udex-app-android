@@ -72,6 +72,10 @@ class RatesManager(
 
     //region Public
 
+    override fun getRate(code: String, timeStamp: Long): Rate {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getRates(codes: List<String>): List<Rate> =
         cachedRates.filter {
             codes.contains(it.symbol) ||

@@ -25,7 +25,7 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = TransactionsAdapter(this, coinCode ?: "")
+        adapter = TransactionsAdapter(this)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
