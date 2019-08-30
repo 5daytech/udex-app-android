@@ -49,6 +49,15 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
             viewModel.fillOrderEvent.observe(this, Observer { fillInfo ->
                 (context as? OrderFillListener)?.requestFill(fillInfo)
             })
+
+            viewModel.exchangeCoinSymbol.observe(this, Observer {
+                if (orders_tab_layout.tabCount > 0) {
+                    val firstTab = orders_tab_layout.getTabAt(0)
+                    firstTab?.text = "SELL $it"
+                    val secondTab = orders_tab_layout.getTabAt(1)
+                    secondTab?.text = "BUY $it"
+                }
+            })
         }
     }
 
@@ -89,9 +98,7 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
 
         override fun getPageTitle(position: Int): CharSequence? {
             return when(position) {
-                0 -> "Buy"
-                1 -> "Sell"
-                2 -> "My"
+                2 -> "My Orders"
                 else -> ""
             }
         }

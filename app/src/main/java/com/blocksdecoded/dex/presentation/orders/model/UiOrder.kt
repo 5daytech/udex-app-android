@@ -3,6 +3,7 @@ package com.blocksdecoded.dex.presentation.orders.model
 import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinType
+import com.blocksdecoded.dex.core.rates.RatesConverter
 import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.zrxkit.model.EAssetProxyId
 import com.blocksdecoded.zrxkit.model.IOrder
@@ -15,6 +16,8 @@ data class UiOrder(
         val price: BigDecimal,
         val makerAmount: BigDecimal,
         val takerAmount: BigDecimal,
+        val makerFiatAmount: BigDecimal,
+        val takerFiatAmount: BigDecimal,
         val expireDate: String,
         val side: EOrderSide,
         val isMine: Boolean,
@@ -22,7 +25,13 @@ data class UiOrder(
         val filledAmount: BigDecimal
 ){
     companion object {
-        fun fromOrder(order: IOrder, side: EOrderSide, orderInfo: OrderInfo? = null, isMine: Boolean = false): UiOrder {
+        fun fromOrder(
+            ratesConverter: RatesConverter,
+            order: IOrder,
+            side: EOrderSide,
+            orderInfo: OrderInfo? = null,
+            isMine: Boolean = false
+        ): UiOrder {
             val makerCoin = CoinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.makerAssetData))!!
             val takerCoin = CoinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.takerAssetData))!!
 
@@ -49,6 +58,8 @@ data class UiOrder(
                 price.toBigDecimal(),
                 makerAmount,
                 takerAmount,
+                ratesConverter.getCoinsPrice(makerCoin.code, makerAmount),
+                ratesConverter.getCoinsPrice(takerCoin.code, takerAmount),
                 TimeUtils.timestampToDisplay(order.expirationTimeSeconds.toLong()),
                 side,
                 isMine,

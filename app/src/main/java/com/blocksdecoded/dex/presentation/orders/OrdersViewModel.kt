@@ -15,6 +15,7 @@ import com.blocksdecoded.dex.utils.isValidIndex
 
 class OrdersViewModel : CoreViewModel() {
     private val relayerManager = App.relayerAdapterManager
+    private val ratesConverter = App.ratesConverter
 
     private val relayer: IRelayerAdapter?
         get() = relayerManager.mainRelayer
@@ -32,6 +33,7 @@ class OrdersViewModel : CoreViewModel() {
     val sellOrders: MutableLiveData<List<UiOrder>> = MutableLiveData()
     val myOrders: MutableLiveData<List<UiOrder>> = MutableLiveData()
     val availablePairs = MutableLiveData<List<Pair<String, String>>>()
+    val exchangeCoinSymbol = MutableLiveData<String>()
 
     val orderInfoEvent = MutableLiveData<OrderInfoConfig>()
     val fillOrderEvent = MutableLiveData<FillOrderInfo>()
@@ -40,7 +42,7 @@ class OrdersViewModel : CoreViewModel() {
         relayerManager.mainRelayerUpdatedSignal
             .subscribe {
                 relayer?.let {
-                    zrxOrdersWatcher = OrdersWatcher(it)
+                    zrxOrdersWatcher = OrdersWatcher(it, ratesConverter)
                     onRelayerInitialized()
                 }
             }.let { disposables.add(it) }
@@ -49,6 +51,10 @@ class OrdersViewModel : CoreViewModel() {
     private fun onRelayerInitialized() {
         zrxOrdersWatcher?.availablePairsSubject?.subscribe({ pairs ->
             availablePairs.postValue(pairs)
+
+            (selectedPairPosition.value ?: 0).let {
+                exchangeCoinSymbol.postValue(pairs[it].first)
+            }
         }, { Logger.e(it) })?.let { disposables.add(it) }
 
         zrxOrdersWatcher?.buyOrdersSubject?.subscribe({ orders ->
@@ -65,6 +71,10 @@ class OrdersViewModel : CoreViewModel() {
 
         zrxOrdersWatcher?.selectedPairSubject?.subscribe({ position ->
             selectedPairPosition.postValue(position)
+
+            availablePairs.value?.let {
+                exchangeCoinSymbol.postValue(it[position].first)
+            }
         }, { Logger.e(it) })?.let { disposables.add(it) }
 
         selectedPairPosition.postValue(0)

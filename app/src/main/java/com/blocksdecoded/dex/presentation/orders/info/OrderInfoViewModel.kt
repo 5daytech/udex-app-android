@@ -11,6 +11,7 @@ import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import com.blocksdecoded.dex.utils.uiSubscribe
 
 class OrderInfoViewModel : CoreViewModel() {
+	private val ratesConverter = App.ratesConverter
 	private val relayerAdapter: IRelayerAdapter?
 		get() = App.relayerAdapterManager.mainRelayer
 	private var order: OrderInfoConfig? = null
@@ -24,6 +25,7 @@ class OrderInfoViewModel : CoreViewModel() {
 		
 		order?.let {
 			this.orderInfo.value = UiOrder.fromOrder(
+				ratesConverter,
 				it.order,
 				it.side,
 				orderInfo = it.info,

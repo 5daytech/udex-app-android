@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.core.zrx
 
+import com.blocksdecoded.dex.core.rates.RatesConverter
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
@@ -10,7 +11,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
 class OrdersWatcher(
-	private val relayerAdapter: IRelayerAdapter
+	private val relayerAdapter: IRelayerAdapter,
+	private val ratesConverter: RatesConverter
 ) {
 	private val disposables = CompositeDisposable()
 
@@ -66,14 +68,14 @@ class OrdersWatcher(
 	
 	private fun refreshSellOrders(pairOrders: RelayerOrders<SignedOrder>) {
 		uiSellOrders = pairOrders.orders
-			.map { UiOrder.fromOrder(it, SELL) }.sortedBy { it.price }
+			.map { UiOrder.fromOrder(ratesConverter, it, SELL) }.sortedBy { it.price }
 		
 		sellOrdersSubject.onNext(uiSellOrders)
 	}
 	
 	private fun refreshBuyOrders(pairOrders: RelayerOrders<SignedOrder>) {
 		uiBuyOrders = pairOrders.orders
-			.map { UiOrder.fromOrder(it, BUY) }
+			.map { UiOrder.fromOrder(ratesConverter, it, BUY) }
 			.sortedByDescending { it.price }
 		
 		buyOrdersSubject.onNext(uiBuyOrders)
@@ -83,6 +85,7 @@ class OrdersWatcher(
 		uiMyOrders = pairOrders.orders
 			.mapIndexed { index, it ->
 				UiOrder.fromOrder(
+					ratesConverter,
 					it.first,
 					it.second,
 					isMine = true,

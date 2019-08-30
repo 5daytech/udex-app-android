@@ -5,34 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/page_margin">
-        <TextView
-            style="@style/HintText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:text="@string/price"/>
-
-        <TextView
-            style="@style/HintText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:gravity="center"
-            android:text="@string/amount"/>
-
-        <TextView
-            style="@style/HintText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:gravity="end"
-            android:text="@string/total"/>
-    </LinearLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/orders_recycler"
         android:layout_width="match_parent"

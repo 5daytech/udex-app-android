@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
-        android:paddingBottom="@dimen/page_margin"
         app:elevation="0dp"
         app:mt_title="Orders"/>
 
@@ -19,18 +18,17 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_content"
         android:orientation="vertical"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <com.blocksdecoded.dex.presentation.widgets.OrdersPairView
             android:id="@+id/orders_host_pair_picker"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/bg_main_bottom_rounded"
-            android:layout_marginLeft="@dimen/page_margin"
-            android:layout_marginRight="@dimen/page_margin" />
+            android:background="?attr/DarkAccentBackground"
+            android:paddingTop="@dimen/medium_margin"
+            android:paddingBottom="@dimen/medium_margin" />
 
         <com.blocksdecoded.dex.presentation.widgets.DividedTabLayout
             android:id="@+id/orders_tab_layout"
@@ -44,7 +42,7 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:tabIndicator="@color/transparent"
             app:tabSelectedTextColor="?attr/PrimaryTextColor"
-            app:tabTextColor="?attr/HintTextColor">
+            app:tabTextColor="?attr/SecondaryHintTextColor">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

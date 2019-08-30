@@ -3,6 +3,7 @@
     <attr name="PrimaryLightColor" format="reference|color"/>
     <attr name="PrimaryTextColor" format="reference|color"/>
     <attr name="HintTextColor" format="reference|color"/>
+    <attr name="SecondaryHintTextColor" format="reference|color"/>
     <attr name="ActionButtonBackground" format="reference|color"/>
     <attr name="SmallActionButtonColor" format="reference|color"/>
     <attr name="MainBackground" format="reference|color"/>
@@ -26,6 +27,7 @@
         <item name="PrimaryTextColor">@color/main_light_text</item>
         <item name="PrimaryLightColor">@color/white</item>
         <item name="HintTextColor">@color/light_hint</item>
+        <item name="SecondaryHintTextColor">@color/light_secondary_hint</item>
         <item name="ActionButtonBackground">@color/dark_main</item>
         <item name="MainBackground">@color/dark_main</item>
         <item name="SmallActionButtonColor">@color/action_button_dark</item>
@@ -142,12 +144,17 @@
     <style name="SmallHintText" parent="RegularText">
         <item name="android:textSize">12sp</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">?attr/HintTextColor</item>
+        <item name="android:textColor">?attr/SecondaryHintTextColor</item>
     </style>
 
     <style name="HintText" parent="RegularText">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">?attr/HintTextColor</item>
+    </style>
+
+    <style name="SecondaryHintText" parent="RegularText">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">?attr/SecondaryHintTextColor</item>
     </style>
 
     <style name="SettingsText" parent="RegularText">

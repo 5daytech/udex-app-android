@@ -40,7 +40,7 @@
                 android:layout_marginTop="@dimen/element_margin"
                 app:tabSelectedTextColor="?attr/PrimaryTextColor"
                 app:tabIndicator="@color/transparent"
-                app:tabTextColor="?attr/HintTextColor">
+                app:tabTextColor="?attr/SecondaryHintTextColor">
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

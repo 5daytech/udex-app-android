@@ -7,16 +7,21 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
+import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 
 class OrderViewHolder(
         view: View,
         private val listener: Listener
 ): RecyclerView.ViewHolder(view) {
-    
-    private val priceTxt: TextView = itemView.findViewById(R.id.order_price)
+
     private val amountTxt: TextView = itemView.findViewById(R.id.order_amount)
+    private val fiatAmountTxt: TextView = itemView.findViewById(R.id.order_amount_fiat)
+    private val amountCoinTxt: TextView = itemView.findViewById(R.id.order_amount_coin)
+
     private val totalTxt: TextView = itemView.findViewById(R.id.order_total)
+    private val fiatTotalTxt: TextView = itemView.findViewById(R.id.order_total_fiat)
+    private val totalCoinTxt: TextView = itemView.findViewById(R.id.order_total_coin)
 
     init {
         itemView.setOnClickListener { listener.onClick(adapterPosition) }
@@ -25,23 +30,28 @@ class OrderViewHolder(
     fun onBind(order: UiOrder) {
         itemView.setBackgroundResource(
             if (adapterPosition % 2 == 0) {
-                R.color.dark_main
+                R.color.dark_accent
             } else {
-                R.color.action_button_dark
+                R.color.dark_main
             }
         )
-        
-        priceTxt.text = order.price.toLongDisplayFormat()
-        amountTxt.text = if (order.side == EOrderSide.BUY) {
-            order.takerAmount.toDisplayFormat()
-        } else {
-            order.makerAmount.toDisplayFormat()
-        }
 
-        totalTxt.text = if (order.side == EOrderSide.BUY) {
-            "${order.makerAmount.toDisplayFormat()} ${order.makerCoin.code}"
+        if (order.side == EOrderSide.BUY) {
+            amountTxt.text = order.takerAmount.toDisplayFormat()
+            amountCoinTxt.text = order.takerCoin.code
+            fiatAmountTxt.text = "~ $${order.takerFiatAmount.toFiatDisplayFormat()}"
+
+            totalTxt.text = order.makerAmount.toDisplayFormat()
+            totalCoinTxt.text = order.makerCoin.code
+            fiatTotalTxt.text = "~ $${order.makerFiatAmount.toFiatDisplayFormat()}"
         } else {
-            "${order.takerAmount.toDisplayFormat()} ${order.takerCoin.code}"
+            amountTxt.text = order.makerAmount.toDisplayFormat()
+            amountCoinTxt.text = order.makerCoin.code
+            fiatAmountTxt.text = "~ $${order.makerFiatAmount.toFiatDisplayFormat()}"
+
+            totalTxt.text = order.takerAmount.toDisplayFormat()
+            totalCoinTxt.text = order.takerCoin.code
+            fiatTotalTxt.text = "~ $${order.takerFiatAmount.toFiatDisplayFormat()}"
         }
     }
 
