@@ -81,6 +81,6 @@
         android:layout_marginRight="@dimen/big_margin"
         android:layout_marginBottom="@dimen/big_margin"
         android:textAllCaps="true"
-        android:text="Restore"/>
+        android:text="@string/action_restore_wallet"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

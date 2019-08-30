@@ -8,7 +8,8 @@
     <color name="light_grey_bg">#FAFBFC</color>
     <color name="dark_bg">#282931</color>
 
-    <color name="main_dark">#1E1E24</color>
+    <color name="dark_main">#1E1E24</color>
+    <color name="dark_accent">#21222C</color>
 
     <!--Text-->
     <color name="light_text">#FFF</color>

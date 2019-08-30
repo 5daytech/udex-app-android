@@ -7,7 +7,7 @@
     android:layout_marginStart="@dimen/element_margin"
     android:layout_marginEnd="@dimen/element_margin"
     android:layout_marginBottom="@dimen/element_margin"
-    app:cardBackgroundColor="#21222C"
+    app:cardBackgroundColor="?attr/DarkAccentBackground"
     app:cardElevation="8dp"
     app:cardCornerRadius="@dimen/small_margin">
 

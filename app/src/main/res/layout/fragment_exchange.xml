@@ -26,8 +26,7 @@
             android:id="@+id/exchange_container"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_content">
+            android:layout_height="match_parent">
 
             <com.blocksdecoded.dex.presentation.widgets.DividedTabLayout
                 android:id="@+id/exchange_tab_layout"
@@ -65,7 +64,7 @@
                     android:id="@+id/exchange_market_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="?attr/ActionButtonBackground"
+                    app:cardBackgroundColor="?attr/DarkAccentBackground"
                     app:cardElevation="0dp"
                     android:padding="@dimen/element_margin"/>
 
@@ -73,7 +72,7 @@
                     android:id="@+id/exchange_limit_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="?attr/ActionButtonBackground"
+                    app:cardBackgroundColor="?attr/DarkAccentBackground"
                     app:cardElevation="0dp"
                     android:padding="@dimen/element_margin"/>
             </com.blocksdecoded.dex.presentation.widgets.pagers.WrapContentViewPager>

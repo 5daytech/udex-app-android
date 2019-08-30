@@ -23,8 +23,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_content">
+            android:layout_height="match_parent">
             <TextView
                 style="@style/SmallHintText"
                 android:layout_width="wrap_content"

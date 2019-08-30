@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/page_margin"
     android:layout_marginRight="@dimen/page_margin"
-    android:background="?attr/ActionButtonBackground">
+    android:background="?attr/DarkAccentBackground">
 
     <TextView
         style="@style/DialogTitleText"
@@ -133,6 +133,6 @@
         android:layout_marginBottom="@dimen/page_margin"
         android:layout_marginLeft="@dimen/page_margin"
         android:layout_marginRight="@dimen/page_margin"
-        android:text="Confirm"/>
+        android:text="@string/action_confirm"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

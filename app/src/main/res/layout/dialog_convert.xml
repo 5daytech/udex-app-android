@@ -1,91 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/bottom_sheet_big_margin"
     android:background="@color/transparent">
-    <androidx.cardview.widget.CardView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/medium_margin"
         android:layout_marginLeft="@dimen/medium_margin"
         android:layout_marginRight="@dimen/medium_margin"
-        app:cardBackgroundColor="?attr/ActionButtonBackground"
-        app:cardElevation="0dp"
-        app:cardCornerRadius="@dimen/small_corner_radius">
+        android:background="@drawable/bg_bottom_dialog">
 
-        <LinearLayout android:orientation="vertical"
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_bottom_dialog">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/page_margin"
-                android:layout_marginStart="@dimen/page_margin"
-                android:layout_marginEnd="@dimen/page_margin">
-                <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
-                    android:id="@+id/convert_coin_icon"
-                    android:layout_width="@dimen/coin_size"
-                    android:layout_height="@dimen/coin_size" />
-
-                <TextView
-                    style="@style/DialogTitleText"
-                    android:id="@+id/convert_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/element_margin"
-                    android:text="Wrap/Unwrap" />
-            </LinearLayout>
-
-            <com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceView
-                android:id="@+id/convert_total_balance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/page_margin"/>
-
-            <com.blocksdecoded.dex.presentation.widgets.InputAmountView
-                android:id="@+id/convert_amount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/element_margin"
-                android:layout_marginEnd="@dimen/element_margin"/>
+            android:layout_marginTop="@dimen/page_margin"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin">
+            <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+                android:id="@+id/convert_coin_icon"
+                android:layout_width="@dimen/coin_size"
+                android:layout_height="@dimen/coin_size" />
 
             <TextView
-                style="@style/SmallHintText"
-                android:id="@+id/convert_receive_amount"
-                android:layout_width="match_parent"
+                style="@style/DialogTitleText"
+                android:id="@+id/convert_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/element_margin"
                 android:layout_marginStart="@dimen/element_margin"
-                android:layout_marginEnd="@dimen/element_margin"
-                android:textSize="16sp"
-                android:visibility="gone"
-                android:hint="Receive: - WETH" />
-
-            <com.blocksdecoded.dex.presentation.widgets.NumPadView
-                android:id="@+id/convert_numpad"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/page_margin"
-                android:layout_marginLeft="@dimen/page_margin"
-                android:layout_marginRight="@dimen/page_margin"
-                android:layout_gravity="center" />
-
-            <Button
-                style="@style/PrimaryButton"
-                android:id="@+id/convert_confirm"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_btn_height"
-                android:layout_marginTop="@dimen/page_margin"
-                android:text="Convert" />
-
+                android:text="Wrap/Unwrap" />
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+        <com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceView
+            android:id="@+id/convert_total_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/page_margin"/>
+
+        <com.blocksdecoded.dex.presentation.widgets.InputAmountView
+            android:id="@+id/convert_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/element_margin"
+            android:layout_marginEnd="@dimen/element_margin"/>
+
+        <TextView
+            style="@style/SmallHintText"
+            android:id="@+id/convert_receive_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/element_margin"
+            android:layout_marginStart="@dimen/element_margin"
+            android:layout_marginEnd="@dimen/element_margin"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:hint="Receive: - WETH" />
+
+        <com.blocksdecoded.dex.presentation.widgets.NumPadView
+            android:id="@+id/convert_numpad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/page_margin"
+            android:layout_marginLeft="@dimen/page_margin"
+            android:layout_marginRight="@dimen/page_margin"
+            android:layout_gravity="center" />
+
+        <Button
+            style="@style/PrimaryButton"
+            android:id="@+id/convert_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_btn_height"
+            android:layout_marginTop="@dimen/page_margin"
+            android:text="@string/action_convert" />
+
+    </LinearLayout>
 </FrameLayout>

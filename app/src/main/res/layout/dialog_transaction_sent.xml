@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/ActionButtonBackground"
+    android:background="?attr/DarkAccentBackground"
     android:padding="40dp"
     android:layout_gravity="center"
     android:gravity="center">
@@ -14,7 +14,7 @@
         android:id="@+id/dialog_sent_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Transaction sent"/>
+        android:text="@string/subtitle_transaction_sent"/>
 
     <TextView
         style="@style/BoldText"
@@ -39,6 +39,6 @@
         android:paddingBottom="@dimen/element_margin"
         android:paddingEnd="@dimen/big_margin"
         android:paddingStart="@dimen/big_margin"
-        android:text="View on Etherscan.io"/>
+        android:text="@string/action_view_on"/>
 
 </LinearLayout>

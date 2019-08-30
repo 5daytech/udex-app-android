@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="?attr/ActionButtonBackground" />
+    <solid android:color="?attr/DarkAccentBackground" />
     <corners android:bottomLeftRadius="36dp"
         android:bottomRightRadius="36dp"/>
 </shape>

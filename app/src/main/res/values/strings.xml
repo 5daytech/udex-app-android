@@ -54,6 +54,14 @@
     <string name="account_about_app">About App</string>
     <string name="account_share">Tell friends</string>
     <string name="account_address_book">Address Book</string>
+    <string name="action_cancel_order">Cancel order</string>
+    <string name="action_forward">Forward</string>
+    <string name="hint_your_address">Your address</string>
+    <string name="action_convert">Convert</string>
+    <string name="action_confirm">Confirm</string>
+    <string name="action_restore_wallet">Restore</string>
+    <string name="action_view_on">View on Etherscan.io</string>
+    <string name="subtitle_transaction_sent">Transaction sent</string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>

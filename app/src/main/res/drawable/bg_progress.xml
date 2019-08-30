@@ -16,7 +16,7 @@
                     android:angle="180"
                     android:endColor="@color/blue"
                     android:centerColor="@color/dark_bg"
-                    android:startColor="@color/main_dark" />
+                    android:startColor="@color/dark_main" />
             </shape>
         </clip>
     </item>

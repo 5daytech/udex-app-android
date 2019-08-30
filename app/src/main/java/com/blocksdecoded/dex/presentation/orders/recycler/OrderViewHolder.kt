@@ -25,7 +25,7 @@ class OrderViewHolder(
     fun onBind(order: UiOrder) {
         itemView.setBackgroundResource(
             if (adapterPosition % 2 == 0) {
-                R.color.main_dark
+                R.color.dark_main
             } else {
                 R.color.action_button_dark
             }
