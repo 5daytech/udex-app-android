@@ -34,7 +34,7 @@ class BalanceAdapter(
     }
 
     fun setCoins(coins: List<CoinBalance>) {
-        val diffResult = DiffUtil.calculateDiff(BalanceDiffUtil(mBalances, coins))
+        val diffResult = DiffUtil.calculateDiff(BalanceDiffCallback(mBalances, coins))
         mBalances.clear()
         mBalances.addAll(coins)
         diffResult.dispatchUpdatesTo(this)

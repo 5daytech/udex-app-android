@@ -97,7 +97,7 @@ class App: Application() {
 
         // Rates
         val ratesStorage = RatesStorage(appDatabase.ratesDao())
-        ratesManager = RatesManager(ratesStorage, BootstrapApiClient(), RatesApiClient(), RatesClientConfig(sharedStorage))
+        ratesManager = RatesManager(ratesStorage, BootstrapApiClient(), RatesApiClient(), RatesClientConfig(appConfiguration, sharedStorage))
         ratesConverter = RatesConverter(ratesManager = ratesManager)
         
         // Init adapter manager

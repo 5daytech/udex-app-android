@@ -42,9 +42,14 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
             TransactionInfoDialog.show(childFragmentManager, it)
         })
 
+        viewModel.syncTransaction.observe(this, Observer {
+            adapter.syncTransaction(it)
+        })
+
         viewModel.coinName.observe(this, Observer {
             if (it != null) toolbar?.title = "$it Transactions"
         })
+
         viewModel.balance.observe(this, Observer {
             if (it != null) transactions_total_balance.update(it)
         })

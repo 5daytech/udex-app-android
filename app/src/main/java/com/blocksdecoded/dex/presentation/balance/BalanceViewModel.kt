@@ -94,7 +94,7 @@ class BalanceViewModel : CoreViewModel() {
         var balance = BigDecimal.ZERO
         
         adapters.forEach {
-            val priceInBase = ratesConverter.baseFrom(it.coin.code).toBigDecimal()
+            val priceInBase = ratesConverter.baseFrom(it.coin.code)
             val convertedBalance = it.balance.multiply(priceInBase)
             balance += convertedBalance
         }

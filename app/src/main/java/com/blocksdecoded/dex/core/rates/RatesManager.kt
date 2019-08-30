@@ -8,6 +8,7 @@ import com.blocksdecoded.dex.core.rates.remote.IRatesApiClient
 import com.blocksdecoded.dex.core.rates.remote.IRatesClientConfig
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.ioSubscribe
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
@@ -72,8 +73,10 @@ class RatesManager(
 
     //region Public
 
-    override fun getRate(code: String, timeStamp: Long): Rate {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getRate(code: String, timeStamp: Long): Single<Rate> {
+        return rateClient.getHistoricalRate(code, timeStamp).map {
+            getRate(code).copy(price = it)
+        }
     }
 
     override fun getRates(codes: List<String>): List<Rate> =

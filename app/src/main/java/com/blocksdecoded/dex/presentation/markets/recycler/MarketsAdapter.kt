@@ -25,7 +25,7 @@ class MarketsAdapter(
 	}
 	
 	fun setMarkets(markets: List<Market>) {
-		val diffUtil = DiffUtil.calculateDiff(MarketsDiffUtil(this.markets, markets))
+		val diffUtil = DiffUtil.calculateDiff(MarketsDiffCallback(this.markets, markets))
 		this.markets.clear()
 		this.markets.addAll(markets)
 		diffUtil.dispatchUpdatesTo(this)

@@ -24,21 +24,21 @@ class RatesConverter(
 		val baseRate = getCoinRate(base)
 		val fromRate = getCoinRate(quote)
 
-		return if (baseRate.price == 0.0 || fromRate.price == 0.0) {
+		return if (baseRate.price == BigDecimal.ZERO || fromRate.price == BigDecimal.ZERO) {
 			BigDecimal.ZERO
 		} else {
-			(baseRate.price / fromRate.price).toBigDecimal()
+			(baseRate.price / fromRate.price)
 		}
 	}
 	
-	fun getTokenPrice(code: String): Double = getCoinRate(code).price
+	fun getTokenPrice(code: String): BigDecimal = getCoinRate(code).price
 	
-	fun baseFrom(code: String): Double {
+	fun baseFrom(code: String): BigDecimal {
 		val baseRate = getCoinRate(baseCoinCode)
 		val fromRate = getCoinRate(code)
 		
-		return if (baseRate.price == 0.0 || fromRate.price == 0.0) {
-			0.0
+		return if (baseRate.price == BigDecimal.ZERO || fromRate.price == BigDecimal.ZERO) {
+			BigDecimal.ZERO
 		} else {
 			fromRate.price / baseRate.price
 		}
@@ -47,6 +47,6 @@ class RatesConverter(
 	fun getCoinsPrice(code: String, amount: BigDecimal): BigDecimal {
 		val rate = getCoinRate(code)
 		
-		return amount.multiply(BigDecimal(rate.price))
+		return amount.multiply(rate.price)
 	}
 }

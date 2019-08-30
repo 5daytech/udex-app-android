@@ -12,7 +12,7 @@ interface IRatesManager {
 
     fun getRate(code: String): Rate
 
-    fun getRate(code: String, timeStamp: Long): Rate
+    fun getRate(code: String, timeStamp: Long): Single<Rate>
 
     fun refresh()
 
@@ -23,8 +23,12 @@ interface IRatesManager {
 
 interface IRatesStorage {
     fun allRates(): Single<List<Rate>>
+
     fun getRate(symbol: String): Single<Rate>
+
     fun getRate(symbol: String, timeStamp: Long): Single<Rate>
+
     fun save(vararg rates: Rate)
+
     fun deleteAll()
 }

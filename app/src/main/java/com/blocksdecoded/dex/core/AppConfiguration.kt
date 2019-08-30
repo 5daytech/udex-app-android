@@ -16,9 +16,10 @@ class AppConfiguration(
         BuildConfig.INFURA_PROJECT_SECRET
     )
 ) {
-    companion object {
-        val DEFAULT = AppConfiguration()
-    }
+
+    val ipfsId = "QmXTJZBMMRmBbPun6HFt3tmb3tfYF2usLPxFoacL7G5uMX"
+    val ipfsMainGateway = "ipfs-ext.horizontalsystems.xyz"
+    val ipfsFallbackGateway = "ipfs.io"
 
     private fun addressForSymbol(symbol: String): String = ((testCoins.firstOrNull {
         when(it.type) {
@@ -54,4 +55,8 @@ class AppConfiguration(
         getExchangePair("HT", "WBTC"),
         getExchangePair("LINK", "WBTC")
     )
+
+    companion object {
+        val DEFAULT = AppConfiguration()
+    }
 }

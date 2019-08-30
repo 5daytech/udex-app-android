@@ -9,13 +9,12 @@ data class TransactionViewItem(
 	val coin: Coin,
 	val transactionHash: String,
 	val coinValue: BigDecimal,
-	val fiatValue: BigDecimal?,
+	var fiatValue: BigDecimal?,
 	val from: String?,
 	val to: String?,
 	val incoming: Boolean,
 	val date: Date?,
-	val status: TransactionStatus,
-	val rate: Rate?
+	val status: TransactionStatus
 )
 
 sealed class TransactionStatus {

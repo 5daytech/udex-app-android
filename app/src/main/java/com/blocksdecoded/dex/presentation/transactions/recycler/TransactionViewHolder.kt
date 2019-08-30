@@ -7,8 +7,9 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.transactions.TransactionViewItem
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
 import com.blocksdecoded.dex.utils.setTextColorRes
-import com.blocksdecoded.dex.utils.ui.TimeUtils
+import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
+import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import java.math.BigDecimal
 
 class TransactionViewHolder(
@@ -20,6 +21,7 @@ class TransactionViewHolder(
     private val dateTxt: TextView = itemView.findViewById(R.id.transaction_date)
     private val amountTxt: TextView = itemView.findViewById(R.id.transaction_amount)
     private val actionTxt: TextView = itemView.findViewById(R.id.transaction_action)
+    private val fiatAmountTxt: TextView = itemView.findViewById(R.id.transaction_fiat_amount)
 
     init {
         itemView.setOnClickListener { listener.onClick(adapterPosition) }
@@ -34,6 +36,8 @@ class TransactionViewHolder(
 
         amountTxt.text = "${if (isPositive) "+" else "-"}${transaction.coinValue.abs().toDisplayFormat()} ${transaction.coin.code}"
         amountTxt.setTextColorRes(if (isPositive) R.color.green else R.color.red)
+
+        fiatAmountTxt.text = "$${transaction.fiatValue?.abs()?.toFiatDisplayFormat()}"
 
         transaction.date?.let {
             dateTxt.text = TimeUtils.dateToShort(it)

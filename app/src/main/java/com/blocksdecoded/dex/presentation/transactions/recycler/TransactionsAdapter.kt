@@ -2,10 +2,13 @@ package com.blocksdecoded.dex.presentation.transactions.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.TransactionRecord
 import com.blocksdecoded.dex.presentation.transactions.TransactionViewItem
+import com.blocksdecoded.dex.utils.isValidIndex
+import kotlin.collections.ArrayList
 
 class TransactionsAdapter(
     private val listener: TransactionViewHolder.OnClickListener
@@ -26,9 +29,12 @@ class TransactionsAdapter(
     }
 
     fun setTransactions(transactions: List<TransactionViewItem>) {
+        val diffUtil = DiffUtil.calculateDiff(TransactionsDiffCallback(this.mTransactions, transactions))
+
         mTransactions.clear()
         mTransactions.addAll(transactions)
-        notifyDataSetChanged()
+
+        diffUtil.dispatchUpdatesTo(this)
     }
 
     fun addNextTransactions(transactions: List<TransactionRecord>) {
@@ -37,5 +43,11 @@ class TransactionsAdapter(
 
     fun addBeforeTransactions(transactions: List<TransactionRecord>) {
 
+    }
+
+    fun syncTransaction(it: Int?) {
+        if (it != null && mTransactions.isValidIndex(it)) {
+            notifyItemChanged(it)
+        }
     }
 }

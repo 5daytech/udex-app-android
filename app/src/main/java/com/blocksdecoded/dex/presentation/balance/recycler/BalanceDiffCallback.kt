@@ -3,7 +3,7 @@ package com.blocksdecoded.dex.presentation.balance.recycler
 import androidx.recyclerview.widget.DiffUtil
 import com.blocksdecoded.dex.core.model.CoinBalance
 
-class BalanceDiffUtil(
+class BalanceDiffCallback(
     private val oldCoins: List<CoinBalance>,
     private val newCoins: List<CoinBalance>
 ) : DiffUtil.Callback() {

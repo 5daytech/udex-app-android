@@ -51,14 +51,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/transaction_amount_rate"
+        app:layout_constraintBottom_toTopOf="@+id/transaction_fiat_amount"
         android:layout_marginTop="@dimen/page_margin"
         android:textColor="?attr/PrimaryTextColor"
         android:textSize="17sp"
         android:text="+ 0.01 ETH"/>
 
     <TextView
-        android:id="@+id/transaction_amount_rate"
+        android:id="@+id/transaction_fiat_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
@@ -71,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/transaction_amount_rate"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_fiat_amount"
         android:paddingTop="@dimen/page_margin"
         android:layout_marginTop="@dimen/page_margin" />
 
