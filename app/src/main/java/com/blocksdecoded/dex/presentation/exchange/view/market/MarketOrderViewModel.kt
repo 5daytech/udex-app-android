@@ -66,11 +66,10 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
                 messageEvent.postValue(R.string.message_wait_blockchain)
                 showProcessingEvent.call()
 
-                val amount = if (exchangeSide == ExchangeSide.BID) amount else state.receiveAmount
                 relayer?.fill(
                     marketCodes[currentMarketPosition],
                     orderSide,
-                    amount
+                    state.receiveAmount
                 )?.uiSubscribe(disposables, {
                     processingDismissEvent.call()
                     initState(state.sendCoin, state.receiveCoin)

@@ -210,6 +210,8 @@ class RelayerAdapter(
 		val calcAmount = amount.movePointRight(baseCoin.decimal)
 			.stripTrailingZeros()
 
+		Log.d("ololo", "Fill amount ${amount.toPlainString()} - ${pairOrders.orders.toString()}")
+
 		return checkAllowance(ZrxKit.assetItemForAddress(baseCoin.address) to ZrxKit.assetItemForAddress(quoteCoin.address))
 			.flatMap { exchangeWrapper.marketBuyOrders(pairOrders.orders, calcAmount.toBigInteger()) }
 	}
