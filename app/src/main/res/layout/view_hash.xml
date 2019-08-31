@@ -8,6 +8,7 @@
     android:foreground="?selectableItemBackground"
     android:padding="@dimen/small_margin">
     <TextView
+        style="@style/BoldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="#"
@@ -15,6 +16,7 @@
         android:layout_marginStart="@dimen/small_margin"/>
 
     <TextView
+        style="@style/BoldText"
         android:id="@+id/hash_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

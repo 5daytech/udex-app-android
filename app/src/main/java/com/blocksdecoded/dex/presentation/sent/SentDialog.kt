@@ -23,7 +23,7 @@ class SentDialog private constructor()
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		
-		dialog_sent_transaction_hash?.text = transactionHash.toString()
+		dialog_sent_transaction_hash?.update(transactionHash.toString())
 		
 		dialog_sent_view_on?.setOnClickListener {
 			CustomTabsIntent.Builder()
