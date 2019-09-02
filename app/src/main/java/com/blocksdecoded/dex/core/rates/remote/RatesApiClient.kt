@@ -51,7 +51,7 @@ class RatesApiClient: CoreApiClient(), IRatesApiClient {
 
     override fun getRates(): Single<RatesResponse> =
         mClient?.getCoins("${mConfig?.ipnsPath}index.json")
-            ?.timeoutRetry() ?: Single.error(Exception("Rate api client not initialized"))
+            ?.timeoutRetry() ?: Single.error(Exception("Market api client not initialized"))
 
     //endregion
 

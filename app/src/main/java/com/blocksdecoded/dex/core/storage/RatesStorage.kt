@@ -2,7 +2,7 @@ package com.blocksdecoded.dex.core.storage
 
 import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.rates.IRatesStorage
-import io.reactivex.Maybe
+import com.blocksdecoded.dex.core.storage.dao.RatesDao
 import io.reactivex.Single
 import java.util.concurrent.Executors
 
@@ -11,23 +11,17 @@ class RatesStorage(
 ) : IRatesStorage {
     private val executor = Executors.newSingleThreadExecutor()
 
-    override fun allRates(): Single<List<Rate>> = Maybe.create<List<Rate>> { emitter ->
-        val rates = ratesDao.getRates()
+    override fun getRate(coinCode: String, timeStamp: Long): Rate =
+        ratesDao.getRate(coinCode, timeStamp)
 
-        if (rates.isEmpty()) {
-            emitter.onComplete()
-        } else {
-            emitter.onSuccess(rates)
-        }
-    }.toSingle()
+    override fun getRateSingle(coinCode: String, timeStamp: Long): Single<Rate> =
+        ratesDao.getRateSingle(coinCode, timeStamp)
 
-    override fun getRate(symbol: String, timeStamp: Long): Single<Rate> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun save(vararg rates: Rate) {
+        executor.execute { ratesDao.insert(*rates) }
     }
 
-    override fun getRate(symbol: String): Single<Rate> = ratesDao.getRate(symbol)
-
-    override fun save(vararg rates: Rate) = executor.execute { ratesDao.insert(*rates) }
-
-    override fun deleteAll() = executor.execute { ratesDao.deleteAll() }
+    override fun deleteAll() {
+        executor.execute { ratesDao.deleteAll() }
+    }
 }

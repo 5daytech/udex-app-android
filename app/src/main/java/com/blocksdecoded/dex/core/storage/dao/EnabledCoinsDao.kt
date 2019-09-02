@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.core.storage
+package com.blocksdecoded.dex.core.storage.dao
 
 import androidx.room.*
 import com.blocksdecoded.dex.core.model.EnabledCoin

@@ -7,4 +7,5 @@ import androidx.room.PrimaryKey
 data class EnabledCoin(
         @PrimaryKey
         val coinCode: String,
-        var order: Int? = null)
+        var order: Int? = null
+)

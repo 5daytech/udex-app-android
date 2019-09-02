@@ -3,20 +3,19 @@ package com.blocksdecoded.dex.presentation.markets
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.manager.CoinManager
-import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.model.Market
-import com.blocksdecoded.dex.core.rates.RatesState.*
+import com.blocksdecoded.dex.core.rates.MarketState.*
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 
 class MarketsViewModel : CoreViewModel() {
-    val markets = MutableLiveData<List<Market>>()
+    val markets = MutableLiveData<List<MarketViewItem>>()
     val loading = MutableLiveData<Boolean>()
     
     private val ratesManager = App.ratesManager
     private val availableMarkets = CoinManager.coins
 
     init {
-        ratesManager.ratesStateSubject
+        ratesManager.marketsStateSubject
             .subscribe {
                 loading.postValue(when(it) {
                     SYNCING -> true
@@ -26,15 +25,15 @@ class MarketsViewModel : CoreViewModel() {
             }
             .let { disposables.add(it) }
 
-        ratesManager.ratesUpdateSubject
+        ratesManager.marketsUpdateSubject
             .subscribe {
-                val rates = ratesManager.getRates(availableMarkets.map { it.code })
+                val rates = ratesManager.getMarkets(availableMarkets.map { it.code })
 
                 markets.postValue(availableMarkets.mapIndexed { index, marketCoin ->
-                    Market(
+                    MarketViewItem(
                         marketCoin,
-                        rates.firstOrNull { it.symbol == marketCoin.code || marketCoin.code.contains(it.symbol)}
-                            ?: Rate(marketCoin.code))
+                        rates.firstOrNull { it.coinCode == marketCoin.code || marketCoin.code.contains(it.coinCode)}
+                            ?: Market(marketCoin.code))
                 })
             }
             .let { disposables.add(it) }

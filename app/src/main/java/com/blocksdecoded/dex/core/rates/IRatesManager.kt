@@ -1,18 +1,21 @@
 package com.blocksdecoded.dex.core.rates
 
 import com.blocksdecoded.dex.core.model.Rate
+import com.blocksdecoded.dex.core.model.Market
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 
 interface IRatesManager {
-    val ratesUpdateSubject: BehaviorSubject<Unit>
-    val ratesStateSubject: BehaviorSubject<RatesState>
+    val marketsUpdateSubject: BehaviorSubject<Unit>
+    val marketsStateSubject: BehaviorSubject<MarketState>
 
-    fun getRates(codes: List<String>): List<Rate>
+    fun getMarkets(coinCodes: List<String>): List<Market>
 
-    fun getRate(code: String): Rate
+    fun getMarket(coinCode: String): Market
 
-    fun getRate(code: String, timeStamp: Long): Single<Rate>
+    fun getRateSingle(coinCode: String, timeStamp: Long): Single<Rate>
+
+    fun getRate(coinCode: String, timeStamp: Long): Rate?
 
     fun refresh()
 
@@ -21,12 +24,20 @@ interface IRatesManager {
     fun clear()
 }
 
+interface IMarketsStorage {
+    fun getAllMarkets(): Single<List<Market>>
+
+    fun getMarket(coinCode: String): Single<Market>
+
+    fun save(vararg markets: Market)
+
+    fun deleteAll()
+}
+
 interface IRatesStorage {
-    fun allRates(): Single<List<Rate>>
+    fun getRateSingle(coinCode: String, timeStamp: Long): Single<Rate>
 
-    fun getRate(symbol: String): Single<Rate>
-
-    fun getRate(symbol: String, timeStamp: Long): Single<Rate>
+    fun getRate(coinCode: String, timeStamp: Long): Rate
 
     fun save(vararg rates: Rate)
 

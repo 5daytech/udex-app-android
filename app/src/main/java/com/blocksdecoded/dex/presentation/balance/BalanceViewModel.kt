@@ -42,7 +42,7 @@ class BalanceViewModel : CoreViewModel() {
     init {
         mRefreshing.value = true
 
-        ratesManager.ratesUpdateSubject
+        ratesManager.marketsUpdateSubject
             .subscribe { onRefreshAdapters() }
             .let { disposables.add(it) }
         

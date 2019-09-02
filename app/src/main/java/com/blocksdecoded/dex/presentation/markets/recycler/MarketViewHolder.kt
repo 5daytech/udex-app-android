@@ -3,10 +3,9 @@ package com.blocksdecoded.dex.presentation.markets.recycler
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.model.Market
+import com.blocksdecoded.dex.presentation.markets.MarketViewItem
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
 import com.blocksdecoded.dex.presentation.widgets.MarketChart
 import com.blocksdecoded.dex.utils.setTextColorRes
@@ -32,8 +31,8 @@ class MarketViewHolder(
 		itemView.setOnClickListener { listener.onClick(adapterPosition) }
 	}
 	
-	fun onBind(market: Market) {
-		val color = if (market.rate.priceChange >= 0) {
+	fun onBind(market: MarketViewItem) {
+		val color = if (market.market.priceChange >= 0) {
 			changeImg.setImageResource(R.drawable.ic_carret_up_green)
 			R.color.green
 		} else {
@@ -44,13 +43,13 @@ class MarketViewHolder(
 		nameTxt.text = market.coin.title
 		codeTxt.text = market.coin.code
 		coinIcon.bind(market.coin.code)
-		priceTxt.text = "$${market.rate.price.toFiatDisplayFormat()}"
+		priceTxt.text = "$${market.market.price.toFiatDisplayFormat()}"
 
-		changePercentTxt.text = "${market.rate.priceChange.absoluteValue}%"
-		coinVolume.text = "Volume ${CurrencyUtils.withSuffix(market.rate.volume)}"
+		changePercentTxt.text = "${market.market.priceChange.absoluteValue}%"
+		coinVolume.text = "Volume ${CurrencyUtils.withSuffix(market.market.volume)}"
 
 		changePercentTxt.setTextColorRes(color)
-//		chart.displayData(market.rate.history, color, R.color.transparent)
+//		chart.displayData(market.market.history, color, R.color.transparent)
 		chart.displayData(listOf(), color, R.color.transparent)
 	}
 	

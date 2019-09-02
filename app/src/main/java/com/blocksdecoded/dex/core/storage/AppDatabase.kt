@@ -7,14 +7,20 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.blocksdecoded.dex.core.model.EnabledCoin
 import com.blocksdecoded.dex.core.model.Rate
+import com.blocksdecoded.dex.core.model.Market
+import com.blocksdecoded.dex.core.storage.dao.EnabledCoinsDao
+import com.blocksdecoded.dex.core.storage.dao.RatesDao
+import com.blocksdecoded.dex.core.storage.dao.MarketsDao
 
 @Database(
-    version = 1,
+    version = 2,
     exportSchema = false,
-    entities = [Rate::class, EnabledCoin::class]
+    entities = [Market::class, EnabledCoin::class, Rate::class]
 )
 @TypeConverters(DatabaseConverters::class)
 abstract class AppDatabase : RoomDatabase() {
+
+    abstract fun marketsDao(): MarketsDao
 
     abstract fun ratesDao(): RatesDao
 

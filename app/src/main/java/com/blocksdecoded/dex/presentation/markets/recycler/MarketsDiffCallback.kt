@@ -1,11 +1,11 @@
 package com.blocksdecoded.dex.presentation.markets.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.blocksdecoded.dex.core.model.Market
+import com.blocksdecoded.dex.presentation.markets.MarketViewItem
 
 class MarketsDiffCallback(
-    private val oldMarkets: List<Market>,
-    private val newMarkets: List<Market>
+    private val oldMarkets: List<MarketViewItem>,
+    private val newMarkets: List<MarketViewItem>
 ) : DiffUtil.Callback() {
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = try {
         oldMarkets[oldItemPosition].coin.code == newMarkets[newItemPosition].coin.code
@@ -21,7 +21,7 @@ class MarketsDiffCallback(
         val oldCoin = oldMarkets[oldItemPosition]
         val newCoin = newMarkets[newItemPosition]
 
-        oldCoin.rate.price == newCoin.rate.price && oldCoin.rate.priceChange == newCoin.rate.priceChange
+        oldCoin.market.price == newCoin.market.price && oldCoin.market.priceChange == newCoin.market.priceChange
     } catch (e: Exception) {
         false
     }

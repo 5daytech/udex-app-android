@@ -1,7 +1,6 @@
 package com.blocksdecoded.dex.presentation.transactions
 
 import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.core.model.Rate
 import java.math.BigDecimal
 import java.util.*
 

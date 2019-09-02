@@ -14,9 +14,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class TransactionsLoader(
-    val adapter: IAdapter,
-    val ratesManager: IRatesManager,
-    val disposables: CompositeDisposable
+    private val adapter: IAdapter,
+    private val ratesManager: IRatesManager,
+    private val disposables: CompositeDisposable
 ) {
 
     val transactionItems = arrayListOf<TransactionViewItem>()
@@ -48,12 +48,14 @@ class TransactionsLoader(
         loading = false
 
         transactions.mapIndexedTo(transactionItems, { index, transaction ->
+            val histRate = ratesManager.getRate(adapter.coin.code, transaction.timestamp)
+
             TransactionViewItem(
                 adapter.coin,
                 transaction.transactionHash,
                 transaction.amount,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
+                transaction.amount.multiply(histRate?.price ?: BigDecimal.ZERO),
+                histRate?.price ?: BigDecimal.ZERO,
                 transaction.from.firstOrNull()?.address,
                 transaction.to.firstOrNull()?.address,
                 transaction.to.firstOrNull()?.address == adapter.receiveAddress,
@@ -65,10 +67,9 @@ class TransactionsLoader(
         syncSubject.onNext(Unit)
 
         val ratesRequestPool = ArrayList<Single<Pair<TransactionRecord, Rate>>>()
-
         transactions.forEach { transaction ->
             ratesRequestPool.add(
-                ratesManager.getRate(adapter.coin.code, transaction.timestamp)
+                ratesManager.getRateSingle(adapter.coin.code, transaction.timestamp)
                     .map { rate -> transaction to rate }
             )
         }
