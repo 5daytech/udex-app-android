@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.presentation.send
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
@@ -27,6 +28,7 @@ class SendViewModel: CoreViewModel() {
     val amount = MutableLiveData<BigDecimal>()
     val sendInfo = MutableLiveData<SendInfo>()
 
+    val confirmEvent = SingleLiveEvent<SendConfirmDialog.SendConfirmData>()
     val dismissEvent = SingleLiveEvent<Unit>()
     val dismissWithSuccessEvent = SingleLiveEvent<Unit>()
     val openBarcodeScannerEvent = SingleLiveEvent<Unit>()
@@ -47,6 +49,49 @@ class SendViewModel: CoreViewModel() {
         reset()
 
         sendInfo.value = SendInfo(BigDecimal.ZERO, false)
+    }
+
+    private fun confirm() {
+
+        val fee = adapter.fee(userInput.amount, null, feePriority = FeeRatePriority.HIGH)
+        val feeFiatAmount = ratesConverter.getCoinsPrice("ETH", fee)
+        val fiatAmount = sendInfo.value?.fiatAmount ?: BigDecimal.ZERO
+
+        val sendConfirmData = SendConfirmDialog.SendConfirmData(
+            adapter.coin,
+            userInput.address ?: "",
+            userInput.amount,
+            fiatAmount,
+            feeFiatAmount,
+            fiatAmount + feeFiatAmount
+        ) {
+            send(userInput)
+        }
+
+        confirmEvent.postValue(sendConfirmData)
+    }
+
+    private fun send(userInput: SendUserInput) {
+        val address = userInput.address
+        if (address == null) {
+            //TODO: Show empty address error
+            return
+        }
+
+        val amount = userInput.amount
+        if (amount == BigDecimal.ZERO) {
+            //TODO: Show no convertAmount error
+            return
+        }
+
+        adapter.send(address, amount, userInput.feePriority)
+            .uiObserver()
+            .subscribe({
+                dismissWithSuccessEvent.call()
+            }, {
+                Logger.e(it)
+                messageEvent.postValue(R.string.error_send)
+            }).let { disposables.add(it) }
     }
 
     private fun reset() {
@@ -121,29 +166,6 @@ class SendViewModel: CoreViewModel() {
     }
 
     fun onSendClicked() {
-        send(userInput)
-    }
-
-    private fun send(userInput: SendUserInput) {
-        val address = userInput.address
-        if (address == null) {
-            //TODO: Show empty address error
-            return
-        }
-
-        val amount = userInput.amount
-        if (amount == BigDecimal.ZERO) {
-            //TODO: Show no convertAmount error
-            return
-        }
-
-        adapter.send(address, amount, userInput.feePriority)
-                .uiObserver()
-                .subscribe({
-                    dismissWithSuccessEvent.call()
-                }, {
-                    Logger.e(it)
-                    messageEvent.postValue(R.string.error_send)
-                }).let { disposables.add(it) }
+        confirm()
     }
 }

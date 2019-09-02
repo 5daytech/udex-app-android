@@ -39,11 +39,13 @@
         android:id="@+id/send_confirm_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/page_margin"
+        android:layout_marginTop="@dimen/page_margin"
+        android:layout_marginBottom="@dimen/page_margin"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/big_margin"
         android:background="?selectableItemBackground"
         android:ellipsize="middle"
         android:textColor="?attr/PrimaryTextColor"
-        android:text="Hash"
         android:layout_gravity="center_horizontal"
         android:singleLine="true" />
 

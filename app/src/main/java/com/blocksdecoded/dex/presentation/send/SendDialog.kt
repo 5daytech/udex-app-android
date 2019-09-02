@@ -49,6 +49,10 @@ class SendDialog private constructor()
         dismiss()
     }
 
+    private val confirmObserver = Observer<SendConfirmDialog.SendConfirmData> {
+        SendConfirmDialog.show(childFragmentManager, it)
+    }
+
     private val addressObserver = Observer<String> { send_address.updateInput(it) }
 
     private val barcodeObserver = Observer<Unit> { startScanner() }
@@ -131,6 +135,7 @@ class SendDialog private constructor()
         viewModel.coin.reObserve(this, coinObserver)
         viewModel.openBarcodeScannerEvent.reObserve(this, barcodeObserver)
         viewModel.sendInfo.reObserve(this, infoObserver)
+        viewModel.confirmEvent.reObserve(this, confirmObserver)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

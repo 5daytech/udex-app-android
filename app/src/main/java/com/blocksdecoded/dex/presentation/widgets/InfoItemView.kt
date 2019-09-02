@@ -75,9 +75,9 @@ class InfoItemView: ConstraintLayout {
         }
     }
 
-    fun setFiat(amount: BigDecimal?) {
+    fun setFiat(amount: BigDecimal?, isExactAmount: Boolean = true) {
         resetAllViews()
-        base_info_text_value?.text = "$${amount?.toFiatDisplayFormat()}"
+        base_info_text_value?.text = "${if (isExactAmount) "" else "~ "}$${amount?.toFiatDisplayFormat()}"
         base_info_text_value?.visible = true
     }
 
