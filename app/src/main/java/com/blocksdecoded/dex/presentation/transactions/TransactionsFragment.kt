@@ -47,7 +47,7 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
         })
 
         viewModel.coinName.observe(this, Observer {
-            if (it != null) toolbar?.title = "$it Transactions"
+            if (it != null) toolbar?.title = "Transactions"
         })
 
         viewModel.balance.observe(this, Observer {
