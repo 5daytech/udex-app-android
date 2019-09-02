@@ -44,6 +44,7 @@ class App: Application() {
         
         // Managers
 
+        lateinit var coinManager: ICoinManager
         lateinit var feeRateProvider: IFeeRateProvider
         lateinit var adapterManager: IAdapterManager
         lateinit var relayerAdapterManager: IRelayerAdapterManager
@@ -76,6 +77,7 @@ class App: Application() {
 
         appConfiguration = AppConfiguration.DEFAULT
 
+        coinManager = CoinManager(appConfiguration)
         sharedStorage = SharedStorage(this)
         localStorage = AppLocalStorage(sharedStorage)
         appDatabase = AppDatabase.getInstance(this)
@@ -100,6 +102,7 @@ class App: Application() {
         val marketsStorage = MarketsStorage(appDatabase.marketsDao())
         val historicalRatesStorage = RatesStorage(appDatabase.ratesDao())
         ratesManager = RatesManager(
+            coinManager,
             marketsStorage,
             historicalRatesStorage,
             BootstrapApiClient(),
@@ -110,8 +113,8 @@ class App: Application() {
         
         // Init adapter manager
         adapterFactory = AdapterFactory(appConfiguration, ethereumKitManager, feeRateProvider)
-        adapterManager = AdapterManager(CoinManager, adapterFactory, ethereumKitManager, authManager)
+        adapterManager = AdapterManager(coinManager, adapterFactory, ethereumKitManager, authManager)
     
-        relayerAdapterManager = RelayerAdapterManager(ethereumKitManager, zrxKitManager, authManager)
+        relayerAdapterManager = RelayerAdapterManager(coinManager, ethereumKitManager, zrxKitManager, authManager)
     }
 }

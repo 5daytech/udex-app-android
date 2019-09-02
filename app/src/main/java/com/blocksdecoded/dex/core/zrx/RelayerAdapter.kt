@@ -3,7 +3,7 @@ package com.blocksdecoded.dex.core.zrx
 import android.util.Log
 import com.blocksdecoded.dex.core.CancelOrderException
 import com.blocksdecoded.dex.core.CreateOrderException
-import com.blocksdecoded.dex.core.manager.CoinManager
+import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.Logger
@@ -26,6 +26,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class RelayerAdapter(
+	private val coinManager: ICoinManager,
 	private val ethereumKit: EthereumKit,
 	private val zrxKit: ZrxKit,
 	override val refreshInterval: Long,
@@ -48,8 +49,8 @@ class RelayerAdapter(
 	
 	init {
 		val pairs = relayer.availablePairs.map {
-			(CoinManager.getErcCoinForAddress(it.first.address)?.code ?: "") to
-					(CoinManager.getErcCoinForAddress(it.second.address)?.code ?: "")
+			(coinManager.getErcCoinForAddress(it.first.address)?.code ?: "") to
+					(coinManager.getErcCoinForAddress(it.second.address)?.code ?: "")
 		}
 		availablePairsSubject.onNext(pairs)
 
@@ -177,8 +178,8 @@ class RelayerAdapter(
 		amount: BigDecimal,
 		price: BigDecimal
 	): Flowable<SignedOrder> {
-		val baseCoin = CoinManager.getCoin(coinPair.first).type as CoinType.Erc20
-		val quoteCoin = CoinManager.getCoin(coinPair.second).type as CoinType.Erc20
+		val baseCoin = coinManager.getCoin(coinPair.first).type as CoinType.Erc20
+		val quoteCoin = coinManager.getCoin(coinPair.second).type as CoinType.Erc20
 
 		val baseAsset = ZrxKit.assetItemForAddress(baseCoin.address)
 		val quoteAsset = ZrxKit.assetItemForAddress(quoteCoin.address)
@@ -196,8 +197,8 @@ class RelayerAdapter(
 	}
 
 	override fun fill(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): Flowable<String> {
-		val baseCoin = CoinManager.getCoin(coinPair.first).type as CoinType.Erc20
-		val quoteCoin = CoinManager.getCoin(coinPair.second).type as CoinType.Erc20
+		val baseCoin = coinManager.getCoin(coinPair.first).type as CoinType.Erc20
+		val quoteCoin = coinManager.getCoin(coinPair.second).type as CoinType.Erc20
 
 		val pairOrders = when(side) {
 			EOrderSide.BUY -> buyOrders
@@ -224,8 +225,8 @@ class RelayerAdapter(
 		}
 
 	override fun calculateBasePrice(coinPair: Pair<String, String>, side: EOrderSide): BigDecimal = try {
-		val baseCoin = CoinManager.getCoin(coinPair.first).type as CoinType.Erc20
-		val quoteCoin = CoinManager.getCoin(coinPair.second).type as CoinType.Erc20
+		val baseCoin = coinManager.getCoin(coinPair.first).type as CoinType.Erc20
+		val quoteCoin = coinManager.getCoin(coinPair.second).type as CoinType.Erc20
 
 		val pairOrders = when(side) {
 			EOrderSide.BUY -> buyOrders

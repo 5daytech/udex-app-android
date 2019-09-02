@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.core.rates
 
 import android.annotation.SuppressLint
+import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.rates.bootstrap.IBootstrapClient
 import com.blocksdecoded.dex.core.model.Market
@@ -13,6 +14,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
 class RatesManager(
+    private val coinManager: ICoinManager,
     private val marketsStorage: IMarketsStorage,
     private val ratesStorage: IRatesStorage,
     private val bootstrapClient: IBootstrapClient,
@@ -73,18 +75,27 @@ class RatesManager(
 
     //region Public
 
-    override fun getRate(coinCode: String, timeStamp: Long): Rate? =
-        ratesStorage.getRate(coinCode, timeStamp)
+    //region Rates
 
-    override fun getRateSingle(coinCode: String, timeStamp: Long): Single<Rate> =
-        ratesStorage.getRateSingle(coinCode, timeStamp)
+    override fun getRate(coinCode: String, timeStamp: Long): Rate? =
+        ratesStorage.getRate(coinManager.cleanCoinCode(coinCode), timeStamp)
+
+    override fun getRateSingle(coinCode: String, timeStamp: Long): Single<Rate> {
+        val cleanCoinCode = coinManager.cleanCoinCode(coinCode)
+
+        return ratesStorage.getRateSingle(cleanCoinCode, timeStamp)
             .onErrorResumeNext(
-                rateClient.getHistoricalRate(coinCode, timeStamp).map {
-                    val rate = Rate(coinCode, timeStamp, it)
+                rateClient.getHistoricalRate(cleanCoinCode, timeStamp).map {
+                    val rate = Rate(cleanCoinCode, timeStamp, it)
                     ratesStorage.save(rate)
                     rate
                 }
             )
+    }
+
+    //endregion
+
+    //region Markets
 
     override fun getMarkets(coinCodes: List<String>): List<Market> =
         cachedRates.filter {
@@ -92,10 +103,12 @@ class RatesManager(
                  coinCodes.indexOfFirst { symbol -> symbol.contains(it.coinCode) } >= 0
         }
 
-    override fun getMarket(coinCode: String): Market =
-        cachedRates.firstOrNull {
-            it.coinCode == coinCode || it.coinCode.contains(coinCode, true)
+    override fun getMarket(coinCode: String): Market {
+        val cleanCoinCode = coinManager.cleanCoinCode(coinCode)
+        return cachedRates.firstOrNull {
+            it.coinCode == cleanCoinCode || it.coinCode.contains(cleanCoinCode, true)
         } ?: Market(coinCode)
+    }
 
     override fun refresh() {
         marketsStateSubject.value?.let {
@@ -110,6 +123,8 @@ class RatesManager(
             }
         }
     }
+
+    //endregion
 
     override fun stop() {
         disposables.dispose()

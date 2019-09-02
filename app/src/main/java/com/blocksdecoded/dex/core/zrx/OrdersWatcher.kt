@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.core.zrx
 
+import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.rates.RatesConverter
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
@@ -11,6 +12,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
 class OrdersWatcher(
+	private val coinManager: ICoinManager,
 	private val relayerAdapter: IRelayerAdapter,
 	private val ratesConverter: RatesConverter
 ) {
@@ -68,14 +70,14 @@ class OrdersWatcher(
 	
 	private fun refreshSellOrders(pairOrders: RelayerOrders<SignedOrder>) {
 		uiSellOrders = pairOrders.orders
-			.map { UiOrder.fromOrder(ratesConverter, it, SELL) }.sortedBy { it.price }
+			.map { UiOrder.fromOrder(coinManager, ratesConverter, it, SELL) }.sortedBy { it.price }
 		
 		sellOrdersSubject.onNext(uiSellOrders)
 	}
 	
 	private fun refreshBuyOrders(pairOrders: RelayerOrders<SignedOrder>) {
 		uiBuyOrders = pairOrders.orders
-			.map { UiOrder.fromOrder(ratesConverter, it, BUY) }
+			.map { UiOrder.fromOrder(coinManager, ratesConverter, it, BUY) }
 			.sortedByDescending { it.price }
 		
 		buyOrdersSubject.onNext(uiBuyOrders)
@@ -85,6 +87,7 @@ class OrdersWatcher(
 		uiMyOrders = pairOrders.orders
 			.mapIndexed { index, it ->
 				UiOrder.fromOrder(
+					coinManager,
 					ratesConverter,
 					it.first,
 					it.second,

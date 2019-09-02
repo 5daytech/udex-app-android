@@ -5,7 +5,6 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import com.blocksdecoded.dex.core.adapter.IAdapter
-import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
@@ -18,6 +17,7 @@ import java.math.BigDecimal
 class ConvertViewModel : CoreViewModel() {
 
     private lateinit var config: ConvertConfig
+    private val coinManager = App.coinManager
     private val wethWrapper = App.zrxKitManager.zrxKit().getWethWrapperInstance()
     private val ratesConverter = App.ratesConverter
     private var adapter: IAdapter? = null
@@ -51,8 +51,8 @@ class ConvertViewModel : CoreViewModel() {
             return
         }
         
-        fromCoin = CoinManager.getCoin(config.coinCode)
-        toCoin = CoinManager.getCoin(
+        fromCoin = coinManager.getCoin(config.coinCode)
+        toCoin = coinManager.getCoin(
             if (config.type == WRAP)
                 "WETH"
             else

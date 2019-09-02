@@ -3,7 +3,6 @@ package com.blocksdecoded.dex.presentation.exchange.view
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.adapter.FeeRatePriority
-import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
@@ -16,6 +15,7 @@ import java.math.BigDecimal
 
 abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     private val relayerManager = App.relayerAdapterManager
+    private val coinManager = App.coinManager
     protected val relayer: IRelayerAdapter?
         get() = relayerManager.mainRelayer
 
@@ -76,7 +76,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
                     ?.subscribe {
                         marketCodes = it
 
-                        exchangeableCoins = CoinManager.coins.filter { coin ->
+                        exchangeableCoins = coinManager.coins.filter { coin ->
                             marketCodes.firstOrNull { pair ->
                                 pair.first.equals(coin.code, true) ||
                                         pair.second.equals(coin.code, true)

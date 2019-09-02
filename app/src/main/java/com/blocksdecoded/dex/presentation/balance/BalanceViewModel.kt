@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.adapter.AdapterState
 import com.blocksdecoded.dex.core.adapter.IAdapter
-import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.manager.IAdapterManager
+import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.model.CoinBalance
 import com.blocksdecoded.dex.core.model.EConvertType.*
 import com.blocksdecoded.dex.core.rates.IRatesManager
@@ -20,6 +20,7 @@ import java.math.BigDecimal
 
 class BalanceViewModel : CoreViewModel() {
     private val baseCoinCode = "ETH"
+    private val coinManager: ICoinManager = App.coinManager
     private val adaptersManager: IAdapterManager = App.adapterManager
     private val ratesManager: IRatesManager = App.ratesManager
     private val ratesConverter: RatesConverter = App.ratesConverter
@@ -74,7 +75,7 @@ class BalanceViewModel : CoreViewModel() {
         mBalances.postValue(
             adapters.mapIndexed { index, adapter ->
                 CoinBalance(
-                    CoinManager.coins[index],
+                    coinManager.coins[index],
                     adapter.balance,
                     ratesConverter.getCoinsPrice(adapter.coin.code, adapter.balance),
                     ratesConverter.getTokenPrice(adapter.coin.code),
@@ -103,7 +104,7 @@ class BalanceViewModel : CoreViewModel() {
 
         totalBalance.postValue(
             TotalBalanceInfo(
-                CoinManager.getCoin(baseCoinCode),
+                coinManager.getCoin(baseCoinCode),
                 balance,
                 fiatBalance
             )

@@ -2,7 +2,6 @@ package com.blocksdecoded.dex.presentation.markets
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.core.model.Market
 import com.blocksdecoded.dex.core.rates.MarketState.*
 import com.blocksdecoded.dex.core.ui.CoreViewModel
@@ -12,7 +11,7 @@ class MarketsViewModel : CoreViewModel() {
     val loading = MutableLiveData<Boolean>()
     
     private val ratesManager = App.ratesManager
-    private val availableMarkets = CoinManager.coins
+    private val availableMarkets = App.coinManager.coins
 
     init {
         ratesManager.marketsStateSubject

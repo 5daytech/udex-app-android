@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.presentation.orders
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.App.Companion.coinManager
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.core.zrx.OrdersWatcher
@@ -14,6 +15,7 @@ import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.isValidIndex
 
 class OrdersViewModel : CoreViewModel() {
+    private val coinManager = App.coinManager
     private val relayerManager = App.relayerAdapterManager
     private val ratesConverter = App.ratesConverter
 
@@ -42,7 +44,7 @@ class OrdersViewModel : CoreViewModel() {
         relayerManager.mainRelayerUpdatedSignal
             .subscribe {
                 relayer?.let {
-                    zrxOrdersWatcher = OrdersWatcher(it, ratesConverter)
+                    zrxOrdersWatcher = OrdersWatcher(coinManager, it, ratesConverter)
                     onRelayerInitialized()
                 }
             }.let { disposables.add(it) }

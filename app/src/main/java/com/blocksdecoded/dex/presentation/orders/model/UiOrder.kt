@@ -1,6 +1,6 @@
 package com.blocksdecoded.dex.presentation.orders.model
 
-import com.blocksdecoded.dex.core.manager.CoinManager
+import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.core.rates.RatesConverter
@@ -26,14 +26,15 @@ data class UiOrder(
 ){
     companion object {
         fun fromOrder(
+            coinManager: ICoinManager,
             ratesConverter: RatesConverter,
             order: IOrder,
             side: EOrderSide,
             orderInfo: OrderInfo? = null,
             isMine: Boolean = false
         ): UiOrder {
-            val makerCoin = CoinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.makerAssetData))!!
-            val takerCoin = CoinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.takerAssetData))!!
+            val makerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.makerAssetData))!!
+            val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.takerAssetData))!!
 
             val makerAmount = order.makerAssetAmount.toBigDecimal()
                 .movePointLeft((makerCoin.type as CoinType.Erc20).decimal)

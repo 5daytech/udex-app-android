@@ -10,7 +10,7 @@ import com.blocksdecoded.dex.presentation.transactions.TransactionStatus
 import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.visible
-import kotlinx.android.synthetic.main.view_base_info_item.view.*
+import kotlinx.android.synthetic.main.view_info_item.view.*
 import java.math.BigDecimal
 import java.util.*
 
@@ -28,7 +28,7 @@ class InfoItemView: ConstraintLayout {
             base_info_title?.text = value
         }
 
-    init { View.inflate(context, R.layout.view_base_info_item, this) }
+    init { View.inflate(context, R.layout.view_info_item, this) }
 
     constructor(context: Context?) : super(context) { init(null) }
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) { init(attrs) }

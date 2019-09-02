@@ -3,12 +3,14 @@ package com.blocksdecoded.dex.core.zrx
 import android.os.Handler
 import android.os.HandlerThread
 import com.blocksdecoded.dex.core.manager.AuthManager
+import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.manager.IEthereumKitManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 
 class RelayerAdapterManager(
+	private val coinManager: ICoinManager,
     private val ethereumKitManager: IEthereumKitManager,
     private val zrxKitManager: IZrxKitManager,
     private val authManager: AuthManager
@@ -41,6 +43,7 @@ class RelayerAdapterManager(
 		handler.post {
 			authManager.authData?.let { auth ->
 				mainRelayer = RelayerAdapter(
+					coinManager,
 					ethereumKitManager.ethereumKit(auth),
 					zrxKitManager.zrxKit(),
 					refreshInterval,

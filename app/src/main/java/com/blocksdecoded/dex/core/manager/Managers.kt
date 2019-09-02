@@ -2,10 +2,18 @@ package com.blocksdecoded.dex.core.manager
 
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.model.AuthData
+import com.blocksdecoded.dex.core.model.Coin
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import org.web3j.tx.gas.ContractGasProvider
+
+interface ICoinManager {
+    val coins: List<Coin>
+    fun cleanCoinCode(coinCode: String): String
+    fun getCoin(code: String): Coin
+    fun getErcCoinForAddress(address: String): Coin?
+}
 
 interface IEthereumKitManager {
     val gasProvider: ContractGasProvider

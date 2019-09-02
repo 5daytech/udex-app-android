@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 
 class AdapterManager(
-    private val coinManager: CoinManager,
+    private val coinManager: ICoinManager,
     private val adapterFactory: AdapterFactory,
     private val ethereumKitManager: IEthereumKitManager,
     private val authManager: AuthManager

@@ -37,7 +37,7 @@ interface IMarketsStorage {
 interface IRatesStorage {
     fun getRateSingle(coinCode: String, timeStamp: Long): Single<Rate>
 
-    fun getRate(coinCode: String, timeStamp: Long): Rate
+    fun getRate(coinCode: String, timeStamp: Long): Rate?
 
     fun save(vararg rates: Rate)
 
