@@ -6,12 +6,14 @@ import android.text.Editable
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.convert.ConvertConfig.ConvertType.*
+import com.blocksdecoded.dex.presentation.processing.ProcessingDialog
 import com.blocksdecoded.dex.presentation.sent.SentDialog
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
@@ -38,6 +40,7 @@ class ConvertDialog private constructor()
     private var inputConnection: InputConnection? = null
     private val amountChangeSubject: PublishSubject<BigDecimal> = PublishSubject.create()
     private var disposable: Disposable? = null
+    private var processingDialog: DialogFragment? = null
 
     private val amountChangeListener = object: SimpleTextWatcher() {
         override fun afterTextChanged(s: Editable?) {
@@ -130,6 +133,16 @@ class ConvertDialog private constructor()
             activity?.let {
                 SentDialog.open(it.supportFragmentManager, transactionHash)
             }
+        })
+
+        viewModel.dismissDialog.observe(this, Observer { dismiss() })
+
+        viewModel.processingEvent.observe(this, Observer {
+            processingDialog = ProcessingDialog.open(childFragmentManager)
+        })
+
+        viewModel.dismissProcessingEvent.observe(this, Observer {
+            processingDialog?.dismiss()
         })
     }
     

@@ -33,9 +33,11 @@ class ConvertViewModel : CoreViewModel() {
     val convertAmount = MutableLiveData<BigDecimal>()
     val receiveAmount = MutableLiveData<BigDecimal>()
     val convertEnabled = MutableLiveData<Boolean>()
-    
+
     val dismissDialog = SingleLiveEvent<Unit>()
     val transactionSentEvent = SingleLiveEvent<String>()
+    val processingEvent = SingleLiveEvent<Unit>()
+    val dismissProcessingEvent = SingleLiveEvent<Unit>()
     
     fun init(config: ConvertConfig) {
         this.config = config
@@ -92,6 +94,7 @@ class ConvertViewModel : CoreViewModel() {
         val availableBalance = adapter?.availableBalance(null, FeeRatePriority.HIGHEST) ?: BigDecimal.ZERO
         
         if (sendAmount <= availableBalance) {
+            processingEvent.call()
             messageEvent.postValue(R.string.message_convert_processing)
             val sendRaw = sendAmount.movePointRight(18).stripTrailingZeros().toBigInteger()
             onAmountChanged(BigDecimal.ZERO)
@@ -101,8 +104,9 @@ class ConvertViewModel : CoreViewModel() {
                 WRAP -> wethWrapper.deposit(sendRaw)
                 UNWRAP -> wethWrapper.withdraw(sendRaw)
             }.uiSubscribe(disposables, {
-                dismissDialog.call()
+                dismissProcessingEvent.call()
                 transactionSentEvent.postValue(it.transactionHash)
+                dismissDialog.call()
             }, {
                 Logger.e(it)
                 errorEvent.postValue(R.string.error_convert_failed)

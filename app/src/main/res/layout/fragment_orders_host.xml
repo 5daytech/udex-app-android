@@ -60,7 +60,7 @@
                 android:text="My" />
         </com.blocksdecoded.dex.presentation.widgets.DividedTabLayout>
 
-        <com.blocksdecoded.dex.presentation.widgets.pagers.NonScrollableViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/orders_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
