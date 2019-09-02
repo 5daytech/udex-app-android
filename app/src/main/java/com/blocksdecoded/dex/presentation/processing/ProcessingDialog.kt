@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.dialogs.BaseDialog
+import com.blocksdecoded.dex.presentation.widgets.dialogs.BaseDialog
 import kotlinx.android.synthetic.main.dialog_step_processing.*
 
 class ProcessingDialog:

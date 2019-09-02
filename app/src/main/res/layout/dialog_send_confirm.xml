@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/DarkAccentBackground"
+    android:layout_gravity="center">
+
+    <TextView
+        style="@style/DialogTitleText"
+        android:id="@+id/dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/page_margin"
+        android:layout_marginTop="@dimen/element_margin"
+        android:text="Confirm"/>
+
+    <TextView
+        style="@style/MainTitleText"
+        android:id="@+id/send_confirm_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/turquoise"
+        android:text="1.13 ETH"/>
+
+    <TextView
+        style="@style/BoldText"
+        android:id="@+id/send_confirm_fiat_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/element_margin"
+        android:layout_gravity="center_horizontal"
+        android:textColor="?attr/PrimaryTextColor"
+        android:text="$0.00"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.HashView
+        android:id="@+id/send_confirm_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/page_margin"
+        android:background="?selectableItemBackground"
+        android:ellipsize="middle"
+        android:textColor="?attr/PrimaryTextColor"
+        android:text="Hash"
+        android:layout_gravity="center_horizontal"
+        android:singleLine="true" />
+
+    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+        android:id="@+id/send_confirm_fee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        app:iiv_name="@string/info_fee"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+        android:id="@+id/send_confirm_total_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        android:layout_marginTop="@dimen/element_margin"
+        app:iiv_visible_divider="false"
+        app:iiv_name="@string/info_total"/>
+
+    <Button
+        style="@style/PrimaryButton"
+        android:id="@+id/send_confirm_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/page_margin"
+        android:paddingTop="@dimen/element_margin"
+        android:paddingBottom="@dimen/element_margin"
+        android:paddingEnd="@dimen/big_margin"
+        android:paddingStart="@dimen/big_margin"
+        android:text="@string/action_send"/>
+
+</LinearLayout>

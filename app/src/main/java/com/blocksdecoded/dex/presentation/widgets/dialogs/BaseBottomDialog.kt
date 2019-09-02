@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.dialogs
+package com.blocksdecoded.dex.presentation.widgets.dialogs
 
 import android.app.Dialog
 import android.os.Bundle

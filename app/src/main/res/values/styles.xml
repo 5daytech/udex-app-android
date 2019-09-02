@@ -9,6 +9,7 @@
     <attr name="MainBackground" format="reference|color"/>
     <attr name="SelectableRippleColor" format="reference|color"/>
     <attr name="DarkAccentBackground" format="reference|color"/>
+    <attr name="DividerColor" format="reference|color"/>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -32,6 +33,7 @@
         <item name="MainBackground">@color/dark_main</item>
         <item name="SmallActionButtonColor">@color/action_button_dark</item>
         <item name="DarkAccentBackground">@color/dark_accent</item>
+        <item name="DividerColor">@color/dark_divider</item>
     </style>
 
     <style name="AppTheme.LaunchScreen">
@@ -52,15 +54,14 @@
     </style>
 
     <style name="Divider">
-        <item name="android:background">?attr/HintTextColor</item>
-        <item name="android:alpha">0.5</item>
+        <item name="android:background">?attr/DividerColor</item>
     </style>
 
     <!-- Dialogs -->
     <style name="BottomSheet" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:backgroundDimAmount">0.7</item>
+        <item name="android:backgroundDimAmount">0.6</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowMinWidthMajor">100%</item>
         <item name="android:windowMinWidthMinor">100%</item>

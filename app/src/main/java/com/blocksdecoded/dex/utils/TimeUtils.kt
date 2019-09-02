@@ -17,6 +17,10 @@ object TimeUtils {
         return SimpleDateFormat("dd MMMM hh:mm", Locale.US).format(date)
     }
 
+    fun dateToDisplayFormat(date: Date): String {
+        return SimpleDateFormat("MMM dd, yyyy, hh:mm a", Locale.US).format(date)
+    }
+
     fun timestampToShort(timestamp: Long): String {
         val date = Date(timestamp * 1000)
 

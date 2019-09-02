@@ -53,6 +53,7 @@ class TransactionsLoader(
                 transaction.transactionHash,
                 transaction.amount,
                 BigDecimal.ZERO,
+                BigDecimal.ZERO,
                 transaction.from.firstOrNull()?.address,
                 transaction.to.firstOrNull()?.address,
                 transaction.to.firstOrNull()?.address == adapter.receiveAddress,
@@ -80,6 +81,7 @@ class TransactionsLoader(
 
                 if (index >= 0) {
                     transactionItems[index].fiatValue = it.first.amount.multiply(it.second.price)
+                    transactionItems[index].historicalRate = it.second.price
                     syncTransaction.onNext(index)
                     syncSubject.onNext(Unit)
                 }

@@ -29,6 +29,7 @@
     <string name="hint_all_transactions">All transactions</string>
     <string name="hint_available_balance">Available Balance</string>
     <string name="subtitle_restore">Enter Secret Key</string>
+    <string name="subtitle_transaction_sent">Transaction sent \u2713</string>
     <string name="markets_list_hint">market info (24h)</string>
     <string name="message_wait_blockchain">Wait till transaction is added to blockchain</string>
     <string name="message_order_creating">Order processing…</string>
@@ -61,7 +62,16 @@
     <string name="action_confirm">Confirm</string>
     <string name="action_restore_wallet">Restore</string>
     <string name="action_view_on">View on Etherscan.io</string>
-    <string name="subtitle_transaction_sent">Transaction sent \u2713</string>
+    <string name="action_send">Send</string>
+
+
+    <string name="info_fee">Fee:</string>
+    <string name="info_total">Total:</string>
+    <string name="info_historical_rate">Historical Rate:</string>
+    <string name="info_date">Time:</string>
+    <string name="info_status">Status:</string>
+    <string name="info_from">From:</string>
+    <string name="info_to">To:</string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>

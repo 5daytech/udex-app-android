@@ -6,7 +6,7 @@ import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.FragmentManager
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.dialogs.BaseDialog
+import com.blocksdecoded.dex.presentation.widgets.dialogs.BaseDialog
 import com.blocksdecoded.dex.utils.clipboard.ClipboardManager
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import kotlinx.android.synthetic.main.dialog_transaction_sent.*

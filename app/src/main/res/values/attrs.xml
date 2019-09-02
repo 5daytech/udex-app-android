@@ -3,4 +3,9 @@
     <declare-styleable name="MainToolbar">
         <attr name="mt_title" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="InfoItemView">
+        <attr name="iiv_name" format="reference|string"/>
+        <attr name="iiv_visible_divider" format="boolean"/>
+    </declare-styleable>
 </resources>

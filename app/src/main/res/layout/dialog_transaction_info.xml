@@ -45,99 +45,92 @@
             android:layout_marginEnd="@dimen/page_margin"/>
 
         <TextView
-            style="@style/DialogTitleText"
+            style="@style/MainTitleText"
             android:id="@+id/transaction_info_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/transaction_info_coin_name"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="@dimen/page_margin"
+            android:layout_marginTop="@dimen/big_margin"
             android:gravity="center"
-            android:textColor="?attr/PrimaryLightColor"
+            android:textColor="@color/green"
             android:text="+ 0,001 ETH"/>
 
         <TextView
-            style="@style/HintText"
+            style="@style/BoldText"
             android:id="@+id/transaction_info_fiat_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/transaction_info_amount"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/element_margin"
             android:gravity="center"
+            android:textColor="?attr/PrimaryTextColor"
             android:text="$3.0"/>
 
-        <TextView
-            style="@style/HintText"
-            android:id="@+id/transaction_info_rate"
-            android:layout_width="0dp"
+        <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+            android:id="@+id/transaction_info_hist_rate"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/transaction_info_fiat_amount"
-            android:layout_marginTop="@dimen/element_margin"
-            android:paddingStart="@dimen/page_margin"
-            android:paddingEnd="@dimen/page_margin"
-            android:paddingTop="@dimen/element_margin"
-            android:paddingBottom="@dimen/element_margin"
-            android:text="Rate"/>
+            android:layout_marginTop="@dimen/page_margin"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin"
+            app:iiv_name="@string/info_historical_rate"/>
 
-        <TextView
-            style="@style/HintText"
+        <com.blocksdecoded.dex.presentation.widgets.InfoItemView
             android:id="@+id/transaction_info_date"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/transaction_info_rate"
-            android:paddingStart="@dimen/page_margin"
-            android:paddingEnd="@dimen/page_margin"
-            android:paddingTop="@dimen/element_margin"
-            android:paddingBottom="@dimen/element_margin"
-            android:text="Date"/>
+            app:layout_constraintTop_toBottomOf="@+id/transaction_info_hist_rate"
+            android:layout_marginTop="@dimen/element_margin"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin"
+            app:iiv_name="@string/info_date"/>
 
-        <TextView
-            style="@style/HintText"
+        <com.blocksdecoded.dex.presentation.widgets.InfoItemView
             android:id="@+id/transaction_info_status"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/transaction_info_date"
-            android:paddingStart="@dimen/page_margin"
-            android:paddingEnd="@dimen/page_margin"
-            android:paddingTop="@dimen/element_margin"
-            android:paddingBottom="@dimen/element_margin"
-            android:text="Status"/>
+            android:layout_marginTop="@dimen/element_margin"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin"
+            app:iiv_name="@string/info_status"/>
 
-        <TextView
-            style="@style/HintText"
+        <com.blocksdecoded.dex.presentation.widgets.InfoItemView
             android:id="@+id/transaction_info_from"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/transaction_info_status"
-            android:paddingStart="@dimen/page_margin"
-            android:paddingEnd="@dimen/page_margin"
-            android:paddingTop="@dimen/element_margin"
-            android:paddingBottom="@dimen/element_margin"
-            android:text="From"/>
+            android:layout_marginTop="@dimen/element_margin"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin"
+            app:iiv_visible_divider="false"
+            app:iiv_name="@string/info_from"/>
 
-        <TextView
-            style="@style/HintText"
+        <com.blocksdecoded.dex.presentation.widgets.InfoItemView
             android:id="@+id/transaction_info_to"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/transaction_info_from"
-            android:paddingStart="@dimen/page_margin"
-            android:paddingEnd="@dimen/page_margin"
-            android:paddingTop="@dimen/element_margin"
-            android:paddingBottom="@dimen/element_margin"
-            android:text="To"/>
+            android:layout_marginTop="@dimen/element_margin"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin"
+            app:iiv_visible_divider="false"
+            app:iiv_name="@string/info_to"/>
 
         <Button
             android:id="@+id/transaction_info_full"

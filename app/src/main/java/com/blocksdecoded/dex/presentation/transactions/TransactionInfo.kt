@@ -10,6 +10,7 @@ data class TransactionViewItem(
 	val transactionHash: String,
 	val coinValue: BigDecimal,
 	var fiatValue: BigDecimal?,
+	var historicalRate: BigDecimal?,
 	val from: String?,
 	val to: String?,
 	val incoming: Boolean,

@@ -18,4 +18,5 @@
 
     <dimen name="bottom_sheet_big_margin">72dp</dimen>
     <dimen name="bottom_sheet_small_margin">40dp</dimen>
+    <dimen name="short_address_width">170dp</dimen>
 </resources>

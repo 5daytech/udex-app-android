@@ -6,11 +6,12 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
+import com.blocksdecoded.dex.presentation.widgets.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.transactions.TransactionViewItem
 import com.blocksdecoded.dex.utils.setTextColorRes
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
+import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.dialog_transaction_info.*
 import java.math.BigDecimal
 
@@ -30,6 +31,17 @@ class TransactionInfoDialog private constructor()
         transaction_info_amount.text = "${if (isPositive) "+" else "-"} ${it.coinValue.abs().toDisplayFormat()} ${it.coin.code}"
         transaction_info_fiat_amount.text = "$${it.fiatValue?.abs()?.toFiatDisplayFormat()}"
         transaction_info_amount.setTextColorRes(if (isPositive) R.color.green else R.color.red)
+
+        transaction_info_date.setDate(it.date)
+        transaction_info_from.visible = it.incoming
+        transaction_info_to.visible = !it.incoming
+        transaction_info_from.setAddress(it.from)
+        transaction_info_to.setAddress(it.to)
+
+        transaction_info_hist_rate.setRate(it.coin, it.historicalRate)
+
+        transaction_info_status.setStatus(it.status)
+
     }
 	
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
+import com.blocksdecoded.dex.presentation.widgets.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.convert.ConvertConfig.ConvertType.*
 import com.blocksdecoded.dex.presentation.processing.ProcessingDialog
 import com.blocksdecoded.dex.presentation.sent.SentDialog

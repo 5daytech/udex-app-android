@@ -10,6 +10,7 @@
 
     <color name="dark_main">#1E1E24</color>
     <color name="dark_accent">#21222C</color>
+    <color name="dark_divider">#353744</color>
 
     <!--Text-->
     <color name="light_text">#FFF</color>
