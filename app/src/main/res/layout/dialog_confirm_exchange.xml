@@ -103,7 +103,7 @@
         android:id="@+id/exchange_confirm_send_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_send_hint"
         app:layout_constraintLeft_toLeftOf="@+id/exchange_confirm_send_hint"
         android:layout_marginTop="@dimen/small_margin"
@@ -114,7 +114,7 @@
         android:id="@+id/exchange_confirm_receive_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/exchange_confirm_receive_hint"
         app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_receive_hint"
         android:layout_marginTop="@dimen/small_margin"/>

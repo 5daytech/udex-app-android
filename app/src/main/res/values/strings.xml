@@ -73,6 +73,8 @@
     <string name="info_from">From:</string>
     <string name="info_to">To:</string>
     <string name="account_history">Exchange History</string>
+    <string name="message_empty_transactions">THERE’S NO ANY\nTRANSACTIONS YET</string>
+    <string name="account_coin_manager">Coin Manager</string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>

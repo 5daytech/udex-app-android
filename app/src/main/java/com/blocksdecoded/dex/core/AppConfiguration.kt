@@ -43,17 +43,17 @@ class AppConfiguration(
     )
 
     val testExchangePairs = listOf(
-        getExchangePair("WBTC", "WETH")
-//        getExchangePair("ZRX", "WETH")
-//        getExchangePair("DAI", "WETH"),
-//        getExchangePair("USDT", "WETH"),
-//        getExchangePair("HT", "WETH"),
-//        getExchangePair("LINK", "WETH"),
-//        getExchangePair("ZRX", "WBTC"),
-//        getExchangePair("DAI", "WBTC"),
-//        getExchangePair("USDT", "WBTC"),
-//        getExchangePair("HT", "WBTC"),
-//        getExchangePair("LINK", "WBTC")
+        getExchangePair("WBTC", "WETH"),
+        getExchangePair("ZRX", "WETH"),
+        getExchangePair("DAI", "WETH"),
+        getExchangePair("USDT", "WETH"),
+        getExchangePair("HT", "WETH"),
+        getExchangePair("LINK", "WETH"),
+        getExchangePair("ZRX", "WBTC"),
+        getExchangePair("DAI", "WBTC"),
+        getExchangePair("USDT", "WBTC"),
+        getExchangePair("HT", "WBTC"),
+        getExchangePair("LINK", "WBTC")
     )
 
     companion object {

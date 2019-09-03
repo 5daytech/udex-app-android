@@ -9,5 +9,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/element_margin"
-        app:mt_title="Address Book"/>
+        app:mt_title="@string/account_address_book"/>
 </LinearLayout>

@@ -18,6 +18,7 @@ class TransactionsViewModel : CoreViewModel() {
 
     val coinName = MutableLiveData<String?>()
     val balance = MutableLiveData<TotalBalanceInfo>()
+    val isEmpty = MutableLiveData<Boolean>()
     val transactions = MutableLiveData<List<TransactionViewItem>>()
     val syncTransaction = SingleLiveEvent<Int>()
 
@@ -26,6 +27,7 @@ class TransactionsViewModel : CoreViewModel() {
     val showTransactionInfoEvent = SingleLiveEvent<TransactionViewItem>()
 
     fun init(coinCode: String?) {
+        isEmpty.postValue(false)
         val adapter = adapterManager.adapters.firstOrNull { it.coin.code == coinCode }
 
         if (adapter == null) {
@@ -47,8 +49,10 @@ class TransactionsViewModel : CoreViewModel() {
         transactionsLoader.syncTransaction
             .subscribe { syncTransaction.postValue(it) }
             .let { disposables.add(it) }
+
         transactionsLoader.syncSubject
             .subscribe {
+                isEmpty.postValue(transactionsLoader.transactionItems.isEmpty())
                 this.transactions.postValue(transactionsLoader.transactionItems)
             }.let { disposables.add(it) }
     }

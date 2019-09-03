@@ -74,10 +74,10 @@
     <style name="FloatingDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:backgroundDimAmount">0.7</item>
+        <item name="android:backgroundDimAmount">0.6</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowMinWidthMajor">90%</item>
-        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:windowMinWidthMajor">95%</item>
+        <item name="android:windowMinWidthMinor">95%</item>
         <item name="android:windowSoftInputMode">adjustResize|stateHidden</item>
     </style>
 
@@ -160,7 +160,7 @@
         <item name="android:textColor">?attr/SecondaryHintTextColor</item>
     </style>
 
-    <style name="SettingsText" parent="RegularText">
+    <style name="SettingsText" parent="SemiboldText">
         <item name="android:textSize">17sp</item>
         <item name="android:textColor">?attr/PrimaryTextColor</item>
     </style>

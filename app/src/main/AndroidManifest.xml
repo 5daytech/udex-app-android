@@ -65,6 +65,9 @@
         <activity android:name=".presentation.history.HistoryActivity"
                   android:screenOrientation="portrait"/>
 
+        <activity android:name=".presentation.coinmanager.CoinManagerActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

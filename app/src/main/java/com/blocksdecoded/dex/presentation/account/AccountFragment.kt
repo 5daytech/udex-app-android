@@ -6,6 +6,7 @@ import com.blocksdecoded.dex.BuildConfig
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.coinmanager.CoinManagerActivity
 import com.blocksdecoded.dex.presentation.history.HistoryActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
 import kotlinx.android.synthetic.main.fragment_account.*
@@ -34,6 +35,10 @@ class AccountFragment : CoreFragment(R.layout.fragment_account) {
 
         account_address_book?.setOnClickListener {
             activity?.let { AddressBookActivity.start(it) }
+        }
+
+        account_coin_manager?.setOnClickListener {
+            activity?.let { CoinManagerActivity.start(it) }
         }
 
         account_exchange_history?.setOnClickListener {

@@ -65,6 +65,9 @@ class RelayerAdapter(
 
 	//region Private
 
+	private fun getErcCoin(coinCode: String): CoinType.Erc20 =
+		coinManager.getCoin(coinCode).type as CoinType.Erc20
+
 	private fun refreshOrders() {
 		relayer.availablePairs.forEachIndexed { index, pair ->
 			val base = pair.first.assetData
@@ -168,6 +171,19 @@ class RelayerAdapter(
         }
     }
 
+	private fun getPairOrders(coinPair: Pair<String, String>, side: EOrderSide): RelayerOrders<SignedOrder> {
+		val baseCoin = getErcCoin(coinPair.first)
+		val quoteCoin = getErcCoin(coinPair.second)
+
+		return when(side) {
+			EOrderSide.BUY -> buyOrders
+			else -> sellOrders
+		}.getPair(
+			ZrxKit.assetItemForAddress(baseCoin.address).assetData,
+			ZrxKit.assetItemForAddress(quoteCoin.address).assetData
+		)
+	}
+
 	//endregion
 	
 	//region Public
@@ -225,16 +241,10 @@ class RelayerAdapter(
 		}
 
 	override fun calculateBasePrice(coinPair: Pair<String, String>, side: EOrderSide): BigDecimal = try {
-		val baseCoin = coinManager.getCoin(coinPair.first).type as CoinType.Erc20
-		val quoteCoin = coinManager.getCoin(coinPair.second).type as CoinType.Erc20
+		val baseCoin = getErcCoin(coinPair.first)
+		val quoteCoin = getErcCoin(coinPair.second)
 
-		val pairOrders = when(side) {
-			EOrderSide.BUY -> buyOrders
-			else -> sellOrders
-		}.getPair(
-			ZrxKit.assetItemForAddress(baseCoin.address).assetData,
-			ZrxKit.assetItemForAddress(quoteCoin.address).assetData
-		)
+		val pairOrders = getPairOrders(coinPair, side)
 
 		val makerAmount = pairOrders.orders.first().makerAssetAmount.toBigDecimal()
 			.movePointLeft(if (side == EOrderSide.BUY) quoteCoin.decimal else baseCoin.decimal)
@@ -254,6 +264,8 @@ class RelayerAdapter(
 	}
 
 	override fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): BigDecimal = try {
+		val pairOrders = getPairOrders(coinPair, side)
+
 		val price = calculateBasePrice(coinPair, side)
 		amount.multiply(price)
 	} catch (e: Exception) {

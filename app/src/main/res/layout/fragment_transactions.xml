@@ -24,27 +24,39 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/page_margin"/>
 
-        <LinearLayout
-            android:orientation="vertical"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                style="@style/SmallHintText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/page_margin"
-                android:paddingStart="@dimen/page_margin"
-                android:paddingEnd="@dimen/page_margin"
-                android:paddingBottom="@dimen/element_margin"
-                android:text="@string/hint_all_transactions"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/transactions_recycler"
+            <com.blocksdecoded.dex.presentation.widgets.EmptyItemsView
+                android:id="@+id/transactions_empty"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/transactions_container"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    style="@style/SmallHintText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/page_margin"
+                    android:paddingStart="@dimen/page_margin"
+                    android:paddingEnd="@dimen/page_margin"
+                    android:paddingBottom="@dimen/element_margin"
+                    android:text="@string/hint_all_transactions"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/transactions_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
+        </FrameLayout>
+
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -13,6 +13,7 @@ import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.transactions.info.TransactionInfoDialog
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.utils.ui.ToastHelper
+import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_transactions.*
 
 class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
@@ -52,6 +53,11 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
 
         viewModel.balance.observe(this, Observer {
             if (it != null) transactions_total_balance.update(it)
+        })
+
+        viewModel.isEmpty.observe(this, Observer { emptyTransactions ->
+            transactions_container?.visible = !emptyTransactions
+            transactions_empty?.visible = emptyTransactions
         })
     }
 
