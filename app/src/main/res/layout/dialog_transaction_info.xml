@@ -80,7 +80,7 @@
             android:layout_marginTop="@dimen/page_margin"
             android:layout_marginStart="@dimen/page_margin"
             android:layout_marginEnd="@dimen/page_margin"
-            app:iiv_name="@string/info_historical_rate"/>
+            app:iiv_title="@string/info_historical_rate"/>
 
         <com.blocksdecoded.dex.presentation.widgets.InfoItemView
             android:id="@+id/transaction_info_date"
@@ -92,7 +92,7 @@
             android:layout_marginTop="@dimen/element_margin"
             android:layout_marginStart="@dimen/page_margin"
             android:layout_marginEnd="@dimen/page_margin"
-            app:iiv_name="@string/info_date"/>
+            app:iiv_title="@string/info_date"/>
 
         <com.blocksdecoded.dex.presentation.widgets.InfoItemView
             android:id="@+id/transaction_info_status"
@@ -104,7 +104,7 @@
             android:layout_marginTop="@dimen/element_margin"
             android:layout_marginStart="@dimen/page_margin"
             android:layout_marginEnd="@dimen/page_margin"
-            app:iiv_name="@string/info_status"/>
+            app:iiv_title="@string/info_status"/>
 
         <com.blocksdecoded.dex.presentation.widgets.InfoItemView
             android:id="@+id/transaction_info_from"
@@ -117,7 +117,7 @@
             android:layout_marginStart="@dimen/page_margin"
             android:layout_marginEnd="@dimen/page_margin"
             app:iiv_visible_divider="false"
-            app:iiv_name="@string/info_from"/>
+            app:iiv_title="@string/info_from"/>
 
         <com.blocksdecoded.dex.presentation.widgets.InfoItemView
             android:id="@+id/transaction_info_to"
@@ -130,7 +130,7 @@
             android:layout_marginStart="@dimen/page_margin"
             android:layout_marginEnd="@dimen/page_margin"
             app:iiv_visible_divider="false"
-            app:iiv_name="@string/info_to"/>
+            app:iiv_title="@string/info_to"/>
 
         <Button
             android:id="@+id/transaction_info_full"

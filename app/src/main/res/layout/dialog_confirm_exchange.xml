@@ -14,42 +14,61 @@
         android:id="@+id/exchange_confirm_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/exchange_confirm_coins_container"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="@dimen/page_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/exchange_confirm_coins_container"
         android:layout_marginStart="@dimen/page_margin"
-        android:text="Trade:"/>
+        android:text="Trade"/>
 
     <LinearLayout
         android:id="@+id/exchange_confirm_coins_container"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@+id/exchange_confirm_title"
-        app:layout_constraintTop_toTopOf="@+id/exchange_confirm_title"
-        app:layout_constraintBottom_toBottomOf="@+id/exchange_confirm_title"
-        android:layout_marginLeft="@dimen/element_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/page_margin"
         android:gravity="center"
         android:padding="@dimen/element_margin">
         <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
             android:id="@+id/exchange_confirm_from_coin"
-            android:layout_width="@dimen/coin_size"
-            android:layout_height="@dimen/coin_size" />
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_wrap"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_switch"
             android:layout_marginLeft="@dimen/element_margin"
             android:layout_marginRight="@dimen/element_margin"/>
 
         <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
             android:id="@+id/exchange_confirm_to_coin"
-            android:layout_width="@dimen/coin_size"
-            android:layout_height="@dimen/coin_size" />
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
     </LinearLayout>
 
-    <!-- Send -->
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/exchange_confirm_send_amount"
+        app:layout_constraintTop_toTopOf="@+id/exchange_confirm_send_hint">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:background="?attr/MainBackground" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:background="?attr/MainDarkBackground"/>
+    </LinearLayout>
 
     <TextView
         style="@style/HintText"
@@ -59,66 +78,70 @@
         app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_coins_container"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginTop="@dimen/big_margin"
-        android:text="Sell: "/>
-
-    <TextView
-        android:id="@+id/exchange_confirm_send_amount"
-        style="@style/AmountText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/exchange_confirm_send_hint"
-        app:layout_constraintLeft_toRightOf="@+id/exchange_confirm_send_hint"
-        android:textSize="16sp"
-        android:layout_marginStart="@dimen/element_margin"/>
-
-    <!-- Receive -->
+        android:layout_marginTop="@dimen/page_margin"
+        android:paddingTop="@dimen/medium_margin"
+        android:textColor="@color/red"
+        android:textSize="13sp"
+        android:text="You Sell"/>
 
     <TextView
         style="@style/HintText"
         android:id="@+id/exchange_confirm_receive_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_send_hint"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginTop="@dimen/page_margin"
-        android:text="Buy: "/>
+        app:layout_constraintTop_toTopOf="@+id/exchange_confirm_send_hint"
+        app:layout_constraintRight_toRightOf="parent"
+        android:paddingTop="@dimen/medium_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        android:textColor="@color/turquoise"
+        android:textSize="13sp"
+        android:text="You Buy"/>
+
 
     <TextView
-        android:id="@+id/exchange_confirm_receive_amount"
         style="@style/AmountText"
+        android:id="@+id/exchange_confirm_send_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/exchange_confirm_receive_hint"
-        app:layout_constraintBottom_toBottomOf="@+id/exchange_confirm_receive_hint"
-        app:layout_constraintLeft_toRightOf="@+id/exchange_confirm_receive_hint"
-        android:textSize="16sp"
-        android:layout_marginStart="@dimen/element_margin"/>
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_send_hint"
+        app:layout_constraintLeft_toLeftOf="@+id/exchange_confirm_send_hint"
+        android:layout_marginTop="@dimen/small_margin"
+        android:paddingBottom="@dimen/medium_margin"/>
+
+    <TextView
+        style="@style/AmountText"
+        android:id="@+id/exchange_confirm_receive_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/exchange_confirm_receive_hint"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_receive_hint"
+        android:layout_marginTop="@dimen/small_margin"/>
 
     <!-- Price -->
 
-    <TextView
-        style="@style/HintText"
-        android:id="@+id/exchange_confirm_price_hint"
-        android:layout_width="wrap_content"
+    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+        android:id="@+id/exchange_confirm_fee"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_receive_hint"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:iiv_title="@string/info_fee"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_send_amount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginTop="@dimen/page_margin"
-        android:text="Price per token:"/>
+        android:layout_marginEnd="@dimen/page_margin"
+        android:layout_marginTop="@dimen/page_margin"/>
 
-    <TextView
+    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
         android:id="@+id/exchange_confirm_price"
-        style="@style/AmountText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/exchange_confirm_price_hint"
-        app:layout_constraintBottom_toBottomOf="@+id/exchange_confirm_price_hint"
-        app:layout_constraintLeft_toRightOf="@+id/exchange_confirm_price_hint"
-        android:textSize="16sp"
-        android:layout_marginStart="@dimen/element_margin"/>
+        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_fee"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        app:iiv_title="Price per token:"
+        app:iiv_visible_divider="false"/>
 
     <Button
         android:id="@+id/exchange_confirm"
@@ -128,7 +151,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_price_hint"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_price"
         android:layout_marginTop="@dimen/big_margin"
         android:text="@string/action_confirm"/>
 

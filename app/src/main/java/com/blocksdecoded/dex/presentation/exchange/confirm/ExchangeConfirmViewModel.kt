@@ -23,7 +23,8 @@ class ExchangeConfirmViewModel: CoreViewModel() {
 			coinManager.getCoin(info.receiveCoin),
 			info.sendAmount,
 			info.receiveAmount,
-			info.receiveAmount.divide(info.sendAmount)
+			info.receiveAmount.divide(info.sendAmount),
+			BigDecimal.ZERO
 		)
 		
 		viewState.value = state
@@ -39,6 +40,7 @@ class ExchangeConfirmViewModel: CoreViewModel() {
 		val toCoin: Coin,
 		val sendAmount: BigDecimal,
 		val receiveAmount: BigDecimal,
-		val price: BigDecimal
+		val price: BigDecimal,
+		val estimatedFee: BigDecimal
 	)
 }

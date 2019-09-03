@@ -7,6 +7,7 @@
     <attr name="ActionButtonBackground" format="reference|color"/>
     <attr name="SmallActionButtonColor" format="reference|color"/>
     <attr name="MainBackground" format="reference|color"/>
+    <attr name="MainDarkBackground" format="reference|color"/>
     <attr name="SelectableRippleColor" format="reference|color"/>
     <attr name="DarkAccentBackground" format="reference|color"/>
     <attr name="DividerColor" format="reference|color"/>
@@ -31,6 +32,7 @@
         <item name="SecondaryHintTextColor">@color/light_secondary_hint</item>
         <item name="ActionButtonBackground">@color/dark_main</item>
         <item name="MainBackground">@color/dark_main</item>
+        <item name="MainDarkBackground">@color/dark_main_dark</item>
         <item name="SmallActionButtonColor">@color/action_button_dark</item>
         <item name="DarkAccentBackground">@color/dark_accent</item>
         <item name="DividerColor">@color/dark_divider</item>

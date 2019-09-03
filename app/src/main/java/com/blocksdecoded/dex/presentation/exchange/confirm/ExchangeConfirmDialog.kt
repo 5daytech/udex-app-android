@@ -37,9 +37,12 @@ class ExchangeConfirmDialog: BaseDialog(R.layout.dialog_confirm_exchange) {
 	private fun refreshState(state: ExchangeConfirmViewModel.ViewState) {
 		exchange_confirm_from_coin?.bind(state.fromCoin.code)
 		exchange_confirm_to_coin?.bind(state.toCoin.code)
-		exchange_confirm_send_amount?.text = "${state.sendAmount.toDisplayFormat()} ${state.fromCoin.code}"
-		exchange_confirm_receive_amount?.text = "${state.receiveAmount.toDisplayFormat()} ${state.toCoin.code}"
-		exchange_confirm_price?.text = "${state.price.toLongDisplayFormat()} ${state.toCoin.code}"
+		exchange_confirm_send_hint?.text = "Sell ${state.fromCoin.code}"
+		exchange_confirm_receive_hint?.text = "Buy ${state.toCoin.code}"
+		exchange_confirm_send_amount?.text = "${state.sendAmount.toDisplayFormat()}"
+		exchange_confirm_receive_amount?.text = "${state.receiveAmount.toDisplayFormat()}"
+		exchange_confirm_price?.setCoin(state.toCoin, state.price)
+		exchange_confirm_fee?.setFiat(state.estimatedFee, false)
 	}
 
     companion object {

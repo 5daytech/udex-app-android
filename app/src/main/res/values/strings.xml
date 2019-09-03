@@ -65,7 +65,7 @@
     <string name="action_send">Send</string>
 
 
-    <string name="info_fee">Fee:</string>
+    <string name="info_fee">Estimated Fee:</string>
     <string name="info_total">Total:</string>
     <string name="info_historical_rate">Historical Rate:</string>
     <string name="info_date">Time:</string>

@@ -9,6 +9,7 @@ import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.presentation.transactions.TransactionStatus
 import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
+import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.view_info_item.view.*
 import java.math.BigDecimal
@@ -42,11 +43,11 @@ class InfoItemView: ConstraintLayout {
         attrs?.let {
             val ta = context.obtainStyledAttributes(attrs, R.styleable.InfoItemView, 0, 0)
             try {
-                val nameResId = ta.getResourceId(R.styleable.InfoItemView_iiv_name, 0)
+                val nameResId = ta.getResourceId(R.styleable.InfoItemView_iiv_title, 0)
                 name = if (nameResId > 0) {
                     context.getString(nameResId)
                 } else {
-                    ta.getString(R.styleable.InfoItemView_iiv_name) ?: "Attr"
+                    ta.getString(R.styleable.InfoItemView_iiv_title) ?: "Attr"
                 }
 
                 dividerVisible = ta.getBoolean(R.styleable.InfoItemView_iiv_visible_divider, true)
@@ -64,6 +65,12 @@ class InfoItemView: ConstraintLayout {
     fun setRate(coin: Coin, rate: BigDecimal?) {
         resetAllViews()
         base_info_text_value?.text = "$${rate?.toFiatDisplayFormat()} per ${coin.code}"
+        base_info_text_value?.visible = true
+    }
+
+    fun setCoin(coin: Coin, amount: BigDecimal?) {
+        resetAllViews()
+        base_info_text_value?.text = "${amount?.toLongDisplayFormat()} ${coin.code}"
         base_info_text_value?.visible = true
     }
 
