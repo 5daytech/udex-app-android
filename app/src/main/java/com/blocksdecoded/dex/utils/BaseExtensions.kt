@@ -2,12 +2,11 @@ package com.blocksdecoded.dex.utils
 
 import android.content.Context
 import android.graphics.Point
-import android.view.Gravity
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorRes
+import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
@@ -53,6 +52,9 @@ fun View.setVisible(visible: Boolean, animated: Boolean = false) {
         AnimationHelper.collapse(this)
     }
 }
+
+fun ViewGroup.inflate(@LayoutRes layoutId: Int, attach: Boolean = false): View =
+    LayoutInflater.from(context).inflate(layoutId, this, attach)
 
 val Fragment.currentFocus : View?
     get() = activity?.window?.currentFocus

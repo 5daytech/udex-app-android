@@ -1,5 +1,8 @@
 package com.blocksdecoded.dex.core.tradehistory
 
-interface ITradeHistoryManager {
+import io.reactivex.subjects.BehaviorSubject
 
+interface ITradeHistoryManager {
+    val tradesHistory: List<TradeRecord>
+    val tradesUpdateSubject: BehaviorSubject<Unit>
 }

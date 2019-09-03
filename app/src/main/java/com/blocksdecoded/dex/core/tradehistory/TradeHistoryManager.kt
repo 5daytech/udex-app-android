@@ -4,6 +4,7 @@ import com.blocksdecoded.dex.core.manager.IAdapterManager
 import com.blocksdecoded.dex.core.model.TransactionRecord
 import com.blocksdecoded.dex.utils.Logger
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.BehaviorSubject
 
 class TradeHistoryManager(
     val adapterManager: IAdapterManager
@@ -11,7 +12,12 @@ class TradeHistoryManager(
 
     private val disposables = CompositeDisposable()
 
-    private val tradeTransactions = HashMap<String, List<TradeRecordItem>>()
+    override val tradesHistory: List<TradeRecord>
+        get() = tradeTransactions.values.toList()
+
+    override val tradesUpdateSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
+
+    private val tradeTransactions = HashMap<String, TradeRecord>()
 
     private val transactionsPool = HashMap<String, ArrayList<TransactionRecord>>()
 
@@ -61,13 +67,18 @@ class TradeHistoryManager(
 
                     if (!allItemsIdentical) {
                         if (tradeTransactions[transaction.transactionHash] == null) {
-                            tradeTransactions[transaction.transactionHash] = tradeTx
+                            tradeTransactions[transaction.transactionHash] = TradeRecord(
+                                transaction.transactionHash,
+                                tradeTx,
+                                listOf()
+                            )
                         }
                     }
                 }
             }
         }
 
+        tradesUpdateSubject.onNext(Unit)
         tradeTransactions.forEach {
             Logger.d("Trade record ${it.key} - ${it.value}")
         }
