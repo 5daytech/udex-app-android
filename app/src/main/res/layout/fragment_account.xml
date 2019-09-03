@@ -27,235 +27,87 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
                 android:id="@+id/account_security_center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/page_margin"
-                android:padding="@dimen/page_margin"
-                android:foreground="?selectableItemBackground">
-                <ImageView
-                    android:id="@+id/account_security_center_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_security"/>
-                <TextView
-                    style="@style/SettingsText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/page_margin"
-                    android:layout_toEndOf="@+id/account_security_center_image"
-                    android:layout_gravity="center"
-                    android:text="@string/account_security_center"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_right"
-                    android:layout_alignParentEnd="true"/>
-            </RelativeLayout>
+                app:siv_action_switch="false"
+                app:siv_title="@string/account_security_center"
+                app:siv_icon="@drawable/ic_security"
+                android:background="?selectableItemBackground"/>
 
-            <View
-                style="@style/Divider"
+            <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
+                android:id="@+id/account_exchange_history"
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/account_security_center"
-                android:layout_marginStart="@dimen/page_margin"
-                android:layout_marginEnd="@dimen/page_margin" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:siv_action_switch="false"
+                app:siv_title="@string/account_history"
+                app:siv_icon="@drawable/ic_about"
+                android:background="?selectableItemBackground" />
 
-            <RelativeLayout
+            <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
                 android:id="@+id/account_language"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/account_security_center"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="@dimen/big_margin"
-                android:visibility="gone"
-                android:padding="@dimen/page_margin"
-                android:foreground="?selectableItemBackground">
-                <ImageView
-                    android:id="@+id/language_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_language"/>
-                <TextView
-                    style="@style/SettingsText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/page_margin"
-                    android:layout_toEndOf="@+id/language_image"
-                    android:text="@string/account_language"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_right"
-                    android:layout_alignParentEnd="true"/>
-            </RelativeLayout>
+                android:layout_marginTop="@dimen/page_margin"
+                app:siv_action_switch="false"
+                app:siv_title="@string/account_language"
+                app:siv_icon="@drawable/ic_language"
+                android:background="?selectableItemBackground"
+                android:visibility="gone"/>
 
-            <View
-                style="@style/Divider"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                app:layout_constraintTop_toBottomOf="@+id/account_language"
-                android:visibility="gone"
-                android:layout_marginStart="@dimen/page_margin"
-                android:layout_marginEnd="@dimen/page_margin" />
-
-            <RelativeLayout
+            <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
                 android:id="@+id/account_light_mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/account_language"
+                app:layout_constraintTop_toBottomOf="@+id/account_exchange_history"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="@dimen/big_margin"
-                android:padding="@dimen/page_margin"
-                android:foreground="?selectableItemBackground">
-                <ImageView
-                    android:id="@+id/light_mode_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_light_mode"/>
-                <TextView
-                    style="@style/SettingsText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/page_margin"
-                    android:gravity="center_vertical"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/light_mode_image"
-                    android:text="@string/account_light_mode"/>
+                android:layout_marginTop="@dimen/page_margin"
+                app:siv_action_switch="true"
+                app:siv_title="@string/account_light_mode"
+                app:siv_icon="@drawable/ic_light_mode"
+                android:background="?selectableItemBackground" />
 
-                <Switch
-                    android:id="@+id/account_light_mode_switch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
-                    android:layout_alignParentEnd="true"
-                    android:track="@drawable/bg_switch_track" />
-            </RelativeLayout>
-
-            <View
-                style="@style/Divider"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                app:layout_constraintTop_toBottomOf="@+id/account_light_mode"
-                android:layout_marginStart="@dimen/page_margin"
-                android:layout_marginEnd="@dimen/page_margin" />
-
-            <RelativeLayout
+            <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
                 android:id="@+id/account_address_book"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/account_light_mode"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/big_margin"
-                android:padding="@dimen/page_margin"
-                android:foreground="?selectableItemBackground">
-                <ImageView
-                    android:id="@+id/account_address_book_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_address_book"/>
-                <TextView
-                    style="@style/SettingsText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/page_margin"
-                    android:layout_toEndOf="@+id/account_address_book_image"
-                    android:layout_gravity="center"
-                    android:text="@string/account_address_book"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_right"
-                    android:layout_alignParentEnd="true"/>
-            </RelativeLayout>
+                app:siv_action_switch="false"
+                app:siv_title="@string/account_address_book"
+                app:siv_icon="@drawable/ic_address_book"
+                android:background="?selectableItemBackground" />
 
-            <View
-                style="@style/Divider"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                app:layout_constraintTop_toBottomOf="@+id/account_address_book"
-                android:layout_marginStart="@dimen/page_margin"
-                android:layout_marginEnd="@dimen/page_margin" />
-
-            <RelativeLayout
+            <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
                 android:id="@+id/account_about_app"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/account_address_book"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:padding="@dimen/page_margin"
-                android:foreground="?selectableItemBackground">
-                <ImageView
-                    android:id="@+id/account_about_app_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_about"/>
-                <TextView
-                    style="@style/SettingsText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/page_margin"
-                    android:layout_toEndOf="@+id/account_about_app_image"
-                    android:layout_gravity="center"
-                    android:text="@string/account_about_app"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_right"
-                    android:layout_alignParentEnd="true"/>
-            </RelativeLayout>
+                app:siv_action_switch="false"
+                app:siv_title="@string/account_about_app"
+                app:siv_icon="@drawable/ic_about"
+                android:background="?selectableItemBackground" />
 
-            <View
-                style="@style/Divider"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                app:layout_constraintTop_toBottomOf="@+id/account_about_app"
-                android:layout_marginStart="@dimen/page_margin"
-                android:layout_marginEnd="@dimen/page_margin" />
-
-            <RelativeLayout
+            <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
                 android:id="@+id/account_share_app"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/account_about_app"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:padding="@dimen/page_margin"
-                android:foreground="?selectableItemBackground">
-                <ImageView
-                    android:id="@+id/account_share_app_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_share"/>
-                <TextView
-                    style="@style/SettingsText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/page_margin"
-                    android:layout_toEndOf="@+id/account_share_app_image"
-                    android:layout_gravity="center"
-                    android:text="@string/account_share"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_right"
-                    android:layout_alignParentEnd="true"/>
-            </RelativeLayout>
-
-            <View
-                style="@style/Divider"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                app:layout_constraintTop_toBottomOf="@+id/account_share_app"
-                android:layout_marginStart="@dimen/page_margin"
-                android:layout_marginEnd="@dimen/page_margin" />
+                app:siv_action_switch="false"
+                app:siv_title="@string/account_share"
+                app:siv_icon="@drawable/ic_share"
+                android:background="?selectableItemBackground" />
 
             <TextView
                 android:id="@+id/app_version"

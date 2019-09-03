@@ -62,6 +62,9 @@
         <activity android:name=".presentation.pin.PinActivity"
                   android:screenOrientation="portrait"/>
 
+        <activity android:name=".presentation.history.HistoryActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

@@ -8,4 +8,11 @@
         <attr name="iiv_name" format="reference|string"/>
         <attr name="iiv_visible_divider" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="SettingsItemView">
+        <attr name="siv_title" format="reference|string"/>
+        <attr name="siv_icon" format="reference"/>
+        <attr name="siv_action_switch" format="boolean" />
+        <attr name="siv_visible_divider" format="boolean"/>
+    </declare-styleable>
 </resources>

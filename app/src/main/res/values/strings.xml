@@ -72,6 +72,7 @@
     <string name="info_status">Status:</string>
     <string name="info_from">From:</string>
     <string name="info_to">To:</string>
+    <string name="account_history">Exchange History</string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>

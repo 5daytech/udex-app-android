@@ -2,12 +2,11 @@ package com.blocksdecoded.dex.presentation.account
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import com.blocksdecoded.dex.BuildConfig
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
-import com.blocksdecoded.dex.presentation.backup.BackupActivity
+import com.blocksdecoded.dex.presentation.history.HistoryActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
 import kotlinx.android.synthetic.main.fragment_account.*
 
@@ -24,9 +23,11 @@ class AccountFragment : CoreFragment(R.layout.fragment_account) {
         account_security_center?.setOnClickListener {
             activity?.let { SecurityCenterActivity.start(it) }
         }
+
         account_about_app?.setOnClickListener {
             activity?.let { AboutAppActivity.start(it) }
         }
+
         account_language?.setOnClickListener {
             activity?.let { LanguageActivity.start(it) }
         }
@@ -35,12 +36,16 @@ class AccountFragment : CoreFragment(R.layout.fragment_account) {
             activity?.let { AddressBookActivity.start(it) }
         }
 
-        account_share_app?.setOnClickListener {  }
+        account_exchange_history?.setOnClickListener {
+            activity?.let { HistoryActivity.start(it) }
+        }
 
-        account_light_mode?.setOnClickListener { account_light_mode_switch.isChecked = !account_light_mode_switch.isChecked }
+        account_share_app?.setOnClickListener {
 
-        account_light_mode_switch?.setOnCheckedChangeListener { compoundButton, b ->
+        }
 
+        account_light_mode?.setOnClickListener {
+            account_light_mode?.isChecked = !(account_light_mode?.isChecked ?: false)
         }
 
         app_version?.text = "v ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})\n${BuildConfig.FLAVOR}"

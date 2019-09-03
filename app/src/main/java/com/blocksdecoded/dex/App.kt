@@ -23,6 +23,8 @@ import com.blocksdecoded.dex.core.shared.ISharedStorage
 import com.blocksdecoded.dex.core.shared.SharedStorage
 import com.blocksdecoded.dex.core.storage.AppDatabase
 import com.blocksdecoded.dex.core.storage.RatesStorage
+import com.blocksdecoded.dex.core.tradehistory.ITradeHistoryManager
+import com.blocksdecoded.dex.core.tradehistory.TradeHistoryManager
 import com.blocksdecoded.dex.core.zrx.IRelayerAdapterManager
 import com.blocksdecoded.dex.core.zrx.RelayerAdapterManager
 import com.blocksdecoded.dex.core.zrx.IZrxKitManager
@@ -47,6 +49,7 @@ class App: Application() {
         lateinit var coinManager: ICoinManager
         lateinit var feeRateProvider: IFeeRateProvider
         lateinit var adapterManager: IAdapterManager
+        lateinit var tradeHistoryManager: ITradeHistoryManager
         lateinit var relayerAdapterManager: IRelayerAdapterManager
         lateinit var authManager: AuthManager
         lateinit var wordsManager: IWordsManager
@@ -116,5 +119,7 @@ class App: Application() {
         adapterManager = AdapterManager(coinManager, adapterFactory, ethereumKitManager, authManager)
     
         relayerAdapterManager = RelayerAdapterManager(coinManager, ethereumKitManager, zrxKitManager, authManager)
+        tradeHistoryManager =
+            TradeHistoryManager(adapterManager)
     }
 }

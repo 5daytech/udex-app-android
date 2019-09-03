@@ -1,0 +1,63 @@
+package com.blocksdecoded.dex.presentation.widgets
+
+import android.content.Context
+import android.util.AttributeSet
+import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.utils.visible
+import kotlinx.android.synthetic.main.view_settings_item.view.*
+
+class SettingsItemView: ConstraintLayout {
+    private var title: String = "name"
+        set(value) {
+            field = value
+            settings_item_title?.text = value
+        }
+
+    private var iconRes: Int = R.drawable.ic_about
+        set(value) {
+            field = value
+            settings_item_icon?.setImageResource(value)
+        }
+
+    private var actionSwitch: Boolean = false
+        set(value) {
+            field = value
+            settings_item_chevron?.visible = !actionSwitch
+            settings_item_switch?.visible = actionSwitch
+        }
+
+    var isChecked: Boolean
+        get() = settings_item_switch?.isChecked ?: false
+        set(value) { settings_item_switch?.isChecked = value }
+
+    init { View.inflate(context, R.layout.view_settings_item, this) }
+
+    constructor(context: Context?) : super(context)
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) { init(attrs) }
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) { init(attrs) }
+
+    private fun init(attrs: AttributeSet?) {
+        attrs?.let {
+            val ta = context.obtainStyledAttributes(attrs, R.styleable.SettingsItemView, 0, 0)
+            try {
+                val nameResId = ta.getResourceId(R.styleable.SettingsItemView_siv_title, 0)
+                title = if (nameResId > 0) {
+                    context.getString(nameResId)
+                } else {
+                    ta.getString(R.styleable.SettingsItemView_siv_title) ?: "Attr"
+                }
+
+                iconRes = ta.getResourceId(R.styleable.SettingsItemView_siv_icon, R.drawable.ic_about)
+                actionSwitch = ta.getBoolean(R.styleable.SettingsItemView_siv_action_switch, false)
+            } finally {
+                ta.recycle()
+            }
+        }
+    }
+}

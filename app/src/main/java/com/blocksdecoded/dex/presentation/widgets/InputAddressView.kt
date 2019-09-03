@@ -24,9 +24,9 @@ class InputAddressView : ConstraintLayout {
             onPasteClick: (() -> Unit)? = null,
             onDeleteClick: (() -> Unit)? = null
     ) {
-        address_barcode_scan.visibility = View.VISIBLE
-        address_paste.visibility = View.VISIBLE
-        address_delete.visibility = View.GONE
+        address_barcode_scan?.visibility = View.VISIBLE
+        address_paste?.visibility = View.VISIBLE
+        address_delete?.visibility = View.GONE
 
         address_barcode_scan?.setOnClickListener { onBarcodeClick?.invoke() }
         address_paste?.setOnClickListener { onPasteClick?.invoke() }
