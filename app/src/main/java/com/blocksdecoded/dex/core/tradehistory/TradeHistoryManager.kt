@@ -13,7 +13,7 @@ class TradeHistoryManager(
     private val disposables = CompositeDisposable()
 
     override val tradesHistory: List<TradeRecord>
-        get() = tradeTransactions.values.toList()
+        get() = tradeTransactions.values.toList().sortedByDescending { it.timestamp }
 
     override val tradesUpdateSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
@@ -69,6 +69,7 @@ class TradeHistoryManager(
                         if (tradeTransactions[transaction.transactionHash] == null) {
                             tradeTransactions[transaction.transactionHash] = TradeRecord(
                                 transaction.transactionHash,
+                                transaction.timestamp,
                                 tradeTx,
                                 listOf()
                             )

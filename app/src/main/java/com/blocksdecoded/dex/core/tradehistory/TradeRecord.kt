@@ -4,6 +4,7 @@ import com.blocksdecoded.dex.core.model.TransactionRecord
 
 data class TradeRecord(
     val hash: String,
+    val timestamp: Long,
     val fromCoins: List<TradeRecordItem>,
     val toCoins: List<TradeRecordItem>
 )
