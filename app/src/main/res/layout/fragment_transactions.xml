@@ -28,9 +28,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.blocksdecoded.dex.presentation.widgets.EmptyItemsView
-                android:id="@+id/transactions_empty"
+                android:id="@+id/empty_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/bottom_sheet_big_margin"
+                app:eiv_message="@string/message_empty_transactions"
                 android:visibility="gone"/>
 
             <LinearLayout

@@ -10,7 +10,8 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreActivity
 import com.blocksdecoded.dex.presentation.history.recycler.TradeHistoryAdapter
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
-import kotlinx.android.synthetic.main.activity_history.*
+import com.blocksdecoded.dex.utils.visible
+import kotlinx.android.synthetic.main.activity_exchange_history.*
 
 class HistoryActivity : CoreActivity() {
 
@@ -19,17 +20,21 @@ class HistoryActivity : CoreActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_history)
+        setContentView(R.layout.activity_exchange_history)
         toolbar.bind(MainToolbar.ToolbarState.BACK) { finish() }
 
         adapter = TradeHistoryAdapter(listOf())
-        trade_history_recycler?.layoutManager = LinearLayoutManager(this)
-        trade_history_recycler?.adapter = adapter
+        exchange_history_recycler?.layoutManager = LinearLayoutManager(this)
+        exchange_history_recycler?.adapter = adapter
 
         viewModel = ViewModelProviders.of(this).get(HistoryViewModel::class.java)
 
         viewModel.trades.observe(this, Observer {
             adapter.setTrades(it)
+        })
+
+        viewModel.emptyTradesVisible.observe(this, Observer {
+            empty_view?.visible = it
         })
     }
 

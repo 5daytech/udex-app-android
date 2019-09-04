@@ -13,7 +13,7 @@
 
     <TextView
         style="@style/RegularText"
-        android:id="@+id/error_message"
+        android:id="@+id/empty_items_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/page_margin"

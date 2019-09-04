@@ -13,9 +13,13 @@ class HistoryViewModel : CoreViewModel() {
 
     init {
         tradeHistoryManager.tradesUpdateSubject
-            .subscribe { trades.postValue(tradeHistoryManager.tradesHistory) }
+            .subscribe { refreshTrades() }
             .let { disposables.add(it) }
 
+        refreshTrades()
+    }
+
+    private fun refreshTrades() {
         trades.postValue(tradeHistoryManager.tradesHistory)
         emptyTradesVisible.postValue(tradeHistoryManager.tradesHistory.isEmpty())
     }

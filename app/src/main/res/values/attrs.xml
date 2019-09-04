@@ -9,6 +9,10 @@
         <attr name="iiv_visible_divider" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="EmptyItemsView">
+        <attr name="eiv_message" format="reference|string"/>
+    </declare-styleable>
+
     <declare-styleable name="SettingsItemView">
         <attr name="siv_title" format="reference|string"/>
         <attr name="siv_icon" format="reference"/>
