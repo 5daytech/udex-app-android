@@ -13,11 +13,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <TextView
+        style="@style/HintText"
+        android:id="@+id/trade_record_date"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/element_margin"
+        android:layout_gravity="end"
+        android:textSize="12sp"
+        android:text="Date"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trade_record_tx_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/page_margin"/>
+        android:layout_marginTop="@dimen/element_margin"/>
 
     <View
         style="@style/Divider"

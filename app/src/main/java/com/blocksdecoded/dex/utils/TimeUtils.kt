@@ -17,6 +17,9 @@ object TimeUtils {
         return SimpleDateFormat("dd MMMM hh:mm", Locale.US).format(date)
     }
 
+    fun timestampToDisplayFormat(timestamp: Long): String =
+        dateToDisplayFormat(Date(timestamp * 1000))
+
     fun dateToDisplayFormat(date: Date): String {
         return SimpleDateFormat("MMM dd, yyyy, hh:mm a", Locale.US).format(date)
     }
