@@ -52,7 +52,6 @@ class SendViewModel: CoreViewModel() {
     }
 
     private fun confirm() {
-
         val fee = adapter.fee(userInput.amount, null, feePriority = FeeRatePriority.HIGH)
         val feeFiatAmount = ratesConverter.getCoinsPrice("ETH", fee)
         val fiatAmount = sendInfo.value?.fiatAmount ?: BigDecimal.ZERO
@@ -136,9 +135,9 @@ class SendViewModel: CoreViewModel() {
     }
 
     fun onScanResult(contents: String?) {
-        contents?.let {
-            receiveAddress.value = it
-            userInput.address = it
+        if (contents != null && contents.isNotEmpty()) {
+            receiveAddress.value = contents
+            userInput.address = contents
             refreshSendEnable()
         }
     }

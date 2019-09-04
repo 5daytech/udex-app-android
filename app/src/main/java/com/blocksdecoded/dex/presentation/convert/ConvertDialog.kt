@@ -66,10 +66,13 @@ class ConvertDialog private constructor()
     
     @SuppressLint("SetTextI18n")
     private fun updateState(state: ConvertState) {
-        convert_title?.text = when (state.type) {
-            WRAP -> "Wrap "
-            UNWRAP -> "Unwrap "
-        } + state.fromCoin.code
+        val action = when (state.type) {
+            WRAP -> "Wrap"
+            UNWRAP -> "Unwrap"
+        }
+
+        convert_title?.text = "$action ${state.fromCoin.code}"
+        convert_confirm?.text = action
     
         convert_total_balance.update(state.balance, false)
         convert_coin_icon?.bind(state.fromCoin.code)
