@@ -107,6 +107,17 @@
         <item name="android:paddingBottom">12dp</item>
     </style>
 
+    <style name="GreenRoundedButton" parent="PrimaryButtonRounded">
+        <item name="android:background">@drawable/bg_green_action_corner_4dp</item>
+        <item name="android:foreground">?selectableItemBackground</item>
+        <item name="android:textColor">@drawable/selector_primary_action_text</item>
+        <item name="android:fontFamily">@font/sf_pro_display_bold</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:paddingBottom">12dp</item>
+    </style>
+
     <style name="ButtonSmallGrey" parent="BoldText">
         <item name="android:background">@drawable/bg_grey</item>
         <item name="android:textColor">?attr/PrimaryTextColor</item>

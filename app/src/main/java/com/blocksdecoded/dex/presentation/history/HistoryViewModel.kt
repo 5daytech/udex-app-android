@@ -9,6 +9,7 @@ class HistoryViewModel : CoreViewModel() {
     private val tradeHistoryManager = App.tradeHistoryManager
 
     val trades = MutableLiveData<List<TradeRecord>>()
+    val emptyTradesVisible = MutableLiveData<Boolean>()
 
     init {
         tradeHistoryManager.tradesUpdateSubject
@@ -16,5 +17,6 @@ class HistoryViewModel : CoreViewModel() {
             .let { disposables.add(it) }
 
         trades.postValue(tradeHistoryManager.tradesHistory)
+        emptyTradesVisible.postValue(tradeHistoryManager.tradesHistory.isEmpty())
     }
 }

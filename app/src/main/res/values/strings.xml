@@ -74,7 +74,12 @@
     <string name="info_to">To:</string>
     <string name="account_history">Exchange History</string>
     <string name="message_empty_transactions">THERE’S NO ANY\nTRANSACTIONS YET</string>
+    <string name="message_empty_exchange_history">THERE’S NO ANY\nEXCHANGES YET</string>
+    <string name="message_empty_orders">THERE’S NO ANY\nORDERS YET</string>
     <string name="account_coin_manager">Coin Manager</string>
+
+    <string name="top_up_title">Top-up Your Account</string>
+    <string name="top_up_description">Add coins before starting\nto exchange</string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>

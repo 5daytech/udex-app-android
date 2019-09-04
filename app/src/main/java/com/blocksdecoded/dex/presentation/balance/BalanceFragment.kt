@@ -16,7 +16,10 @@ import com.blocksdecoded.dex.presentation.transactions.TransactionsActivity
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.convert.ConvertDialog
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
+import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_balance.*
+import kotlinx.android.synthetic.main.view_top_up_account.*
+import kotlinx.android.synthetic.main.view_total_balance.*
 
 class BalanceFragment : CoreFragment(R.layout.fragment_balance),
         BalanceViewHolder.IWalletVHListener {
@@ -41,9 +44,7 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
             balance_total?.update(it)
         })
 
-        viewModel.refreshing.observe(this, Observer {
-//            swipe_refresh?.isRefreshing = it
-        })
+        viewModel.refreshing.observe(this, Observer {})
 
         viewModel.openReceiveDialog.observe(this, Observer { coinCode ->
             activity?.let {
@@ -68,6 +69,14 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
                 TransactionsActivity.start(it, coinCode)
             }
         })
+
+        viewModel.totalBalanceVisible.observe(this, Observer {
+            balance_total?.visible = it
+        })
+
+        viewModel.topUpVisible.observe(this, Observer {
+            top_up_container?.visible = it
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,6 +95,8 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
             viewModel.refresh()
             swipe_refresh?.isRefreshing = false
         }
+
+        top_up_add_coins?.setOnClickListener { viewModel.onAddCoinsClick() }
     }
 
     //region ViewHolder

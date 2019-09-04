@@ -29,7 +29,16 @@
                 android:id="@+id/balance_total"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:padding="@dimen/page_margin"/>
+
+            <include
+                android:id="@+id/top_up_container"
+                layout="@layout/view_top_up_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/page_margin"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:orientation="vertical"

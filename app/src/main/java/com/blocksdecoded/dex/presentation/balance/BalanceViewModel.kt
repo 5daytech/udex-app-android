@@ -31,6 +31,8 @@ class BalanceViewModel : CoreViewModel() {
     val balances: LiveData<List<CoinBalance>> = mBalances
 
     val totalBalance = MutableLiveData<TotalBalanceInfo>()
+    val totalBalanceVisible = MutableLiveData<Boolean>()
+    val topUpVisible = MutableLiveData<Boolean>()
 
     private val mRefreshing = MutableLiveData<Boolean>()
     val refreshing: LiveData<Boolean> = mRefreshing
@@ -42,6 +44,8 @@ class BalanceViewModel : CoreViewModel() {
 
     init {
         mRefreshing.value = true
+        totalBalanceVisible.value = false
+        topUpVisible.value = false
 
         ratesManager.marketsUpdateSubject
             .subscribe { onRefreshAdapters() }
@@ -102,6 +106,10 @@ class BalanceViewModel : CoreViewModel() {
         
         val fiatBalance = ratesConverter.getCoinsPrice(baseCoinCode, balance)
 
+        val isEmptyBalance = balance.stripTrailingZeros() <= BigDecimal.ZERO
+        topUpVisible.postValue(isEmptyBalance)
+        totalBalanceVisible.postValue(!isEmptyBalance)
+
         totalBalance.postValue(
             TotalBalanceInfo(
                 coinManager.getCoin(baseCoinCode),
@@ -117,6 +125,10 @@ class BalanceViewModel : CoreViewModel() {
 
     fun refresh() {
         adaptersManager.refresh()
+    }
+
+    fun onAddCoinsClick() {
+        onReceiveClick(0) // Receive ETH
     }
 
     fun onSendClick(position: Int) {

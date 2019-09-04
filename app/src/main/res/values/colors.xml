@@ -32,6 +32,7 @@
     <color name="transparent_white">#50FFFFFF</color>
     <color name="black">#000</color>
     <color name="green">#2ECC71</color>
+    <color name="transparent_green">#502ECC71</color>
     <color name="red">#E83958</color>
     <color name="yellow">#FFB23F</color>
     <color name="turquoise">#56D6FF</color>
