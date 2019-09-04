@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.presentation.balance.recycler
 
 import android.annotation.SuppressLint
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
@@ -26,6 +27,7 @@ class BalanceViewHolder(
     private val mFiatBalance: TextView = itemView.findViewById(R.id.balance_fiat_amount)
     private val mTokenPrice: TextView = itemView.findViewById(R.id.balance_token_price)
     private val mButtonContainer: View = itemView.findViewById(R.id.balance_buttons_container)
+    private val mCoinInfo: View = itemView.findViewById(R.id.balance_coin_info)
     
     private val mSendBtn: View = itemView.findViewById(R.id.balance_send)
     private val mReceiveBtn: View = itemView.findViewById(R.id.balance_receive)
@@ -40,10 +42,12 @@ class BalanceViewHolder(
         mReceiveBtn.setOnClickListener { listener.onReceiveClick(adapterPosition) }
         mTransactionsBtn.setOnClickListener { listener.onTransactionsClick(adapterPosition) }
         mConvertBtn.setOnClickListener { listener.onConvertClick(adapterPosition) }
+        mCoinInfo.setOnClickListener { listener.onInfoClick(adapterPosition) }
     }
 
     @SuppressLint("SetTextI18n")
     fun onBind(coinBalance: CoinBalance, expanded: Boolean) {
+        mCoinInfo.visible = coinBalance.coin.shortInfoRes != null
         mIcon.bind(coinBalance.coin.code)
         mSymbol.text = coinBalance.coin.code
         mTitle.text = coinBalance.coin.title
@@ -95,5 +99,7 @@ class BalanceViewHolder(
         fun onTransactionsClick(position: Int)
 
         fun onConvertClick(position: Int)
+
+        fun onInfoClick(position: Int)
     }
 }

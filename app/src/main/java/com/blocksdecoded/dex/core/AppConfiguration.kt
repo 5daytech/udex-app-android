@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.core
 
 import com.blocksdecoded.dex.BuildConfig
+import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.zrxkit.ZrxKit
@@ -33,7 +34,7 @@ class AppConfiguration(
 
     val testCoins = listOf(
         Coin("Ethereum", "ETH", CoinType.Ethereum),
-        Coin("Wrapped ETH", "WETH", CoinType.Erc20("0xc778417e063141139fce010982780140aa0cd5ab", 18)),
+        Coin("Wrapped ETH", "WETH", CoinType.Erc20("0xc778417e063141139fce010982780140aa0cd5ab", 18), R.string.info_weth),
         Coin("0x", "ZRX", CoinType.Erc20("0xff67881f8d12f372d91baae9752eb3631ff0ed00", 18)),
         Coin("Wrapped Bitcoin", "WBTC", CoinType.Erc20("0x96639968b1da3438dbb618465bcb2bf7b25ee6ad", 18)),
         Coin("Dai", "DAI", CoinType.Erc20("0xd914796ec26edd3f9651393f9751e0f3c00dd027", 18)), // Its CHO

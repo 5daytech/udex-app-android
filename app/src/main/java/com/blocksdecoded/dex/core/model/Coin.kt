@@ -1,11 +1,13 @@
 package com.blocksdecoded.dex.core.model
 
+import androidx.annotation.StringRes
 import java.io.Serializable
 
 data class Coin(
     val title: String,
     val code: String,
-    val type: CoinType
+    val type: CoinType,
+    @StringRes val shortInfoRes: Int? = null
 ) : Serializable {
 
     override fun equals(other: Any?): Boolean {

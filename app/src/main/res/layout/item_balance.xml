@@ -71,6 +71,18 @@
                 android:textSize="16sp"
                 android:text="Ethereum"/>
 
+            <ImageView
+                android:id="@+id/balance_coin_info"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:layout_constraintLeft_toRightOf="@+id/balance_title"
+                app:layout_constraintTop_toTopOf="@+id/balance_title"
+                app:layout_constraintBottom_toBottomOf="@+id/balance_title"
+                android:layout_marginBottom="2dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_about"
+                android:visibility="visible"/>
+
             <TextView
                 style="@style/SemiboldText"
                 android:id="@+id/balance_amount"

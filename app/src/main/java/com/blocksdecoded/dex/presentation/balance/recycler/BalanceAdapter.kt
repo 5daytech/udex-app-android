@@ -40,6 +40,19 @@ class BalanceAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
+    fun expandViewHolder(position: Int) {
+        if (itemCount < position) return
+
+        mExpandedViewPosition?.let {
+            notifyItemChanged(it, false)
+        }
+
+        if (mExpandedViewPosition != position) {
+            notifyItemChanged(position, true)
+            mExpandedViewPosition = position
+        }
+    }
+
     fun toggleViewHolder(position: Int) {
         mExpandedViewPosition?.let {
             notifyItemChanged(it, false)

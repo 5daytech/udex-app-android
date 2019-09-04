@@ -7,6 +7,7 @@ import com.blocksdecoded.dex.core.adapter.AdapterState
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.manager.IAdapterManager
 import com.blocksdecoded.dex.core.manager.ICoinManager
+import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinBalance
 import com.blocksdecoded.dex.core.model.EConvertType.*
 import com.blocksdecoded.dex.core.rates.IRatesManager
@@ -41,6 +42,7 @@ class BalanceViewModel : CoreViewModel() {
     val openReceiveDialog = SingleLiveEvent<String>()
     val openTransactions = SingleLiveEvent<String>()
     val openConvertDialog = SingleLiveEvent<ConvertConfig>()
+    val openCoinInfo = SingleLiveEvent<Coin>()
 
     init {
         mRefreshing.value = true
@@ -159,6 +161,12 @@ class BalanceViewModel : CoreViewModel() {
     fun onTransactionsClick(position: Int) {
         if (adapters.isValidIndex(position)) {
             openTransactions.postValue(adapters[position].coin.code)
+        }
+    }
+
+    fun onInfoClick(position: Int) {
+        if (adapters.isValidIndex(position)) {
+            openCoinInfo.postValue(adapters[position].coin)
         }
     }
 

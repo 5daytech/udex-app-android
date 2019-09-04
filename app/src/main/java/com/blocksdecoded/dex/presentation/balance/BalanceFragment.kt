@@ -19,7 +19,6 @@ import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.view_top_up_account.*
-import kotlinx.android.synthetic.main.view_total_balance.*
 
 class BalanceFragment : CoreFragment(R.layout.fragment_balance),
         BalanceViewHolder.IWalletVHListener {
@@ -77,6 +76,10 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
         viewModel.topUpVisible.observe(this, Observer {
             top_up_container?.visible = it
         })
+
+        viewModel.openCoinInfo.observe(this, Observer {
+            CoinInfoDialog.show(childFragmentManager, it)
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -107,7 +110,7 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
     override fun onReceiveClick(position: Int) = viewModel.onReceiveClick(position)
     override fun onTransactionsClick(position: Int) = viewModel.onTransactionsClick(position)
     override fun onConvertClick(position: Int) = viewModel.onConvertClick(position)
-
+    override fun onInfoClick(position: Int) = viewModel.onInfoClick(position)
     //endregion
 
     companion object {

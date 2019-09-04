@@ -80,6 +80,15 @@
 
     <string name="top_up_title">Top-up Your Account</string>
     <string name="top_up_description">Add coins before starting\nto exchange</string>
+    <string name="info_weth">The reason you need wETH is to be able to trade ETH
+        for other ERC-20 tokens on decentralized platforms like TradEx.
+        Because decentralized platforms running on Ethereum use smart contracts to facilitate trades directly between users,
+        every user needs to have the same standardized format for every token they trade.
+        This ensures tokens don\’t get lost in translation.\n\n
+        When you \'wrap\' ETH, you aren\'t really wrapping so much as trading via a smart contract for an equal token called wETH.
+        If you want to get plain ETH back you need to \'unwrap\' it.
+        AKA trade it back for plain ETH.
+    </string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>
