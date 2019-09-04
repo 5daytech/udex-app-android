@@ -6,30 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/onboarding_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_guest"
-        android:alpha="0.3"/>
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/onboarding_indicator"/>
 
     <me.relex.circleindicator.CircleIndicator
         android:id="@+id/onboarding_indicator"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/onboarding_viewpager"
+        app:layout_constraintBottom_toTopOf="@+id/guest_create_wallet"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin"
         app:ci_gravity="start|center_vertical"/>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/onboarding_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/onboarding_content_height"
-        android:overScrollMode="never"
-        android:layout_marginBottom="@dimen/big_margin"
-        app:layout_constraintBottom_toTopOf="@+id/guest_create_wallet"/>
 
     <Button
         android:id="@+id/guest_create_wallet"

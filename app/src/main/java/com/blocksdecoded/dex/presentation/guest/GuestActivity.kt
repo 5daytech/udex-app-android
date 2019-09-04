@@ -24,11 +24,12 @@ class GuestActivity : CoreActivity() {
     private lateinit var viewModel: GuestViewModel
 
     private val onboardingPages = listOf(
-        R.string.onboarding_about_app to R.drawable.ic_about,
-        R.string.onboarding_long_text to R.drawable.ic_about,
-        R.string.onboarding_about_app to R.drawable.ic_about,
-        R.string.onboarding_about_app to R.drawable.ic_about,
-        R.string.onboarding_about_app to R.drawable.ic_about
+        GuestPageConfig(R.string.onboarding_about_app, 0, 0),
+        GuestPageConfig(R.string.onboarding_about_app, 0, 0),
+        GuestPageConfig(R.string.onboarding_about_app, 0, 0),
+        GuestPageConfig(R.string.onboarding_about_app, 0, 0),
+        GuestPageConfig(R.string.onboarding_about_app, 0, 0),
+        GuestPageConfig(R.string.onboarding_about_app, 0, 0)
     )
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,36 +68,6 @@ class GuestActivity : CoreActivity() {
     companion object {
         fun start(context: Context) {
             context.startActivity(Intent(context, GuestActivity::class.java))
-        }
-    }
-}
-
-class GuestOnboardingAdapter(
-    fragmentManager: FragmentManager,
-    private val pages: List<Pair<Int, Int>>
-): FragmentPagerAdapter(fragmentManager) {
-    override fun getItem(position: Int): Fragment =
-        GuestOnboardingFragment.newInstance(pages[position])
-
-    override fun getCount(): Int = pages.size
-}
-
-class GuestOnboardingFragment: CoreFragment(R.layout.fragment_guest_onboarding) {
-    private var config: Pair<Int, Int>? = null
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        config?.let {
-            onboarding_title?.setText(it.first)
-            onboarding_icon?.setImageResource(it.second)
-        }
-    }
-
-    companion object {
-        fun newInstance(config: Pair<Int, Int>): Fragment {
-            return GuestOnboardingFragment().apply {
-                this.config = config
-            }
         }
     }
 }

@@ -33,20 +33,22 @@
         android:padding="@dimen/element_margin">
         <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
             android:id="@+id/exchange_confirm_from_coin"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_width="@dimen/big_coin_size"
+            android:layout_height="@dimen/big_coin_size"
+            android:layout_marginEnd="@dimen/element_margin"/>
 
         <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             android:src="@drawable/ic_switch"
             android:layout_marginLeft="@dimen/element_margin"
             android:layout_marginRight="@dimen/element_margin"/>
 
         <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
             android:id="@+id/exchange_confirm_to_coin"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_width="@dimen/big_coin_size"
+            android:layout_height="@dimen/big_coin_size"
+            android:layout_marginStart="@dimen/element_margin"/>
     </LinearLayout>
 
     <LinearLayout

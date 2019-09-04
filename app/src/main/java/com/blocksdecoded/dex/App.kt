@@ -119,7 +119,6 @@ class App: Application() {
         adapterManager = AdapterManager(coinManager, adapterFactory, ethereumKitManager, authManager)
     
         relayerAdapterManager = RelayerAdapterManager(coinManager, ethereumKitManager, zrxKitManager, authManager)
-        tradeHistoryManager =
-            TradeHistoryManager(adapterManager)
+        tradeHistoryManager = TradeHistoryManager(adapterManager)
     }
 }

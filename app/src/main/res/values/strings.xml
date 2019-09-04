@@ -82,9 +82,6 @@
     <string name="top_up_description">Add coins before starting\nto exchange</string>
 
     <string name="onboarding_about_app">ERC20\nDecentralized\nExchange</string>
-    <string name="onboarding_long_text">MobdEx\nfor other ERC-20 tokens on decentralized platforms like TradEx.
-        Because decentralized platforms running on Ethereum use smart contracts to facilitate trades directly between users,
-        every user needs to have the same standardized format for every token they trade.</string>
 
     <string name="info_weth">The reason you need wETH is to be able to trade ETH
         for other ERC-20 tokens on decentralized platforms like TradEx.
