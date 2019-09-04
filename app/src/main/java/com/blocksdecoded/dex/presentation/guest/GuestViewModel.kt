@@ -15,14 +15,11 @@ class GuestViewModel : CoreViewModel() {
 	
 	fun onRestoreClick() {
 		openRestoreEvent.call()
-		finishEvent.call()
 	}
 	
 	fun onCreateClick() {
 		val words = wordsManager.generateWords()
 		authManager.login(words)
 		openBackupEvent.call()
-		finishEvent.call()
 	}
-	
 }

@@ -19,7 +19,7 @@ class LaunchActivity: CoreActivity() {
             
             else -> {
                 App.authManager.safeLoad()
-                MainActivity.start(this)
+                MainActivity.start(this, false)
             }
         }
     

@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.presentation.main
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -106,10 +107,17 @@ class MainActivity :
     }
 
     companion object {
-        fun start(context: Context) {
+        fun start(context: Context, asNewTask: Boolean = true) {
             val intent = Intent(context, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+
+            if (asNewTask) {
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+
             context.startActivity(intent)
+
+            if (asNewTask)
+                (context as Activity).overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
     }
 
