@@ -55,6 +55,8 @@
     <string name="account_about_app">About App</string>
     <string name="account_share">Tell friends</string>
     <string name="account_address_book">Address Book</string>
+    <string name="account_history">Exchange History</string>
+    <string name="account_coin_manager">Coin Manager</string>
     <string name="action_cancel_order">Cancel order</string>
     <string name="action_forward">Forward</string>
     <string name="hint_your_address">Your address</string>
@@ -64,7 +66,6 @@
     <string name="action_view_on">View on Etherscan.io</string>
     <string name="action_send">Send</string>
 
-
     <string name="info_fee">Estimated Fee:</string>
     <string name="info_total">Total:</string>
     <string name="info_historical_rate">Historical Rate:</string>
@@ -72,14 +73,19 @@
     <string name="info_status">Status:</string>
     <string name="info_from">From:</string>
     <string name="info_to">To:</string>
-    <string name="account_history">Exchange History</string>
+
     <string name="message_empty_transactions">THERE’S NO ANY\nTRANSACTIONS YET</string>
     <string name="message_empty_exchange_history">THERE’S NO ANY\nEXCHANGES YET</string>
     <string name="message_empty_orders">THERE’S NO ANY\nORDERS YET</string>
-    <string name="account_coin_manager">Coin Manager</string>
 
     <string name="top_up_title">Top-up Your Account</string>
     <string name="top_up_description">Add coins before starting\nto exchange</string>
+
+    <string name="onboarding_about_app">ERC20\nDecentralized\nExchange</string>
+    <string name="onboarding_long_text">MobdEx\nfor other ERC-20 tokens on decentralized platforms like TradEx.
+        Because decentralized platforms running on Ethereum use smart contracts to facilitate trades directly between users,
+        every user needs to have the same standardized format for every token they trade.</string>
+
     <string name="info_weth">The reason you need wETH is to be able to trade ETH
         for other ERC-20 tokens on decentralized platforms like TradEx.
         Because decentralized platforms running on Ethereum use smart contracts to facilitate trades directly between users,

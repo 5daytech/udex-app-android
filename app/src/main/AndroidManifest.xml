@@ -41,14 +41,15 @@
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".presentation.guest.GuestActivity"
-                  android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.FullScreen"/>
 
         <activity android:name=".presentation.account.SecurityCenterActivity"
                   android:screenOrientation="portrait"/>
 
         <activity android:name="com.blocksdecoded.dex.presentation.send.QRScannerActivity"
                   android:screenOrientation="portrait"
-                  android:theme="@style/AppTheme.BarcodeScanner"/>
+                  android:theme="@style/AppTheme.FullScreen"/>
 
         <activity android:name=".presentation.account.AboutAppActivity"
                   android:screenOrientation="portrait"/>
