@@ -33,11 +33,11 @@ class ExchangeHistoryManager(
 
             adapter.getTransactions(limit = 300).subscribe({
                 refreshTransactionsPool(adapter.coin.code, it)
-            }, {}).let { disposables.add(it) }
+            }, { Logger.e(it) }).let { disposables.add(it) }
 
-            adapter.transactionRecordsFlowable.subscribe {
+            adapter.transactionRecordsFlowable.subscribe({
                 refreshTransactionsPool(adapter.coin.code, it)
-            }
+            }, { Logger.e(it) }).let { disposables.add(it) }
         }
     }
 
