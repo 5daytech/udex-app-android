@@ -6,8 +6,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.history.ExchangeRecord
-import com.blocksdecoded.dex.core.history.ExchangeRecordItem
+import com.blocksdecoded.dex.core.manager.history.ExchangeRecord
+import com.blocksdecoded.dex.core.manager.history.ExchangeRecordItem
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
 import com.blocksdecoded.dex.presentation.widgets.HashView
 import com.blocksdecoded.dex.utils.TimeUtils

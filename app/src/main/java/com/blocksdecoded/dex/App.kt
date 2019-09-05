@@ -2,20 +2,22 @@ package com.blocksdecoded.dex
 
 import android.app.Application
 import com.blocksdecoded.dex.core.adapter.AdapterFactory
-import com.blocksdecoded.dex.core.rates.bootstrap.BootstrapApiClient
+import com.blocksdecoded.dex.core.manager.rates.bootstrap.BootstrapApiClient
 import com.blocksdecoded.dex.core.manager.*
 import com.blocksdecoded.dex.core.manager.fee.FeeRateProvider
 import com.blocksdecoded.dex.core.manager.fee.IFeeRateProvider
-import com.blocksdecoded.dex.core.rates.IRatesManager
-import com.blocksdecoded.dex.core.rates.RatesManager
-import com.blocksdecoded.dex.core.rates.remote.RatesApiClient
-import com.blocksdecoded.dex.core.rates.remote.RatesClientConfig
+import com.blocksdecoded.dex.core.manager.rates.IRatesManager
+import com.blocksdecoded.dex.core.manager.rates.RatesManager
+import com.blocksdecoded.dex.core.manager.rates.remote.RatesApiClient
+import com.blocksdecoded.dex.core.manager.rates.remote.RatesClientConfig
 import com.blocksdecoded.dex.core.security.ISecuredStorage
 import com.blocksdecoded.dex.core.security.SecuredStorage
 import com.blocksdecoded.dex.core.security.encryption.EncryptionManager
 import com.blocksdecoded.dex.core.security.encryption.IEncryptionManager
 import com.blocksdecoded.dex.core.AppConfiguration
-import com.blocksdecoded.dex.core.rates.RatesConverter
+import com.blocksdecoded.dex.core.manager.auth.AuthManager
+import com.blocksdecoded.dex.core.manager.auth.WordsManager
+import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.core.storage.MarketsStorage
 import com.blocksdecoded.dex.core.shared.AppLocalStorage
 import com.blocksdecoded.dex.core.shared.IAppLocalStorage
@@ -23,12 +25,12 @@ import com.blocksdecoded.dex.core.shared.ISharedStorage
 import com.blocksdecoded.dex.core.shared.SharedStorage
 import com.blocksdecoded.dex.core.storage.AppDatabase
 import com.blocksdecoded.dex.core.storage.RatesStorage
-import com.blocksdecoded.dex.core.history.IExchangeHistoryManager
-import com.blocksdecoded.dex.core.history.ExchangeHistoryManager
-import com.blocksdecoded.dex.core.zrx.IRelayerAdapterManager
-import com.blocksdecoded.dex.core.zrx.RelayerAdapterManager
-import com.blocksdecoded.dex.core.zrx.IZrxKitManager
-import com.blocksdecoded.dex.core.zrx.ZrxKitManager
+import com.blocksdecoded.dex.core.manager.history.IExchangeHistoryManager
+import com.blocksdecoded.dex.core.manager.history.ExchangeHistoryManager
+import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapterManager
+import com.blocksdecoded.dex.core.manager.zrx.RelayerAdapterManager
+import com.blocksdecoded.dex.core.manager.zrx.IZrxKitManager
+import com.blocksdecoded.dex.core.manager.zrx.ZrxKitManager
 
 class App: Application() {
     companion object {

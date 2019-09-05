@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.FragmentManager
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.widgets.dialogs.BaseDialog
-import com.blocksdecoded.dex.utils.clipboard.ClipboardManager
+import com.blocksdecoded.dex.core.manager.clipboard.ClipboardManager
 import com.blocksdecoded.dex.utils.openTransactionUrl
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import kotlinx.android.synthetic.main.dialog_transaction_sent.*

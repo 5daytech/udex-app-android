@@ -3,7 +3,7 @@ package com.blocksdecoded.dex.presentation.orders.model
 import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinType
-import com.blocksdecoded.dex.core.rates.RatesConverter
+import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.zrxkit.model.EAssetProxyId
 import com.blocksdecoded.zrxkit.model.IOrder

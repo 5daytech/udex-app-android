@@ -9,7 +9,7 @@ class SharedStorage(
     context: Context,
     private var sharedFileName: String = "shared_prefs"
 ) : ISharedStorage {
-    private var mPreferences: SharedPreferences = getPreferences(context)
+    private var preferences: SharedPreferences = getPreferences(context)
 
     //region Private
 
@@ -20,7 +20,7 @@ class SharedStorage(
         )
 
     private fun editPreference(body: (SharedPreferences.Editor) -> Unit) {
-        mPreferences.edit().apply {
+        preferences.edit().apply {
             try {
                 body.invoke(this)
             } catch (e: Exception) {
@@ -34,7 +34,7 @@ class SharedStorage(
     //region Contract
 
     override fun <T> getPreference(key: String, defValue: T): T {
-        mPreferences.let {
+        preferences.let {
             return when (defValue) {
                 is String -> { it.getString(key, defValue as String) }
                 is Float -> { it.getFloat(key, defValue as Float) }
@@ -61,9 +61,11 @@ class SharedStorage(
         }
     }
 
-    override fun containsPreference(key: String): Boolean = mPreferences.contains(key)
+    override fun containsPreference(key: String): Boolean = preferences.contains(key)
 
     override fun removePreference(key: String) = editPreference { it.remove(key) }
+
+    override fun clear() = preferences.edit().clear().apply()
 
     //endregion
 }

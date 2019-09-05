@@ -9,7 +9,7 @@ import com.blocksdecoded.dex.presentation.widgets.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.ui.QrUtils
 import com.blocksdecoded.dex.utils.ui.ShareUtils
-import com.blocksdecoded.dex.utils.clipboard.ClipboardManager
+import com.blocksdecoded.dex.core.manager.clipboard.ClipboardManager
 import kotlinx.android.synthetic.main.dialog_receive.*
 
 class ReceiveDialog private constructor()

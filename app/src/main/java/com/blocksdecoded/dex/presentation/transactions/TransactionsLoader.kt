@@ -3,7 +3,7 @@ package com.blocksdecoded.dex.presentation.transactions
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.model.TransactionRecord
-import com.blocksdecoded.dex.core.rates.IRatesManager
+import com.blocksdecoded.dex.core.manager.rates.IRatesManager
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.ioSubscribe
 import io.reactivex.Single

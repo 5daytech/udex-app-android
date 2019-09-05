@@ -10,8 +10,8 @@ import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinBalance
 import com.blocksdecoded.dex.core.model.EConvertType.*
-import com.blocksdecoded.dex.core.rates.IRatesManager
-import com.blocksdecoded.dex.core.rates.RatesConverter
+import com.blocksdecoded.dex.core.manager.rates.IRatesManager
+import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent

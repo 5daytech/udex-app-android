@@ -8,4 +8,6 @@ interface ISharedStorage {
     fun removePreference(key: String)
 
     fun containsPreference(key: String): Boolean
+
+    fun clear()
 }

@@ -2,10 +2,9 @@ package com.blocksdecoded.dex.presentation.orders
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.App.Companion.coinManager
 import com.blocksdecoded.dex.core.ui.CoreViewModel
-import com.blocksdecoded.dex.core.zrx.IRelayerAdapter
-import com.blocksdecoded.dex.core.zrx.OrdersWatcher
+import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapter
+import com.blocksdecoded.dex.core.manager.zrx.OrdersWatcher
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.presentation.orders.model.FillOrderInfo

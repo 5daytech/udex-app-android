@@ -3,7 +3,7 @@ package com.blocksdecoded.dex.presentation.markets
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.model.Market
-import com.blocksdecoded.dex.core.rates.MarketState.*
+import com.blocksdecoded.dex.core.manager.rates.MarketState.*
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 
 class MarketsViewModel : CoreViewModel() {

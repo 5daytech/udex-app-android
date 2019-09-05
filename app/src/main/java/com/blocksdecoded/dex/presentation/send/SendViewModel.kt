@@ -1,6 +1,5 @@
 package com.blocksdecoded.dex.presentation.send
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
@@ -12,7 +11,7 @@ import com.blocksdecoded.dex.utils.uiObserver
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.utils.Logger
-import com.blocksdecoded.dex.utils.clipboard.ClipboardManager
+import com.blocksdecoded.dex.core.manager.clipboard.ClipboardManager
 import java.math.BigDecimal
 
 class SendViewModel: CoreViewModel() {

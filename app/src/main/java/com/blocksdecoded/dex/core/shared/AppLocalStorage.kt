@@ -3,10 +3,6 @@ package com.blocksdecoded.dex.core.shared
 class AppLocalStorage(
 	private val sharedStorage: ISharedStorage
 ) : IAppLocalStorage {
-	override var currentLanguage: String?
-		get() = sharedStorage.getPreference("language", "en")
-		set(value) { sharedStorage.setPreference("language", value) }
-
 	override var isBackedUp: Boolean
 		get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 		set(value) {}
@@ -17,9 +13,6 @@ class AppLocalStorage(
 		get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 		set(value) {}
 	override var iUnderstand: Boolean
-		get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-		set(value) {}
-	override var baseCurrencyCode: String?
 		get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 		set(value) {}
 	override var blockTillDate: Long?
@@ -36,6 +29,7 @@ class AppLocalStorage(
 		set(value) {}
 	
 	override fun clear() {
+		sharedStorage.clear()
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 }
