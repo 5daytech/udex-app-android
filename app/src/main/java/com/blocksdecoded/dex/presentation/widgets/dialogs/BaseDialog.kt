@@ -13,7 +13,7 @@ abstract class BaseDialog(
 ): DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = activity?.let { Dialog(it, R.style.FloatingDialog) }
+        val dialog = activity?.let { Dialog(it, R.style.DarkFloatingDialog) }
         requireNotNull(dialog)
 
         dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)

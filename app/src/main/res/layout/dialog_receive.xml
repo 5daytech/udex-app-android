@@ -72,27 +72,15 @@
             android:layout_gravity="center"
             android:text="@string/hint_your_address" />
 
-        <TextView
-            style="@style/BoldText"
-            android:id="@+id/receive_raw"
+        <com.blocksdecoded.dex.presentation.widgets.HashView
+            android:id="@+id/receive_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/big_margin"
             android:layout_marginEnd="@dimen/big_margin"
             android:layout_marginBottom="@dimen/page_margin"
             android:layout_marginTop="@dimen/element_margin"
-            android:paddingLeft="@dimen/element_margin"
-            android:paddingRight="@dimen/element_margin"
-            android:paddingTop="@dimen/element_margin"
-            android:paddingBottom="@dimen/element_margin"
-            android:foreground="@drawable/bg_light_selectable"
-            android:background="@drawable/bg_round_stroke"
-            android:text="Raw address"
-            android:ellipsize="middle"
-            android:singleLine="true"
-            android:textSize="15sp"
-            android:textColor="?attr/PrimaryTextColor"
-            android:gravity="center"
+            android:padding="@dimen/element_margin"
             android:layout_gravity="center"/>
 
         <Button

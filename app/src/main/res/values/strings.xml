@@ -58,7 +58,7 @@
     <string name="account_history">Exchange History</string>
     <string name="account_coin_manager">Coin Manager</string>
     <string name="action_cancel_order">Cancel order</string>
-    <string name="action_forward">Forward</string>
+    <string name="action_forward">Share</string>
     <string name="hint_your_address">Your address</string>
     <string name="action_convert">Convert</string>
     <string name="action_confirm">Confirm</string>

@@ -16,7 +16,6 @@
       android:strokeColor="#56D6FF"
       android:strokeLineCap="round"/>
   <group>
-    <clip-path android:pathData="M4.6154,4.6155h30.7692v30.7692h-30.7692z M 0,0"/>
     <path
         android:pathData="M19.9972,4.6155L19.791,5.3167V25.6616L19.9972,25.8675L29.4406,20.2856L19.9972,4.6155Z"
         android:fillColor="#24CAFF"/>

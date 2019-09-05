@@ -29,8 +29,8 @@ class ReceiveDialog private constructor()
         }
 
         val receiveAddress = adapter.receiveAddress
-        
-        receive_raw?.text = receiveAddress
+
+        receive_address?.update(receiveAddress)
         receive_coin_name?.text = adapter.coin.title
         receive_coin_icon?.bind(coinCode)
 
@@ -44,7 +44,7 @@ class ReceiveDialog private constructor()
             ShareUtils.shareMessage(activity, receiveAddress)
         }
 
-        receive_raw?.setOnClickListener {
+        receive_address?.bind {
             ClipboardManager.copyText(receiveAddress)
             ToastHelper.showSuccessMessage(R.string.message_copied, 1000)
         }

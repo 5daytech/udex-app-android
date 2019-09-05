@@ -60,7 +60,7 @@
     </style>
 
     <!-- Dialogs -->
-    <style name="BottomSheet" parent="Theme.AppCompat.Light.Dialog">
+    <style name="BaseBottomDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.6</item>
@@ -71,7 +71,7 @@
         <item name="android:windowAnimationStyle">@style/BottomDialogAnimations</item>
     </style>
 
-    <style name="FloatingDialog" parent="Theme.AppCompat.Light.Dialog">
+    <style name="BaseFloatingDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.6</item>
@@ -79,6 +79,14 @@
         <item name="android:windowMinWidthMajor">95%</item>
         <item name="android:windowMinWidthMinor">95%</item>
         <item name="android:windowSoftInputMode">adjustResize|stateHidden</item>
+    </style>
+
+    <style name="DarkBottomSheet" parent="BaseBottomDialog">
+        <item name="selectableItemBackground">@drawable/bg_light_selectable</item>
+    </style>
+
+    <style name="DarkFloatingDialog" parent="BaseFloatingDialog">
+        <item name="selectableItemBackground">@drawable/bg_light_selectable</item>
     </style>
 
     <style name="BottomDialogAnimations" parent="@android:style/Animation.Activity">
