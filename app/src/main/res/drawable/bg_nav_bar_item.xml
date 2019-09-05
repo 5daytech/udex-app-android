@@ -1,0 +1,14 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/transparent_turquoise_40">
+
+    <item android:id="@android:id/mask">
+        <shape
+            android:innerRadius="0dp"
+            android:thicknessRatio="2"
+            android:useLevel="false"
+            android:shape="ring">
+            <solid android:color="@color/transparent_turquoise_40" />
+        </shape>
+    </item>
+
+</ripple>

@@ -23,6 +23,7 @@
         app:itemIconTint="@drawable/selector_tab_color"
         app:itemTextColor="@drawable/selector_tab_color"
         app:itemTextAppearanceActive="@style/RegularText"
+        app:itemBackground="@drawable/bg_nav_bar_item"
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconSize="20dp"
         app:itemTextAppearanceInactive="@style/RegularText" />

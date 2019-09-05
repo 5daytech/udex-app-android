@@ -18,6 +18,7 @@ class TransactionsLoader(
     private val ratesManager: IRatesManager,
     private val disposables: CompositeDisposable
 ) {
+    private val pageLimit = 200
 
     val transactionItems = arrayListOf<TransactionViewItem>()
     val syncSubject = PublishSubject.create<Unit>()
@@ -37,10 +38,10 @@ class TransactionsLoader(
         if (loading) return
         loading = true
 
-        adapter.getTransactions(limit = 200)
+        adapter.getTransactions(limit = pageLimit)
             .ioSubscribe(disposables,
                 { loadMeta(it) },
-                {  }
+                { loading = false }
             )
     }
 

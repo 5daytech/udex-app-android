@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#7083FE</color>
     <color name="colorPrimaryDark">#7083FE</color>
-    <color name="colorAccent">#7083FE</color>
+    <color name="colorAccent">#56D6FF</color>
 
     <color name="light_bg">#FBFBFB</color>
     <color name="light_grey_bg">#FAFBFC</color>
@@ -36,6 +36,7 @@
     <color name="red">#E83958</color>
     <color name="yellow">#FFB23F</color>
     <color name="turquoise">#56D6FF</color>
+    <color name="transparent_turquoise_40">#4056D6FF</color>
 
     <color name="blue">#3A62F9</color>
     <color name="transparent_blue">#503A62F9</color>
