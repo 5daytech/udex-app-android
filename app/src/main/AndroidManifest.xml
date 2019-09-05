@@ -63,7 +63,7 @@
         <activity android:name=".presentation.pin.PinActivity"
                   android:screenOrientation="portrait"/>
 
-        <activity android:name=".presentation.history.HistoryActivity"
+        <activity android:name=".presentation.exchangehistory.ExchangeHistoryActivity"
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".presentation.coinmanager.CoinManagerActivity"

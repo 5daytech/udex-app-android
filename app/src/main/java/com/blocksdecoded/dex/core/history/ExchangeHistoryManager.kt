@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.core.tradehistory
+package com.blocksdecoded.dex.core.history
 
 import com.blocksdecoded.dex.core.manager.IAdapterManager
 import com.blocksdecoded.dex.core.model.TransactionRecord
@@ -6,18 +6,18 @@ import com.blocksdecoded.dex.utils.Logger
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
-class TradeHistoryManager(
+class ExchangeHistoryManager(
     val adapterManager: IAdapterManager
-) : ITradeHistoryManager {
+) : IExchangeHistoryManager {
 
     private val disposables = CompositeDisposable()
 
-    override val tradesHistory: List<TradeRecord>
-        get() = tradeTransactions.values.toList().sortedByDescending { it.timestamp }
+    override val exchangeHistory: List<ExchangeRecord>
+        get() = exchangeTransactions.values.toList().sortedByDescending { it.timestamp }
 
-    override val tradesUpdateSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
+    override val syncSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
-    private val tradeTransactions = HashMap<String, TradeRecord>()
+    private val exchangeTransactions = HashMap<String, ExchangeRecord>()
 
     private val transactionsPool = HashMap<String, ArrayList<TransactionRecord>>()
 
@@ -46,7 +46,7 @@ class TradeHistoryManager(
 
         transactionsPool.forEach { coinTransactions ->
             coinTransactions.value.forEach { transaction ->
-                val tradeTx = ArrayList<TradeRecordItem>()
+                val tradeTx = ArrayList<ExchangeRecordItem>()
 
                 transactionsPool.forEach { otherCoinTxs ->
                     otherCoinTxs.value.filter {
@@ -54,7 +54,7 @@ class TradeHistoryManager(
                                 it.transactionIndex == transaction.transactionIndex
                     }.let {
                         if (it.isNotEmpty()) {
-                            it.forEach { tradeTx.add(TradeRecordItem(otherCoinTxs.key, it)) }
+                            it.forEach { tradeTx.add(ExchangeRecordItem(otherCoinTxs.key, it)) }
                         }
                     }
                 }
@@ -66,8 +66,8 @@ class TradeHistoryManager(
                     }
 
                     if (!allItemsIdentical) {
-                        if (tradeTransactions[transaction.transactionHash] == null) {
-                            tradeTransactions[transaction.transactionHash] = TradeRecord(
+                        if (exchangeTransactions[transaction.transactionHash] == null) {
+                            exchangeTransactions[transaction.transactionHash] = ExchangeRecord(
                                 transaction.transactionHash,
                                 transaction.timestamp,
                                 tradeTx,
@@ -79,8 +79,8 @@ class TradeHistoryManager(
             }
         }
 
-        tradesUpdateSubject.onNext(Unit)
-        tradeTransactions.forEach {
+        syncSubject.onNext(Unit)
+        exchangeTransactions.forEach {
             Logger.d("Trade record ${it.key} - ${it.value}")
         }
     }

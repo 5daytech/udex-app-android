@@ -25,6 +25,10 @@ class HashView : LinearLayout {
         defStyleRes: Int
     ) : super(context, attrs, defStyleAttr, defStyleRes)
 
+    fun bind(onClick: () -> Unit) {
+        setOnClickListener { onClick() }
+    }
+
     fun update(hash: String) {
         hash_value?.text = hash
     }
