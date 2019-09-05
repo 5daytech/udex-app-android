@@ -1,6 +1,5 @@
 package com.blocksdecoded.dex.core.manager.zrx
 
-import android.util.Log
 import com.blocksdecoded.dex.core.CancelOrderException
 import com.blocksdecoded.dex.core.CreateOrderException
 import com.blocksdecoded.dex.core.manager.ICoinManager
@@ -224,10 +223,9 @@ class RelayerAdapter(
 			ZrxKit.assetItemForAddress(quoteCoin.address).assetData
 		)
 
-		val calcAmount = amount.movePointRight(baseCoin.decimal)
-			.stripTrailingZeros()
-
-		Log.d("ololo", "Fill amount ${amount.toPlainString()} - ${pairOrders.orders.toString()}")
+		val calcAmount = amount.movePointRight(
+			if (side == EOrderSide.BUY) quoteCoin.decimal else baseCoin.decimal
+		)
 
 		return checkAllowance(ZrxKit.assetItemForAddress(baseCoin.address) to ZrxKit.assetItemForAddress(quoteCoin.address))
 			.flatMap { exchangeWrapper.marketBuyOrders(pairOrders.orders, calcAmount.toBigInteger()) }
