@@ -17,7 +17,7 @@ class AppConfiguration(
         BuildConfig.INFURA_PROJECT_SECRET
     )
 ) {
-
+    val transactionExploreBaseUrl = "https://ropsten.etherscan.io/tx/"
     val ipfsId = "QmXTJZBMMRmBbPun6HFt3tmb3tfYF2usLPxFoacL7G5uMX"
     val ipfsMainGateway = "ipfs-ext.horizontalsystems.xyz"
     val ipfsFallbackGateway = "ipfs.io"

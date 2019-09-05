@@ -2,13 +2,16 @@ package com.blocksdecoded.dex.utils
 
 import android.content.Context
 import android.graphics.Point
+import android.net.Uri
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import java.math.BigDecimal
 
@@ -33,6 +36,16 @@ val Context.screenSize: Point
             wm.defaultDisplay.getSize(this)
         }
     }
+
+fun Context.openTransactionUrl(transactionHash: String) {
+    openUrl("${App.appConfiguration.transactionExploreBaseUrl}$transactionHash")
+}
+
+fun Context.openUrl(url: String) {
+    CustomTabsIntent.Builder()
+        .build()
+        .launchUrl(this, Uri.parse(url))
+}
 
 val Context.screenHeight
     get() = screenSize.y

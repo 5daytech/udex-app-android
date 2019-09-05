@@ -9,7 +9,7 @@ class TransactionInfoViewModel: CoreViewModel() {
 
     val transactionView = MutableLiveData<TransactionViewItem>()
 
-    val fullInfoEvent = SingleLiveEvent<Unit>()
+    val fullInfoEvent = SingleLiveEvent<String>()
     val dismissEvent = SingleLiveEvent<Unit>()
 
     fun init(transactionItem: TransactionViewItem) {
@@ -17,7 +17,9 @@ class TransactionInfoViewModel: CoreViewModel() {
     }
 
     fun onFullInfoClicked() {
-
+        transactionView.value?.let {
+            fullInfoEvent.value = it.transactionHash
+        }
     }
 
 

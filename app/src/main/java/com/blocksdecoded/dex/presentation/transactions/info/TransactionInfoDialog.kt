@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.widgets.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.transactions.TransactionViewItem
+import com.blocksdecoded.dex.utils.openTransactionUrl
 import com.blocksdecoded.dex.utils.setTextColorRes
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
@@ -41,7 +42,10 @@ class TransactionInfoDialog private constructor()
         transaction_info_hist_rate.setRate(it.coin, it.historicalRate)
 
         transaction_info_status.setStatus(it.status)
+    }
 
+    private val fullTransactionInfoObserver = Observer<String> { transactionHash ->
+        activity?.openTransactionUrl(transactionHash)
     }
 	
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,6 +63,8 @@ class TransactionInfoDialog private constructor()
             viewModel = ViewModelProviders.of(it).get(TransactionInfoViewModel::class.java)
 
             viewModel.transactionView.observe(this, transactionDataObserver)
+
+            viewModel.fullInfoEvent.observe(this, fullTransactionInfoObserver)
 
             viewModel.init(transactionItem)
         }
