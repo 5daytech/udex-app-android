@@ -21,6 +21,7 @@ import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.MathContext
+import java.math.RoundingMode
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -252,9 +253,12 @@ class RelayerAdapter(
 			.movePointLeft(if (side == EOrderSide.BUY) baseCoin.decimal else quoteCoin.decimal)
 			.stripTrailingZeros()
 
-		val math = MathContext.DECIMAL64
-		val price = makerAmount.divide(takerAmount, math)
-			.stripTrailingZeros()
+        //TODO: Update price calculation
+        val math = MathContext.DECIMAL32
+        val price = makerAmount.toDouble().div(takerAmount.toDouble())
+            .toBigDecimal()
+            .setScale(18, RoundingMode.UP)
+            .stripTrailingZeros()
 
 		price
 	} catch (e: Exception) {
