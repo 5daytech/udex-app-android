@@ -40,3 +40,11 @@ interface IWordsManager {
     fun validate(words: List<String>)
     fun generateWords(): List<String>
 }
+
+interface IPinManager {
+    val isPinSet: Boolean
+
+    fun store(pin: String)
+    fun validate(pin: String): Boolean
+    fun clear()
+}

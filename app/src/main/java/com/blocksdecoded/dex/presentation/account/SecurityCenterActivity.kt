@@ -19,6 +19,8 @@ class SecurityCenterActivity : CoreActivity() {
         security_center_backup?.setOnClickListener {
             BackupActivity.start(this)
         }
+
+
     }
 
     companion object {

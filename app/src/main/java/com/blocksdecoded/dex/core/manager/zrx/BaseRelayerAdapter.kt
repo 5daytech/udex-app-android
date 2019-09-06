@@ -25,7 +25,7 @@ import java.math.RoundingMode
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class RelayerAdapter(
+class BaseRelayerAdapter(
 	private val coinManager: ICoinManager,
 	private val ethereumKit: EthereumKit,
 	private val zrxKit: ZrxKit,

@@ -42,7 +42,7 @@ class RelayerAdapterManager(
 	override fun initRelayer() {
 		handler.post {
 			authManager.authData?.let { auth ->
-				mainRelayer = RelayerAdapter(
+				mainRelayer = BaseRelayerAdapter(
 					coinManager,
 					ethereumKitManager.ethereumKit(auth),
 					zrxKitManager.zrxKit(),

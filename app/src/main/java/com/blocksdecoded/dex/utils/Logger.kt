@@ -18,4 +18,10 @@ object Logger {
     fun e(message: String?, throwable: Throwable, tag: String = TAG) {
         Log.e(tag, message, throwable)
     }
+
+    fun w(message: String?) {
+        if (message != null) {
+            Log.w(TAG, message)
+        }
+    }
 }

@@ -11,18 +11,51 @@
         android:paddingBottom="@dimen/element_margin"
         app:mt_title="Security Center"/>
 
-    <TextView
-        style="@style/SemiboldText"
+    <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
         android:id="@+id/security_center_backup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/account_security_center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="@dimen/page_margin"
-        android:padding="@dimen/page_margin"
-        android:background="?selectableItemBackground"
-        android:textSize="17sp"
-        android:textColor="?attr/PrimaryTextColor"
-        android:text="Wallet Backup"/>
+        app:siv_action_switch="false"
+        app:siv_title="Wallet Backup"
+        app:siv_icon="@drawable/ic_backup"
+        android:background="?selectableItemBackground"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
+        android:id="@+id/security_passcode_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/page_margin"
+        app:siv_action_switch="true"
+        app:siv_title="Passcode Enabled"
+        app:siv_icon="@drawable/ic_passcode"
+        android:background="?selectableItemBackground"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
+        android:id="@+id/security_edit_passcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:siv_action_switch="false"
+        app:siv_title="Edit Passcode"
+        app:siv_icon="@drawable/ic_edit"
+        android:background="?selectableItemBackground"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
+        android:id="@+id/security_fingerprint_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/page_margin"
+        app:siv_action_switch="true"
+        app:siv_title="Fingerprint"
+        app:siv_icon="@drawable/ic_fingerprint"
+        android:background="?selectableItemBackground"/>
+
 </LinearLayout>

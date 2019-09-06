@@ -6,6 +6,7 @@ import com.blocksdecoded.dex.utils.Logger
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
+//TODO: Total refactoring and optimization
 class ExchangeHistoryManager(
     val adapterManager: IAdapterManager
 ) : IExchangeHistoryManager {

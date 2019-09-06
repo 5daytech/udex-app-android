@@ -92,6 +92,10 @@
         If you want to get plain ETH back you need to \'unwrap\' it.
         AKA trade it back for plain ETH.
     </string>
+    <string name="error_enter_your_pin">Enter your pin</string>
+    <string name="fingerprint_success">Success</string>
+    <string name="fingerprint_not_recognized">Not recognized</string>
+    <string name="fingerprint_hint">Touch sensor</string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>
