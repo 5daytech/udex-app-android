@@ -60,6 +60,13 @@
         <item name="android:background">?attr/DividerColor</item>
     </style>
 
+    <style name="SwitchStyle" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="colorControlActivated">@color/turquoise</item>
+        <item name="colorControlNormal">@color/light_grey</item>
+        <item name="colorSwitchThumbNormal">@color/light_grey</item>
+        <item name="android:colorForeground">@color/light_grey</item>
+    </style>
+
     <!-- Dialogs -->
     <style name="BaseBottomDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@null</item>

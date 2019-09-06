@@ -11,7 +11,7 @@
         android:paddingBottom="@dimen/element_margin"
         app:mt_title="Security Center"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
+    <com.blocksdecoded.dex.presentation.settings.SettingsItemView
         android:id="@+id/security_center_backup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
         app:siv_icon="@drawable/ic_backup"
         android:background="?selectableItemBackground"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
+    <com.blocksdecoded.dex.presentation.settings.SettingsItemView
         android:id="@+id/security_passcode_switch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         app:siv_icon="@drawable/ic_passcode"
         android:background="?selectableItemBackground"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
+    <com.blocksdecoded.dex.presentation.settings.SettingsItemView
         android:id="@+id/security_edit_passcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
         app:siv_icon="@drawable/ic_edit"
         android:background="?selectableItemBackground"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.SettingsItemView
+    <com.blocksdecoded.dex.presentation.settings.SettingsItemView
         android:id="@+id/security_fingerprint_switch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

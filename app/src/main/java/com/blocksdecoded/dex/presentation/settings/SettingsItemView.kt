@@ -1,14 +1,17 @@
-package com.blocksdecoded.dex.presentation.widgets
+package com.blocksdecoded.dex.presentation.settings
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.widget.CompoundButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.view_settings_item.view.*
 
 class SettingsItemView: ConstraintLayout {
+    init { View.inflate(context, R.layout.view_settings_item, this) }
+
     private var title: String = "name"
         set(value) {
             field = value
@@ -28,11 +31,20 @@ class SettingsItemView: ConstraintLayout {
             settings_item_switch?.visible = actionSwitch
         }
 
-    var isChecked: Boolean
+    var isChecked: Boolean = false
         get() = settings_item_switch?.isChecked ?: false
-        set(value) { settings_item_switch?.isChecked = value }
+        set(value) {
+            switchOnCheckedChangeListener = null
+            settings_item_switch?.isChecked = value
+            field = value
+            invalidate()
+        }
 
-    init { View.inflate(context, R.layout.view_settings_item, this) }
+    var switchOnCheckedChangeListener: CompoundButton.OnCheckedChangeListener? = null
+        set(value) {
+            settings_item_switch.setOnCheckedChangeListener(value)
+            invalidate()
+        }
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) { init(attrs) }
@@ -59,5 +71,9 @@ class SettingsItemView: ConstraintLayout {
                 ta.recycle()
             }
         }
+    }
+
+    fun toggleSwitch() {
+        settings_item_switch?.toggle()
     }
 }

@@ -13,4 +13,6 @@ interface ISecuredStorage {
     fun savePin(pin: String)
 
     fun pinIsEmpty(): Boolean
+
+    fun removePin()
 }

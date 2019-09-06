@@ -10,8 +10,6 @@ import com.blocksdecoded.dex.core.manager.rates.IRatesManager
 import com.blocksdecoded.dex.core.manager.rates.RatesManager
 import com.blocksdecoded.dex.core.manager.rates.remote.RatesApiClient
 import com.blocksdecoded.dex.core.manager.rates.remote.RatesClientConfig
-import com.blocksdecoded.dex.core.security.ISecuredStorage
-import com.blocksdecoded.dex.core.security.SecuredStorage
 import com.blocksdecoded.dex.core.security.encryption.EncryptionManager
 import com.blocksdecoded.dex.core.security.encryption.IEncryptionManager
 import com.blocksdecoded.dex.core.AppConfiguration
@@ -19,8 +17,8 @@ import com.blocksdecoded.dex.core.manager.auth.AuthManager
 import com.blocksdecoded.dex.core.manager.auth.WordsManager
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.core.storage.MarketsStorage
-import com.blocksdecoded.dex.core.shared.AppLocalStorage
-import com.blocksdecoded.dex.core.shared.IAppLocalStorage
+import com.blocksdecoded.dex.core.shared.AppPreferences
+import com.blocksdecoded.dex.core.shared.IAppPreferences
 import com.blocksdecoded.dex.core.shared.ISharedStorage
 import com.blocksdecoded.dex.core.shared.SharedStorage
 import com.blocksdecoded.dex.core.storage.AppDatabase
@@ -31,6 +29,7 @@ import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapterManager
 import com.blocksdecoded.dex.core.manager.zrx.RelayerAdapterManager
 import com.blocksdecoded.dex.core.manager.zrx.IZrxKitManager
 import com.blocksdecoded.dex.core.manager.zrx.ZrxKitManager
+import com.blocksdecoded.dex.core.security.*
 
 class App: Application() {
     companion object {
@@ -56,7 +55,10 @@ class App: Application() {
         lateinit var authManager: AuthManager
         lateinit var wordsManager: IWordsManager
         lateinit var encryptionManager: IEncryptionManager
-    
+        lateinit var pinManager: IPinManager
+        lateinit var keyStoreManager: IKeyStoreManager
+        lateinit var keyProvider: IKeyProvider
+
         // Rates
         
         lateinit var ratesManager: IRatesManager
@@ -70,7 +72,7 @@ class App: Application() {
 
         lateinit var appDatabase: AppDatabase
         lateinit var securedStorage: ISecuredStorage
-        lateinit var localStorage: IAppLocalStorage
+        lateinit var appPreferences: IAppPreferences
         lateinit var sharedStorage: ISharedStorage
 
     }
@@ -84,14 +86,19 @@ class App: Application() {
 
         coinManager = CoinManager(appConfiguration)
         sharedStorage = SharedStorage(this)
-        localStorage = AppLocalStorage(sharedStorage)
+        appPreferences = AppPreferences(sharedStorage)
         appDatabase = AppDatabase.getInstance(this)
         encryptionManager = EncryptionManager()
         securedStorage = SecuredStorage(encryptionManager, sharedStorage)
 
         // Auth
-	    wordsManager = WordsManager(localStorage)
+	    wordsManager = WordsManager(appPreferences)
 	    authManager = AuthManager(securedStorage)
+        pinManager = PinManager(securedStorage)
+        KeyStoreManager("MASTER_KEY").apply {
+            keyStoreManager = this
+            keyProvider = this
+        }
 
         // Init kits
         ethereumKitManager = EthereumKitManager(appConfiguration)

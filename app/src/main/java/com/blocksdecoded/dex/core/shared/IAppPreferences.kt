@@ -1,9 +1,9 @@
 package com.blocksdecoded.dex.core.shared
 
-interface IAppLocalStorage {
+interface IAppPreferences {
     var isBackedUp: Boolean
-    var isBiometricOn: Boolean
-    var isLightModeOn: Boolean
+    var isFingerprintEnabled: Boolean
+    var isLightModeEnabled: Boolean
     var iUnderstand: Boolean
     var blockTillDate: Long?
     var failedAttempts: Int?

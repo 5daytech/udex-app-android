@@ -1,17 +1,17 @@
 package com.blocksdecoded.dex.core.manager.auth
 
 import com.blocksdecoded.dex.core.manager.IWordsManager
-import com.blocksdecoded.dex.core.shared.IAppLocalStorage
+import com.blocksdecoded.dex.core.shared.IAppPreferences
 import io.horizontalsystems.hdwalletkit.Mnemonic
 import io.reactivex.subjects.PublishSubject
 
-class WordsManager(private val localStorage: IAppLocalStorage) :
+class WordsManager(private val preferences: IAppPreferences) :
     IWordsManager {
 
     override var isBackedUp: Boolean
-        get() = localStorage.isBackedUp
+        get() = preferences.isBackedUp
         set(value) {
-            localStorage.isBackedUp = value
+            preferences.isBackedUp = value
             backedUpSignal.onNext(Unit)
         }
 

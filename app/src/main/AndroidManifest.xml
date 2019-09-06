@@ -44,20 +44,20 @@
                   android:screenOrientation="portrait"
                   android:theme="@style/AppTheme.FullScreen"/>
 
-        <activity android:name=".presentation.account.SecurityCenterActivity"
+        <activity android:name=".presentation.settings.security.SecurityCenterActivity"
                   android:screenOrientation="portrait"/>
 
         <activity android:name="com.blocksdecoded.dex.presentation.send.QRScannerActivity"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppTheme.FullScreen"/>
 
-        <activity android:name=".presentation.account.AboutAppActivity"
+        <activity android:name=".presentation.settings.AboutAppActivity"
                   android:screenOrientation="portrait"/>
 
-        <activity android:name=".presentation.account.LanguageActivity"
+        <activity android:name=".presentation.settings.language.LanguageActivity"
                   android:screenOrientation="portrait"/>
 
-        <activity android:name=".presentation.account.AddressBookActivity"
+        <activity android:name=".presentation.settings.addressbook.AddressBookActivity"
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".presentation.pin.PinActivity"

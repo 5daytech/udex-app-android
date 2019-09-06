@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.account
+package com.blocksdecoded.dex.presentation.settings
 
 import android.content.Context
 import android.content.Intent

@@ -49,7 +49,11 @@ class SecuredStorage(
 //        sharedStorage.setPreference(LOCK_PIN, encryptionManager.encrypt(pin))
         sharedStorage.setPreference(LOCK_PIN, pin)
     }
-    
+
+    override fun removePin() {
+        sharedStorage.removePreference(LOCK_PIN)
+    }
+
     override fun pinIsEmpty(): Boolean {
         if (sharedStorage.containsPreference(LOCK_PIN)) {
             val string = sharedStorage.getPreference(LOCK_PIN, "")

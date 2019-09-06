@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.account.AccountFragment
+import com.blocksdecoded.dex.presentation.settings.SettingsFragment
 import com.blocksdecoded.dex.presentation.exchange.ExchangeFragment
 import com.blocksdecoded.dex.presentation.markets.MarketsFragment
 import com.blocksdecoded.dex.presentation.orders.OrdersHostFragment
@@ -127,7 +127,7 @@ class MainActivity :
             1 -> OrdersHostFragment.newInstance()
             2 -> ExchangeFragment.newInstance()
             3 -> MarketsFragment.newInstance()
-            else -> AccountFragment.newInstance()
+            else -> SettingsFragment.newInstance()
         }
 
         override fun getCount(): Int = 5
