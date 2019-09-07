@@ -25,6 +25,8 @@ import com.blocksdecoded.dex.core.storage.AppDatabase
 import com.blocksdecoded.dex.core.storage.RatesStorage
 import com.blocksdecoded.dex.core.manager.history.IExchangeHistoryManager
 import com.blocksdecoded.dex.core.manager.history.ExchangeHistoryManager
+import com.blocksdecoded.dex.core.manager.system.ISystemInfoManager
+import com.blocksdecoded.dex.core.manager.system.SystemInfoManager
 import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapterManager
 import com.blocksdecoded.dex.core.manager.zrx.RelayerAdapterManager
 import com.blocksdecoded.dex.core.manager.zrx.IZrxKitManager
@@ -58,6 +60,7 @@ class App: Application() {
         lateinit var pinManager: IPinManager
         lateinit var keyStoreManager: IKeyStoreManager
         lateinit var keyProvider: IKeyProvider
+        lateinit var systemInfoManager: ISystemInfoManager
 
         // Rates
         
@@ -90,6 +93,8 @@ class App: Application() {
         appDatabase = AppDatabase.getInstance(this)
         encryptionManager = EncryptionManager()
         securedStorage = SecuredStorage(encryptionManager, sharedStorage)
+
+        systemInfoManager = SystemInfoManager()
 
         // Auth
 	    wordsManager = WordsManager(appPreferences)
