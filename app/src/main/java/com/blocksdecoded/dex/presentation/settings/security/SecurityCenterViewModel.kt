@@ -1,6 +1,5 @@
 package com.blocksdecoded.dex.presentation.settings.security
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.ui.CoreViewModel
@@ -37,7 +36,6 @@ class SecurityCenterViewModel : CoreViewModel() {
 
     private fun clearPin() {
         pinManager.clear()
-        appPreferences.isFingerprintEnabled = false
     }
 
     //region Public
@@ -73,11 +71,20 @@ class SecurityCenterViewModel : CoreViewModel() {
         } else {
             openUnlockPinEvent.call()
         }
-        Log.d("ololo", "Passcode enabled $isEnabled")
     }
 
     fun onFingerprintSwitch(isEnabled: Boolean) {
-        appPreferences.isFingerprintEnabled = isEnabled
+        if (isEnabled) {
+            if (systemInfoManager.hasFingerprintSensor && systemInfoManager.hasEnrolledFingerprints) {
+                appPreferences.isFingerprintEnabled = true
+            } else {
+                showNoEnrolledFingerprints.call()
+                appPreferences.isFingerprintEnabled = false
+                fingerprintEnabled.value = false
+            }
+        } else {
+            appPreferences.isFingerprintEnabled = isEnabled
+        }
     }
 
     //endregion

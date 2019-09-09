@@ -31,6 +31,8 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener, FingerprintAuth
     private val visiblePage: Int?
         get() = (pin_pages_recycler?.layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition()
 
+    //region Lifecycle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pin)
@@ -153,6 +155,10 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener, FingerprintAuth
             finishAffinity()
         })
     }
+
+    override fun addTestLabel() = Unit
+
+    //endregion
 
     override fun onBackPressed() {
         viewModel.onBackPressed()

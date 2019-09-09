@@ -9,7 +9,7 @@ import java.util.*
 
 class LockManager(private val pinManager: IPinManager) : ILockManager, BackgroundManager.Listener {
 
-    private val lockTimeout: Double = 10.0
+    private val lockTimeout: Double = 30.0
 
     override val lockStateUpdatedSignal: PublishSubject<Unit> = PublishSubject.create()
 

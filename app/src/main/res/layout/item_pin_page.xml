@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/pin_page_description"
-        style="@style/HintText"
+        style="@style/RegularText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
@@ -18,6 +18,8 @@
         android:layout_marginTop="16dp"
         android:ellipsize="end"
         android:maxLines="3"
+        android:textColor="?attr/PrimaryTextColor"
+        android:textSize="17sp"
         android:text="Passcode description"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/pin_page_circles"

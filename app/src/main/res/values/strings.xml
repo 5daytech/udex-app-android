@@ -87,7 +87,7 @@
     <string name="fingerprint_hint">Touch sensor</string>
 
     <!-- Passcode -->
-    <string name="passcode_title">Enter Passcode</string>
+    <string name="passcode_title">Passcode</string>
     <string name="passcode_info">Your passcode will be used to unlock your wallet and send money</string>
     <string name="passcode_error_short_pin">Please enter all digits.</string>
     <string name="passcode_confirm_info">Confirm</string>
@@ -109,6 +109,9 @@
         If you want to get plain ETH back you need to \'unwrap\' it.
         AKA trade it back for plain ETH.
     </string>
+    <string name="error_fingerprint_not_enabled">Fingerprint Not Enabled</string>
+    <string name="ok">Ok</string>
+    <string name="error_fingerprint_not_added_yet">You have not enabled fingerprint on this device. Go to Settings > Security to set up fingerprint access.</string>
 
     <!-- Placeholders -->
     <string-array name="placeholder_items">

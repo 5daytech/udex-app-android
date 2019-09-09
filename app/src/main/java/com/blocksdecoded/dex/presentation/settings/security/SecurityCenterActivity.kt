@@ -11,6 +11,7 @@ import com.blocksdecoded.dex.core.ui.CoreActivity
 import com.blocksdecoded.dex.presentation.backup.BackupActivity
 import com.blocksdecoded.dex.presentation.pin.PinActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
+import com.blocksdecoded.dex.presentation.widgets.dialogs.AlertDialogFragment
 import kotlinx.android.synthetic.main.activity_security_center.*
 import kotlinx.android.synthetic.main.activity_security_center.toolbar
 
@@ -44,7 +45,7 @@ class SecurityCenterActivity : CoreActivity() {
             security_fingerprint_switch?.isEnabled = it
             security_edit_passcode?.isEnabled = it
 
-            val alpha = if (it) 1f else 0.3f
+            val alpha = if (it) 1f else 0.25f
 
             security_fingerprint_switch?.alpha = alpha
             security_edit_passcode?.alpha = alpha
@@ -70,6 +71,14 @@ class SecurityCenterActivity : CoreActivity() {
 
         viewModel.openUnlockPinEvent.observe(this, Observer {
             PinActivity.startForUnlock(this, REQUEST_CODE_UNLOCK_PIN_TO_DISABLE_PIN, true)
+        })
+
+        viewModel.showNoEnrolledFingerprints.observe(this, Observer {
+            AlertDialogFragment.newInstance(
+                R.string.error_fingerprint_not_enabled,
+                R.string.error_fingerprint_not_added_yet,
+                R.string.ok
+            ).show(supportFragmentManager, "fingerprint_not_enabled")
         })
 
         security_passcode_switch?.setOnClickListener {

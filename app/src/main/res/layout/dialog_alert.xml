@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
+    android:background="@drawable/bg_dialog_rounded"
+    >
+
+    <TextView
+        style="@style/DialogTitleText"
+        android:id="@+id/alert_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/page_margin"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginTop="@dimen/page_margin"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Android Keystore Error"
+        />
+
+    <TextView
+        style="@style/RegularText"
+        android:id="@+id/alert_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/page_margin"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginTop="@dimen/page_margin"
+        android:maxLines="10"
+        android:maxWidth="275dp"
+        android:textAlignment="center"
+        android:textColor="?attr/PrimaryTextColor"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alert_title"
+        tools:text="Your encrypted data was recently invalidated because your Android lock screen was changed" />
+
+    <TextView
+        style="@style/SemiboldText"
+        android:id="@+id/alert_confirm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/alert_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:paddingTop="@dimen/page_margin"
+        android:paddingBottom="@dimen/page_margin"
+        android:layout_marginTop="@dimen/page_margin"
+        android:background="?selectableItemBackground"
+        android:textColor="@color/turquoise"
+        android:textAllCaps="true"
+        android:text="@string/ok"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
