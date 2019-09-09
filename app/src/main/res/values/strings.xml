@@ -87,7 +87,7 @@
     <string name="fingerprint_hint">Touch sensor</string>
 
     <!-- Passcode -->
-    <string name="passcode_title">Passcode</string>
+    <string name="passcode_title">Enter Passcode</string>
     <string name="passcode_info">Your passcode will be used to unlock your wallet and send money</string>
     <string name="passcode_error_short_pin">Please enter all digits.</string>
     <string name="passcode_confirm_info">Confirm</string>

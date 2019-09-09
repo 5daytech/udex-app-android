@@ -15,6 +15,12 @@ import com.blocksdecoded.dex.R
 
 class NumPadView: RecyclerView {
 
+    var showFingerPrintButton: Boolean = false
+        set(value) {
+            field = value
+            numPadAdapter?.showFingerPrintButton = value
+        }
+
     private var numPadAdapter: NumPadItemsAdapter? = null
 
     constructor(context: Context) : super(context)
@@ -50,7 +56,11 @@ class NumPadView: RecyclerView {
 
 }
 
-class NumPadItemsAdapter(private val listener: Listener, bottomLeftButtonType: NumPadItemType, private val showLetters: Boolean = true) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NumPadItemsAdapter(
+    private val listener: Listener,
+    bottomLeftButtonType: NumPadItemType,
+    private val showLetters: Boolean = true
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     interface Listener {
         fun onItemClick(item: NumPadItem)
     }
@@ -76,7 +86,7 @@ class NumPadItemsAdapter(private val listener: Listener, bottomLeftButtonType: N
 
     override fun getItemCount() = numPadItems.count()
 
-    private var showFingerPrintButton = false
+    var showFingerPrintButton = false
         set(value) {
             field = value
             notifyDataSetChanged()

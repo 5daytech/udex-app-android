@@ -5,12 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.core.security.fingerprint.FingerprintAuthenticationDialogFragment
 import com.blocksdecoded.dex.core.ui.CoreActivity
 import com.blocksdecoded.dex.presentation.main.MainActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
@@ -20,9 +22,8 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.activity_pin.*
-import kotlinx.android.synthetic.main.dialog_send.*
 
-class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener {
+class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener, FingerprintAuthenticationDialogFragment.Callback {
 
     private lateinit var viewModel: PinViewModel
     private lateinit var pagesAdapter: PinPagesAdapter
@@ -131,8 +132,8 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener {
 
         viewModel.showFingerprintInputEvent.observe(this, Observer { cryptoObject ->
             cryptoObject?.let {
-//                showFingerprintDialog(it)
-//                numpadAdapter.showFingerPrintButton = true
+                showFingerprintDialog(it)
+                pin_numpad.showFingerPrintButton = true
             }
         })
 
@@ -167,6 +168,22 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener {
             }
         }
     }
+
+    //region Biometric
+
+    override fun onFingerprintAuthSucceed() {
+        viewModel.onBiometricUnlock()
+    }
+
+    private fun showFingerprintDialog(cryptoObject: FingerprintManagerCompat.CryptoObject) {
+        val fragment = FingerprintAuthenticationDialogFragment()
+        fragment.setCryptoObject(cryptoObject)
+        fragment.setCallback(this@PinActivity)
+        fragment.isCancelable = true
+        fragment.show(supportFragmentManager, "fingerprint_dialog")
+    }
+
+    //endregion
 
     companion object {
         private const val EXTRA_INTERACTION_TYPE = "interaction_type"

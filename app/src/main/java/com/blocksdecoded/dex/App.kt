@@ -32,6 +32,7 @@ import com.blocksdecoded.dex.core.manager.zrx.RelayerAdapterManager
 import com.blocksdecoded.dex.core.manager.zrx.IZrxKitManager
 import com.blocksdecoded.dex.core.manager.zrx.ZrxKitManager
 import com.blocksdecoded.dex.core.security.*
+import com.blocksdecoded.dex.core.security.LockManager
 
 class App: Application() {
     companion object {
@@ -57,8 +58,11 @@ class App: Application() {
         lateinit var encryptionManager: IEncryptionManager
         lateinit var pinManager: IPinManager
         lateinit var keyStoreManager: IKeyStoreManager
+        lateinit var keyStoreChangeListener: KeyStoreChangeListener
         lateinit var keyProvider: IKeyProvider
         lateinit var systemInfoManager: ISystemInfoManager
+        lateinit var lockManager: ILockManager
+        lateinit var backgroundManager: BackgroundManager
 
         // Rates
         lateinit var ratesManager: IRatesManager
@@ -73,6 +77,7 @@ class App: Application() {
         lateinit var appPreferences: IAppPreferences
         lateinit var sharedStorage: ISharedStorage
 
+        var lastExitDate: Long = 0
     }
 
     override fun onCreate() {
@@ -90,6 +95,7 @@ class App: Application() {
         securedStorage = SecuredStorage(encryptionManager, sharedStorage)
 
         systemInfoManager = SystemInfoManager()
+        backgroundManager = BackgroundManager(this)
 
         // Auth
 	    wordsManager = WordsManager(appPreferences)
@@ -98,6 +104,12 @@ class App: Application() {
         KeyStoreManager("MASTER_KEY").apply {
             keyStoreManager = this
             keyProvider = this
+        }
+        keyStoreChangeListener = KeyStoreChangeListener(systemInfoManager, keyStoreManager).apply {
+            backgroundManager.registerListener(this)
+        }
+        lockManager = LockManager(pinManager).apply {
+            backgroundManager.registerListener(this)
         }
 
         // Init kits
@@ -123,10 +135,9 @@ class App: Application() {
         )
         ratesConverter = RatesConverter(ratesManager = ratesManager)
         
-        // Init adapter manager
+        // Init adapter managers
         adapterFactory = AdapterFactory(appConfiguration, ethereumKitManager, feeRateProvider)
         adapterManager = AdapterManager(coinManager, adapterFactory, ethereumKitManager, authManager)
-    
         relayerAdapterManager = RelayerAdapterManager(coinManager, ethereumKitManager, zrxKitManager, authManager)
         exchangeHistoryManager = ExchangeHistoryManager(adapterManager)
     }

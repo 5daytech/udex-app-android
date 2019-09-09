@@ -7,6 +7,9 @@ import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.pin.PinInteractionType.*
 import com.blocksdecoded.dex.presentation.pin.cases.*
+import com.blocksdecoded.dex.presentation.pin.cases.manage.EditPinUseCase
+import com.blocksdecoded.dex.presentation.pin.cases.manage.SetPinUseCase
+import com.blocksdecoded.dex.presentation.pin.cases.unlock.UnlockPinUseCase
 
 class PinViewModel : CoreViewModel(), IPinView {
     private val pinManager = App.pinManager
@@ -29,13 +32,24 @@ class PinViewModel : CoreViewModel(), IPinView {
     val dismissWithSuccessEvent = SingleLiveEvent<Unit>()
     val closeApplicationEvent = SingleLiveEvent<Unit>()
 
-    private var useCase: BasePinUseCase? = null
+    private var useCase: IBasePinUseCase? = null
 
     fun init(interactionType: PinInteractionType, showCancel: Boolean) {
         useCase = when(interactionType) {
             SET_PIN -> SetPinUseCase(this, pinManager)
-            UNLOCK -> UnlockPinUseCase(this, pinManager, showCancel)
-            EDIT_PIN -> EditPinUseCase(this, pinManager)
+            UNLOCK -> UnlockPinUseCase(
+                this,
+                pinManager,
+                App.lockManager,
+                App.appPreferences,
+                App.encryptionManager,
+                App.systemInfoManager,
+                showCancel
+            )
+            EDIT_PIN -> EditPinUseCase(
+                this,
+                pinManager
+            )
         }
 
         useCase?.viewDidLoad()
@@ -121,12 +135,16 @@ class PinViewModel : CoreViewModel(), IPinView {
         useCase?.onDelete(page)
     }
 
+    fun resetPin() {
+        useCase?.resetPin()
+    }
+
     fun onBiometricUnlockClick() {
         useCase?.onBiometricClick()
     }
 
-    fun resetPin() {
-        useCase?.resetPin()
+    fun onBiometricUnlock() {
+        useCase?.onBiometricUnlocked()
     }
 
     //endregion

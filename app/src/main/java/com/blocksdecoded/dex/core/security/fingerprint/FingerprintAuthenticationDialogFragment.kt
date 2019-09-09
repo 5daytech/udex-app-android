@@ -24,27 +24,24 @@ import android.graphics.drawable.ColorDrawable
 import android.hardware.fingerprint.FingerprintManager
 import android.os.Bundle
 import android.view.*
-import android.view.animation.AnimationUtils
 import android.widget.Button
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.core.widget.ImageViewCompat
-import androidx.fragment.app.DialogFragment
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.presentation.widgets.dialogs.BaseDialog
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 
 /**
  * A dialog which uses fingerprint APIs to authenticate the user, and falls back to password
  * authentication if fingerprint is not available.
  */
-class FingerprintAuthenticationDialogFragment : DialogFragment(), FingerprintCallback {
+class FingerprintAuthenticationDialogFragment : BaseDialog(R.layout.dialog_fingerprint), FingerprintCallback {
 
     private lateinit var cancelButton: Button
-    private lateinit var fingerprintWrapper: FrameLayout
-    private lateinit var iconBackgroundImg: ImageView
+    private lateinit var fingerprintIcon: ImageView
     private lateinit var errorTextView: TextView
 
     private var callback: Callback? = null
@@ -60,16 +57,7 @@ class FingerprintAuthenticationDialogFragment : DialogFragment(), FingerprintCal
 
         // Do not create a new Fragment when the Activity is re-created such as orientation changes.
         retainInstance = true
-        setStyle(STYLE_NORMAL, android.R.style.Theme_Material_Light_Dialog)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        dialog?.window?.let {
-            it.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            it.requestFeature(Window.FEATURE_NO_TITLE)
-        }
         isCancelable = false
-        return inflater.inflate(R.layout.dialog_fingerprint, container, false)
     }
 
 
@@ -77,7 +65,7 @@ class FingerprintAuthenticationDialogFragment : DialogFragment(), FingerprintCal
         super.onViewCreated(view, savedInstanceState)
 
         cancelButton = view.findViewById(R.id.fingerprint_cancel)
-        fingerprintWrapper = view.findViewById(R.id.fingerprint_icon)
+        fingerprintIcon = view.findViewById(R.id.fingerprint_icon)
         errorTextView = view.findViewById(R.id.fingerprint_status)
 
         cancelButton.setOnClickListener { dismiss() }
@@ -117,8 +105,8 @@ class FingerprintAuthenticationDialogFragment : DialogFragment(), FingerprintCal
             text = errorTextView.resources.getString(R.string.fingerprint_success)
         }
 
-        iconBackgroundImg.run {
-            setImageTintColor(iconBackgroundImg, R.color.green)
+        fingerprintIcon.run {
+            setImageTintColor(fingerprintIcon, R.color.green)
             postDelayed({ callback?.onFingerprintAuthSucceed() }, SUCCESS_DELAY_MILLIS)
         }
     }
@@ -159,9 +147,7 @@ class FingerprintAuthenticationDialogFragment : DialogFragment(), FingerprintCal
                 postDelayed(resetErrorTextRunnable, ERROR_TIMEOUT_MILLIS)
             }
 
-            setImageTintColor(iconBackgroundImg, R.color.red_warning)
-            val shake = AnimationUtils.loadAnimation(it.context, R.anim.shake)
-            fingerprintWrapper.startAnimation(shake)
+            setImageTintColor(fingerprintIcon, R.color.red_warning)
         }
     }
 

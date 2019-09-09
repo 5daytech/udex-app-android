@@ -7,35 +7,38 @@ abstract class BasePinUseCase(
     var view: IPinView,
     private val pinManager: IPinManager,
     val pages: List<Page>
-) {
+) : IBasePinUseCase {
     enum class Page { UNLOCK, ENTER, CONFIRM }
 
     private var enteredPin = ""
     private var storedPin: String? = null
 
-    abstract fun viewDidLoad()
-    abstract fun onBackPressed()
     abstract fun didSavePin()
 
-    open fun onBiometricClick() = Unit
+    override fun onBiometricClick() = Unit
+    override fun onBiometricUnlocked() = Unit
 
-    fun onEnter(pageIndex: Int, number: String) {
+    override fun onEnter(page: Int, number: String) {
         if (enteredPin.length < IPinView.PIN_COUNT) {
             enteredPin += number
-            view.fillCircles(enteredPin.length, pageIndex)
+            view.fillCircles(enteredPin.length, page)
 
             if (enteredPin.length == IPinView.PIN_COUNT) {
-                navigateToPage(pageIndex, enteredPin)
+                navigateToPage(page, enteredPin)
                 enteredPin = ""
             }
         }
     }
 
-    fun onDelete(pageIndex: Int) {
+    override fun onDelete(page: Int) {
         if (enteredPin.isNotEmpty()) {
             enteredPin = enteredPin.substring(0, enteredPin.length - 1)
-            view.fillCircles(enteredPin.length, pageIndex)
+            view.fillCircles(enteredPin.length, page)
         }
+    }
+
+    override fun resetPin() {
+        enteredPin = ""
     }
 
     fun navigateToPage(pageIndex: Int, pin: String) {
@@ -44,10 +47,6 @@ abstract class BasePinUseCase(
             Page.ENTER -> onEnterFromEnterPage(pin)
             Page.CONFIRM -> onEnterFromConfirmPage(pin)
         }
-    }
-
-    fun resetPin() {
-        enteredPin = ""
     }
 
     fun didFailToSavePin() {

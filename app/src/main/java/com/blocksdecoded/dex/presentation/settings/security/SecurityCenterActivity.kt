@@ -50,6 +50,16 @@ class SecurityCenterActivity : CoreActivity() {
             security_edit_passcode?.alpha = alpha
         })
 
+        viewModel.fingerprintEnabled.observe(this, Observer {
+            security_fingerprint_switch?.apply {
+                isChecked = it
+
+                switchOnCheckedChangeListener = CompoundButton.OnCheckedChangeListener { _, isChecked ->
+                    viewModel.onFingerprintSwitch(isChecked)
+                }
+            }
+        })
+
         viewModel.openEditPinEvent.observe(this, Observer {
             PinActivity.startForEditPin(this)
         })
@@ -64,6 +74,10 @@ class SecurityCenterActivity : CoreActivity() {
 
         security_passcode_switch?.setOnClickListener {
             security_passcode_switch?.toggleSwitch()
+        }
+
+        security_fingerprint_switch?.setOnClickListener {
+            security_fingerprint_switch?.toggleSwitch()
         }
 
         security_edit_passcode?.setOnClickListener {

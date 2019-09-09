@@ -5,6 +5,11 @@ import java.util.*
 
 object TimeUtils {
 
+    fun getSecondsAgo(dateInMillis: Long): Long {
+        val differenceInMillis = Date().time - dateInMillis
+        return differenceInMillis / 1000
+    }
+
     fun dateInUTC(timestamp: Long, dateFormat: String): String {
         val dateFormatter = SimpleDateFormat(dateFormat, Locale("US"))
         dateFormatter.timeZone = TimeZone.getTimeZone("UTC")

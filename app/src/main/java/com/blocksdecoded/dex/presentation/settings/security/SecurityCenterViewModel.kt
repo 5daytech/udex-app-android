@@ -32,10 +32,12 @@ class SecurityCenterViewModel : CoreViewModel() {
         passcodeOptionsEnabled.value = isPinSet
 
         fingerprintVisible.value = systemInfoManager.hasFingerprintSensor
+        fingerprintEnabled.value = appPreferences.isFingerprintEnabled
     }
 
     private fun clearPin() {
         pinManager.clear()
+        appPreferences.isFingerprintEnabled = false
     }
 
     //region Public
@@ -72,6 +74,10 @@ class SecurityCenterViewModel : CoreViewModel() {
             openUnlockPinEvent.call()
         }
         Log.d("ololo", "Passcode enabled $isEnabled")
+    }
+
+    fun onFingerprintSwitch(isEnabled: Boolean) {
+        appPreferences.isFingerprintEnabled = isEnabled
     }
 
     //endregion
