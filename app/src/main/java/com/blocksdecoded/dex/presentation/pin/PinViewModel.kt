@@ -16,6 +16,7 @@ class PinViewModel : CoreViewModel(), IPinView {
     val showBackButton = MutableLiveData<Boolean>()
     val showPageAtIndex = MutableLiveData<Int>()
     val showError = MutableLiveData<Int>()
+    val showSuccess = MutableLiveData<Int>()
     val showErrorForPage = MutableLiveData<Pair<Int, Int>>()
     val fillPinCircles = MutableLiveData<Pair<Int, Int>>()
 
@@ -23,7 +24,7 @@ class PinViewModel : CoreViewModel(), IPinView {
     val showFingerprintInputEvent = SingleLiveEvent<FingerprintManagerCompat.CryptoObject>()
     val resetCirclesWithShakeAndDelayForPageEvent = SingleLiveEvent<Int>()
 
-    val navigateBackEvent = SingleLiveEvent<Unit>()
+    val navigateToMain = SingleLiveEvent<Unit>()
     val dismissWithCancelEvent = SingleLiveEvent<Unit>()
     val dismissWithSuccessEvent = SingleLiveEvent<Unit>()
     val closeApplicationEvent = SingleLiveEvent<Unit>()
@@ -80,6 +81,10 @@ class PinViewModel : CoreViewModel(), IPinView {
         showFingerprintInputEvent.value = cryptoObject
     }
 
+    override fun showSuccess(message: Int) {
+        showSuccess.value = message
+    }
+
     //endregion
 
     //region Navigation
@@ -97,7 +102,7 @@ class PinViewModel : CoreViewModel(), IPinView {
     }
 
     override fun backToMain() {
-        navigateBackEvent.call()
+        navigateToMain.call()
     }
 
     //endregion
@@ -118,6 +123,10 @@ class PinViewModel : CoreViewModel(), IPinView {
 
     fun onBiometricUnlockClick() {
         useCase?.onBiometricClick()
+    }
+
+    fun resetPin() {
+        useCase?.resetPin()
     }
 
     //endregion

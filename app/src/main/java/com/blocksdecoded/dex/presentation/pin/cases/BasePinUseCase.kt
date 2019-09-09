@@ -14,10 +14,10 @@ abstract class BasePinUseCase(
     private var storedPin: String? = null
 
     abstract fun viewDidLoad()
+    abstract fun onBackPressed()
+    abstract fun didSavePin()
 
-    open fun onBiometricClick() {
-
-    }
+    open fun onBiometricClick() = Unit
 
     fun onEnter(pageIndex: Int, number: String) {
         if (enteredPin.length < IPinView.PIN_COUNT) {
@@ -50,17 +50,9 @@ abstract class BasePinUseCase(
         enteredPin = ""
     }
 
-    fun didSavePin() {
-
-    }
-
-    fun onBackPressed() {
-
-    }
-
     fun didFailToSavePin() {
         showEnterPage()
-        view.showError(R.string.error_failed_save_pin)
+        view.showError(R.string.passcode_error_failed_to_save_pin)
     }
 
     private fun show(page: Page) {
@@ -102,9 +94,10 @@ abstract class BasePinUseCase(
     private fun onEnterFromConfirmPage(pin: String) {
         if (storedPin == pin) {
             pinManager.store(pin)
+            didSavePin()
         } else {
             showEnterPage()
-            show(R.string.error_pins_not_match, page = Page.ENTER)
+            show(R.string.passcode_error_pins_dont_match, page = Page.ENTER)
         }
     }
 }

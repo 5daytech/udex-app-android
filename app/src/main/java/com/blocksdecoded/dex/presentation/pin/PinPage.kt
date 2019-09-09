@@ -15,7 +15,12 @@ class PinPage(val description: Int, var enteredDigitsLength: Int = 0, var error:
 class PinPagesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var pinPages = mutableListOf<PinPage>()
-    private var shakePageIndex: Int? = null
+    var shakePageIndex: Int? = null
+
+    fun setPages(pinPages: List<PinPage>) {
+        this.pinPages.addAll(pinPages)
+        notifyDataSetChanged()
+    }
 
     fun setErrorForPage(pageIndex: Int, error: String?) {
         pinPages[pageIndex].error = error
@@ -42,7 +47,7 @@ class PinPagesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 class PinPageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var txtDesc: TextView = itemView.findViewById(R.id.pin_page_description)
     private var txtError: TextView = itemView.findViewById(R.id.pin_page_error)
-    private var pinCirclesWrapper = itemView.findViewById<ConstraintLayout>(R.id.pin_page_circles)
+    private var pinCirclesWrapper: View = itemView.findViewById(R.id.pin_page_circles)
 
     private var imgPinMask1: ImageView = itemView.findViewById(R.id.pin_page_mask_1)
     private var imgPinMask2: ImageView = itemView.findViewById(R.id.pin_page_mask_2)

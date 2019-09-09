@@ -9,6 +9,7 @@ interface IPinView {
     fun showPage(pageIndex: Int)
     fun showErrorForPage(pageIndex: Int, error: Int)
     fun showError(error: Int)
+    fun showSuccess(message: Int)
     fun showPinWrong(pageIndex: Int)
     fun showBackButton()
     fun fillCircles(pageIndex: Int, length: Int)

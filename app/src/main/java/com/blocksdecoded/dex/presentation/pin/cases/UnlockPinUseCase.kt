@@ -10,4 +10,12 @@ class UnlockPinUseCase(
     override fun viewDidLoad() {
 
     }
+
+    override fun onBackPressed() {
+
+    }
+
+    override fun didSavePin() {
+
+    }
 }

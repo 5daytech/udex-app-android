@@ -3,24 +3,22 @@ package com.blocksdecoded.dex.presentation.pin
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.TextView
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreActivity
+import com.blocksdecoded.dex.presentation.main.MainActivity
+import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
-import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType.*
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
+import com.blocksdecoded.dex.utils.ui.ToastHelper
+import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.activity_pin.*
 import kotlinx.android.synthetic.main.dialog_send.*
 
@@ -36,8 +34,14 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pin)
 
+        initViews()
+
+        initViewModel()
+    }
+
+    private fun initViews() {
         pagesAdapter = PinPagesAdapter()
-        pin_pages_recycler.layoutManager = LinearLayoutManager(this)
+        pin_pages_recycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(pin_pages_recycler)
@@ -45,13 +49,108 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener {
         pin_pages_recycler.adapter = pagesAdapter
         pin_pages_recycler.setOnTouchListener { _, _ -> true }
 
+        pin_numpad?.bind(this, FINGER, false)
+    }
+
+    private fun initViewModel() {
         val interactionType = intent.getSerializableExtra(EXTRA_INTERACTION_TYPE) as PinInteractionType
         val showCancelButton = intent.getBooleanExtra(EXTRA_SHOW_CANCEL, false)
 
         viewModel = ViewModelProviders.of(this).get(PinViewModel::class.java)
         viewModel.init(interactionType, showCancelButton)
 
-        send_numpad?.bind(this, FINGER, false)
+        viewModel.hideToolbar.observe(this, Observer {
+            toolbar?.visible = false
+        })
+
+        viewModel.showBackButton.observe(this, Observer {
+            if (it) {
+                toolbar?.bind(MainToolbar.ToolbarState.BACK) {
+                    viewModel.onBackPressed()
+                }
+            }
+        })
+
+        viewModel.titleLiveData.observe(this, Observer { title ->
+            title?.let {
+                toolbar.setTitle(it)
+            }
+        })
+
+        viewModel.pagesLiveData.observe(this, Observer { pinPages ->
+            pinPages?.let {
+                pagesAdapter.setPages(pinPages)
+            }
+        })
+
+        viewModel.showPageAtIndex.observe(this, Observer { index ->
+            index?.let {
+                Handler().postDelayed({
+                    visiblePage?.let {
+                        pagesAdapter.setEnteredPinLength(it, 0)
+                        pin_pages_recycler?.smoothScrollToPosition(index)
+                    }
+                }, 300)
+            }
+        })
+
+        viewModel.showErrorForPage.observe(this, Observer { errorForPage ->
+            errorForPage?.let { (error, pageIndex) ->
+                pagesAdapter.setErrorForPage(pageIndex, error.let { getString(error) } ?: null)
+            }
+        })
+
+        viewModel.showError.observe(this, Observer { error ->
+            error?.let { ToastHelper.showErrorMessage(it) }
+        })
+
+        viewModel.showSuccess.observe(this, Observer { success ->
+            success?.let { ToastHelper.showSuccessMessage(it, 1000) }
+        })
+
+        viewModel.navigateToMain.observe(this, Observer {
+            MainActivity.start(this)
+            finish()
+        })
+
+        viewModel.fillPinCircles.observe(this, Observer { pair ->
+            pair?.let { (length, pageIndex) ->
+                pagesAdapter.setEnteredPinLength(pageIndex, length)
+            }
+        })
+
+        viewModel.dismissWithCancelEvent.observe(this, Observer {
+            setResult(RESULT_CANCELLED)
+            finish()
+        })
+
+        viewModel.dismissWithSuccessEvent.observe(this, Observer {
+            setResult(RESULT_OK)
+            finish()
+        })
+
+        viewModel.showFingerprintInputEvent.observe(this, Observer { cryptoObject ->
+            cryptoObject?.let {
+//                showFingerprintDialog(it)
+//                numpadAdapter.showFingerPrintButton = true
+            }
+        })
+
+        viewModel.resetCirclesWithShakeAndDelayForPageEvent.observe(this, Observer { pageIndex ->
+            pageIndex?.let {
+                pagesAdapter.shakePageIndex = it
+                pagesAdapter.notifyDataSetChanged()
+                Handler().postDelayed({
+                    pagesAdapter.shakePageIndex = null
+                    pagesAdapter.setEnteredPinLength(pageIndex, 0)
+                    viewModel.resetPin()
+                }, 300)
+            }
+        })
+
+        viewModel.closeApplicationEvent.observe(this, Observer {
+            finishAffinity()
+        })
     }
 
     override fun onBackPressed() {
@@ -75,7 +174,6 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener {
 
         const val RESULT_OK = 1
         const val RESULT_CANCELLED = 2
-        const val PIN_COUNT = 6
 
         fun startForSetPin(context: AppCompatActivity, requestCode: Int) {
             startForResult(context, requestCode, PinInteractionType.SET_PIN)

@@ -9,4 +9,12 @@ class EditPinUseCase(
     override fun viewDidLoad() {
 
     }
+
+    override fun onBackPressed() {
+
+    }
+
+    override fun didSavePin() {
+
+    }
 }
