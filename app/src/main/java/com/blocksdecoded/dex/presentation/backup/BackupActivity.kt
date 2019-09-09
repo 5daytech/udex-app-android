@@ -44,7 +44,7 @@ class BackupActivity : CoreActivity() {
         backup_copy.setOnClickListener { viewModel.onCopyClick() }
         
         backup_recycler.adapter = adapter
-        backup_recycler.layoutManager = GridLayoutManager(this, 2)
+        backup_recycler.layoutManager = GridLayoutManager(this, 1)
     }
     
     companion object {

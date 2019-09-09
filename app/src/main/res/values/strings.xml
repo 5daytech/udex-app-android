@@ -96,6 +96,8 @@
     <string name="fingerprint_success">Success</string>
     <string name="fingerprint_not_recognized">Not recognized</string>
     <string name="fingerprint_hint">Touch sensor</string>
+    <string name="error_failed_save_pin">Pin save error</string>
+    <string name="error_pins_not_match">Pins not match</string>
 
     <string-array name="placeholder_items">
         <item>WETH</item>

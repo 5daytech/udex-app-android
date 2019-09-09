@@ -3,6 +3,7 @@ package com.blocksdecoded.dex.presentation.widgets
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import androidx.annotation.StringRes
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
 import com.blocksdecoded.dex.utils.visible
@@ -73,6 +74,10 @@ class MainToolbar : AppBarLayout {
 
         toolbar_menu.setOnClickListener { onActionClick?.invoke() }
         toolbar_back.setOnClickListener { onActionClick?.invoke() }
+    }
+
+    fun setTitle(@StringRes stringRes: Int) {
+        title = context.getString(stringRes)
     }
 
     enum class ToolbarState {

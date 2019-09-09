@@ -1,0 +1,106 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/pinUnlock"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/app_bar_layout">
+
+    <TextView
+        android:id="@+id/pin_page_description"
+        style="@style/HintText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="16dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="Passcode description"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/pin_page_circles"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/pin_page_circles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="45dp"
+        android:layout_marginTop="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingTop="32dp"
+        android:gravity="center"
+        >
+
+        <ImageView
+            android:id="@+id/pin_page_mask_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_filled_circle"
+            />
+
+        <ImageView
+            android:id="@+id/pin_page_mask_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            app:srcCompat="@drawable/ic_filled_circle"
+            />
+
+        <ImageView
+            android:id="@+id/pin_page_mask_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            app:srcCompat="@drawable/ic_filled_circle"
+            />
+
+        <ImageView
+            android:id="@+id/pin_page_mask_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            app:srcCompat="@drawable/ic_empty_circle"
+            />
+
+        <ImageView
+            android:id="@+id/pin_page_mask_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            app:srcCompat="@drawable/ic_empty_circle"
+            />
+
+        <ImageView
+            android:id="@+id/pin_page_mask_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            app:srcCompat="@drawable/ic_empty_circle"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/pin_page_error"
+        style="@style/SmallHintText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textAllCaps="false"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAlignment="center"
+        android:textColor="@color/red_warning"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pin_page_circles"
+        tools:text="Error message"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

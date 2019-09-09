@@ -43,12 +43,10 @@ class App: Application() {
         lateinit var appConfiguration: AppConfiguration
 
         // Kits
-
         lateinit var zrxKitManager: IZrxKitManager
         lateinit var ethereumKitManager: EthereumKitManager
         
         // Managers
-
         lateinit var coinManager: ICoinManager
         lateinit var feeRateProvider: IFeeRateProvider
         lateinit var adapterManager: IAdapterManager
@@ -63,16 +61,13 @@ class App: Application() {
         lateinit var systemInfoManager: ISystemInfoManager
 
         // Rates
-        
         lateinit var ratesManager: IRatesManager
         lateinit var ratesConverter: RatesConverter
         
         // Factories
-
         lateinit var adapterFactory: AdapterFactory
         
         // Helpers
-
         lateinit var appDatabase: AppDatabase
         lateinit var securedStorage: ISecuredStorage
         lateinit var appPreferences: IAppPreferences

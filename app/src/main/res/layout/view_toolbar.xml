@@ -21,7 +21,7 @@
         android:layout_marginBottom="@dimen/element_margin"
         android:padding="8dp"
         android:src="@drawable/ic_menu"
-        android:visibility="visible"
+        android:visibility="gone"
         android:background="?selectableItemBackgroundBorderless"/>
 
     <ImageView
@@ -34,7 +34,7 @@
         android:layout_marginTop="12dp"
         android:padding="8dp"
         android:src="@drawable/ic_back"
-        android:visibility="visible"
+        android:visibility="gone"
         android:background="?selectableItemBackgroundBorderless"/>
 
     <TextView
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_date"
-        app:layout_constraintLeft_toRightOf="@+id/toolbar_menu"
+        app:layout_constraintLeft_toRightOf="@+id/toolbar_back"
         android:paddingTop="@dimen/page_margin"
         android:paddingBottom="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"

@@ -8,12 +8,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
-import io.realm.Realm.init
 
 class NumPadView: RecyclerView {
 
@@ -73,7 +71,7 @@ class NumPadItemsAdapter(private val listener: Listener, bottomLeftButtonType: N
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return NumPadItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_numpad_button, parent, false))
+        return NumPadItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_numpad_button, parent, false))
     }
 
     override fun getItemCount() = numPadItems.count()
