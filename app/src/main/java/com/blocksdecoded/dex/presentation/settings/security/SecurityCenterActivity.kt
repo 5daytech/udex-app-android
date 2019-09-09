@@ -65,6 +65,10 @@ class SecurityCenterActivity : CoreActivity() {
         security_passcode_switch?.setOnClickListener {
             security_passcode_switch?.toggleSwitch()
         }
+
+        security_edit_passcode?.setOnClickListener {
+            viewModel.onEditPasscodeClick()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

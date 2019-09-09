@@ -14,6 +14,7 @@ class SecurityCenterViewModel : CoreViewModel() {
 
     val passcodeOptionsEnabled = MutableLiveData<Boolean>()
     val fingerprintVisible = MutableLiveData<Boolean>()
+    val fingerprintEnabled = MutableLiveData<Boolean>()
 
     val passcodeEnabled = SingleLiveEvent<Boolean>()
     val openEditPinEvent = SingleLiveEvent<Unit>()

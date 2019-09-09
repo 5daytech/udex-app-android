@@ -94,7 +94,9 @@
     <string name="passcode_success">Passcode was set successfully!</string>
     <string name="passcode_error_pins_dont_match">Passcode did not match. Try again.</string>
     <string name="passcode_error_failed_to_save_pin">Error occurred while saving your passcode. Please, try again.</string>
-
+    <string name="passcode_edit">Edit Passcode</string>
+    <string name="passcode_new_info">New Passcode</string>
+    <string name="passcode_current_info">Current Passcode</string>
 
     <string name="onboarding_about_app">ERC20\nDecentralized\nExchange</string>
 
