@@ -8,13 +8,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.main.IFocusListener
 import com.blocksdecoded.dex.presentation.markets.recycler.MarketViewHolder
 import com.blocksdecoded.dex.presentation.markets.recycler.MarketsAdapter
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
+import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_markets.*
 
-class MarketsFragment : CoreFragment(R.layout.fragment_markets), MarketViewHolder.Listener {
+class MarketsFragment : CoreFragment(R.layout.fragment_markets), MarketViewHolder.Listener, IFocusListener {
 
     private lateinit var adapter: MarketsAdapter
     private lateinit var viewModel: MarketsViewModel
@@ -45,9 +47,13 @@ class MarketsFragment : CoreFragment(R.layout.fragment_markets), MarketViewHolde
         
         markets_refresh?.setOnRefreshListener { viewModel.refresh() }
     }
-    
+
     //endregion
-    
+
+    override fun onFocused() {
+        coordinator?.visible = true
+    }
+
     //region ViewHolder
     
     override fun onClick(position: Int) {

@@ -5,7 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.MenuItem
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -21,6 +23,7 @@ import com.blocksdecoded.dex.core.ui.CoreActivity
 import com.blocksdecoded.dex.presentation.send.SendViewModel
 import com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderViewModel
 import com.blocksdecoded.dex.presentation.orders.model.FillOrderInfo
+import com.blocksdecoded.dex.utils.Logger
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_main.*
@@ -101,9 +104,20 @@ class MainActivity :
             R.id.nav_account -> 4
             else -> 0
         }
+
+        focusCurrentFragment(itemPosition)
+
         main_view_pager?.setCurrentItem(itemPosition, false)
 
         return true
+    }
+
+    private fun focusCurrentFragment(itemPosition: Int) = try {
+        val page =
+            supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + itemPosition)
+        (page as? IFocusListener)?.onFocused()
+    } catch (e: Exception) {
+        Logger.e(e)
     }
 
     companion object {

@@ -12,11 +12,13 @@ import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.settings.security.SecurityCenterActivity
 import com.blocksdecoded.dex.presentation.coinmanager.CoinManagerActivity
 import com.blocksdecoded.dex.presentation.exchangehistory.ExchangeHistoryActivity
+import com.blocksdecoded.dex.presentation.main.IFocusListener
 import com.blocksdecoded.dex.presentation.settings.addressbook.AddressBookActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
+import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_account.*
 
-class SettingsFragment : CoreFragment(R.layout.fragment_account) {
+class SettingsFragment : CoreFragment(R.layout.fragment_account), IFocusListener {
 
     private lateinit var viewModel: SettingsViewModel
 
@@ -70,6 +72,10 @@ class SettingsFragment : CoreFragment(R.layout.fragment_account) {
         account_exchange_history?.setOnClickListener {
             activity?.let { ExchangeHistoryActivity.start(it) }
         }
+    }
+
+    override fun onFocused() {
+        coordinator?.visible = true
     }
 
     companion object {

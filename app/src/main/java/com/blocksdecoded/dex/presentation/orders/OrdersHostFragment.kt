@@ -10,14 +10,16 @@ import androidx.lifecycle.Observer
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.main.IFocusListener
 import com.blocksdecoded.dex.presentation.orders.info.OrderInfoDialog
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.FillOrderInfo
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
+import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_orders_host.*
 import java.math.BigDecimal
 
-class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
+class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host), IFocusListener {
 
     private var adapter: OrdersHostAdapter? = null
     private lateinit var viewModel: OrdersViewModel
@@ -72,6 +74,10 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host) {
         orders_host_pair_picker?.init {
             viewModel.onPickPair(it)
         }
+    }
+
+    override fun onFocused() {
+        coordinator?.visible = true
     }
 
     companion object {

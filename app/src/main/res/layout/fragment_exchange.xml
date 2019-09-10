@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
+    android:id="@+id/fragment_exchange_container"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -7,7 +8,8 @@
     android:layout_height="match_parent"
     android:overScrollMode="never"
     android:scrollbars="none"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:visibility="gone">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
