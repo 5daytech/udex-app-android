@@ -13,17 +13,27 @@
     <TextView
         style="@style/DialogTitleText"
         android:id="@+id/alert_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginTop="@dimen/page_margin"
         android:textSize="17sp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Android Keystore Error"
+        tools:text="Title"
         />
+
+    <View
+        style="@style/Divider"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/alert_title"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_height="0.5dp"/>
 
     <TextView
         style="@style/RegularText"
@@ -32,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginTop="@dimen/page_margin"
+        android:layout_marginTop="@dimen/big_margin"
         android:maxLines="10"
         android:maxWidth="275dp"
         android:textAlignment="center"
@@ -41,10 +51,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alert_title"
-        tools:text="Your encrypted data was recently invalidated because your Android lock screen was changed" />
+        tools:text="Description" />
 
     <TextView
-        style="@style/SemiboldText"
+        style="@style/RegularText"
         android:id="@+id/alert_confirm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

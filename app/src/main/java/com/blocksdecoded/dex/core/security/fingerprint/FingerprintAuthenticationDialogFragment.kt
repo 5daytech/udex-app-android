@@ -40,7 +40,7 @@ import com.blocksdecoded.dex.utils.ui.ToastHelper
  */
 class FingerprintAuthenticationDialogFragment : BaseDialog(R.layout.dialog_fingerprint), FingerprintCallback {
 
-    private lateinit var cancelButton: Button
+    private lateinit var cancelButton: View
     private lateinit var fingerprintIcon: ImageView
     private lateinit var errorTextView: TextView
 

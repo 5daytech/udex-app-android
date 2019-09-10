@@ -48,15 +48,22 @@
         app:layout_constraintStart_toEndOf="@+id/fingerprint_icon"
         app:layout_constraintTop_toTopOf="@+id/fingerprint_icon" />
 
-    <Button
+    <TextView
+        style="@style/SemiboldText"
         android:id="@+id/fingerprint_cancel"
-        style="@style/PrimaryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fingerprint_icon"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:paddingTop="@dimen/page_margin"
+        android:paddingBottom="@dimen/page_margin"
+        android:paddingStart="@dimen/big_margin"
+        android:paddingEnd="@dimen/big_margin"
+        android:background="?selectableItemBackground"
+        android:textColor="@color/turquoise"
+        android:textAllCaps="true"
+        android:text="Cancel"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
