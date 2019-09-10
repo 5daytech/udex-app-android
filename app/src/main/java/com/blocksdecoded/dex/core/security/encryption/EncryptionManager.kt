@@ -4,9 +4,8 @@ import android.app.Activity
 import android.app.KeyguardManager
 import android.content.Context
 import android.security.keystore.KeyPermanentlyInvalidatedException
-import androidx.core.hardware.fingerprint.FingerprintManagerCompat
+import androidx.biometric.BiometricPrompt
 import javax.crypto.Cipher
-import javax.crypto.SecretKey
 
 class EncryptionManager : IEncryptionManager {
     
@@ -30,7 +29,7 @@ class EncryptionManager : IEncryptionManager {
     }
 
 
-    override fun getCryptoObject(): FingerprintManagerCompat.CryptoObject {
+    override fun getCryptoObject(): BiometricPrompt.CryptoObject {
         var masterKey = keyStoreWrapper.getAndroidKeyStoreSymmetricKey(MASTER_KEY)
 
         if (masterKey == null) {
@@ -40,7 +39,7 @@ class EncryptionManager : IEncryptionManager {
         val cipher = CipherWrapper().cipher
         cipher.init(Cipher.ENCRYPT_MODE, masterKey)
 
-        return FingerprintManagerCompat.CryptoObject(cipher)
+        return BiometricPrompt.CryptoObject(cipher)
     }
 
     companion object {

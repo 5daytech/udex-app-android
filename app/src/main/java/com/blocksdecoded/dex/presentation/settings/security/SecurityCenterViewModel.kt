@@ -30,7 +30,7 @@ class SecurityCenterViewModel : CoreViewModel() {
         passcodeEnabled.value = isPinSet
         passcodeOptionsEnabled.value = isPinSet
 
-        fingerprintVisible.value = systemInfoManager.hasFingerprintSensor
+        fingerprintVisible.value = systemInfoManager.biometricAuthSupported
         fingerprintEnabled.value = appPreferences.isFingerprintEnabled
     }
 
@@ -75,7 +75,7 @@ class SecurityCenterViewModel : CoreViewModel() {
 
     fun onFingerprintSwitch(isEnabled: Boolean) {
         if (isEnabled) {
-            if (systemInfoManager.hasFingerprintSensor && systemInfoManager.hasEnrolledFingerprints) {
+            if (systemInfoManager.biometricAuthSupported && systemInfoManager.biometricAuthSupported) {
                 appPreferences.isFingerprintEnabled = true
             } else {
                 showNoEnrolledFingerprints.call()

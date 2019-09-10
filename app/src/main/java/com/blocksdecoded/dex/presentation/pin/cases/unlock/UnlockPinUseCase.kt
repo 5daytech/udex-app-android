@@ -74,12 +74,13 @@ class UnlockPinUseCase(
     }
 
     override fun onBiometricUnlocked() {
+        view.fillCircles(IPinView.PIN_COUNT, unlockPageIndex)
         lockManager.onUnlock()
         view.dismissWithSuccess()
     }
 
     override fun onBiometricClick() {
-        if (appPreferences.isFingerprintEnabled && systemInfoManager.hasEnrolledFingerprints) {
+        if (appPreferences.isFingerprintEnabled && systemInfoManager.biometricAuthSupported) {
             encryptionManager.getCryptoObject()?.let { view.showFingerprintDialog(it) }
         }
     }

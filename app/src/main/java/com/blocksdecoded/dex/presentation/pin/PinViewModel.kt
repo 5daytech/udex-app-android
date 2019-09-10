@@ -1,6 +1,6 @@
 package com.blocksdecoded.dex.presentation.pin
 
-import androidx.core.hardware.fingerprint.FingerprintManagerCompat
+import androidx.biometric.BiometricPrompt
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.ui.CoreViewModel
@@ -24,7 +24,7 @@ class PinViewModel : CoreViewModel(), IPinView {
     val fillPinCircles = MutableLiveData<Pair<Int, Int>>()
 
     val hideToolbar = SingleLiveEvent<Unit>()
-    val showFingerprintInputEvent = SingleLiveEvent<FingerprintManagerCompat.CryptoObject>()
+    val showFingerprintInputEvent = SingleLiveEvent<BiometricPrompt.CryptoObject>()
     val resetCirclesWithShakeAndDelayForPageEvent = SingleLiveEvent<Int>()
 
     val navigateToMain = SingleLiveEvent<Unit>()
@@ -58,25 +58,25 @@ class PinViewModel : CoreViewModel(), IPinView {
     //region IPinView
 
     override fun setTitle(title: Int) {
-        titleLiveData.value = title
+        titleLiveData.postValue(title)
     }
     override fun setPages(pages: List<PinPage>) {
-        pagesLiveData.value = pages
+        pagesLiveData.postValue(pages)
     }
     override fun showPage(pageIndex: Int) {
-        showPageAtIndex.value = pageIndex
+        showPageAtIndex.postValue(pageIndex)
     }
 
     override fun showErrorForPage(pageIndex: Int, error: Int) {
-        showErrorForPage.value = pageIndex to error
+        showErrorForPage.postValue(pageIndex to error)
     }
 
     override fun showError(error: Int) {
-        showError.value = error
+        showError.postValue(error)
     }
 
     override fun showPinWrong(pageIndex: Int) {
-        resetCirclesWithShakeAndDelayForPageEvent.value = pageIndex
+        resetCirclesWithShakeAndDelayForPageEvent.postValue(pageIndex)
     }
 
     override fun showBackButton() {
@@ -84,15 +84,15 @@ class PinViewModel : CoreViewModel(), IPinView {
     }
 
     override fun fillCircles(pageIndex: Int, length: Int) {
-        fillPinCircles.value = pageIndex to length
+        fillPinCircles.postValue(pageIndex to length)
     }
 
     override fun hideToolbar() {
-        hideToolbar.call()
+        hideToolbar.postValue(Unit)
     }
 
-    override fun showFingerprintDialog(cryptoObject: FingerprintManagerCompat.CryptoObject) {
-        showFingerprintInputEvent.value = cryptoObject
+    override fun showFingerprintDialog(cryptoObject: BiometricPrompt.CryptoObject) {
+        showFingerprintInputEvent.postValue(cryptoObject)
     }
 
     override fun showSuccess(message: Int) {
@@ -104,19 +104,19 @@ class PinViewModel : CoreViewModel(), IPinView {
     //region Navigation
 
     override fun dismissWithSuccess() {
-        dismissWithSuccessEvent.call()
+        dismissWithSuccessEvent.postValue(Unit)
     }
 
     override fun dismissWithCancel() {
-        dismissWithCancelEvent.call()
+        dismissWithCancelEvent.postValue(Unit)
     }
 
     override fun closeApplication() {
-        closeApplicationEvent.call()
+        closeApplicationEvent.postValue(Unit)
     }
 
     override fun backToMain() {
-        navigateToMain.call()
+        navigateToMain.postValue(Unit)
     }
 
     //endregion

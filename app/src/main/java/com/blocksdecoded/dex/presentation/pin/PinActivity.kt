@@ -5,14 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.hardware.fingerprint.FingerprintManagerCompat
+import androidx.biometric.BiometricPrompt
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.security.fingerprint.FingerprintAuthenticationDialogFragment
+import com.blocksdecoded.dex.core.security.biometric.BiometricManager
 import com.blocksdecoded.dex.core.ui.CoreActivity
 import com.blocksdecoded.dex.presentation.main.MainActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
@@ -23,10 +23,11 @@ import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.activity_pin.*
 
-class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener, FingerprintAuthenticationDialogFragment.Callback {
+class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener, BiometricManager.IBiometricListener {
 
     private lateinit var viewModel: PinViewModel
     private lateinit var pagesAdapter: PinPagesAdapter
+    private lateinit var biometricManager: BiometricManager
 
     private val visiblePage: Int?
         get() = (pin_pages_recycler?.layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition()
@@ -40,6 +41,8 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener, FingerprintAuth
         initViews()
 
         initViewModel()
+
+        biometricManager = BiometricManager(this, this)
     }
 
     private fun initViews() {
@@ -134,7 +137,7 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener, FingerprintAuth
 
         viewModel.showFingerprintInputEvent.observe(this, Observer { cryptoObject ->
             cryptoObject?.let {
-                showFingerprintDialog(it)
+                showBiometricDialog(it)
                 pin_numpad.showFingerPrintButton = true
             }
         })
@@ -177,16 +180,18 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener, FingerprintAuth
 
     //region Biometric
 
-    override fun onFingerprintAuthSucceed() {
+    override fun onAuthSuccess() {
         viewModel.onBiometricUnlock()
     }
 
-    private fun showFingerprintDialog(cryptoObject: FingerprintManagerCompat.CryptoObject) {
-        val fragment = FingerprintAuthenticationDialogFragment()
-        fragment.setCryptoObject(cryptoObject)
-        fragment.setCallback(this@PinActivity)
-        fragment.isCancelable = true
-        fragment.show(supportFragmentManager, "fingerprint_dialog")
+    override fun onAuthFail(type: BiometricManager.ErrorType) {
+        runOnUiThread {
+            ToastHelper.showErrorMessage(R.string.error_enter_your_pin)
+        }
+    }
+
+    private fun showBiometricDialog(cryptoObject: BiometricPrompt.CryptoObject) {
+        biometricManager.request(cryptoObject = cryptoObject)
     }
 
     //endregion

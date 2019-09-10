@@ -54,7 +54,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="@dimen/page_margin"
         app:siv_action_switch="true"
-        app:siv_title="Fingerprint"
+        app:siv_title="Biometric"
         app:siv_icon="@drawable/ic_fingerprint"
         android:background="?selectableItemBackground"/>
 

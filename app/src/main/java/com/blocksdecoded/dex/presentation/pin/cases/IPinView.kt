@@ -1,6 +1,6 @@
 package com.blocksdecoded.dex.presentation.pin.cases
 
-import androidx.core.hardware.fingerprint.FingerprintManagerCompat
+import androidx.biometric.BiometricPrompt
 import com.blocksdecoded.dex.presentation.pin.PinPage
 
 interface IPinView {
@@ -14,7 +14,7 @@ interface IPinView {
     fun showBackButton()
     fun fillCircles(pageIndex: Int, length: Int)
     fun hideToolbar()
-    fun showFingerprintDialog(cryptoObject: FingerprintManagerCompat.CryptoObject)
+    fun showFingerprintDialog(cryptoObject: BiometricPrompt.CryptoObject)
 
     fun dismissWithSuccess()
     fun dismissWithCancel()
