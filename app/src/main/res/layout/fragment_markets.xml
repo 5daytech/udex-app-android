@@ -14,7 +14,7 @@
         android:background="@color/transparent"
         android:paddingBottom="@dimen/page_margin"
         app:elevation="0dp"
-        app:mt_title="Markets"/>
+        app:mt_title="@string/title_markets"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/markets_refresh"

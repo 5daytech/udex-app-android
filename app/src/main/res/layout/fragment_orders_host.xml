@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@color/transparent"
         app:elevation="0dp"
-        app:mt_title="Orders"/>
+        app:mt_title="@string/title_orders"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"

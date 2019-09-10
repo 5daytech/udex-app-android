@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.presentation.exchange
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
@@ -45,7 +46,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     private val disposables = CompositeDisposable()
     private var processingDialog: DialogFragment? = null
     
-    private val activeType: ExchangeType
+    private var activeType: ExchangeType = MARKET
         get() = if (exchange_pager.currentItem == 0) MARKET else LIMIT
     
     private val exchangeEnableObserver = Observer<Boolean> {
@@ -93,7 +94,6 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         }
         
         exchange_pager?.adapter = exchangeAdapter
-        exchange_pager?.offscreenPageLimit = 2
         exchange_tab_layout?.setupWithViewPager(exchange_pager)
         
         exchange_pager?.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
@@ -262,7 +262,9 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     //endregion
 
     override fun onFocused() {
-        fragment_exchange_container?.visible = true
+        Handler().post {
+            fragment_exchange_container?.visible = true
+        }
     }
 
     override fun onItemClick(item: NumPadItem) {

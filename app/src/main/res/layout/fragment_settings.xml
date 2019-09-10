@@ -14,7 +14,7 @@
         android:background="@color/transparent"
         android:paddingBottom="@dimen/page_margin"
         app:elevation="0dp"
-        app:mt_title="Account"/>
+        app:mt_title="@string/title_settings"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content">
 
             <com.blocksdecoded.dex.presentation.settings.SettingsItemView
-                android:id="@+id/account_security_center"
+                android:id="@+id/security_center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -40,10 +40,10 @@
                 android:background="?selectableItemBackground"/>
 
             <com.blocksdecoded.dex.presentation.settings.SettingsItemView
-                android:id="@+id/account_exchange_history"
+                android:id="@+id/exchange_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/account_security_center"
+                app:layout_constraintTop_toBottomOf="@+id/security_center"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:siv_action_switch="false"
                 app:siv_title="@string/account_history"
@@ -51,10 +51,10 @@
                 android:background="?selectableItemBackground" />
 
             <com.blocksdecoded.dex.presentation.settings.SettingsItemView
-                android:id="@+id/account_coin_manager"
+                android:id="@+id/coin_manager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/account_exchange_history"
+                app:layout_constraintTop_toBottomOf="@+id/exchange_history"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:siv_action_switch="false"
                 app:siv_title="@string/account_coin_manager"
@@ -63,10 +63,10 @@
                 android:visibility="gone"/>
 
             <com.blocksdecoded.dex.presentation.settings.SettingsItemView
-                android:id="@+id/account_address_book"
+                android:id="@+id/address_book"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/account_coin_manager"
+                app:layout_constraintTop_toBottomOf="@+id/coin_manager"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:siv_action_switch="false"
                 app:siv_title="@string/account_address_book"
@@ -75,7 +75,7 @@
                 android:visibility="gone"/>
 
             <com.blocksdecoded.dex.presentation.settings.SettingsItemView
-                android:id="@+id/account_language"
+                android:id="@+id/language"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -88,10 +88,10 @@
                 android:visibility="gone"/>
 
             <com.blocksdecoded.dex.presentation.settings.SettingsItemView
-                android:id="@+id/account_light_mode"
+                android:id="@+id/light_mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/account_address_book"
+                app:layout_constraintTop_toBottomOf="@+id/address_book"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/page_margin"
                 app:siv_action_switch="true"
@@ -100,10 +100,10 @@
                 android:background="?selectableItemBackground" />
 
             <com.blocksdecoded.dex.presentation.settings.SettingsItemView
-                android:id="@+id/account_about_app"
+                android:id="@+id/about_app"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/account_light_mode"
+                app:layout_constraintTop_toBottomOf="@+id/light_mode"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/big_margin"
                 app:siv_action_switch="false"
@@ -112,10 +112,10 @@
                 android:background="?selectableItemBackground" />
 
             <com.blocksdecoded.dex.presentation.settings.SettingsItemView
-                android:id="@+id/account_share_app"
+                android:id="@+id/share_app"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/account_about_app"
+                app:layout_constraintTop_toBottomOf="@+id/about_app"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:siv_action_switch="false"
                 app:siv_title="@string/account_share"
@@ -128,7 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_share_app"
+                app:layout_constraintTop_toBottomOf="@+id/share_app"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textAllCaps="false"

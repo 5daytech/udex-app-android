@@ -50,7 +50,7 @@ class BalanceViewModel : CoreViewModel() {
         topUpVisible.value = false
 
         ratesManager.marketsUpdateSubject
-            .subscribe { onRefreshAdapters() }
+            .subscribe { updateBalance() }
             .let { disposables.add(it) }
         
         adaptersManager.adaptersUpdatedSignal

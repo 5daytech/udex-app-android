@@ -16,9 +16,9 @@ import com.blocksdecoded.dex.presentation.main.IFocusListener
 import com.blocksdecoded.dex.presentation.settings.addressbook.AddressBookActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
 import com.blocksdecoded.dex.utils.visible
-import kotlinx.android.synthetic.main.fragment_account.*
+import kotlinx.android.synthetic.main.fragment_settings.*
 
-class SettingsFragment : CoreFragment(R.layout.fragment_account), IFocusListener {
+class SettingsFragment : CoreFragment(R.layout.fragment_settings), IFocusListener {
 
     private lateinit var viewModel: SettingsViewModel
 
@@ -36,7 +36,7 @@ class SettingsFragment : CoreFragment(R.layout.fragment_account), IFocusListener
 
         viewModel.lightMode.observe(this, Observer { lightMode ->
             lightMode?.let {
-                account_light_mode?.apply {
+                light_mode?.apply {
                     isChecked = it
 
                     switchOnCheckedChangeListener = CompoundButton.OnCheckedChangeListener { _, isChecked ->
@@ -48,28 +48,28 @@ class SettingsFragment : CoreFragment(R.layout.fragment_account), IFocusListener
 
         toolbar?.bind(NONE)
 
-        account_security_center?.setOnClickListener { viewModel.onSecurityCenterClick() }
-        account_about_app?.setOnClickListener { viewModel.onAboutAppClick() }
+        security_center?.setOnClickListener { viewModel.onSecurityCenterClick() }
+        about_app?.setOnClickListener { viewModel.onAboutAppClick() }
 
-        account_share_app?.setOnClickListener {
+        share_app?.setOnClickListener {
 
         }
 
-        account_light_mode?.setOnClickListener {
-            account_light_mode?.toggleSwitch()
+        light_mode?.setOnClickListener {
+            light_mode?.toggleSwitch()
         }
 
         app_version?.text = "v ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})\n${BuildConfig.FLAVOR}"
 
-        account_address_book?.setOnClickListener {
+        address_book?.setOnClickListener {
             activity?.let { AddressBookActivity.start(it) }
         }
 
-        account_coin_manager?.setOnClickListener {
+        coin_manager?.setOnClickListener {
             activity?.let { CoinManagerActivity.start(it) }
         }
 
-        account_exchange_history?.setOnClickListener {
+        exchange_history?.setOnClickListener {
             activity?.let { ExchangeHistoryActivity.start(it) }
         }
     }

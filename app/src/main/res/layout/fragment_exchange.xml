@@ -8,12 +8,12 @@
     android:layout_height="match_parent"
     android:overScrollMode="never"
     android:scrollbars="none"
-    android:fillViewport="true"
-    android:visibility="gone">
-    <LinearLayout
+    android:fillViewport="true">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/exchange_container"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <com.blocksdecoded.dex.presentation.widgets.MainToolbar
             android:id="@+id/toolbar"
@@ -24,105 +24,97 @@
             android:paddingBottom="@dimen/page_margin"
             app:mt_title="Exchange"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/exchange_container"
-            android:orientation="vertical"
+        <com.blocksdecoded.dex.presentation.widgets.DividedTabLayout
+            android:id="@+id/exchange_tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.blocksdecoded.dex.presentation.widgets.DividedTabLayout
-                android:id="@+id/exchange_tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginLeft="@dimen/page_margin"
-                android:layout_marginRight="@dimen/page_margin"
-                android:layout_marginTop="@dimen/element_margin"
-                app:tabSelectedTextColor="?attr/PrimaryTextColor"
-                app:tabIndicator="@color/transparent"
-                app:tabTextColor="?attr/SecondaryHintTextColor">
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="EXCHANGE"/>
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="LIMIT ORDER"/>
-            </com.blocksdecoded.dex.presentation.widgets.DividedTabLayout>
-
-            <com.blocksdecoded.dex.presentation.widgets.pagers.WrapContentViewPager
-                android:id="@+id/exchange_pager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/exchange_tab_layout"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:padding="@dimen/element_margin"
-                android:layout_marginTop="@dimen/element_margin" >
-                <com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderView
-                    android:id="@+id/exchange_market_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardBackgroundColor="?attr/DarkAccentBackground"
-                    app:cardElevation="0dp"
-                    android:padding="@dimen/element_margin"/>
-
-                <com.blocksdecoded.dex.presentation.exchange.view.limit.LimitOrderView
-                    android:id="@+id/exchange_limit_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardBackgroundColor="?attr/DarkAccentBackground"
-                    app:cardElevation="0dp"
-                    android:padding="@dimen/element_margin"/>
-            </com.blocksdecoded.dex.presentation.widgets.pagers.WrapContentViewPager>
-
-            <TextView
-                style="@style/RegularText"
-                android:id="@+id/exchange_info"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/page_margin"
+            android:layout_marginRight="@dimen/page_margin"
+            android:layout_marginTop="@dimen/element_margin"
+            app:tabSelectedTextColor="?attr/PrimaryTextColor"
+            app:tabIndicator="@color/transparent"
+            app:tabTextColor="?attr/SecondaryHintTextColor">
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/exchange_numpad"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/exchange_pager"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:layout_constraintVertical_bias="1.0"
-                android:layout_marginBottom="@dimen/element_margin"
-                android:padding="@dimen/element_margin"
-                android:gravity="center"
-                android:textColor="?attr/PrimaryTextColor"
-                android:visibility="gone"
-                android:text="Exchange price info"/>
+                android:text="EXCHANGE"/>
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LIMIT ORDER"/>
+        </com.blocksdecoded.dex.presentation.widgets.DividedTabLayout>
 
-            <com.blocksdecoded.dex.presentation.widgets.NumPadView
-                android:id="@+id/exchange_numpad"
+        <com.blocksdecoded.dex.presentation.widgets.pagers.WrapContentViewPager
+            android:id="@+id/exchange_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/exchange_tab_layout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="@dimen/element_margin"
+            android:layout_marginTop="@dimen/element_margin" >
+            <com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderView
+                android:id="@+id/exchange_market_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/exchange_confirm"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/exchange_info"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:layout_constraintVertical_bias="1.0"
-                android:layout_marginStart="@dimen/page_margin"
-                android:layout_marginEnd="@dimen/page_margin"
-                android:minHeight="200dp"/>
+                app:cardBackgroundColor="?attr/DarkAccentBackground"
+                app:cardElevation="0dp"
+                android:padding="@dimen/element_margin"/>
 
-            <Button
-                style="@style/PrimaryButton"
-                android:id="@+id/exchange_confirm"
+            <com.blocksdecoded.dex.presentation.exchange.view.limit.LimitOrderView
+                android:id="@+id/exchange_limit_view"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/action_btn_height"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/exchange_numpad"
-                android:textAllCaps="true"
-                android:text="Exchange"/>
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="?attr/DarkAccentBackground"
+                app:cardElevation="0dp"
+                android:padding="@dimen/element_margin"/>
+        </com.blocksdecoded.dex.presentation.widgets.pagers.WrapContentViewPager>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            style="@style/RegularText"
+            android:id="@+id/exchange_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/exchange_numpad"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exchange_pager"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="1.0"
+            android:layout_marginBottom="@dimen/element_margin"
+            android:padding="@dimen/element_margin"
+            android:gravity="center"
+            android:textColor="?attr/PrimaryTextColor"
+            android:visibility="gone"
+            android:text="Exchange price info"/>
 
-    </LinearLayout>
+        <com.blocksdecoded.dex.presentation.widgets.NumPadView
+            android:id="@+id/exchange_numpad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/exchange_confirm"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exchange_info"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="1.0"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin"
+            android:minHeight="200dp"/>
+
+        <Button
+            style="@style/PrimaryButton"
+            android:id="@+id/exchange_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_btn_height"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exchange_numpad"
+            android:textAllCaps="true"
+            android:text="Exchange"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

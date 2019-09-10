@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/nav_balance"
-          android:title="@string/menu_balance"
+          android:title="@string/title_wallet"
         android:icon="@drawable/tab_balance"/>
 
     <item android:id="@+id/nav_orders"
-        android:title="@string/menu_orders"
+        android:title="@string/title_orders"
         android:icon="@drawable/tab_orders"/>
 
     <item android:id="@+id/nav_exchange"
-          android:title="@string/menu_exchange"
+          android:title="@string/title_exchange"
         android:icon="@drawable/tab_exchange"/>
 
     <item android:id="@+id/nav_markets"
-          android:title="@string/menu_markets"
+          android:title="@string/title_markets"
         android:icon="@drawable/tab_markets"/>
 
     <item android:id="@+id/nav_account"
-          android:title="@string/menu_account"
-        android:icon="@drawable/tab_account"/>
+          android:title="@string/title_settings"
+        android:icon="@drawable/tab_settings"/>
 
 </menu>

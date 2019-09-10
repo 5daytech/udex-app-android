@@ -158,7 +158,7 @@
         <item name="android:maxLines">1</item>
         <item name="android:hint">0.0</item>
         <item name="android:textColor">?attr/PrimaryTextColor</item>
-        <item name="android:textColorHint">?attr/PrimaryTextColor</item>
+        <item name="android:textColorHint">?attr/HintTextColor</item>
         <item name="android:background">@color/transparent</item>
     </style>
 

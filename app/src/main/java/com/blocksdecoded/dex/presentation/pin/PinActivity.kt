@@ -221,6 +221,7 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener, FingerprintAuth
             intent.putExtra(EXTRA_INTERACTION_TYPE, interactionType)
             intent.putExtra(EXTRA_SHOW_CANCEL, showCancel)
             context.startActivityForResult(intent, requestCode)
+            context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
     }
 }

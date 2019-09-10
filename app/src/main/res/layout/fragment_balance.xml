@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@color/transparent"
         app:elevation="0dp"
-        app:mt_title="Wallet"/>
+        app:mt_title="@string/title_wallet"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
@@ -40,26 +40,21 @@
                 android:layout_margin="@dimen/page_margin"
                 android:visibility="gone"/>
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    style="@style/SmallHintText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/page_margin"
-                    android:paddingStart="@dimen/page_margin"
-                    android:paddingEnd="@dimen/page_margin"
-                    android:paddingBottom="@dimen/element_margin"
-                    android:text="@string/hint_your_account"
-                    android:visibility="gone"/>
+            <TextView
+                style="@style/SmallHintText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/page_margin"
+                android:paddingStart="@dimen/page_margin"
+                android:paddingEnd="@dimen/page_margin"
+                android:paddingBottom="@dimen/element_margin"
+                android:text="@string/hint_your_account"
+                android:visibility="gone"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/balance_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/balance_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
