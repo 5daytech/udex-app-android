@@ -19,9 +19,9 @@ class GuestActivity : CoreActivity() {
 
     private val onboardingPages = listOf(
         GuestPageConfig(GuestPageType.MAIN, R.string.onboarding_about_app, 0, 0),
-        GuestPageConfig(GuestPageType.INFO, R.string.onboarding_first_page, 0, R.drawable.ic_onboarding_1),
-        GuestPageConfig(GuestPageType.INFO, R.string.onboarding_second_page, 0, R.drawable.ic_onboarding_2),
-        GuestPageConfig(GuestPageType.INFO, R.string.onboarding_third_page, 0, R.drawable.ic_onboarding_3)
+        GuestPageConfig(GuestPageType.INFO, R.string.onboarding_p2p_page, 0, R.drawable.ic_onboarding_p2p),
+        GuestPageConfig(GuestPageType.INFO, R.string.onboarding_main_page, 0, R.drawable.ic_onboarding_main),
+        GuestPageConfig(GuestPageType.INFO, R.string.onboarding_tokens_page, 0, R.drawable.ic_onboarding_tokens)
     )
     
     override fun onCreate(savedInstanceState: Bundle?) {
