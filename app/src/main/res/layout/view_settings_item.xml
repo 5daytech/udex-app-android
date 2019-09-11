@@ -27,7 +27,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:padding="@dimen/page_margin"
         android:gravity="center_vertical"
-        android:text="@string/account_security_center"/>
+        android:text="@string/settings_security_center"/>
 
     <ImageView
         android:id="@+id/settings_item_chevron"

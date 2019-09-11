@@ -35,7 +35,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/element_margin"
                 app:siv_action_switch="false"
-                app:siv_title="@string/account_security_center"
+                app:siv_title="@string/settings_security_center"
                 app:siv_icon="@drawable/ic_security"
                 android:background="?selectableItemBackground"/>
 
@@ -46,7 +46,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/security_center"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:siv_action_switch="false"
-                app:siv_title="@string/account_history"
+                app:siv_title="@string/settings_history"
                 app:siv_icon="@drawable/ic_about"
                 android:background="?selectableItemBackground" />
 
@@ -57,7 +57,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/exchange_history"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:siv_action_switch="false"
-                app:siv_title="@string/account_coin_manager"
+                app:siv_title="@string/settings_coin_manager"
                 app:siv_icon="@drawable/ic_dollar_sign"
                 android:background="?selectableItemBackground"
                 android:visibility="gone"/>
@@ -69,7 +69,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/coin_manager"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:siv_action_switch="false"
-                app:siv_title="@string/account_address_book"
+                app:siv_title="@string/settings_address_book"
                 app:siv_icon="@drawable/ic_address_book"
                 android:background="?selectableItemBackground"
                 android:visibility="gone"/>
@@ -82,7 +82,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/page_margin"
                 app:siv_action_switch="false"
-                app:siv_title="@string/account_language"
+                app:siv_title="@string/settings_language"
                 app:siv_icon="@drawable/ic_language"
                 android:background="?selectableItemBackground"
                 android:visibility="gone"/>
@@ -95,7 +95,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/page_margin"
                 app:siv_action_switch="true"
-                app:siv_title="@string/account_light_mode"
+                app:siv_title="@string/settings_light_mode"
                 app:siv_icon="@drawable/ic_light_mode"
                 android:background="?selectableItemBackground" />
 
@@ -107,7 +107,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/big_margin"
                 app:siv_action_switch="false"
-                app:siv_title="@string/account_about_app"
+                app:siv_title="@string/settings_about_app"
                 app:siv_icon="@drawable/ic_about"
                 android:background="?selectableItemBackground" />
 
@@ -118,7 +118,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/about_app"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:siv_action_switch="false"
-                app:siv_title="@string/account_share"
+                app:siv_title="@string/settings_share"
                 app:siv_icon="@drawable/ic_share"
                 android:background="?selectableItemBackground" />
 

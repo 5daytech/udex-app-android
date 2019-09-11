@@ -9,6 +9,6 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mt_title="@string/account_coin_manager"/>
+        app:mt_title="@string/settings_coin_manager"/>
 
 </LinearLayout>
