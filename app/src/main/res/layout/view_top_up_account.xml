@@ -56,7 +56,6 @@
             android:layout_marginTop="@dimen/big_margin"
             android:paddingStart="@dimen/page_margin"
             android:paddingEnd="@dimen/page_margin"
-            android:textAllCaps="false"
             android:text="Add Coins"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
