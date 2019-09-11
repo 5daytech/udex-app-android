@@ -27,17 +27,9 @@ abstract class CoreActivity: AppCompatActivity() {
         setFitsSystemWindows(content, fitSystemWindows = false, applyToChildren = true)
     }
 
-    protected fun setStatusBarImmersiveMode(@ColorInt color: Int) {
-        val win = window
-        win.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        win.attributes.systemUiVisibility = win.attributes.systemUiVisibility or (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-        win.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        win.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        win.statusBarColor = color
-    }
-
     private fun setFitsSystemWindows(view: View?, fitSystemWindows: Boolean, applyToChildren: Boolean) {
         if (view == null) return
+
         view.fitsSystemWindows = fitSystemWindows
         if (applyToChildren && view is ViewGroup) {
             var i = 0
@@ -49,6 +41,15 @@ abstract class CoreActivity: AppCompatActivity() {
                 }
             }
         }
+    }
+
+    protected fun setStatusBarImmersiveMode(@ColorInt color: Int) {
+        val win = window
+        win.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        win.attributes.systemUiVisibility = win.attributes.systemUiVisibility or (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+        win.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        win.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        win.statusBarColor = color
     }
 
     //endregion

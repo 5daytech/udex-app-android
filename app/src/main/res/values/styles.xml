@@ -50,8 +50,6 @@
 
     <!-- Screens -->
     <style name="AppTheme.FullScreen">
-        <item name="android:statusBarColor">@color/dark_main</item>
-        <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">false</item>
     </style>

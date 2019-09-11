@@ -98,7 +98,10 @@
     <string name="passcode_new_info">New Passcode</string>
     <string name="passcode_current_info">Current Passcode</string>
 
-    <string name="onboarding_about_app">ERC20\nDecentralized\nExchange</string>
+    <string name="onboarding_about_app">Decentralized\nExchange</string>
+    <string name="onboarding_first_page">ADEX is a decentralized, real-time\nand non-custodial exchange built\non 0x protocol technology</string>
+    <string name="onboarding_second_page">Trade Ether and Ethereum-based\ntokens directly with other users</string>
+    <string name="onboarding_third_page">Trade peer-to-peer any ERC20\ntoken from your own wallet\nwithout trading fees</string>
 
     <string name="info_weth">The reason you need wETH is to be able to trade ETH
         for other ERC-20 tokens on decentralized platforms like TradEx.

@@ -1,51 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/onboarding_viewpager"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:overScrollMode="never"
-        app:layout_constraintTop_toTopOf="parent"
-        android:paddingBottom="40dp"
-        app:layout_constraintBottom_toBottomOf="@+id/onboarding_indicator"/>
+        android:layout_height="match_parent">
 
-    <me.relex.circleindicator.CircleIndicator
-        android:id="@+id/onboarding_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/guest_create_wallet"
-        android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginEnd="@dimen/page_margin"
-        app:ci_gravity="start|center_vertical"/>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/onboarding_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:overScrollMode="never"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="@+id/onboarding_indicator"/>
 
-    <Button
-        android:id="@+id/guest_create_wallet"
-        style="@style/PrimaryButtonRounded"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/guest_restore_wallet"
-        android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginEnd="@dimen/page_margin"
-        android:layout_marginBottom="@dimen/page_margin"
-        android:text="Create Wallet"/>
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/onboarding_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/guest_create_wallet"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin"
+            android:layout_marginBottom="@dimen/page_margin"/>
 
-    <Button
-        android:id="@+id/guest_restore_wallet"
-        style="@style/PrimaryButton"
-        android:background="@color/transparent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginEnd="@dimen/page_margin"
-        android:layout_marginBottom="@dimen/bottom_sheet_small_margin"
-        android:text="Restore"/>
+        <Button
+            style="@style/PrimaryButtonRounded"
+            android:id="@+id/guest_create_wallet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/guest_restore_wallet"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin"
+            android:layout_marginBottom="@dimen/page_margin"
+            android:text="Create Wallet"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            style="@style/PrimaryButton"
+            android:id="@+id/guest_restore_wallet"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin"
+            android:layout_marginBottom="@dimen/bottom_sheet_small_margin"
+            android:text="Restore"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

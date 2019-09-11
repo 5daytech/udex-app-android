@@ -42,8 +42,7 @@
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".presentation.guest.GuestActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/AppTheme.FullScreen"/>
+                  android:screenOrientation="portrait" />
 
         <activity android:name=".presentation.settings.security.SecurityCenterActivity"
                   android:screenOrientation="portrait"/>
