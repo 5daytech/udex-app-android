@@ -43,7 +43,6 @@
         android:layout_marginEnd="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginTop="@dimen/big_margin"
-        android:maxLines="10"
         android:maxWidth="275dp"
         android:textAlignment="center"
         android:textColor="?attr/PrimaryTextColor"

@@ -56,7 +56,7 @@
                 android:textColor="?attr/PrimaryTextColor"
                 android:textColorHint="?attr/HintTextColor"
                 android:background="?attr/ActionButtonBackground"
-                android:hint="Mnemonic key"/>
+                android:hint="Mnemonic key (separated by space)"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/restore_recycler"
@@ -72,7 +72,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <Button
-        style="@style/PrimaryButton"
+        style="@style/PrimaryButtonRounded"
         android:id="@+id/restore_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

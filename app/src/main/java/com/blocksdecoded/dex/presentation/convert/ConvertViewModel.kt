@@ -73,8 +73,7 @@ class ConvertViewModel : CoreViewModel() {
         )
 	
 	    sendAmount = BigDecimal.ZERO
-        onAmountChanged(sendAmount)
-        convertAmount.value = sendAmount
+        onAmountChanged(sendAmount, true)
 	    
         decimalSize = adapter?.decimal ?: 18
     }
@@ -82,13 +81,8 @@ class ConvertViewModel : CoreViewModel() {
     fun onMaxClicked() {
         val availableBalance = adapter?.availableBalance(null, FeeRatePriority.HIGHEST) ?: BigDecimal.ZERO
         
-        onAmountChanged(availableBalance)
-	    refreshAmount()
+        onAmountChanged(availableBalance, true)
     }
-	
-	private fun refreshAmount() {
-		this.convertAmount.value = sendAmount
-	}
 	
 	fun onConvertClick() {
         val availableBalance = adapter?.availableBalance(null, FeeRatePriority.HIGHEST) ?: BigDecimal.ZERO
@@ -96,8 +90,7 @@ class ConvertViewModel : CoreViewModel() {
         if (sendAmount <= availableBalance) {
             processingEvent.call()
             val sendRaw = sendAmount.movePointRight(18).stripTrailingZeros().toBigInteger()
-            onAmountChanged(BigDecimal.ZERO)
-	        refreshAmount()
+            onAmountChanged(BigDecimal.ZERO, true)
             
             when(config.type) {
                 WRAP -> wethWrapper.deposit(sendRaw)
@@ -119,8 +112,12 @@ class ConvertViewModel : CoreViewModel() {
         }
 	}
     
-    fun onAmountChanged(amount: BigDecimal?) {
+    fun onAmountChanged(amount: BigDecimal?, updateLiveData: Boolean = false) {
 	    sendAmount = amount ?: BigDecimal.ZERO
 	    convertEnabled.value = sendAmount > BigDecimal.ZERO
+
+        if (updateLiveData) {
+            this.convertAmount.value = BigDecimal.ZERO
+        }
     }
 }
