@@ -1,18 +1,16 @@
 package com.blocksdecoded.dex.core.manager.zrx
 
-import com.blocksdecoded.dex.core.AppConfiguration
+import com.blocksdecoded.dex.core.IAppConfiguration
 import com.blocksdecoded.dex.core.UnauthorizedException
-import com.blocksdecoded.dex.core.manager.auth.AuthManager
-import com.blocksdecoded.dex.core.manager.EthereumKitManager
+import com.blocksdecoded.dex.core.manager.auth.IAuthManager
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.relayer.model.Relayer
 import com.blocksdecoded.zrxkit.relayer.model.RelayerConfig
 import java.math.BigInteger
 
 class ZrxKitManager(
-    appConfiguration: AppConfiguration,
-    private val etherKit: EthereumKitManager,
-    private val authManager: AuthManager
+    private val appConfiguration: IAppConfiguration,
+    private val authManager: IAuthManager
 ): IZrxKitManager {
     private val networkType = if (appConfiguration.testMode) ZrxKit.NetworkType.Ropsten else ZrxKit.NetworkType.MainNet
     
@@ -27,7 +25,7 @@ class ZrxKitManager(
         Relayer(
             0,
             "BD Relayer",
-            appConfiguration.testExchangePairs,
+            appConfiguration.allExchangePairs,
             listOf("0x2e8da0868e46fc943766a98b8d92a0380b29ce2a"),
             networkType.exchangeAddress,
             RelayerConfig("http://relayer.ropsten.fridayte.ch", "", "v2")
@@ -42,7 +40,7 @@ class ZrxKitManager(
                 relayers,
                 auth.privateKey,
                 gasProvider,
-                etherKit.configuration.infuraCredentials.secretKey ?: "",
+                appConfiguration.infuraCredentials.secretKey ?: "",
                 networkType
             )
     

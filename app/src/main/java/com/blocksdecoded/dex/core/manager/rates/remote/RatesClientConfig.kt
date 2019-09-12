@@ -1,10 +1,10 @@
 package com.blocksdecoded.dex.core.manager.rates.remote
 
-import com.blocksdecoded.dex.core.AppConfiguration
+import com.blocksdecoded.dex.core.IAppConfiguration
 import com.blocksdecoded.dex.core.shared.ISharedStorage
 
 class RatesClientConfig(
-    appConfiguration: AppConfiguration,
+    appConfiguration: IAppConfiguration,
     private val sharedStorage: ISharedStorage
 ) : IRatesClientConfig {
     override var historicalIpfsConfig: String = "https://${appConfiguration.ipfsMainGateway}/ipns/${appConfiguration.ipfsId}/"

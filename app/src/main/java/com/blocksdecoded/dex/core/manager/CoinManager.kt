@@ -1,20 +1,15 @@
 package com.blocksdecoded.dex.core.manager
 
-import com.blocksdecoded.dex.core.AppConfiguration
+import com.blocksdecoded.dex.core.IAppConfiguration
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinType
 
 class CoinManager(
-    appConfiguration: AppConfiguration
+    appConfiguration: IAppConfiguration
 ) : ICoinManager {
     private val baseCoins = listOf("BTC", "ETH")
 
-    override val coins: List<Coin> = if (appConfiguration.testMode) {
-        appConfiguration.testCoins
-    } else {
-        //TODO: Add mainnet coins
-        appConfiguration.testCoins
-    }
+    override val coins: List<Coin> = appConfiguration.allCoins
 
     override fun cleanCoinCode(coinCode: String): String {
         val baseIndex = baseCoins.indexOfFirst {

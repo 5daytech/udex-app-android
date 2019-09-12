@@ -5,6 +5,7 @@ import android.os.HandlerThread
 import com.blocksdecoded.dex.core.manager.auth.AuthManager
 import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.manager.IEthereumKitManager
+import com.blocksdecoded.dex.core.manager.auth.IAuthManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
@@ -13,7 +14,7 @@ class RelayerAdapterManager(
 	private val coinManager: ICoinManager,
     private val ethereumKitManager: IEthereumKitManager,
     private val zrxKitManager: IZrxKitManager,
-    private val authManager: AuthManager
+    private val authManager: IAuthManager
 ): IRelayerAdapterManager, HandlerThread("R") {
 
 	private val handler: Handler

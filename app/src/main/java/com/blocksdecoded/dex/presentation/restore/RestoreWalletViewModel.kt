@@ -10,8 +10,8 @@ import io.horizontalsystems.hdwalletkit.Mnemonic
 
 class RestoreWalletViewModel: CoreViewModel() {
     
-	private val authManager: AuthManager = App.authManager
-    private val wordsManager: IWordsManager = App.wordsManager
+	private val authManager = App.authManager
+    private val wordsManager = App.wordsManager
 	
 	val successEvent = SingleLiveEvent<Int>()
 	val navigateToMain = SingleLiveEvent<Unit>()

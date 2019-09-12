@@ -5,35 +5,30 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.zrxkit.ZrxKit
+import com.blocksdecoded.zrxkit.model.AssetItem
 import io.horizontalsystems.ethereumkit.core.EthereumKit.*
 import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType.*
 
 class AppConfiguration(
-    val testMode: Boolean = true,
-    val networkType: NetworkType = if (testMode) Ropsten else MainNet,
-    val etherscanKey: String = BuildConfig.ETHERSCAN_KEY,
-    val infuraCredentials: InfuraCredentials = InfuraCredentials(
+    override val testMode: Boolean = true
+): IAppConfiguration {
+
+    override val networkType: NetworkType = if (testMode) Ropsten else MainNet
+
+    override val etherscanKey: String = BuildConfig.ETHERSCAN_KEY
+    override val infuraCredentials: InfuraCredentials = InfuraCredentials(
         BuildConfig.INFURA_PROJECT_ID,
         BuildConfig.INFURA_PROJECT_SECRET
     )
-) {
-    val appShareUrl = "https://github.com/blocksdecoded/dex-app-android"
-    val transactionExploreBaseUrl = "https://ropsten.etherscan.io/tx/"
-    val ipfsId = "QmXTJZBMMRmBbPun6HFt3tmb3tfYF2usLPxFoacL7G5uMX"
-    val ipfsMainGateway = "ipfs-ext.horizontalsystems.xyz"
-    val ipfsFallbackGateway = "ipfs.io"
 
-    private fun addressForSymbol(symbol: String): String = ((testCoins.firstOrNull {
-        when(it.type) {
-            is CoinType.Erc20 -> it.code.equals(symbol, true)
-            else -> false
-        }
-    } ?: testCoins[1]).type as? CoinType.Erc20)?.address ?: ""
+    override val appShareUrl = "https://github.com/blocksdecoded/dex-app-android"
 
-    private fun getExchangePair(from: String, to: String) =
-        ZrxKit.assetItemForAddress(addressForSymbol(from)) to ZrxKit.assetItemForAddress(addressForSymbol(to))
+    override val transactionExploreBaseUrl = "https://ropsten.etherscan.io/tx/"
+    override val ipfsId = "QmXTJZBMMRmBbPun6HFt3tmb3tfYF2usLPxFoacL7G5uMX"
+    override val ipfsMainGateway = "ipfs-ext.horizontalsystems.xyz"
+    override val ipfsFallbackGateway = "ipfs.io"
 
-    val testCoins = listOf(
+    private val testCoins = listOf(
         Coin("Ethereum", "ETH", CoinType.Ethereum),
         Coin("Wrapped ETH", "WETH", CoinType.Erc20("0xc778417e063141139fce010982780140aa0cd5ab", 18), R.string.info_weth),
         Coin("0x", "ZRX", CoinType.Erc20("0xff67881f8d12f372d91baae9752eb3631ff0ed00", 18)),
@@ -44,7 +39,7 @@ class AppConfiguration(
         Coin("Huobi", "HT", CoinType.Erc20("0x52E64BB7aEE0E5bdd3a1995E3b070e012277c0fd", 2)) // Its TMK
     )
 
-    val testExchangePairs = listOf(
+    private val testExchangePairs = listOf(
         getExchangePair("WBTC", "WETH"),
         getExchangePair("ZRX", "WETH"),
         getExchangePair("DAI", "WETH"),
@@ -57,6 +52,20 @@ class AppConfiguration(
         getExchangePair("HT", "WBTC"),
         getExchangePair("LINK", "WBTC")
     )
+
+    private fun addressForSymbol(symbol: String): String = ((testCoins.firstOrNull {
+        when(it.type) {
+            is CoinType.Erc20 -> it.code.equals(symbol, true)
+            else -> false
+        }
+    } ?: testCoins[1]).type as? CoinType.Erc20)?.address ?: ""
+
+    private fun getExchangePair(from: String, to: String) =
+        ZrxKit.assetItemForAddress(addressForSymbol(from)) to ZrxKit.assetItemForAddress(addressForSymbol(to))
+
+    override val allCoins: List<Coin> = testCoins
+
+    override val allExchangePairs: List<Pair<AssetItem, AssetItem>> = testExchangePairs
 
     companion object {
         val DEFAULT = AppConfiguration()

@@ -2,13 +2,13 @@ package com.blocksdecoded.dex.core.manager
 
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.model.AuthData
-import com.blocksdecoded.dex.core.AppConfiguration
+import com.blocksdecoded.dex.core.IAppConfiguration
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import org.web3j.tx.gas.ContractGasProvider
 import java.math.BigInteger
 
 class EthereumKitManager(
-    val configuration: AppConfiguration = AppConfiguration.DEFAULT
+    val configuration: IAppConfiguration
 ) : IEthereumKitManager {
     override val gasProvider: ContractGasProvider = object : ContractGasProvider {
         override fun getGasLimit(contractFunc: String?): BigInteger = 400_000.toBigInteger()

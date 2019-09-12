@@ -11,25 +11,25 @@ import io.reactivex.subjects.PublishSubject
 
 class AuthManager(
     private val securedStorage: ISecuredStorage
-) {
-    var adapterManager: IAdapterManager? = null
+) : IAuthManager {
+    override var adapterManager: IAdapterManager? = null
 
-    var authData: AuthData? = null
+    override var authData: AuthData? = null
         get() = securedStorage.authData//TODO: Load via safeLoad
     
-    var authDataSignal = PublishSubject.create<Unit>()
+    override var authDataSignal = PublishSubject.create<Unit>()
 
-    val isLoggedIn: Boolean
+    override val isLoggedIn: Boolean
         get() = !securedStorage.noAuthData()
 
     @Throws(UserNotAuthenticatedException::class)
-    fun safeLoad() {
+    override fun safeLoad() {
         authData = securedStorage.authData
         authDataSignal.onNext(Unit)
     }
 
     @Throws(UserNotAuthenticatedException::class)
-    fun login(words: List<String>) {
+    override fun login(words: List<String>) {
         AuthData(words).let {
             securedStorage.saveAuthData(it)
             authData = it
@@ -37,7 +37,7 @@ class AuthManager(
         }
     }
 
-    fun logout() {
+    override fun logout() {
         adapterManager?.stopKits()
 
         EthereumAdapter.clear(App.instance)

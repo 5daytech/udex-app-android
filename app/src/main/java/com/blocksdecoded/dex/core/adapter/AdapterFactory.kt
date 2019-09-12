@@ -1,7 +1,6 @@
 package com.blocksdecoded.dex.core.adapter
 
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.core.AppConfiguration
 import com.blocksdecoded.dex.core.manager.IEthereumKitManager
 import com.blocksdecoded.dex.core.manager.fee.IFeeRateProvider
 import com.blocksdecoded.dex.core.model.AuthData
@@ -10,7 +9,6 @@ import com.blocksdecoded.dex.core.model.CoinType
 import java.math.BigDecimal
 
 class AdapterFactory(
-    private val appConfigProvider: AppConfiguration,
     private val ethereumKitManager: IEthereumKitManager,
     private val feeRateProvider: IFeeRateProvider
 ) {

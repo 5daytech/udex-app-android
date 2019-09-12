@@ -13,7 +13,9 @@ import com.blocksdecoded.dex.core.manager.rates.remote.RatesClientConfig
 import com.blocksdecoded.dex.core.security.encryption.EncryptionManager
 import com.blocksdecoded.dex.core.security.encryption.IEncryptionManager
 import com.blocksdecoded.dex.core.AppConfiguration
+import com.blocksdecoded.dex.core.IAppConfiguration
 import com.blocksdecoded.dex.core.manager.auth.AuthManager
+import com.blocksdecoded.dex.core.manager.auth.IAuthManager
 import com.blocksdecoded.dex.core.manager.auth.WordsManager
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.core.storage.MarketsStorage
@@ -41,11 +43,11 @@ class App: Application() {
         lateinit var instance: App
             private set
 
-        lateinit var appConfiguration: AppConfiguration
+        lateinit var appConfiguration: IAppConfiguration
 
         // Kits
         lateinit var zrxKitManager: IZrxKitManager
-        lateinit var ethereumKitManager: EthereumKitManager
+        lateinit var ethereumKitManager: IEthereumKitManager
         
         // Managers
         lateinit var coinManager: ICoinManager
@@ -53,7 +55,7 @@ class App: Application() {
         lateinit var adapterManager: IAdapterManager
         lateinit var exchangeHistoryManager: IExchangeHistoryManager
         lateinit var relayerAdapterManager: IRelayerAdapterManager
-        lateinit var authManager: AuthManager
+        lateinit var authManager: IAuthManager
         lateinit var wordsManager: IWordsManager
         lateinit var encryptionManager: IEncryptionManager
         lateinit var pinManager: IPinManager
@@ -114,11 +116,7 @@ class App: Application() {
 
         // Init kits
         ethereumKitManager = EthereumKitManager(appConfiguration)
-        zrxKitManager = ZrxKitManager(
-            appConfiguration,
-            ethereumKitManager,
-            authManager
-        )
+        zrxKitManager = ZrxKitManager(appConfiguration, authManager)
 
         feeRateProvider = FeeRateProvider(this)
 
