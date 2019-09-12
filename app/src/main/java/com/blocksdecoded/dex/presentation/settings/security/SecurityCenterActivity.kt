@@ -75,8 +75,8 @@ class SecurityCenterActivity : CoreActivity() {
 
         viewModel.showNoEnrolledFingerprints.observe(this, Observer {
             AlertDialogFragment.newInstance(
-                R.string.error_fingerprint_not_enabled,
-                R.string.error_fingerprint_not_added_yet,
+                R.string.error_biometric_not_enabled,
+                R.string.error_biometric_not_added_yet,
                 R.string.ok
             ).show(supportFragmentManager, "fingerprint_not_enabled")
         })

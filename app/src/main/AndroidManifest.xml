@@ -72,6 +72,9 @@
         <activity android:name=".presentation.backup.BackupIntroActivity"
                   android:screenOrientation="portrait"/>
 
+        <activity android:name=".presentation.keystore.KeyStoreActivity"
+                  android:screenOrientation="portrait"/>
+
 
     </application>
 

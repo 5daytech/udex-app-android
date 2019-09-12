@@ -29,7 +29,12 @@ class AlertDialogFragment(
     }
 
     companion object {
-        fun newInstance(title: Int, description: Int, buttonText: Int, listener: Listener? = null): AlertDialogFragment =
+        fun newInstance(
+            title: Int,
+            description: Int,
+            buttonText: Int,
+            listener: Listener? = null
+        ): AlertDialogFragment =
             AlertDialogFragment(title, description, buttonText, listener)
     }
 }
