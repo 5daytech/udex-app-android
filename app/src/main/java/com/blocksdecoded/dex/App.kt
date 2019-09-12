@@ -134,7 +134,7 @@ class App: Application() {
         ratesConverter = RatesConverter(ratesManager = ratesManager)
         
         // Init adapter managers
-        adapterFactory = AdapterFactory(appConfiguration, ethereumKitManager, feeRateProvider)
+        adapterFactory = AdapterFactory(ethereumKitManager, feeRateProvider)
         adapterManager = AdapterManager(coinManager, adapterFactory, ethereumKitManager, authManager)
         relayerAdapterManager = RelayerAdapterManager(coinManager, ethereumKitManager, zrxKitManager, authManager)
         exchangeHistoryManager = ExchangeHistoryManager(adapterManager)
