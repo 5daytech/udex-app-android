@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreActivity
-import com.blocksdecoded.dex.presentation.backup.BackupActivity
+import com.blocksdecoded.dex.presentation.backup.BackupIntroActivity
 import com.blocksdecoded.dex.presentation.pin.PinActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.presentation.widgets.dialogs.AlertDialogFragment
@@ -28,7 +28,7 @@ class SecurityCenterActivity : CoreActivity() {
         viewModel = ViewModelProviders.of(this).get(SecurityCenterViewModel::class.java)
 
         security_center_backup?.setOnClickListener {
-            BackupActivity.start(this)
+            BackupIntroActivity.start(this)
         }
 
         viewModel.passcodeEnabled.observe(this, Observer { passcodeEnabled ->
