@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import androidx.lifecycle.Observer
+import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.BuildConfig
 
 import com.blocksdecoded.dex.R
@@ -15,6 +16,7 @@ import com.blocksdecoded.dex.presentation.exchangehistory.ExchangeHistoryActivit
 import com.blocksdecoded.dex.presentation.main.IFocusListener
 import com.blocksdecoded.dex.presentation.settings.addressbook.AddressBookActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
+import com.blocksdecoded.dex.utils.ui.ShareUtils
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_settings.*
 
@@ -52,7 +54,9 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings), IFocusListene
         about_app?.setOnClickListener { viewModel.onAboutAppClick() }
 
         share_app?.setOnClickListener {
-
+            activity?.let {
+                ShareUtils.shareMessage(it, App.appConfiguration.appShareUrl)
+            }
         }
 
         light_mode?.setOnClickListener {
