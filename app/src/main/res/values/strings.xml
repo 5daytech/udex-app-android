@@ -33,13 +33,15 @@
     <string name="markets_list_hint">market info (24h)</string>
     <string name="message_wait_blockchain">Wait till transaction is added to blockchain</string>
     <string name="message_order_creating">Order processing…</string>
-    <string name="message_convert_processing">Convert processing…</string>
-    <string name="error_convert_failed">Convert failed</string>
     <string name="error_invalid_amount">Not enough funds</string>
     <string name="error_invalid_mnemonic">Invalid mnemonic</string>
     <string name="error_exchange_failed">Exchange failed</string>
     <string name="error_order_place">Order place failed</string>
     <string name="error_cancel_order">Order cancel failed</string>
+
+    <!-- Wrap/Unwrap -->
+    <string name="error_wrap_failed">Wrap failed</string>
+    <string name="error_unwrap_failed">Unwrap failed</string>
 
     <!-- Notifications -->
     <string name="send_success">\u2713 Sent</string>

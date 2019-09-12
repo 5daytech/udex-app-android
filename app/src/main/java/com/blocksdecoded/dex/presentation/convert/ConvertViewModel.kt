@@ -95,7 +95,6 @@ class ConvertViewModel : CoreViewModel() {
         
         if (sendAmount <= availableBalance) {
             processingEvent.call()
-            messageEvent.postValue(R.string.message_convert_processing)
             val sendRaw = sendAmount.movePointRight(18).stripTrailingZeros().toBigInteger()
             onAmountChanged(BigDecimal.ZERO)
 	        refreshAmount()
@@ -109,7 +108,11 @@ class ConvertViewModel : CoreViewModel() {
                 dismissDialog.call()
             }, {
                 Logger.e(it)
-                errorEvent.postValue(R.string.error_convert_failed)
+                dismissProcessingEvent.call()
+                errorEvent.postValue(when(config.type) {
+                    WRAP -> R.string.error_wrap_failed
+                    UNWRAP -> R.string.error_unwrap_failed
+                })
             })
         } else {
             errorEvent.postValue(R.string.error_invalid_amount)
