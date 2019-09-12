@@ -1,4 +1,4 @@
-# Dex App
+# Decentralized Exchange App
 
 We believe that private property is untouchable and market access is unconditional.
 
@@ -15,19 +15,19 @@ Trading cryptocurrencies doesn't have to mean losing custody. Use DB DEX to main
 
 ## Advantages
 
-No deposits - Save time, avoid fees, and maintain custody of your tokens.
+* <b>No deposits</b> - Save time, avoid fees, and maintain custody of your tokens.
 
-Quick access – no need to register or verificate an account.
+* <b>Quick access</b> – no need to register or verificate an account.
 
-Peer-to-peer – no one can stop or control the trading.
+* <b>Peer-to-peer</b> – no one can stop or control the trading.
 
-Cheap and faster transactions – operations is direct, you don’t need to wait for exchange and to pay fees.
+* <b>Cheap and faster transactions</b> – operations is direct, you don’t need to wait for exchange and to pay fees.
 
-Security – the exchange does not hold your funds.
+* <b>Security</b> – the exchange does not hold your funds.
 
-Privacy – no one except traders can see personal data, which is kept locally.
+* <b>Privacy</b> – no one except traders can see personal data, which is kept locally.
 
-No manipulations – no one can create fake orders or market volume to activate the trades.
+* <b>No manipulations</b> – no one can create fake orders or market volume to activate the trades.
 
 ## License
     MIT License
