@@ -12,19 +12,9 @@
         app:layout_constraintBottom_toTopOf="@+id/main_bottom_nav"
         android:overScrollMode="never"/>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
         android:id="@+id/main_bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dark_main"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu_navigation"
-        app:labelVisibilityMode="unlabeled"
-        app:itemIconTint="@drawable/selector_tab_color"
-        app:itemTextColor="@drawable/selector_tab_color"
-        app:itemTextAppearanceActive="@style/RegularText"
-        app:itemBackground="@drawable/bg_nav_bar_item"
-        app:itemHorizontalTranslationEnabled="false"
-        app:itemIconSize="20dp"
-        app:itemTextAppearanceInactive="@style/RegularText" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

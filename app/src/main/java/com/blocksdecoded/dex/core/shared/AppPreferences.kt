@@ -10,7 +10,7 @@ class AppPreferences(
 
 	override var isBackedUp: Boolean
 		get() = sharedStorage.getPreference(IS_BACKED_UP, false)
-		set(value) { sharedStorage.getPreference(IS_BACKED_UP, value) }
+		set(value) { sharedStorage.setPreference(IS_BACKED_UP, value) }
 
 	override var isFingerprintEnabled: Boolean
 		get() = sharedStorage.getPreference(IS_FINGERPRINT_ENABLED, false)

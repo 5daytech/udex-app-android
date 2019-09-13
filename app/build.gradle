@@ -117,4 +117,7 @@ dependencies {
 
     // Pager indicator
     implementation 'me.relex:circleindicator:2.1.4'
+
+    // Bottom Navigation
+    implementation 'com.aurelhubert:ahbottomnavigation:2.3.4'
 }

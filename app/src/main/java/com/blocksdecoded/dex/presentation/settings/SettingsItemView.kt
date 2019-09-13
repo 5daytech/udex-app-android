@@ -76,4 +76,8 @@ class SettingsItemView: ConstraintLayout {
     fun toggleSwitch() {
         settings_item_switch?.toggle()
     }
+
+    fun setInfoBadgeVisible(isVisible: Boolean) {
+        settings_item_badge?.visible = isVisible
+    }
 }

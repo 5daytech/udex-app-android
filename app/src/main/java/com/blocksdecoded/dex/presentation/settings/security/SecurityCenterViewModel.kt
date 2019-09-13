@@ -14,6 +14,7 @@ class SecurityCenterViewModel : CoreViewModel() {
     val passcodeOptionsEnabled = MutableLiveData<Boolean>()
     val fingerprintVisible = MutableLiveData<Boolean>()
     val fingerprintEnabled = MutableLiveData<Boolean>()
+    val isBackedUp = MutableLiveData<Boolean>()
 
     val passcodeEnabled = SingleLiveEvent<Boolean>()
     val openEditPinEvent = SingleLiveEvent<Unit>()
@@ -23,6 +24,11 @@ class SecurityCenterViewModel : CoreViewModel() {
 
     init {
         refreshPinState()
+        refreshBackedUpState()
+    }
+
+    private fun refreshBackedUpState() {
+        isBackedUp.value = appPreferences.isBackedUp
     }
 
     private fun refreshPinState() {
@@ -39,6 +45,10 @@ class SecurityCenterViewModel : CoreViewModel() {
     }
 
     //region Public
+
+    fun onResume() {
+        refreshBackedUpState()
+    }
 
     //region Results handle
 

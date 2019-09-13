@@ -10,6 +10,7 @@ import com.blocksdecoded.dex.core.manager.clipboard.ClipboardManager
 class BackupViewModel : CoreViewModel() {
 	
 	private val authManager = App.authManager
+	private val appPreferences = App.appPreferences
 	
 	val words = MutableLiveData<List<String>>()
 	
@@ -17,6 +18,8 @@ class BackupViewModel : CoreViewModel() {
 	val finishEvent = SingleLiveEvent<Int>()
 	
 	init {
+		appPreferences.isBackedUp = true
+
 		authManager.authData?.words?.let {
 			words.value = it
 		} ?: errorEvent.postValue(R.string.error_invalid_mnemonic)

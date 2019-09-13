@@ -1,8 +1,10 @@
 package com.blocksdecoded.dex.utils
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Point
 import android.net.Uri
+import android.util.TypedValue
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
@@ -71,6 +73,14 @@ fun ViewGroup.inflate(@LayoutRes layoutId: Int, attach: Boolean = false): View =
 
 val Fragment.currentFocus : View?
     get() = activity?.window?.currentFocus
+
+fun Resources.Theme.getAttr(attr: Int): Int? {
+    val typedValue = TypedValue()
+    return if (resolveAttribute(attr, typedValue, true))
+        typedValue.data
+    else
+        null
+}
 
 fun TextView.setColoredAmount(amount: BigDecimal) {
 

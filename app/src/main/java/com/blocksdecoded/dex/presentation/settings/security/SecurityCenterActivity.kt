@@ -81,6 +81,10 @@ class SecurityCenterActivity : CoreActivity() {
             ).show(supportFragmentManager, "fingerprint_not_enabled")
         })
 
+        viewModel.isBackedUp.observe(this, Observer {
+            security_center_backup?.setInfoBadgeVisible(!it)
+        })
+
         security_passcode_switch?.setOnClickListener {
             security_passcode_switch?.toggleSwitch()
         }
@@ -92,6 +96,11 @@ class SecurityCenterActivity : CoreActivity() {
         security_edit_passcode?.setOnClickListener {
             viewModel.onEditPasscodeClick()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.onResume()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

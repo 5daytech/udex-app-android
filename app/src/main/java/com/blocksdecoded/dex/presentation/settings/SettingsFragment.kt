@@ -48,6 +48,10 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings), IFocusListene
             }
         })
 
+        viewModel.isBackedUp.observe(this, Observer {
+            security_center?.setInfoBadgeVisible(!it)
+        })
+
         toolbar?.bind(NONE)
 
         security_center?.setOnClickListener { viewModel.onSecurityCenterClick() }
@@ -76,6 +80,11 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings), IFocusListene
         exchange_history?.setOnClickListener {
             activity?.let { ExchangeHistoryActivity.start(it) }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.onResume()
     }
 
     override fun onFocused() {

@@ -10,13 +10,14 @@ class SettingsViewModel : CoreViewModel() {
     private val appPreferences = App.appPreferences
 
     val lightMode = MutableLiveData<Boolean>()
+    val isBackedUp = MutableLiveData<Boolean>()
 
     val openSecurityCenterEvent = SingleLiveEvent<Unit>()
     val openAboutAppEvent = SingleLiveEvent<Unit>()
-    val openShare = SingleLiveEvent<Unit>()
 
     init {
         lightMode.value = appPreferences.isLightModeEnabled
+        isBackedUp.value = appPreferences.isBackedUp
     }
 
     fun onSecurityCenterClick() {
@@ -29,5 +30,9 @@ class SettingsViewModel : CoreViewModel() {
 
     fun onLightModeSwitch(isLightModeOn: Boolean) {
         appPreferences.isLightModeEnabled = isLightModeOn
+    }
+
+    fun onResume() {
+        isBackedUp.value = appPreferences.isBackedUp
     }
 }
