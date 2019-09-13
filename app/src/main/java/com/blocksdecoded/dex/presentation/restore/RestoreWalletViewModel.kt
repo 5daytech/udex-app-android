@@ -9,7 +9,8 @@ import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import io.horizontalsystems.hdwalletkit.Mnemonic
 
 class RestoreWalletViewModel: CoreViewModel() {
-    
+
+    private val appPreferences = App.appPreferences
 	private val authManager = App.authManager
     private val wordsManager = App.wordsManager
 	
@@ -21,6 +22,7 @@ class RestoreWalletViewModel: CoreViewModel() {
             wordsManager.validate(words)
 	        successEvent.value = R.string.message_words_validated
 	        authManager.login(words)
+            appPreferences.isBackedUp = true
 	        navigateToMain.call()
         } catch (e: Mnemonic.MnemonicException) {
             errorEvent.value = R.string.error_invalid_mnemonic
