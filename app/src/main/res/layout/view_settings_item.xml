@@ -31,8 +31,8 @@
 
     <ImageView
         android:id="@+id/settings_item_badge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_marginEnd="@dimen/element_margin"
         android:src="@drawable/ic_about"
         android:tint="@color/red_warning"
