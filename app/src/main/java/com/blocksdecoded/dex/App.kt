@@ -136,8 +136,12 @@ class App: Application() {
         
         // Init adapter managers
         adapterFactory = AdapterFactory(ethereumKitManager, feeRateProvider)
-        adapterManager = AdapterManager(coinManager, adapterFactory, ethereumKitManager, authManager)
-        relayerAdapterManager = RelayerAdapterManager(coinManager, ethereumKitManager, zrxKitManager, authManager)
+        adapterManager = AdapterManager(coinManager, adapterFactory, ethereumKitManager, authManager).also {
+            authManager.adapterManager = it
+        }
+        relayerAdapterManager = RelayerAdapterManager(coinManager, ethereumKitManager, zrxKitManager, authManager).also {
+            authManager.relayerAdapterManager = it
+        }
         exchangeHistoryManager = ExchangeHistoryManager(adapterManager)
 
         cleanupManager = CleanupManager(authManager, appPreferences, keyStoreManager)

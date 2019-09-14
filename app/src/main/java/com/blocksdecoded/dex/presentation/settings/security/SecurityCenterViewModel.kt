@@ -7,6 +7,7 @@ import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 
 class SecurityCenterViewModel : CoreViewModel() {
 
+    private val cleanupManager = App.cleanupManager
     private val appPreferences = App.appPreferences
     private val pinManager = App.pinManager
     private val systemInfoManager = App.systemInfoManager
@@ -21,6 +22,8 @@ class SecurityCenterViewModel : CoreViewModel() {
     val openSetPinEvent = SingleLiveEvent<Unit>()
     val openUnlockPinEvent = SingleLiveEvent<Unit>()
     val showNoEnrolledFingerprints = SingleLiveEvent<Unit>()
+    val showLogoutConfirm = SingleLiveEvent<Unit>()
+    val openLaunchScreenEvent = SingleLiveEvent<Unit>()
 
     init {
         refreshPinState()
@@ -71,6 +74,15 @@ class SecurityCenterViewModel : CoreViewModel() {
 
     fun onEditPasscodeClick() {
         openEditPinEvent.call()
+    }
+
+    fun onLogoutClick() {
+        showLogoutConfirm.call()
+    }
+
+    fun onLogoutConfirm() {
+        cleanupManager.logout()
+        openLaunchScreenEvent.call()
     }
 
     //endregion

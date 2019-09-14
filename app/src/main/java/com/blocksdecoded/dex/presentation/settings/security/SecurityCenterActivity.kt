@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.CompoundButton
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.blocksdecoded.dex.LaunchActivity
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreActivity
 import com.blocksdecoded.dex.presentation.backup.BackupIntroActivity
@@ -23,13 +24,36 @@ class SecurityCenterActivity : CoreActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_security_center)
 
-        toolbar.bind(MainToolbar.ToolbarState.BACK) { finish() }
+        initViewModel()
 
-        viewModel = ViewModelProviders.of(this).get(SecurityCenterViewModel::class.java)
+        initView()
+    }
 
-        security_center_backup?.setOnClickListener {
-            BackupIntroActivity.start(this)
+    override fun onResume() {
+        super.onResume()
+        viewModel.onResume()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_CODE_SET_PIN) {
+            when (resultCode) {
+                PinActivity.RESULT_OK -> viewModel.onPinUpdated()
+                PinActivity.RESULT_CANCELLED -> viewModel.onPinUpdateCancel()
+            }
         }
+
+        if (requestCode == REQUEST_CODE_UNLOCK_PIN_TO_DISABLE_PIN) {
+            when (resultCode) {
+                PinActivity.RESULT_OK -> viewModel.onPinForDisableUnlocked()
+                PinActivity.RESULT_CANCELLED -> viewModel.onPinUnlockCancel()
+            }
+        }
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this).get(SecurityCenterViewModel::class.java)
 
         viewModel.passcodeEnabled.observe(this, Observer { passcodeEnabled ->
             security_passcode_switch?.apply {
@@ -85,6 +109,19 @@ class SecurityCenterActivity : CoreActivity() {
             security_center_backup?.setInfoBadgeVisible(!it)
         })
 
+        viewModel.showLogoutConfirm.observe(this, Observer {
+            viewModel.onLogoutConfirm()
+        })
+
+        viewModel.openLaunchScreenEvent.observe(this, Observer {
+            LaunchActivity.start(this)
+//            finishAffinity()
+        })
+    }
+
+    private fun initView() {
+        toolbar.bind(MainToolbar.ToolbarState.BACK) { finish() }
+
         security_passcode_switch?.setOnClickListener {
             security_passcode_switch?.toggleSwitch()
         }
@@ -96,28 +133,13 @@ class SecurityCenterActivity : CoreActivity() {
         security_edit_passcode?.setOnClickListener {
             viewModel.onEditPasscodeClick()
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.onResume()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == REQUEST_CODE_SET_PIN) {
-            when (resultCode) {
-                PinActivity.RESULT_OK -> viewModel.onPinUpdated()
-                PinActivity.RESULT_CANCELLED -> viewModel.onPinUpdateCancel()
-            }
+        security_center_backup?.setOnClickListener {
+            BackupIntroActivity.start(this)
         }
 
-        if (requestCode == REQUEST_CODE_UNLOCK_PIN_TO_DISABLE_PIN) {
-            when (resultCode) {
-                PinActivity.RESULT_OK -> viewModel.onPinForDisableUnlocked()
-                PinActivity.RESULT_CANCELLED -> viewModel.onPinUnlockCancel()
-            }
+        security_logout?.setOnClickListener {
+            viewModel.onLogoutClick()
         }
     }
 

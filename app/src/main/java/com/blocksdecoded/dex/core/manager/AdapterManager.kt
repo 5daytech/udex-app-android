@@ -44,15 +44,31 @@ class AdapterManager(
 
     override fun initAdapters() {
         handler.post {
-            authManager.authData?.let { auth ->
-                adapters.forEach { it.stop() }
-                
-                adapters = coinManager.coins.map { adapterFactory.adapterForCoin(it, auth) }
-    
-                adapters.forEach { it.start() }
-    
-                adaptersUpdatedSignal.onNext(Unit)
+            val oldAdapters = adapters.toMutableList()
+
+            adapters = if (authManager.authData == null) {
+                listOf()
+            } else {
+                coinManager.coins.mapNotNull { coin ->
+                    var adapter = adapters.find { it.coin == coin }
+                    if (adapter == null) {
+                        adapter = adapterFactory.adapterForCoin(coin, authManager.authData!!)
+                        adapter.start()
+                    }
+                    adapter
+                }
             }
+
+            adaptersUpdatedSignal.onNext(Unit)
+
+            oldAdapters.forEach { oldAdapter ->
+                if (adapters.none { it.coin == oldAdapter.coin }) {
+                    oldAdapter.stop()
+                    adapterFactory.unlinkAdapter(oldAdapter)
+                }
+            }
+
+            oldAdapters.clear()
         }
     }
 

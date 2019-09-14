@@ -42,17 +42,30 @@ class RelayerAdapterManager(
 
 	override fun initRelayer() {
 		handler.post {
-			authManager.authData?.let { auth ->
-				mainRelayer = BaseRelayerAdapter(
-					coinManager,
-					ethereumKitManager.ethereumKit(auth),
-					zrxKitManager.zrxKit(),
-					refreshInterval,
-					0
-				)
-
+			val authData = authManager.authData
+			if (authData == null) {
+				clearRelayers()
 				mainRelayerUpdatedSignal.onNext(Unit)
+			} else {
+				authManager.authData?.let { auth ->
+					mainRelayer = BaseRelayerAdapter(
+						coinManager,
+						ethereumKitManager.ethereumKit(auth),
+						zrxKitManager.zrxKit(),
+						refreshInterval,
+						0
+					)
+
+					mainRelayerUpdatedSignal.onNext(Unit)
+				}
 			}
+		}
+	}
+
+	override fun clearRelayers() {
+		mainRelayer?.let {
+			ethereumKitManager.unlink()
+			mainRelayer = null
 		}
 	}
 }

@@ -7,7 +7,6 @@ import android.net.Uri
 import android.util.TypedValue
 import android.view.*
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
 import androidx.browser.customtabs.CustomTabsIntent
@@ -18,18 +17,6 @@ import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import java.math.BigDecimal
 
 fun <T>List<T>?.isValidIndex(index: Int): Boolean = index in 0 until (this?.size ?: 0)
-
-fun Context.showShortToast(message: String) {
-    Toast.makeText(this, message, Toast.LENGTH_SHORT)
-            .apply { setGravity(Gravity.TOP, 0, screenHeight / 2) }
-            .show()
-}
-
-fun Context.showToast(message: String) {
-    Toast.makeText(this, message, Toast.LENGTH_LONG)
-            .apply { setGravity(Gravity.TOP, 0, screenHeight / 2) }
-            .show()
-}
 
 val Context.screenSize: Point
     get() = Point().apply {

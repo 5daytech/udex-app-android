@@ -9,9 +9,7 @@ import com.blocksdecoded.dex.presentation.keystore.KeyStoreActivity.Companion.Mo
 
 class KeyStoreViewModel : CoreViewModel() {
 
-    private val authManager = App.authManager
-    private val appPreferences = App.appPreferences
-    private val keyStoreManager = App.keyStoreManager
+    private val cleanupManager = App.cleanupManager
 
     val title = MutableLiveData<Int>()
 
@@ -21,15 +19,6 @@ class KeyStoreViewModel : CoreViewModel() {
     val openLaunchScreen = SingleLiveEvent<Void>()
     val closeApplication = SingleLiveEvent<Void>()
 
-    private fun resetApp() {
-        authManager.logout()
-        appPreferences.clear()
-    }
-
-    private fun removeKey() {
-        keyStoreManager.removeKey()
-    }
-
     fun init(mode: KeyStoreActivity.Companion.ModeType) {
         title.value = when(mode) {
             NO_SYSTEM_LOCK -> R.string.keystore_system_lock_required
@@ -37,7 +26,7 @@ class KeyStoreViewModel : CoreViewModel() {
             USER_AUTHENTICATION -> R.string.keystore_user_auth
         }
 
-        resetApp()
+        cleanupManager.cleanUserData()
 
         when(mode) {
             NO_SYSTEM_LOCK -> showNoSystemLockWarning.call()
@@ -47,7 +36,7 @@ class KeyStoreViewModel : CoreViewModel() {
     }
 
     fun onCloseInvalidKeyWarning() {
-        removeKey()
+        cleanupManager.removeKey()
         openLaunchScreen.call()
     }
 

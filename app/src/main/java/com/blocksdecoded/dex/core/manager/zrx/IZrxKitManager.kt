@@ -20,6 +20,8 @@ interface IRelayerAdapterManager {
 
     fun refresh()
     fun initRelayer()
+
+    fun clearRelayers()
 }
 
 interface IRelayerAdapter {

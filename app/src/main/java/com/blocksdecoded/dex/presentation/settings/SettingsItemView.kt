@@ -1,13 +1,17 @@
 package com.blocksdecoded.dex.presentation.settings
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.view_settings_item.view.*
+import kotlin.math.absoluteValue
 
 class SettingsItemView: ConstraintLayout {
     init { View.inflate(context, R.layout.view_settings_item, this) }
@@ -22,6 +26,16 @@ class SettingsItemView: ConstraintLayout {
         set(value) {
             field = value
             settings_item_icon?.setImageResource(value)
+        }
+
+    private var tint: Int = 0
+        set(value) {
+            field = value
+            if (value.absoluteValue > 0) {
+                settings_item_icon?.setColorFilter(value, PorterDuff.Mode.SRC_IN)
+                settings_item_chevron?.setColorFilter(value, PorterDuff.Mode.SRC_IN)
+                settings_item_title?.setTextColor(value)
+            }
         }
 
     private var actionSwitch: Boolean = false
@@ -59,6 +73,7 @@ class SettingsItemView: ConstraintLayout {
             val ta = context.obtainStyledAttributes(attrs, R.styleable.SettingsItemView, 0, 0)
             try {
                 val nameResId = ta.getResourceId(R.styleable.SettingsItemView_siv_title, 0)
+
                 title = if (nameResId > 0) {
                     context.getString(nameResId)
                 } else {
@@ -67,10 +82,16 @@ class SettingsItemView: ConstraintLayout {
 
                 iconRes = ta.getResourceId(R.styleable.SettingsItemView_siv_icon, R.drawable.ic_about)
                 actionSwitch = ta.getBoolean(R.styleable.SettingsItemView_siv_action_switch, false)
+                tint = ta.getColor(R.styleable.SettingsItemView_siv_tint, 0)
             } finally {
                 ta.recycle()
             }
         }
+    }
+
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+
     }
 
     fun toggleSwitch() {
