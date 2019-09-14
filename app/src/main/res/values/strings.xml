@@ -124,19 +124,6 @@
     <string name="message_no_device_lock_description">Set up a lock screen on this device to continue. Go to “Settings” > “Security” > “Screen Lock” and enable the lock screen setting.</string>
     <string name="message_custom_keyboard_used">You are using a third-party keyboard. You have to use default keyboard.</string>
 
-    <!-- Settings About App -->
-    <string name="settings_about_app">About App</string>
-    <string name="settings_about_app_title">BD DEX</string>
-    <string name="settings_about_app_subtitle">Decentralized App</string>
-    <string name="settings_about_terms_subtitle">Terms &amp; Privacy:</string>
-    <string name="settings_about_terms_text">This app is peer-to-peer. It does not depend on any web server or tech support personnel to function.
-\n\nIt works everywhere as long as there is internet. No entity can block this app from working or to block someone from using it.
-\n\nYour funds are securely stored on the phone itself, not anywhere else.
-\n\nIt’s your responsibility to backup your Key and keep it private. Never show it to anyone. If it’s lost, forgotten or stolen your funds can be used by the person who has your key.
-\n\nDo not jailbreak your phone, do not install apps from unknown (untrusted) sources, do not give your device to untrusted people, and keep the Operating System on your phone up to date. The security of your funds depends on this.
-\n\nThe entire code powering this app been open to the public scrutiny since the beginning. We tried to build the most secure and decentralized exchange we could, however there are no guarantees that there are no unintended software issues. That said, this exchange is likely to be significantly more secure than any smartphone exchange app out there.
-\n\nSome generic non-private app data like currency exchange rates are stored on decentralized storage(IPFS).</string>
-
     <!-- Backup -->
     <string name="backup_intro_subtitle">Show Key</string>
     <string name="backup_intro_text">The key that will be shown next is the only way to restore your funds if your phone is ever lost, stolen, broken etc.\n\n\nMake sure that no one is watching your screen.</string>
@@ -150,6 +137,25 @@
     <string name="os_pin_confirm_title">Phone PIN</string>
     <string name="os_pin_confirm_description">This app requires that phone has the passcode (screen lock) enabled.\n\n You may enable it in Android settings.\n\nPlease note that when you disabled the PIN on the OS level the security measures in safe storage of your phonе made the previously stored data invalid. You will need to Restore your wallet keys to get back to your wallet.</string>
     <string name="os_pin_prompt_description">This app requires your phone\'s PIN in order to keep sensitive data from your wallet in Android\'s secure storage and not in the app itself.</string>
+
+    <!-- Logout -->
+    <string name="logout_title">Remove Wallet</string>
+    <string name="logout_confirm_wallet_remove">This action will delete the Ethereum key (wallet) from this device.</string>
+    <string name="logout_confirm_loose_funds">If you don\'t have a backup of this key you will loose the respective funds.</string>
+
+
+    <!-- Settings About App -->
+    <string name="settings_about_app">About App</string>
+    <string name="settings_about_app_title">BD DEX</string>
+    <string name="settings_about_app_subtitle">Decentralized App</string>
+    <string name="settings_about_terms_subtitle">Terms &amp; Privacy:</string>
+    <string name="settings_about_terms_text">This app is peer-to-peer. It does not depend on any web server or tech support personnel to function.
+\n\nIt works everywhere as long as there is internet. No entity can block this app from working or to block someone from using it.
+\n\nYour funds are securely stored on the phone itself, not anywhere else.
+\n\nIt’s your responsibility to backup your Key and keep it private. Never show it to anyone. If it’s lost, forgotten or stolen your funds can be used by the person who has your key.
+\n\nDo not jailbreak your phone, do not install apps from unknown (untrusted) sources, do not give your device to untrusted people, and keep the Operating System on your phone up to date. The security of your funds depends on this.
+\n\nThe entire code powering this app been open to the public scrutiny since the beginning. We tried to build the most secure and decentralized exchange we could, however there are no guarantees that there are no unintended software issues. That said, this exchange is likely to be significantly more secure than any smartphone exchange app out there.
+\n\nSome generic non-private app data like currency exchange rates are stored on decentralized storage(IPFS).</string>
 
     <!-- Placeholders -->
     <string-array name="placeholder_items">

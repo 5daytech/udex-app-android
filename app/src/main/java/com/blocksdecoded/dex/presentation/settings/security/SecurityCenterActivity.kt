@@ -13,12 +13,15 @@ import com.blocksdecoded.dex.presentation.backup.BackupIntroActivity
 import com.blocksdecoded.dex.presentation.pin.PinActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.presentation.dialogs.AlertDialogFragment
+import com.blocksdecoded.dex.presentation.dialogs.ConfirmActionDialog
 import kotlinx.android.synthetic.main.activity_security_center.*
 import kotlinx.android.synthetic.main.activity_security_center.toolbar
 
-class SecurityCenterActivity : CoreActivity() {
+class SecurityCenterActivity : CoreActivity(), ConfirmActionDialog.Listener {
 
     private lateinit var viewModel: SecurityCenterViewModel
+
+    //region Lifecycle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,7 +113,12 @@ class SecurityCenterActivity : CoreActivity() {
         })
 
         viewModel.showLogoutConfirm.observe(this, Observer {
-            viewModel.onLogoutConfirm()
+            ConfirmActionDialog.show(
+                this,
+                R.string.logout_title,
+                listOf(R.string.logout_confirm_wallet_remove, R.string.logout_confirm_loose_funds),
+                this
+            )
         })
 
         viewModel.openLaunchScreenEvent.observe(this, Observer {
@@ -141,6 +149,12 @@ class SecurityCenterActivity : CoreActivity() {
         security_logout?.setOnClickListener {
             viewModel.onLogoutClick()
         }
+    }
+
+    //endregion
+
+    override fun onConfirmationSuccess() {
+        viewModel.onLogoutConfirm()
     }
 
     companion object {

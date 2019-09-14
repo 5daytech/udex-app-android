@@ -35,7 +35,9 @@
     <color name="transparent_green">#502ECC71</color>
     <color name="red">#E83958</color>
     <color name="red_warning">#ff5e3a</color>
+    <color name="dark_red">#B30000</color>
     <color name="yellow">#FFB23F</color>
+    <color name="dark_yellow">#CC7F0C</color>
     <color name="bright_yellow">#fffa5a</color>
     <color name="turquoise">#56D6FF</color>
     <color name="transparent_turquoise_40">#4056D6FF</color>

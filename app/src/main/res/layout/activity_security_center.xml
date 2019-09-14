@@ -66,7 +66,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="@dimen/page_margin"
         app:siv_action_switch="false"
-        app:siv_title="Logout"
+        app:siv_title="@string/logout_title"
         app:siv_tint="@color/bright_yellow"
         app:siv_icon="@drawable/ic_logout"
         android:background="?selectableItemBackground"/>
