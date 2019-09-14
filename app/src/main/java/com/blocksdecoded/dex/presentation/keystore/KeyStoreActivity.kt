@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.LaunchActivity
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreActivity
-import com.blocksdecoded.dex.presentation.widgets.dialogs.AlertDialogFragment
+import com.blocksdecoded.dex.presentation.dialogs.AlertDialogFragment
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_keystore.*

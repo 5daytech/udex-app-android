@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.FragmentManager
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.presentation.widgets.dialogs.BaseDialog
+import com.blocksdecoded.dex.presentation.dialogs.BaseDialog
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toMediumDisplayFormat
 import kotlinx.android.synthetic.main.dialog_send_confirm.*

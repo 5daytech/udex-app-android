@@ -11,7 +11,7 @@ import com.blocksdecoded.dex.core.ui.CoreActivity
 import com.blocksdecoded.dex.presentation.backup.BackupIntroActivity
 import com.blocksdecoded.dex.presentation.pin.PinActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
-import com.blocksdecoded.dex.presentation.widgets.dialogs.AlertDialogFragment
+import com.blocksdecoded.dex.presentation.dialogs.AlertDialogFragment
 import kotlinx.android.synthetic.main.activity_security_center.*
 import kotlinx.android.synthetic.main.activity_security_center.toolbar
 

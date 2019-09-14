@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.presentation.widgets.dialogs.BaseDialog
+import com.blocksdecoded.dex.presentation.dialogs.BaseDialog
 import kotlinx.android.synthetic.main.dialog_alert.*
 
 class CoinInfoDialog : BaseDialog(R.layout.dialog_alert) {

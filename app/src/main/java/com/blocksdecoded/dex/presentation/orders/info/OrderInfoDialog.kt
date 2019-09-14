@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.widgets.dialogs.BaseBottomDialog
+import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.sent.SentDialog
 import com.blocksdecoded.dex.presentation.orders.model.OrderInfoConfig
 import com.blocksdecoded.dex.utils.ui.ToastHelper
