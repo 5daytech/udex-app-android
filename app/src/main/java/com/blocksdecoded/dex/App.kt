@@ -65,6 +65,7 @@ class App: Application() {
         lateinit var systemInfoManager: ISystemInfoManager
         lateinit var lockManager: ILockManager
         lateinit var backgroundManager: BackgroundManager
+        lateinit var cleanupManager: ICleanupManager
 
         // Rates
         lateinit var ratesManager: IRatesManager
@@ -138,5 +139,7 @@ class App: Application() {
         adapterManager = AdapterManager(coinManager, adapterFactory, ethereumKitManager, authManager)
         relayerAdapterManager = RelayerAdapterManager(coinManager, ethereumKitManager, zrxKitManager, authManager)
         exchangeHistoryManager = ExchangeHistoryManager(adapterManager)
+
+        cleanupManager = CleanupManager(authManager, appPreferences, keyStoreManager)
     }
 }

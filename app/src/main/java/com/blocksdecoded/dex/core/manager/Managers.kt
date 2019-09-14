@@ -40,3 +40,9 @@ interface IWordsManager {
     fun validate(words: List<String>)
     fun generateWords(): List<String>
 }
+
+interface ICleanupManager {
+    fun logout()
+    fun cleanUserData()
+    fun removeKey()
+}
