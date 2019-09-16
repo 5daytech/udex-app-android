@@ -40,6 +40,7 @@
     <string name="error_cancel_order">Order cancel failed</string>
 
     <!-- Wrap/Unwrap -->
+    <string name="error_timeout_error">Request Timeout</string>
     <string name="error_wrap_failed">Wrap failed</string>
     <string name="error_unwrap_failed">Unwrap failed</string>
 

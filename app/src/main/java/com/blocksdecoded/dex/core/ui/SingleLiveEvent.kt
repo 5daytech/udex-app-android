@@ -23,6 +23,10 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
         super.setValue(t)
     }
 
+    fun reset() {
+        mPending.compareAndSet(true, false)
+    }
+
     fun call() {
         value = null
     }

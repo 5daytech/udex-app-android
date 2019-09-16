@@ -17,6 +17,7 @@ import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
+import java.net.SocketTimeoutException
 import kotlin.math.absoluteValue
 
 class ConvertViewModel : CoreViewModel() {
@@ -77,10 +78,10 @@ class ConvertViewModel : CoreViewModel() {
             balanceInfo,
             config.type
         )
-	
-	    sendAmount = BigDecimal.ZERO
-        onAmountChanged(sendAmount, true)
-	    
+
+        onAmountChanged(BigDecimal.ZERO, true)
+        transactionSentEvent.reset()
+        dismissDialog.reset()
         decimalSize = adapter?.decimal ?: 18
     }
 
@@ -130,11 +131,16 @@ class ConvertViewModel : CoreViewModel() {
                 dismissDialog.call()
             }, {
                 Logger.e(it)
+
+                errorEvent.postValue(
+                    when {
+                        it is SocketTimeoutException -> R.string.error_timeout_error
+                        config.type == UNWRAP -> R.string.error_unwrap_failed
+                        else -> R.string.error_wrap_failed
+                    }
+                )
+
                 dismissProcessingEvent.call()
-                errorEvent.postValue(when(config.type) {
-                    WRAP -> R.string.error_wrap_failed
-                    UNWRAP -> R.string.error_unwrap_failed
-                })
             })
         } else {
             errorEvent.postValue(R.string.error_invalid_amount)
@@ -142,17 +148,19 @@ class ConvertViewModel : CoreViewModel() {
 	}
     
     fun onAmountChanged(amount: BigDecimal?, updateLiveData: Boolean = false) {
-	    sendAmount = amount ?: BigDecimal.ZERO
+        if (sendAmount != amount) {
+            sendAmount = amount ?: BigDecimal.ZERO
 
-        amount?.let { refreshInfo(amount) }
+            amount?.let { refreshInfo(sendAmount) }
 
-        val noErrors = (info.value?.error?.absoluteValue ?: 0) == 0
-        val nonZeroAmount = amount ?: BigDecimal.ZERO > BigDecimal.ZERO
+            val noErrors = (info.value?.error?.absoluteValue ?: 0) == 0
+            val nonZeroAmount = sendAmount > BigDecimal.ZERO
 
-	    convertEnabled.value = noErrors && nonZeroAmount
+            convertEnabled.value = noErrors && nonZeroAmount
 
-        if (updateLiveData) {
-            this.convertAmount.value = BigDecimal.ZERO
+            if (updateLiveData) {
+                this.convertAmount.value = sendAmount
+            }
         }
     }
 }

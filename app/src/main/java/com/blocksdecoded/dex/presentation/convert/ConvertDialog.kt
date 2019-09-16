@@ -145,8 +145,8 @@ class ConvertDialog private constructor()
         })
 
         viewModel.transactionSentEvent.observe(this, Observer { transactionHash ->
-            activity?.let {
-                SentDialog.open(it.supportFragmentManager, transactionHash)
+            if (activity != null && transactionHash != null) {
+                SentDialog.open(activity!!.supportFragmentManager, transactionHash)
             }
         })
 
