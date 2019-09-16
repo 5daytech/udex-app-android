@@ -50,15 +50,6 @@
         android:layout_marginEnd="@dimen/element_margin"
         android:layout_marginTop="@dimen/element_margin"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.NumPadView
-        android:id="@+id/send_numpad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/page_margin"
-        android:layout_marginLeft="@dimen/page_margin"
-        android:layout_marginRight="@dimen/page_margin"
-        android:layout_gravity="center" />
-
     <Button
         style="@style/PrimaryButtonRounded"
         android:id="@+id/send_confirm"
@@ -66,5 +57,14 @@
         android:layout_height="@dimen/action_btn_height"
         android:layout_margin="@dimen/page_margin"
         android:text="Send" />
+
+    <com.blocksdecoded.dex.presentation.widgets.NumPadView
+        android:id="@+id/send_numpad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/page_margin"
+        android:layout_marginRight="@dimen/page_margin"
+        android:layout_marginBottom="@dimen/page_margin"
+        android:layout_gravity="center" />
 
 </LinearLayout>
