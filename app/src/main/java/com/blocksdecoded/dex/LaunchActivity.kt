@@ -41,14 +41,16 @@ class LaunchActivity: CoreActivity() {
 
             App.pinManager.isPinSet -> PinActivity.startForUnlock(this, REQUEST_CODE_UNLOCK_PIN)
 
-            else -> startMain()
+            else -> startMain(false)
         }
     }
 
-    private fun startMain() {
+    private fun startMain(asNew: Boolean = true) {
         App.authManager.safeLoad()
-        MainActivity.start(this)
-        finish()
+        MainActivity.start(this, asNew)
+        if (!asNew) {
+            finish()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

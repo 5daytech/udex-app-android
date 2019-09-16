@@ -4,19 +4,10 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.model.AuthData
 import com.blocksdecoded.dex.core.IAppConfiguration
 import io.horizontalsystems.ethereumkit.core.EthereumKit
-import org.web3j.tx.gas.ContractGasProvider
-import java.math.BigInteger
 
 class EthereumKitManager(
-    val configuration: IAppConfiguration
+    private val appConfiguration: IAppConfiguration
 ) : IEthereumKitManager {
-    override val gasProvider: ContractGasProvider = object : ContractGasProvider {
-        override fun getGasLimit(contractFunc: String?): BigInteger = 400_000.toBigInteger()
-        override fun getGasLimit(): BigInteger = 400_000.toBigInteger()
-        override fun getGasPrice(contractFunc: String?): BigInteger = 5_000_000_000L.toBigInteger()
-        override fun getGasPrice(): BigInteger = 5_000_000_000L.toBigInteger()
-    }
-
     override var kit: EthereumKit? = null
     private var useCount = 0
 
@@ -31,19 +22,15 @@ class EthereumKitManager(
             App.instance,
             authData.privateKey,
             syncMode,
-            configuration.networkType,
-            configuration.infuraCredentials,
-            configuration.etherscanKey,
+            appConfiguration.networkType,
+            appConfiguration.infuraCredentials,
+            appConfiguration.etherscanKey,
             authData.walletId
         )
 
-        startKit()
+        kit?.start()
 
         return kit!!
-    }
-
-    private fun startKit() {
-        kit?.start()
     }
 
     override fun refresh() {

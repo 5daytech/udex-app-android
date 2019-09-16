@@ -16,7 +16,6 @@ interface ICoinManager {
 }
 
 interface IEthereumKitManager {
-    val gasProvider: ContractGasProvider
     val kit: EthereumKit?
 
     fun ethereumKit(authData: AuthData): EthereumKit
