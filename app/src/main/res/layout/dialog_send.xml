@@ -1,72 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/bottom_sheet_big_margin"
-    android:background="@color/transparent">
+    android:background="@drawable/bg_bottom_dialog">
+
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/medium_margin"
-        android:layout_marginLeft="@dimen/medium_margin"
-        android:layout_marginRight="@dimen/medium_margin"
-        android:background="@drawable/bg_bottom_dialog">
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        android:layout_marginTop="@dimen/page_margin">
+        <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+            android:id="@+id/send_coin_icon"
+            android:layout_width="@dimen/coin_size"
+            android:layout_height="@dimen/coin_size" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/page_margin"
-            android:layout_marginEnd="@dimen/page_margin"
-            android:layout_marginTop="@dimen/page_margin">
-            <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
-                android:id="@+id/send_coin_icon"
-                android:layout_width="@dimen/coin_size"
-                android:layout_height="@dimen/coin_size" />
-
-            <TextView
-                style="@style/DialogTitleText"
-                android:id="@+id/send_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/element_margin"
-                android:text="Send" />
-        </LinearLayout>
-
-        <com.blocksdecoded.dex.presentation.widgets.InputAmountView
-            android:id="@+id/send_amount"
-            android:layout_width="match_parent"
+        <TextView
+            style="@style/DialogTitleText"
+            android:id="@+id/send_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/element_margin"
-            android:layout_marginEnd="@dimen/element_margin"
-            android:layout_marginTop="@dimen/page_margin"/>
-
-        <com.blocksdecoded.dex.presentation.widgets.InputAddressView
-            android:id="@+id/send_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/element_margin"
-            android:layout_marginEnd="@dimen/element_margin"
-            android:layout_marginTop="@dimen/element_margin"/>
-
-        <com.blocksdecoded.dex.presentation.widgets.NumPadView
-            android:id="@+id/send_numpad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/page_margin"
-            android:layout_marginLeft="@dimen/page_margin"
-            android:layout_marginRight="@dimen/page_margin"
-            android:layout_gravity="center" />
-
-        <Button
-            style="@style/PrimaryButton"
-            android:id="@+id/send_confirm"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/action_btn_height"
-            android:layout_marginTop="@dimen/page_margin"
             android:text="Send" />
-
     </LinearLayout>
-</FrameLayout>
+
+    <com.blocksdecoded.dex.presentation.widgets.InputAmountView
+        android:id="@+id/send_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/element_margin"
+        android:layout_marginEnd="@dimen/element_margin"
+        android:layout_marginTop="@dimen/page_margin"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.InputAddressView
+        android:id="@+id/send_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/element_margin"
+        android:layout_marginEnd="@dimen/element_margin"
+        android:layout_marginTop="@dimen/element_margin"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.NumPadView
+        android:id="@+id/send_numpad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/page_margin"
+        android:layout_marginLeft="@dimen/page_margin"
+        android:layout_marginRight="@dimen/page_margin"
+        android:layout_gravity="center" />
+
+    <Button
+        style="@style/PrimaryButtonRounded"
+        android:id="@+id/send_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_btn_height"
+        android:layout_margin="@dimen/page_margin"
+        android:text="Send" />
+
+</LinearLayout>

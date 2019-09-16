@@ -123,7 +123,6 @@ class SecurityCenterActivity : CoreActivity(), ConfirmActionDialog.Listener {
 
         viewModel.openLaunchScreenEvent.observe(this, Observer {
             LaunchActivity.start(this)
-//            finishAffinity()
         })
     }
 

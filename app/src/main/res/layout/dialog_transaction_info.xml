@@ -1,147 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/bottom_sheet_small_margin"
-    android:background="@color/transparent">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    android:background="@drawable/bg_bottom_dialog">
+
+    <TextView
+        android:id="@+id/transaction_info_coin_name"
+        style="@style/DialogTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="@dimen/page_margin"
+        android:text="Ethereum "
+        android:textColor="@color/turquoise"/>
+
+    <TextView
+        style="@style/DialogTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/transaction_info_coin_name"
+        app:layout_constraintBottom_toBottomOf="@+id/transaction_info_coin_name"
+        app:layout_constraintLeft_toRightOf="@+id/transaction_info_coin_name"
+        android:text="Transaction"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.HashView
+        android:id="@+id/transaction_info_hash"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/transaction_info_coin_name"
+        app:layout_constraintBottom_toBottomOf="@+id/transaction_info_coin_name"
+        android:visibility="gone"
+        android:layout_marginEnd="@dimen/page_margin"/>
+
+    <TextView
+        style="@style/MainTitleText"
+        android:id="@+id/transaction_info_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_info_coin_name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="@dimen/big_margin"
+        android:gravity="center"
+        android:textColor="@color/green"
+        android:text="+ 0,001 ETH"/>
+
+    <TextView
+        style="@style/BoldText"
+        android:id="@+id/transaction_info_fiat_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_info_amount"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="@dimen/element_margin"
+        android:gravity="center"
+        android:textColor="?attr/PrimaryTextColor"
+        android:text="$3.0"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+        android:id="@+id/transaction_info_hist_rate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/medium_margin"
-        android:layout_marginLeft="@dimen/medium_margin"
-        android:layout_marginRight="@dimen/medium_margin"
-        android:background="@drawable/bg_bottom_dialog">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_info_fiat_amount"
+        android:layout_marginTop="@dimen/page_margin"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        app:iiv_title="@string/info_historical_rate"/>
 
-        <TextView
-            android:id="@+id/transaction_info_coin_name"
-            style="@style/DialogTitleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_margin="@dimen/page_margin"
-            android:text="Ethereum "
-            android:textColor="@color/turquoise"/>
+    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+        android:id="@+id/transaction_info_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_info_hist_rate"
+        android:layout_marginTop="@dimen/element_margin"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        app:iiv_title="@string/info_date"/>
 
-        <TextView
-            style="@style/DialogTitleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/transaction_info_coin_name"
-            app:layout_constraintBottom_toBottomOf="@+id/transaction_info_coin_name"
-            app:layout_constraintLeft_toRightOf="@+id/transaction_info_coin_name"
-            android:text="Transaction"/>
+    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+        android:id="@+id/transaction_info_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_info_date"
+        android:layout_marginTop="@dimen/element_margin"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        app:iiv_title="@string/info_status"/>
 
-        <com.blocksdecoded.dex.presentation.widgets.HashView
-            android:id="@+id/transaction_info_hash"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/transaction_info_coin_name"
-            app:layout_constraintBottom_toBottomOf="@+id/transaction_info_coin_name"
-            android:visibility="gone"
-            android:layout_marginEnd="@dimen/page_margin"/>
+    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+        android:id="@+id/transaction_info_from"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_info_status"
+        android:layout_marginTop="@dimen/element_margin"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        app:iiv_visible_divider="false"
+        app:iiv_title="@string/info_from"/>
 
-        <TextView
-            style="@style/MainTitleText"
-            android:id="@+id/transaction_info_amount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/transaction_info_coin_name"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="@dimen/big_margin"
-            android:gravity="center"
-            android:textColor="@color/green"
-            android:text="+ 0,001 ETH"/>
+    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+        android:id="@+id/transaction_info_to"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_info_from"
+        android:layout_marginTop="@dimen/element_margin"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        app:iiv_visible_divider="false"
+        app:iiv_title="@string/info_to"/>
 
-        <TextView
-            style="@style/BoldText"
-            android:id="@+id/transaction_info_fiat_amount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/transaction_info_amount"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="@dimen/element_margin"
-            android:gravity="center"
-            android:textColor="?attr/PrimaryTextColor"
-            android:text="$3.0"/>
-
-        <com.blocksdecoded.dex.presentation.widgets.InfoItemView
-            android:id="@+id/transaction_info_hist_rate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/transaction_info_fiat_amount"
-            android:layout_marginTop="@dimen/page_margin"
-            android:layout_marginStart="@dimen/page_margin"
-            android:layout_marginEnd="@dimen/page_margin"
-            app:iiv_title="@string/info_historical_rate"/>
-
-        <com.blocksdecoded.dex.presentation.widgets.InfoItemView
-            android:id="@+id/transaction_info_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/transaction_info_hist_rate"
-            android:layout_marginTop="@dimen/element_margin"
-            android:layout_marginStart="@dimen/page_margin"
-            android:layout_marginEnd="@dimen/page_margin"
-            app:iiv_title="@string/info_date"/>
-
-        <com.blocksdecoded.dex.presentation.widgets.InfoItemView
-            android:id="@+id/transaction_info_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/transaction_info_date"
-            android:layout_marginTop="@dimen/element_margin"
-            android:layout_marginStart="@dimen/page_margin"
-            android:layout_marginEnd="@dimen/page_margin"
-            app:iiv_title="@string/info_status"/>
-
-        <com.blocksdecoded.dex.presentation.widgets.InfoItemView
-            android:id="@+id/transaction_info_from"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/transaction_info_status"
-            android:layout_marginTop="@dimen/element_margin"
-            android:layout_marginStart="@dimen/page_margin"
-            android:layout_marginEnd="@dimen/page_margin"
-            app:iiv_visible_divider="false"
-            app:iiv_title="@string/info_from"/>
-
-        <com.blocksdecoded.dex.presentation.widgets.InfoItemView
-            android:id="@+id/transaction_info_to"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/transaction_info_from"
-            android:layout_marginTop="@dimen/element_margin"
-            android:layout_marginStart="@dimen/page_margin"
-            android:layout_marginEnd="@dimen/page_margin"
-            app:iiv_visible_divider="false"
-            app:iiv_title="@string/info_to"/>
-
-        <Button
-            android:id="@+id/transaction_info_full"
-            style="@style/PrimaryButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/transaction_info_to"
-            android:layout_marginTop="@dimen/page_margin"
-            android:text="Full info"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+    <Button
+        style="@style/PrimaryButtonRounded"
+        android:id="@+id/transaction_info_full"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_info_to"
+        android:layout_margin="@dimen/page_margin"
+        android:text="Full info"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
