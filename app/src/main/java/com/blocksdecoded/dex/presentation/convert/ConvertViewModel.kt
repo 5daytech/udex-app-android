@@ -81,6 +81,7 @@ class ConvertViewModel : CoreViewModel() {
             config.type
         )
 
+        convertEnabled.value = false
         onAmountChanged(BigDecimal.ZERO, true)
         transactionSentEvent.reset()
         dismissDialog.reset()
