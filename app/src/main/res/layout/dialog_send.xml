@@ -6,13 +6,20 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_bottom_dialog">
 
+    <View
+        android:layout_width="@dimen/collapse_view_width"
+        android:layout_height="@dimen/collapse_view_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/element_margin"
+        android:background="@drawable/bg_rounded_divider"/>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin"
-        android:layout_marginTop="@dimen/page_margin">
+        android:layout_marginTop="@dimen/element_margin">
         <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
             android:id="@+id/send_coin_icon"
             android:layout_width="@dimen/coin_size"
