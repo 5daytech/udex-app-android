@@ -66,7 +66,7 @@
         <activity android:name=".presentation.exchangehistory.ExchangeHistoryActivity"
                   android:screenOrientation="portrait"/>
 
-        <activity android:name=".presentation.coinmanager.CoinManagerActivity"
+        <activity android:name="com.blocksdecoded.dex.presentation.settings.coinmanager.CoinManagerActivity"
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".presentation.backup.BackupIntroActivity"

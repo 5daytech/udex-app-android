@@ -11,7 +11,7 @@ import com.blocksdecoded.dex.BuildConfig
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.settings.security.SecurityCenterActivity
-import com.blocksdecoded.dex.presentation.coinmanager.CoinManagerActivity
+import com.blocksdecoded.dex.presentation.settings.coinmanager.CoinManagerActivity
 import com.blocksdecoded.dex.presentation.exchangehistory.ExchangeHistoryActivity
 import com.blocksdecoded.dex.presentation.main.IFocusListener
 import com.blocksdecoded.dex.presentation.settings.addressbook.AddressBookActivity

@@ -6,9 +6,9 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
-import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
-import com.blocksdecoded.dex.presentation.exchange.view.ExchangePriceInfo
-import com.blocksdecoded.dex.presentation.exchange.view.LimitOrderViewState
+import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairItem
+import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePriceInfo
+import com.blocksdecoded.dex.presentation.exchange.view.model.LimitOrderViewState
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.uiSubscribe
@@ -20,15 +20,17 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 	private val ratesConverter = App.ratesConverter
 	private val ratesManager = App.ratesManager
 
-	override var state: LimitOrderViewState = LimitOrderViewState(
-		BigDecimal.ZERO,
-		null,
-		null
-	)
+	override var state: LimitOrderViewState =
+		LimitOrderViewState(
+			BigDecimal.ZERO,
+			null,
+			null
+		)
 
-	private val mPriceInfo = ExchangePriceInfo(
-		BigDecimal.ZERO
-	)
+	private val mPriceInfo =
+		ExchangePriceInfo(
+			BigDecimal.ZERO
+		)
 
 	val averagePrice = MutableLiveData<BigDecimal>()
 	val priceInfo = MutableLiveData<ExchangePriceInfo>()

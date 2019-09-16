@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.convert
+package com.blocksdecoded.dex.presentation.convert.model
 
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo

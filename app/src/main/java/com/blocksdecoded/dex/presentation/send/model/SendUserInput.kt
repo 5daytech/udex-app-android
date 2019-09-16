@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.send
+package com.blocksdecoded.dex.presentation.send.model
 
 import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import java.math.BigDecimal

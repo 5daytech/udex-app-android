@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.widget.*
 import androidx.core.content.ContextCompat
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairItem
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
 import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.utils.ui.DimenUtils

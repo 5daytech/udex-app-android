@@ -9,6 +9,10 @@ import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
+import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairItem
+import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairsInfo
+import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeReceiveInfo
+import com.blocksdecoded.dex.presentation.exchange.view.model.IExchangeViewState
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
@@ -22,7 +26,8 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     private val adapterManager = App.adapterManager
 
     protected abstract var state: T
-    protected val mReceiveInfo = ExchangeReceiveInfo(BigDecimal.ZERO)
+    protected val mReceiveInfo =
+        ExchangeReceiveInfo(BigDecimal.ZERO)
 
     protected var exchangeSide = ExchangeSide.BID
     protected val orderSide: EOrderSide
@@ -44,13 +49,23 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     private var mSendCoins: List<ExchangePairItem> = listOf()
         set(value) {
             field = value
-            sendCoins.postValue(ExchangePairsInfo(value, state.sendCoin))
+            sendCoins.postValue(
+                ExchangePairsInfo(
+                    value,
+                    state.sendCoin
+                )
+            )
         }
 
     private var mReceiveCoins: List<ExchangePairItem> = listOf()
         set(value) {
             field = value
-            receiveCoins.postValue(ExchangePairsInfo(value, state.receiveCoin))
+            receiveCoins.postValue(
+                ExchangePairsInfo(
+                    value,
+                    state.receiveCoin
+                )
+            )
         }
 
     val sendCoins = MutableLiveData<ExchangePairsInfo>()
@@ -187,7 +202,12 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
         val balance = adapterManager.adapters
             .firstOrNull { it.coin.code == coin.code }?.balance ?: BigDecimal.ZERO
 
-        return ExchangePairItem(coin.code, coin.title, BigDecimal.ZERO, balance)
+        return ExchangePairItem(
+            coin.code,
+            coin.title,
+            BigDecimal.ZERO,
+            balance
+        )
     }
 
     //endregion

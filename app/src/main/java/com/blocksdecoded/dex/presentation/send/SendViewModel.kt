@@ -12,6 +12,8 @@ import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.core.manager.clipboard.ClipboardManager
+import com.blocksdecoded.dex.presentation.send.model.SendInfo
+import com.blocksdecoded.dex.presentation.send.model.SendUserInput
 import java.math.BigDecimal
 
 class SendViewModel: CoreViewModel() {
@@ -47,7 +49,8 @@ class SendViewModel: CoreViewModel() {
         decimalSize = adapter.decimal
         reset()
 
-        sendInfo.value = SendInfo(BigDecimal.ZERO, false)
+        sendInfo.value =
+            SendInfo(BigDecimal.ZERO, false)
     }
 
     private fun confirm() {
@@ -104,27 +107,32 @@ class SendViewModel: CoreViewModel() {
             userInput.address != null && !(sendInfo.value?.error ?: false)
     }
 
+    private fun refreshInfo(sendAmount: BigDecimal) {
+        val info = SendInfo(
+            ratesConverter.getCoinsPrice(adapter.coin.code, sendAmount),
+            false
+        )
+
+        adapter.validate(sendAmount, null, FeeRatePriority.MEDIUM).forEach {
+            when(it) {
+                is SendStateError.InsufficientAmount -> {
+                    info.error = true
+                }
+                is SendStateError.InsufficientFeeBalance -> {
+                    info.error = true
+                }
+            }
+        }
+
+        sendInfo.value = info
+    }
+
     fun onAmountChanged(amount: BigDecimal) {
         if (userInput.amount != amount) {
             userInput.amount = amount
 
-            val info = SendInfo(
-                ratesConverter.getCoinsPrice(adapter.coin.code, amount),
-                false
-            )
+            refreshInfo(amount)
 
-            adapter.validate(amount, null, FeeRatePriority.MEDIUM).forEach {
-                when(it) {
-                    is SendStateError.InsufficientAmount -> {
-                        info.error = true
-                    }
-                    is SendStateError.InsufficientFeeBalance -> {
-                        info.error = true
-                    }
-                }
-            }
-
-            sendInfo.value = info
             refreshSendEnable()
         }
     }

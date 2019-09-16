@@ -33,6 +33,7 @@
     <string name="message_wait_blockchain">Wait till transaction is added to blockchain</string>
     <string name="message_order_creating">Order processing…</string>
     <string name="error_invalid_amount">Not enough funds</string>
+    <string name="error_insufficient_fee_balance">Insufficient fee balance!</string>
     <string name="error_invalid_mnemonic">Invalid mnemonic</string>
     <string name="error_exchange_failed">Exchange failed</string>
     <string name="error_order_place">Order place failed</string>

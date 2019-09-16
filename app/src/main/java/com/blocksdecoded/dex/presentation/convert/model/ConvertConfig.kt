@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.convert
+package com.blocksdecoded.dex.presentation.convert.model
 
 data class ConvertConfig(
     val coinCode: String,

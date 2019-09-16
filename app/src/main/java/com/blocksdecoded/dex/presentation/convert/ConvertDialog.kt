@@ -6,13 +6,16 @@ import android.text.Editable
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
-import com.blocksdecoded.dex.presentation.convert.ConvertConfig.ConvertType.*
+import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig.ConvertType.*
+import com.blocksdecoded.dex.presentation.convert.model.ConvertState
 import com.blocksdecoded.dex.presentation.processing.ProcessingDialog
 import com.blocksdecoded.dex.presentation.sent.SentDialog
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
@@ -20,8 +23,9 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
+import com.blocksdecoded.dex.utils.subscribeToInput
 import com.blocksdecoded.dex.utils.ui.ToastHelper
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.dialog_convert.*
@@ -29,7 +33,7 @@ import kotlinx.android.synthetic.main.dialog_send.*
 import kotlinx.android.synthetic.main.view_amount_input.*
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.util.concurrent.TimeUnit
+import kotlin.math.absoluteValue
 
 class ConvertDialog private constructor()
     : BaseBottomDialog(R.layout.dialog_convert), NumPadItemsAdapter.Listener {
@@ -106,10 +110,10 @@ class ConvertDialog private constructor()
             viewModel.init(config)
         }
         
-        disposable = amountChangeSubject.debounce(300, TimeUnit.MILLISECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { viewModel.onAmountChanged(it) }
-        
+        disposable = amountChangeSubject.subscribeToInput {
+            viewModel.onAmountChanged(it)
+        }
+
         viewModel.convertState.observe(this, Observer { state ->
             updateState(state)
         })
@@ -131,7 +135,15 @@ class ConvertDialog private constructor()
         viewModel.convertEnabled.observe(this, Observer {
             convert_confirm?.isEnabled = it
         })
-        
+
+        viewModel.info.observe(this, Observer { info ->
+            context?.let {
+                amount_input?.setTextColor(ContextCompat.getColor(it, if (info.error.absoluteValue > 0) R.color.red else R.color.main_light_text))
+            }
+
+            amount_hint?.text = "You send $${info.fiatAmount.toFiatDisplayFormat()}"
+        })
+
         viewModel.transactionSentEvent.observe(this, Observer { transactionHash ->
             activity?.let {
                 SentDialog.open(it.supportFragmentManager, transactionHash)

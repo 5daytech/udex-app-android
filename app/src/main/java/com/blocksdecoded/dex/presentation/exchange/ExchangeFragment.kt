@@ -25,6 +25,7 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.utils.currentFocus
+import com.blocksdecoded.dex.utils.subscribeToInput
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.visible
@@ -113,11 +114,10 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             onReceiveCoinPick = { marketOrderViewModel.onReceiveCoinPick(it) },
             onSwitchClick = { marketOrderViewModel.onSwitchClick() }
         )
-        
-        exchange_market_view?.sendAmountChangeSubject?.debounce(200, TimeUnit.MILLISECONDS)
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe { marketOrderViewModel.onSendAmountChange(it) }
-            ?.let { disposables.add(it) }
+
+        exchange_market_view?.sendAmountChangeSubject?.subscribeToInput {
+            marketOrderViewModel.onSendAmountChange(it)
+        }?.let { disposables.add(it) }
     
         // Limit view
         
@@ -128,15 +128,13 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             onSwitchClick = { limitOrderViewModel.onSwitchClick() }
         )
     
-        exchange_limit_view?.sendAmountChangeSubject?.debounce(200, TimeUnit.MILLISECONDS)
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe { limitOrderViewModel.onSendAmountChange(it) }
-            ?.let { disposables.add(it) }
+        exchange_limit_view?.sendAmountChangeSubject?.subscribeToInput {
+            limitOrderViewModel.onSendAmountChange(it)
+        }?.let { disposables.add(it) }
     
-        exchange_limit_view?.priceChangeSubject?.debounce(200, TimeUnit.MILLISECONDS)
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe { limitOrderViewModel.onPriceChange(it) }
-            ?.let { disposables.add(it) }
+        exchange_limit_view?.priceChangeSubject?.subscribeToInput {
+            limitOrderViewModel.onPriceChange(it)
+        }?.let { disposables.add(it) }
     }
 
     //endregion

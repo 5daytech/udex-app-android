@@ -5,14 +5,19 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import com.blocksdecoded.dex.core.adapter.IAdapter
+import com.blocksdecoded.dex.core.adapter.SendStateError
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import com.blocksdecoded.dex.presentation.convert.ConvertConfig.ConvertType.*
+import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
+import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig.ConvertType.*
+import com.blocksdecoded.dex.presentation.convert.model.ConvertInfo
+import com.blocksdecoded.dex.presentation.convert.model.ConvertState
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
+import kotlin.math.absoluteValue
 
 class ConvertViewModel : CoreViewModel() {
 
@@ -33,6 +38,7 @@ class ConvertViewModel : CoreViewModel() {
     val convertAmount = MutableLiveData<BigDecimal>()
     val receiveAmount = MutableLiveData<BigDecimal>()
     val convertEnabled = MutableLiveData<Boolean>()
+    val info = MutableLiveData<ConvertInfo>()
 
     val dismissDialog = SingleLiveEvent<Unit>()
     val transactionSentEvent = SingleLiveEvent<String>()
@@ -78,6 +84,29 @@ class ConvertViewModel : CoreViewModel() {
         decimalSize = adapter?.decimal ?: 18
     }
 
+    private fun refreshInfo(sendAmount: BigDecimal) {
+        adapter?.let { adapter ->
+            val info = ConvertInfo(
+                ratesConverter.getCoinsPrice(adapter.coin.code, sendAmount),
+                0
+            )
+
+            adapter.validate(sendAmount, null, FeeRatePriority.MEDIUM)
+                .forEach {
+                    when(it) {
+                        is SendStateError.InsufficientAmount -> {
+                            info.error = R.string.error_invalid_amount
+                        }
+                        is SendStateError.InsufficientFeeBalance -> {
+                            info.error = R.string.error_insufficient_fee_balance
+                        }
+                    }
+                }
+
+            this.info.value = info
+        }
+    }
+
     fun onMaxClicked() {
         val availableBalance = adapter?.availableBalance(null, FeeRatePriority.HIGHEST) ?: BigDecimal.ZERO
         
@@ -114,7 +143,13 @@ class ConvertViewModel : CoreViewModel() {
     
     fun onAmountChanged(amount: BigDecimal?, updateLiveData: Boolean = false) {
 	    sendAmount = amount ?: BigDecimal.ZERO
-	    convertEnabled.value = sendAmount > BigDecimal.ZERO
+
+        amount?.let { refreshInfo(amount) }
+
+        val noErrors = (info.value?.error?.absoluteValue ?: 0) == 0
+        val nonZeroAmount = amount ?: BigDecimal.ZERO > BigDecimal.ZERO
+
+	    convertEnabled.value = noErrors && nonZeroAmount
 
         if (updateLiveData) {
             this.convertAmount.value = BigDecimal.ZERO

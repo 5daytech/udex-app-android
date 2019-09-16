@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.send
+package com.blocksdecoded.dex.presentation.send.model
 
 import java.math.BigDecimal
 

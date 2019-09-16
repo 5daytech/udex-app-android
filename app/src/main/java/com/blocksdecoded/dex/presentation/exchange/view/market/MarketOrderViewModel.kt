@@ -4,9 +4,9 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
-import com.blocksdecoded.dex.presentation.exchange.view.ExchangePairItem
-import com.blocksdecoded.dex.presentation.exchange.view.ExchangeReceiveInfo
-import com.blocksdecoded.dex.presentation.exchange.view.MarketOrderViewState
+import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairItem
+import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeReceiveInfo
+import com.blocksdecoded.dex.presentation.exchange.view.model.MarketOrderViewState
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.utils.uiSubscribe
@@ -14,12 +14,13 @@ import java.math.BigDecimal
 
 class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
 
-    override var state: MarketOrderViewState = MarketOrderViewState(
-        BigDecimal.ZERO,
-        BigDecimal.ZERO,
-        null,
-        null
-    )
+    override var state: MarketOrderViewState =
+        MarketOrderViewState(
+            BigDecimal.ZERO,
+            BigDecimal.ZERO,
+            null,
+            null
+        )
 
     init {
         init()
@@ -53,7 +54,10 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
             exchangePrice.value = price
 
             state.receiveAmount = receiveAmount
-            receiveInfo.value = ExchangeReceiveInfo(receiveAmount)
+            receiveInfo.value =
+                ExchangeReceiveInfo(
+                    receiveAmount
+                )
 
             exchangeEnabled.value = state.receiveAmount > BigDecimal.ZERO
         }

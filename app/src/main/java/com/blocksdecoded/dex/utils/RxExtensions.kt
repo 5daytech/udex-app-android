@@ -6,6 +6,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
+import java.util.concurrent.TimeUnit
+
+//region Core extensions
 
 fun <T> Single<T>.uiObserver() : Single<T> = this.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -57,3 +61,16 @@ fun <T> Flowable<T>.uiSubscribe(
         { onError?.invoke(it) },
         { onComplete?.invoke() }
     )
+
+//endregion
+
+//region Helper extensions
+
+fun <T> PublishSubject<T>.subscribeToInput(
+    delay: Long = TimeUtils.INPUT_HANDLE_DELAY,
+    onNext: (T) -> Unit
+) : Disposable = this.debounce(delay, TimeUnit.MILLISECONDS)
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe(onNext)
+
+//endregion

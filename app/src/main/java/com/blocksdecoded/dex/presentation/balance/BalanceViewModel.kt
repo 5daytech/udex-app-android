@@ -15,7 +15,7 @@ import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import com.blocksdecoded.dex.presentation.convert.ConvertConfig
+import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import java.math.BigDecimal
 
@@ -150,9 +150,11 @@ class BalanceViewModel : CoreViewModel() {
             val balance = mBalances.value?.get(position)
             balance?.let {
                 //TODO: Refactor. P.s. pass only coin code
-                openConvertDialog.postValue(ConvertConfig(
-                    it.coin.code,
-                    if (position == 0) ConvertConfig.ConvertType.WRAP else ConvertConfig.ConvertType.UNWRAP)
+                openConvertDialog.postValue(
+                    ConvertConfig(
+                        it.coin.code,
+                        if (position == 0) ConvertConfig.ConvertType.WRAP else ConvertConfig.ConvertType.UNWRAP
+                    )
                 )
             }
         }
