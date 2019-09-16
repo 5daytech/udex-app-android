@@ -159,6 +159,11 @@ class ConvertDialog private constructor()
         viewModel.dismissProcessingEvent.observe(this, Observer {
             processingDialog?.dismiss()
         })
+
+        viewModel.feeInfo.observe(this, Observer {
+//            convert_estimated_fee?.setCoinWithFiat(it.coin, it.amount, it.fiatAmount)
+            convert_estimated_fee?.setFiat(it.fiatAmount, isExactAmount = false)
+        })
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -74,6 +74,12 @@ class InfoItemView: ConstraintLayout {
         base_info_text_value?.visible = true
     }
 
+    fun setCoinWithFiat(coin: Coin, amount: BigDecimal?, fiatAmount: BigDecimal?) {
+        resetAllViews()
+        base_info_text_value?.text = "${amount?.toLongDisplayFormat()} ${coin.code} ~ $${fiatAmount?.toFiatDisplayFormat()}"
+        base_info_text_value?.visible = true
+    }
+
     fun setAddress(address: String?) {
         resetAllViews()
         address?.let {

@@ -15,7 +15,6 @@ class ZrxKitManager(
     private val networkType = if (appConfiguration.testMode) ZrxKit.NetworkType.Ropsten else ZrxKit.NetworkType.MainNet
     
     val gasProvider: ZrxKit.GasInfoProvider = object : ZrxKit.GasInfoProvider() {
-        override fun getGasLimit(contractFunc: String?): BigInteger = 250_000.toBigInteger()
         override fun getGasPrice(contractFunc: String?): BigInteger = 5_000_000_000L.toBigInteger()
     }
 
@@ -39,9 +38,9 @@ class ZrxKitManager(
             kit = ZrxKit.getInstance(
                 relayers,
                 auth.privateKey,
-                gasProvider,
                 appConfiguration.infuraCredentials.secretKey ?: "",
-                networkType
+                networkType,
+                gasProvider
             )
     
             return kit!!

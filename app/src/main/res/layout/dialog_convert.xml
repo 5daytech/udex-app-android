@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<LinearLayout android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_bottom_dialog"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <View
         android:layout_width="@dimen/collapse_view_width"
@@ -46,6 +46,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/element_margin"
         android:layout_marginEnd="@dimen/element_margin"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+        android:id="@+id/convert_estimated_fee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        android:layout_marginTop="@dimen/element_margin"
+        app:iiv_visible_divider="false"
+        app:iiv_title="Estimated fee"/>
 
     <TextView
         style="@style/SmallHintText"
