@@ -46,7 +46,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     private val disposables = CompositeDisposable()
     private var processingDialog: DialogFragment? = null
     
-    private var activeType: ExchangeType = MARKET
+    private val activeType: ExchangeType
         get() = if (exchange_pager.currentItem == 0) MARKET else LIMIT
     
     private val exchangeEnableObserver = Observer<Boolean> {
@@ -264,6 +264,11 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     override fun onFocused() {
         Handler().post {
             fragment_exchange_container?.visible = true
+
+            when(activeType) {
+                MARKET -> exchange_amount_input
+                LIMIT -> limit_amount_input
+            }?.requestFocus()
         }
     }
 

@@ -163,11 +163,16 @@ class ConvertDialog private constructor()
         amount_input?.addTextChangedListener(amountChangeListener)
         amount_input?.showSoftInputOnFocus = false
         inputConnection = amount_input?.onCreateInputConnection(EditorInfo())
+        focusInput()
     
         convert_confirm?.setSingleClickListener { viewModel.onConvertClick() }
     }
     
     //endregion
+
+    private fun focusInput() {
+        amount_input?.requestFocus()
+    }
     
     override fun onItemClick(item: NumPadItem) {
         when (item.type) {

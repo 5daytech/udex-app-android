@@ -158,11 +158,16 @@ class SendDialog private constructor()
         amount_input?.addTextChangedListener(amountChangeListener)
         amount_input?.showSoftInputOnFocus = false
         inputConnection = amount_input?.onCreateInputConnection(EditorInfo())
+        focusInput()
 
         send_confirm?.setSingleClickListener { viewModel.onSendClicked() }
     }
 
     //endregion
+
+    private fun focusInput() {
+        amount_input?.requestFocus()
+    }
 
     private fun startScanner() {
         activity?.let {

@@ -67,6 +67,7 @@
 
     <!-- Dialogs -->
     <style name="BaseBottomDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.6</item>
@@ -78,6 +79,7 @@
     </style>
 
     <style name="BaseFloatingDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.6</item>
@@ -143,7 +145,6 @@
 
     <!-- Inputs -->
     <style name="PrimaryNumberInput" parent="BoldText">
-        <item name="android:colorAccent">?attr/PrimaryTextColor</item>
         <item name="android:textSize">19sp</item>
         <item name="android:inputType">number|numberDecimal</item>
         <item name="android:maxLines">1</item>
