@@ -47,7 +47,7 @@ class LaunchActivity: CoreActivity() {
 
     private fun startMain() {
         App.authManager.safeLoad()
-        MainActivity.start(this, false)
+        MainActivity.start(this)
         finish()
     }
 

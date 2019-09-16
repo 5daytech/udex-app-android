@@ -17,7 +17,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/element_margin"
+        android:layout_marginTop="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin">
         <com.blocksdecoded.dex.presentation.widgets.CoinIconImage

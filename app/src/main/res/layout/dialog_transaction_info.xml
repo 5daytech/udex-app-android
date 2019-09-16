@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/collapse_indicator"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/element_margin"
+        android:layout_marginTop="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin"
         android:layout_marginBottom="@dimen/page_margin"

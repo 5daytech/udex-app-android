@@ -22,7 +22,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginTop="@dimen/element_margin"
+        android:layout_marginTop="@dimen/page_margin"
         android:src="@drawable/ic_about"
         android:tint="?PrimaryTextColor"
         app:layout_constraintStart_toStartOf="parent"
