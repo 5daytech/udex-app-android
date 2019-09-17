@@ -94,7 +94,12 @@ class App: Application() {
         sharedStorage = SharedStorage(this)
         appPreferences = AppPreferences(sharedStorage)
         appDatabase = AppDatabase.getInstance(this)
-        encryptionManager = EncryptionManager()
+
+        KeyStoreManager("MASTER_KEY").apply {
+            keyStoreManager = this
+            keyProvider = this
+            encryptionManager = EncryptionManager(this)
+        }
         securedStorage = SecuredStorage(encryptionManager, sharedStorage)
 
         systemInfoManager = SystemInfoManager()
@@ -104,10 +109,7 @@ class App: Application() {
 	    wordsManager = WordsManager(appPreferences)
 	    authManager = AuthManager(securedStorage)
         pinManager = PinManager(securedStorage)
-        KeyStoreManager("MASTER_KEY").apply {
-            keyStoreManager = this
-            keyProvider = this
-        }
+
         keyStoreChangeListener = KeyStoreChangeListener(systemInfoManager, keyStoreManager).apply {
             backgroundManager.registerListener(this)
         }

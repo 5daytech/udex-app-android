@@ -1,55 +1,23 @@
 package com.blocksdecoded.dex.core.security.encryption
 
-import android.app.Activity
-import android.app.KeyguardManager
-import android.content.Context
-import android.security.keystore.KeyPermanentlyInvalidatedException
 import androidx.biometric.BiometricPrompt
+import com.blocksdecoded.dex.core.security.IKeyProvider
 import javax.crypto.Cipher
 
-class EncryptionManager : IEncryptionManager {
-    
-    private val keyStoreWrapper = KeyStoreWrapper()
-    
-    @Synchronized
-    override fun encrypt(data: String): String {
-        var masterKey = keyStoreWrapper.getAndroidKeyStoreSymmetricKey(MASTER_KEY)
-
-        if (masterKey == null) {
-            masterKey = keyStoreWrapper.createAndroidKeyStoreSymmetricKey(MASTER_KEY)
-        }
-        return CipherWrapper().encrypt(data, masterKey)
-    }
+class EncryptionManager(private val keyProvider: IKeyProvider) : IEncryptionManager {
 
     @Synchronized
-    override fun decrypt(data: String): String {
-        val masterKey = keyStoreWrapper.getAndroidKeyStoreSymmetricKey(MASTER_KEY)
-                ?: throw KeyPermanentlyInvalidatedException()
-        return CipherWrapper().decrypt(data, masterKey)
-    }
+    override fun encrypt(data: String): String =
+        CipherWrapper(keyProvider.transformationSymmetric).encrypt(data, keyProvider.getKey())
 
+    @Synchronized
+    override fun decrypt(data: String): String =
+        CipherWrapper(keyProvider.transformationSymmetric).decrypt(data, keyProvider.getKey())
 
     override fun getCryptoObject(): BiometricPrompt.CryptoObject {
-        var masterKey = keyStoreWrapper.getAndroidKeyStoreSymmetricKey(MASTER_KEY)
-
-        if (masterKey == null) {
-            masterKey = keyStoreWrapper.createAndroidKeyStoreSymmetricKey(MASTER_KEY)
-        }
-
-        val cipher = CipherWrapper().cipher
-        cipher.init(Cipher.ENCRYPT_MODE, masterKey)
+        val cipher = CipherWrapper(keyProvider.transformationSymmetric).cipher
+        cipher.init(Cipher.ENCRYPT_MODE, keyProvider.getKey())
 
         return BiometricPrompt.CryptoObject(cipher)
     }
-
-    companion object {
-        const val MASTER_KEY = "MASTER_KEY"
-
-        fun isDeviceLockEnabled(ctx: Context): Boolean {
-            val keyguardManager = ctx.getSystemService(Activity.KEYGUARD_SERVICE) as KeyguardManager
-            return keyguardManager.isKeyguardSecure
-        }
-
-    }
-
 }

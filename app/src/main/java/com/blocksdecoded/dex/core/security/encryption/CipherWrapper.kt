@@ -5,14 +5,14 @@ import java.security.Key
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 
-class CipherWrapper {
-
+class CipherWrapper(
+    transformationSymmetric: String
+) {
     companion object {
-        const val TRANSFORMATION_SYMMETRIC = "AES/CBC/PKCS7Padding"
         const val IV_SEPARATOR = "]"
     }
 
-    val cipher: Cipher = Cipher.getInstance(TRANSFORMATION_SYMMETRIC)
+    val cipher: Cipher = Cipher.getInstance(transformationSymmetric)
 
     fun encrypt(data: String, key: Key?): String {
         cipher.init(Cipher.ENCRYPT_MODE, key)

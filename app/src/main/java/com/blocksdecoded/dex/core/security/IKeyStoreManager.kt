@@ -12,5 +12,7 @@ interface IKeyStoreManager {
 }
 
 interface IKeyProvider {
+    val transformationSymmetric: String
+
     fun getKey(): SecretKey
 }
