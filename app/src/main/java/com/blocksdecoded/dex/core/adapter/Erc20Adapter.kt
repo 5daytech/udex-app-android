@@ -21,8 +21,7 @@ class Erc20Adapter(
     feeRateProvider: IFeeRateProvider,
     decimal: Int,
     private val fee: BigDecimal,
-    contractAddress: String,
-    override val feeCoinCode: String?
+    contractAddress: String
 ) : EthereumBaseAdapter(coin, kit, feeRateProvider, decimal) {
 
     private val erc20Kit: Erc20Kit = Erc20Kit.getInstance(context, ethereumKit, contractAddress)

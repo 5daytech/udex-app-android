@@ -20,13 +20,13 @@ class InfoItemView: ConstraintLayout {
     private var dividerVisible = true
         set(value) {
             field = value
-            base_info_divider?.visible = value
+            info_divider?.visible = value
         }
 
     private var name: String = "name"
         set(value) {
             field = value
-            base_info_title?.text = value
+            info_title?.text = value
         }
 
     init { View.inflate(context, R.layout.view_info_item, this) }
@@ -58,54 +58,54 @@ class InfoItemView: ConstraintLayout {
     }
 
     private fun resetAllViews() {
-        base_info_text_value?.visible = false
-        base_info_address_value?.visible = false
+        info_text_value?.visible = false
+        info_address_value?.visible = false
     }
 
     fun setRate(coin: Coin, rate: BigDecimal?) {
         resetAllViews()
-        base_info_text_value?.text = "$${rate?.toFiatDisplayFormat()} per ${coin.code}"
-        base_info_text_value?.visible = true
+        info_text_value?.text = "$${rate?.toFiatDisplayFormat()} per ${coin.code}"
+        info_text_value?.visible = true
     }
 
-    fun setCoin(coin: Coin, amount: BigDecimal?) {
+    fun setCoin(coinCode: String, amount: BigDecimal?, isExactAmount: Boolean = true) {
         resetAllViews()
-        base_info_text_value?.text = "${amount?.toLongDisplayFormat()} ${coin.code}"
-        base_info_text_value?.visible = true
+        info_text_value?.text = "${if (isExactAmount) "" else "~ "}${amount?.toLongDisplayFormat()} $coinCode"
+        info_text_value?.visible = true
     }
 
     fun setCoinWithFiat(coin: Coin, amount: BigDecimal?, fiatAmount: BigDecimal?) {
         resetAllViews()
-        base_info_text_value?.text = "${amount?.toLongDisplayFormat()} ${coin.code} ~ $${fiatAmount?.toFiatDisplayFormat()}"
-        base_info_text_value?.visible = true
+        info_text_value?.text = "${amount?.toLongDisplayFormat()} ${coin.code} ~ $${fiatAmount?.toFiatDisplayFormat()}"
+        info_text_value?.visible = true
     }
 
     fun setAddress(address: String?) {
         resetAllViews()
         address?.let {
-            base_info_address_value?.update(it)
-            base_info_address_value?.visible = true
+            info_address_value?.update(it)
+            info_address_value?.visible = true
         }
     }
 
     fun setFiat(amount: BigDecimal?, isExactAmount: Boolean = true) {
         resetAllViews()
-        base_info_text_value?.text = "${if (isExactAmount) "" else "~ "}$${amount?.toFiatDisplayFormat()}"
-        base_info_text_value?.visible = true
+        info_text_value?.text = "${if (isExactAmount) "" else "~ "}$${amount?.toFiatDisplayFormat()}"
+        info_text_value?.visible = true
     }
 
     fun setDate(date: Date?) {
         resetAllViews()
         date?.let {
-            base_info_text_value?.text = "${TimeUtils.dateToDisplayFormat(date)}"
-            base_info_text_value?.visible = true
+            info_text_value?.text = "${TimeUtils.dateToDisplayFormat(date)}"
+            info_text_value?.visible = true
         }
     }
 
     fun setStatus(status: TransactionStatus?) {
         resetAllViews()
-        base_info_text_value?.text = "Confirmed"
-        base_info_text_value?.visible = true
+        info_text_value?.text = "Confirmed"
+        info_text_value?.visible = true
     }
 
 }

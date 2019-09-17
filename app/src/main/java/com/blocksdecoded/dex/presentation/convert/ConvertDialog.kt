@@ -161,8 +161,7 @@ class ConvertDialog private constructor()
         })
 
         viewModel.feeInfo.observe(this, Observer {
-//            convert_estimated_fee?.setCoinWithFiat(it.coin, it.amount, it.fiatAmount)
-            convert_estimated_fee?.setFiat(it.fiatAmount, isExactAmount = false)
+            convert_estimated_fee?.setCoin(it.coinCode, it.amount, isExactAmount = false)
         })
     }
     

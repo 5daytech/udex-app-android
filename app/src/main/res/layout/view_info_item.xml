@@ -8,7 +8,7 @@
 
     <TextView
         style="@style/HintText"
-        android:id="@+id/base_info_title"
+        android:id="@+id/info_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
 
     <TextView
         style="@style/RegularText"
-        android:id="@+id/base_info_text_value"
+        android:id="@+id/info_text_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
         android:text="value"/>
 
     <com.blocksdecoded.dex.presentation.widgets.HashView
-        android:id="@+id/base_info_address_value"
+        android:id="@+id/info_address_value"
         android:layout_width="@dimen/short_address_width"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
         android:text="value"/>
 
     <View
-        android:id="@+id/base_info_divider"
+        android:id="@+id/info_divider"
         style="@style/Divider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"

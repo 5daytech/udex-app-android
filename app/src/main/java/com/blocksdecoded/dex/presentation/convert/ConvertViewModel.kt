@@ -95,7 +95,7 @@ class ConvertViewModel : CoreViewModel() {
         val transactionPriceFiat = ratesConverter.getCoinsPrice(adapter!!.coin.code, transactionPrice)
 
         feeInfo.value = FeeInfo(
-            adapter!!.coin,
+            adapter?.feeCoinCode ?: "",
             transactionPrice,
             transactionPriceFiat,
             0

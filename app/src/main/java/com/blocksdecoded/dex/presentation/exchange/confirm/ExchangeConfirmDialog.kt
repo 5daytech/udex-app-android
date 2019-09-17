@@ -40,7 +40,7 @@ class ExchangeConfirmDialog: BaseDialog(R.layout.dialog_confirm_exchange) {
 		exchange_confirm_receive_hint?.text = "Buy ${state.toCoin.code}"
 		exchange_confirm_send_amount?.text = "${state.sendAmount.toDisplayFormat()}"
 		exchange_confirm_receive_amount?.text = "${state.receiveAmount.toDisplayFormat()}"
-		exchange_confirm_price?.setCoin(state.toCoin, state.price)
+		exchange_confirm_price?.setCoin(state.toCoin.code, state.price)
 		exchange_confirm_fee?.setFiat(state.estimatedFee, false)
 	}
 
