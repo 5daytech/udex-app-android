@@ -121,3 +121,7 @@ dependencies {
     // Bottom Navigation
     implementation 'com.aurelhubert:ahbottomnavigation:2.3.4'
 }
+
+androidExtensions {
+    experimental = true
+}
