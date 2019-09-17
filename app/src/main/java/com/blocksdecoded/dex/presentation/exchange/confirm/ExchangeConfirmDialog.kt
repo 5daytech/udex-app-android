@@ -24,6 +24,10 @@ class ExchangeConfirmDialog: BaseDialog(R.layout.dialog_confirm_exchange) {
 		
 		viewModel.viewState.observe(this, Observer { refreshState(it) })
 
+		viewModel.feeInfo.observe(this, Observer { feeInfo ->
+			exchange_confirm_fee?.setCoin(feeInfo.coinCode, feeInfo.amount, false)
+		})
+
 		viewModel.dismissEvent.observe(this, Observer { dismiss() })
 	}
 	
@@ -41,7 +45,6 @@ class ExchangeConfirmDialog: BaseDialog(R.layout.dialog_confirm_exchange) {
 		exchange_confirm_send_amount?.text = "${state.sendAmount.toDisplayFormat()}"
 		exchange_confirm_receive_amount?.text = "${state.receiveAmount.toDisplayFormat()}"
 		exchange_confirm_price?.setCoin(state.toCoin.code, state.price)
-		exchange_confirm_fee?.setFiat(state.estimatedFee, false)
 	}
 
     companion object {
