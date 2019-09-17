@@ -44,12 +44,8 @@ class KeyStoreActivity : CoreActivity() {
             AlertDialogFragment.newInstance(
                 R.string.message_keys_invalidated_title,
                 R.string.message_keys_invalidated_description,
-                R.string.ok,
-                object : AlertDialogFragment.Listener {
-                    override fun onConfirmClick() {
-                        viewModel.onCloseInvalidKeyWarning()
-                    }
-                }).show(supportFragmentManager, "keys_invalidated_alert")
+                R.string.ok) { viewModel.onCloseInvalidKeyWarning() }
+                .show(supportFragmentManager, "keys_invalidated_alert")
         })
 
         viewModel.showNoSystemLockWarning.observe(this, Observer {

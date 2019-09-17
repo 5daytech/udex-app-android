@@ -159,6 +159,10 @@
 \n\nThe entire code powering this app been open to the public scrutiny since the beginning. We tried to build the most secure and decentralized exchange we could, however there are no guarantees that there are no unintended software issues. That said, this exchange is likely to be significantly more secure than any smartphone exchange app out there.
 \n\nSome generic non-private app data like currency exchange rates are stored on decentralized storage(IPFS).</string>
 
+    <!-- Auth failed -->
+    <string name="auth_load_error_title">Auth data decryption failed</string>
+    <string name="auth_load_error_description">Something went wrong.\nAuth data can\'t be decrypted so app data will be reset now and you need to re-enter your mnemonic key to restore wallet.</string>
+
     <!-- Placeholders -->
     <string-array name="placeholder_items">
         <item>WETH</item>

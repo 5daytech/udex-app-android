@@ -9,7 +9,7 @@ class AlertDialogFragment(
     private var title: Int,
     private var description: Int,
     private var buttonText: Int,
-    private var listener: Listener? = null
+    private var onConfirm: (() -> Unit)? = null
 ): BaseDialog(R.layout.dialog_alert) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -19,7 +19,7 @@ class AlertDialogFragment(
         alert_description?.setText(description)
         alert_confirm?.setText(buttonText)
         alert_confirm?.setOnClickListener {
-            listener?.onConfirmClick()
+            onConfirm?.invoke()
             dismiss()
         }
     }
@@ -33,8 +33,8 @@ class AlertDialogFragment(
             title: Int,
             description: Int,
             buttonText: Int,
-            listener: Listener? = null
+            onConfirm: (() -> Unit)? = null
         ): AlertDialogFragment =
-            AlertDialogFragment(title, description, buttonText, listener)
+            AlertDialogFragment(title, description, buttonText, onConfirm)
     }
 }
