@@ -33,8 +33,11 @@ class AlertDialogFragment(
             title: Int,
             description: Int,
             buttonText: Int,
+            cancelable: Boolean = true,
             onConfirm: (() -> Unit)? = null
         ): AlertDialogFragment =
-            AlertDialogFragment(title, description, buttonText, onConfirm)
+            AlertDialogFragment(title, description, buttonText, onConfirm).apply {
+                this.isCancelable = cancelable
+            }
     }
 }

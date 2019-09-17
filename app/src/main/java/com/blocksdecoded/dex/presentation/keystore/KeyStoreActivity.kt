@@ -44,7 +44,8 @@ class KeyStoreActivity : CoreActivity() {
             AlertDialogFragment.newInstance(
                 R.string.message_keys_invalidated_title,
                 R.string.message_keys_invalidated_description,
-                R.string.ok) { viewModel.onCloseInvalidKeyWarning() }
+                R.string.ok,
+                cancelable = false) { viewModel.onCloseInvalidKeyWarning() }
                 .show(supportFragmentManager, "keys_invalidated_alert")
         })
 

@@ -78,11 +78,10 @@ class LaunchActivity: CoreActivity() {
         AlertDialogFragment.newInstance(
             R.string.auth_load_error_title,
             R.string.auth_load_error_description,
-            R.string.ok) {
+            R.string.ok,
+            cancelable = false) {
             App.cleanupManager.logout()
             startGuest()
-        }.apply {
-            isCancelable = false
         }.show(supportFragmentManager, "auth_decryption_failed")
     }
 
