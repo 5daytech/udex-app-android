@@ -47,6 +47,15 @@ class ConvertViewModel : CoreViewModel() {
     val transactionSentEvent = SingleLiveEvent<String>()
     val processingEvent = SingleLiveEvent<Unit>()
     val dismissProcessingEvent = SingleLiveEvent<Unit>()
+
+    private val maxAmount: BigDecimal
+        get() = feeInfo.value?.amount?.let { fee ->
+            adapter?.balance?.let {
+                if (it >= fee) {
+                    it - fee
+                } else BigDecimal.ZERO
+            } ?: BigDecimal.ZERO
+        } ?: BigDecimal.ZERO
     
     fun init(config: ConvertConfig) {
         this.config = config
@@ -109,7 +118,7 @@ class ConvertViewModel : CoreViewModel() {
                 0
             )
 
-            adapter.validate(sendAmount, null, FeeRatePriority.MEDIUM)
+            adapter.validate(sendAmount, null, FeeRatePriority.HIGHEST)
                 .forEach {
                     when(it) {
                         is SendStateError.InsufficientAmount -> {
@@ -126,15 +135,11 @@ class ConvertViewModel : CoreViewModel() {
     }
 
     fun onMaxClicked() {
-        val availableBalance = adapter?.availableBalance(null, FeeRatePriority.HIGHEST) ?: BigDecimal.ZERO
-        
-        onAmountChanged(availableBalance, true)
+        onAmountChanged(maxAmount, true)
     }
 	
 	fun onConvertClick() {
-        val availableBalance = adapter?.availableBalance(null, FeeRatePriority.HIGHEST) ?: BigDecimal.ZERO
-        
-        if (sendAmount <= availableBalance) {
+        if (sendAmount <= maxAmount) {
             processingEvent.call()
             val sendRaw = sendAmount.movePointRight(18).stripTrailingZeros().toBigInteger()
             onAmountChanged(BigDecimal.ZERO, true)
