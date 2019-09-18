@@ -23,6 +23,7 @@ import kotlin.math.absoluteValue
 
 class ConvertViewModel : CoreViewModel() {
 
+    private val minRemainingAmount = 0.001.toBigDecimal()
     private lateinit var config: ConvertConfig
     private val coinManager = App.coinManager
     private val wethWrapper = App.zrxKitManager.zrxKit().getWethWrapperInstance()
@@ -52,7 +53,10 @@ class ConvertViewModel : CoreViewModel() {
         get() = feeInfo.value?.amount?.let { fee ->
             adapter?.balance?.let {
                 if (it >= fee) {
-                    it - fee
+                    it - when(config.type) {
+                        WRAP -> minRemainingAmount
+                        UNWRAP -> BigDecimal.ZERO
+                    }
                 } else BigDecimal.ZERO
             } ?: BigDecimal.ZERO
         } ?: BigDecimal.ZERO
@@ -118,7 +122,7 @@ class ConvertViewModel : CoreViewModel() {
                 0
             )
 
-            adapter.validate(sendAmount, null, FeeRatePriority.HIGHEST)
+            adapter.validate(sendAmount, null, FeeRatePriority.MEDIUM)
                 .forEach {
                     when(it) {
                         is SendStateError.InsufficientAmount -> {

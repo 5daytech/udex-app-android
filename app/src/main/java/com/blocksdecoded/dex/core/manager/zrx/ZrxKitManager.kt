@@ -15,6 +15,13 @@ class ZrxKitManager(
     private val networkType = if (appConfiguration.testMode) ZrxKit.NetworkType.Ropsten else ZrxKit.NetworkType.MainNet
     
     val gasProvider: ZrxKit.GasInfoProvider = object : ZrxKit.GasInfoProvider() {
+        override fun getGasLimit(contractFunc: String?): BigInteger = when(contractFunc) {
+            "deposit" -> 100000.toBigInteger()
+            "withdraw" -> 100000.toBigInteger()
+            "approve" -> 80000.toBigInteger()
+            else -> 300_000.toBigInteger()
+        }
+
         override fun getGasPrice(contractFunc: String?): BigInteger = 5_000_000_000L.toBigInteger()
     }
 
