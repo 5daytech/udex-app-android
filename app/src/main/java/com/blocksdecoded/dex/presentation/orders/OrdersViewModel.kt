@@ -15,6 +15,7 @@ class OrdersViewModel : CoreViewModel() {
     private val coinManager = App.coinManager
     private val relayerManager = App.relayerAdapterManager
     private val ratesConverter = App.ratesConverter
+    private val ratesManager = App.ratesManager
 
     private val relayer: IRelayerAdapter?
         get() = relayerManager.mainRelayer
@@ -48,6 +49,12 @@ class OrdersViewModel : CoreViewModel() {
                     onRelayerInitialized()
                 }
             }.let { disposables.add(it) }
+
+        ratesManager.marketsUpdateSubject.subscribe {
+            availablePairs.value?.let {
+                onPairsRefresh(it.map { it.baseCoin to it.quoteCoin })
+            }
+        }.let { disposables.add(it) }
     }
 
     private fun onRelayerInitialized() {
@@ -87,9 +94,9 @@ class OrdersViewModel : CoreViewModel() {
         val exchangePairs = pairs.map {
             ExchangePairViewItem(
                 it.first,
-                BigDecimal.ZERO,
+                ratesConverter.getTokenPrice(it.first),
                 it.second,
-                BigDecimal.ZERO
+                ratesConverter.getTokenPrice(it.second)
             )
         }
 
