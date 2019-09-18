@@ -102,6 +102,14 @@ class InfoItemView: ConstraintLayout {
         }
     }
 
+    fun setRaw(raw: String?) {
+        resetAllViews()
+        raw?.let {
+            info_text_value?.text = raw
+            info_text_value?.visible = true
+        }
+    }
+
     fun setStatus(status: TransactionStatus?) {
         resetAllViews()
         info_text_value?.text = "Confirmed"

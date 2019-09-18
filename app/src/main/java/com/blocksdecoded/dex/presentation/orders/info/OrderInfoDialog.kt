@@ -10,8 +10,6 @@ import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.sent.SentDialog
 import com.blocksdecoded.dex.presentation.orders.model.OrderInfoConfig
 import com.blocksdecoded.dex.utils.ui.ToastHelper
-import com.blocksdecoded.dex.utils.ui.toDisplayFormat
-import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import kotlinx.android.synthetic.main.dialog_order_info.*
 
 class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
@@ -44,24 +42,11 @@ class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
 		})
 
 		viewModel.orderInfo.observe(this, Observer { order ->
-			order_info_price.text = "${order.price.toLongDisplayFormat()} ${order.takerCoin.code}"
-
-			order_info_amount.text = "${order.makerAmount.toDisplayFormat()} ${order.makerCoin.code}"
-//			order_info_amount.text = if (order.side == EOrderSide.BUY) {
-//				"${order.takerAmount.toDisplayFormat()} ${order.takerCoin.code}"
-//			} else {
-//				"${order.makerAmount.toDisplayFormat()} ${order.makerCoin.code}"
-//			}
-
-			order_info_receive_amount.text = "${order.takerAmount.toDisplayFormat()} ${order.takerCoin.code}"
-//			order_info_receive_amount.text = if (order.side == EOrderSide.BUY) {
-//				"${order.makerAmount.toDisplayFormat()} ${order.makerCoin.code}"
-//			} else {
-//				"${order.takerAmount.toDisplayFormat()} ${order.takerCoin.code}"
-//			}
-
-			order_info_filled_amount.text = "${order.filledAmount.toDisplayFormat()} ${order.takerCoin.code}"
-			order_info_expire_date.text = order.expireDate
+			order_info_amount.setCoin(order.makerCoin.code, order.makerAmount)
+			order_info_price.setCoin(order.takerCoin.code, order.price)
+			order_info_receive_amount.setCoin(order.takerCoin.code, order.takerAmount)
+			order_info_filled_amount.setCoin(order.takerCoin.code, order.filledAmount)
+			order_info_expire_date.setRaw(order.expireDate)
 		})
 	}
 

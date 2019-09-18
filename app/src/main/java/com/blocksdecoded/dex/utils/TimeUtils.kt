@@ -21,7 +21,7 @@ object TimeUtils {
     fun timestampToDisplay(timestamp: Long): String {
         val date = Date(timestamp * 1000)
 
-        return SimpleDateFormat("dd MMMM hh:mm", Locale.US).format(date)
+        return SimpleDateFormat("dd MMMM, hh:mm a", Locale.US).format(date)
     }
 
     fun timestampToDisplayFormat(timestamp: Long): String =
