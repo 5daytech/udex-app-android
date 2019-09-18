@@ -15,17 +15,15 @@
         app:mt_title="Restore Wallet"/>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/restore_key_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="80dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 style="@style/SmallHintText"
@@ -43,7 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <EditText
-                android:id="@+id/restore_debug_input"
+                android:id="@+id/restore_single_line_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/element_margin"
@@ -53,6 +51,8 @@
                 android:paddingRight="8dp"
                 android:paddingTop="8dp"
                 android:visibility="visible"
+                android:lines="3"
+                android:gravity="top"
                 android:textColor="?attr/PrimaryTextColor"
                 android:textColorHint="?attr/HintTextColor"
                 android:background="?attr/ActionButtonBackground"
@@ -67,7 +67,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/restore_subtitle"/>
+                app:layout_constraintTop_toBottomOf="@+id/restore_subtitle"
+                android:visibility="gone"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -79,6 +80,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restore_key_container"
+        app:layout_constraintVertical_bias="0.05"
         android:layout_marginLeft="@dimen/big_margin"
         android:layout_marginRight="@dimen/big_margin"
         android:layout_marginBottom="@dimen/big_margin"

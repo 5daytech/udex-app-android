@@ -13,8 +13,9 @@ import com.blocksdecoded.dex.presentation.main.MainActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.presentation.widgets.words.WordInputViewHolder
 import com.blocksdecoded.dex.presentation.widgets.words.WordsInputAdapter
+import com.blocksdecoded.dex.utils.removeFocus
+import com.blocksdecoded.dex.utils.showKeyboard
 import com.blocksdecoded.dex.utils.ui.ToastHelper
-import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.activity_restore_wallet.*
 
 class RestoreWalletActivity: CoreActivity(), WordInputViewHolder.OnWordChangeListener {
@@ -32,7 +33,10 @@ class RestoreWalletActivity: CoreActivity(), WordInputViewHolder.OnWordChangeLis
             finish()
         }
     
-        viewModel.errorEvent.observe(this, Observer { ToastHelper.showErrorMessage(it) })
+        viewModel.errorEvent.observe(this, Observer {
+            ToastHelper.showErrorMessage(it)
+            focusInput()
+        })
         viewModel.successEvent.observe(this, Observer { ToastHelper.showSuccessMessage(it) })
         viewModel.navigateToMain.observe(this, Observer {
             MainActivity.start(this)
@@ -45,16 +49,23 @@ class RestoreWalletActivity: CoreActivity(), WordInputViewHolder.OnWordChangeLis
         
         restore_confirm.setOnClickListener {
             // Only for debug purposes
-            if (BuildConfig.DEBUG && !restore_debug_input?.text.isNullOrEmpty()) {
-                restore_debug_input.text.toString().split(" ").forEachIndexed { index, s ->
+            if (BuildConfig.DEBUG && !restore_single_line_input?.text.isNullOrEmpty()) {
+                restore_single_line_input.text.toString().split(" ").forEachIndexed { index, s ->
                     words[index] = s
                 }
             }
-            
+
+            restore_single_line_input?.removeFocus()
             viewModel.onRestoreClick(words)
         }
-        
-        restore_debug_input.visible = BuildConfig.DEBUG
+
+        focusInput()
+    }
+
+    private fun focusInput() {
+        restore_single_line_input.isEnabled = true
+        restore_single_line_input.requestFocus()
+        showKeyboard()
     }
 
     override fun onChange(position: Int, value: String) {
