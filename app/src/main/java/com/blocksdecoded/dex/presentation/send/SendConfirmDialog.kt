@@ -28,8 +28,8 @@ class SendConfirmDialog private constructor()
             send_confirm_amount?.text = "${it.amount.toMediumDisplayFormat()} ${it.coin.code}"
             send_confirm_fiat_amount?.text = "$${it.fiatAmount.toFiatDisplayFormat()}"
             send_confirm_address?.update(it.address)
-            send_confirm_fee?.setFiat(it.fee, isExactAmount = false)
             send_confirm_total_amount?.setFiat(it.total, isExactAmount = true)
+            send_confirm_fee?.setCoin(it.coin.code, it.fee, isExactAmount = false)
         }
     }
 
