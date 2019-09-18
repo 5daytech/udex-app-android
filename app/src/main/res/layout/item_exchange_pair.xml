@@ -35,6 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="@dimen/small_margin"
         android:textColor="?HintTextColor"
+        android:textSize="12sp"
         android:text="$0.2"/>
 
     <ImageView
@@ -46,7 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="12dp"
-        android:tint="?HintTextColor"
+        android:tint="?SecondaryHintTextColor"
         android:src="@drawable/ic_switch"/>
 
     <TextView
@@ -74,6 +75,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="@dimen/small_margin"
         android:textColor="?HintTextColor"
+        android:textSize="12sp"
         android:text="$200"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
