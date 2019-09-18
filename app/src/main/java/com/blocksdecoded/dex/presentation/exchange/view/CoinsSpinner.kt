@@ -10,14 +10,14 @@ import android.view.LayoutInflater
 import android.widget.*
 import androidx.core.content.ContextCompat
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairItem
+import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeCoinItem
 import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
 import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.utils.ui.DimenUtils
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 
-class CoinSpinnerView : Spinner {
-	private var exchangeItems: List<ExchangePairItem> = listOf()
+class CoinsSpinner : Spinner {
+	private var exchangeItems: List<ExchangeCoinItem> = listOf()
 	private var coinsAdapter: CoinsSpinnerAdapter? = null
 	
 	constructor(context: Context?) : super(context)
@@ -50,14 +50,14 @@ class CoinSpinnerView : Spinner {
 		this.adapter = coinsAdapter
 	}
 
-	fun setCoins(coins: List<ExchangePairItem>) {
+	fun setCoins(coins: List<ExchangeCoinItem>) {
 		exchangeItems = coins
 		coinsAdapter?.setCoins(exchangeItems)
 		updateEnabled()
 	}
 	
-	fun setSelectedPair(selectedPair: ExchangePairItem?) {
-		val index = exchangeItems.indexOfFirst { it.code == selectedPair?.code ?: "" }
+	fun setSelectedPair(selectedCoin: ExchangeCoinItem?) {
+		val index = exchangeItems.indexOfFirst { it.code == selectedCoin?.code ?: "" }
 		if (index >= 0) {
 			setSelection(index)
 		}
@@ -68,10 +68,9 @@ class CoinSpinnerView : Spinner {
 	else
 		""
 
-
 	inner class CoinsSpinnerAdapter(
 		internal var context: Context,
-		private var coins: List<ExchangePairItem>
+		private var coins: List<ExchangeCoinItem>
 	) : BaseAdapter() {
 		private var inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -90,7 +89,7 @@ class CoinSpinnerView : Spinner {
 
 		override fun getItemId(p0: Int): Long = 0
 
-		override fun getItem(position: Int): ExchangePairItem? = coins[position]
+		override fun getItem(position: Int): ExchangeCoinItem? = coins[position]
 
 		override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? =
 			getAdapterView(position, convertView, parent)
@@ -103,7 +102,7 @@ class CoinSpinnerView : Spinner {
 			}
 		}
 		
-		fun setCoins(coins: List<ExchangePairItem>) {
+		fun setCoins(coins: List<ExchangeCoinItem>) {
 			this.coins = coins
 
 			notifyDataSetChanged()

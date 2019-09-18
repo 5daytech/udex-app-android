@@ -9,7 +9,7 @@ import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairItem
+import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeCoinItem
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairsInfo
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeReceiveInfo
 import com.blocksdecoded.dex.presentation.exchange.view.model.IExchangeViewState
@@ -46,7 +46,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             }
         }
 
-    private var mSendCoins: List<ExchangePairItem> = listOf()
+    private var mSendCoins: List<ExchangeCoinItem> = listOf()
         set(value) {
             field = value
             sendCoins.postValue(
@@ -57,7 +57,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             )
         }
 
-    private var mReceiveCoins: List<ExchangePairItem> = listOf()
+    private var mReceiveCoins: List<ExchangeCoinItem> = listOf()
         set(value) {
             field = value
             receiveCoins.postValue(
@@ -117,7 +117,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             }.let { disposables.add(it) }
     }
 
-    protected abstract fun initState(sendItem: ExchangePairItem?, receiveItem: ExchangePairItem?)
+    protected abstract fun initState(sendItem: ExchangeCoinItem?, receiveItem: ExchangeCoinItem?)
     protected abstract fun updateReceiveAmount()
 
     fun onSendAmountChange(amount: BigDecimal) {
@@ -172,7 +172,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
         mReceiveCoins = getAvailableReceiveCoins(sendCoin)
     }
 
-    private fun getAvailableSendCoins(): List<ExchangePairItem> = exchangeableCoins
+    private fun getAvailableSendCoins(): List<ExchangeCoinItem> = exchangeableCoins
         .filter { coin -> marketCodes
             .firstOrNull {
                 when(this.exchangeSide) {
@@ -183,7 +183,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
         }
         .map { getExchangeItem(it) }
 
-    private fun getAvailableReceiveCoins(baseCoinCode: String): List<ExchangePairItem> =
+    private fun getAvailableReceiveCoins(baseCoinCode: String): List<ExchangeCoinItem> =
         exchangeableCoins
             .filter { coin ->
                 marketCodes.firstOrNull {
@@ -198,11 +198,11 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             }
             .map { getExchangeItem(it) }
 
-    protected fun getExchangeItem(coin: Coin): ExchangePairItem {
+    protected fun getExchangeItem(coin: Coin): ExchangeCoinItem {
         val balance = adapterManager.adapters
             .firstOrNull { it.coin.code == coin.code }?.balance ?: BigDecimal.ZERO
 
-        return ExchangePairItem(
+        return ExchangeCoinItem(
             coin.code,
             coin.title,
             BigDecimal.ZERO,

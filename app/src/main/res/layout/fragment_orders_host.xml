@@ -22,7 +22,7 @@
         android:orientation="vertical"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <com.blocksdecoded.dex.presentation.widgets.OrdersPairView
+        <com.blocksdecoded.dex.presentation.orders.ExchangePairsView
             android:id="@+id/orders_host_pair_picker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

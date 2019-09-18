@@ -4,7 +4,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairItem
+import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeCoinItem
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeReceiveInfo
 import com.blocksdecoded.dex.presentation.exchange.view.model.MarketOrderViewState
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
@@ -28,7 +28,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
 
     //region Private
 
-    override fun initState(sendItem: ExchangePairItem?, receiveItem: ExchangePairItem?) {
+    override fun initState(sendItem: ExchangeCoinItem?, receiveItem: ExchangeCoinItem?) {
         state = MarketOrderViewState(
             BigDecimal.ZERO,
             BigDecimal.ZERO,

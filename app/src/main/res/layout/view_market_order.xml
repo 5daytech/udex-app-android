@@ -88,7 +88,7 @@
         android:textSize="19sp"
         android:hint="-"/>
 
-    <com.blocksdecoded.dex.presentation.exchange.view.CoinSpinnerView
+    <com.blocksdecoded.dex.presentation.exchange.view.CoinsSpinner
         android:id="@+id/exchange_base_spinner"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -100,7 +100,7 @@
         android:backgroundTint="?attr/PrimaryTextColor"
         android:popupBackground="?attr/ActionButtonBackground" />
 
-    <com.blocksdecoded.dex.presentation.exchange.view.CoinSpinnerView
+    <com.blocksdecoded.dex.presentation.exchange.view.CoinsSpinner
         android:id="@+id/exchange_quote_spinner"
         android:layout_width="0dp"
         android:layout_height="50dp"

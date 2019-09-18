@@ -4,21 +4,21 @@ import java.math.BigDecimal
 
 interface IExchangeViewState {
     var sendAmount: BigDecimal
-    var sendCoin: ExchangePairItem?
-    var receiveCoin: ExchangePairItem?
+    var sendCoin: ExchangeCoinItem?
+    var receiveCoin: ExchangeCoinItem?
 }
 
 data class MarketOrderViewState(
     override var sendAmount: BigDecimal,
     var receiveAmount: BigDecimal,
-    override var sendCoin: ExchangePairItem?,
-    override var receiveCoin: ExchangePairItem?
+    override var sendCoin: ExchangeCoinItem?,
+    override var receiveCoin: ExchangeCoinItem?
 ) : IExchangeViewState
 
 data class LimitOrderViewState(
     override var sendAmount: BigDecimal,
-    override var sendCoin: ExchangePairItem?,
-    override var receiveCoin: ExchangePairItem?
+    override var sendCoin: ExchangeCoinItem?,
+    override var receiveCoin: ExchangeCoinItem?
 ) : IExchangeViewState
 
 data class ExchangePriceInfo(
@@ -30,6 +30,6 @@ data class ExchangeReceiveInfo (
 )
 
 data class ExchangePairsInfo (
-    val coins: List<ExchangePairItem>,
-    val selectedCoin: ExchangePairItem? = null
+    val coins: List<ExchangeCoinItem>,
+    val selectedCoin: ExchangeCoinItem? = null
 )

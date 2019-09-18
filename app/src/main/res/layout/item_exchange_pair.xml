@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/medium_margin"
+    android:paddingEnd="@dimen/medium_margin"
+    android:paddingTop="@dimen/element_margin"
+    android:paddingBottom="@dimen/element_margin">
+
+    <TextView
+        style="@style/BoldText"
+        android:id="@+id/exchange_pair_base_coin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/exchange_pair_switch"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="@dimen/medium_margin"
+        android:paddingEnd="@dimen/medium_margin"
+        android:textColor="?PrimaryTextColor"
+        android:textSize="16sp"
+        android:text="ZRX"/>
+
+    <TextView
+        style="@style/RegularText"
+        android:id="@+id/exchange_pair_base_coin_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_pair_base_coin"
+        app:layout_constraintStart_toStartOf="@+id/exchange_pair_base_coin"
+        app:layout_constraintEnd_toEndOf="@+id/exchange_pair_base_coin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/small_margin"
+        android:textColor="?HintTextColor"
+        android:text="$0.2"/>
+
+    <ImageView
+        android:id="@+id/exchange_pair_switch"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="12dp"
+        android:tint="?HintTextColor"
+        android:src="@drawable/ic_switch"/>
+
+    <TextView
+        style="@style/BoldText"
+        android:id="@+id/exchange_pair_quote_coin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/exchange_pair_switch"
+        android:paddingStart="@dimen/medium_margin"
+        android:paddingEnd="@dimen/medium_margin"
+        android:textColor="?PrimaryTextColor"
+        android:textSize="16sp"
+        android:text="WETH"/>
+
+    <TextView
+        style="@style/RegularText"
+        android:id="@+id/exchange_pair_quote_coin_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_pair_quote_coin"
+        app:layout_constraintStart_toStartOf="@+id/exchange_pair_quote_coin"
+        app:layout_constraintEnd_toEndOf="@+id/exchange_pair_quote_coin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/small_margin"
+        android:textColor="?HintTextColor"
+        android:text="$200"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

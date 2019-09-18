@@ -5,13 +5,11 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.core.manager.zrx.OrdersWatcher
-import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
+import com.blocksdecoded.dex.presentation.orders.model.*
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
-import com.blocksdecoded.dex.presentation.orders.model.FillOrderInfo
-import com.blocksdecoded.dex.presentation.orders.model.OrderInfoConfig
-import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.isValidIndex
+import java.math.BigDecimal
 
 class OrdersViewModel : CoreViewModel() {
     private val coinManager = App.coinManager
@@ -25,15 +23,18 @@ class OrdersViewModel : CoreViewModel() {
     private val currentPair: Pair<String, String>?
         get() = availablePairs.value?.let { pairs ->
             selectedPairPosition.value?.let {  position ->
-                if (pairs.isValidIndex(position)) pairs[position] else null
+                if (pairs.isValidIndex(position))
+                    pairs[position].baseCoin to pairs[position].quoteCoin
+                else
+                    null
             }
         }
 
+    val availablePairs = MutableLiveData<List<ExchangePairViewItem>>()
     val selectedPairPosition = MutableLiveData<Int>()
     val buyOrders: MutableLiveData<List<UiOrder>> = MutableLiveData()
     val sellOrders: MutableLiveData<List<UiOrder>> = MutableLiveData()
     val myOrders: MutableLiveData<List<UiOrder>> = MutableLiveData()
-    val availablePairs = MutableLiveData<List<Pair<String, String>>>()
     val exchangeCoinSymbol = MutableLiveData<String>()
 
     val orderInfoEvent = MutableLiveData<OrderInfoConfig>()
@@ -51,7 +52,7 @@ class OrdersViewModel : CoreViewModel() {
 
     private fun onRelayerInitialized() {
         zrxOrdersWatcher?.availablePairsSubject?.subscribe({ pairs ->
-            availablePairs.postValue(pairs)
+            onPairsRefresh(pairs)
 
             (selectedPairPosition.value ?: 0).let {
                 exchangeCoinSymbol.postValue(pairs[it].first)
@@ -74,12 +75,25 @@ class OrdersViewModel : CoreViewModel() {
             selectedPairPosition.postValue(position)
 
             availablePairs.value?.let {
-                exchangeCoinSymbol.postValue(it[position].first)
+                exchangeCoinSymbol.postValue(it[position].baseCoin)
             }
         }, { Logger.e(it) })?.let { disposables.add(it) }
 
         selectedPairPosition.postValue(0)
         refreshOrders()
+    }
+
+    private fun onPairsRefresh(pairs: List<Pair<String, String>>) {
+        val exchangePairs = pairs.map {
+            ExchangePairViewItem(
+                it.first,
+                BigDecimal.ZERO,
+                it.second,
+                BigDecimal.ZERO
+            )
+        }
+
+        availablePairs.postValue(exchangePairs)
     }
     
     private fun refreshOrders() {

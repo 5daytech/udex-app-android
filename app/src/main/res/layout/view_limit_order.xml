@@ -82,7 +82,7 @@
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginTop="@dimen/element_margin" />
 
-    <com.blocksdecoded.dex.presentation.exchange.view.CoinSpinnerView
+    <com.blocksdecoded.dex.presentation.exchange.view.CoinsSpinner
         android:id="@+id/limit_base_spinner"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -94,7 +94,7 @@
         android:backgroundTint="?attr/PrimaryTextColor"
         android:popupBackground="?attr/ActionButtonBackground" />
 
-    <com.blocksdecoded.dex.presentation.exchange.view.CoinSpinnerView
+    <com.blocksdecoded.dex.presentation.exchange.view.CoinsSpinner
         android:id="@+id/limit_quote_spinner"
         android:layout_width="0dp"
         android:layout_height="50dp"

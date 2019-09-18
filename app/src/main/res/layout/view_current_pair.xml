@@ -7,8 +7,8 @@
     android:gravity="center"
     android:paddingTop="@dimen/small_margin"
     android:paddingBottom="@dimen/small_margin"
-    android:paddingLeft="@dimen/big_margin"
-    android:paddingRight="@dimen/big_margin">
+    android:paddingLeft="@dimen/page_margin"
+    android:paddingRight="@dimen/page_margin">
 
     <TextView
         style="@style/HintText"
@@ -19,7 +19,7 @@
         android:layout_marginEnd="@dimen/big_margin"
         android:textColor="?attr/SecondaryHintTextColor"/>
 
-    <Spinner
+    <com.blocksdecoded.dex.presentation.orders.ExchangePairsSpinner
         android:id="@+id/current_pair_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

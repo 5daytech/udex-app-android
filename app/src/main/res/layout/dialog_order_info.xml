@@ -26,7 +26,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"
-        android:text="Your order info"/>
+        android:text="Order Info"/>
 
     <com.blocksdecoded.dex.presentation.widgets.InfoItemView
         android:id="@+id/order_info_amount"
