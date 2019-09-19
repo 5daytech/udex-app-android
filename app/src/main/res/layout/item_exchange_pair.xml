@@ -8,8 +8,7 @@
     android:paddingStart="@dimen/medium_margin"
     android:paddingEnd="@dimen/medium_margin"
     android:paddingTop="@dimen/element_margin"
-    android:paddingBottom="@dimen/element_margin"
-    android:background="?selectableItemBackground">
+    android:paddingBottom="@dimen/element_margin">
 
     <TextView
         style="@style/BoldText"

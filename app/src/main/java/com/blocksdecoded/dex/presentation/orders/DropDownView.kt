@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.view_drop_down.view.*
 class DropDownView: ConstraintLayout {
     init { inflate(R.layout.view_drop_down, attach = true) }
 
+    private var selectedView: View? = null
     private var popupWindow: PopupWindow? = null
     private var popupAdapter: PopupAdapter? = null
 
@@ -32,7 +33,6 @@ class DropDownView: ConstraintLayout {
             refreshSelectedItem()
         }
 
-    var selectedView: View? = null
     val isEmpty: Boolean
         get() = popupAdapter?.itemCount?.let { it == 0 } ?: true
 
@@ -58,6 +58,7 @@ class DropDownView: ConstraintLayout {
     private fun inflateSelectedView() {
         drop_down_selected_container?.removeAllViews()
         selectedView = drop_down_selected_container?.inflate(itemResId, attach = true)
+        selectedView?.setBackgroundResource(R.color.transparent)
     }
 
     private fun refreshSelectedItem() {
@@ -167,8 +168,8 @@ class DropDownView: ConstraintLayout {
 
                 baseCoin.text = data.baseCoin
                 quoteCoin.text = data.quoteCoin
-                basePrice.text = "$${data.basePrice?.toFiatDisplayFormat()}"
-                quotePrice.text = "$${data.quotePrice?.toFiatDisplayFormat()}"
+                basePrice.text = "$${data.basePrice.toFiatDisplayFormat()}"
+                quotePrice.text = "$${data.quotePrice.toFiatDisplayFormat()}"
             }
         }
     }
