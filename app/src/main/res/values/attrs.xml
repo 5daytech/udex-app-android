@@ -20,4 +20,8 @@
         <attr name="siv_action_switch" format="boolean" />
         <attr name="siv_visible_divider" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="DropDownView">
+        <attr name="ddv_item_layout" format="reference|integer"/>
+    </declare-styleable>
 </resources>

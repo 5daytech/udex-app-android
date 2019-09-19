@@ -1,7 +1,7 @@
 package com.blocksdecoded.dex.presentation.exchange.view.market
 
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.exchange.ExchangeSide
+import com.blocksdecoded.dex.presentation.exchange.model.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeCoinItem

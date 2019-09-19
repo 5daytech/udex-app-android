@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.*
+import androidx.core.view.isEmpty
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.orders.model.ExchangePairViewItem
 import kotlinx.android.synthetic.main.view_current_pair.view.*
@@ -14,8 +15,8 @@ class ExchangePairsView: LinearLayout {
     var selectedPair: Int = 0
         set(value) {
             field = value
-            current_pair_spinner?.let { spinner ->
-                if (!spinner.adapter.isEmpty) current_pair_spinner?.setSelection(value)
+            current_pair_drop_down?.let { spinner ->
+                if (!spinner.isEmpty) current_pair_drop_down?.selectedItemPosition = value
             }
         }
 
@@ -25,10 +26,10 @@ class ExchangePairsView: LinearLayout {
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
     
     fun init(onSelectPair: (Int) -> Unit) {
-        current_pair_spinner?.init(onSelectPair)
+        current_pair_drop_down?.init(onSelectPair)
     }
     
     fun refreshPairs(pairs: List<ExchangePairViewItem>) {
-        current_pair_spinner?.setExchangePairs(pairs)
+        current_pair_drop_down?.setData(pairs)
     }
 }
