@@ -3,10 +3,11 @@ package com.blocksdecoded.dex.utils.ui
 import android.animation.ObjectAnimator
 import android.view.View
 import android.view.animation.*
-import com.blocksdecoded.dex.R
-
 
 object AnimationHelper {
+
+    const val VERY_FAST_ANIMATION = 150L
+    const val FAST_ANIMATION = 200L
 
     fun rotate(v: View) {
         v.post {
@@ -14,8 +15,8 @@ object AnimationHelper {
             v.rotation = 0f
             ObjectAnimator.ofFloat(v, View.ROTATION, 0f, -180f)
                 .apply {
-                    duration = 250
-                    interpolator = AccelerateInterpolator()
+                    duration = FAST_ANIMATION
+                    interpolator = LinearInterpolator()
                 }
                 .start()
         }

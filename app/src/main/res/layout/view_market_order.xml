@@ -74,18 +74,20 @@
         android:id="@+id/exchange_receive_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/exchange_receive_hint"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/middle_divider"
-        android:layout_marginBottom="@dimen/page_margin"
-        android:layout_marginStart="@dimen/page_margin"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_receive_hint"
+        app:layout_constraintVertical_bias="0.0"
         android:layout_marginTop="@dimen/element_margin"
-        android:maxLines="1"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="@dimen/page_margin"
         android:ellipsize="end"
+        android:hint="-"
+        android:maxLines="1"
         android:textColor="?attr/PrimaryTextColor"
-        android:textColorHint="?attr/PrimaryTextColor"
-        android:textSize="19sp"
-        android:hint="-"/>
+        android:textColorHint="?attr/HintTextColor"
+        android:textSize="19sp" />
 
     <com.blocksdecoded.dex.presentation.exchange.view.CoinDropDown
         android:id="@+id/exchange_base_spinner"
@@ -104,9 +106,8 @@
         android:entries="@array/placeholder_items"
         app:layout_constraintLeft_toRightOf="@+id/middle_divider"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/exchange_receive_input"
         app:layout_constraintTop_toTopOf="@+id/exchange_receive_hint"
-        android:layout_marginBottom="@dimen/page_margin"
         app:ddv_item_layout="@layout/item_coin_spinner"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
