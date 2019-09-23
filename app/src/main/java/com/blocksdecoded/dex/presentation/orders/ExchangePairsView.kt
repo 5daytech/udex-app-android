@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.*
-import androidx.core.view.isEmpty
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.orders.model.ExchangePairViewItem
 import kotlinx.android.synthetic.main.view_current_pair.view.*
