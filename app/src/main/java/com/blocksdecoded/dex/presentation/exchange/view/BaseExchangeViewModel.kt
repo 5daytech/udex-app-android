@@ -170,6 +170,10 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
 
         val sendCoin = state?.sendCoin?.code ?: mSendCoins.first().code
         mReceiveCoins = getAvailableReceiveCoins(sendCoin)
+
+        if (this.state.receiveCoin == null) {
+            this.state.receiveCoin = mReceiveCoins.firstOrNull()
+        }
     }
 
     private fun getAvailableSendCoins(): List<ExchangeCoinItem> = exchangeableCoins
