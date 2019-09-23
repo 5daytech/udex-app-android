@@ -22,7 +22,7 @@
         android:textSize="14sp"
         android:text="SEP\n27"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+    <com.blocksdecoded.dex.presentation.widgets.CoinIconView
         android:id="@+id/transaction_coin_icon"
         android:layout_width="@dimen/coin_size"
         android:layout_height="@dimen/coin_size"

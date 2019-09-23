@@ -85,8 +85,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     protected fun init() {
         exchangeEnabled.value = false
 
-        relayerManager.mainRelayerUpdatedSignal
-            .subscribe {
+        relayerManager.mainRelayerUpdatedSignal.subscribe {
                 relayer?.availablePairsSubject
                     ?.subscribe {
                         marketCodes = it

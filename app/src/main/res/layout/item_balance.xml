@@ -24,7 +24,7 @@
             android:paddingBottom="@dimen/page_margin"
             android:paddingStart="@dimen/medium_margin"
             android:paddingEnd="@dimen/medium_margin">
-            <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+            <com.blocksdecoded.dex.presentation.widgets.CoinIconView
                 android:id="@+id/balance_icon"
                 android:layout_width="@dimen/coin_size"
                 android:layout_height="@dimen/coin_size"

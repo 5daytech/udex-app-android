@@ -109,12 +109,12 @@ class LimitOrderView: CardView {
 	}
 	
 	fun updateSendCoins(info: ExchangePairsInfo) {
-		limit_base_spinner?.setCoins(info.coins)
+		limit_base_spinner?.setData(info.coins)
 		limit_base_spinner?.setSelectedPair(info.selectedCoin)
 	}
 	
 	fun updateReceiveCoins(info: ExchangePairsInfo) {
-		limit_quote_spinner?.setCoins(info.coins)
+		limit_quote_spinner?.setData(info.coins)
 		limit_quote_spinner?.setSelectedPair(info.selectedCoin)
 	}
 	

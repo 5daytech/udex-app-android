@@ -31,7 +31,7 @@
         android:layout_marginTop="@dimen/page_margin"
         android:gravity="center"
         android:padding="@dimen/element_margin">
-        <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+        <com.blocksdecoded.dex.presentation.widgets.CoinIconView
             android:id="@+id/exchange_confirm_from_coin"
             android:layout_width="@dimen/big_coin_size"
             android:layout_height="@dimen/big_coin_size"
@@ -44,7 +44,7 @@
             android:layout_marginLeft="@dimen/element_margin"
             android:layout_marginRight="@dimen/element_margin"/>
 
-        <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+        <com.blocksdecoded.dex.presentation.widgets.CoinIconView
             android:id="@+id/exchange_confirm_to_coin"
             android:layout_width="@dimen/big_coin_size"
             android:layout_height="@dimen/big_coin_size"

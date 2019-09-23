@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.transactions.TransactionViewItem
-import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+import com.blocksdecoded.dex.presentation.widgets.CoinIconView
 import com.blocksdecoded.dex.utils.setTextColorRes
 import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
@@ -17,7 +17,7 @@ class TransactionViewHolder(
     private val listener: OnClickListener
 ) : RecyclerView.ViewHolder(view) {
 
-    private val iconImage: CoinIconImage = itemView.findViewById(R.id.transaction_coin_icon)
+    private val iconImage: CoinIconView = itemView.findViewById(R.id.transaction_coin_icon)
     private val dateTxt: TextView = itemView.findViewById(R.id.transaction_date)
     private val amountTxt: TextView = itemView.findViewById(R.id.transaction_amount)
     private val actionTxt: TextView = itemView.findViewById(R.id.transaction_action)

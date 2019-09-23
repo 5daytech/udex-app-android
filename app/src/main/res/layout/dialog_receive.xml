@@ -21,7 +21,7 @@
         android:layout_marginTop="@dimen/big_margin"
         android:layout_marginBottom="@dimen/big_margin"
         android:gravity="center">
-        <com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+        <com.blocksdecoded.dex.presentation.widgets.CoinIconView
             android:id="@+id/receive_coin_icon"
             android:layout_width="@dimen/coin_size"
             android:layout_height="@dimen/coin_size"

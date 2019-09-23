@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.CoinBalance
 import com.blocksdecoded.dex.core.model.EConvertType.*
-import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+import com.blocksdecoded.dex.presentation.widgets.CoinIconView
 import com.blocksdecoded.dex.utils.setVisible
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
@@ -19,7 +19,7 @@ class BalanceViewHolder(
     private val listener: IWalletVHListener
 ): RecyclerView.ViewHolder(view) {
 
-    private val mIcon: CoinIconImage = itemView.findViewById(R.id.balance_icon)
+    private val mIcon: CoinIconView = itemView.findViewById(R.id.balance_icon)
     private val mSymbol: TextView = itemView.findViewById(R.id.balance_symbol)
     private val mTitle: TextView = itemView.findViewById(R.id.balance_title)
     private val mBalance: TextView = itemView.findViewById(R.id.balance_amount)

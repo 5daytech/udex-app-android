@@ -11,7 +11,7 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeCoinItem
-import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+import com.blocksdecoded.dex.presentation.widgets.CoinIconView
 import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.utils.ui.DimenUtils
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
@@ -77,7 +77,7 @@ class CoinsSpinner : Spinner {
 		private fun getAdapterView(position: Int, convertView: View?, parent: ViewGroup?): View {
 			val view = convertView ?: inflater.inflate(R.layout.item_coin_spinner, parent, false)
 
-			view.findViewById<CoinIconImage>(R.id.item_coin_spinner_icon)?.bind(getItem(position)?.code)
+			view.findViewById<CoinIconView>(R.id.item_coin_spinner_icon)?.bind(getItem(position)?.code)
 			view.findViewById<TextView>(R.id.item_coin_spinner_title)?.text = getItem(position)?.code
 			view.findViewById<TextView>(R.id.item_coin_spinner_balance)?.text =
 				"${getItem(position)?.balance?.toDisplayFormat()} ${getItem(position)?.code}"

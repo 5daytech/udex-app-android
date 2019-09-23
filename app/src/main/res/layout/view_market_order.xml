@@ -75,7 +75,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/exchange_receive_hint"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/middle_divider"
         android:layout_marginBottom="@dimen/page_margin"
@@ -88,30 +87,27 @@
         android:textSize="19sp"
         android:hint="-"/>
 
-    <com.blocksdecoded.dex.presentation.exchange.view.CoinsSpinner
+    <com.blocksdecoded.dex.presentation.exchange.view.CoinDropDown
         android:id="@+id/exchange_base_spinner"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/exchange_amount_hint"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/middle_divider"
         app:layout_constraintBottom_toBottomOf="@+id/exchange_amount_input"
-        android:entries="@array/placeholder_items"
-        android:backgroundTint="?attr/PrimaryTextColor"
-        android:popupBackground="?attr/ActionButtonBackground" />
+        app:ddv_item_layout="@layout/item_coin_spinner" />
 
-    <com.blocksdecoded.dex.presentation.exchange.view.CoinsSpinner
+    <com.blocksdecoded.dex.presentation.exchange.view.CoinDropDown
         android:id="@+id/exchange_quote_spinner"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:entries="@array/placeholder_items"
         app:layout_constraintLeft_toRightOf="@+id/middle_divider"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@+id/exchange_receive_hint"
         android:layout_marginBottom="@dimen/page_margin"
-        android:backgroundTint="?attr/PrimaryTextColor"
-        android:popupBackground="?attr/ActionButtonBackground" />
+        app:ddv_item_layout="@layout/item_coin_spinner"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/exchange_switch"

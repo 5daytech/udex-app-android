@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.markets.MarketViewItem
-import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+import com.blocksdecoded.dex.presentation.widgets.CoinIconView
 import com.blocksdecoded.dex.presentation.widgets.MarketChart
 import com.blocksdecoded.dex.utils.setTextColorRes
 import com.blocksdecoded.dex.utils.ui.CurrencyUtils
@@ -18,7 +18,7 @@ class MarketViewHolder(
 	private val listener: Listener
 ): RecyclerView.ViewHolder(view) {
 
-	private val coinIcon: CoinIconImage = itemView.findViewById(R.id.market_coin_icon)
+	private val coinIcon: CoinIconView = itemView.findViewById(R.id.market_coin_icon)
 	private val nameTxt: TextView = itemView.findViewById(R.id.market_name)
 	private val priceTxt: TextView = itemView.findViewById(R.id.market_price)
 	private val codeTxt: TextView = itemView.findViewById(R.id.market_code)

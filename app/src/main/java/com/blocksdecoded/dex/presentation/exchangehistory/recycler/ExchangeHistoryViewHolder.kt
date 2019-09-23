@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.manager.history.ExchangeRecord
 import com.blocksdecoded.dex.core.manager.history.ExchangeRecordItem
-import com.blocksdecoded.dex.presentation.widgets.CoinIconImage
+import com.blocksdecoded.dex.presentation.widgets.CoinIconView
 import com.blocksdecoded.dex.presentation.widgets.HashView
 import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.dex.utils.inflate
@@ -55,7 +55,7 @@ class ExchangeHistoryViewHolder(
     }
 
     private class ExchangeRecordViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        private val coinIcon: CoinIconImage = itemView.findViewById(R.id.item_trade_tx_coin_icon)
+        private val coinIcon: CoinIconView = itemView.findViewById(R.id.item_trade_tx_coin_icon)
         private val amount: TextView = itemView.findViewById(R.id.item_trade_tx_amount)
 
         fun onBind(exchangeRecordItem: ExchangeRecordItem) {

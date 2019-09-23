@@ -4,12 +4,14 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.*
 import android.widget.PopupWindow
+import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.ui.isVisible
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.blocksdecoded.dex.utils.isValidIndex
 import kotlinx.android.synthetic.main.view_drop_down.view.*
 
 abstract class BaseDropDownView<T> : ConstraintLayout {
@@ -84,7 +86,8 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
         )
     }
 
-    fun setData(data: List<T>) {
+    @CallSuper
+    open fun setData(data: List<T>) {
         popupAdapter?.setData(data)
 
         if (selectedItemPosition == null && data.isNotEmpty()) {
@@ -124,7 +127,10 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
             notifyDataSetChanged()
         }
 
-        open fun getItem(position: Int): T = items[position]
+        open fun getItem(position: Int): T? = if (items.isValidIndex(position))
+            items[position]
+        else
+            null
 
         abstract class DropDownHolder<T> (view: View, onItemPick: ((position: Int) -> Unit)? = null)
             : RecyclerView.ViewHolder(view) {

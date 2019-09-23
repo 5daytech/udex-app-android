@@ -77,12 +77,12 @@ class MarketOrderView: CardView {
 	}
 	
 	fun updateSendCoins(info: ExchangePairsInfo) {
-		exchange_base_spinner?.setCoins(info.coins)
+		exchange_base_spinner?.setData(info.coins)
 		exchange_base_spinner?.setSelectedPair(info.selectedCoin)
 	}
 	
 	fun updateReceiveCoins(info: ExchangePairsInfo) {
-		exchange_quote_spinner?.setCoins(info.coins)
+		exchange_quote_spinner?.setData(info.coins)
 		exchange_quote_spinner?.setSelectedPair(info.selectedCoin)
 	}
 
