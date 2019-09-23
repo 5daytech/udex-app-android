@@ -40,14 +40,17 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
 
     override fun updateReceiveAmount() {
         state.sendAmount.let { amount ->
+            val currentMarket = currentMarketPosition
+            if (currentMarket < 0) return
+
             val receiveAmount = relayer?.calculateFillAmount(
-                marketCodes[currentMarketPosition],
+                marketCodes[currentMarket],
                 orderSide,
                 amount
             ) ?: BigDecimal.ZERO
 
             val price = relayer?.calculateBasePrice(
-                marketCodes[currentMarketPosition],
+                marketCodes[currentMarket],
                 orderSide
             ) ?: BigDecimal.ZERO
 

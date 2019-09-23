@@ -28,6 +28,13 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
 
             value?.let {
                 popupAdapter?.getItem(value)?.let {
+
+                    selectedView?.animate()
+                        ?.alpha(0.8f)
+                        ?.setDuration(100L)
+                        ?.withEndAction { selectedView?.alpha = 1f }
+                        ?.start()
+
                     refreshSelectedItem(it)
                 }
             }
@@ -66,6 +73,11 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
         drop_down_selected_container?.removeAllViews()
         selectedView = drop_down_selected_container?.inflate(itemResId, attach = true)
         selectedView?.setBackgroundResource(R.color.transparent)
+    }
+
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+        popupWindow?.width = measuredWidth
     }
 
     private fun initPopup(adapter: PopupAdapter<T>, onItemPick: (position: Int) -> Unit) {
