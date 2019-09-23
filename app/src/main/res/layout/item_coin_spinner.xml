@@ -38,6 +38,7 @@
             android:ellipsize="end"
             android:visibility="visible"
             android:textColor="?attr/HintTextColor"
+            android:textSize="13sp"
             android:text="0.0 ETH"/>
 
     </LinearLayout>

@@ -6,16 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.isInvisible
+import androidx.core.view.marginLeft
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeCoinItem
 import com.blocksdecoded.dex.presentation.widgets.BaseDropDownView
 import com.blocksdecoded.dex.presentation.widgets.CoinIconView
+import com.blocksdecoded.dex.utils.dp
 import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import kotlinx.android.synthetic.main.view_drop_down.view.*
 
 class CoinDropDown : BaseDropDownView<ExchangeCoinItem> {
+	override val popupVerticalOffset: Int
+		get() = dp(-8f)
+
 	constructor(context: Context?) : super(context)
 	constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 	constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
@@ -32,9 +37,30 @@ class CoinDropDown : BaseDropDownView<ExchangeCoinItem> {
 		drop_down_arrow?.isInvisible = !isEnabled
 	}
 
+	private fun refreshSelectedViewPadding() {
+		val arrowHorizontalSpace = (drop_down_arrow?.marginLeft ?: 0) + (drop_down_arrow?.width ?: 0)
+
+		selectedView?.setPadding(
+			selectedView?.paddingLeft ?: 0,
+			selectedView?.paddingTop ?: 0,
+			arrowHorizontalSpace,
+			selectedView?.paddingBottom ?: 0
+		)
+	}
+
 	fun init(onCoinSelected: (Int) -> Unit) {
 		val adapter = CoinDropDownAdapter(listOf())
 		init(adapter, onCoinSelected)
+	}
+
+	override fun inflateSelectedView() {
+		super.inflateSelectedView()
+		refreshSelectedViewPadding()
+	}
+
+	override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+		super.onLayout(changed, left, top, right, bottom)
+		refreshSelectedViewPadding()
 	}
 
 	override fun setData(data: List<ExchangeCoinItem>) {

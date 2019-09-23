@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.view_drop_down.view.*
 abstract class BaseDropDownView<T> : ConstraintLayout {
     init { inflate(R.layout.view_drop_down, attach = true) }
 
+    abstract val popupVerticalOffset: Int
+
     var selectedView: View? = null
     var popupWindow: PopupWindow? = null
     var popupAdapter: PopupAdapter<T>? = null
@@ -30,9 +32,10 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
             value?.let {
                 popupAdapter?.getItem(value)?.let {
 
+                    selectedView?.clearAnimation()
                     selectedView?.animate()
-                        ?.alpha(0.8f)
-                        ?.setDuration(100L)
+                        ?.alpha(0.7f)
+                        ?.setDuration(200L)
                         ?.withEndAction { selectedView?.alpha = 1f }
                         ?.start()
 
@@ -70,7 +73,7 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
         inflateSelectedView()
     }
 
-    private fun inflateSelectedView() {
+    open fun inflateSelectedView() {
         drop_down_selected_container?.removeAllViews()
         selectedView = drop_down_selected_container?.inflate(itemResId, attach = true)
         selectedView?.setBackgroundResource(R.color.transparent)
@@ -119,7 +122,7 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
         }
 
         setOnClickListener {
-            popupWindow?.showAsDropDown(this, 0, dp(-12f))
+            popupWindow?.showAsDropDown(this, 0, popupVerticalOffset)
         }
     }
 

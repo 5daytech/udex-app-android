@@ -11,6 +11,8 @@ import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 
 class ExchangePairsDropDown: BaseDropDownView<ExchangePairViewItem> {
+    override val popupVerticalOffset: Int = 0
+
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(

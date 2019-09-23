@@ -7,7 +7,11 @@ class RelayerOrdersList<T> {
     val pairUpdateSubject = BehaviorSubject.create<RelayerOrders<T>>()
 
     fun getPair(baseAsset: String, quoteAsset: String): RelayerOrders<T> = allOrders.firstOrNull {
-        it.baseAsset == baseAsset && it.quoteAsset == quoteAsset
+        try {
+            it.baseAsset == baseAsset && it.quoteAsset == quoteAsset
+        } catch (e: Exception) {
+            false
+        }
     } ?: RelayerOrders(baseAsset, quoteAsset, listOf())
 
     fun updatePairOrders(baseAsset: String, quoteAsset: String, orders: List<T>) {
