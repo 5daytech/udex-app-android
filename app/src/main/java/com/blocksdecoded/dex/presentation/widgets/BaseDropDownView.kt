@@ -11,7 +11,6 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.ui.isVisible
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.blocksdecoded.dex.utils.dp
 import com.blocksdecoded.dex.utils.isValidIndex
 import kotlinx.android.synthetic.main.view_drop_down.view.*
 
@@ -19,6 +18,9 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
     init { inflate(R.layout.view_drop_down, attach = true) }
 
     abstract val popupVerticalOffset: Int
+
+    private var arrowRotation = 0f
+    private var rotationDuration = 200L
 
     var selectedView: View? = null
     var popupWindow: PopupWindow? = null
@@ -32,12 +34,12 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
             value?.let {
                 popupAdapter?.getItem(value)?.let {
 
-                    selectedView?.clearAnimation()
-                    selectedView?.animate()
-                        ?.alpha(0.7f)
-                        ?.setDuration(200L)
-                        ?.withEndAction { selectedView?.alpha = 1f }
-                        ?.start()
+//                    selectedView?.clearAnimation()
+//                    selectedView?.animate()
+//                        ?.alpha(0.7f)
+//                        ?.setDuration(200L)
+//                        ?.withEndAction { selectedView?.alpha = 1f }
+//                        ?.start()
 
                     refreshSelectedItem(it)
                 }
@@ -49,6 +51,8 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
 
     abstract fun refreshSelectedItem(item: T)
 
+    //region Constructor
+
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) { loadAttrs(attrs) }
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
@@ -56,6 +60,10 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
         attrs,
         defStyleAttr
     ) { loadAttrs(attrs) }
+
+    //endregion
+
+    //region Lifecycle
 
     private fun loadAttrs(attrs: AttributeSet?) {
         attrs?.let {
@@ -73,15 +81,27 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
         inflateSelectedView()
     }
 
-    open fun inflateSelectedView() {
-        drop_down_selected_container?.removeAllViews()
-        selectedView = drop_down_selected_container?.inflate(itemResId, attach = true)
-        selectedView?.setBackgroundResource(R.color.transparent)
-    }
-
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
         popupWindow?.width = measuredWidth
+    }
+
+    //endregion
+
+    //region Init
+
+    protected fun init(adapter: PopupAdapter<T>, onItemPick: (position: Int) -> Unit) {
+        initPopup(adapter) {
+            selectedItemPosition = it
+            onItemPick(it)
+            popupAdapter?.notifyDataSetChanged()
+            popupWindow?.dismiss()
+        }
+
+        setOnClickListener {
+            popupWindow?.showAsDropDown(this, 0, popupVerticalOffset)
+            toggleDropArrow()
+        }
     }
 
     private fun initPopup(adapter: PopupAdapter<T>, onItemPick: (position: Int) -> Unit) {
@@ -100,29 +120,41 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
             ViewGroup.LayoutParams.WRAP_CONTENT,
             true
         )
+
+        popupWindow?.setOnDismissListener {
+            toggleDropArrow()
+        }
+    }
+
+    protected open fun inflateSelectedView() {
+        drop_down_selected_container?.removeAllViews()
+        selectedView = drop_down_selected_container?.inflate(itemResId, attach = true)
+        selectedView?.setBackgroundResource(R.color.transparent)
+    }
+
+    //endregion
+
+    private fun toggleDropArrow() {
+        drop_down_arrow?.clearAnimation()
+
+        val rotationDiff = -180f
+        arrowRotation = if (arrowRotation == 0f) rotationDiff else 0f
+
+        drop_down_arrow?.animate()
+            ?.rotation(arrowRotation)
+            ?.setDuration(rotationDuration)
+            ?.withEndAction { drop_down_arrow?.rotation = arrowRotation }
+            ?.start()
     }
 
     @CallSuper
     open fun setData(data: List<T>) {
         popupAdapter?.setData(data)
 
-        if (selectedItemPosition == null && data.isNotEmpty()) {
-            selectedItemPosition = 0
+        selectedItemPosition = if (selectedItemPosition == null && data.isNotEmpty()) {
+            0
         } else {
-            selectedItemPosition = selectedItemPosition
-        }
-    }
-
-    protected fun init(adapter: PopupAdapter<T>, onItemPick: (position: Int) -> Unit) {
-        initPopup(adapter) {
-            selectedItemPosition = it
-            onItemPick(it)
-            popupAdapter?.notifyDataSetChanged()
-            popupWindow?.dismiss()
-        }
-
-        setOnClickListener {
-            popupWindow?.showAsDropDown(this, 0, popupVerticalOffset)
+            selectedItemPosition
         }
     }
 
@@ -148,13 +180,17 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
         else
             null
 
-        abstract class DropDownHolder<T> (view: View, onItemPick: ((position: Int) -> Unit)? = null)
-            : RecyclerView.ViewHolder(view) {
-            init {
-                itemView.setOnClickListener { onItemPick?.invoke(adapterPosition) }
-            }
-
+        abstract class DropDownHolder<T> (
+            view: View,
+            onItemPick: ((position: Int) -> Unit)? = null
+        ) : RecyclerView.ViewHolder(view) {
             abstract fun onBind(data: T)
+
+            init {
+                itemView.setOnClickListener {
+                    onItemPick?.invoke(adapterPosition)
+                }
+            }
 
             fun onBind(data: T, visible: Boolean) {
                 isVisible = visible
