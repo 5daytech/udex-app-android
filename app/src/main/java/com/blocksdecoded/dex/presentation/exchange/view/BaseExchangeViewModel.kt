@@ -26,8 +26,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     private val adapterManager = App.adapterManager
 
     protected abstract var state: T
-    protected val mReceiveInfo =
-        ExchangeReceiveInfo(BigDecimal.ZERO)
+    protected val mReceiveInfo = ExchangeReceiveInfo(BigDecimal.ZERO)
 
     protected var exchangeSide = ExchangeSide.BID
     protected val orderSide: EOrderSide
@@ -103,10 +102,12 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
 
                         adapterManager.adaptersUpdatedSignal
                             .subscribe {
+                                refreshPairs(viewState.value)
+
                                 exchangeableCoins.forEach {  coin ->
-                                    adapterManager.adapters
-                                        .firstOrNull { it.coin.code == coin.code }
-                                        ?.balanceUpdatedFlowable
+                                    val adapter = adapterManager.adapters.firstOrNull { it.coin.code == coin.code }
+
+                                    adapter?.balanceUpdatedFlowable
                                         ?.uiSubscribe(disposables, {
                                             refreshPairs(viewState.value)
                                         })
@@ -194,8 +195,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
                                 it.first.equals(coin.code, true)
                     }
                 } != null
-            }
-            .map { getExchangeItem(it) }
+            }.map { getExchangeItem(it) }
 
     protected fun getExchangeItem(coin: Coin): ExchangeCoinItem {
         val balance = adapterManager.adapters
