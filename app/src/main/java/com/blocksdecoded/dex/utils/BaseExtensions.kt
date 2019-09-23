@@ -16,7 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
-
+import com.blocksdecoded.dex.utils.ui.DimenUtils
 
 
 fun <T>List<T>?.isValidIndex(index: Int): Boolean = index in 0 until (this?.size ?: 0)
@@ -72,6 +72,8 @@ fun View.setVisible(visible: Boolean, animated: Boolean = false) {
         AnimationHelper.collapse(this)
     }
 }
+
+fun View.dp(value: Float): Int = DimenUtils.dp(value, context)
 
 fun ViewGroup.inflate(@LayoutRes layoutId: Int, attach: Boolean = false): View =
     LayoutInflater.from(context).inflate(layoutId, this, attach)

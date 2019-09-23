@@ -11,6 +11,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.ui.isVisible
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.blocksdecoded.dex.utils.dp
 import com.blocksdecoded.dex.utils.isValidIndex
 import kotlinx.android.synthetic.main.view_drop_down.view.*
 
@@ -118,7 +119,7 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
         }
 
         setOnClickListener {
-            popupWindow?.showAsDropDown(this)
+            popupWindow?.showAsDropDown(this, 0, dp(-12f))
         }
     }
 
