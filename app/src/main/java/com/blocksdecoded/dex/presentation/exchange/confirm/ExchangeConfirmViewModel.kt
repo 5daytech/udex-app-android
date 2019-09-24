@@ -30,7 +30,7 @@ class ExchangeConfirmViewModel: CoreViewModel() {
 			coinManager.getCoin(info.receiveCoin),
 			info.sendAmount,
 			info.receiveAmount,
-			info.receiveAmount.divide(info.sendAmount)
+			BigDecimal.ZERO
 		)
 		
 		viewState.value = state

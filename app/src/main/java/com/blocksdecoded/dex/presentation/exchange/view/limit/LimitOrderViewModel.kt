@@ -195,8 +195,8 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		refreshPairs(state)
 
 		viewState.value = state
-		receiveInfo.value = mReceiveInfo
-		priceInfo.value = mPriceInfo
+		priceInfo.postValue(mPriceInfo)
+		receiveInfo.postValue(mReceiveInfo)
 	}
 	
 	//endregion

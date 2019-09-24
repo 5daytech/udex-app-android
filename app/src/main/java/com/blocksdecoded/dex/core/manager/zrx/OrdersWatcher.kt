@@ -71,7 +71,8 @@ class OrdersWatcher(
 	
 	private fun refreshSellOrders(pairOrders: RelayerOrders<SignedOrder>) {
 		uiSellOrders = pairOrders.orders
-			.map { UiOrder.fromOrder(coinManager, ratesConverter, it, SELL) }.sortedBy { it.price }
+			.map { UiOrder.fromOrder(coinManager, ratesConverter, it, SELL) }
+			.sortedBy { it.price }
 		
 		sellOrdersSubject.onNext(uiSellOrders)
 	}
@@ -79,7 +80,7 @@ class OrdersWatcher(
 	private fun refreshBuyOrders(pairOrders: RelayerOrders<SignedOrder>) {
 		uiBuyOrders = pairOrders.orders
 			.map { UiOrder.fromOrder(coinManager, ratesConverter, it, BUY) }
-			.sortedByDescending { it.price }
+			.sortedBy { it.price }
 		
 		buyOrdersSubject.onNext(uiBuyOrders)
 	}
@@ -107,7 +108,7 @@ class OrdersWatcher(
 			relayerAdapter.availablePairs[currentSelectedPair].second.assetData
 		)
 
-	private fun getSeletecOrdersInfo(): RelayerOrders<OrderInfo> =
+	private fun getSelectedOrdersInfo(): RelayerOrders<OrderInfo> =
 		relayerAdapter.myOrdersInfo.getPair(
 			relayerAdapter.availablePairs[currentSelectedPair].first.assetData,
 			relayerAdapter.availablePairs[currentSelectedPair].second.assetData
@@ -121,7 +122,7 @@ class OrdersWatcher(
 	fun getMyOrder(position: Int, side: EOrderSide): Triple<SignedOrder, OrderInfo, EOrderSide>? = when(side) {
 		MY -> {
 			val myOrder = getMySelectedOrders().orders[position]
-			val orderInfo = getSeletecOrdersInfo().orders[position]
+			val orderInfo = getSelectedOrdersInfo().orders[position]
 
 			Triple(myOrder.first, orderInfo, myOrder.second)
 		}

@@ -4,6 +4,7 @@ import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
+import com.blocksdecoded.dex.core.manager.zrx.OrdersUtil
 import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.zrxkit.model.EAssetProxyId
 import com.blocksdecoded.zrxkit.model.IOrder
@@ -33,34 +34,22 @@ data class UiOrder(
             orderInfo: OrderInfo? = null,
             isMine: Boolean = false
         ): UiOrder {
-            val makerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.makerAssetData))!!
+            val normalizedData = OrdersUtil.normalizeOrderData(order, side)
+
             val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.takerAssetData))!!
 
-            val makerAmount = order.makerAssetAmount.toBigDecimal()
-                .movePointLeft((makerCoin.type as CoinType.Erc20).decimal)
-                .stripTrailingZeros()
-
-            val takerAmount = order.takerAssetAmount.toBigDecimal()
-                .movePointLeft((takerCoin.type as CoinType.Erc20).decimal)
-                .stripTrailingZeros()
-
             val filledAmount = orderInfo?.orderTakerAssetFilledAmount?.toBigDecimal()
-                ?.movePointLeft(takerCoin.type.decimal)
+                ?.movePointLeft((takerCoin.type as CoinType.Erc20).decimal)
                 ?.stripTrailingZeros() ?: BigDecimal.ZERO
 
-            val price = if (side == EOrderSide.BUY)
-                makerAmount.toDouble().div(takerAmount.toDouble())
-            else
-                takerAmount.toDouble().div(makerAmount.toDouble())
-            
             return UiOrder(
-                makerCoin,
-                takerCoin,
-                price.toBigDecimal(),
-                makerAmount,
-                takerAmount,
-                ratesConverter.getCoinsPrice(makerCoin.code, makerAmount),
-                ratesConverter.getCoinsPrice(takerCoin.code, takerAmount),
+                normalizedData.makerCoin,
+                normalizedData.takerCoin,
+                normalizedData.price,
+                normalizedData.makerAmount,
+                normalizedData.takerAmount,
+                ratesConverter.getCoinsPrice(normalizedData.makerCoin.code, normalizedData.makerAmount),
+                ratesConverter.getCoinsPrice(normalizedData.takerCoin.code, normalizedData.takerAmount),
                 TimeUtils.timestampToDisplay(order.expirationTimeSeconds.toLong()),
                 side,
                 isMine,

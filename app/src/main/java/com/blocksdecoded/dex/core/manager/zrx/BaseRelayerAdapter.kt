@@ -9,7 +9,6 @@ import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.ioSubscribe
 import com.blocksdecoded.zrxkit.ZrxKit
-import com.blocksdecoded.zrxkit.contracts.ZrxExchangeWrapper
 import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
 import io.horizontalsystems.ethereumkit.core.EthereumKit
@@ -19,7 +18,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
-import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
 class BaseRelayerAdapter(
@@ -133,26 +131,11 @@ class BaseRelayerAdapter(
 		exchangeInteractor.cancelOrder(order)
 
 	override fun calculateBasePrice(coinPair: Pair<String, String>, side: EOrderSide): BigDecimal = try {
-		val baseCoin = getErcCoin(coinPair.first)
-		val quoteCoin = getErcCoin(coinPair.second)
-
-		val pairOrders = getPairOrders(coinPair, side)
-
-		val makerAmount = pairOrders.orders.first().makerAssetAmount.toBigDecimal()
-			.movePointLeft(if (side == EOrderSide.BUY) quoteCoin.decimal else baseCoin.decimal)
-			.stripTrailingZeros()
-
-		val takerAmount = pairOrders.orders.first().takerAssetAmount.toBigDecimal()
-			.movePointLeft(if (side == EOrderSide.BUY) baseCoin.decimal else quoteCoin.decimal)
-			.stripTrailingZeros()
-
-        //TODO: Update price calculation
-        val price = makerAmount.toDouble().div(takerAmount.toDouble())
-            .toBigDecimal()
-            .setScale(18, RoundingMode.UP)
-            .stripTrailingZeros()
-
-		price
+		OrdersUtil.calculateBasePrice(
+			getPairOrders(coinPair, side).orders,
+			coinPair,
+			side
+		)
 	} catch (e: Exception) {
 		BigDecimal.ZERO
 	}
@@ -160,9 +143,29 @@ class BaseRelayerAdapter(
 	//endregion
 
 	override fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): BigDecimal = try {
-		val price = calculateBasePrice(coinPair, side)
+		val orders = getPairOrders(coinPair, side).orders
 
-		amount.multiply(price)
+		var requestedAmount = amount
+		var fillAmount = BigDecimal.ZERO
+
+		val sortedOrders = orders.map { OrdersUtil.normalizeOrderDataPrice(it) }
+			.apply { if (side == EOrderSide.BUY) sortedByDescending { it.price } else sortedBy { it.price } }
+
+		for (order in sortedOrders) {
+			if (requestedAmount != BigDecimal.ZERO) {
+				if (requestedAmount >= order.takerAmount) {
+					fillAmount += order.makerAmount
+					requestedAmount -= order.takerAmount
+				} else {
+					fillAmount += (requestedAmount.multiply(order.price))
+					requestedAmount = BigDecimal.ZERO
+				}
+			} else {
+				break
+			}
+		}
+
+		fillAmount
 	} catch (e: Exception) {
 		BigDecimal.ZERO
 	}
