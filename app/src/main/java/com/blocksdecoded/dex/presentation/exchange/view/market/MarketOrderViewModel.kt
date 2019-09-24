@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.presentation.exchange.view.market
 
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.core.manager.zrx.model.FillOrderData
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
@@ -70,18 +71,20 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
                 messageEvent.postValue(R.string.message_wait_blockchain)
                 showProcessingEvent.call()
 
-                relayer?.fill(
+                val fillData = FillOrderData(
                     marketCodes[currentMarketPosition],
                     orderSide,
                     state.receiveAmount
-                )?.uiSubscribe(disposables, {
-                    processingDismissEvent.call()
-                    initState(state.sendCoin, state.receiveCoin)
-                    successEvent.postValue(it)
-                }, {
-                    processingDismissEvent.call()
-                    errorEvent.postValue(R.string.error_exchange_failed)
-                })
+                )
+                relayer?.fill(fillData)
+                    ?.uiSubscribe(disposables, {
+                        processingDismissEvent.call()
+                        initState(state.sendCoin, state.receiveCoin)
+                        successEvent.postValue(it)
+                    }, {
+                        processingDismissEvent.call()
+                        errorEvent.postValue(R.string.error_exchange_failed)
+                    })
             } else {
                 errorEvent.postValue(R.string.message_invalid_amount)
             }

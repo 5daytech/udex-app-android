@@ -1,5 +1,7 @@
 package com.blocksdecoded.dex.core.manager.zrx
 
+import com.blocksdecoded.dex.core.manager.zrx.model.CreateOrderData
+import com.blocksdecoded.dex.core.manager.zrx.model.FillOrderData
 import com.blocksdecoded.dex.core.manager.zrx.model.RelayerOrdersList
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.zrxkit.ZrxKit
@@ -23,20 +25,9 @@ interface IAllowanceChecker {
 }
 
 interface IExchangeInteractor {
-    fun fill(
-        orders: RelayerOrdersList<SignedOrder>,
-        coinPair: Pair<String, String>,
-        side: EOrderSide,
-        amount: BigDecimal
-    ): Flowable<String>
+    fun fill(orders: RelayerOrdersList<SignedOrder>, fillData: FillOrderData): Flowable<String>
 
-    fun createOrder(
-        feeRecipient: String,
-        coinPair: Pair<String, String>,
-        side: EOrderSide,
-        amount: BigDecimal,
-        price: BigDecimal
-    ): Flowable<SignedOrder>
+    fun createOrder(feeRecipient: String, createData: CreateOrderData): Flowable<SignedOrder>
 
     fun cancelOrder(order: SignedOrder): Flowable<String>
 }
@@ -70,14 +61,9 @@ interface IRelayerAdapter {
 
     fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): BigDecimal
 
-    fun fill(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): Flowable<String>
+    fun fill(fillData: FillOrderData): Flowable<String>
 
-    fun createOrder(
-        coinPair: Pair<String, String>,
-        side: EOrderSide,
-        amount: BigDecimal,
-        price: BigDecimal
-    ): Flowable<SignedOrder>
+    fun createOrder(createData: CreateOrderData): Flowable<SignedOrder>
 
     fun cancelOrder(order: SignedOrder): Flowable<String>
 }

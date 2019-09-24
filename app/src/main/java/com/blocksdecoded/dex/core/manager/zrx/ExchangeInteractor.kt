@@ -3,6 +3,8 @@ package com.blocksdecoded.dex.core.manager.zrx
 import com.blocksdecoded.dex.core.CancelOrderException
 import com.blocksdecoded.dex.core.CreateOrderException
 import com.blocksdecoded.dex.core.manager.ICoinManager
+import com.blocksdecoded.dex.core.manager.zrx.model.CreateOrderData
+import com.blocksdecoded.dex.core.manager.zrx.model.FillOrderData
 import com.blocksdecoded.dex.core.manager.zrx.model.RelayerOrdersList
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
@@ -12,7 +14,6 @@ import com.blocksdecoded.zrxkit.model.Order
 import com.blocksdecoded.zrxkit.model.SignedOrder
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.Flowable
-import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.*
 
@@ -76,29 +77,23 @@ class ExchangeInteractor(
 
     //region Public
 
-    override fun createOrder(
-        feeRecipient: String,
-        coinPair: Pair<String, String>,
-        side: EOrderSide,
-        amount: BigDecimal,
-        price: BigDecimal
-    ): Flowable<SignedOrder> {
-        val baseCoin = coinManager.getCoin(coinPair.first).type as CoinType.Erc20
-        val quoteCoin = coinManager.getCoin(coinPair.second).type as CoinType.Erc20
+    override fun createOrder(feeRecipient: String, createData: CreateOrderData): Flowable<SignedOrder> {
+        val baseCoin = coinManager.getCoin(createData.coinPair.first).type as CoinType.Erc20
+        val quoteCoin = coinManager.getCoin(createData.coinPair.second).type as CoinType.Erc20
 
         val baseAsset = ZrxKit.assetItemForAddress(baseCoin.address)
         val quoteAsset = ZrxKit.assetItemForAddress(quoteCoin.address)
 
-        val makerAmount = amount.movePointRight(
-            if (side == EOrderSide.BUY) quoteCoin.decimal else baseCoin.decimal
+        val makerAmount = createData.amount.movePointRight(
+            if (createData.side == EOrderSide.BUY) quoteCoin.decimal else baseCoin.decimal
         ).stripTrailingZeros().toBigInteger()
 
-        val takerAmount = amount.multiply(price).movePointRight(
-            if (side == EOrderSide.BUY) baseCoin.decimal else quoteCoin.decimal
+        val takerAmount = createData.amount.multiply(createData.price).movePointRight(
+            if (createData.side == EOrderSide.BUY) baseCoin.decimal else quoteCoin.decimal
         ).stripTrailingZeros().toBigInteger()
 
         return allowanceChecker.enableAssetPairAllowance(baseAsset to quoteAsset)
-            .flatMap { postOrder(feeRecipient, baseAsset.assetData, makerAmount, quoteAsset.assetData, takerAmount, side) }
+            .flatMap { postOrder(feeRecipient, baseAsset.assetData, makerAmount, quoteAsset.assetData, takerAmount, createData.side) }
     }
 
     override fun cancelOrder(order: SignedOrder): Flowable<String> =
@@ -108,22 +103,17 @@ class ExchangeInteractor(
             Flowable.error(CancelOrderException(order.makerAddress, ethereumKit.receiveAddress))
         }
 
-    override fun fill(
-        orders: RelayerOrdersList<SignedOrder>,
-        coinPair: Pair<String, String>,
-        side: EOrderSide,
-        amount: BigDecimal
-    ): Flowable<String> {
-        val baseCoin = coinManager.getCoin(coinPair.first).type as CoinType.Erc20
-        val quoteCoin = coinManager.getCoin(coinPair.second).type as CoinType.Erc20
+    override fun fill(orders: RelayerOrdersList<SignedOrder>, fillData: FillOrderData): Flowable<String> {
+        val baseCoin = coinManager.getCoin(fillData.coinPair.first).type as CoinType.Erc20
+        val quoteCoin = coinManager.getCoin(fillData.coinPair.second).type as CoinType.Erc20
 
         val pairOrders = orders.getPair(
             ZrxKit.assetItemForAddress(baseCoin.address).assetData,
             ZrxKit.assetItemForAddress(quoteCoin.address).assetData
         )
 
-        val calcAmount = amount.movePointRight(
-            if (side == EOrderSide.BUY) quoteCoin.decimal else baseCoin.decimal
+        val calcAmount = fillData.amount.movePointRight(
+            if (fillData.side == EOrderSide.BUY) quoteCoin.decimal else baseCoin.decimal
         )
 
         return allowanceChecker.enablePairAllowance(baseCoin.address to quoteCoin.address)

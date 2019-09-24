@@ -3,6 +3,7 @@ package com.blocksdecoded.dex.presentation.exchange.view.limit
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.core.manager.zrx.model.CreateOrderData
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
@@ -106,20 +107,22 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 				messageEvent.postValue(R.string.message_order_creating)
 				showProcessingEvent.call()
 
-				relayer?.createOrder(
+				val orderData = CreateOrderData(
 					marketCodes[currentMarketPosition],
 					if (exchangeSide == ExchangeSide.BID) EOrderSide.SELL else EOrderSide.BUY,
 					amount,
 					mPriceInfo.sendPrice
-				)?.uiSubscribe(disposables, {}, {
-					processingDismissEvent.call()
-					errorEvent.postValue(R.string.error_order_place)
-					Logger.e(it)
-				}, {
-					processingDismissEvent.call()
-					messageEvent.postValue(R.string.message_order_created)
-					initState(state.sendCoin, state.receiveCoin)
-				})
+				)
+				relayer?.createOrder(orderData)
+					?.uiSubscribe(disposables, {}, {
+						processingDismissEvent.call()
+						errorEvent.postValue(R.string.error_order_place)
+						Logger.e(it)
+					}, {
+						processingDismissEvent.call()
+						messageEvent.postValue(R.string.message_order_created)
+						initState(state.sendCoin, state.receiveCoin)
+					})
 				
 			} else {
 				messageEvent.postValue(R.string.message_invalid_amount)

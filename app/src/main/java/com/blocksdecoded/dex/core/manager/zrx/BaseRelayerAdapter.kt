@@ -1,6 +1,8 @@
 package com.blocksdecoded.dex.core.manager.zrx
 
 import com.blocksdecoded.dex.core.manager.ICoinManager
+import com.blocksdecoded.dex.core.manager.zrx.model.CreateOrderData
+import com.blocksdecoded.dex.core.manager.zrx.model.FillOrderData
 import com.blocksdecoded.dex.core.manager.zrx.model.RelayerOrders
 import com.blocksdecoded.dex.core.manager.zrx.model.RelayerOrdersList
 import com.blocksdecoded.dex.core.model.CoinType
@@ -17,7 +19,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
-import java.math.MathContext
 import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
@@ -122,21 +123,18 @@ class BaseRelayerAdapter(
 
 	//region Exchange
 
-	override fun createOrder(
-		coinPair: Pair<String, String>,
-		side: EOrderSide,
-		amount: BigDecimal,
-		price: BigDecimal
-	): Flowable<SignedOrder> =
-		exchangeInteractor.createOrder(relayer.feeRecipients.first(), coinPair, side, amount, price)
+	override fun createOrder(createData: CreateOrderData): Flowable<SignedOrder> = exchangeInteractor.createOrder(
+        relayer.feeRecipients.first(),
+        createData
+    )
 
-	override fun fill(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): Flowable<String> {
-		val orders = when(side) {
+	override fun fill(fillData: FillOrderData): Flowable<String> {
+		val orders = when(fillData.side) {
 			EOrderSide.BUY -> buyOrders
 			else -> sellOrders
 		}
 
-		return exchangeInteractor.fill(orders, coinPair, side, amount)
+		return exchangeInteractor.fill(orders, fillData)
 	}
 
 	override fun cancelOrder(order: SignedOrder): Flowable<String> =
@@ -157,7 +155,6 @@ class BaseRelayerAdapter(
 			.stripTrailingZeros()
 
         //TODO: Update price calculation
-        val math = MathContext.DECIMAL32
         val price = makerAmount.toDouble().div(takerAmount.toDouble())
             .toBigDecimal()
             .setScale(18, RoundingMode.UP)
