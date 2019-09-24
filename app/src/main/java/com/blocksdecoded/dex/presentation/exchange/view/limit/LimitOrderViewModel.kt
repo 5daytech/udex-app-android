@@ -28,10 +28,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 			null
 		)
 
-	private val mPriceInfo =
-		ExchangePriceInfo(
-			BigDecimal.ZERO
-		)
+	private val mPriceInfo = ExchangePriceInfo(BigDecimal.ZERO)
 
 	val averagePrice = MutableLiveData<BigDecimal>()
 	val priceInfo = MutableLiveData<ExchangePriceInfo>()
@@ -45,10 +42,15 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 	}
 
 	private fun refreshAveragePrice() {
-		val sendCoin = state.sendCoin?.code ?: ""
-		val receiveCoin = state.receiveCoin?.code ?: ""
+		val price = if (state.sendCoin != null && state.receiveCoin != null) {
+			val sendCoin = state.sendCoin?.code ?: ""
+			val receiveCoin = state.receiveCoin?.code ?: ""
+			ratesConverter.getCoinDiff(sendCoin, receiveCoin)
+		} else {
+			BigDecimal.ZERO
+		}
 
-		averagePrice.postValue(ratesConverter.getCoinDiff(sendCoin, receiveCoin))
+		averagePrice.postValue(price)
 	}
 
 	override fun refreshPairs(state: LimitOrderViewState?, refreshSendCoins: Boolean) {
@@ -99,6 +101,8 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		priceInfo.postValue(mPriceInfo)
 
 		averagePrice.postValue(BigDecimal.ZERO)
+
+		refreshAveragePrice()
 	}
 	
 	private fun placeOrder() {
@@ -197,6 +201,8 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		viewState.value = state
 		priceInfo.postValue(mPriceInfo)
 		receiveInfo.postValue(mReceiveInfo)
+
+		refreshAveragePrice()
 	}
 	
 	//endregion
