@@ -24,13 +24,15 @@ class ExchangeConfirmViewModel: CoreViewModel() {
 
 		val sendAdapter = adapterManager.adapters.firstOrNull { it.coin.code == info.sendCoin }
 		val sendCoin = coinManager.getCoin(info.sendCoin)
-		
+
+		val price = (info.receiveAmount.toDouble() / info.sendAmount.toDouble()).toBigDecimal()
+
 		val state = ViewState(
 			sendCoin,
 			coinManager.getCoin(info.receiveCoin),
 			info.sendAmount,
 			info.receiveAmount,
-			BigDecimal.ZERO
+			price
 		)
 		
 		viewState.value = state

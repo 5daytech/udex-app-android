@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.core.manager.zrx
 
 import com.blocksdecoded.dex.core.manager.zrx.model.CreateOrderData
 import com.blocksdecoded.dex.core.manager.zrx.model.FillOrderData
+import com.blocksdecoded.dex.core.manager.zrx.model.FillResult
 import com.blocksdecoded.dex.core.manager.zrx.model.RelayerOrdersList
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.zrxkit.ZrxKit
@@ -61,7 +62,7 @@ interface IRelayerAdapter {
 
     fun calculateBasePrice(coinPair: Pair<String, String>, side: EOrderSide): BigDecimal
 
-    fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): BigDecimal
+    fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): FillResult
 
     fun fill(fillData: FillOrderData): Flowable<String>
 

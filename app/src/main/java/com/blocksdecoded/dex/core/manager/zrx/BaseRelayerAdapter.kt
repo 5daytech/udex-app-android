@@ -1,10 +1,7 @@
 package com.blocksdecoded.dex.core.manager.zrx
 
 import com.blocksdecoded.dex.core.manager.ICoinManager
-import com.blocksdecoded.dex.core.manager.zrx.model.CreateOrderData
-import com.blocksdecoded.dex.core.manager.zrx.model.FillOrderData
-import com.blocksdecoded.dex.core.manager.zrx.model.RelayerOrders
-import com.blocksdecoded.dex.core.manager.zrx.model.RelayerOrdersList
+import com.blocksdecoded.dex.core.manager.zrx.model.*
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.ioSubscribe
@@ -142,7 +139,7 @@ class BaseRelayerAdapter(
 
 	//endregion
 
-	override fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): BigDecimal = try {
+	override fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): FillResult = try {
 		val orders = getPairOrders(coinPair, side).orders
 
 		var requestedAmount = amount
@@ -165,9 +162,12 @@ class BaseRelayerAdapter(
 			}
 		}
 
-		fillAmount
+		FillResult(fillAmount, amount - requestedAmount)
 	} catch (e: Exception) {
-		BigDecimal.ZERO
+		FillResult(
+			BigDecimal.ZERO,
+			BigDecimal.ZERO
+		)
 	}
 
 	override fun stop() {

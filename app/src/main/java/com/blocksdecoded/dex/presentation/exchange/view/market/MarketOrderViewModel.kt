@@ -1,7 +1,9 @@
 package com.blocksdecoded.dex.presentation.exchange.view.market
 
+import android.util.Log
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.manager.zrx.model.FillOrderData
+import com.blocksdecoded.dex.core.manager.zrx.model.FillResult
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
@@ -28,6 +30,8 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
         init()
     }
 
+    private var estimatedSendAmount = BigDecimal.ZERO
+
     //region Private
 
     override fun initState(sendItem: ExchangeCoinItem?, receiveItem: ExchangeCoinItem?) {
@@ -45,11 +49,11 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
             val currentMarket = currentMarketPosition
             if (currentMarket < 0) return
 
-            val receiveAmount = relayer?.calculateFillAmount(
+            val fillResult = relayer?.calculateFillAmount(
                 marketCodes[currentMarket],
                 orderSide,
                 amount
-            ) ?: BigDecimal.ZERO
+            ) ?: FillResult(BigDecimal.ZERO, BigDecimal.ZERO)
 
             val price = relayer?.calculateBasePrice(
                 marketCodes[currentMarket],
@@ -58,10 +62,17 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
 
             exchangePrice.value = price
 
-            state.receiveAmount = receiveAmount
-            receiveInfo.value = ExchangeReceiveInfo(receiveAmount)
+            state.receiveAmount = fillResult.receiveAmount
+            receiveInfo.value = ExchangeReceiveInfo(fillResult.receiveAmount)
 
             exchangeEnabled.value = state.receiveAmount > BigDecimal.ZERO
+
+            if (fillResult.sendAmount != amount) {
+                estimatedSendAmount = fillResult.sendAmount
+                Log.d("ololo", "Send amount is $amount")
+            } else {
+                estimatedSendAmount = amount
+            }
         }
     }
     
@@ -100,7 +111,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
         val confirmInfo = ExchangeConfirmInfo(
             if (exchangeSide == ExchangeSide.BID) pair.first else pair.second,
             if (exchangeSide == ExchangeSide.BID) pair.second else pair.first,
-            state.sendAmount,
+            estimatedSendAmount,
             state.receiveAmount
         ) { marketBuy() }
 
