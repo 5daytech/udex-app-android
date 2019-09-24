@@ -25,9 +25,8 @@ import java.util.concurrent.TimeUnit
 class BaseRelayerAdapter(
 	private val coinManager: ICoinManager,
 	private val ethereumKit: EthereumKit,
-	private val exchangeWrapper: ZrxExchangeWrapper,
+	private val exchangeInteractor: IExchangeInteractor,
 	zrxKit: ZrxKit,
-	allowanceChecker: IAllowanceChecker,
 	override val refreshInterval: Long,
 	override val relayerId: Int
 ): IRelayerAdapter {
@@ -35,16 +34,11 @@ class BaseRelayerAdapter(
 	
 	private val relayerManager = zrxKit.relayerManager
 	private val relayer = relayerManager.availableRelayers[relayerId]
-	private val exchangeInteractor = ExchangeInteractor(coinManager, ethereumKit, zrxKit, exchangeWrapper, allowanceChecker)
 
-	override var myOrdersInfo =
-		RelayerOrdersList<OrderInfo>()
-	override var buyOrders =
-		RelayerOrdersList<SignedOrder>()
-	override var sellOrders =
-		RelayerOrdersList<SignedOrder>()
-	override var myOrders =
-		RelayerOrdersList<Pair<SignedOrder, EOrderSide>>()
+	override var myOrdersInfo = RelayerOrdersList<OrderInfo>()
+	override var buyOrders = RelayerOrdersList<SignedOrder>()
+	override var sellOrders = RelayerOrdersList<SignedOrder>()
+	override var myOrders = RelayerOrdersList<Pair<SignedOrder, EOrderSide>>()
 
 	override val availablePairs = relayer.availablePairs
 	override val availablePairsSubject: BehaviorSubject<List<Pair<String, String>>> =
@@ -96,7 +90,7 @@ class BaseRelayerAdapter(
 
 				this.myOrders.updatePairOrders(baseAsset, quoteAsset, myOrders)
 
-				exchangeWrapper.ordersInfo(myOrders.map { it.first })
+				exchangeInteractor.ordersInfo(myOrders.map { it.first })
 					.ioSubscribe(disposables, { ordersInfo ->
 						myOrdersInfo.updatePairOrders(baseAsset, quoteAsset, ordersInfo)
 						this.myOrders.updatePairOrders(baseAsset, quoteAsset, myOrders)
@@ -123,10 +117,8 @@ class BaseRelayerAdapter(
 
 	//region Exchange
 
-	override fun createOrder(createData: CreateOrderData): Flowable<SignedOrder> = exchangeInteractor.createOrder(
-        relayer.feeRecipients.first(),
-        createData
-    )
+	override fun createOrder(createData: CreateOrderData): Flowable<SignedOrder> =
+		exchangeInteractor.createOrder(relayer.feeRecipients.first(), createData)
 
 	override fun fill(fillData: FillOrderData): Flowable<String> {
 		val orders = when(fillData.side) {
@@ -169,6 +161,7 @@ class BaseRelayerAdapter(
 
 	override fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): BigDecimal = try {
 		val price = calculateBasePrice(coinPair, side)
+
 		amount.multiply(price)
 	} catch (e: Exception) {
 		BigDecimal.ZERO

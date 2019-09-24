@@ -30,6 +30,8 @@ interface IExchangeInteractor {
     fun createOrder(feeRecipient: String, createData: CreateOrderData): Flowable<SignedOrder>
 
     fun cancelOrder(order: SignedOrder): Flowable<String>
+
+    fun ordersInfo(orders: List<SignedOrder>): Flowable<List<OrderInfo>>
 }
 
 interface IRelayerAdapterManager {

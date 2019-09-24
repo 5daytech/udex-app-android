@@ -11,6 +11,7 @@ import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.contracts.ZrxExchangeWrapper
 import com.blocksdecoded.zrxkit.model.Order
+import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.Flowable
@@ -119,6 +120,9 @@ class ExchangeInteractor(
         return allowanceChecker.enablePairAllowance(baseCoin.address to quoteCoin.address)
             .flatMap { exchangeWrapper.marketBuyOrders(pairOrders.orders, calcAmount.toBigInteger()) }
     }
+
+    override fun ordersInfo(orders: List<SignedOrder>): Flowable<List<OrderInfo>> =
+        exchangeWrapper.ordersInfo(orders)
 
     //endregion
 }
