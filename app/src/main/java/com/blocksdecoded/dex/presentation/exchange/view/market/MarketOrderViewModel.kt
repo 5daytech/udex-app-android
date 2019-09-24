@@ -57,10 +57,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
             exchangePrice.value = price
 
             state.receiveAmount = receiveAmount
-            receiveInfo.value =
-                ExchangeReceiveInfo(
-                    receiveAmount
-                )
+            receiveInfo.value = ExchangeReceiveInfo(receiveAmount)
 
             exchangeEnabled.value = state.receiveAmount > BigDecimal.ZERO
         }

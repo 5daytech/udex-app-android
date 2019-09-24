@@ -13,6 +13,14 @@ interface IZrxKitManager {
     fun zrxKit(): ZrxKit
 }
 
+interface IAllowanceChecker {
+    fun enableAllowance(address: String): Flowable<Boolean>
+
+    fun enableAssetPairAllowance(assetPair: Pair<AssetItem, AssetItem>): Flowable<Boolean>
+
+    fun enablePairAllowance(pair: Pair<String, String>): Flowable<Boolean>
+}
+
 interface IRelayerAdapterManager {
     val refreshInterval: Long
     var mainRelayer: IRelayerAdapter?

@@ -163,7 +163,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
 
     //region Market pairs refresh
 
-    protected open fun refreshPairs(state: T?, refreshSendCoins: Boolean = true)  {
+    protected open fun refreshPairs(state: T?, refreshSendCoins: Boolean = true) {
         if (refreshSendCoins) {
             mSendCoins = getAvailableSendCoins()
         }

@@ -5,10 +5,8 @@ import com.blocksdecoded.dex.core.CreateOrderException
 import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
-import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.ioSubscribe
 import com.blocksdecoded.zrxkit.ZrxKit
-import com.blocksdecoded.zrxkit.model.AssetItem
 import com.blocksdecoded.zrxkit.model.Order
 import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
@@ -29,6 +27,7 @@ class BaseRelayerAdapter(
 	private val coinManager: ICoinManager,
 	private val ethereumKit: EthereumKit,
 	private val zrxKit: ZrxKit,
+	private val allowanceChecker: IAllowanceChecker,
 	override val refreshInterval: Long,
 	override val relayerId: Int
 ): IRelayerAdapter {
@@ -96,34 +95,8 @@ class BaseRelayerAdapter(
 					.ioSubscribe(disposables, { ordersInfo ->
 						myOrdersInfo.updatePairOrders(baseAsset, quoteAsset, ordersInfo)
 						this.myOrders.updatePairOrders(baseAsset, quoteAsset, myOrders)
-					}, {
-
-					})
+					}, { })
 			})
-	}
-
-	private fun checkCoinAllowance(address: String): Flowable<Boolean> {
-		val coinWrapper = zrxKit.getErc20ProxyInstance(address)
-
-		return coinWrapper.proxyAllowance(ethereumKit.receiveAddress)
-			.flatMap { Logger.d("$address allowance $it")
-				if (it > BigInteger.ZERO) {
-					Flowable.just(true)
-				} else {
-					coinWrapper.setUnlimitedProxyAllowance().map {
-						Logger.d("$address unlocked")
-						true
-					}
-				}
-			}
-	}
-
-	private fun checkAllowance(assetPair: Pair<AssetItem, AssetItem>): Flowable<Boolean> {
-		val base = assetPair.first
-		val quote = assetPair.second
-
-		return checkCoinAllowance(base.address)
-			.flatMap { checkCoinAllowance(quote.address) }
 	}
 
     private fun postOrder(
@@ -208,7 +181,7 @@ class BaseRelayerAdapter(
 			if (side == EOrderSide.BUY) baseCoin.decimal else quoteCoin.decimal
 		).stripTrailingZeros().toBigInteger()
 
-		return checkAllowance(baseAsset to quoteAsset)
+		return allowanceChecker.enableAssetPairAllowance(baseAsset to quoteAsset)
 			.flatMap { postOrder(baseAsset.assetData, makerAmount, quoteAsset.assetData, takerAmount, side) }
 	}
 
@@ -228,7 +201,7 @@ class BaseRelayerAdapter(
 			if (side == EOrderSide.BUY) quoteCoin.decimal else baseCoin.decimal
 		)
 
-		return checkAllowance(ZrxKit.assetItemForAddress(baseCoin.address) to ZrxKit.assetItemForAddress(quoteCoin.address))
+		return allowanceChecker.enablePairAllowance(baseCoin.address to quoteCoin.address)
 			.flatMap { exchangeWrapper.marketBuyOrders(pairOrders.orders, calcAmount.toBigInteger()) }
 	}
 
@@ -266,8 +239,6 @@ class BaseRelayerAdapter(
 	}
 
 	override fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): BigDecimal = try {
-		val pairOrders = getPairOrders(coinPair, side)
-
 		val price = calculateBasePrice(coinPair, side)
 		amount.multiply(price)
 	} catch (e: Exception) {
