@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.core.manager.zrx
+package com.blocksdecoded.dex.core.manager.zrx.model
 
 import io.reactivex.subjects.BehaviorSubject
 
@@ -17,7 +17,11 @@ class RelayerOrdersList<T> {
     fun updatePairOrders(baseAsset: String, quoteAsset: String, orders: List<T>) {
         val index = allOrders.indexOfFirst { it.baseAsset == baseAsset && it.quoteAsset == quoteAsset }
 
-        val newPair = RelayerOrders(baseAsset, quoteAsset, orders)
+        val newPair = RelayerOrders(
+            baseAsset,
+            quoteAsset,
+            orders
+        )
 
         if (index >= 0) {
             allOrders[index] = newPair

@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.core.manager.zrx
 
+import com.blocksdecoded.dex.core.manager.zrx.model.RelayerOrdersList
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.model.AssetItem
@@ -19,6 +20,25 @@ interface IAllowanceChecker {
     fun enableAssetPairAllowance(assetPair: Pair<AssetItem, AssetItem>): Flowable<Boolean>
 
     fun enablePairAllowance(pair: Pair<String, String>): Flowable<Boolean>
+}
+
+interface IExchangeInteractor {
+    fun fill(
+        orders: RelayerOrdersList<SignedOrder>,
+        coinPair: Pair<String, String>,
+        side: EOrderSide,
+        amount: BigDecimal
+    ): Flowable<String>
+
+    fun createOrder(
+        feeRecipient: String,
+        coinPair: Pair<String, String>,
+        side: EOrderSide,
+        amount: BigDecimal,
+        price: BigDecimal
+    ): Flowable<SignedOrder>
+
+    fun cancelOrder(order: SignedOrder): Flowable<String>
 }
 
 interface IRelayerAdapterManager {

@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.core.manager.zrx
 
 import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
+import com.blocksdecoded.dex.core.manager.zrx.model.RelayerOrders
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder

@@ -50,9 +50,12 @@ class RelayerAdapterManager(
 				authManager.authData?.let { auth ->
 					val ethereumKit = ethereumKitManager.ethereumKit(auth)
 					val zrxKit = zrxKitManager.zrxKit()
+					val exchangeWrapper = zrxKit.getExchangeInstance()
+
 					mainRelayer = BaseRelayerAdapter(
 						coinManager,
 						ethereumKit,
+						exchangeWrapper,
 						zrxKit,
 						AllowanceChecker(ethereumKit, zrxKit),
 						refreshInterval,
