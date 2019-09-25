@@ -23,23 +23,3 @@ interface IRatesManager {
 
     fun clear()
 }
-
-interface IMarketsStorage {
-    fun getAllMarkets(): Single<List<Market>>
-
-    fun getMarket(coinCode: String): Single<Market>
-
-    fun save(vararg markets: Market)
-
-    fun deleteAll()
-}
-
-interface IRatesStorage {
-    fun getRateSingle(coinCode: String, timeStamp: Long): Single<Rate>
-
-    fun getRate(coinCode: String, timeStamp: Long): Rate?
-
-    fun save(vararg rates: Rate)
-
-    fun deleteAll()
-}

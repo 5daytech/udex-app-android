@@ -1,7 +1,6 @@
 package com.blocksdecoded.dex.core.storage
 
 import com.blocksdecoded.dex.core.model.Rate
-import com.blocksdecoded.dex.core.manager.rates.IRatesStorage
 import com.blocksdecoded.dex.core.storage.dao.RatesDao
 import io.reactivex.Single
 import java.util.concurrent.Executors

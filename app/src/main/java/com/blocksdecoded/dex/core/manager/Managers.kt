@@ -6,10 +6,14 @@ import com.blocksdecoded.dex.core.model.Coin
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
-import org.web3j.tx.gas.ContractGasProvider
 
 interface ICoinManager {
+    val coinsUpdatedSubject: PublishSubject<Unit>
     val coins: List<Coin>
+    val allCoins: List<Coin>
+
+    fun enableDefaultCoins()
+    fun clear()
     fun cleanCoinCode(coinCode: String): String
     fun getCoin(code: String): Coin
     fun getErcCoinForAddress(address: String): Coin?

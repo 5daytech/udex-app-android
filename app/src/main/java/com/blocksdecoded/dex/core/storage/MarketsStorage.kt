@@ -1,7 +1,6 @@
 package com.blocksdecoded.dex.core.storage
 
 import com.blocksdecoded.dex.core.model.Market
-import com.blocksdecoded.dex.core.manager.rates.IMarketsStorage
 import com.blocksdecoded.dex.core.storage.dao.MarketsDao
 import io.reactivex.Maybe
 import io.reactivex.Single

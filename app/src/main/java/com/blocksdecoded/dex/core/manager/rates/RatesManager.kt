@@ -7,6 +7,8 @@ import com.blocksdecoded.dex.core.manager.rates.bootstrap.IBootstrapClient
 import com.blocksdecoded.dex.core.model.Market
 import com.blocksdecoded.dex.core.manager.rates.remote.IRatesApiClient
 import com.blocksdecoded.dex.core.manager.rates.remote.IRatesClientConfig
+import com.blocksdecoded.dex.core.storage.IMarketsStorage
+import com.blocksdecoded.dex.core.storage.IRatesStorage
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.ioSubscribe
 import io.reactivex.Single
