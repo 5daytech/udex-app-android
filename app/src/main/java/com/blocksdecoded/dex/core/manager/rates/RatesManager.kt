@@ -34,12 +34,12 @@ class RatesManager(
 
         initialStorageFetch()
 
-        initialBootstrapConfig()
+        bootstrapConfig()
     }
 
     //region Private
 
-    private fun initialBootstrapConfig() {
+    private fun bootstrapConfig() {
         bootstrapClient.getConfigs().ioSubscribe(disposables, {
             bootstrapSynced = true
             rateClientConfig.ipfsUrl = it.servers.first()
@@ -115,10 +115,10 @@ class RatesManager(
             if (it != MarketState.SYNCING) {
                 marketsStateSubject.onNext(MarketState.SYNCING)
 
-                if (bootstrapSynced) {
+                if (bootstrapSynced && rateClientConfig.ipfsUrl.isNotEmpty()) {
                     fetchRates()
                 } else {
-                    initialBootstrapConfig()
+                    bootstrapConfig()
                 }
             }
         }
@@ -131,6 +131,7 @@ class RatesManager(
     }
 
     override fun clear() {
+        bootstrapSynced = false
         marketsStorage.deleteAll()
         stop()
     }

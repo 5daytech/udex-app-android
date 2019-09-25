@@ -13,9 +13,9 @@ import java.util.concurrent.TimeoutException
 class RatesApiClient: CoreApiClient(), IRatesApiClient {
     private var mConfig: IRatesClientConfig? = null
     private var mClient: CurrencyNetworkClient? = null
-    private var historicalRateMainClient: HistoricalApi.HistoricalRateNetworkClient? = null
+    private var historicalRateMainClient: HistoricalRateNetworkClient? = null
 
-    private fun historicalRateApiClient(hostType: HistoricalApi.HostType): HistoricalApi.HistoricalRateNetworkClient? {
+    private fun historicalRateApiClient(hostType: HostType): HistoricalRateNetworkClient? {
         return historicalRateMainClient
     }
 
@@ -30,6 +30,7 @@ class RatesApiClient: CoreApiClient(), IRatesApiClient {
 
     override fun init(rateClientConfig: IRatesClientConfig) {
         mConfig = rateClientConfig
+
         mClient = getRetrofitClient(
             mConfig?.ipfsUrl ?: "",
             CurrencyNetworkClient::class.java
@@ -37,12 +38,12 @@ class RatesApiClient: CoreApiClient(), IRatesApiClient {
 
         historicalRateMainClient = getRetrofitClient(
             rateClientConfig.historicalIpfsConfig,
-            HistoricalApi.HistoricalRateNetworkClient::class.java
+            HistoricalRateNetworkClient::class.java
         )
     }
 
     override fun getHistoricalRate(coinCode: String, timestamp: Long): Single<BigDecimal> =
-        historicalRateApiClient(HistoricalApi.HostType.MAIN)
+        historicalRateApiClient(HostType.MAIN)
             ?.getRateByHour(coinCode, "USD", TimeUtils.dateInUTC(timestamp, "yyyy/MM/dd/HH"))
             ?.flatMap { minuteRates ->
                 Single.just(minuteRates.getValue(TimeUtils.dateInUTC(timestamp, "mm")).toBigDecimal())
@@ -54,29 +55,24 @@ class RatesApiClient: CoreApiClient(), IRatesApiClient {
 
     //endregion
 
-    object HistoricalApi {
+    enum class HostType {
+        MAIN, FALLBACK
+    }
 
-        enum class HostType {
-            MAIN, FALLBACK
-        }
+    private interface HistoricalRateNetworkClient {
+        @GET("xrates/historical/{coin}/{fiat}/{datePath}/index.json")
+        fun getRateByDay(
+            @Path("coin") coinCode: String,
+            @Path("fiat") currency: String,
+            @Path("datePath") datePath: String
+        ): Single<String>
 
-        interface HistoricalRateNetworkClient {
-
-            @GET("xrates/historical/{coin}/{fiat}/{datePath}/index.json")
-            fun getRateByDay(
-                @Path("coin") coinCode: String,
-                @Path("fiat") currency: String,
-                @Path("datePath") datePath: String
-            ): Single<String>
-
-            @GET("xrates/historical/{coin}/{fiat}/{datePath}/index.json")
-            fun getRateByHour(
-                @Path("coin") coinCode: String,
-                @Path("fiat") currency: String,
-                @Path("datePath") datePath: String
-            ): Single<Map<String, String>>
-
-        }
+        @GET("xrates/historical/{coin}/{fiat}/{datePath}/index.json")
+        fun getRateByHour(
+            @Path("coin") coinCode: String,
+            @Path("fiat") currency: String,
+            @Path("datePath") datePath: String
+        ): Single<Map<String, String>>
     }
 
     private interface CurrencyNetworkClient {
