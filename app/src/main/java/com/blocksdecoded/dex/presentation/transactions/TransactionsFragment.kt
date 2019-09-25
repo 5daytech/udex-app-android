@@ -67,7 +67,7 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
         transactions_recycler?.adapter = adapter
         transactions_recycler?.layoutManager = LinearLayoutManager(context)
 
-        toolbar?.bind(MainToolbar.ToolbarState.BACK) { viewModel.onBackClick() }
+        toolbar?.bind(MainToolbar.getBackAction { viewModel.onBackClick() })
     }
 
     //endregion

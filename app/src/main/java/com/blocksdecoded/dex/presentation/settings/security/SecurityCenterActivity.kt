@@ -127,7 +127,7 @@ class SecurityCenterActivity : CoreActivity(), ConfirmActionDialog.Listener {
     }
 
     private fun initView() {
-        toolbar.bind(MainToolbar.ToolbarState.BACK) { finish() }
+        toolbar.bind(MainToolbar.getBackAction { finish() })
 
         security_passcode_switch?.setOnClickListener {
             security_passcode_switch?.toggleSwitch()

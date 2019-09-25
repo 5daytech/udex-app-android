@@ -59,8 +59,7 @@
                 app:siv_action_switch="false"
                 app:siv_title="@string/settings_coin_manager"
                 app:siv_icon="@drawable/ic_dollar_sign"
-                android:background="?selectableItemBackground"
-                android:visibility="gone"/>
+                android:background="?selectableItemBackground" />
 
             <com.blocksdecoded.dex.presentation.settings.SettingsItemView
                 android:id="@+id/address_book"

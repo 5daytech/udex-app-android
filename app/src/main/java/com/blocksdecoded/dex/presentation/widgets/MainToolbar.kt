@@ -2,42 +2,17 @@ package com.blocksdecoded.dex.presentation.widgets
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
 import androidx.annotation.StringRes
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
 import com.blocksdecoded.dex.utils.visible
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.view_toolbar.view.*
 
 class MainToolbar : AppBarLayout {
-    var actionVisible: Boolean
-        get() = toolbar_menu?.visible ?: false
-        set(value) { toolbar_menu?.visible = value }
-
     var title = ""
         set(value) {
             field = value
             toolbar_title?.text = value
-        }
-
-    var state: ToolbarState = MENU
-        set(value) {
-            field = value
-            when(state) {
-                MENU -> {
-                    toolbar_back?.visibility = View.INVISIBLE
-                    toolbar_menu?.visibility = View.VISIBLE
-                }
-                BACK -> {
-                    toolbar_back?.visibility = View.VISIBLE
-                    toolbar_menu?.visibility = View.INVISIBLE
-                }
-                NONE -> {
-                    toolbar_back?.visibility = View.GONE
-                    toolbar_menu?.visibility = View.GONE
-                }
-            }
         }
 
     //region Init
@@ -69,20 +44,30 @@ class MainToolbar : AppBarLayout {
 
     //endregion
 
-    fun bind(state: ToolbarState = MENU, onActionClick: (() -> Unit)? = null) {
-        this.state = state
+    fun bind(
+        leftActionButton: ActionInfo? = null,
+        rightActionButton: ActionInfo? = null
+    ) {
+        toolbar_left_action?.visible = leftActionButton != null
 
-        toolbar_menu.setOnClickListener { onActionClick?.invoke() }
-        toolbar_back.setOnClickListener { onActionClick?.invoke() }
+        leftActionButton?.let {
+            toolbar_left_action?.setImageResource(it.iconRes)
+            toolbar_left_action?.setOnClickListener { leftActionButton.onClick() }
+        }
     }
 
     fun setTitle(@StringRes stringRes: Int) {
         title = context.getString(stringRes)
     }
 
-    enum class ToolbarState {
-        NONE,
-        MENU,
-        BACK
+    data class ActionInfo(
+        val iconRes: Int,
+        val text: String = "",
+        val onClick: () -> Unit
+    )
+
+    companion object {
+        fun getBackAction(onClick: () -> Unit): ActionInfo =
+            ActionInfo(R.drawable.ic_back, "", onClick)
     }
 }

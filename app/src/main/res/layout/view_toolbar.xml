@@ -11,21 +11,7 @@
     app:layout_scrollFlags="scroll|snap">
 
     <ImageView
-        android:id="@+id/toolbar_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="@dimen/element_margin"
-        android:layout_marginTop="@dimen/element_margin"
-        android:layout_marginBottom="@dimen/element_margin"
-        android:padding="8dp"
-        android:src="@drawable/ic_menu"
-        android:visibility="gone"
-        android:background="?selectableItemBackgroundBorderless"/>
-
-    <ImageView
-        android:id="@+id/toolbar_back"
+        android:id="@+id/toolbar_left_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_date"
-        app:layout_constraintLeft_toRightOf="@+id/toolbar_back"
+        app:layout_constraintLeft_toRightOf="@+id/toolbar_left_action"
         android:paddingTop="@dimen/page_margin"
         android:paddingBottom="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"
@@ -56,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/toolbar_menu"
+        app:layout_constraintLeft_toRightOf="@+id/toolbar_left_action"
         android:layout_marginStart="@dimen/element_margin"
         android:layout_marginTop="@dimen/page_margin"
         android:textAllCaps="true"

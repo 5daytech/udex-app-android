@@ -29,9 +29,7 @@ class RestoreWalletActivity: CoreActivity(), WordInputViewHolder.OnWordChangeLis
     
         viewModel = ViewModelProviders.of(this).get(RestoreWalletViewModel::class.java)
         
-        toolbar.bind(MainToolbar.ToolbarState.BACK) {
-            finish()
-        }
+        toolbar.bind(MainToolbar.getBackAction { finish() })
     
         viewModel.errorEvent.observe(this, Observer {
             ToastHelper.showErrorMessage(it)

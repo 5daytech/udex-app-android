@@ -38,9 +38,8 @@ class BackupActivity : CoreActivity() {
             adapter.notifyDataSetChanged()
         })
         
-        toolbar.bind(MainToolbar.ToolbarState.BACK) {
-            finish()
-        }
+        toolbar.bind(MainToolbar.getBackAction { finish() })
+
         backup_copy.setOnClickListener { viewModel.onCopyClick() }
         
         backup_recycler.adapter = adapter

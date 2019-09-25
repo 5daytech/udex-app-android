@@ -31,7 +31,7 @@ class BackupIntroActivity : CoreActivity() {
 
         viewModel.finishEvent.observe(this, Observer { finish() })
 
-        toolbar?.bind(MainToolbar.ToolbarState.BACK) { finish() }
+        toolbar?.bind(MainToolbar.getBackAction { finish() })
 
         backup_intro_show_key?.setOnClickListener {
             viewModel.onShowClick()

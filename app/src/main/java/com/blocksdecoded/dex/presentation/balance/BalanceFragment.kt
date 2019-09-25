@@ -15,7 +15,6 @@ import com.blocksdecoded.dex.presentation.send.SendDialog
 import com.blocksdecoded.dex.presentation.transactions.TransactionsActivity
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.convert.ConvertDialog
-import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.view_top_up_account.*
@@ -91,8 +90,6 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
 
         balance_recycler?.adapter = adapter
         (balance_recycler?.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
-
-        toolbar?.bind(NONE)
         
         swipe_refresh?.setOnRefreshListener {
             viewModel.refresh()

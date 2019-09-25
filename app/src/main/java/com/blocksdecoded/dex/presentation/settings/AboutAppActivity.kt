@@ -12,9 +12,7 @@ class AboutAppActivity : CoreActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about_app)
-        toolbar.bind(MainToolbar.ToolbarState.BACK) {
-            finish()
-        }
+        toolbar.bind(MainToolbar.getBackAction { finish() })
     }
 
     companion object {

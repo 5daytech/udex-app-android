@@ -69,8 +69,6 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host), IFocusLi
         orders_view_pager?.adapter = adapter
         orders_tab_layout?.setupWithViewPager(orders_view_pager)
         
-        toolbar?.bind(MainToolbar.ToolbarState.NONE)
-        
         orders_host_pair_picker?.init {
             viewModel.onPickPair(it)
         }

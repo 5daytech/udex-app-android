@@ -12,9 +12,7 @@ class LanguageActivity : CoreActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_language)
-        toolbar.bind(MainToolbar.ToolbarState.BACK) {
-            finish()
-        }
+        toolbar.bind(MainToolbar.getBackAction { finish() })
     }
 
     companion object {

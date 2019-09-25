@@ -22,7 +22,7 @@ class ExchangeHistoryActivity : CoreActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exchange_history)
-        toolbar.bind(MainToolbar.ToolbarState.BACK) { finish() }
+        toolbar.bind(MainToolbar.getBackAction { finish() })
 
         adapter = ExchangeHistoryAdapter(listOf()) { viewModel.onTransactionClick(it) }
 

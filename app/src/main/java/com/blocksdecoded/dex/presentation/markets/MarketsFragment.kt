@@ -11,8 +11,6 @@ import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.main.IFocusListener
 import com.blocksdecoded.dex.presentation.markets.recycler.MarketViewHolder
 import com.blocksdecoded.dex.presentation.markets.recycler.MarketsAdapter
-import com.blocksdecoded.dex.presentation.widgets.MainToolbar
-import com.blocksdecoded.dex.presentation.widgets.MainToolbar.ToolbarState.*
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_markets.*
 
@@ -39,8 +37,6 @@ class MarketsFragment : CoreFragment(R.layout.fragment_markets), MarketViewHolde
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
-        toolbar?.bind(NONE)
         
         markets_recycler?.layoutManager = LinearLayoutManager(context)
         markets_recycler?.adapter = adapter

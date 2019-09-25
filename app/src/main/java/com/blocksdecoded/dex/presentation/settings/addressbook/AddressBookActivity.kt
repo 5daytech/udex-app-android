@@ -12,9 +12,7 @@ class AddressBookActivity : CoreActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_address_book)
-        toolbar.bind(MainToolbar.ToolbarState.BACK) {
-            finish()
-        }
+        toolbar.bind(MainToolbar.getBackAction { finish() })
     }
 
     companion object {

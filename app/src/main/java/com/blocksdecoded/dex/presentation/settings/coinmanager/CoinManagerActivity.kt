@@ -12,7 +12,8 @@ class CoinManagerActivity : CoreActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coin_manager)
-        toolbar.bind(MainToolbar.ToolbarState.BACK) { finish() }
+
+        toolbar.bind(MainToolbar.getBackAction { finish() })
     }
 
     companion object {

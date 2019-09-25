@@ -71,9 +71,7 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener, BiometricManage
 
         viewModel.showBackButton.observe(this, Observer {
             if (it) {
-                toolbar?.bind(MainToolbar.ToolbarState.BACK) {
-                    viewModel.onBackPressed()
-                }
+                toolbar?.bind(MainToolbar.getBackAction { viewModel.onBackPressed() })
             }
         })
 
