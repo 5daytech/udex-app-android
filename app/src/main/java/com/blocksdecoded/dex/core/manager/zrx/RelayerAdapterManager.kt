@@ -2,7 +2,6 @@ package com.blocksdecoded.dex.core.manager.zrx
 
 import android.os.Handler
 import android.os.HandlerThread
-import com.blocksdecoded.dex.core.manager.auth.AuthManager
 import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.manager.IEthereumKitManager
 import com.blocksdecoded.dex.core.manager.auth.IAuthManager
@@ -30,7 +29,7 @@ class RelayerAdapterManager(
 
 		handler = Handler(looper)
 
-		disposables.add(authManager.authDataSignal
+		disposables.add(authManager.authDataSubject
 			.subscribeOn(Schedulers.io())
 			.observeOn(Schedulers.io())
 			.subscribe { initRelayer() })

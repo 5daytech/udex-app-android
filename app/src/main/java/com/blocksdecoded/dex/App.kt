@@ -35,6 +35,7 @@ import com.blocksdecoded.dex.core.manager.zrx.IZrxKitManager
 import com.blocksdecoded.dex.core.manager.zrx.ZrxKitManager
 import com.blocksdecoded.dex.core.security.*
 import com.blocksdecoded.dex.core.security.LockManager
+import com.blocksdecoded.dex.core.storage.EnabledCoinsStorage
 
 class App: Application() {
     companion object {
@@ -90,10 +91,12 @@ class App: Application() {
 
         appConfiguration = AppConfiguration.DEFAULT
 
-        coinManager = CoinManager(appConfiguration)
         sharedStorage = SharedStorage(this)
         appPreferences = AppPreferences(sharedStorage)
         appDatabase = AppDatabase.getInstance(this)
+
+        val enabledCoinsStorage = EnabledCoinsStorage(appDatabase.enabledCoinsDao())
+        coinManager = CoinManager(appConfiguration, enabledCoinsStorage)
 
         KeyStoreManager("MASTER_KEY").apply {
             keyStoreManager = this
@@ -107,7 +110,7 @@ class App: Application() {
 
         // Auth
 	    wordsManager = WordsManager(appPreferences)
-	    authManager = AuthManager(securedStorage)
+	    authManager = AuthManager(securedStorage, coinManager)
         pinManager = PinManager(securedStorage)
 
         keyStoreChangeListener = KeyStoreChangeListener(systemInfoManager, keyStoreManager).apply {

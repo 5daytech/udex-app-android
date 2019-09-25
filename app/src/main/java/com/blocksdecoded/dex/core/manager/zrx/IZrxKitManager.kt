@@ -1,9 +1,6 @@
 package com.blocksdecoded.dex.core.manager.zrx
 
-import com.blocksdecoded.dex.core.manager.zrx.model.CreateOrderData
-import com.blocksdecoded.dex.core.manager.zrx.model.FillOrderData
-import com.blocksdecoded.dex.core.manager.zrx.model.FillResult
-import com.blocksdecoded.dex.core.manager.zrx.model.RelayerOrdersList
+import com.blocksdecoded.dex.core.manager.zrx.model.*
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.model.AssetItem
@@ -55,8 +52,9 @@ interface IRelayerAdapter {
     var sellOrders: RelayerOrdersList<SignedOrder>
     var myOrders: RelayerOrdersList<Pair<SignedOrder, EOrderSide>>
 
-    val availablePairs: List<Pair<AssetItem, AssetItem>>
-    val availablePairsSubject: BehaviorSubject<List<Pair<String, String>>>
+    val allPairs: List<Pair<AssetItem, AssetItem>>
+    val exchangePairs: List<ExchangePair>
+    val pairsUpdateSubject: BehaviorSubject<Unit>
 
     fun stop()
 

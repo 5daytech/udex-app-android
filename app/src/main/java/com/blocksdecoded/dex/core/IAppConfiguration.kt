@@ -15,5 +15,6 @@ interface IAppConfiguration {
     val ipfsMainGateway: String
     val ipfsFallbackGateway: String
     val allCoins: List<Coin>
+    val defaultCoinCodes: List<String>
     val allExchangePairs: List<Pair<AssetItem, AssetItem>>
 }

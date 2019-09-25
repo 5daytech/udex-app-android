@@ -58,7 +58,8 @@ class OrdersViewModel : CoreViewModel() {
     }
 
     private fun onRelayerInitialized() {
-        zrxOrdersWatcher?.availablePairsSubject?.subscribe({ pairs ->
+        zrxOrdersWatcher?.availablePairsSubject?.subscribe({
+            val pairs = relayer?.exchangePairs?.map { it.baseCoinCode to it.quoteCoinCode } ?: listOf()
             onPairsRefresh(pairs)
 
             (selectedPairPosition.value ?: 0).let {

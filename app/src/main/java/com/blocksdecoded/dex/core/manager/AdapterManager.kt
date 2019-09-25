@@ -4,7 +4,6 @@ import android.os.Handler
 import android.os.HandlerThread
 import com.blocksdecoded.dex.core.adapter.AdapterFactory
 import com.blocksdecoded.dex.core.adapter.IAdapter
-import com.blocksdecoded.dex.core.manager.auth.AuthManager
 import com.blocksdecoded.dex.core.manager.auth.IAuthManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -23,8 +22,14 @@ class AdapterManager(
     init {
         start()
         handler = Handler(looper)
-    
-        disposables.add(authManager.authDataSignal
+
+        disposables.add(coinManager.coinsUpdatedSubject
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe { initAdapters() }
+        )
+
+        disposables.add(authManager.authDataSubject
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe { initAdapters() }

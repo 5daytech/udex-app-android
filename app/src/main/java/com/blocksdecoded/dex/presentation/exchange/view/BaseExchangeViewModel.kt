@@ -85,36 +85,33 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
         exchangeEnabled.value = false
 
         relayerManager.mainRelayerUpdatedSignal.subscribe {
-                relayer?.availablePairsSubject
-                    ?.subscribe {
-                        marketCodes = it
+            relayer?.pairsUpdateSubject?.subscribe {
+                marketCodes = relayer?.exchangePairs?.map { it.baseCoinCode to it.quoteCoinCode } ?: listOf()
 
-                        exchangeableCoins = coinManager.coins.filter { coin ->
-                            marketCodes.firstOrNull { pair ->
-                                pair.first.equals(coin.code, true) ||
-                                        pair.second.equals(coin.code, true)
-                            } != null
+                exchangeableCoins = coinManager.coins.filter { coin ->
+                    marketCodes.firstOrNull { pair ->
+                        pair.first.equals(coin.code, true) ||
+                                pair.second.equals(coin.code, true)
+                    } != null
+                }
+
+                refreshPairs(null)
+
+                initState(mSendCoins.firstOrNull(), mReceiveCoins.firstOrNull())
+
+                adapterManager.adaptersUpdatedSignal.subscribe {
+                        refreshPairs(viewState.value)
+                        exchangeableCoins.forEach {  coin ->
+                            val adapter = adapterManager.adapters.firstOrNull { it.coin.code == coin.code }
+
+                            adapter?.balanceUpdatedFlowable
+                                ?.uiSubscribe(disposables, {
+                                    refreshPairs(viewState.value)
+                                })
                         }
-
-                        refreshPairs(null)
-
-                        initState(mSendCoins.first(), mReceiveCoins.first())
-
-                        adapterManager.adaptersUpdatedSignal
-                            .subscribe {
-                                refreshPairs(viewState.value)
-
-                                exchangeableCoins.forEach {  coin ->
-                                    val adapter = adapterManager.adapters.firstOrNull { it.coin.code == coin.code }
-
-                                    adapter?.balanceUpdatedFlowable
-                                        ?.uiSubscribe(disposables, {
-                                            refreshPairs(viewState.value)
-                                        })
-                                }
-                            }.let { disposables.add(it) }
-                    }?.let { disposables.add(it) }
-            }.let { disposables.add(it) }
+                }.let { disposables.add(it) }
+            }?.let { disposables.add(it) }
+        }.let { disposables.add(it) }
     }
 
     protected abstract fun initState(sendItem: ExchangeCoinItem?, receiveItem: ExchangeCoinItem?)
@@ -168,11 +165,13 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             mSendCoins = getAvailableSendCoins()
         }
 
-        val sendCoin = state?.sendCoin?.code ?: mSendCoins.first().code
-        mReceiveCoins = getAvailableReceiveCoins(sendCoin)
+        if (mSendCoins.isNotEmpty()) {
+            val sendCoin = state?.sendCoin?.code ?: mSendCoins.first()?.code
+            mReceiveCoins = getAvailableReceiveCoins(sendCoin)
 
-        if (this.state.receiveCoin == null) {
-            this.state.receiveCoin = mReceiveCoins.firstOrNull()
+            if (this.state.receiveCoin == null) {
+                this.state.receiveCoin = mReceiveCoins.firstOrNull()
+            }
         }
     }
 

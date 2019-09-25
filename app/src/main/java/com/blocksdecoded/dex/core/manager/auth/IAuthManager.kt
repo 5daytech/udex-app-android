@@ -12,7 +12,7 @@ interface IAuthManager {
     var authData: AuthData?
     val isLoggedIn: Boolean
 
-    var authDataSignal: PublishSubject<Unit>
+    var authDataSubject: PublishSubject<Unit>
 
     @Throws(UserNotAuthenticatedException::class)
     fun safeLoad()

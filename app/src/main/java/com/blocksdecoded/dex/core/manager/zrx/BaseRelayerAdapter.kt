@@ -35,27 +35,44 @@ class BaseRelayerAdapter(
 	override var sellOrders = RelayerOrdersList<SignedOrder>()
 	override var myOrders = RelayerOrdersList<Pair<SignedOrder, EOrderSide>>()
 
-	override val availablePairs = relayer.availablePairs
-	override val availablePairsSubject: BehaviorSubject<List<Pair<String, String>>> =
-		BehaviorSubject.create()
+	override val allPairs = relayer.availablePairs
+	override var exchangePairs: List<ExchangePair> = listOf()
+	override val pairsUpdateSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 	
 	init {
-		val pairs = relayer.availablePairs.map {
-			(coinManager.getErcCoinForAddress(it.first.address)?.code ?: "") to
-					(coinManager.getErcCoinForAddress(it.second.address)?.code ?: "")
-		}
-		availablePairsSubject.onNext(pairs)
+		initPairs()
+
+		coinManager.coinsUpdatedSubject.subscribe {
+			initPairs()
+		}.let { disposables.add(it) }
 
 		Observable.interval(refreshInterval, TimeUnit.SECONDS)
 			.subscribeOn(Schedulers.io())
 			.observeOn(Schedulers.io())
 			.subscribe { refreshOrders() }
 			.let { disposables.add(it) }
-
-		refreshOrders()
 	}
 
 	//region Private
+
+	private fun initPairs() {
+		exchangePairs = allPairs.filter {
+			val baseCoin = coinManager.getErcCoinForAddress(it.first.address)
+			val quoteCoin = coinManager.getErcCoinForAddress(it.second.address)
+
+			baseCoin != null && quoteCoin != null
+		}.map {
+			ExchangePair(
+				(coinManager.getErcCoinForAddress(it.first.address)?.code ?: ""),
+				(coinManager.getErcCoinForAddress(it.second.address)?.code ?: ""),
+				it.first,
+				it.second
+			)
+		}
+
+		pairsUpdateSubject.onNext(Unit)
+		refreshOrders()
+	}
 
 	private fun getErcCoin(coinCode: String): CoinType.Erc20 =
 		coinManager.getCoin(coinCode).type as CoinType.Erc20
@@ -176,6 +193,7 @@ class BaseRelayerAdapter(
 		sellOrders.clear()
 		myOrders.clear()
 		myOrdersInfo.clear()
+		exchangePairs = listOf()
 	}
 
 	//endregion

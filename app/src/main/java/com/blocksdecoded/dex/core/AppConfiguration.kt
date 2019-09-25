@@ -28,6 +28,9 @@ class AppConfiguration(
     override val ipfsMainGateway = "ipfs-ext.horizontalsystems.xyz"
     override val ipfsFallbackGateway = "ipfs.io"
 
+    override val defaultCoinCodes: List<String>
+        get() = listOf("ETH", "WETH", "WBTC", "ZRX", "DAI", "USDT")
+
     private val testCoins = listOf(
         Coin("Ethereum", "ETH", CoinType.Ethereum),
         Coin("Wrapped ETH", "WETH", CoinType.Erc20("0xc778417e063141139fce010982780140aa0cd5ab", 18), R.string.info_weth),

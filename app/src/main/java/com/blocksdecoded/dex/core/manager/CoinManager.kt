@@ -3,18 +3,42 @@ package com.blocksdecoded.dex.core.manager
 import com.blocksdecoded.dex.core.IAppConfiguration
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinType
+import com.blocksdecoded.dex.core.model.EnabledCoin
+import com.blocksdecoded.dex.core.storage.IEnabledCoinsStorage
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
 class CoinManager(
-    val appConfiguration: IAppConfiguration
+    private val appConfiguration: IAppConfiguration,
+    private val enabledCoinsStorage: IEnabledCoinsStorage
 ) : ICoinManager {
     private val baseCoins = listOf("BTC", "ETH")
-
     override val coinsUpdatedSubject: PublishSubject<Unit> = PublishSubject.create()
+
+    init {
+        val disposable = enabledCoinsStorage.enabledCoinsObservable()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {enabledCoinsFromStorage ->
+                if (enabledCoinsFromStorage.isEmpty()) {
+                    enableDefaultCoins()
+                    return@subscribe
+                }
+
+                val enabledCoins = mutableListOf<Coin>()
+                enabledCoinsFromStorage.forEach { enabledCoin ->
+                    allCoins.firstOrNull { coin -> coin.code == enabledCoin.coinCode}
+                        ?.let { enabledCoins.add(it) }
+                }
+                coins = enabledCoins
+            }
+    }
+
     override val allCoins: List<Coin>
         get() = appConfiguration.allCoins
 
-    override var coins: List<Coin> = appConfiguration.allCoins
+    override var coins: List<Coin> = listOf()
         set(value) {
             field = value
             coinsUpdatedSubject.onNext(Unit)
@@ -26,15 +50,11 @@ class CoinManager(
                     it == coinCode.substring(1)
         }
 
-        return if (baseIndex >= 0) {
-            baseCoins[baseIndex]
-        } else {
-            coinCode
-        }
+        return if (baseIndex >= 0) baseCoins[baseIndex] else coinCode
     }
     
     override fun getCoin(code: String): Coin =
-        coins.firstOrNull { it.code == code } ?: throw Exception("Coin $code not found")
+        allCoins.firstOrNull { it.code == code } ?: throw Exception("Coin $code not found")
 
     override fun getErcCoinForAddress(address: String): Coin? = coins.firstOrNull {
         when(it.type) {
@@ -44,10 +64,15 @@ class CoinManager(
     }
 
     override fun enableDefaultCoins() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val enabledCoins = mutableListOf<EnabledCoin>()
+        appConfiguration.defaultCoinCodes.forEachIndexed{order, coinCode ->
+            enabledCoins.add(EnabledCoin(coinCode, order))
+        }
+        enabledCoinsStorage.save(enabledCoins)
     }
 
     override fun clear() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        coins = listOf()
+        enabledCoinsStorage.deleteAll()
     }
 }

@@ -19,7 +19,7 @@ class OrdersWatcher(
 ) {
 	private val disposables = CompositeDisposable()
 
-	var availablePairsSubject = relayerAdapter.availablePairsSubject
+	var availablePairsSubject = relayerAdapter.pairsUpdateSubject
 
 	var currentSelectedPair: Int = 0
 		set(value) {
@@ -61,8 +61,8 @@ class OrdersWatcher(
 	}
 	
 	private fun updateCachedOrders() {
-		val base = relayerAdapter.availablePairs[currentSelectedPair].first.assetData
-		val quote = relayerAdapter.availablePairs[currentSelectedPair].second.assetData
+		val base = relayerAdapter.exchangePairs[currentSelectedPair].baseAsset.assetData
+		val quote = relayerAdapter.exchangePairs[currentSelectedPair].quoteAsset.assetData
 		
 		refreshBuyOrders(relayerAdapter.buyOrders.getPair(base, quote))
 		refreshSellOrders(relayerAdapter.sellOrders.getPair(base, quote))
@@ -104,19 +104,19 @@ class OrdersWatcher(
 
 	private fun getMySelectedOrders(): RelayerOrders<Pair<SignedOrder, EOrderSide>> =
 		relayerAdapter.myOrders.getPair(
-			relayerAdapter.availablePairs[currentSelectedPair].first.assetData,
-			relayerAdapter.availablePairs[currentSelectedPair].second.assetData
+			relayerAdapter.exchangePairs[currentSelectedPair].baseAsset.assetData,
+			relayerAdapter.exchangePairs[currentSelectedPair].quoteAsset.assetData
 		)
 
 	private fun getSelectedOrdersInfo(): RelayerOrders<OrderInfo> =
 		relayerAdapter.myOrdersInfo.getPair(
-			relayerAdapter.availablePairs[currentSelectedPair].first.assetData,
-			relayerAdapter.availablePairs[currentSelectedPair].second.assetData
+			relayerAdapter.exchangePairs[currentSelectedPair].baseAsset.assetData,
+			relayerAdapter.exchangePairs[currentSelectedPair].quoteAsset.assetData
 		)
 	
 	private fun isSelectedPair(baseAsset: String, quoteAsset: String): Boolean =
-		relayerAdapter.availablePairs[currentSelectedPair].first.assetData.equals(baseAsset, true) &&
-				relayerAdapter.availablePairs[currentSelectedPair].second.assetData.equals(quoteAsset, true)
+		relayerAdapter.exchangePairs[currentSelectedPair].baseAsset.assetData.equals(baseAsset, true) &&
+				relayerAdapter.exchangePairs[currentSelectedPair].quoteAsset.assetData.equals(quoteAsset, true)
 	
 	//TODO: Replace with order hash
 	fun getMyOrder(position: Int, side: EOrderSide): Triple<SignedOrder, OrderInfo, EOrderSide>? = when(side) {

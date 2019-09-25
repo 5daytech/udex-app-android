@@ -16,8 +16,8 @@ class CleanupManager(
     }
 
     override fun cleanUserData() {
-        authManager.logout()
         appPreferences.clear()
+        authManager.logout()
     }
 
     override fun removeKey() {
