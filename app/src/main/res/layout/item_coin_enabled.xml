@@ -10,13 +10,14 @@
 
     <ImageView
         android:id="@+id/enabled_coin_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:layout_width="16dp"
+        android:layout_height="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_dollar_sign" />
+        android:layout_marginStart="@dimen/page_margin"
+        android:tint="@color/green"
+        android:src="@drawable/ic_done" />
 
     <TextView
         style="@style/RegularText"
@@ -32,6 +33,7 @@
         app:layout_constraintEnd_toStartOf="@+id/enabled_coin_icon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginStart="@dimen/page_margin"
         tools:text="Ethereum" />
 
     <TextView

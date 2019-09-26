@@ -25,6 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/page_margin"
         android:src="@drawable/ic_done"
+        android:tint="@color/white"
+        app:maxImageSize="32dp"
+        app:fabSize="mini"
         app:useCompatPadding="true"
         android:layout_gravity="bottom|center_horizontal"/>
 
