@@ -115,8 +115,12 @@ class OrdersWatcher(
 		)
 	
 	private fun isSelectedPair(baseAsset: String, quoteAsset: String): Boolean =
-		relayerAdapter.exchangePairs[currentSelectedPair].baseAsset.assetData.equals(baseAsset, true) &&
-				relayerAdapter.exchangePairs[currentSelectedPair].quoteAsset.assetData.equals(quoteAsset, true)
+		if (currentSelectedPair >= 0) {
+			relayerAdapter.exchangePairs[currentSelectedPair].baseAsset.assetData.equals(baseAsset, true) &&
+					relayerAdapter.exchangePairs[currentSelectedPair].quoteAsset.assetData.equals(quoteAsset, true)
+		} else {
+			false
+		}
 	
 	//TODO: Replace with order hash
 	fun getMyOrder(position: Int, side: EOrderSide): Triple<SignedOrder, OrderInfo, EOrderSide>? = when(side) {

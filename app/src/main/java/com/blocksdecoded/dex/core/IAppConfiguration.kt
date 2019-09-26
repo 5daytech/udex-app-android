@@ -9,12 +9,16 @@ interface IAppConfiguration {
     val networkType: EthereumKit.NetworkType
     val etherscanKey: String
     val infuraCredentials: EthereumKit.InfuraCredentials
+
     val appShareUrl: String
     val transactionExploreBaseUrl: String
+
     val ipfsId: String
     val ipfsMainGateway: String
     val ipfsFallbackGateway: String
+
     val allCoins: List<Coin>
     val defaultCoinCodes: List<String>
     val allExchangePairs: List<Pair<AssetItem, AssetItem>>
+    val fixedCoinCodes: List<String>
 }

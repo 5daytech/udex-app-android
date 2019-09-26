@@ -10,6 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/element_margin"
         app:mt_title="@string/settings_coin_manager"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -24,8 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/page_margin"
         android:src="@drawable/ic_done"
-        app:fabSize="mini"
         app:useCompatPadding="true"
-        android:layout_gravity="bottom|end"/>
+        android:layout_gravity="bottom|center_horizontal"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

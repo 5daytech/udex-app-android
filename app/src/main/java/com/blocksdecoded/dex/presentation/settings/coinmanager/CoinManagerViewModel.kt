@@ -1,16 +1,18 @@
 package com.blocksdecoded.dex.presentation.settings.coinmanager
 
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.App.Companion.enabledCoinsStorage
+import com.blocksdecoded.dex.core.IAppConfiguration
 import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.EnabledCoin
 import com.blocksdecoded.dex.core.storage.IEnabledCoinsStorage
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
+import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.utils.uiSubscribe
 
 class CoinManagerViewModel(
+    private val appConfiguration: IAppConfiguration = App.appConfiguration,
     private val coinManager: ICoinManager = App.coinManager,
     private val enabledCoinsStorage: IEnabledCoinsStorage = App.enabledCoinsStorage
 ) : CoreViewModel() {
@@ -65,6 +67,9 @@ class CoinManagerViewModel(
 
     //region Update state
 
+    private fun canBeDisabled(position: Int): Boolean = enabledCoins.isValidIndex(position) &&
+            !appConfiguration.fixedCoinCodes.contains(enabledCoins[position].code)
+
     private fun enable(coin: Coin) {
         enabledCoins.add(coin)
         setDisabledCoins()
@@ -96,6 +101,7 @@ class CoinManagerViewModel(
     }
 
     fun enabledItemForIndex(position: Int): Coin = enabledCoins[position]
+
     fun disabledItemForIndex(disabledIndex: Int): Coin = disabledCoins[disabledIndex]
 
     fun moveCoin(from: Int, to: Int) {
@@ -108,7 +114,9 @@ class CoinManagerViewModel(
     }
 
     fun disableCoin(position: Int) {
-        disable(enabledCoins[position])
-        syncCoinsEvent.call()
+        if (canBeDisabled(position)) {
+            disable(enabledCoins[position])
+            syncCoinsEvent.call()
+        }
     }
 }
