@@ -22,6 +22,9 @@ class CoinManagerAdapter(
     private val typeDisabled = 1
     private val typeDivider = 2
 
+    private val showDivider
+        get() = viewModel.enabledCoinsCount > 0
+
     override fun getItemCount() = viewModel.enabledCoinsCount + viewModel.disabledCoinsCount + (if (showDivider) 1 else 0)
 
     override fun getItemViewType(position: Int): Int = when {
@@ -73,9 +76,6 @@ class CoinManagerAdapter(
     override fun onItemMoveEnded(from: Int, to: Int) {
         viewModel.moveCoin(from, to)
     }
-
-    private val showDivider
-        get() = viewModel.enabledCoinsCount > 0
 
     private fun disabledIndex(position: Int): Int = when {
         showDivider -> position - viewModel.enabledCoinsCount - 1
