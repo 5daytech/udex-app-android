@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:background="?DarkAccentBackground"
+    android:foreground="?selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/disabled_coin_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        style="@style/RegularText"
+        android:id="@+id/disabled_coin_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:layout_marginEnd="16dp"
+        android:maxLines="1"
+        android:textColor="?PrimaryTextColor"
+        app:layout_constraintBottom_toTopOf="@+id/disabled_coin_code"
+        app:layout_constraintStart_toEndOf="@+id/disabled_coin_indicator"
+        app:layout_constraintEnd_toStartOf="@+id/disabled_coin_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Ethereum"
+        />
+
+    <TextView
+        style="@style/BoldText"
+        android:id="@+id/disabled_coin_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="?HintTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/disabled_coin_title"
+        app:layout_constraintTop_toBottomOf="@+id/disabled_coin_title"
+        tools:text="ETH"
+        />
+
+    <com.blocksdecoded.dex.presentation.widgets.CoinIconView
+        android:id="@+id/disabled_coin_icon"
+        android:layout_width="@dimen/coin_size"
+        android:layout_height="@dimen/coin_size"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

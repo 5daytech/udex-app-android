@@ -9,6 +9,8 @@ import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.view_toolbar.view.*
 
 class MainToolbar : AppBarLayout {
+    init { inflate(context, R.layout.view_toolbar, this) }
+
     var title = ""
         set(value) {
             field = value
@@ -17,12 +19,7 @@ class MainToolbar : AppBarLayout {
 
     //region Init
 
-    init {
-        inflate(context, R.layout.view_toolbar, this)
-    }
-
     constructor(context: Context) : super(context)
-
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) { init(attrs) }
 
     private fun init(attrs: AttributeSet) {

@@ -18,13 +18,10 @@ import com.blocksdecoded.dex.core.manager.auth.AuthManager
 import com.blocksdecoded.dex.core.manager.auth.IAuthManager
 import com.blocksdecoded.dex.core.manager.auth.WordsManager
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
-import com.blocksdecoded.dex.core.storage.MarketsStorage
 import com.blocksdecoded.dex.core.shared.AppPreferences
 import com.blocksdecoded.dex.core.shared.IAppPreferences
 import com.blocksdecoded.dex.core.shared.ISharedStorage
 import com.blocksdecoded.dex.core.shared.SharedStorage
-import com.blocksdecoded.dex.core.storage.AppDatabase
-import com.blocksdecoded.dex.core.storage.RatesStorage
 import com.blocksdecoded.dex.core.manager.history.IExchangeHistoryManager
 import com.blocksdecoded.dex.core.manager.history.ExchangeHistoryManager
 import com.blocksdecoded.dex.core.manager.system.ISystemInfoManager
@@ -35,7 +32,7 @@ import com.blocksdecoded.dex.core.manager.zrx.IZrxKitManager
 import com.blocksdecoded.dex.core.manager.zrx.ZrxKitManager
 import com.blocksdecoded.dex.core.security.*
 import com.blocksdecoded.dex.core.security.LockManager
-import com.blocksdecoded.dex.core.storage.EnabledCoinsStorage
+import com.blocksdecoded.dex.core.storage.*
 
 class App: Application() {
     companion object {
@@ -75,8 +72,9 @@ class App: Application() {
         // Factories
         lateinit var adapterFactory: AdapterFactory
         
-        // Helpers
+        // Storage
         lateinit var appDatabase: AppDatabase
+        lateinit var enabledCoinsStorage: IEnabledCoinsStorage
         lateinit var securedStorage: ISecuredStorage
         lateinit var appPreferences: IAppPreferences
         lateinit var sharedStorage: ISharedStorage
@@ -95,7 +93,7 @@ class App: Application() {
         appPreferences = AppPreferences(sharedStorage)
         appDatabase = AppDatabase.getInstance(this)
 
-        val enabledCoinsStorage = EnabledCoinsStorage(appDatabase.enabledCoinsDao())
+        enabledCoinsStorage = EnabledCoinsStorage(appDatabase.enabledCoinsDao())
         coinManager = CoinManager(appConfiguration, enabledCoinsStorage)
 
         KeyStoreManager("MASTER_KEY").apply {
