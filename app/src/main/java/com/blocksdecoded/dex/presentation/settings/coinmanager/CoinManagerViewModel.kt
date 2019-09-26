@@ -67,9 +67,6 @@ class CoinManagerViewModel(
 
     //region Update state
 
-    private fun canBeDisabled(position: Int): Boolean = enabledCoins.isValidIndex(position) &&
-            !appConfiguration.fixedCoinCodes.contains(enabledCoins[position].code)
-
     private fun enable(coin: Coin) {
         enabledCoins.add(coin)
         setDisabledCoins()
@@ -90,6 +87,9 @@ class CoinManagerViewModel(
     }
 
     //endregion
+
+    fun canBeDisabled(position: Int): Boolean = enabledCoins.isValidIndex(position) &&
+            !appConfiguration.fixedCoinCodes.contains(enabledCoins[position].code)
 
     fun onBackPress() {
         finishEvent.call()

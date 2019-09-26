@@ -4,6 +4,8 @@ import android.animation.ValueAnimator
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
+import androidx.annotation.AttrRes
+import com.blocksdecoded.dex.utils.getAttr
 
 var RecyclerView.ViewHolder.height
     get() = itemView.layoutParams.height
@@ -24,6 +26,9 @@ var RecyclerView.ViewHolder.isVisible: Boolean
         else
             RecyclerView.LayoutParams(0, 0)
     }
+
+fun RecyclerView.ViewHolder.getAttr(@AttrRes resId: Int): Int =
+    itemView.context.theme.getAttr(resId) ?: 0
 
 fun RecyclerView.ViewHolder.updateHeight(height: Int, animated: Boolean = false) {
     if (animated) {

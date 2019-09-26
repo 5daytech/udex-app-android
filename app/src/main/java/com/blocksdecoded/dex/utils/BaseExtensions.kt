@@ -44,6 +44,12 @@ val Context.screenSize: Point
         }
     }
 
+val Context.screenHeight
+    get() = screenSize.y
+
+val Context.screenWidth
+    get() = screenSize.x
+
 fun Context.openTransactionUrl(transactionHash: String) {
     openUrl("${App.appConfiguration.transactionExploreBaseUrl}$transactionHash")
 }
@@ -53,12 +59,6 @@ fun Context.openUrl(url: String) {
         .build()
         .launchUrl(this, Uri.parse(url))
 }
-
-val Context.screenHeight
-    get() = screenSize.y
-
-val Context.screenWidth
-    get() = screenSize.x
 
 fun View.setVisible(visible: Boolean, animated: Boolean = false) {
     if (!animated) {

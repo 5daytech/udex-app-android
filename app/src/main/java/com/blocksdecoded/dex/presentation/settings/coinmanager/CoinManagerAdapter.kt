@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.utils.inflate
+import com.blocksdecoded.dex.utils.ui.getAttr
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_coin_disabled.*
 import kotlinx.android.synthetic.main.item_coin_enabled.*
@@ -43,6 +44,7 @@ class CoinManagerAdapter(
 
                 holder.onBind(
                     coin = transactionRecord,
+                    canBeDisabled = viewModel.canBeDisabled(position),
                     onClick = { listener.onEnabledItemClick(position) }
                 )
 
@@ -89,7 +91,10 @@ class CoinManagerAdapter(
 class ViewHolderEnabledCoin(
     override val containerView: View
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-    fun onBind(coin: Coin, onClick: () -> (Unit)) {
+    fun onBind(coin: Coin, canBeDisabled: Boolean, onClick: () -> (Unit)) {
+        val background = getAttr(if (canBeDisabled) R.attr.DarkAccentBackground else R.attr.SmallActionButtonColor)
+        itemView.setBackgroundColor(background)
+
         enabled_coin_title.text = coin.title
         enabled_coin_code.text = coin.code
         enabled_coin_icon.bind(coin.code)
