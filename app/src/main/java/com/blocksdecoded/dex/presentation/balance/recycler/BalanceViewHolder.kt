@@ -16,7 +16,7 @@ import java.math.BigDecimal
 
 class BalanceViewHolder(
     view: View,
-    private val listener: IWalletVHListener
+    private val listener: Listener
 ): RecyclerView.ViewHolder(view) {
 
     private val mIcon: CoinIconView = itemView.findViewById(R.id.balance_icon)
@@ -88,7 +88,7 @@ class BalanceViewHolder(
         mButtonContainer.setVisible(expanded, true)
     }
 
-    interface IWalletVHListener {
+    interface Listener {
         fun onClick(position: Int)
 
         fun onSendClick(position: Int)

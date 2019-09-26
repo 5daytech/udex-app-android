@@ -33,7 +33,7 @@ class CoinManagerActivity : CoreActivity(), CoinManagerAdapter.Listener, IDragLi
         itemTouchHelper = ItemTouchHelper(CoinDragHelperCallback(adapter))
         itemTouchHelper?.attachToRecyclerView(coin_manager_recycler)
 
-        toolbar.bind(MainToolbar.getBackAction { viewModel.onBackPress() })
+        toolbar?.bind(MainToolbar.getBackAction { viewModel.onBackPress() })
 
         coin_manager_save?.setOnClickListener { viewModel.onSaveClick() }
 

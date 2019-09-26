@@ -1,23 +1,36 @@
 package com.blocksdecoded.dex.presentation.balance.recycler
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.CoinBalance
+import com.blocksdecoded.dex.utils.inflate
 
 class BalanceAdapter(
-    private val listener: BalanceViewHolder.IWalletVHListener
+    private val walletListener: BalanceViewHolder.Listener,
+    private val manageCoinsListener: ManageCoinsViewHolder.Listener
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val TYPE_WALLET = 1
+    private val TYPE_MANAGE_COINS = 2
 
     private val mBalances = ArrayList<CoinBalance>()
     private var mExpandedViewPosition: Int? = null
 
-    override fun getItemCount(): Int = mBalances.size
+    override fun getItemCount(): Int = mBalances.size + 1
+
+    override fun getItemViewType(position: Int): Int = when {
+        position in 0 until mBalances.size -> TYPE_WALLET
+        else -> TYPE_MANAGE_COINS
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        BalanceViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_balance, parent, false), listener)
+        when(viewType) {
+            TYPE_WALLET -> BalanceViewHolder(parent.inflate(R.layout.item_balance), walletListener)
+            else -> ManageCoinsViewHolder(parent.inflate(R.layout.item_manage_coins), manageCoinsListener)
+        }
+
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = Unit
 

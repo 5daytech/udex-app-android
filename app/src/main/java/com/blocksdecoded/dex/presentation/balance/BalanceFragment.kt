@@ -8,26 +8,30 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.presentation.balance.recycler.BalanceViewHolder
 import com.blocksdecoded.dex.presentation.balance.recycler.BalanceAdapter
 import com.blocksdecoded.dex.presentation.receive.ReceiveDialog
 import com.blocksdecoded.dex.presentation.send.SendDialog
 import com.blocksdecoded.dex.presentation.transactions.TransactionsActivity
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.balance.recycler.ManageCoinsViewHolder
 import com.blocksdecoded.dex.presentation.convert.ConvertDialog
+import com.blocksdecoded.dex.presentation.settings.coinmanager.CoinManagerActivity
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.view_top_up_account.*
 
 class BalanceFragment : CoreFragment(R.layout.fragment_balance),
-        BalanceViewHolder.IWalletVHListener {
+        BalanceViewHolder.Listener,
+        ManageCoinsViewHolder.Listener {
 
     private lateinit var adapter: BalanceAdapter
     private lateinit var viewModel: BalanceViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = BalanceAdapter(this)
+        adapter = BalanceAdapter(this, this)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -79,6 +83,10 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
         viewModel.openCoinInfo.observe(this, Observer {
             CoinInfoDialog.show(childFragmentManager, it)
         })
+
+        viewModel.openCoinManager.observe(this, Observer {
+            activity?.let { CoinManagerActivity.start(it) }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -100,6 +108,10 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
     }
 
     //region ViewHolder
+
+    override fun onClick() {
+        viewModel.onManageCoinsClick()
+    }
 
     override fun onClick(position: Int) = adapter.toggleViewHolder(position)
 

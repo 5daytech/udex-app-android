@@ -43,6 +43,7 @@ class BalanceViewModel : CoreViewModel() {
     val openTransactions = SingleLiveEvent<String>()
     val openConvertDialog = SingleLiveEvent<ConvertConfig>()
     val openCoinInfo = SingleLiveEvent<Coin>()
+    val openCoinManager = SingleLiveEvent<Unit>()
 
     init {
         mRefreshing.value = true
@@ -170,6 +171,10 @@ class BalanceViewModel : CoreViewModel() {
         if (adapters.isValidIndex(position)) {
             openCoinInfo.postValue(adapters[position].coin)
         }
+    }
+
+    fun onManageCoinsClick() {
+        openCoinManager.call()
     }
 
     //endregion

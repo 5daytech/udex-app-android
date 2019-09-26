@@ -16,7 +16,7 @@
     <string name="balance_unwrap">Unwrap</string>
 
     <!-- Messages -->
-    <string name="message_words_validated">Words validated</string>
+    <string name="message_words_validated">Wallet has been restored</string>
     <string name="message_invalid_amount">Invalid trade amount</string>
     <string name="message_order_created">Order successfully placed</string>
     <string name="message_cancel_started">Cancel processing…</string>
