@@ -48,7 +48,7 @@ class CoinManagerAdapter(
                 holder.onBind(
                     coin = transactionRecord,
                     canBeDisabled = viewModel.canBeDisabled(position),
-                    onClick = { listener.onEnabledItemClick(position) }
+                    onClick = { listener.onEnabledItemClick(it) }
                 )
 
                 holder.enabled_coin_drag.setOnTouchListener { _, event ->
@@ -91,7 +91,7 @@ class CoinManagerAdapter(
 class ViewHolderEnabledCoin(
     override val containerView: View
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-    fun onBind(coin: Coin, canBeDisabled: Boolean, onClick: () -> (Unit)) {
+    fun onBind(coin: Coin, canBeDisabled: Boolean, onClick: (position: Int) -> (Unit)) {
         val background = getAttr(if (canBeDisabled) R.attr.DarkAccentBackground else R.attr.SmallActionButtonColor)
         itemView.setBackgroundColor(background)
 
@@ -99,7 +99,7 @@ class ViewHolderEnabledCoin(
         enabled_coin_code.text = coin.code
         enabled_coin_icon.bind(coin.code)
 
-        containerView.setOnClickListener { onClick.invoke() }
+        containerView.setOnClickListener { onClick.invoke(adapterPosition) }
     }
 }
 
