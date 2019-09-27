@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.ui.CoreActivity
+import com.blocksdecoded.dex.core.ui.SwipeableActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import kotlinx.android.synthetic.main.activity_coin_manager.*
 
-class CoinManagerActivity : CoreActivity(), CoinManagerAdapter.Listener, IDragListener {
+class CoinManagerActivity : SwipeableActivity(), CoinManagerAdapter.Listener, IDragListener {
 
     private lateinit var viewModel: CoinManagerViewModel
     private lateinit var adapter: CoinManagerAdapter

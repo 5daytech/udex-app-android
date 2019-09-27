@@ -7,13 +7,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.ui.CoreActivity
+import com.blocksdecoded.dex.core.ui.SwipeableActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.presentation.widgets.words.WordsAdapter
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import kotlinx.android.synthetic.main.activity_backup.*
 
-class BackupActivity : CoreActivity() {
+class BackupActivity : SwipeableActivity() {
     
     private lateinit var viewModel: BackupViewModel
     private lateinit var adapter: WordsAdapter

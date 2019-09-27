@@ -3,12 +3,12 @@ package com.blocksdecoded.dex.presentation.restore
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import com.blocksdecoded.dex.BuildConfig
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.ui.CoreActivity
+import com.blocksdecoded.dex.core.ui.SwipeableActivity
 import com.blocksdecoded.dex.presentation.main.MainActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.presentation.widgets.words.WordInputViewHolder
@@ -18,7 +18,7 @@ import com.blocksdecoded.dex.utils.showKeyboard
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import kotlinx.android.synthetic.main.activity_restore_wallet.*
 
-class RestoreWalletActivity: CoreActivity(), WordInputViewHolder.OnWordChangeListener {
+class RestoreWalletActivity: SwipeableActivity(), WordInputViewHolder.OnWordChangeListener {
 
     private lateinit var viewModel: RestoreWalletViewModel
     private val words = MutableList(12) { "" }
@@ -35,6 +35,7 @@ class RestoreWalletActivity: CoreActivity(), WordInputViewHolder.OnWordChangeLis
             ToastHelper.showErrorMessage(it)
             focusInput()
         })
+
         viewModel.successEvent.observe(this, Observer { ToastHelper.showSuccessMessage(it) })
         viewModel.navigateToMain.observe(this, Observer {
             MainActivity.start(this)
@@ -46,8 +47,7 @@ class RestoreWalletActivity: CoreActivity(), WordInputViewHolder.OnWordChangeLis
         restore_recycler.adapter = WordsInputAdapter(this)
         
         restore_confirm.setOnClickListener {
-            // Only for debug purposes
-            if (BuildConfig.DEBUG && !restore_single_line_input?.text.isNullOrEmpty()) {
+            if (!restore_single_line_input?.text.isNullOrEmpty()) {
                 restore_single_line_input.text.toString().split(" ").forEachIndexed { index, s ->
                     words[index] = s
                 }
@@ -61,9 +61,10 @@ class RestoreWalletActivity: CoreActivity(), WordInputViewHolder.OnWordChangeLis
     }
 
     private fun focusInput() {
-        restore_single_line_input.isEnabled = true
-        restore_single_line_input.requestFocus()
-        showKeyboard()
+        Handler().postDelayed({
+            restore_single_line_input?.isEnabled = true
+            restore_single_line_input?.showKeyboard(false)
+        }, 0)
     }
 
     override fun onChange(position: Int, value: String) {

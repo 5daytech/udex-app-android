@@ -36,7 +36,8 @@
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".presentation.restore.RestoreWalletActivity"
-                  android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateAlwaysVisible"/>
 
         <activity android:name=".presentation.backup.BackupActivity"
                   android:screenOrientation="portrait"/>

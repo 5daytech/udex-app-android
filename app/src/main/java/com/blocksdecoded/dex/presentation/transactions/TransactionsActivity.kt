@@ -3,9 +3,9 @@ package com.blocksdecoded.dex.presentation.transactions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.blocksdecoded.dex.core.ui.CoreActivity
+import com.blocksdecoded.dex.core.ui.SwipeableActivity
 
-class TransactionsActivity: CoreActivity() {
+class TransactionsActivity: SwipeableActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

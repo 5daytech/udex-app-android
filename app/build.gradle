@@ -120,6 +120,9 @@ dependencies {
 
     // Bottom Navigation
     implementation 'com.aurelhubert:ahbottomnavigation:2.3.4'
+
+    // SwipeBack
+    implementation 'me.imid.swipebacklayout.lib:library:1.1.0'
 }
 
 androidExtensions {

@@ -22,18 +22,45 @@ import com.blocksdecoded.dex.utils.ui.DimenUtils
 fun <T>List<T>?.isValidIndex(index: Int): Boolean = index in 0 until (this?.size ?: 0)
 
 fun Activity?.showKeyboard() {
-    this?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+    this?.window?.setSoftInputMode(
+        WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE or
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 }
 
-fun Activity?.hideKeyboard() {
-    this?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+fun Activity?.hideKeyboard() = try {
+    this?.let {
+        val imm = it.getSystemService(Context.INPUT_METHOD_SERVICE)
+        if (imm is InputMethodManager && this.currentFocus != null) {
+            imm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
+        }
+    }
+} catch (e: Exception) {
+    Logger.e(e)
 }
 
 fun View?.removeFocus() = try {
     val imm = this?.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager?
     imm?.hideSoftInputFromWindow(this?.windowToken, 0)
 } catch (e: Exception) {
+    Logger.e(e)
+}
 
+fun View.showKeyboard(toggleKeyboard: Boolean = true) {
+    try {
+        if (context != null && context is Activity) {
+            val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE)
+            if (imm is InputMethodManager) {
+                this.requestFocus()
+                if (toggleKeyboard) {
+                    imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY)
+                } else {
+                    imm.showSoftInput(this, 0)
+                }
+            }
+        }
+    } catch (e: Exception) {
+        Logger.e(e)
+    }
 }
 
 val Context.screenSize: Point
