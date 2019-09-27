@@ -81,6 +81,9 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     val processingDismissEvent = SingleLiveEvent<Unit>()
     val focusExchangeEvent = SingleLiveEvent<Unit>()
 
+    protected abstract fun initState(sendItem: ExchangeCoinItem?, receiveItem: ExchangeCoinItem?)
+    protected abstract fun updateReceiveAmount()
+
     protected fun init() {
         exchangeEnabled.value = false
 
@@ -113,9 +116,6 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             }?.let { disposables.add(it) }
         }.let { disposables.add(it) }
     }
-
-    protected abstract fun initState(sendItem: ExchangeCoinItem?, receiveItem: ExchangeCoinItem?)
-    protected abstract fun updateReceiveAmount()
 
     fun onSendAmountChange(amount: BigDecimal) {
         if (state.sendAmount != amount) {

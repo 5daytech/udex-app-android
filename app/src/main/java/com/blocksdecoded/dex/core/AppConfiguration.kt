@@ -29,7 +29,7 @@ class AppConfiguration(
     override val ipfsFallbackGateway = "ipfs.io"
 
     override val defaultCoinCodes: List<String>
-        get() = listOf("ETH", "WETH", "WBTC", "ZRX", "DAI", "USDT")
+        get() = listOf("ETH", "WETH", "ZRX", "USDT", "LINK")
 
     override val fixedCoinCodes = listOf("ETH", "WETH", "ZRX")
 

@@ -36,7 +36,7 @@
         android:src="@drawable/ic_about"
         android:tint="@color/red_warning"
         android:visibility="gone"
-        android:layout_marginEnd="@dimen/element_margin"
+        android:layout_marginEnd="@dimen/small_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/settings_item_chevron"
         app:layout_constraintTop_toTopOf="parent" />

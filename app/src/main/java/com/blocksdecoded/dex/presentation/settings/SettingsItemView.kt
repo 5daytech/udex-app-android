@@ -95,6 +95,5 @@ class SettingsItemView: ConstraintLayout {
 
     fun setInfoBadgeVisible(isVisible: Boolean) {
         settings_item_badge?.visible = isVisible
-        settings_item_chevron?.visible = !isVisible
     }
 }
