@@ -35,13 +35,17 @@ class InputAddressView : ConstraintLayout {
         invalidate()
     }
 
-    fun updateInput(address: String = "", errorText: String? = null) {
+    private fun updateAddress(address: String) {
         val empty = address.isEmpty()
         address_barcode_scan.visibility =  if (empty) View.VISIBLE else View.GONE
         address_paste.visibility =  if (empty) View.VISIBLE else View.GONE
         address_delete.visibility = if (!empty) View.VISIBLE else View.GONE
 
         address_input.text = address
+    }
+
+    fun updateInput(address: String = "", errorText: String? = null) {
+        updateAddress(address)
 
         errorText?.let {
             address_input_error.visibility = View.VISIBLE
@@ -51,8 +55,14 @@ class InputAddressView : ConstraintLayout {
         }
     }
 
-    fun enablePasteButton(enabled: Boolean) {
-        address_paste.isEnabled = enabled
-    }
+    fun updateInput(address: String = "", errorCode: Int? = null) {
+        updateAddress(address)
 
+        if (errorCode == null || errorCode == 0) {
+            address_input_error.visibility = View.GONE
+        } else {
+            address_input_error.visibility = View.VISIBLE
+            address_input_error.setText(errorCode)
+        }
+    }
 }

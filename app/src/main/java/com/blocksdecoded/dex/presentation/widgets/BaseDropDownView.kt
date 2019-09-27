@@ -24,7 +24,7 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
     private var rotationDuration = 200L
 
     var selectedView: View? = null
-    var popupWindow: PopupWindow? = null
+    private var popupWindow: PopupWindow? = null
     var popupAdapter: PopupAdapter<T>? = null
 
     var itemResId: Int = 0

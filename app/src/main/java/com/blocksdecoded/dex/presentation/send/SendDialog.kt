@@ -18,19 +18,17 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.presentation.widgets.listeners.SimpleTextWatcher
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.core.ui.reObserve
+import com.blocksdecoded.dex.presentation.send.model.ReceiveAddressInfo
 import com.blocksdecoded.dex.presentation.send.model.SendInfo
-import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.dex.utils.subscribeToInput
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.dialog_send.*
 import kotlinx.android.synthetic.main.view_amount_input.*
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.util.concurrent.TimeUnit
 
 class SendDialog private constructor()
     : BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Listener {
@@ -56,7 +54,9 @@ class SendDialog private constructor()
         SendConfirmDialog.show(childFragmentManager, it)
     }
 
-    private val addressObserver = Observer<String> { send_address.updateInput(it) }
+    private val addressObserver = Observer<ReceiveAddressInfo> {
+        send_address.updateInput(it.address ?: "", it.error)
+    }
 
     private val barcodeObserver = Observer<Unit> { startScanner() }
 

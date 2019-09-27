@@ -12,8 +12,10 @@ import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.core.manager.clipboard.ClipboardManager
+import com.blocksdecoded.dex.presentation.send.model.ReceiveAddressInfo
 import com.blocksdecoded.dex.presentation.send.model.SendInfo
 import com.blocksdecoded.dex.presentation.send.model.SendUserInput
+import java.lang.Exception
 import java.math.BigDecimal
 
 class SendViewModel: CoreViewModel() {
@@ -24,7 +26,7 @@ class SendViewModel: CoreViewModel() {
     var decimalSize: Int? = null
 
     val coin = MutableLiveData<Coin>()
-    val receiveAddress = MutableLiveData<String>()
+    val receiveAddress = MutableLiveData<ReceiveAddressInfo>()
     val sendEnabled = MutableLiveData<Boolean>()
     val amount = MutableLiveData<BigDecimal>()
     val sendInfo = MutableLiveData<SendInfo>()
@@ -48,9 +50,14 @@ class SendViewModel: CoreViewModel() {
         coin.value = adapter.coin
         decimalSize = adapter.decimal
         reset()
+    }
 
-        sendInfo.value =
-            SendInfo(BigDecimal.ZERO, false)
+    private fun reset() {
+        userInput = SendUserInput()
+        sendEnabled.value = false
+        amount.value = userInput.amount
+        receiveAddress.value = ReceiveAddressInfo("", 0)
+        sendInfo.value = SendInfo(BigDecimal.ZERO, false)
     }
 
     private fun confirm() {
@@ -73,17 +80,10 @@ class SendViewModel: CoreViewModel() {
     }
 
     private fun send(userInput: SendUserInput) {
-        val address = userInput.address
-        if (address == null) {
-            //TODO: Show empty address error
-            return
-        }
+        val address = userInput.address ?: return
 
         val amount = userInput.amount
-        if (amount == BigDecimal.ZERO) {
-            //TODO: Show no convertAmount error
-            return
-        }
+        if (amount == BigDecimal.ZERO) return
 
         adapter.send(address, amount, userInput.feePriority)
             .uiObserver()
@@ -94,20 +94,18 @@ class SendViewModel: CoreViewModel() {
                 messageEvent.postValue(R.string.error_send)
             }).let { disposables.add(it) }
     }
-
-    private fun reset() {
-        userInput = SendUserInput()
-        sendEnabled.value = false
-        amount.value = userInput.amount
-        receiveAddress.value = userInput.address ?: ""
-    }
     
     private fun refreshSendEnable() {
-        sendEnabled.value = userInput.amount > BigDecimal.ZERO &&
-            userInput.address != null && !(sendInfo.value?.error ?: false)
+        val validAmount = userInput.amount > BigDecimal.ZERO &&
+                !(sendInfo.value?.error ?: false)
+
+        val validAddress = userInput.address != null &&
+                (receiveAddress.value?.error ?: 1) == 0
+
+        sendEnabled.value = validAmount && validAddress
     }
 
-    private fun refreshInfo(sendAmount: BigDecimal) {
+    private fun refreshSendAmount(sendAmount: BigDecimal) {
         val info = SendInfo(
             ratesConverter.getCoinsPrice(adapter.coin.code, sendAmount),
             false
@@ -127,11 +125,25 @@ class SendViewModel: CoreViewModel() {
         sendInfo.value = info
     }
 
+    private fun setAddress(address: String?) {
+        userInput.address = address
+        val error = try {
+            adapter.validate(address ?: "")
+            0
+        } catch (e: Exception) {
+            R.string.send_invalid_recipient_address
+        }
+
+        receiveAddress.value = ReceiveAddressInfo(userInput.address, error)
+
+        refreshSendEnable()
+    }
+
     fun onAmountChanged(amount: BigDecimal) {
         if (userInput.amount != amount) {
             userInput.amount = amount
 
-            refreshInfo(amount)
+            refreshSendAmount(amount)
 
             refreshSendEnable()
         }
@@ -143,9 +155,7 @@ class SendViewModel: CoreViewModel() {
 
     fun onScanResult(contents: String?) {
         if (contents != null && contents.isNotEmpty()) {
-            receiveAddress.value = contents
-            userInput.address = contents
-            refreshSendEnable()
+            setAddress(contents)
         }
     }
 
@@ -160,13 +170,11 @@ class SendViewModel: CoreViewModel() {
     }
 
     fun onPasteClick() {
-        userInput.address = ClipboardManager.getCopiedText()
-        receiveAddress.value = userInput.address
-        refreshSendEnable()
+        setAddress(ClipboardManager.getCopiedText())
     }
 
     fun onDeleteAddressClick() {
-        receiveAddress.value = ""
+        receiveAddress.value = ReceiveAddressInfo("", 0)
         userInput.address = null
 	    refreshSendEnable()
     }

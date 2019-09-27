@@ -45,7 +45,10 @@
                 android:id="@+id/address_input_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:textSize="12sp"
                 android:visibility="gone"
+                android:text="Error"
                 />
         </LinearLayout>
 
