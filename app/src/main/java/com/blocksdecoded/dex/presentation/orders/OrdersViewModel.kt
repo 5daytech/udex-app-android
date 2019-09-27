@@ -116,8 +116,6 @@ class OrdersViewModel : CoreViewModel() {
         ratesManager.marketsUpdateSubject.subscribe {
             onPairsRefresh()
         }.let { disposables.add(it) }
-
-        onPairsRefresh()
     }
 
     fun onPickPair(position: Int) {

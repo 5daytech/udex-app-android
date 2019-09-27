@@ -55,7 +55,7 @@ interface IRelayerAdapter {
 
     val allPairs: List<Pair<AssetItem, AssetItem>>
     val exchangePairs: List<ExchangePair>
-    val pairsUpdateSubject: PublishSubject<Unit>
+    val pairsUpdateSubject: BehaviorSubject<Unit>
 
     fun stop()
 

@@ -12,7 +12,6 @@ import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.PublishSubject
 
 class OrdersWatcher(
 	private val coinManager: ICoinManager,
@@ -20,9 +19,6 @@ class OrdersWatcher(
 	private val ratesConverter: RatesConverter
 ) {
 	private val disposables = CompositeDisposable()
-
-	val pairsUpdateSubject: PublishSubject<Unit>
-		get() = relayerAdapter.pairsUpdateSubject
 
 	var currentSelectedPair: Int = 0
         get() {
