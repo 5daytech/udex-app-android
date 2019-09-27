@@ -11,6 +11,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.ui.isVisible
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isInvisible
 import com.blocksdecoded.dex.utils.isValidIndex
 import kotlinx.android.synthetic.main.view_drop_down.view.*
 
@@ -134,6 +135,11 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
 
     //endregion
 
+    private fun updateEnabled() {
+        isClickable = popupAdapter?.itemCount ?: 0 > 1
+        drop_down_arrow?.isInvisible = !isClickable
+    }
+
     private fun toggleDropArrow() {
         drop_down_arrow?.clearAnimation()
 
@@ -156,6 +162,8 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
         } else {
             selectedItemPosition
         }
+
+        updateEnabled()
     }
 
     abstract class PopupAdapter<T> (

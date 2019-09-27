@@ -32,11 +32,6 @@ class CoinDropDown : BaseDropDownView<ExchangeCoinItem> {
 					"${item.balance?.toDisplayFormat()} ${item.code}"
 	}
 
-	private fun updateEnabled() {
-		isEnabled = popupAdapter?.itemCount ?: 0 > 1
-		drop_down_arrow?.isInvisible = !isEnabled
-	}
-
 	private fun refreshSelectedViewPadding() {
 		val arrowHorizontalSpace = (drop_down_arrow?.marginLeft ?: 0) + (drop_down_arrow?.width ?: 0)
 
@@ -61,11 +56,6 @@ class CoinDropDown : BaseDropDownView<ExchangeCoinItem> {
 	override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
 		super.onLayout(changed, left, top, right, bottom)
 		refreshSelectedViewPadding()
-	}
-
-	override fun setData(data: List<ExchangeCoinItem>) {
-		super.setData(data)
-		updateEnabled()
 	}
 	
 	fun setSelectedPair(selectedCoin: ExchangeCoinItem?) {
