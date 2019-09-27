@@ -55,7 +55,8 @@ class AppConfiguration(
         getExchangePair("DAI", "WBTC"),
         getExchangePair("USDT", "WBTC"),
         getExchangePair("HT", "WBTC"),
-        getExchangePair("LINK", "WBTC")
+        getExchangePair("LINK", "WBTC"),
+        getExchangePair("LINK", "USDT")
     )
 
     private fun addressForSymbol(symbol: String): String = ((testCoins.firstOrNull {
