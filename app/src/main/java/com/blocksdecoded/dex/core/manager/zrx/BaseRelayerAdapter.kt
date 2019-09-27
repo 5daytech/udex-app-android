@@ -13,7 +13,7 @@ import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -37,7 +37,7 @@ class BaseRelayerAdapter(
 
 	override val allPairs = relayer.availablePairs
 	override var exchangePairs: List<ExchangePair> = listOf()
-	override val pairsUpdateSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
+	override val pairsUpdateSubject: PublishSubject<Unit> = PublishSubject.create()
 	
 	init {
 		initPairs()

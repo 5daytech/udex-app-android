@@ -8,6 +8,7 @@ import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
 import io.reactivex.Flowable
 import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 
 interface IZrxKitManager {
@@ -54,7 +55,7 @@ interface IRelayerAdapter {
 
     val allPairs: List<Pair<AssetItem, AssetItem>>
     val exchangePairs: List<ExchangePair>
-    val pairsUpdateSubject: BehaviorSubject<Unit>
+    val pairsUpdateSubject: PublishSubject<Unit>
 
     fun stop()
 

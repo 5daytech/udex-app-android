@@ -9,7 +9,6 @@ import com.blocksdecoded.dex.presentation.orders.model.*
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.isValidIndex
-import java.math.BigDecimal
 
 class OrdersViewModel : CoreViewModel() {
     private val coinManager = App.coinManager
@@ -41,30 +40,11 @@ class OrdersViewModel : CoreViewModel() {
     val orderInfoEvent = MutableLiveData<OrderInfoConfig>()
     val fillOrderEvent = MutableLiveData<FillOrderInfo>()
 
-    init {
-        relayerManager.mainRelayerUpdatedSignal
-            .subscribe {
-                relayer?.let {
-                    zrxOrdersWatcher = OrdersWatcher(coinManager, it, ratesConverter)
-                    onRelayerInitialized()
-                }
-            }.let { disposables.add(it) }
-
-        ratesManager.marketsUpdateSubject.subscribe {
-            availablePairs.value?.let {
-                onPairsRefresh(it.map { it.baseCoin to it.quoteCoin })
-            }
-        }.let { disposables.add(it) }
-    }
+    //region Private
 
     private fun onRelayerInitialized() {
-        zrxOrdersWatcher?.availablePairsSubject?.subscribe({
-            val pairs = relayer?.exchangePairs?.map { it.baseCoinCode to it.quoteCoinCode } ?: listOf()
-            onPairsRefresh(pairs)
-
-            (selectedPairPosition.value ?: 0).let {
-                exchangeCoinSymbol.postValue(pairs[it].first)
-            }
+        relayer?.pairsUpdateSubject?.subscribe({
+            onPairsRefresh()
         }, { Logger.e(it) })?.let { disposables.add(it) }
 
         zrxOrdersWatcher?.buyOrdersSubject?.subscribe({ orders ->
@@ -91,7 +71,10 @@ class OrdersViewModel : CoreViewModel() {
         refreshOrders()
     }
 
-    private fun onPairsRefresh(pairs: List<Pair<String, String>>) {
+    private fun onPairsRefresh() {
+        val pairs = relayer?.exchangePairs
+            ?.map { it.baseCoinCode to it.quoteCoinCode } ?: listOf()
+
         val exchangePairs = pairs.map {
             ExchangePairViewItem(
                 it.first,
@@ -102,21 +85,43 @@ class OrdersViewModel : CoreViewModel() {
         }
 
         availablePairs.postValue(exchangePairs)
+
+        if (pairs.isNotEmpty()) {
+            val selectedPair = zrxOrdersWatcher?.currentSelectedPair
+            selectedPairPosition.postValue(selectedPair)
+
+            (selectedPair ?: 0).let {
+                exchangeCoinSymbol.postValue(pairs[it].first)
+            }
+        }
     }
-    
+
     private fun refreshOrders() {
         buyOrders.postValue(zrxOrdersWatcher?.uiBuyOrders)
         sellOrders.postValue(zrxOrdersWatcher?.uiSellOrders)
         myOrders.postValue(zrxOrdersWatcher?.uiMyOrders)
     }
-    
-    fun onPickPair(position: Int) {
-        zrxOrdersWatcher?.currentSelectedPair = position
+
+    //endregion
+
+    init {
+        relayerManager.mainRelayerUpdatedSignal
+            .subscribe {
+                relayer?.let {
+                    zrxOrdersWatcher = OrdersWatcher(coinManager, it, ratesConverter)
+                    onRelayerInitialized()
+                }
+            }.let { disposables.add(it) }
+
+        ratesManager.marketsUpdateSubject.subscribe {
+            onPairsRefresh()
+        }.let { disposables.add(it) }
+
+        onPairsRefresh()
     }
 
-    override fun onCleared() {
-        zrxOrdersWatcher?.stop()
-        super.onCleared()
+    fun onPickPair(position: Int) {
+        zrxOrdersWatcher?.currentSelectedPair = position
     }
     
     fun onOrderClick(position: Int, side: EOrderSide) {
@@ -149,5 +154,10 @@ class OrdersViewModel : CoreViewModel() {
                 }
             }
         }
+    }
+
+    override fun onCleared() {
+        zrxOrdersWatcher?.stop()
+        super.onCleared()
     }
 }

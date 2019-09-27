@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.core.manager.zrx
 
 import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
+import com.blocksdecoded.dex.core.manager.zrx.model.ExchangePair
 import com.blocksdecoded.dex.core.manager.zrx.model.RelayerOrders
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
@@ -11,6 +12,7 @@ import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 
 class OrdersWatcher(
 	private val coinManager: ICoinManager,
@@ -19,9 +21,17 @@ class OrdersWatcher(
 ) {
 	private val disposables = CompositeDisposable()
 
-	var availablePairsSubject = relayerAdapter.pairsUpdateSubject
+	val pairsUpdateSubject: PublishSubject<Unit>
+		get() = relayerAdapter.pairsUpdateSubject
 
 	var currentSelectedPair: Int = 0
+        get() {
+            if (field >= relayerAdapter.exchangePairs.size) {
+                field = 0
+            }
+
+            return field
+        }
 		set(value) {
 			if (field == value) return
 			field = value
@@ -59,10 +69,20 @@ class OrdersWatcher(
 			}
 		}.let { disposables.add(it) }
 	}
+
+	private fun getCurrentExchangePair(): ExchangePair {
+		val selectedPairOutOfBounds = currentSelectedPair >= relayerAdapter.exchangePairs.size
+
+		if (selectedPairOutOfBounds) {
+			currentSelectedPair = 0
+		}
+
+		return relayerAdapter.exchangePairs[currentSelectedPair]
+	}
 	
 	private fun updateCachedOrders() {
-		val base = relayerAdapter.exchangePairs[currentSelectedPair].baseAsset.assetData
-		val quote = relayerAdapter.exchangePairs[currentSelectedPair].quoteAsset.assetData
+		val base = getCurrentExchangePair().baseAsset.assetData
+		val quote = getCurrentExchangePair().quoteAsset.assetData
 		
 		refreshBuyOrders(relayerAdapter.buyOrders.getPair(base, quote))
 		refreshSellOrders(relayerAdapter.sellOrders.getPair(base, quote))
@@ -104,23 +124,19 @@ class OrdersWatcher(
 
 	private fun getMySelectedOrders(): RelayerOrders<Pair<SignedOrder, EOrderSide>> =
 		relayerAdapter.myOrders.getPair(
-			relayerAdapter.exchangePairs[currentSelectedPair].baseAsset.assetData,
-			relayerAdapter.exchangePairs[currentSelectedPair].quoteAsset.assetData
+			getCurrentExchangePair().baseAsset.assetData,
+			getCurrentExchangePair().quoteAsset.assetData
 		)
 
 	private fun getSelectedOrdersInfo(): RelayerOrders<OrderInfo> =
 		relayerAdapter.myOrdersInfo.getPair(
-			relayerAdapter.exchangePairs[currentSelectedPair].baseAsset.assetData,
-			relayerAdapter.exchangePairs[currentSelectedPair].quoteAsset.assetData
+			getCurrentExchangePair().baseAsset.assetData,
+			getCurrentExchangePair().quoteAsset.assetData
 		)
 	
 	private fun isSelectedPair(baseAsset: String, quoteAsset: String): Boolean =
-		if (currentSelectedPair >= 0) {
-			relayerAdapter.exchangePairs[currentSelectedPair].baseAsset.assetData.equals(baseAsset, true) &&
-					relayerAdapter.exchangePairs[currentSelectedPair].quoteAsset.assetData.equals(quoteAsset, true)
-		} else {
-			false
-		}
+		getCurrentExchangePair().baseAsset.assetData.equals(baseAsset, true) &&
+				getCurrentExchangePair().quoteAsset.assetData.equals(quoteAsset, true)
 	
 	//TODO: Replace with order hash
 	fun getMyOrder(position: Int, side: EOrderSide): Triple<SignedOrder, OrderInfo, EOrderSide>? = when(side) {
