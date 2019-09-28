@@ -30,12 +30,12 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@color/light_main</item>
         <item name="android:windowBackground">@color/light_main</item>
-        <item name="ActionButtonBackground">@color/light_main</item>
         <item name="MainBackground">@color/light_main</item>
         <item name="PrimaryTextColor">@color/main_dark_text</item>
         <item name="PrimaryLightColor">@color/dark_text</item>
         <item name="HintTextColor">@color/dark_hint</item>
         <item name="SecondaryHintTextColor">@color/dark_secondary_hint</item>
+        <item name="ActionButtonBackground">@color/light_main</item>
         <item name="MainDarkBackground">@color/light_main_dark</item>
         <item name="SmallActionButtonColor">@color/light_action_button</item>
         <item name="AccentBackground">@color/light_accent</item>
@@ -128,6 +128,14 @@
     <style name="DarkFloatingDialog" parent="BaseFloatingDialog">
         <item name="selectableItemBackground">@drawable/bg_selectable_item</item>
         <item name="selectableItemBackgroundBorderless">@drawable/bg_selectable_item_borderless</item>
+    </style>
+
+    <style name="LightBottomSheet" parent="BaseBottomDialog">
+
+    </style>
+
+    <style name="LightFloatingDialog" parent="BaseFloatingDialog">
+
     </style>
 
     <style name="BottomDialogAnimations" parent="@android:style/Animation.Activity">

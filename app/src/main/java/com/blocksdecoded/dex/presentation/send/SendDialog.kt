@@ -20,6 +20,7 @@ import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.core.ui.reObserve
 import com.blocksdecoded.dex.presentation.send.model.ReceiveAddressInfo
 import com.blocksdecoded.dex.presentation.send.model.SendInfo
+import com.blocksdecoded.dex.utils.getAttr
 import com.blocksdecoded.dex.utils.subscribeToInput
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
@@ -66,7 +67,11 @@ class SendDialog private constructor()
 
     private val infoObserver = Observer<SendInfo> { info ->
         context?.let {
-            amount_input?.setTextColor(ContextCompat.getColor(it, if (info.error) R.color.red else R.color.main_light_text))
+            val enabledColor = it.theme.getAttr(R.attr.PrimaryTextColor) ?: 0
+            val errorColor = ContextCompat.getColor(it, R.color.red)
+            val amountInputColor = if (info.error) errorColor else enabledColor
+
+            amount_input?.setTextColor(amountInputColor)
         }
 
         amount_hint?.text = "You send $${info.fiatAmount.toFiatDisplayFormat()}"

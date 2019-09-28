@@ -6,6 +6,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.view.*
+import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 
 abstract class BaseBottomDialog(
@@ -13,7 +14,14 @@ abstract class BaseBottomDialog(
 ): BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = activity?.let { BottomSheetDialog(it, R.style.DarkBottomSheet) }
+        val dialog = activity?.let {
+            val theme = if (App.appPreferences.isLightModeEnabled)
+                R.style.LightBottomSheet
+            else
+                R.style.DarkBottomSheet
+
+            BottomSheetDialog(it, theme)
+        }
         requireNotNull(dialog)
 
         dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
