@@ -37,8 +37,8 @@
                 android:textSize="16sp"
                 android:hint="Address"
                 android:singleLine="true"
-                android:textColor="?attr/PrimaryTextColor"
-                android:textColorHint="?attr/HintTextColor"/>
+                android:textColor="?PrimaryTextColor"
+                android:textColorHint="?HintTextColor"/>
 
             <TextView
                 style="@style/HintText"
@@ -85,6 +85,7 @@
             android:layout_marginBottom="@dimen/small_margin"
             android:padding="0dp"
             android:src="@drawable/ic_clear"
+            android:tint="?PrimaryTextColor"
             android:visibility="gone" />
 
     </LinearLayout>

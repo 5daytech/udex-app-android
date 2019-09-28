@@ -9,8 +9,12 @@
     <attr name="MainBackground" format="reference|color"/>
     <attr name="MainDarkBackground" format="reference|color"/>
     <attr name="SelectableRippleColor" format="reference|color"/>
-    <attr name="DarkAccentBackground" format="reference|color"/>
+    <attr name="AccentBackground" format="reference|color"/>
     <attr name="DividerColor" format="reference|color"/>
+    <attr name="OddOrderBackground" format="reference|color"/>
+    <attr name="EvenOrderBackground" format="reference|color"/>
+    <attr name="EmptyCircleColor" format="reference|color"/>
+    <attr name="AttentionColor" format="reference|color"/>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -18,30 +22,35 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor">@color/dark_main</item>
-        <item name="android:windowBackground">@color/dark_main</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:navigationBarColor">@color/black</item>
         <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:navigationBarColor">@color/black</item>
     </style>
 
     <style name="AppTheme.LightMode">
-        <item name="selectableItemBackground">@drawable/bg_selectable_item</item>
-        <item name="selectableItemBackgroundBorderless">@drawable/bg_selectable_item_borderless</item>
-        <item name="SelectableRippleColor">@drawable/bg_selectable_item</item>
-        <item name="PrimaryTextColor">@color/main_light_text</item>
-        <item name="PrimaryLightColor">@color/light_text</item>
-        <item name="HintTextColor">@color/light_hint</item>
-        <item name="SecondaryHintTextColor">@color/light_secondary_hint</item>
-        <item name="ActionButtonBackground">@color/dark_main</item>
-        <item name="MainBackground">@color/dark_main</item>
-        <item name="MainDarkBackground">@color/dark_main_dark</item>
-        <item name="SmallActionButtonColor">@color/action_button_dark</item>
-        <item name="DarkAccentBackground">@color/dark_accent</item>
-        <item name="DividerColor">@color/dark_divider</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/light_main</item>
+        <item name="android:windowBackground">@color/light_main</item>
+        <item name="ActionButtonBackground">@color/light_main</item>
+        <item name="MainBackground">@color/light_main</item>
+        <item name="PrimaryTextColor">@color/main_dark_text</item>
+        <item name="PrimaryLightColor">@color/dark_text</item>
+        <item name="HintTextColor">@color/dark_hint</item>
+        <item name="SecondaryHintTextColor">@color/dark_secondary_hint</item>
+        <item name="MainDarkBackground">@color/light_main_dark</item>
+        <item name="SmallActionButtonColor">@color/light_action_button</item>
+        <item name="AccentBackground">@color/light_accent</item>
+        <item name="DividerColor">@color/light_divider</item>
+        <item name="OddOrderBackground">@color/light_accent</item>
+        <item name="EvenOrderBackground">@color/light_main</item>
+        <item name="EmptyCircleColor">@color/light_empty_circle</item>
+        <item name="AttentionColor">@color/dark_yellow</item>
     </style>
 
     <style name="AppTheme.DarkMode">
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@color/dark_main</item>
+        <item name="android:windowBackground">@color/dark_main</item>
+        <item name="android:navigationBarColor">@color/black</item>
         <item name="selectableItemBackground">@drawable/bg_selectable_item</item>
         <item name="selectableItemBackgroundBorderless">@drawable/bg_selectable_item_borderless</item>
         <item name="SelectableRippleColor">@drawable/bg_selectable_item</item>
@@ -53,8 +62,12 @@
         <item name="MainBackground">@color/dark_main</item>
         <item name="MainDarkBackground">@color/dark_main_dark</item>
         <item name="SmallActionButtonColor">@color/action_button_dark</item>
-        <item name="DarkAccentBackground">@color/dark_accent</item>
+        <item name="AccentBackground">@color/dark_accent</item>
         <item name="DividerColor">@color/dark_divider</item>
+        <item name="OddOrderBackground">@color/dark_accent</item>
+        <item name="EvenOrderBackground">@color/dark_main</item>
+        <item name="EmptyCircleColor">@color/dark_empty_circle</item>
+        <item name="AttentionColor">@color/bright_yellow</item>
     </style>
 
     <style name="AppTheme.LaunchScreen">
@@ -159,6 +172,7 @@
         <item name="android:paddingEnd">10dp</item>
         <item name="android:paddingStart">10dp</item>
         <item name="android:stateListAnimator">@null</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <!-- Inputs -->
@@ -167,8 +181,8 @@
         <item name="android:inputType">number|numberDecimal</item>
         <item name="android:maxLines">1</item>
         <item name="android:hint">0.0</item>
-        <item name="android:textColor">?attr/PrimaryTextColor</item>
-        <item name="android:textColorHint">?attr/HintTextColor</item>
+        <item name="android:textColor">?PrimaryTextColor</item>
+        <item name="android:textColorHint">?HintTextColor</item>
         <item name="android:background">@color/transparent</item>
     </style>
 
@@ -214,23 +228,23 @@
     </style>
 
     <!-- Base styles -->
-    <style name="AppTheme.BaseText">
+    <style name="BaseText">
         <item name="android:includeFontPadding">false</item>
     </style>
 
-    <style name="BoldText" parent="AppTheme.BaseText">
+    <style name="BoldText" parent="BaseText">
         <item name="android:fontFamily">@font/sf_pro_display_bold</item>
     </style>
 
-    <style name="RegularText" parent="AppTheme.BaseText">
+    <style name="RegularText" parent="BaseText">
         <item name="android:fontFamily">@font/sf_pro_display_regular</item>
     </style>
 
-    <style name="SemiboldText" parent="AppTheme.BaseText">
+    <style name="SemiboldText" parent="BaseText">
         <item name="android:fontFamily">@font/sf_pro_display_semibold</item>
     </style>
 
-    <style name="LightText" parent="AppTheme.BaseText">
+    <style name="LightText" parent="BaseText">
         <item name="android:fontFamily">@font/sf_pro_display_light</item>
     </style>
 

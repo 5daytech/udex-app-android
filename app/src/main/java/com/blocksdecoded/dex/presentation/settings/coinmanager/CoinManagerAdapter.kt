@@ -92,7 +92,7 @@ class ViewHolderEnabledCoin(
     override val containerView: View
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
     fun onBind(coin: Coin, canBeDisabled: Boolean, onClick: (position: Int) -> (Unit)) {
-        val background = getAttr(if (canBeDisabled) R.attr.DarkAccentBackground else R.attr.SmallActionButtonColor)
+        val background = getAttr(if (canBeDisabled) R.attr.AccentBackground else R.attr.SmallActionButtonColor)
         itemView.setBackgroundColor(background)
 
         enabled_coin_title.text = coin.title

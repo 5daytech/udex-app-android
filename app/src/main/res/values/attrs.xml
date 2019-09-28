@@ -16,7 +16,7 @@
     <declare-styleable name="SettingsItemView">
         <attr name="siv_title" format="reference|string"/>
         <attr name="siv_icon" format="reference"/>
-        <attr name="siv_tint" format="color"/>
+        <attr name="siv_tint" format="color|reference"/>
         <attr name="siv_action_switch" format="boolean" />
         <attr name="siv_visible_divider" format="boolean"/>
     </declare-styleable>

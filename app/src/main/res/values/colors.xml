@@ -12,17 +12,26 @@
     <color name="dark_main_dark">#1B1B20</color>
     <color name="dark_accent">#21222C</color>
     <color name="dark_divider">#353744</color>
+    <color name="dark_empty_circle">#353744</color>
+
+    <color name="light_main">#FBFBFB</color>
+    <color name="light_main_dark">#FBFBFB</color>
+    <color name="light_accent">#FFF</color>
+    <color name="light_divider">#EBECED</color>
+    <color name="light_empty_circle">#eeeeee</color>
 
     <!--Text-->
     <color name="light_text">#FFF</color>
     <color name="main_light_text">#E1E9FF</color>
-    <color name="dark_text">#000</color>
-    <color name="main_dark_text">#000</color>
-    <color name="light_hint">#7F8CAD</color>
+    <color name="dark_text">#1E1E24</color>
+    <color name="main_dark_text">#1E1E24</color>
+    <color name="light_hint">#B9BCC2</color>
     <color name="light_secondary_hint">#4B4E56</color>
-    <color name="dark_hint">#B6B9BD</color>
+    <color name="dark_hint">#B9BBC1</color>
+    <color name="dark_secondary_hint">#B9BCC1</color>
 
     <color name="action_button_dark">#282931</color>
+    <color name="light_action_button">#eeeeee</color>
 
     <!-- Selectable colors -->
     <color name="light_selectable">#20E1E9FF</color>
@@ -39,7 +48,7 @@
     <color name="red_warning">#ff5e3a</color>
     <color name="dark_red">#B30000</color>
     <color name="yellow">#FFB23F</color>
-    <color name="dark_yellow">#CC7F0C</color>
+    <color name="dark_yellow">#F3BA2F</color>
     <color name="bright_yellow">#fffa5a</color>
     <color name="turquoise">#56D6FF</color>
     <color name="transparent_turquoise_40">#4056D6FF</color>

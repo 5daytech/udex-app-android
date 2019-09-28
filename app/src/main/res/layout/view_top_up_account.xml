@@ -29,7 +29,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/top_up_title"
             android:textSize="16sp"
-            android:textColor="?attr/PrimaryTextColor"/>
+            android:textColor="@color/white"/>
 
         <TextView
             style="@style/LightText"
@@ -42,7 +42,7 @@
             android:layout_marginTop="@dimen/page_margin"
             android:text="@string/top_up_description"
             android:gravity="center"
-            android:textColor="?attr/PrimaryTextColor"/>
+            android:textColor="@color/white"/>
 
         <Button
             style="@style/GreenRoundedButton"

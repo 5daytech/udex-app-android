@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
+import com.blocksdecoded.dex.utils.ui.getAttr
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
-import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 
 class OrderViewHolder(
         view: View,
@@ -28,12 +28,12 @@ class OrderViewHolder(
     }
 
     fun onBind(order: UiOrder) {
-        itemView.setBackgroundResource(
-            if (adapterPosition % 2 == 0) {
-                R.color.dark_accent
-            } else {
-                R.color.dark_main
-            }
+        itemView.setBackgroundColor(
+            getAttr(if (adapterPosition % 2 == 0) {
+                    R.attr.OddOrderBackground
+                } else {
+                    R.attr.EvenOrderBackground
+                })
         )
 
         if (order.side == EOrderSide.BUY) {

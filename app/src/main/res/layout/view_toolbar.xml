@@ -20,6 +20,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:padding="8dp"
         android:src="@drawable/ic_back"
+        android:tint="?PrimaryTextColor"
         android:visibility="gone"
         android:background="?selectableItemBackgroundBorderless"/>
 
