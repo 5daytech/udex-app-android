@@ -14,6 +14,7 @@ class SettingsViewModel : CoreViewModel() {
 
     val openSecurityCenterEvent = SingleLiveEvent<Unit>()
     val openAboutAppEvent = SingleLiveEvent<Unit>()
+    val restartAppEvent = SingleLiveEvent<Unit>()
 
     init {
         lightMode.value = appPreferences.isLightModeEnabled
@@ -30,6 +31,7 @@ class SettingsViewModel : CoreViewModel() {
 
     fun onLightModeSwitch(isLightModeOn: Boolean) {
         appPreferences.isLightModeEnabled = isLightModeOn
+        restartAppEvent.call()
     }
 
     fun onResume() {

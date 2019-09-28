@@ -23,7 +23,25 @@
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:navigationBarColor">@color/black</item>
         <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+    </style>
 
+    <style name="AppTheme.LightMode">
+        <item name="selectableItemBackground">@drawable/bg_selectable_item</item>
+        <item name="selectableItemBackgroundBorderless">@drawable/bg_selectable_item_borderless</item>
+        <item name="SelectableRippleColor">@drawable/bg_selectable_item</item>
+        <item name="PrimaryTextColor">@color/main_light_text</item>
+        <item name="PrimaryLightColor">@color/light_text</item>
+        <item name="HintTextColor">@color/light_hint</item>
+        <item name="SecondaryHintTextColor">@color/light_secondary_hint</item>
+        <item name="ActionButtonBackground">@color/dark_main</item>
+        <item name="MainBackground">@color/dark_main</item>
+        <item name="MainDarkBackground">@color/dark_main_dark</item>
+        <item name="SmallActionButtonColor">@color/action_button_dark</item>
+        <item name="DarkAccentBackground">@color/dark_accent</item>
+        <item name="DividerColor">@color/dark_divider</item>
+    </style>
+
+    <style name="AppTheme.DarkMode">
         <item name="selectableItemBackground">@drawable/bg_selectable_item</item>
         <item name="selectableItemBackgroundBorderless">@drawable/bg_selectable_item_borderless</item>
         <item name="SelectableRippleColor">@drawable/bg_selectable_item</item>

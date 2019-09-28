@@ -117,6 +117,9 @@ class MainActivity :
                 main_bottom_nav?.currentItem = position
             }
         })
+
+        val activeTab = intent.getIntExtra(EXTRA_ACTIVE_TAB, 0)
+        main_view_pager?.setCurrentItem(activeTab, false)
     }
 
     override fun requestFill(fillInfo: FillOrderInfo) {
@@ -133,9 +136,19 @@ class MainActivity :
     }
 
     companion object {
-        private const val SETTINGS_TAB_POSITION = 4
-        fun start(context: Context, asNewTask: Boolean = true) {
+        private const val EXTRA_ACTIVE_TAB = "active_tab"
+        const val SETTINGS_TAB_POSITION = 4
+
+        fun startWithTab(context: Context, activeTab: Int) {
+            start(context, true, activeTab)
+        }
+
+        fun start(context: Context, asNewTask: Boolean = true, activeTab: Int? = null) {
             val intent = Intent(context, MainActivity::class.java)
+
+            activeTab?.let {
+                intent.putExtra(EXTRA_ACTIVE_TAB, it)
+            }
 
             if (asNewTask) {
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

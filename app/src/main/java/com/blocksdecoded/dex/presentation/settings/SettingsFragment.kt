@@ -14,6 +14,7 @@ import com.blocksdecoded.dex.presentation.settings.security.SecurityCenterActivi
 import com.blocksdecoded.dex.presentation.settings.coinmanager.CoinManagerActivity
 import com.blocksdecoded.dex.presentation.exchangehistory.ExchangeHistoryActivity
 import com.blocksdecoded.dex.presentation.main.IFocusListener
+import com.blocksdecoded.dex.presentation.main.MainActivity
 import com.blocksdecoded.dex.presentation.settings.addressbook.AddressBookActivity
 import com.blocksdecoded.dex.utils.ui.ShareUtils
 import com.blocksdecoded.dex.utils.visible
@@ -49,6 +50,10 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings), IFocusListene
 
         viewModel.isBackedUp.observe(this, Observer {
             security_center?.setInfoBadgeVisible(!it)
+        })
+
+        viewModel.restartAppEvent.observe(this, Observer {
+            activity?.let { MainActivity.startWithTab(it, MainActivity.SETTINGS_TAB_POSITION) }
         })
 
         security_center?.setOnClickListener { viewModel.onSecurityCenterClick() }

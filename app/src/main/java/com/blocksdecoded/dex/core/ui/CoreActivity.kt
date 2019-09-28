@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.core.ui
 
 import android.graphics.Color
+import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,16 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.R
 
 abstract class CoreActivity: AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val lightMode = App.appPreferences.isLightModeEnabled
+        setTheme(if (lightMode) R.style.AppTheme_LightMode else R.style.AppTheme_DarkMode)
+    }
+
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
         if (App.appConfiguration.testMode) {
