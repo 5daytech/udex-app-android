@@ -23,5 +23,5 @@
     <dimen name="bottom_sheet_small_margin">40dp</dimen>
     <dimen name="short_address_width">170dp</dimen>
     <dimen name="onboarding_content_height">250dp</dimen>
-    <dimen name="divider_height">0.5dp</dimen>
+    <dimen name="divider_height">0.8dp</dimen>
 </resources>
