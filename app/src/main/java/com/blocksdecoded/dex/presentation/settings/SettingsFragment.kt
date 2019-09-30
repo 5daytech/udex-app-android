@@ -53,7 +53,10 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings), IFocusListene
         })
 
         viewModel.restartAppEvent.observe(this, Observer {
-            activity?.let { MainActivity.startWithTab(it, MainActivity.SETTINGS_TAB_POSITION) }
+            activity?.let {
+                MainActivity.startWithTab(it, MainActivity.SETTINGS_TAB_POSITION)
+                it.finish()
+            }
         })
 
         security_center?.setOnClickListener { viewModel.onSecurityCenterClick() }

@@ -87,7 +87,7 @@ class MainActivity :
         main_bottom_nav?.setNotification(countText, SETTINGS_TAB_POSITION)
     }
 
-    private fun initViewPager()  {
+    private fun initViewPager() {
         main_view_pager?.adapter = adapter
         main_view_pager?.offscreenPageLimit = 4
 
@@ -156,7 +156,6 @@ class MainActivity :
 
             context.startActivity(intent)
 
-//            if (asNewTask)
             (context as Activity).overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
     }

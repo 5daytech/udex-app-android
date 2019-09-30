@@ -34,14 +34,6 @@ abstract class BaseDropDownView<T> : ConstraintLayout {
 
             value?.let {
                 popupAdapter?.getItem(value)?.let {
-
-//                    selectedView?.clearAnimation()
-//                    selectedView?.animate()
-//                        ?.alpha(0.7f)
-//                        ?.setDuration(200L)
-//                        ?.withEndAction { selectedView?.alpha = 1f }
-//                        ?.start()
-
                     refreshSelectedItem(it)
                 }
             }
