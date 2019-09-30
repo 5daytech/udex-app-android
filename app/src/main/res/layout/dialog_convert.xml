@@ -27,11 +27,19 @@
 
         <TextView
             style="@style/DialogTitleText"
-            android:id="@+id/convert_title"
+            android:id="@+id/convert_action_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/element_margin"
-            android:text="Wrap/Unwrap" />
+            android:text="Wrap/Unwrap " />
+
+        <TextView
+            style="@style/DialogTitleText"
+            android:id="@+id/convert_coin_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ethereum"
+            android:textColor="?AccentTextColor"/>
     </LinearLayout>
 
     <com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceView

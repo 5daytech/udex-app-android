@@ -27,11 +27,19 @@
 
         <TextView
             style="@style/DialogTitleText"
-            android:id="@+id/send_title"
+            android:id="@+id/send_action_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/element_margin"
-            android:text="Send" />
+            android:text="Send " />
+
+        <TextView
+            style="@style/DialogTitleText"
+            android:id="@+id/send_coin_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ethereum"
+            android:textColor="?AccentTextColor"/>
     </LinearLayout>
 
     <com.blocksdecoded.dex.presentation.widgets.InputAmountView

@@ -87,7 +87,7 @@ class SendDialog private constructor()
     }
     
     private val coinObserver = Observer<Coin> { coin ->
-        send_title?.text = "Send ${coin.title}"
+        send_coin_name?.text = coin.title
         send_coin_icon?.bind(coinCode)
         send_amount?.updateAmountPrefix(coin.code)
     }
