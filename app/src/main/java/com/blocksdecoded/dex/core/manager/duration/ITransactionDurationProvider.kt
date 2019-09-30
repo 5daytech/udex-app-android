@@ -6,12 +6,13 @@ interface ITransactionDurationProvider {
 
     fun getEstimatedDuration(coin: Coin, type: ETransactionType): Long
 
-    enum class ETransactionType {
-        SEND,
-        WRAP,
-        UNWRAP,
-        EXCHANGE,
-        APPROVE,
-        CANCEL
-    }
+}
+
+enum class ETransactionType {
+    SEND,
+    WRAP,
+    UNWRAP,
+    EXCHANGE,
+    APPROVE,
+    CANCEL
 }

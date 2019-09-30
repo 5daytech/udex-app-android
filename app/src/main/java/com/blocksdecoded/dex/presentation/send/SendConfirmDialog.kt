@@ -30,6 +30,7 @@ class SendConfirmDialog private constructor()
             send_confirm_address?.update(it.address)
             send_confirm_total_amount?.setFiat(it.total, isExactAmount = true)
             send_confirm_fee?.setCoin(it.coin.code, it.fee, isExactAmount = false)
+            send_confirm_duration?.setMillis(it.estimatedFinishTime)
         }
     }
 
@@ -50,6 +51,7 @@ class SendConfirmDialog private constructor()
         val fiatAmount: BigDecimal,
         val fee: BigDecimal,
         val total: BigDecimal,
+        val estimatedFinishTime: Long,
         val onConfirm: () -> Unit
     )
 }

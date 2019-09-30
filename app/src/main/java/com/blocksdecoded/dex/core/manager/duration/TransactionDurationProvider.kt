@@ -1,6 +1,6 @@
 package com.blocksdecoded.dex.core.manager.duration
 
-import com.blocksdecoded.dex.core.manager.duration.ITransactionDurationProvider.ETransactionType.*
+import com.blocksdecoded.dex.core.manager.duration.ETransactionType.*
 import com.blocksdecoded.dex.core.model.Coin
 
 class TransactionDurationProvider : ITransactionDurationProvider {
@@ -9,13 +9,13 @@ class TransactionDurationProvider : ITransactionDurationProvider {
 
     override fun getEstimatedDuration(
         coin: Coin,
-        type: ITransactionDurationProvider.ETransactionType
+        type: ETransactionType
     ): Long = when(type) {
-        SEND -> 15
-        WRAP -> 15
-        UNWRAP -> 15
-        EXCHANGE -> 15
-        CANCEL -> 15
-        APPROVE -> 15
+        SEND -> 20
+        WRAP -> 20
+        UNWRAP -> 20
+        EXCHANGE -> 20
+        CANCEL -> 20
+        APPROVE -> 20
     } * millisInSecond
 }

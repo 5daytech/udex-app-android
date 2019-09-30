@@ -102,6 +102,14 @@ class InfoItemView: ConstraintLayout {
         }
     }
 
+    fun setMillis(time: Long?) {
+        resetAllViews()
+        time?.let {
+            info_text_value?.text = "~ ${TimeUtils.millisToShort(time)} s."
+            info_text_value?.visible = true
+        }
+    }
+
     fun setRaw(raw: String?) {
         resetAllViews()
         raw?.let {

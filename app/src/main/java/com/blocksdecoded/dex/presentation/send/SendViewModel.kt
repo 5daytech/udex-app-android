@@ -12,14 +12,20 @@ import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.core.manager.clipboard.ClipboardManager
+import com.blocksdecoded.dex.core.manager.duration.ETransactionType
+import com.blocksdecoded.dex.core.manager.duration.ITransactionDurationProvider
+import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.presentation.send.model.ReceiveAddressInfo
 import com.blocksdecoded.dex.presentation.send.model.SendInfo
 import com.blocksdecoded.dex.presentation.send.model.SendUserInput
 import java.lang.Exception
 import java.math.BigDecimal
 
-class SendViewModel: CoreViewModel() {
-    private val ratesConverter = App.ratesConverter
+class SendViewModel(
+    private val ratesConverter: RatesConverter = App.ratesConverter,
+    private val estimatedDurationProvider: ITransactionDurationProvider = App.transactionDurationProvider
+): CoreViewModel() {
+
     private lateinit var adapter: IAdapter
     private var userInput = SendUserInput()
 
@@ -71,7 +77,8 @@ class SendViewModel: CoreViewModel() {
             userInput.amount,
             fiatAmount,
             fee,
-            fiatAmount + feeFiatAmount
+            fiatAmount + feeFiatAmount,
+            estimatedDurationProvider.getEstimatedDuration(adapter.coin, ETransactionType.SEND)
         ) {
             send(userInput)
         }

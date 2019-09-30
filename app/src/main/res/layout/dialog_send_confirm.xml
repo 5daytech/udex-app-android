@@ -59,6 +59,14 @@
         app:iiv_title="@string/info_fee"/>
 
     <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+        android:id="@+id/send_confirm_duration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        app:iiv_title="@string/info_duration"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
         android:id="@+id/send_confirm_total_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

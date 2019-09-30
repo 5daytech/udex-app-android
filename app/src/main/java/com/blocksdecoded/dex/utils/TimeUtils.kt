@@ -24,6 +24,12 @@ object TimeUtils {
         return SimpleDateFormat("dd MMMM, hh:mm a", Locale.US).format(date)
     }
 
+    fun millisToShort(millisToShort: Long): String {
+        val date = Date(millisToShort)
+
+        return SimpleDateFormat("mm:ss", Locale.US).format(date)
+    }
+
     fun timestampToDisplayFormat(timestamp: Long): String =
         dateToDisplayFormat(Date(timestamp * 1000))
 
