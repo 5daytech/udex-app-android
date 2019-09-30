@@ -19,8 +19,8 @@ import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.view_drop_down.view.*
 
 class CoinDropDown : BaseDropDownView<ExchangeCoinItem> {
-	override val popupVerticalOffset: Int
-		get() = dp(-4f)
+	override val popupVerticalOffset: Int = 0
+//		get() = dp(-4f)
 
 	constructor(context: Context?) : super(context)
 	constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)

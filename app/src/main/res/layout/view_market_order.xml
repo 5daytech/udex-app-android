@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         app:layout_constraintTop_toBottomOf="@+id/exchange_amount_input"
-        android:layout_marginTop="@dimen/page_margin" />
+        android:layout_marginTop="20dp" />
 
     <TextView
         style="@style/SmallHintText"
@@ -112,7 +112,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/exchange_switch"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/divider"
         app:layout_constraintBottom_toBottomOf="@+id/divider"

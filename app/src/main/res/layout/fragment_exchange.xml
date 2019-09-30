@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:paddingBottom="@dimen/page_margin"
+            android:paddingBottom="@dimen/element_margin"
             app:mt_title="Exchange"/>
 
         <com.blocksdecoded.dex.presentation.widgets.DividedTabLayout
@@ -33,7 +33,6 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginLeft="@dimen/page_margin"
             android:layout_marginRight="@dimen/page_margin"
-            android:layout_marginTop="@dimen/element_margin"
             app:tabSelectedTextColor="?attr/PrimaryTextColor"
             app:tabIndicator="@color/transparent"
             app:tabTextColor="?attr/SecondaryHintTextColor">
@@ -54,8 +53,7 @@
             app:layout_constraintTop_toBottomOf="@+id/exchange_tab_layout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:padding="@dimen/element_margin"
-            android:layout_marginTop="@dimen/element_margin" >
+            android:padding="@dimen/element_margin">
             <com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderView
                 android:id="@+id/exchange_market_view"
                 android:layout_width="match_parent"
