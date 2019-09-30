@@ -69,7 +69,7 @@
     <View
         style="@style/Divider"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="@dimen/divider_height"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transaction_fiat_amount"
         android:paddingTop="@dimen/page_margin"

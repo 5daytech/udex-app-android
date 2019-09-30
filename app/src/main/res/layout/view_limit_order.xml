@@ -54,7 +54,7 @@
         style="@style/Divider"
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="@dimen/divider_height"
         app:layout_constraintTop_toBottomOf="@+id/limit_amount_input"
         android:layout_marginTop="@dimen/page_margin" />
 
