@@ -3,14 +3,14 @@
     <item android:state_enabled="false">
         <shape android:shape="rectangle">
             <corners android:radius="4dp"/>
-            <solid android:color="@color/transparent_violet"/>
+            <solid android:color="?PrimaryButtonTransparentColor"/>
         </shape>
     </item>
 
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="4dp"/>
-            <solid android:color="@color/violet"/>
+            <solid android:color="?PrimaryButtonColor"/>
         </shape>
     </item>
 </selector>

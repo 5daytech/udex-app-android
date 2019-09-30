@@ -28,7 +28,7 @@
     <color name="light_hint">#7F8CAD</color>
     <color name="light_secondary_hint">#4B4E56</color>
     <color name="dark_hint">#B9BBC1</color>
-    <color name="dark_secondary_hint">#B9BCC1</color>
+    <color name="dark_secondary_hint">#B7BAC0</color>
 
     <color name="action_button_dark">#282931</color>
     <color name="light_action_button">#eeeeee</color>
@@ -53,12 +53,12 @@
     <color name="turquoise">#56D6FF</color>
     <color name="transparent_turquoise_40">#4056D6FF</color>
 
-    <color name="blue">#3A62F9</color>
-    <color name="transparent_blue">#503A62F9</color>
-    <color name="transparent_blue_20">#203A62F9</color>
+    <color name="blue">#2F82FF</color>
+    <color name="transparent_blue">#602F82FF</color>
+    <color name="transparent_blue_20">#202F82FF</color>
 
     <color name="violet">#5B41FE</color>
-    <color name="transparent_violet">#505B41FE</color>
+    <color name="transparent_violet">#605B41FE</color>
 
     <color name="tab_inactive">#5C5C6A</color>
     <color name="tab_active">#3A62F9</color>

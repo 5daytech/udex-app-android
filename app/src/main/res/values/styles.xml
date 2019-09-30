@@ -2,7 +2,10 @@
 
     <attr name="PrimaryLightColor" format="reference|color"/>
     <attr name="PrimaryTextColor" format="reference|color"/>
+    <attr name="AccentTextColor" format="reference|color"/>
     <attr name="HintTextColor" format="reference|color"/>
+    <attr name="PrimaryButtonColor" format="reference|color"/>
+    <attr name="PrimaryButtonTransparentColor" format="reference|color"/>
     <attr name="SecondaryHintTextColor" format="reference|color"/>
     <attr name="ActionButtonBackground" format="reference|color"/>
     <attr name="SmallActionButtonColor" format="reference|color"/>
@@ -44,6 +47,9 @@
         <item name="EvenOrderBackground">@color/light_main</item>
         <item name="EmptyCircleColor">@color/light_empty_circle</item>
         <item name="AttentionColor">@color/dark_yellow</item>
+        <item name="PrimaryButtonColor">@color/blue</item>
+        <item name="PrimaryButtonTransparentColor">@color/transparent_blue</item>
+        <item name="AccentTextColor">@color/blue</item>
     </style>
 
     <style name="AppTheme.DarkMode">
@@ -68,9 +74,12 @@
         <item name="EvenOrderBackground">@color/dark_main</item>
         <item name="EmptyCircleColor">@color/dark_empty_circle</item>
         <item name="AttentionColor">@color/bright_yellow</item>
+        <item name="PrimaryButtonColor">@color/violet</item>
+        <item name="PrimaryButtonTransparentColor">@color/transparent_violet</item>
+        <item name="AccentTextColor">@color/turquoise</item>
     </style>
 
-    <style name="AppTheme.LaunchScreen">
+    <style name="AppTheme.DarkLaunchScreen">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@color/dark_main</item>

@@ -20,7 +20,7 @@
         <activity android:name=".LaunchActivity"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateAlwaysHidden"
-                  android:theme="@style/AppTheme.LaunchScreen">
+                  android:theme="@style/AppTheme.DarkLaunchScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

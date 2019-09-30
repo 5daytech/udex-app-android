@@ -3,8 +3,8 @@ package com.blocksdecoded.dex
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.blocksdecoded.dex.presentation.main.MainActivity
-import com.blocksdecoded.dex.core.ui.CoreActivity
 import com.blocksdecoded.dex.presentation.dialogs.AlertDialogFragment
 import com.blocksdecoded.dex.presentation.guest.GuestActivity
 import com.blocksdecoded.dex.presentation.keystore.KeyStoreActivity
@@ -12,7 +12,7 @@ import com.blocksdecoded.dex.presentation.pin.PinActivity
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 
-class LaunchActivity: CoreActivity() {
+class LaunchActivity: AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

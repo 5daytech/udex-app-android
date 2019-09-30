@@ -81,6 +81,7 @@
                 android:layout_marginBottom="2dp"
                 android:padding="10dp"
                 android:src="@drawable/ic_about"
+                android:tint="?AccentTextColor"
                 android:visibility="gone"/>
 
             <TextView
@@ -129,7 +130,8 @@
                     android:layout_width="@dimen/action_icon_size"
                     android:layout_height="@dimen/action_icon_size"
                     android:padding="1dp"
-                    android:src="@drawable/ic_receive"/>
+                    android:src="@drawable/ic_receive"
+                    android:tint="?AccentTextColor"/>
 
                 <TextView
                     style="@style/BoldText"
@@ -138,7 +140,7 @@
                     android:layout_marginTop="4dp"
                     android:text="@string/balance_receive"
                     android:textSize="12sp"
-                    android:textColor="#56D6FF"/>
+                    android:textColor="?AccentTextColor"/>
             </LinearLayout>
 
             <LinearLayout

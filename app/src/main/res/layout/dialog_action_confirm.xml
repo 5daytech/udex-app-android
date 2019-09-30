@@ -17,32 +17,21 @@
         android:layout_marginTop="@dimen/element_margin"
         android:background="@drawable/bg_rounded_divider"/>
 
-    <ImageView
-        android:id="@+id/action_confirm_icon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginTop="@dimen/page_margin"
-        android:src="@drawable/ic_about"
-        android:tint="?PrimaryTextColor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/collapse_indicator" />
-
     <TextView
-        android:id="@+id/action_confirm_title"
         style="@style/DialogTitleText"
+        android:id="@+id/action_confirm_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/page_margin"
-        android:layout_marginEnd="@dimen/page_margin"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="@dimen/page_margin"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="Action Confirm"
         android:textColor="?attr/PrimaryTextColor"
-        app:layout_constraintBottom_toBottomOf="@+id/action_confirm_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/action_confirm_icon"
-        app:layout_constraintTop_toTopOf="@+id/action_confirm_icon" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/collapse_indicator" />
 
     <View
         style="@style/Divider"
@@ -52,14 +41,14 @@
         android:layout_marginTop="@dimen/page_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/action_confirm_icon" />
+        app:layout_constraintTop_toBottomOf="@+id/action_confirm_title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/action_confirm_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/element_margin"
+        android:layout_marginTop="@dimen/element_margin"
         android:scrollbars="vertical"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@+id/action_confirm"
@@ -75,9 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_margin="@dimen/page_margin"
         android:enabled="false"
         android:text="Confirm"
         app:layout_constraintBottom_toBottomOf="parent"

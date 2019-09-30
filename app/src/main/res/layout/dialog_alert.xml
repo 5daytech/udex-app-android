@@ -66,7 +66,7 @@
         android:paddingBottom="@dimen/page_margin"
         android:layout_marginTop="@dimen/page_margin"
         android:background="?selectableItemBackground"
-        android:textColor="@color/turquoise"
+        android:textColor="?AccentTextColor"
         android:textAllCaps="true"
         android:text="@string/ok"/>
 

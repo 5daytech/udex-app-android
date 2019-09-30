@@ -28,7 +28,7 @@
         android:layout_marginEnd="@dimen/page_margin"
         android:layout_marginBottom="@dimen/page_margin"
         android:text="Ethereum "
-        android:textColor="@color/turquoise"/>
+        android:textColor="?AccentTextColor"/>
 
     <TextView
         style="@style/DialogTitleText"

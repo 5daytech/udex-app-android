@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         android:src="@drawable/ic_manage_coins"
-        android:tint="@color/turquoise"
+        android:tint="?AccentTextColor"
         android:padding="@dimen/medium_margin" />
 
     <TextView
@@ -29,6 +29,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="@dimen/page_margin"
-        android:textColor="@color/turquoise"
+        android:textColor="?AccentTextColor"
         android:text="Add Coin"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

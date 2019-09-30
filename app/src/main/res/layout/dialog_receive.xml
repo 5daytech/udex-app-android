@@ -49,7 +49,7 @@
             app:layout_constraintLeft_toRightOf="@+id/receive_title"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:textColor="@color/blue"
+            android:textColor="?AccentTextColor"
             android:text="Ethereum" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
