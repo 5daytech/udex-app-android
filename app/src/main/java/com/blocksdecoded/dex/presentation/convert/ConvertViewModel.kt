@@ -6,11 +6,12 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.adapter.SendStateError
+import com.blocksdecoded.dex.core.manager.duration.ETransactionType
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
-import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig.ConvertType.*
+import com.blocksdecoded.dex.presentation.convert.model.ConvertType.*
 import com.blocksdecoded.dex.presentation.convert.model.ConvertInfo
 import com.blocksdecoded.dex.presentation.convert.model.ConvertState
 import com.blocksdecoded.dex.presentation.model.FeeInfo
@@ -24,10 +25,11 @@ import kotlin.math.absoluteValue
 class ConvertViewModel : CoreViewModel() {
 
     private val minRemainingAmount = 0.001.toBigDecimal()
-    private lateinit var config: ConvertConfig
     private val coinManager = App.coinManager
     private val wethWrapper = App.zrxKitManager.zrxKit().getWethWrapperInstance()
     private val ratesConverter = App.ratesConverter
+    private val processingDurationProvider = App.processingDurationProvider
+    private lateinit var config: ConvertConfig
     private var adapter: IAdapter? = null
     
     private lateinit var fromCoin: Coin
@@ -46,8 +48,9 @@ class ConvertViewModel : CoreViewModel() {
 
     val dismissDialog = SingleLiveEvent<Unit>()
     val transactionSentEvent = SingleLiveEvent<String>()
-    val processingEvent = SingleLiveEvent<Unit>()
+    val showProcessingEvent = SingleLiveEvent<Unit>()
     val dismissProcessingEvent = SingleLiveEvent<Unit>()
+    val showConfirmEvent = SingleLiveEvent<ConvertConfirmInfo>()
 
     private val maxAmount: BigDecimal
         get() = feeInfo.value?.amount?.let { fee ->
@@ -138,16 +141,12 @@ class ConvertViewModel : CoreViewModel() {
         }
     }
 
-    fun onMaxClicked() {
-        onAmountChanged(maxAmount, true)
-    }
-	
-	fun onConvertClick() {
+    private fun convert() {
         if (sendAmount <= maxAmount) {
-            processingEvent.call()
+            showProcessingEvent.call()
             val sendRaw = sendAmount.movePointRight(18).stripTrailingZeros().toBigInteger()
             onAmountChanged(BigDecimal.ZERO, true)
-            
+
             when(config.type) {
                 WRAP -> wethWrapper.deposit(sendRaw)
                 UNWRAP -> wethWrapper.withdraw(sendRaw)
@@ -168,6 +167,27 @@ class ConvertViewModel : CoreViewModel() {
 
                 dismissProcessingEvent.call()
             })
+        } else {
+            errorEvent.postValue(R.string.error_invalid_amount)
+        }
+    }
+
+    fun onMaxClicked() {
+        onAmountChanged(maxAmount, true)
+    }
+	
+	fun onConvertClick() {
+        if (sendAmount <= maxAmount) {
+            showConfirmEvent.value = ConvertConfirmInfo(
+                config.type,
+                fromCoin,
+                sendAmount,
+                toCoin,
+                sendAmount,
+                feeInfo.value?.amount,
+                feeInfo.value?.coinCode,
+                processingDurationProvider.getEstimatedDuration(fromCoin, ETransactionType.CONVERT)
+            ) { convert() }
         } else {
             errorEvent.postValue(R.string.error_invalid_amount)
         }

@@ -34,7 +34,7 @@
         android:gravity="center"
         android:padding="@dimen/element_margin">
         <com.blocksdecoded.dex.presentation.widgets.CoinIconView
-            android:id="@+id/exchange_confirm_from_coin"
+            android:id="@+id/convert_confirm_from_coin"
             android:layout_width="@dimen/big_coin_size"
             android:layout_height="@dimen/big_coin_size"
             android:layout_marginEnd="@dimen/element_margin"/>
@@ -47,7 +47,7 @@
             android:layout_marginRight="@dimen/element_margin"/>
 
         <com.blocksdecoded.dex.presentation.widgets.CoinIconView
-            android:id="@+id/exchange_confirm_to_coin"
+            android:id="@+id/convert_confirm_to_coin"
             android:layout_width="@dimen/big_coin_size"
             android:layout_height="@dimen/big_coin_size"
             android:layout_marginStart="@dimen/element_margin"/>
@@ -55,7 +55,7 @@
 
     <TextView
         style="@style/DialogTitleText"
-        android:id="@+id/convert_from_amount"
+        android:id="@+id/convert_confirm_from_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/dialog_title"
@@ -69,7 +69,7 @@
         android:id="@+id/convert_separator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/convert_from_amount"
+        app:layout_constraintTop_toBottomOf="@+id/convert_confirm_from_amount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="?SecondaryHintTextColor"
@@ -78,7 +78,7 @@
 
     <TextView
         style="@style/DialogTitleText"
-        android:id="@+id/convert_to_amount"
+        android:id="@+id/convert_confirm_to_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/convert_separator"
@@ -94,7 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:iiv_title="@string/info_fee"
-        app:layout_constraintTop_toBottomOf="@+id/convert_to_amount"
+        app:layout_constraintTop_toBottomOf="@+id/convert_confirm_to_amount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/page_margin"
@@ -113,14 +113,14 @@
 
     <Button
         style="@style/PrimaryButton"
-        android:id="@+id/exchange_confirm"
+        android:id="@+id/convert_confirm_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/convert_processing_time"
-        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginTop="@dimen/page_margin"
         android:text="@string/action_confirm"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

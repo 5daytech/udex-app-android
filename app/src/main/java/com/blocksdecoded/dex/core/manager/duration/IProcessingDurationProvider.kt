@@ -10,8 +10,7 @@ interface IProcessingDurationProvider {
 
 enum class ETransactionType {
     SEND,
-    WRAP,
-    UNWRAP,
+    CONVERT,
     EXCHANGE,
     APPROVE,
     CANCEL

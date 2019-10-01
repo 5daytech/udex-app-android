@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
-import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig.ConvertType.*
+import com.blocksdecoded.dex.presentation.convert.model.ConvertType.*
 import com.blocksdecoded.dex.presentation.convert.model.ConvertState
 import com.blocksdecoded.dex.presentation.processing.ProcessingDialog
 import com.blocksdecoded.dex.presentation.sent.SentDialog
@@ -158,7 +158,7 @@ class ConvertDialog private constructor()
 
         viewModel.dismissDialog.observe(this, Observer { dismiss() })
 
-        viewModel.processingEvent.observe(this, Observer {
+        viewModel.showProcessingEvent.observe(this, Observer {
             processingDialog = ProcessingDialog.open(childFragmentManager)
         })
 
@@ -168,6 +168,10 @@ class ConvertDialog private constructor()
 
         viewModel.feeInfo.observe(this, Observer {
             convert_estimated_fee?.setCoin(it.coinCode, it.amount, isExactAmount = false)
+        })
+
+        viewModel.showConfirmEvent.observe(this, Observer { info ->
+            fragmentManager?.let { ConvertConfirmDialog.show(it, info) }
         })
     }
     

@@ -7,5 +7,5 @@ data class ConvertState (
     val fromCoin: Coin,
     val toCoin: Coin,
     val balance: TotalBalanceInfo,
-    val type: ConvertConfig.ConvertType
+    val type: ConvertType
 )

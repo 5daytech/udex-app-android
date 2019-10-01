@@ -70,13 +70,13 @@ class InfoItemView: ConstraintLayout {
 
     fun setCoin(coinCode: String, amount: BigDecimal?, isExactAmount: Boolean = true) {
         resetAllViews()
-        info_text_value?.text = "${if (isExactAmount) "" else "~ "}${amount?.toLongDisplayFormat()} $coinCode"
+        info_text_value?.text = "${if (isExactAmount) "" else "~"}${amount?.toLongDisplayFormat()} $coinCode"
         info_text_value?.visible = true
     }
 
     fun setCoinWithFiat(coin: Coin, amount: BigDecimal?, fiatAmount: BigDecimal?) {
         resetAllViews()
-        info_text_value?.text = "${amount?.toLongDisplayFormat()} ${coin.code} ~ $${fiatAmount?.toFiatDisplayFormat()}"
+        info_text_value?.text = "${amount?.toLongDisplayFormat()} ${coin.code} ~$${fiatAmount?.toFiatDisplayFormat()}"
         info_text_value?.visible = true
     }
 
@@ -90,7 +90,7 @@ class InfoItemView: ConstraintLayout {
 
     fun setFiat(amount: BigDecimal?, isExactAmount: Boolean = true) {
         resetAllViews()
-        info_text_value?.text = "${if (isExactAmount) "" else "~ "}$${amount?.toFiatDisplayFormat()}"
+        info_text_value?.text = "${if (isExactAmount) "" else "~"}$${amount?.toFiatDisplayFormat()}"
         info_text_value?.visible = true
     }
 
@@ -105,7 +105,7 @@ class InfoItemView: ConstraintLayout {
     fun setMillis(time: Long?) {
         resetAllViews()
         time?.let {
-            info_text_value?.text = "~ ${TimeUtils.millisToShort(time)} s."
+            info_text_value?.text = "~${TimeUtils.millisToShort(time)} s"
             info_text_value?.visible = true
         }
     }

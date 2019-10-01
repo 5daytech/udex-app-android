@@ -12,8 +12,7 @@ class ProcessingDurationProvider : IProcessingDurationProvider {
         type: ETransactionType
     ): Long = when(type) {
         SEND -> 20
-        WRAP -> 20
-        UNWRAP -> 20
+        CONVERT -> 20
         EXCHANGE -> 20
         CANCEL -> 20
         APPROVE -> 20
