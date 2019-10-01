@@ -19,8 +19,10 @@ class ConvertConfirmDialog : BaseDialog(R.layout.dialog_convert_confirm) {
         super.onViewCreated(view, savedInstanceState)
         convert_confirm_from_coin?.bind(confirmInfo.fromCoin.code)
         convert_confirm_to_coin?.bind(confirmInfo.toCoin.code)
-        convert_confirm_from_amount?.text = "${confirmInfo.fromAmount.toDisplayFormat()} ${confirmInfo.fromCoin.code}"
-        convert_confirm_to_amount?.text = "${confirmInfo.toAmount.toDisplayFormat()} ${confirmInfo.toCoin.code}"
+        convert_confirm_from_amount?.text = "${confirmInfo.fromAmount.toDisplayFormat()}"
+        convert_confirm_to_amount?.text = "${confirmInfo.toAmount.toDisplayFormat()}"
+        convert_confirm_from_coin_code?.text = " ${confirmInfo.fromCoin.code}"
+        convert_confirm_to_coin_code?.text = " ${confirmInfo.toCoin.code}"
         convert_fee?.setCoin(confirmInfo.feeCoinCode ?: "", confirmInfo.fee, false)
         convert_processing_time?.setMillis(confirmInfo.processingDuration)
 

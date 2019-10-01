@@ -40,11 +40,12 @@
             android:layout_marginEnd="@dimen/element_margin"/>
 
         <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:src="@drawable/ic_switch"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_arrow_right"
             android:layout_marginLeft="@dimen/element_margin"
-            android:layout_marginRight="@dimen/element_margin"/>
+            android:layout_marginRight="@dimen/element_margin"
+            android:tint="?SecondaryHintTextColor"/>
 
         <com.blocksdecoded.dex.presentation.widgets.CoinIconView
             android:id="@+id/convert_confirm_to_coin"
@@ -60,9 +61,22 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/dialog_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/convert_confirm_from_coin_code"
+        app:layout_constraintHorizontal_chainStyle="packed"
         android:layout_marginTop="@dimen/page_margin"
-        android:text="1 ETH"/>
+        android:text="1"/>
+
+    <TextView
+        style="@style/DialogTitleText"
+        android:id="@+id/convert_confirm_from_coin_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/convert_confirm_from_amount"
+        app:layout_constraintTop_toTopOf="@+id/convert_confirm_from_amount"
+        app:layout_constraintBottom_toBottomOf="@+id/convert_confirm_from_amount"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="?AccentTextColor"
+        android:text=" ETH"/>
 
     <TextView
         style="@style/BoldText"
@@ -83,9 +97,22 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/convert_separator"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/convert_confirm_to_coin_code"
+        app:layout_constraintHorizontal_chainStyle="packed"
         android:layout_marginTop="@dimen/element_margin"
-        android:text="1 WETH"/>
+        android:text="1"/>
+
+    <TextView
+        style="@style/DialogTitleText"
+        android:id="@+id/convert_confirm_to_coin_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/convert_confirm_to_amount"
+        app:layout_constraintTop_toTopOf="@+id/convert_confirm_to_amount"
+        app:layout_constraintBottom_toBottomOf="@+id/convert_confirm_to_amount"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="?AccentTextColor"
+        android:text=" WETH"/>
 
     <!-- Price -->
 
