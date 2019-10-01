@@ -3,7 +3,7 @@ package com.blocksdecoded.dex.core.manager.duration
 import com.blocksdecoded.dex.core.manager.duration.ETransactionType.*
 import com.blocksdecoded.dex.core.model.Coin
 
-class TransactionDurationProvider : ITransactionDurationProvider {
+class ProcessingDurationProvider : IProcessingDurationProvider {
 
     private val millisInSecond = 1000L
 

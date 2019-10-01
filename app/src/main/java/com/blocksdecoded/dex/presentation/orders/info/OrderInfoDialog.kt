@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
+import com.blocksdecoded.dex.presentation.orders.CancelOrderConfirmDialog
 import com.blocksdecoded.dex.presentation.sent.SentDialog
 import com.blocksdecoded.dex.presentation.orders.model.OrderInfoConfig
 import com.blocksdecoded.dex.utils.ui.ToastHelper
@@ -47,6 +48,10 @@ class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
 			order_info_receive_amount.setCoin(order.takerCoin.code, order.takerAmount)
 			order_info_filled_amount.setCoin(order.takerCoin.code, order.filledAmount)
 			order_info_expire_date.setRaw(order.expireDate)
+		})
+
+		viewModel.showCancelConfirmEvent.observe(this, Observer { cancelInfo ->
+			fragmentManager?.let { CancelOrderConfirmDialog.show(it, cancelInfo) }
 		})
 	}
 

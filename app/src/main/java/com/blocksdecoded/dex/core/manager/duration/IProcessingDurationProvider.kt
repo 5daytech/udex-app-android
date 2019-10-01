@@ -2,7 +2,7 @@ package com.blocksdecoded.dex.core.manager.duration
 
 import com.blocksdecoded.dex.core.model.Coin
 
-interface ITransactionDurationProvider {
+interface IProcessingDurationProvider {
 
     fun getEstimatedDuration(coin: Coin, type: ETransactionType): Long
 

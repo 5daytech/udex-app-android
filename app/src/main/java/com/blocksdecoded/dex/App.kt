@@ -17,8 +17,8 @@ import com.blocksdecoded.dex.core.IAppConfiguration
 import com.blocksdecoded.dex.core.manager.auth.AuthManager
 import com.blocksdecoded.dex.core.manager.auth.IAuthManager
 import com.blocksdecoded.dex.core.manager.auth.WordsManager
-import com.blocksdecoded.dex.core.manager.duration.ITransactionDurationProvider
-import com.blocksdecoded.dex.core.manager.duration.TransactionDurationProvider
+import com.blocksdecoded.dex.core.manager.duration.IProcessingDurationProvider
+import com.blocksdecoded.dex.core.manager.duration.ProcessingDurationProvider
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.core.shared.AppPreferences
 import com.blocksdecoded.dex.core.shared.IAppPreferences
@@ -67,7 +67,7 @@ class App: Application() {
         lateinit var cleanupManager: ICleanupManager
 
         lateinit var feeRateProvider: IFeeRateProvider
-        lateinit var transactionDurationProvider: ITransactionDurationProvider
+        lateinit var processingDurationProvider: IProcessingDurationProvider
 
         // Rates
         lateinit var ratesManager: IRatesManager
@@ -127,7 +127,7 @@ class App: Application() {
         zrxKitManager = ZrxKitManager(appConfiguration, authManager)
 
         feeRateProvider = FeeRateProvider(this)
-        transactionDurationProvider = TransactionDurationProvider()
+        processingDurationProvider = ProcessingDurationProvider()
 
         // Rates
         val marketsStorage = MarketsStorage(appDatabase.marketsDao())

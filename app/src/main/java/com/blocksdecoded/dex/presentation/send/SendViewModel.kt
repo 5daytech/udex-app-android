@@ -13,7 +13,7 @@ import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.core.manager.clipboard.ClipboardManager
 import com.blocksdecoded.dex.core.manager.duration.ETransactionType
-import com.blocksdecoded.dex.core.manager.duration.ITransactionDurationProvider
+import com.blocksdecoded.dex.core.manager.duration.IProcessingDurationProvider
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.presentation.send.model.ReceiveAddressInfo
 import com.blocksdecoded.dex.presentation.send.model.SendInfo
@@ -23,7 +23,7 @@ import java.math.BigDecimal
 
 class SendViewModel(
     private val ratesConverter: RatesConverter = App.ratesConverter,
-    private val estimatedDurationProvider: ITransactionDurationProvider = App.transactionDurationProvider
+    private val estimatedDurationProvider: IProcessingDurationProvider = App.processingDurationProvider
 ): CoreViewModel() {
 
     private lateinit var adapter: IAdapter
