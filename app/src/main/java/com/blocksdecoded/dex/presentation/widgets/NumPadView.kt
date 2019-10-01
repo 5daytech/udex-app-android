@@ -3,10 +3,7 @@ package com.blocksdecoded.dex.presentation.widgets
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -112,7 +109,6 @@ class NumPadItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var imgFingerprint: ImageView = itemView.findViewById(R.id.numpad_fingerprint_img)
 
     fun bind(item: NumPadItem, isFingerprintEnabled: Boolean, showLetters: Boolean, onClick: () -> (Unit)) {
-
         itemView.setOnTouchListener { v, event ->
             when {
                 event.action == MotionEvent.ACTION_DOWN -> {

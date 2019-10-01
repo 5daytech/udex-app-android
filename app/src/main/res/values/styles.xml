@@ -46,7 +46,7 @@
         <item name="OddOrderBackground">@color/light_accent</item>
         <item name="EvenOrderBackground">@color/light_main</item>
         <item name="EmptyCircleColor">@color/light_empty_circle</item>
-        <item name="AttentionColor">@color/dark_yellow</item>
+        <item name="AttentionColor">@color/orange</item>
         <item name="PrimaryButtonColor">@color/blue</item>
         <item name="PrimaryButtonTransparentColor">@color/transparent_blue</item>
         <item name="AccentTextColor">@color/blue</item>
