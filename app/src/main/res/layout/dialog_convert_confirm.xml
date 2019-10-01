@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/page_margin"
+    android:layout_marginRight="@dimen/page_margin"
+    android:background="?attr/AccentBackground">
+
+    <TextView
+        style="@style/DialogTitleText"
+        android:id="@+id/dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/exchange_confirm_coins_container"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/exchange_confirm_coins_container"
+        android:layout_marginStart="@dimen/page_margin"
+        android:text="Wrap Confirm"/>
+
+    <LinearLayout
+        android:id="@+id/exchange_confirm_coins_container"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/dialog_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginTop="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        android:gravity="center"
+        android:padding="@dimen/element_margin">
+        <com.blocksdecoded.dex.presentation.widgets.CoinIconView
+            android:id="@+id/exchange_confirm_from_coin"
+            android:layout_width="@dimen/big_coin_size"
+            android:layout_height="@dimen/big_coin_size"
+            android:layout_marginEnd="@dimen/element_margin"/>
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@drawable/ic_switch"
+            android:layout_marginLeft="@dimen/element_margin"
+            android:layout_marginRight="@dimen/element_margin"/>
+
+        <com.blocksdecoded.dex.presentation.widgets.CoinIconView
+            android:id="@+id/exchange_confirm_to_coin"
+            android:layout_width="@dimen/big_coin_size"
+            android:layout_height="@dimen/big_coin_size"
+            android:layout_marginStart="@dimen/element_margin"/>
+    </LinearLayout>
+
+    <TextView
+        style="@style/DialogTitleText"
+        android:id="@+id/convert_from_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/page_margin"
+        android:text="1 ETH"/>
+
+    <TextView
+        style="@style/BoldText"
+        android:id="@+id/convert_separator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/convert_from_amount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="?SecondaryHintTextColor"
+        android:layout_marginTop="@dimen/element_margin"
+        android:text="to"/>
+
+    <TextView
+        style="@style/DialogTitleText"
+        android:id="@+id/convert_to_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/convert_separator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/element_margin"
+        android:text="1 WETH"/>
+
+    <!-- Price -->
+
+    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+        android:id="@+id/convert_fee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:iiv_title="@string/info_fee"
+        app:layout_constraintTop_toBottomOf="@+id/convert_to_amount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        android:layout_marginTop="@dimen/page_margin"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+        android:id="@+id/convert_processing_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/convert_fee"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        app:iiv_title="@string/info_duration"
+        app:iiv_visible_divider="false"/>
+
+    <Button
+        style="@style/PrimaryButton"
+        android:id="@+id/exchange_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/convert_processing_time"
+        android:layout_marginTop="@dimen/big_margin"
+        android:text="@string/action_confirm"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
