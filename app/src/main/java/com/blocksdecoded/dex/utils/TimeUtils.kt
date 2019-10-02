@@ -26,8 +26,13 @@ object TimeUtils {
 
     fun millisToShort(millisToShort: Long): String {
         val date = Date(millisToShort)
+        val calendar = Calendar.getInstance()
+        calendar.time = date
 
-        return SimpleDateFormat("mm:ss", Locale.US).format(date)
+        val seconds = calendar[Calendar.SECOND]
+        val minutes = calendar[Calendar.MINUTE]
+
+        return "${if (minutes > 0) "$minutes min :" else ""} $seconds s"
     }
 
     fun timestampToDisplayFormat(timestamp: Long): String =
