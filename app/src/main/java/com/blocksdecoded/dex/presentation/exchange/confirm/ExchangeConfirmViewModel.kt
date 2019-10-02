@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.presentation.exchange.confirm
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.core.manager.duration.ETransactionType
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
@@ -11,12 +12,14 @@ import java.math.BigDecimal
 
 class ExchangeConfirmViewModel: CoreViewModel() {
 
+	private val processingDurationProvider = App.processingDurationProvider
 	private val adapterManager = App.adapterManager
 	private val coinManager = App.coinManager
 	private var confirmInfo: ExchangeConfirmInfo? = null
 
 	val viewState = MutableLiveData<ViewState>()
 	val feeInfo = MutableLiveData<FeeInfo>()
+	val processingTime = MutableLiveData<Long>()
 	val dismissEvent = SingleLiveEvent<Unit>()
 
 	fun init(info: ExchangeConfirmInfo) {
@@ -44,6 +47,7 @@ class ExchangeConfirmViewModel: CoreViewModel() {
 			0
 		)
 
+		processingTime.value = processingDurationProvider.getEstimatedDuration(sendCoin, ETransactionType.EXCHANGE)
 		App.zrxKitManager.zrxKit()
 			.marketBuyEstimatedPrice
 			.uiSubscribe(disposables, {

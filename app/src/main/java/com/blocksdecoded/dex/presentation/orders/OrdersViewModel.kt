@@ -40,6 +40,20 @@ class OrdersViewModel : CoreViewModel() {
     val orderInfoEvent = MutableLiveData<OrderInfoConfig>()
     val fillOrderEvent = MutableLiveData<FillOrderInfo>()
 
+    init {
+        relayerManager.mainRelayerUpdatedSignal
+            .subscribe {
+                relayer?.let {
+                    zrxOrdersWatcher = OrdersWatcher(coinManager, it, ratesConverter)
+                    onRelayerInitialized()
+                }
+            }.let { disposables.add(it) }
+
+        ratesManager.marketsUpdateSubject.subscribe {
+            onPairsRefresh()
+        }.let { disposables.add(it) }
+    }
+
     //region Private
 
     private fun onRelayerInitialized() {
@@ -103,20 +117,6 @@ class OrdersViewModel : CoreViewModel() {
     }
 
     //endregion
-
-    init {
-        relayerManager.mainRelayerUpdatedSignal
-            .subscribe {
-                relayer?.let {
-                    zrxOrdersWatcher = OrdersWatcher(coinManager, it, ratesConverter)
-                    onRelayerInitialized()
-                }
-            }.let { disposables.add(it) }
-
-        ratesManager.marketsUpdateSubject.subscribe {
-            onPairsRefresh()
-        }.let { disposables.add(it) }
-    }
 
     fun onPickPair(position: Int) {
         zrxOrdersWatcher?.currentSelectedPair = position

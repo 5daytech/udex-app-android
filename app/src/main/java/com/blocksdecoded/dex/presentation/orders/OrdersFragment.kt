@@ -28,7 +28,7 @@ class OrdersFragment: CoreFragment(R.layout.fragment_orders), OrderViewHolder.Li
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (savedInstanceState == null && activity != null) {
-            viewModel = ViewModelProviders.of(activity!!)[OrdersViewModel::class.java]
+            viewModel = ViewModelProviders.of(activity!!).get(OrdersViewModel::class.java)
             
             when(side) {
                 BUY -> viewModel.buyOrders

@@ -30,6 +30,10 @@ class ExchangeConfirmDialog: BaseDialog(R.layout.dialog_confirm_exchange) {
 			exchange_confirm_fee?.setCoin(feeInfo.coinCode, feeInfo.amount, false)
 		})
 
+		viewModel.processingTime.observe(this, Observer {
+			exchange_confirm_processing_time?.setMillis(it)
+		})
+
 		viewModel.dismissEvent.observe(this, Observer { dismiss() })
 	}
 	
