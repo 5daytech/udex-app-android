@@ -72,7 +72,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin"
-        android:layout_marginTop="@dimen/element_margin"
         app:iiv_visible_divider="false"
         app:iiv_title="@string/info_total"/>
 
