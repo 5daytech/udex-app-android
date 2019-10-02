@@ -32,7 +32,7 @@ object TimeUtils {
         val seconds = calendar[Calendar.SECOND]
         val minutes = calendar[Calendar.MINUTE]
 
-        return "${if (minutes > 0) "$minutes min :" else ""} $seconds s"
+        return "${if (minutes > 0) "$minutes min : " else ""}$seconds s"
     }
 
     fun timestampToDisplayFormat(timestamp: Long): String =
