@@ -28,7 +28,7 @@ class MarketViewHolder(
 	private val chart: MarketChart = itemView.findViewById(R.id.market_chart)
 	
 	init {
-		itemView.setOnClickListener { listener.onClick(adapterPosition) }
+//		itemView.setOnClickListener { listener.onClick(adapterPosition) }
 	}
 	
 	fun onBind(market: MarketViewItem) {
