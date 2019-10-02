@@ -30,6 +30,7 @@
     </style>
 
     <style name="AppTheme.LightMode">
+        <item name="colorAccent">@color/blue</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@color/light_main</item>
         <item name="android:windowBackground">@color/light_main</item>
@@ -53,6 +54,7 @@
     </style>
 
     <style name="AppTheme.DarkMode">
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:statusBarColor">@color/dark_main</item>
         <item name="android:windowBackground">@color/dark_main</item>
@@ -99,7 +101,6 @@
     </style>
 
     <style name="SwitchStyle" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="colorControlActivated">@color/turquoise</item>
         <item name="colorControlNormal">@color/light_grey</item>
         <item name="colorSwitchThumbNormal">@color/light_grey</item>
         <item name="android:colorForeground">@color/light_grey</item>
