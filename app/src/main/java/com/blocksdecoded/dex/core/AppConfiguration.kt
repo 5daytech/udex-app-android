@@ -33,7 +33,7 @@ class AppConfiguration(
 
     override val fixedCoinCodes = listOf("ETH", "WETH", "ZRX")
 
-    private val testCoins = listOf(
+    private val ropstenCoins = listOf(
         Coin("Ethereum", "ETH", CoinType.Ethereum),
         Coin("Wrapped ETH", "WETH", CoinType.Erc20("0xc778417e063141139fce010982780140aa0cd5ab", 18), R.string.info_weth),
         Coin("0x", "ZRX", CoinType.Erc20("0xff67881f8d12f372d91baae9752eb3631ff0ed00", 18)),
@@ -59,17 +59,17 @@ class AppConfiguration(
         getExchangePair("LINK", "USDT")
     )
 
-    private fun addressForSymbol(symbol: String): String = ((testCoins.firstOrNull {
+    private fun addressForSymbol(symbol: String): String = ((ropstenCoins.firstOrNull {
         when(it.type) {
             is CoinType.Erc20 -> it.code.equals(symbol, true)
             else -> false
         }
-    } ?: testCoins[1]).type as? CoinType.Erc20)?.address ?: ""
+    } ?: ropstenCoins[1]).type as? CoinType.Erc20)?.address ?: ""
 
     private fun getExchangePair(from: String, to: String) =
         ZrxKit.assetItemForAddress(addressForSymbol(from)) to ZrxKit.assetItemForAddress(addressForSymbol(to))
 
-    override val allCoins: List<Coin> = testCoins
+    override val allCoins: List<Coin> = ropstenCoins
 
     override val allExchangePairs: List<Pair<AssetItem, AssetItem>> = testExchangePairs
 
