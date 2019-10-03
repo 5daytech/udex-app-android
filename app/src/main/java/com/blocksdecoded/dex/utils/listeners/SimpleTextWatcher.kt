@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.widgets.listeners
+package com.blocksdecoded.dex.utils.listeners
 
 import android.text.Editable
 import android.text.TextWatcher

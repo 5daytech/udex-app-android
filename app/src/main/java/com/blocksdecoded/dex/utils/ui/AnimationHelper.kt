@@ -3,6 +3,8 @@ package com.blocksdecoded.dex.utils.ui
 import android.animation.ObjectAnimator
 import android.view.View
 import android.view.animation.*
+import com.blocksdecoded.dex.utils.listeners.SimpleAnimationListener
+import com.blocksdecoded.dex.utils.visible
 
 object AnimationHelper {
 
@@ -58,7 +60,7 @@ object AnimationHelper {
                     v.layoutParams.height = initialHeight - (initialHeight * interpolatedTime).toInt()
                     v.requestLayout()
                     if (interpolatedTime > 0.3f) {
-                        v.alpha = (1 - interpolatedTime)*2
+                        v.alpha = (1 - interpolatedTime) * 2
                     }
                 }
             }
@@ -67,6 +69,15 @@ object AnimationHelper {
                 return true
             }
         }
+
+        a.setAnimationListener(object : SimpleAnimationListener() {
+            override fun onAnimationStart(animation: Animation?) {
+                super.onAnimationStart(animation)
+                v.postDelayed({
+                    v.visible = false
+                }, a.duration)
+            }
+        })
 
         // 1dp/ms
         a.duration = (((initialHeight / v.context.resources.displayMetrics.density)) * 2).toLong()
