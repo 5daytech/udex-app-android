@@ -5,7 +5,9 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:background="?selectableItemBackground">
+    android:background="?selectableItemBackground"
+    android:layout_marginTop="@dimen/element_margin"
+    android:layout_marginBottom="@dimen/page_margin">
     <ImageView
         android:id="@+id/manage_coin_icon"
         android:layout_width="wrap_content"
