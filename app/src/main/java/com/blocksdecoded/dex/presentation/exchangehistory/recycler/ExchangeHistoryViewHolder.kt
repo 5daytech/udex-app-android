@@ -13,28 +13,27 @@ import com.blocksdecoded.dex.presentation.widgets.HashView
 import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.setTextColorRes
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_trade_record.*
+import kotlinx.android.synthetic.main.item_trade_tx_record.*
 import java.math.BigDecimal
 
 class ExchangeHistoryViewHolder(
-    view: View,
+    override val containerView: View,
     val onClick: (Int) -> Unit
-): RecyclerView.ViewHolder(view) {
-
-    private val hashView: HashView = itemView.findViewById(R.id.trade_record_hash)
-    private val dateTxt: TextView = itemView.findViewById(R.id.trade_record_date)
-    private val txRecycler: RecyclerView = itemView.findViewById(R.id.trade_record_tx_recycler)
+): RecyclerView.ViewHolder(containerView), LayoutContainer {
     private val adapter = ExchangeRecordsAdapter()
 
     init {
-        txRecycler.layoutManager = LinearLayoutManager(itemView.context)
-        txRecycler.adapter = adapter
-        hashView.bind { onClick.invoke(adapterPosition) }
+        trade_record_tx_recycler.layoutManager = LinearLayoutManager(itemView.context)
+        trade_record_tx_recycler.adapter = adapter
+        trade_record_hash.bind { onClick.invoke(adapterPosition) }
     }
 
     fun onBind(exchangeRecord: ExchangeRecord) {
-        hashView.update(exchangeRecord.hash)
+        trade_record_hash.update(exchangeRecord.hash)
+        trade_record_date.text = TimeUtils.timestampToDisplayFormat(exchangeRecord.timestamp)
         adapter.setRecords(exchangeRecord.fromCoins)
-        dateTxt.text = TimeUtils.timestampToDisplayFormat(exchangeRecord.timestamp)
     }
 
     private class ExchangeRecordsAdapter: RecyclerView.Adapter<ExchangeRecordViewHolder>() {
@@ -54,15 +53,14 @@ class ExchangeHistoryViewHolder(
         override fun getItemCount(): Int = records.size
     }
 
-    private class ExchangeRecordViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        private val coinIcon: CoinIconView = itemView.findViewById(R.id.item_trade_tx_coin_icon)
-        private val amount: TextView = itemView.findViewById(R.id.item_trade_tx_amount)
-
+    private class ExchangeRecordViewHolder(
+        override val containerView: View
+    ): RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun onBind(exchangeRecordItem: ExchangeRecordItem) {
             val isPositive = exchangeRecordItem.transactionRecord.amount >= BigDecimal.ZERO
-            coinIcon.bind(exchangeRecordItem.coinCode)
-            amount.setTextColorRes(if (isPositive) R.color.green else R.color.red)
-            amount.text = "${if (isPositive) "+" else "-"} ${exchangeRecordItem.transactionRecord.amount.abs().stripTrailingZeros().toPlainString()} ${exchangeRecordItem.coinCode}"
+            item_trade_tx_coin_icon.bind(exchangeRecordItem.coinCode)
+            item_trade_tx_amount.setTextColorRes(if (isPositive) R.color.green else R.color.red)
+            item_trade_tx_amount.text = "${if (isPositive) "+" else "-"} ${exchangeRecordItem.transactionRecord.amount.abs().stripTrailingZeros().toPlainString()} ${exchangeRecordItem.coinCode}"
         }
     }
 }

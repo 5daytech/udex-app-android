@@ -67,17 +67,6 @@
         app:layout_constraintTop_toTopOf="@+id/market_code"
         android:layout_marginStart="@dimen/small_margin"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.MarketChart
-        android:id="@+id/market_chart"
-        android:layout_width="50dp"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/market_name"
-        app:layout_constraintBottom_toBottomOf="@+id/market_code"
-        android:visibility="gone"
-        app:layout_constraintHorizontal_bias="0.6"/>
-
     <TextView
         android:id="@+id/market_price"
         style="@style/BoldText"

@@ -9,19 +9,13 @@ import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import com.blocksdecoded.dex.utils.ui.getAttr
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_order.*
 
 class OrderViewHolder(
-        view: View,
-        private val listener: Listener
-): RecyclerView.ViewHolder(view) {
-
-    private val amountTxt: TextView = itemView.findViewById(R.id.order_amount)
-    private val fiatAmountTxt: TextView = itemView.findViewById(R.id.order_amount_fiat)
-    private val amountCoinTxt: TextView = itemView.findViewById(R.id.order_amount_coin)
-
-    private val totalTxt: TextView = itemView.findViewById(R.id.order_total)
-    private val fiatTotalTxt: TextView = itemView.findViewById(R.id.order_total_fiat)
-    private val totalCoinTxt: TextView = itemView.findViewById(R.id.order_total_coin)
+    override val containerView: View,
+    private val listener: Listener
+): RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     init {
         itemView.setOnClickListener { listener.onClick(adapterPosition) }
@@ -37,21 +31,21 @@ class OrderViewHolder(
         )
 
         if (order.side == EOrderSide.BUY) {
-            amountTxt.text = order.takerAmount.toDisplayFormat()
-            amountCoinTxt.text = order.takerCoin.code
-            fiatAmountTxt.text = "~ $${order.takerFiatAmount.toFiatDisplayFormat()}"
+            order_amount.text = order.takerAmount.toDisplayFormat()
+            order_amount_coin.text = order.takerCoin.code
+            order_amount_fiat.text = "~ $${order.takerFiatAmount.toFiatDisplayFormat()}"
 
-            totalTxt.text = order.makerAmount.toDisplayFormat()
-            totalCoinTxt.text = order.makerCoin.code
-            fiatTotalTxt.text = "~ $${order.makerFiatAmount.toFiatDisplayFormat()}"
+            order_total.text = order.makerAmount.toDisplayFormat()
+            order_total_coin.text = order.makerCoin.code
+            order_total_fiat.text = "~ $${order.makerFiatAmount.toFiatDisplayFormat()}"
         } else {
-            amountTxt.text = order.makerAmount.toDisplayFormat()
-            amountCoinTxt.text = order.makerCoin.code
-            fiatAmountTxt.text = "~ $${order.makerFiatAmount.toFiatDisplayFormat()}"
+            order_amount.text = order.makerAmount.toDisplayFormat()
+            order_amount_coin.text = order.makerCoin.code
+            order_amount_fiat.text = "~ $${order.makerFiatAmount.toFiatDisplayFormat()}"
 
-            totalTxt.text = order.takerAmount.toDisplayFormat()
-            totalCoinTxt.text = order.takerCoin.code
-            fiatTotalTxt.text = "~ $${order.takerFiatAmount.toFiatDisplayFormat()}"
+            order_total.text = order.takerAmount.toDisplayFormat()
+            order_total_coin.text = order.takerCoin.code
+            order_total_fiat.text = "~ $${order.takerFiatAmount.toFiatDisplayFormat()}"
         }
     }
 

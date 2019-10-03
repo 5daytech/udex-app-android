@@ -2,90 +2,75 @@ package com.blocksdecoded.dex.presentation.balance.recycler
 
 import android.annotation.SuppressLint
 import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.CoinBalance
 import com.blocksdecoded.dex.core.model.EConvertType.*
-import com.blocksdecoded.dex.presentation.widgets.CoinIconView
 import com.blocksdecoded.dex.utils.setVisible
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.visible
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_balance.*
 import java.math.BigDecimal
 
 class BalanceViewHolder(
-    view: View,
+    override val containerView: View,
     private val listener: Listener
-): RecyclerView.ViewHolder(view) {
-
-    private val mIcon: CoinIconView = itemView.findViewById(R.id.balance_icon)
-    private val mSymbol: TextView = itemView.findViewById(R.id.balance_symbol)
-    private val mTitle: TextView = itemView.findViewById(R.id.balance_title)
-    private val mBalance: TextView = itemView.findViewById(R.id.balance_amount)
-    private val mFiatBalance: TextView = itemView.findViewById(R.id.balance_fiat_amount)
-    private val mTokenPrice: TextView = itemView.findViewById(R.id.balance_token_price)
-    private val mButtonContainer: View = itemView.findViewById(R.id.balance_buttons_container)
-    private val mCoinInfo: View = itemView.findViewById(R.id.balance_coin_info)
-    
-    private val mSendBtn: View = itemView.findViewById(R.id.balance_send)
-    private val mReceiveBtn: View = itemView.findViewById(R.id.balance_receive)
-    private val mTransactionsBtn: View = itemView.findViewById(R.id.balance_transactions)
-    private val mConvertBtn: View = itemView.findViewById(R.id.balance_convert)
-    private val mConvertType: TextView = itemView.findViewById(R.id.balance_convert_type)
+): RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     init {
         itemView.setOnClickListener { listener.onClick(adapterPosition) }
 
-        mSendBtn.setOnClickListener { listener.onSendClick(adapterPosition) }
-        mReceiveBtn.setOnClickListener { listener.onReceiveClick(adapterPosition) }
-        mTransactionsBtn.setOnClickListener { listener.onTransactionsClick(adapterPosition) }
-        mConvertBtn.setOnClickListener { listener.onConvertClick(adapterPosition) }
-        mCoinInfo.setOnClickListener { listener.onInfoClick(adapterPosition) }
+        balance_send.setOnClickListener { listener.onSendClick(adapterPosition) }
+        balance_receive.setOnClickListener { listener.onReceiveClick(adapterPosition) }
+        balance_transactions.setOnClickListener { listener.onTransactionsClick(adapterPosition) }
+        balance_convert.setOnClickListener { listener.onConvertClick(adapterPosition) }
+        balance_coin_info.setOnClickListener { listener.onInfoClick(adapterPosition) }
     }
 
     @SuppressLint("SetTextI18n")
     fun onBind(coinBalance: CoinBalance, expanded: Boolean) {
-        mCoinInfo.visible = coinBalance.coin.shortInfoRes != null
-        mIcon.bind(coinBalance.coin.code)
-        mSymbol.text = coinBalance.coin.code
-        mTitle.text = coinBalance.coin.title
-        mBalance.text = "${coinBalance.balance.toDisplayFormat()} ${coinBalance.coin.code}"
-        mFiatBalance.text = "$${coinBalance.fiatBalance.toFiatDisplayFormat()}"
-        mTokenPrice.text = "$${coinBalance.pricePerToken.toFiatDisplayFormat()} per ${coinBalance.coin.code}"
+        balance_coin_info.visible = coinBalance.coin.shortInfoRes != null
+        balance_icon.bind(coinBalance.coin.code)
+        balance_symbol.text = coinBalance.coin.code
+        balance_title.text = coinBalance.coin.title
+        balance_amount.text = "${coinBalance.balance.toDisplayFormat()} ${coinBalance.coin.code}"
+        balance_fiat_amount.text = "$${coinBalance.fiatBalance.toFiatDisplayFormat()}"
+        balance_token_price.text = "$${coinBalance.pricePerToken.toFiatDisplayFormat()} per ${coinBalance.coin.code}"
         
-        mButtonContainer.visible = expanded
+        balance_buttons_container.visible = expanded
     
         if (coinBalance.balance > BigDecimal.ZERO) {
-            mSendBtn.isEnabled = true
-            mSendBtn.alpha = 1f
-            mConvertBtn.isEnabled = true
-            mConvertBtn.alpha = 1f
+            balance_send.isEnabled = true
+            balance_send.alpha = 1f
+            balance_convert.isEnabled = true
+            balance_convert.alpha = 1f
         } else {
-            mSendBtn.isEnabled = false
-            mSendBtn.alpha = 0.4f
-            mConvertBtn.isEnabled = false
-            mConvertBtn.alpha = 0.4f
+            balance_send.isEnabled = false
+            balance_send.alpha = 0.4f
+            balance_convert.isEnabled = false
+            balance_convert.alpha = 0.4f
         }
         
         when(coinBalance.convertType) {
             NONE -> {
-                mConvertBtn.visible = false
+                balance_convert.visible = false
             }
             WRAP -> {
-                mConvertBtn.visible = true
-                mConvertType.setText(R.string.action_wrap)
+                balance_convert.visible = true
+                balance_convert_type.setText(R.string.action_wrap)
             }
             UNWRAP -> {
-                mConvertBtn.visible = true
-                mConvertType.setText(R.string.action_unwrap)
+                balance_convert.visible = true
+                balance_convert_type.setText(R.string.action_unwrap)
             }
         }
     }
 
     fun bindPartial(expanded: Boolean) {
         itemView.isSelected = expanded
-        mButtonContainer.setVisible(expanded, true)
+        balance_buttons_container.setVisible(expanded, true)
     }
 
     interface Listener {
