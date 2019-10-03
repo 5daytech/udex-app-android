@@ -1,13 +1,16 @@
 package com.blocksdecoded.dex.presentation.orders
 
 import android.content.Context
+import android.graphics.PorterDuff
 import android.util.AttributeSet
 import android.view.*
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isInvisible
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.orders.model.ExchangePairViewItem
 import com.blocksdecoded.dex.presentation.widgets.BaseDropDownView
+import com.blocksdecoded.dex.utils.getAttr
 import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.visible
@@ -35,6 +38,9 @@ class ExchangePairsDropDown: BaseDropDownView<ExchangePairViewItem> {
         quotePrice?.text = "$${item.quotePrice?.toFiatDisplayFormat()}"
 
         selectedView?.findViewById<View>(R.id.divider)?.visible = false
+
+        val color = context.theme.getAttr(R.attr.AccentTextColor) ?: 0
+        selectedView?.findViewById<ImageView>(R.id.exchange_pair_switch)?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
     }
 
     fun init(onItemPick: (position: Int) -> Unit) {
