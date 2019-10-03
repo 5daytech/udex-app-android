@@ -1,4 +1,5 @@
-<set xmlns:android="http://schemas.android.com/apk/res/android" android:duration="200">
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="200">
     <translate
         android:fromYDelta="0"
         android:toYDelta="100%" />

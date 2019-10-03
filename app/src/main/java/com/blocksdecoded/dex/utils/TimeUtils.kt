@@ -48,7 +48,9 @@ object TimeUtils {
         return SimpleDateFormat("MMM\ndd", Locale.US).format(date)
     }
 
-    fun dateToShort(date: Date): String = SimpleDateFormat("MMM\ndd", Locale.US).format(date)
+    fun dateToShort(date: Date): String = SimpleDateFormat("MMM dd", Locale.US).format(date)
+
+    fun dateToHour(date: Date): String = SimpleDateFormat("hh:mm a", Locale.US).format(date)
 
     fun dateSimpleFormat(date: Date): String {
         return SimpleDateFormat("EEEE, dd", Locale.US).format(date)

@@ -8,41 +8,47 @@
     android:paddingLeft="@dimen/page_margin"
     android:paddingRight="@dimen/page_margin">
 
+    <ImageView
+        android:id="@+id/transaction_type_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:src="@drawable/ic_received"/>
+
     <TextView
         style="@style/RegularText"
         android:id="@+id/transaction_date"
-        android:layout_width="36dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:gravity="center"
-        android:maxLines="2"
-        android:textColor="?attr/HintTextColor"
-        android:textSize="14sp"
-        android:text="SEP\n27"/>
-
-    <com.blocksdecoded.dex.presentation.widgets.CoinIconView
-        android:id="@+id/transaction_coin_icon"
-        android:layout_width="@dimen/coin_size"
-        android:layout_height="@dimen/coin_size"
-        app:layout_constraintLeft_toRightOf="@+id/transaction_date"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="@dimen/element_margin"/>
-    
-    <TextView
-        style="@style/SemiboldText"
-        android:id="@+id/transaction_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@+id/transaction_coin_icon"
+        app:layout_constraintLeft_toRightOf="@+id/transaction_type_icon"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/transaction_time"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginStart="@dimen/page_margin"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="?HintTextColor"
+        android:textAllCaps="true"
+        android:text="SEP 27"/>
+
+    <TextView
+        style="@style/RegularText"
+        android:id="@+id/transaction_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/transaction_type_icon"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_date"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:textColor="?attr/PrimaryTextColor"
-        android:textSize="16sp"
-        android:layout_marginStart="@dimen/element_margin"
-        android:text="Sent"/>
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="?PrimaryTextColor"
+        android:textSize="13sp"
+        android:text="11:30"/>
 
     <TextView
         style="@style/BoldText"
@@ -53,17 +59,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/transaction_fiat_amount"
         android:layout_marginTop="@dimen/page_margin"
-        android:textColor="?attr/PrimaryTextColor"
+        android:textColor="?PrimaryTextColor"
         android:textSize="17sp"
         android:text="+ 0.01 ETH"/>
 
     <TextView
+        style="@style/RegularText"
         android:id="@+id/transaction_fiat_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transaction_amount"
-        android:textColor="?attr/HintTextColor"
+        android:textColor="?HintTextColor"
         android:text="+ $0.00"/>
 
     <View
