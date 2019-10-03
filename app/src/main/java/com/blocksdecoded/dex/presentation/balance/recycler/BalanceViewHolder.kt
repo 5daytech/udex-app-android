@@ -74,11 +74,11 @@ class BalanceViewHolder(
             }
             WRAP -> {
                 mConvertBtn.visible = true
-                mConvertType.setText(R.string.balance_wrap)
+                mConvertType.setText(R.string.action_wrap)
             }
             UNWRAP -> {
                 mConvertBtn.visible = true
-                mConvertType.setText(R.string.balance_unwrap)
+                mConvertType.setText(R.string.action_unwrap)
             }
         }
     }

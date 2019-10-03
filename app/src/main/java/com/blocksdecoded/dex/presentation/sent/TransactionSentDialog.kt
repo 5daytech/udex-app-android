@@ -10,7 +10,7 @@ import com.blocksdecoded.dex.utils.openTransactionUrl
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import kotlinx.android.synthetic.main.dialog_transaction_sent.*
 
-class SentDialog private constructor()
+class TransactionSentDialog private constructor()
 	: BaseDialog(R.layout.dialog_transaction_sent) {
 	
 	var transactionHash: String? = null
@@ -36,7 +36,7 @@ class SentDialog private constructor()
 	
 	companion object {
 		fun open(fragmentManager: FragmentManager, transactionHash: String) {
-			val fragment = SentDialog()
+			val fragment = TransactionSentDialog()
 			
 			fragment.transactionHash = transactionHash
 			

@@ -17,7 +17,7 @@ import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.convert.model.ConvertType.*
 import com.blocksdecoded.dex.presentation.convert.model.ConvertState
 import com.blocksdecoded.dex.presentation.processing.ProcessingDialog
-import com.blocksdecoded.dex.presentation.sent.SentDialog
+import com.blocksdecoded.dex.presentation.sent.TransactionSentDialog
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
@@ -72,8 +72,8 @@ class ConvertDialog private constructor()
     @SuppressLint("SetTextI18n")
     private fun updateState(state: ConvertState) {
         val action = when (state.type) {
-            WRAP -> "Wrap "
-            UNWRAP -> "Unwrap "
+            WRAP -> "${getString(R.string.action_wrap)} "
+            UNWRAP -> "${getString(R.string.action_unwrap)} "
         }
 
         convert_action_name?.text = action
@@ -152,7 +152,7 @@ class ConvertDialog private constructor()
 
         viewModel.transactionSentEvent.observe(this, Observer { transactionHash ->
             if (activity != null && transactionHash != null) {
-                SentDialog.open(activity!!.supportFragmentManager, transactionHash)
+                TransactionSentDialog.open(activity!!.supportFragmentManager, transactionHash)
             }
         })
 

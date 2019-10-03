@@ -32,8 +32,8 @@ class ConvertConfirmDialog : BaseDialog(R.layout.dialog_convert_confirm) {
         }
 
         dialog_title?.text = when(confirmInfo.action) {
-            WRAP -> "Wrap"
-            UNWRAP -> "Unwrap"
+            WRAP -> getString(R.string.action_wrap)
+            UNWRAP -> getString(R.string.action_unwrap)
         }
     }
 

@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.orders.CancelOrderConfirmDialog
-import com.blocksdecoded.dex.presentation.sent.SentDialog
+import com.blocksdecoded.dex.presentation.sent.TransactionSentDialog
 import com.blocksdecoded.dex.presentation.orders.model.OrderInfoConfig
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import kotlinx.android.synthetic.main.dialog_order_info.*
@@ -34,7 +34,7 @@ class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
 		
 		viewModel.successEvent.observe(this, Observer { hash ->
 			fragmentManager?.let {
-				SentDialog.open(it, hash)
+				TransactionSentDialog.open(it, hash)
 			}
 		})
 		

@@ -11,7 +11,7 @@ import androidx.viewpager.widget.ViewPager
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.processing.ProcessingDialog
-import com.blocksdecoded.dex.presentation.sent.SentDialog
+import com.blocksdecoded.dex.presentation.sent.TransactionSentDialog
 import com.blocksdecoded.dex.presentation.exchange.ExchangeFragment.InputField.*
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeType.*
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmDialog
@@ -20,7 +20,6 @@ import com.blocksdecoded.dex.presentation.exchange.model.ExchangeType
 import com.blocksdecoded.dex.presentation.exchange.view.limit.LimitOrderViewModel
 import com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderViewModel
 import com.blocksdecoded.dex.presentation.main.IFocusListener
-import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
@@ -164,7 +163,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         })
     
         marketOrderViewModel.successEvent.observe(this, Observer {
-            SentDialog.open(childFragmentManager, it)
+            TransactionSentDialog.open(childFragmentManager, it)
         })
 
         marketOrderViewModel.errorEvent.observe(this, Observer {
@@ -226,7 +225,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         })
     
         limitOrderViewModel.successEvent.observe(this, Observer {
-            SentDialog.open(childFragmentManager, it)
+            TransactionSentDialog.open(childFragmentManager, it)
         })
     
         limitOrderViewModel.exchangeEnabled.observe(this, Observer {

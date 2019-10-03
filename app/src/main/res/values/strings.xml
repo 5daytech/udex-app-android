@@ -12,8 +12,6 @@
     <string name="balance_receive">Receive</string>
     <string name="balance_send">Send</string>
     <string name="balance_transactions">Transactions</string>
-    <string name="balance_wrap">Wrap</string>
-    <string name="balance_unwrap">Unwrap</string>
 
     <!-- Messages -->
     <string name="message_words_validated">Wallet has been restored</string>
@@ -67,6 +65,8 @@
     <string name="action_restore_wallet">Restore</string>
     <string name="action_view_on">View on Etherscan.io</string>
     <string name="action_send">Send</string>
+    <string name="action_wrap">Wrap</string>
+    <string name="action_unwrap">Unwrap</string>
 
     <string name="info_fee">Estimated Fee:</string>
     <string name="info_total">Total:</string>
@@ -164,6 +164,8 @@
     <string name="auth_load_error_title">Auth data decryption failed</string>
     <string name="auth_load_error_description">Something went wrong.\nAuth data can\'t be decrypted so app data will be reset now and you need to re-enter your mnemonic key to restore wallet.</string>
     <string name="send_invalid_recipient_address">Invalid recipient address!</string>
+
+
     <string name="info_price_per_token">Price per token:</string>
 
     <!-- Placeholders -->

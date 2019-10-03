@@ -2,11 +2,16 @@ package com.blocksdecoded.dex.presentation.convert
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.App.Companion.processingDurationProvider
+import com.blocksdecoded.dex.App.Companion.ratesConverter
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.adapter.SendStateError
+import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.manager.duration.ETransactionType
+import com.blocksdecoded.dex.core.manager.duration.IProcessingDurationProvider
+import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
@@ -18,22 +23,27 @@ import com.blocksdecoded.dex.presentation.model.FeeInfo
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.uiSubscribe
+import com.blocksdecoded.zrxkit.contracts.WethWrapper
 import java.math.BigDecimal
 import java.net.SocketTimeoutException
 import kotlin.math.absoluteValue
 
-class ConvertViewModel : CoreViewModel() {
-
+class ConvertViewModel(
+    private val coinManager: ICoinManager = App.coinManager,
+    private val wethWrapper: WethWrapper = App.zrxKitManager.zrxKit().getWethWrapperInstance(),
+    private val ratesConverter: RatesConverter = App.ratesConverter,
+    private val processingDurationProvider: IProcessingDurationProvider = App.processingDurationProvider
+) : CoreViewModel() {
     private val minRemainingAmount = 0.001.toBigDecimal()
-    private val coinManager = App.coinManager
-    private val wethWrapper = App.zrxKitManager.zrxKit().getWethWrapperInstance()
-    private val ratesConverter = App.ratesConverter
-    private val processingDurationProvider = App.processingDurationProvider
+
     private lateinit var config: ConvertConfig
-    private var adapter: IAdapter? = null
-    
     private lateinit var fromCoin: Coin
     private lateinit var toCoin: Coin
+
+    private val adapter: IAdapter? by lazy {
+        App.adapterManager.adapters
+            .firstOrNull { it.coin.code == config.coinCode }
+    }
     
 	private var sendAmount = BigDecimal.ZERO
 	
@@ -66,10 +76,7 @@ class ConvertViewModel : CoreViewModel() {
     
     fun init(config: ConvertConfig) {
         this.config = config
-    
-        adapter = App.adapterManager.adapters
-            .firstOrNull { it.coin.code == config.coinCode }
-    
+
         if (adapter == null) {
             errorEvent.postValue(R.string.error_invalid_coin)
             dismissDialog.call()
