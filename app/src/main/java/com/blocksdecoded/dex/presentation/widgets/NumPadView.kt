@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.utils.inflate
 
 class NumPadView: RecyclerView {
 
@@ -78,7 +79,7 @@ class NumPadItemsAdapter(
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return NumPadItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_numpad_button, parent, false))
+        return NumPadItemViewHolder(parent.inflate(R.layout.item_numpad_button))
     }
 
     override fun getItemCount() = numPadItems.count()

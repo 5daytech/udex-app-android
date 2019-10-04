@@ -1,16 +1,16 @@
 package com.blocksdecoded.dex.presentation.widgets.words
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.utils.inflate
 
 class WordsInputAdapter(private val listener: WordInputViewHolder.OnWordChangeListener) : RecyclerView.Adapter<WordInputViewHolder>() {
 
     override fun getItemCount() = 12
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordInputViewHolder {
-        val inputTextView = LayoutInflater.from(parent.context).inflate(R.layout.item_word_input, parent, false) as WordInputView
+        val inputTextView = parent.inflate(R.layout.item_word_input) as WordInputView
         return WordInputViewHolder(inputTextView, listener)
     }
 

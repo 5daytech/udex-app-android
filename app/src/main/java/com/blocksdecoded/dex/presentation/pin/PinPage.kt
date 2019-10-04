@@ -1,14 +1,13 @@
 package com.blocksdecoded.dex.presentation.pin
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.utils.inflate
 
 class PinPage(val description: Int, var enteredDigitsLength: Int = 0, var error: String? = null)
 
@@ -33,7 +32,7 @@ class PinPagesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        PinPageViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_pin_page, parent, false))
+        PinPageViewHolder(parent.inflate(R.layout.item_pin_page))
 
     override fun getItemCount() = pinPages.count()
 

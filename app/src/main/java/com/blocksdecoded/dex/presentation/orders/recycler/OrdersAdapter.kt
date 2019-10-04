@@ -1,10 +1,10 @@
 package com.blocksdecoded.dex.presentation.orders.recycler
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
+import com.blocksdecoded.dex.utils.inflate
 
 class OrdersAdapter(
         private val listener: OrderViewHolder.Listener
@@ -13,7 +13,7 @@ class OrdersAdapter(
     private val mOrders = ArrayList<UiOrder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return OrderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_order, parent, false), listener)
+        return OrderViewHolder(parent.inflate(R.layout.item_order), listener)
     }
 
     override fun getItemCount(): Int = mOrders.size

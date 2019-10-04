@@ -1,12 +1,12 @@
 package com.blocksdecoded.dex.presentation.transactions.recycler
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.TransactionRecord
 import com.blocksdecoded.dex.presentation.transactions.TransactionViewItem
+import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.isValidIndex
 import kotlin.collections.ArrayList
 
@@ -15,10 +15,8 @@ class TransactionsAdapter(
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mTransactions = ArrayList<TransactionViewItem>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = TransactionViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_transaction, parent, false),
-        listener
-    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        TransactionViewHolder(parent.inflate(R.layout.item_transaction), listener)
 
     override fun getItemCount(): Int = mTransactions.size
 

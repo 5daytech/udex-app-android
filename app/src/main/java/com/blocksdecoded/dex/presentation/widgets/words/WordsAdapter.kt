@@ -1,16 +1,16 @@
 package com.blocksdecoded.dex.presentation.widgets.words
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.utils.inflate
 
 class WordsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var items: List<String> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-            ViewHolderWord(LayoutInflater.from(parent.context).inflate(R.layout.item_word, parent, false) as TextView)
+            ViewHolderWord(parent.inflate(R.layout.item_word) as TextView)
 
     override fun getItemCount() = items.size
 
