@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.processing
+package com.blocksdecoded.dex.presentation.common
 
 import android.os.Bundle
 import android.view.View
@@ -19,7 +19,7 @@ class ProcessingDialog:
 	}
 
 	companion object {
-		fun open(fragmentManager: FragmentManager): DialogFragment {
+		fun show(fragmentManager: FragmentManager): DialogFragment {
 			val dialog = ProcessingDialog()
 
 			dialog.isCancelable = false

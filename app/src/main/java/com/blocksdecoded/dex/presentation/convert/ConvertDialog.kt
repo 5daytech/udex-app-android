@@ -16,8 +16,8 @@ import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.convert.model.ConvertType.*
 import com.blocksdecoded.dex.presentation.convert.model.ConvertState
-import com.blocksdecoded.dex.presentation.processing.ProcessingDialog
-import com.blocksdecoded.dex.presentation.sent.TransactionSentDialog
+import com.blocksdecoded.dex.presentation.common.ProcessingDialog
+import com.blocksdecoded.dex.presentation.common.TransactionSentDialog
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
@@ -159,7 +159,7 @@ class ConvertDialog private constructor()
         viewModel.dismissDialog.observe(this, Observer { dismiss() })
 
         viewModel.showProcessingEvent.observe(this, Observer {
-            processingDialog = ProcessingDialog.open(childFragmentManager)
+            processingDialog = ProcessingDialog.show(childFragmentManager)
         })
 
         viewModel.dismissProcessingEvent.observe(this, Observer {

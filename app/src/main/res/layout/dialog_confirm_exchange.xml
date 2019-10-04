@@ -38,8 +38,8 @@
             android:layout_marginEnd="@dimen/element_margin"/>
 
         <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:src="@drawable/ic_switch"
             android:tint="?AccentTextColor"
             android:layout_marginLeft="@dimen/element_margin"

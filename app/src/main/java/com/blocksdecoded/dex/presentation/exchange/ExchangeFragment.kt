@@ -10,8 +10,8 @@ import androidx.viewpager.widget.ViewPager
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
-import com.blocksdecoded.dex.presentation.processing.ProcessingDialog
-import com.blocksdecoded.dex.presentation.sent.TransactionSentDialog
+import com.blocksdecoded.dex.presentation.common.ProcessingDialog
+import com.blocksdecoded.dex.presentation.common.TransactionSentDialog
 import com.blocksdecoded.dex.presentation.exchange.ExchangeFragment.InputField.*
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeType.*
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmDialog
@@ -57,7 +57,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     }
 
     private val processingObserver = Observer<Unit> {
-        processingDialog = ProcessingDialog.open(childFragmentManager)
+        processingDialog = ProcessingDialog.show(childFragmentManager)
     }
 
     private val processingDismissObserver = Observer<Unit> {

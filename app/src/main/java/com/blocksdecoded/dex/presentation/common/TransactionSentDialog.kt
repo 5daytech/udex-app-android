@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.sent
+package com.blocksdecoded.dex.presentation.common
 
 import android.os.Bundle
 import android.view.View
