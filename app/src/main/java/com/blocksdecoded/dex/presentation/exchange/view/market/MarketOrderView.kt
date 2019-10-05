@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairsInfo
@@ -28,10 +29,12 @@ class MarketOrderView: CardView {
 	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) { init() }
 	constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)  { init() }
 	
-	var inputConnection: InputConnection? = null
-	
+	var sendInputConnection: InputConnection? = null
+	var receiveInputConnection: InputConnection? = null
+
 	val sendAmountChangeSubject: PublishSubject<BigDecimal> = PublishSubject.create()
-	
+	val receiveAmountChangeSubject: PublishSubject<BigDecimal> = PublishSubject.create()
+
 	private val sendAmountChangeWatcher = object: SimpleTextWatcher() {
 		override fun afterTextChanged(s: Editable?) {
 			val amountText = s?.toString() ?: ""
@@ -45,20 +48,47 @@ class MarketOrderView: CardView {
 				if (amountNumber.scale() > it) {
 					amountNumber = amountNumber.setScale(it, RoundingMode.FLOOR)
 					val newString = amountNumber.toPlainString()
-					exchange_amount_input?.setText(newString)
-					exchange_amount_input?.setSelection(newString.length)
+					market_amount_input?.setText(newString)
+					market_amount_input?.setSelection(newString.length)
 				}
 			}
 
-			exchange_amount_max?.visible = amountText.isEmpty()
+			market_amount_max?.visible = amountText.isEmpty()
 			sendAmountChangeSubject.onNext(amountNumber)
 		}
 	}
 
+	private val receiveAmountChangeWatcher = object: SimpleTextWatcher() {
+		override fun afterTextChanged(s: Editable?) {
+			val amountText = s?.toString() ?: ""
+			var amountNumber = when {
+				amountText != "" -> amountText.toBigDecimalOrNull() ?: BigDecimal.ZERO
+				else -> BigDecimal.ZERO
+			}
+
+			val decimalSize = 18
+			decimalSize.let {
+				if (amountNumber.scale() > it) {
+					amountNumber = amountNumber.setScale(it, RoundingMode.FLOOR)
+					val newString = amountNumber.toPlainString()
+					market_amount_input?.setText(newString)
+					market_amount_input?.setSelection(newString.length)
+				}
+			}
+
+			market_amount_max?.visible = amountText.isEmpty()
+			receiveAmountChangeSubject.onNext(amountNumber)
+		}
+	}
+
 	private fun init() {
-		exchange_amount_input?.addTextChangedListener(sendAmountChangeWatcher)
-		exchange_amount_input?.showSoftInputOnFocus = false
-		inputConnection = exchange_amount_input?.onCreateInputConnection(EditorInfo())
+		market_amount_input?.addTextChangedListener(sendAmountChangeWatcher)
+		market_amount_input?.showSoftInputOnFocus = false
+		sendInputConnection = market_amount_input?.onCreateInputConnection(EditorInfo())
+
+		market_receive_input?.addTextChangedListener(receiveAmountChangeWatcher)
+		market_receive_input?.showSoftInputOnFocus = false
+		receiveInputConnection = market_receive_input?.onCreateInputConnection(EditorInfo())
 	}
 
 	fun bind(
@@ -67,23 +97,23 @@ class MarketOrderView: CardView {
 		onReceiveCoinPick: (Int) -> Unit,
 		onSwitchClick: () -> Unit
 	) {
-		exchange_base_spinner?.init(onSendCoinPick)
-		exchange_quote_spinner?.init(onReceiveCoinPick)
-		exchange_amount_max?.setOnClickListener { onMaxClick() }
-		exchange_switch?.setOnClickListener {
+		market_base_spinner?.init(onSendCoinPick)
+		market_quote_spinner?.init(onReceiveCoinPick)
+		market_amount_max?.setOnClickListener { onMaxClick() }
+		market_switch?.setOnClickListener {
 			onSwitchClick()
-			AnimationHelper.rotate(exchange_switch)
+			AnimationHelper.rotate(market_switch)
 		}
 	}
 	
 	fun updateSendCoins(info: ExchangePairsInfo) {
-		exchange_base_spinner?.setData(info.coins)
-		exchange_base_spinner?.setSelectedPair(info.selectedCoin)
+		market_base_spinner?.setData(info.coins)
+		market_base_spinner?.setSelectedPair(info.selectedCoin)
 	}
 	
 	fun updateReceiveCoins(info: ExchangePairsInfo) {
-		exchange_quote_spinner?.setData(info.coins)
-		exchange_quote_spinner?.setSelectedPair(info.selectedCoin)
+		market_quote_spinner?.setData(info.coins)
+		market_quote_spinner?.setSelectedPair(info.selectedCoin)
 	}
 
 	fun updateReceiveInfo(receiveInfo: ExchangeReceiveInfo) {
@@ -96,24 +126,26 @@ class MarketOrderView: CardView {
 		
 		updateReceiveAmount(state.receiveAmount)
 		
-		exchange_base_spinner?.setSelectedPair(state.sendCoin)
-		exchange_quote_spinner?.setSelectedPair(state.receiveCoin)
+		market_base_spinner?.setSelectedPair(state.sendCoin)
+		market_quote_spinner?.setSelectedPair(state.receiveCoin)
 	}
 	
 	private fun updateAmount(amount: BigDecimal) {
 		if (amount > BigDecimal.ZERO) {
-			exchange_amount_input?.setText(amount.stripTrailingZeros().toPlainString())
-			exchange_amount_input?.setSelection(exchange_amount_input?.text?.length ?: 0)
+			market_amount_input?.setText(amount.stripTrailingZeros().toPlainString())
+			market_amount_input?.setSelection(market_amount_input?.text?.length ?: 0)
 		} else {
-			exchange_amount_input?.setText("")
+			market_amount_input?.setText("")
 		}
 	}
 	
 	private fun updateReceiveAmount(amount: BigDecimal) {
-		if (amount > BigDecimal.ZERO) {
-			exchange_receive_input?.text = amount.toLongDisplayFormat()
+		val text = if (amount > BigDecimal.ZERO) {
+			amount.toLongDisplayFormat()
 		} else {
-			exchange_receive_input?.text = ""
+			""
 		}
+
+		market_receive_input?.setText(text, TextView.BufferType.EDITABLE)
 	}
 }

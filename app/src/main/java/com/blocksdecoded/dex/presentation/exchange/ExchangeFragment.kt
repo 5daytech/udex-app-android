@@ -260,7 +260,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             fragment_exchange_container?.visible = true
 
             when(activeType) {
-                MARKET -> exchange_amount_input
+                MARKET -> market_amount_input
                 LIMIT -> limit_amount_input
             }?.requestFocus()
         }
@@ -270,13 +270,15 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         val inputType = getInputField()
         
         val inputField = when(inputType) {
-            MARKET_AMOUNT -> exchange_amount_input
+            MARKET_AMOUNT -> market_amount_input
+            MARKET_RECEIVE_AMOUNT -> market_receive_input
             LIMIT_AMOUNT -> limit_amount_input
             LIMIT_PRICE -> limit_price_input
         }
         
         val inputConnection = when(inputType) {
-            MARKET_AMOUNT -> exchange_market_view?.inputConnection
+            MARKET_AMOUNT -> exchange_market_view?.sendInputConnection
+            MARKET_RECEIVE_AMOUNT -> exchange_market_view?.receiveInputConnection
             LIMIT_AMOUNT -> exchange_limit_view?.amountInputConnection
             LIMIT_PRICE -> exchange_limit_view?.priceInputConnection
         }
@@ -293,7 +295,8 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     }
     
     private fun getInputField(): InputField = when(currentFocus?.id) {
-        R.id.exchange_amount_input -> MARKET_AMOUNT
+        R.id.market_amount_input -> MARKET_AMOUNT
+        R.id.market_receive_input -> MARKET_RECEIVE_AMOUNT
         R.id.limit_amount_input -> LIMIT_AMOUNT
         R.id.limit_price_input -> LIMIT_PRICE
         else -> when(activeType) {
@@ -308,6 +311,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
 
     enum class InputField {
         MARKET_AMOUNT,
+        MARKET_RECEIVE_AMOUNT,
         LIMIT_AMOUNT,
         LIMIT_PRICE
     }

@@ -7,21 +7,21 @@
     android:layout_height="wrap_content">
     <TextView
         style="@style/SmallHintText"
-        android:id="@+id/exchange_amount_hint"
+        android:id="@+id/market_amount_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:textAllCaps="false"
         android:layout_margin="@dimen/page_margin"
-        android:text="Sell"/>
+        android:text="I have"/>
 
     <EditText
         style="@style/PrimaryNumberInput"
-        android:id="@+id/exchange_amount_input"
+        android:id="@+id/market_amount_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/exchange_amount_hint"
+        app:layout_constraintTop_toBottomOf="@+id/market_amount_hint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/middle_divider"
         android:layout_marginStart="@dimen/page_margin"
@@ -29,11 +29,11 @@
 
     <Button
         style="@style/ButtonSmallGrey"
-        android:id="@+id/exchange_amount_max"
+        android:id="@+id/market_amount_max"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/exchange_amount_input"
-        app:layout_constraintBottom_toBottomOf="@+id/exchange_amount_input"
+        app:layout_constraintTop_toTopOf="@+id/market_amount_input"
+        app:layout_constraintBottom_toBottomOf="@+id/market_amount_input"
         app:layout_constraintRight_toLeftOf="@+id/middle_divider"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -54,12 +54,12 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
-        app:layout_constraintTop_toBottomOf="@+id/exchange_amount_input"
+        app:layout_constraintTop_toBottomOf="@+id/market_amount_input"
         android:layout_marginTop="20dp" />
 
     <TextView
         style="@style/SmallHintText"
-        android:id="@+id/exchange_receive_hint"
+        android:id="@+id/market_receive_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/divider"
@@ -67,51 +67,48 @@
         android:textAllCaps="false"
         android:layout_marginTop="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"
-        android:text="You Receive"/>
+        android:text="I want"/>
 
-    <TextView
-        style="@style/BoldText"
-        android:id="@+id/exchange_receive_input"
+    <EditText
+        style="@style/PrimaryNumberInput"
+        android:id="@+id/market_receive_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/middle_divider"
-        app:layout_constraintTop_toBottomOf="@+id/exchange_receive_hint"
+        app:layout_constraintTop_toBottomOf="@+id/market_receive_hint"
         app:layout_constraintVertical_bias="0.0"
         android:layout_marginTop="@dimen/element_margin"
         android:layout_marginBottom="32dp"
         android:layout_marginStart="@dimen/page_margin"
         android:ellipsize="end"
-        android:hint="-"
-        android:maxLines="1"
-        android:textColor="?attr/PrimaryTextColor"
-        android:textColorHint="?attr/HintTextColor"
-        android:textSize="19sp" />
+        android:hint="0.0"
+        android:maxLines="1" />
 
     <com.blocksdecoded.dex.presentation.exchange.view.CoinDropDown
-        android:id="@+id/exchange_base_spinner"
+        android:id="@+id/market_base_spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/exchange_amount_hint"
+        app:layout_constraintTop_toTopOf="@+id/market_amount_hint"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/middle_divider"
-        app:layout_constraintBottom_toBottomOf="@+id/exchange_amount_input"
+        app:layout_constraintBottom_toBottomOf="@+id/market_amount_input"
         app:ddv_item_layout="@layout/item_coin_spinner" />
 
     <com.blocksdecoded.dex.presentation.exchange.view.CoinDropDown
-        android:id="@+id/exchange_quote_spinner"
+        android:id="@+id/market_quote_spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:entries="@array/placeholder_items"
         app:layout_constraintLeft_toRightOf="@+id/middle_divider"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/exchange_receive_input"
-        app:layout_constraintTop_toTopOf="@+id/exchange_receive_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/market_receive_input"
+        app:layout_constraintTop_toTopOf="@+id/market_receive_hint"
         app:ddv_item_layout="@layout/item_coin_spinner"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/exchange_switch"
+        android:id="@+id/market_switch"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/divider"
