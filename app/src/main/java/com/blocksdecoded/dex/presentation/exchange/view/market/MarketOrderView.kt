@@ -2,10 +2,8 @@ package com.blocksdecoded.dex.presentation.exchange.view.market
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.Editable
 import android.util.AttributeSet
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -13,14 +11,12 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairsInfo
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeReceiveInfo
 import com.blocksdecoded.dex.presentation.exchange.view.model.MarketOrderViewState
-import com.blocksdecoded.dex.utils.listeners.SimpleTextWatcher
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.view_market_order.view.*
 import java.math.BigDecimal
-import java.math.RoundingMode
 
 class MarketOrderView: CardView {
 	init { View.inflate(context, R.layout.view_market_order, this) }
@@ -35,60 +31,16 @@ class MarketOrderView: CardView {
 	val sendAmountChangeSubject: PublishSubject<BigDecimal> = PublishSubject.create()
 	val receiveAmountChangeSubject: PublishSubject<BigDecimal> = PublishSubject.create()
 
-	private val sendAmountChangeWatcher = object: SimpleTextWatcher() {
-		override fun afterTextChanged(s: Editable?) {
-			val amountText = s?.toString() ?: ""
-			var amountNumber = when {
-				amountText != "" -> amountText.toBigDecimalOrNull() ?: BigDecimal.ZERO
-				else -> BigDecimal.ZERO
-			}
-
-			val decimalSize = 18
-			decimalSize.let {
-				if (amountNumber.scale() > it) {
-					amountNumber = amountNumber.setScale(it, RoundingMode.FLOOR)
-					val newString = amountNumber.toPlainString()
-					market_amount_input?.setText(newString)
-					market_amount_input?.setSelection(newString.length)
-				}
-			}
-
-			market_amount_max?.visible = amountText.isEmpty()
-			sendAmountChangeSubject.onNext(amountNumber)
-		}
-	}
-
-	private val receiveAmountChangeWatcher = object: SimpleTextWatcher() {
-		override fun afterTextChanged(s: Editable?) {
-			val amountText = s?.toString() ?: ""
-			var amountNumber = when {
-				amountText != "" -> amountText.toBigDecimalOrNull() ?: BigDecimal.ZERO
-				else -> BigDecimal.ZERO
-			}
-
-			val decimalSize = 18
-			decimalSize.let {
-				if (amountNumber.scale() > it) {
-					amountNumber = amountNumber.setScale(it, RoundingMode.FLOOR)
-					val newString = amountNumber.toPlainString()
-					market_amount_input?.setText(newString)
-					market_amount_input?.setSelection(newString.length)
-				}
-			}
-
-			market_amount_max?.visible = amountText.isEmpty()
-			receiveAmountChangeSubject.onNext(amountNumber)
-		}
-	}
-
 	private fun init() {
-		market_amount_input?.addTextChangedListener(sendAmountChangeWatcher)
-		market_amount_input?.showSoftInputOnFocus = false
-		sendInputConnection = market_amount_input?.onCreateInputConnection(EditorInfo())
+		sendInputConnection = market_amount_input?.bind { sendAmount ->
+			market_amount_max?.visible = sendAmount <= BigDecimal.ZERO
 
-		market_receive_input?.addTextChangedListener(receiveAmountChangeWatcher)
-		market_receive_input?.showSoftInputOnFocus = false
-		receiveInputConnection = market_receive_input?.onCreateInputConnection(EditorInfo())
+			sendAmountChangeSubject.onNext(sendAmount)
+		}
+
+		receiveInputConnection = market_receive_input?.bind { receiveAmount ->
+			receiveAmountChangeSubject.onNext(receiveAmount)
+		}
 	}
 
 	fun bind(

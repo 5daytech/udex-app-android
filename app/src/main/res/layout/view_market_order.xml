@@ -16,7 +16,7 @@
         android:layout_margin="@dimen/page_margin"
         android:text="I have"/>
 
-    <EditText
+    <com.blocksdecoded.dex.presentation.widgets.AmountEditText
         style="@style/PrimaryNumberInput"
         android:id="@+id/market_amount_input"
         android:layout_width="0dp"
@@ -69,7 +69,7 @@
         android:layout_marginStart="@dimen/page_margin"
         android:text="I want"/>
 
-    <EditText
+    <com.blocksdecoded.dex.presentation.widgets.AmountEditText
         style="@style/PrimaryNumberInput"
         android:id="@+id/market_receive_input"
         android:layout_width="0dp"
