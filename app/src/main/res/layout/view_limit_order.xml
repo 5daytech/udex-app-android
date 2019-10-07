@@ -17,7 +17,7 @@
         android:layout_margin="@dimen/page_margin"
         android:text="Sell"/>
 
-    <EditText
+    <com.blocksdecoded.dex.presentation.widgets.AmountEditText
         style="@style/PrimaryNumberInput"
         android:id="@+id/limit_amount_input"
         android:layout_width="0dp"
@@ -70,7 +70,7 @@
         android:textAllCaps="false"
         android:text="Price per sell token"/>
 
-    <EditText
+    <com.blocksdecoded.dex.presentation.widgets.AmountEditText
         style="@style/PrimaryNumberInput"
         android:id="@+id/limit_price_input"
         android:layout_width="0dp"

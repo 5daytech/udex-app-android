@@ -124,7 +124,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             onSwitchClick = { limitOrderViewModel.onSwitchClick() }
         )
     
-        exchange_limit_view?.sendAmountChangeSubject?.subscribeToInput {
+        exchange_limit_view?.amountChangeSubject?.subscribeToInput {
             limitOrderViewModel.onSendAmountChange(it)
         }?.let { disposables.add(it) }
     
