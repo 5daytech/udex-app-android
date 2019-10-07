@@ -2,8 +2,6 @@ package com.blocksdecoded.dex.presentation.convert
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.App.Companion.processingDurationProvider
-import com.blocksdecoded.dex.App.Companion.ratesConverter
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import com.blocksdecoded.dex.core.adapter.IAdapter
@@ -40,10 +38,7 @@ class ConvertViewModel(
     private lateinit var fromCoin: Coin
     private lateinit var toCoin: Coin
 
-    private val adapter: IAdapter? by lazy {
-        App.adapterManager.adapters
-            .firstOrNull { it.coin.code == config.coinCode }
-    }
+    private var adapter: IAdapter? = null
     
 	private var sendAmount = BigDecimal.ZERO
 	
@@ -76,6 +71,9 @@ class ConvertViewModel(
     
     fun init(config: ConvertConfig) {
         this.config = config
+
+        adapter = App.adapterManager.adapters
+            .firstOrNull { it.coin.code == config.coinCode }
 
         if (adapter == null) {
             errorEvent.postValue(R.string.error_invalid_coin)

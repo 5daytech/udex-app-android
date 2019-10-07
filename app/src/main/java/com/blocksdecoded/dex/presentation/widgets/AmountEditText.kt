@@ -7,14 +7,13 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.widget.EditText
 import com.blocksdecoded.dex.utils.listeners.SimpleTextWatcher
-import com.blocksdecoded.dex.utils.visible
-import kotlinx.android.synthetic.main.view_market_order.view.*
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 class AmountEditText : EditText {
     val decimalSize = 18
     private var changeListener: ((amount: BigDecimal) -> Unit)? = null
+    private var decimalProvider: (() -> Int?)? = null
 
     private val amountTextWatcher = object: SimpleTextWatcher() {
         override fun afterTextChanged(s: Editable?) {
@@ -24,7 +23,7 @@ class AmountEditText : EditText {
                 else -> BigDecimal.ZERO
             }
 
-            decimalSize.let {
+            (decimalProvider?.invoke() ?: decimalSize).let {
                 if (amountNumber.scale() > it) {
                     amountNumber = amountNumber.setScale(it, RoundingMode.FLOOR)
                     val newString = amountNumber.toPlainString()
@@ -56,10 +55,16 @@ class AmountEditText : EditText {
         addTextChangedListener(amountTextWatcher)
     }
 
+    fun bind(onChange: (amount: BigDecimal) -> Unit) : InputConnection =
+        bind(onChange, null)
+
     fun bind(
-        onChange: (amount: BigDecimal) -> Unit
+        onChange: (amount: BigDecimal) -> Unit,
+        decimalProvider: (() -> Int?)? = null
     ) : InputConnection {
         changeListener = onChange
+        this.decimalProvider = decimalProvider
+
         showSoftInputOnFocus = false
 
         return onCreateInputConnection(EditorInfo())
