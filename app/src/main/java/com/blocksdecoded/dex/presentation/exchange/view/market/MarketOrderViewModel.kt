@@ -86,6 +86,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
 
             state.receiveAmount = amount
             state.sendAmount = fillResult.sendAmount
+
             estimatedSendAmount = fillResult.sendAmount
             sendAmountInfo.value = ExchangeAmountInfo(fillResult.sendAmount)
 
@@ -175,7 +176,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
     }
 
     fun onReceiveAmountChange(amount: BigDecimal) {
-        if (state.receiveAmount != amount) {
+        if (state.receiveAmount.stripTrailingZeros() != amount.stripTrailingZeros()) {
             state.receiveAmount = amount
 
             updateSendAmount()

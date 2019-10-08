@@ -118,7 +118,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     }
 
     fun onSendAmountChange(amount: BigDecimal) {
-        if (state.sendAmount != amount) {
+        if (state.sendAmount.stripTrailingZeros() != amount.stripTrailingZeros()) {
             state.sendAmount = amount
 
             updateReceiveAmount()
