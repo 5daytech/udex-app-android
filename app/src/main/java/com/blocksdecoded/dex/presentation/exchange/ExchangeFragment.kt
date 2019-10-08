@@ -103,7 +103,6 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         })
     
         // Market view
-        
         exchange_market_view?.bind(
             onMaxClick = { marketOrderViewModel.onMaxClick() },
             onSendCoinPick = { marketOrderViewModel.onSendCoinPick(it) },
@@ -114,9 +113,12 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         exchange_market_view?.sendAmountChangeSubject?.subscribeToInput {
             marketOrderViewModel.onSendAmountChange(it)
         }?.let { disposables.add(it) }
+
+        exchange_market_view?.receiveAmountChangeSubject?.subscribeToInput {
+            marketOrderViewModel.onReceiveAmountChange(it)
+        }?.let { disposables.add(it) }
     
         // Limit view
-        
         exchange_limit_view?.bind(
             onMaxClick = { limitOrderViewModel.onMaxClick() },
             onSendCoinPick = { limitOrderViewModel.onSendCoinPick(it) },
@@ -148,6 +150,10 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     
         marketOrderViewModel.receiveCoins.observe(this, Observer {
             exchange_market_view?.updateReceiveCoins(it)
+        })
+
+        marketOrderViewModel.sendAmountInfo.observe(this, Observer {
+            exchange_market_view?.updateSendInfo(it)
         })
 
         marketOrderViewModel.receiveInfo.observe(this, Observer {

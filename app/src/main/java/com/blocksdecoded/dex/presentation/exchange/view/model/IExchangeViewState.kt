@@ -21,12 +21,16 @@ data class LimitOrderViewState(
     override var receiveCoin: ExchangeCoinItem?
 ) : IExchangeViewState
 
-data class ExchangePriceInfo(
+data class ExchangePriceInfo (
     var sendPrice: BigDecimal
 )
 
 data class ExchangeReceiveInfo (
     var receiveAmount: BigDecimal
+)
+
+data class ExchangeAmountInfo (
+    var amount: BigDecimal
 )
 
 data class ExchangePairsInfo (

@@ -33,13 +33,13 @@ object OrdersUtil {
 
         val price = takerAmount.toDouble().div(makerAmount.toDouble())
             .toBigDecimal()
-            .setScale(18, RoundingMode.UP)
+            .setScale(18, RoundingMode.FLOOR)
             .stripTrailingZeros()
 
         return NormalizedOrderData(makerCoin, takerCoin, makerAmount, takerAmount, price)
     }
 
-    fun normalizeOrderDataPrice(order: IOrder): NormalizedOrderData {
+    fun normalizeOrderDataPrice(order: IOrder, isSellPrice: Boolean = true): NormalizedOrderData {
         val makerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.makerAssetData))!!
         val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.takerAssetData))!!
 
@@ -51,9 +51,11 @@ object OrdersUtil {
             .movePointLeft((takerCoin.type as CoinType.Erc20).decimal)
             .stripTrailingZeros()
 
-        val price = makerAmount.toDouble().div(takerAmount.toDouble())
-            .toBigDecimal()
-            .setScale(18, RoundingMode.UP)
+        val price = if (isSellPrice) {
+            makerAmount.toDouble().div(takerAmount.toDouble())
+        } else {
+            takerAmount.toDouble().div(makerAmount.toDouble())
+        }.toBigDecimal().setScale(18, RoundingMode.FLOOR)
             .stripTrailingZeros()
 
         return NormalizedOrderData(makerCoin, takerCoin, makerAmount, takerAmount, price)
@@ -77,7 +79,7 @@ object OrdersUtil {
         //TODO: Update price calculation
         val price = makerAmount.toDouble().div(takerAmount.toDouble())
             .toBigDecimal()
-            .setScale(18, RoundingMode.UP)
+            .setScale(18, RoundingMode.FLOOR)
             .stripTrailingZeros()
 
         return price

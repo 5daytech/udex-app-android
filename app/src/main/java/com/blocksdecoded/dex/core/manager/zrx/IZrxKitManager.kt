@@ -61,7 +61,17 @@ interface IRelayerAdapter {
 
     fun calculateBasePrice(coinPair: Pair<String, String>, side: EOrderSide): BigDecimal
 
-    fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): FillResult
+    fun calculateFillAmount(
+        coinPair: Pair<String, String>,
+        side: EOrderSide,
+        amount: BigDecimal
+    ): FillResult
+
+    fun calculateSendAmount(
+        coinPair: Pair<String, String>,
+        side: EOrderSide,
+        amount: BigDecimal
+    ): FillResult
 
     fun fill(fillData: FillOrderData): Flowable<String>
 

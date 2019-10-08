@@ -8,11 +8,11 @@ import android.view.inputmethod.InputConnection
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeAmountInfo
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairsInfo
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeReceiveInfo
 import com.blocksdecoded.dex.presentation.exchange.view.model.MarketOrderViewState
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
-import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.view_market_order.view.*
@@ -71,6 +71,10 @@ class MarketOrderView: CardView {
 	fun updateReceiveInfo(receiveInfo: ExchangeReceiveInfo) {
 		updateReceiveAmount(receiveInfo.receiveAmount)
 	}
+
+	fun updateSendInfo(info: ExchangeAmountInfo) {
+		updateAmount(info.amount)
+	}
 	
 	@SuppressLint("SetTextI18n")
 	fun updateState(state: MarketOrderViewState) {
@@ -93,11 +97,12 @@ class MarketOrderView: CardView {
 	
 	private fun updateReceiveAmount(amount: BigDecimal) {
 		val text = if (amount > BigDecimal.ZERO) {
-			amount.toLongDisplayFormat()
+			amount.stripTrailingZeros().toPlainString()
 		} else {
 			""
 		}
 
 		market_receive_input?.setText(text, TextView.BufferType.EDITABLE)
+		market_receive_input?.setSelection(market_receive_input?.text?.length ?: 0)
 	}
 }

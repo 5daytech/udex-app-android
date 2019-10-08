@@ -156,7 +156,11 @@ class BaseRelayerAdapter(
 
 	//endregion
 
-	override fun calculateFillAmount(coinPair: Pair<String, String>, side: EOrderSide, amount: BigDecimal): FillResult = try {
+	override fun calculateFillAmount(
+		coinPair: Pair<String, String>,
+		side: EOrderSide,
+		amount: BigDecimal
+	): FillResult = try {
 		val orders = getPairOrders(coinPair, side).orders
 
 		var requestedAmount = amount
@@ -180,6 +184,41 @@ class BaseRelayerAdapter(
 		}
 
 		FillResult(fillAmount, amount - requestedAmount)
+	} catch (e: Exception) {
+		FillResult(
+			BigDecimal.ZERO,
+			BigDecimal.ZERO
+		)
+	}
+
+	override fun calculateSendAmount(
+		coinPair: Pair<String, String>,
+		side: EOrderSide,
+		amount: BigDecimal
+	): FillResult = try {
+		val orders = getPairOrders(coinPair, side).orders
+
+		var requestedAmount = amount
+		var fillAmount = BigDecimal.ZERO
+
+		val sortedOrders = orders.map { OrdersUtil.normalizeOrderDataPrice(it, isSellPrice = false) }
+			.apply { if (side == EOrderSide.BUY) sortedByDescending { it.price } else sortedBy { it.price } }
+
+		for (order in sortedOrders) {
+			if (requestedAmount != BigDecimal.ZERO) {
+				if (requestedAmount >= order.makerAmount) {
+					fillAmount += order.takerAmount
+					requestedAmount -= order.makerAmount
+				} else {
+					fillAmount += (requestedAmount.multiply(order.price))
+					requestedAmount = BigDecimal.ZERO
+				}
+			} else {
+				break
+			}
+		}
+
+		FillResult(amount - requestedAmount, fillAmount)
 	} catch (e: Exception) {
 		FillResult(
 			BigDecimal.ZERO,
