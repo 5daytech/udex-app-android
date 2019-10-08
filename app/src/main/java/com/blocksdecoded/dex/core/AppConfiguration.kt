@@ -6,6 +6,8 @@ import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.model.AssetItem
+import com.blocksdecoded.zrxkit.relayer.model.Relayer
+import com.blocksdecoded.zrxkit.relayer.model.RelayerConfig
 import io.horizontalsystems.ethereumkit.core.EthereumKit.*
 import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType.*
 
@@ -14,6 +16,7 @@ class AppConfiguration(
 ): IAppConfiguration {
 
     override val networkType: NetworkType = if (testMode) Ropsten else MainNet
+    override val zrxNetworkType: ZrxKit.NetworkType  = if (testMode) ZrxKit.NetworkType.Ropsten else ZrxKit.NetworkType.MainNet
 
     override val etherscanKey: String = BuildConfig.ETHERSCAN_KEY
     override val infuraCredentials: InfuraCredentials = InfuraCredentials(
@@ -59,6 +62,21 @@ class AppConfiguration(
         getExchangePair("LINK", "USDT")
     )
 
+    override val allCoins: List<Coin> = ropstenCoins
+
+    override val allExchangePairs: List<Pair<AssetItem, AssetItem>> = testExchangePairs
+
+    override val relayers: List<Relayer> = listOf(
+        Relayer(
+            0,
+            "BD Relayer",
+            allExchangePairs,
+            listOf("0x2e8da0868e46fc943766a98b8d92a0380b29ce2a"),
+            zrxNetworkType.exchangeAddress,
+            RelayerConfig("http://relayer.ropsten.fridayte.ch", "", "v2")
+        )
+    )
+
     private fun addressForSymbol(symbol: String): String = ((ropstenCoins.firstOrNull {
         when(it.type) {
             is CoinType.Erc20 -> it.code.equals(symbol, true)
@@ -68,10 +86,6 @@ class AppConfiguration(
 
     private fun getExchangePair(from: String, to: String) =
         ZrxKit.assetItemForAddress(addressForSymbol(from)) to ZrxKit.assetItemForAddress(addressForSymbol(to))
-
-    override val allCoins: List<Coin> = ropstenCoins
-
-    override val allExchangePairs: List<Pair<AssetItem, AssetItem>> = testExchangePairs
 
     companion object {
         val DEFAULT = AppConfiguration()
