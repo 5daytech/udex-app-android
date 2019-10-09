@@ -4,11 +4,11 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.manager.zrx.model.NormalizedOrderData
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
+import com.blocksdecoded.dex.utils.normalizedDiv
 import com.blocksdecoded.zrxkit.model.EAssetProxyId
 import com.blocksdecoded.zrxkit.model.IOrder
 import com.blocksdecoded.zrxkit.model.SignedOrder
 import java.math.BigDecimal
-import java.math.RoundingMode
 
 object OrdersUtil {
     val coinManager = App.coinManager
@@ -31,10 +31,7 @@ object OrdersUtil {
             .movePointLeft((takerCoin.type as CoinType.Erc20).decimal)
             .stripTrailingZeros()
 
-        val price = takerAmount.toDouble().div(makerAmount.toDouble())
-            .toBigDecimal()
-            .setScale(18, RoundingMode.FLOOR)
-            .stripTrailingZeros()
+        val price = takerAmount.normalizedDiv(makerAmount)
 
         return NormalizedOrderData(makerCoin, takerCoin, makerAmount, takerAmount, price)
     }
@@ -52,11 +49,10 @@ object OrdersUtil {
             .stripTrailingZeros()
 
         val price = if (isSellPrice) {
-            makerAmount.toDouble().div(takerAmount.toDouble())
+            makerAmount.normalizedDiv(takerAmount)
         } else {
-            takerAmount.toDouble().div(makerAmount.toDouble())
-        }.toBigDecimal().setScale(18, RoundingMode.FLOOR)
-            .stripTrailingZeros()
+            takerAmount.normalizedDiv(makerAmount)
+        }
 
         return NormalizedOrderData(makerCoin, takerCoin, makerAmount, takerAmount, price)
     }
@@ -76,12 +72,6 @@ object OrdersUtil {
             .movePointLeft(if (side == EOrderSide.BUY) baseCoin.decimal else quoteCoin.decimal)
             .stripTrailingZeros()
 
-        //TODO: Update price calculation
-        val price = makerAmount.toDouble().div(takerAmount.toDouble())
-            .toBigDecimal()
-            .setScale(18, RoundingMode.FLOOR)
-            .stripTrailingZeros()
-
-        return price
+        return makerAmount.normalizedDiv(takerAmount)
     }
 }
