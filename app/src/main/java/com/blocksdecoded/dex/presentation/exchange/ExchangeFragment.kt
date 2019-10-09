@@ -176,9 +176,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             ToastHelper.showErrorMessage(it)
         })
     
-        marketOrderViewModel.exchangeEnabled.observe(this, Observer {
-            exchange_confirm?.isEnabled = it
-        })
+        marketOrderViewModel.exchangeEnabled.observe(this, exchangeEnableObserver)
     
         marketOrderViewModel.confirmEvent.observe(this, confirmObserver)
     
@@ -234,9 +232,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             TransactionSentDialog.open(childFragmentManager, it)
         })
     
-        limitOrderViewModel.exchangeEnabled.observe(this, Observer {
-            exchange_confirm?.isEnabled = it
-        })
+        limitOrderViewModel.exchangeEnabled.observe(this, exchangeEnableObserver)
     
         limitOrderViewModel.confirmEvent.observe(this, confirmObserver)
     
