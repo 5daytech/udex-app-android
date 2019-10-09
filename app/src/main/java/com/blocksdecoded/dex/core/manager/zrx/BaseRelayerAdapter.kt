@@ -5,6 +5,7 @@ import com.blocksdecoded.dex.core.manager.zrx.model.*
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.ioSubscribe
+import com.blocksdecoded.dex.utils.normalizedMul
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
@@ -175,7 +176,7 @@ class BaseRelayerAdapter(
 					fillAmount += order.makerAmount
 					requestedAmount -= order.takerAmount
 				} else {
-					fillAmount += (requestedAmount.multiply(order.price))
+					fillAmount += requestedAmount.normalizedMul(order.price)
 					requestedAmount = BigDecimal.ZERO
 				}
 			} else {
@@ -210,7 +211,7 @@ class BaseRelayerAdapter(
 					fillAmount += order.takerAmount
 					requestedAmount -= order.makerAmount
 				} else {
-					fillAmount += (requestedAmount.multiply(order.price))
+					fillAmount += requestedAmount.normalizedMul(order.price)
 					requestedAmount = BigDecimal.ZERO
 				}
 			} else {

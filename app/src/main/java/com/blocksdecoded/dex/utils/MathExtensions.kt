@@ -21,3 +21,15 @@ fun BigDecimal.normalizedDiv(
     return this.divide(divisor, precision, roundingMode)
         .stripTrailingZeros()
 }
+
+fun BigDecimal.normalizedMul(
+    multiplicand: BigDecimal,
+    precision: Int = 10,
+    roundingMode: RoundingMode = RoundingMode.FLOOR
+): BigDecimal {
+    val mc = MathContext(precision, roundingMode)
+
+    return this.multiply(multiplicand, mc)
+        .setScale(precision, roundingMode)
+        .stripTrailingZeros()
+}
