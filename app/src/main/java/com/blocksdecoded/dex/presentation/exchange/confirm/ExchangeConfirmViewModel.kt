@@ -7,6 +7,7 @@ import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.model.FeeInfo
+import com.blocksdecoded.dex.utils.normalizedDiv
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
 
@@ -28,7 +29,7 @@ class ExchangeConfirmViewModel: CoreViewModel() {
 		val sendAdapter = adapterManager.adapters.firstOrNull { it.coin.code == info.sendCoin }
 		val sendCoin = coinManager.getCoin(info.sendCoin)
 
-		val price = (info.receiveAmount.toDouble() / info.sendAmount.toDouble()).toBigDecimal()
+		val price = info.receiveAmount.normalizedDiv(info.sendAmount)
 
 		val state = ViewState(
 			sendCoin,
