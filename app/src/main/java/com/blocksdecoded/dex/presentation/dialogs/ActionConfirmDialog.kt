@@ -31,7 +31,7 @@ class ConfirmActionDialog(
 
         adapter.notifyDataSetChanged()
 
-        action_confirm_title?.text = getString(action) + " Confirm"
+        action_confirm_title?.text = getString(action) + " Confirmation"
         action_confirm?.setText(action)
         action_confirm?.setOnClickListener {
             listener.onConfirmationSuccess()

@@ -36,7 +36,7 @@ class NumPadView: RecyclerView {
     ) {
         removeAllViewsInLayout()
 
-        if (numPadAdapter != null) throw Exception("ExchangePairsAdapter already initialized")
+        if (numPadAdapter != null) throw Exception("NumPad view already initialized")
 
         layoutManager = GridLayoutManager(context, 3)
         numPadAdapter = NumPadItemsAdapter(listener, bottomLeftButtonType, showLetters)

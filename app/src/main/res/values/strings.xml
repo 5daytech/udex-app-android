@@ -70,12 +70,13 @@
 
     <string name="info_fee">Estimated Fee:</string>
     <string name="info_total">Total:</string>
-    <string name="info_historical_rate">Historical Rate:</string>
+    <string name="info_historical_rate">Rate Received:</string>
     <string name="info_date">Time:</string>
     <string name="info_status">Status:</string>
     <string name="info_from">From:</string>
     <string name="info_to">To:</string>
     <string name="info_duration">Processing Time:</string>
+    <string name="info_price_per_token">Price Per Token:</string>
 
     <string name="message_empty_transactions">THERE’S NO ANY\nTRANSACTIONS YET</string>
     <string name="message_empty_exchange_history">THERE’S NO ANY\nEXCHANGES YET</string>
@@ -129,7 +130,7 @@
 
     <!-- Backup -->
     <string name="backup_intro_subtitle">Show Key</string>
-    <string name="backup_intro_text">The key that will be shown next is the only way to restore your funds if your phone is ever lost, stolen, broken etc.\n\n\nMake sure that no one is watching your screen.</string>
+    <string name="backup_intro_text">Your private key is the only way to restore access to your funds if your phone is ever lost, stolen, broken etc.\n\n\nMake sure that no one is watching your screen.</string>
 
     <!-- KeyStore -->
     <string name="keystore_system_lock_required">System Lock</string>
@@ -144,7 +145,7 @@
     <!-- Logout -->
     <string name="logout_title">Remove Wallet</string>
     <string name="logout_confirm_wallet_remove">This action will delete the Ethereum key (wallet) from this device.</string>
-    <string name="logout_confirm_loose_funds">If you don\'t have a backup of this key you will loose the respective funds.</string>
+    <string name="logout_confirm_loose_funds">If you don\’t have a backup of your key, you will lose access to your funds.</string>
 
 
     <!-- Settings About App -->
@@ -164,9 +165,6 @@
     <string name="auth_load_error_title">Auth data decryption failed</string>
     <string name="auth_load_error_description">Something went wrong.\nAuth data can\'t be decrypted so app data will be reset now and you need to re-enter your mnemonic key to restore wallet.</string>
     <string name="send_invalid_recipient_address">Invalid recipient address!</string>
-
-
-    <string name="info_price_per_token">Price per token:</string>
 
     <!-- Placeholders -->
     <string-array name="placeholder_items">
