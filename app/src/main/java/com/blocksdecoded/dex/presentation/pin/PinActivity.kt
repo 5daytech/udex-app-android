@@ -176,6 +176,10 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener, BiometricManage
         }
     }
 
+    override fun onItemLongClick(item: NumPadItem) {
+
+    }
+
     //region Biometric
 
     override fun onAuthSuccess() {

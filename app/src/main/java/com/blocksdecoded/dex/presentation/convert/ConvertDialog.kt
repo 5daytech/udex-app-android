@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputConnection
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -175,7 +176,9 @@ class ConvertDialog private constructor()
     private fun focusInput() {
         amount_input?.requestFocus()
     }
-    
+
+    //region Numpad
+
     override fun onItemClick(item: NumPadItem) {
         when (item.type) {
             NumPadItemType.NUMBER -> inputConnection?.commitText(item.number.toString(), 1)
@@ -187,7 +190,15 @@ class ConvertDialog private constructor()
             }
         }
     }
-    
+
+    override fun onItemLongClick(item: NumPadItem) {
+        when (item.type) {
+            NumPadItemType.DELETE -> amount_input?.setText("", TextView.BufferType.EDITABLE)
+        }
+    }
+
+    //endregion
+
     companion object {
         fun open(fragmentManager: FragmentManager, config: ConvertConfig) {
             val fragment = ConvertDialog()

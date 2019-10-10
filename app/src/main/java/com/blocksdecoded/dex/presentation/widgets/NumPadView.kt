@@ -11,9 +11,10 @@ import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_numpad_button.*
+import android.view.MotionEvent
+import android.view.GestureDetector
 
 class NumPadView: RecyclerView {
-
     var showFingerPrintButton: Boolean = false
         set(value) {
             field = value
@@ -52,7 +53,6 @@ class NumPadView: RecyclerView {
             }
         }
     }
-
 }
 
 class NumPadItemsAdapter(
@@ -60,10 +60,6 @@ class NumPadItemsAdapter(
     bottomLeftButtonType: NumPadItemType,
     private val showLetters: Boolean = true
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    interface Listener {
-        fun onItemClick(item: NumPadItem)
-    }
-
     private val numPadItems = listOf(
             NumPadItem(NumPadItemType.NUMBER, 1, ""),
             NumPadItem(NumPadItemType.NUMBER, 2, "abc"),
@@ -79,22 +75,34 @@ class NumPadItemsAdapter(
             NumPadItem(NumPadItemType.DELETE, 0, "Bottom Right")
     )
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return NumPadItemViewHolder(parent.inflate(R.layout.item_numpad_button))
-    }
-
-    override fun getItemCount() = numPadItems.count()
-
     var showFingerPrintButton = false
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return NumPadItemViewHolder(parent.inflate(R.layout.item_numpad_button),
+            onClick = { position ->
+                listener.onItemClick(numPadItems[position])
+            },
+            onLongClick = { position ->
+                listener.onItemLongClick(numPadItems[position])
+            })
+    }
+
+    override fun getItemCount() = numPadItems.count()
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is NumPadItemViewHolder) {
-            holder.bind(numPadItems[position], showFingerPrintButton, showLetters) { listener.onItemClick(numPadItems[position]) }
+            holder.bind(numPadItems[position], showFingerPrintButton, showLetters)
         }
+    }
+
+    interface Listener {
+        fun onItemClick(item: NumPadItem)
+
+        fun onItemLongClick(item: NumPadItem)
     }
 }
 
@@ -105,22 +113,29 @@ enum class NumPadItemType {
 }
 
 class NumPadItemViewHolder(
-    override val containerView: View
+    override val containerView: View,
+    private val onClick: (position: Int) -> Unit,
+    private val onLongClick: (position: Int) -> Unit
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-    fun bind(item: NumPadItem, isFingerprintEnabled: Boolean, showLetters: Boolean, onClick: () -> (Unit)) {
+    private val gestureDetector = GestureDetector(containerView.context, object : GestureDetector.SimpleOnGestureListener() {
+        override fun onLongPress(e: MotionEvent) {
+            onLongClick.invoke(adapterPosition)
+        }
+    })
+
+    fun bind(item: NumPadItem, isFingerprintEnabled: Boolean, showLetters: Boolean) {
         itemView.setOnTouchListener { v, event ->
             when {
                 event.action == MotionEvent.ACTION_DOWN -> {
-                    onClick.invoke()
+                    onClick.invoke(adapterPosition)
                     v.isPressed = true
-                    true
                 }
                 event.action == MotionEvent.ACTION_UP -> {
                     v.isPressed = false
-                    true
                 }
-                else -> false
             }
+
+            gestureDetector.onTouchEvent(event)
         }
 
         numpad_number_txt.visible = false

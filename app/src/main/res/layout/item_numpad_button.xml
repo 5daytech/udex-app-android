@@ -8,6 +8,7 @@
     android:padding="5dp"
     android:clickable="true"
     android:focusable="true"
+    android:longClickable="true"
     android:layout_columnWeight="1.0"
     android:foreground="?selectableItemBackground">
 

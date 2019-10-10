@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
@@ -295,7 +296,20 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             }
         }
     }
-    
+
+    override fun onItemLongClick(item: NumPadItem) {
+        val inputField = when(getInputField()) {
+            MARKET_AMOUNT -> market_amount_input
+            MARKET_RECEIVE_AMOUNT -> market_receive_input
+            LIMIT_AMOUNT -> limit_amount_input
+            LIMIT_PRICE -> limit_price_input
+        }
+
+        when (item.type) {
+            NumPadItemType.DELETE -> inputField?.setText("", TextView.BufferType.EDITABLE)
+        }
+    }
+
     private fun getInputField(): InputField = when(currentFocus?.id) {
         R.id.market_amount_input -> MARKET_AMOUNT
         R.id.market_receive_input -> MARKET_RECEIVE_AMOUNT
