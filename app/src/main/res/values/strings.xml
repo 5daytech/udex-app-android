@@ -25,6 +25,7 @@
     <string name="hint_your_account">Your account</string>
     <string name="hint_all_transactions">All transactions</string>
     <string name="hint_available_balance">Available Balance</string>
+    <string name="hint_equity_value">Equity Value (%1$s)</string>
     <string name="subtitle_restore">Enter Secret Key</string>
     <string name="subtitle_transaction_sent">Transaction sent \u2713</string>
     <string name="markets_list_hint">market info (24h)</string>

@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.manager.CoinManager
 import com.blocksdecoded.dex.presentation.balance.recycler.BalanceViewHolder
 import com.blocksdecoded.dex.presentation.balance.recycler.BalanceAdapter
 import com.blocksdecoded.dex.presentation.receive.ReceiveDialog
@@ -43,7 +42,7 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
         })
 
         viewModel.totalBalance.observe(this, Observer {
-            balance_total?.update(it)
+            balance_total?.update(it, isEstimated = true)
         })
 
         viewModel.refreshing.observe(this, Observer {})
