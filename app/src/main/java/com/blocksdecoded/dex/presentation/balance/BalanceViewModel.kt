@@ -132,7 +132,8 @@ class BalanceViewModel : CoreViewModel() {
     }
 
     fun onAddCoinsClick() {
-        onReceiveClick(0) // Receive ETH
+        val baseCoinIndex = adapters.indexOfFirst { it.coin.code == baseCoinCode }
+        onReceiveClick(baseCoinIndex)
     }
 
     fun onSendClick(position: Int) {
