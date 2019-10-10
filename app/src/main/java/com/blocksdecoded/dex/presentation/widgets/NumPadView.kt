@@ -4,12 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.*
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.utils.inflate
+import com.blocksdecoded.dex.utils.visible
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_numpad_button.*
 
 class NumPadView: RecyclerView {
 
@@ -103,12 +104,9 @@ enum class NumPadItemType {
     NUMBER, DELETE, FINGER, DOT
 }
 
-class NumPadItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private var txtNumber: TextView = itemView.findViewById(R.id.numpad_number_txt)
-    private var txtLetters: TextView = itemView.findViewById(R.id.numpad_letters_txt)
-    private var imgBackSpace: ImageView = itemView.findViewById(R.id.numpad_backspace_img)
-    private var imgFingerprint: ImageView = itemView.findViewById(R.id.numpad_fingerprint_img)
-
+class NumPadItemViewHolder(
+    override val containerView: View
+) : RecyclerView.ViewHolder(containerView), LayoutContainer {
     fun bind(item: NumPadItem, isFingerprintEnabled: Boolean, showLetters: Boolean, onClick: () -> (Unit)) {
         itemView.setOnTouchListener { v, event ->
             when {
@@ -125,35 +123,34 @@ class NumPadItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             }
         }
 
-        txtNumber.visibility = View.GONE
-        txtLetters.visibility = View.GONE
-        imgBackSpace.visibility = View.GONE
-        imgFingerprint.visibility = View.GONE
+        numpad_number_txt.visible = false
+        numpad_letters_txt.visible = false
+        numpad_backspace_img.visible = false
+        numpad_fingerprint_img.visible = false
 
         when (item.type) {
             NumPadItemType.DELETE -> {
                 itemView.background = null
-                imgBackSpace.visibility = View.VISIBLE
+                numpad_backspace_img.visible = true
             }
 
             NumPadItemType.NUMBER -> {
-                txtNumber.visibility = View.VISIBLE
-                txtLetters.visibility = if (item.number == 0 || !showLetters) View.GONE else View.VISIBLE
-                txtNumber.text = item.number.toString()
-                txtLetters.text = item.letters
+                numpad_number_txt.visible = true
+                numpad_letters_txt.visible = item.number != 0 && showLetters
+                numpad_number_txt.text = item.number.toString()
+                numpad_letters_txt.text = item.letters
             }
 
             NumPadItemType.FINGER -> {
                 itemView.background = null
-                imgFingerprint.visibility = if (isFingerprintEnabled) View.VISIBLE else View.GONE
+                numpad_fingerprint_img.visible = isFingerprintEnabled
             }
 
             NumPadItemType.DOT -> {
                 itemView.background = null
-                txtNumber.text = "."
-                txtNumber.visibility = View.VISIBLE
+                numpad_number_txt.text = "."
+                numpad_number_txt.visible = true
             }
-
         }
     }
 }
