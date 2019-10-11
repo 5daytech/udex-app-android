@@ -71,6 +71,7 @@
 
     <string name="info_fee">Estimated Fee:</string>
     <string name="info_total">Total:</string>
+    <string name="info_total_receive">Total Receive:</string>
     <string name="info_historical_rate">Rate Received:</string>
     <string name="info_date">Time:</string>
     <string name="info_status">Status:</string>
@@ -78,6 +79,9 @@
     <string name="info_to">To:</string>
     <string name="info_duration">Processing Time:</string>
     <string name="info_price_per_token">Price Per Token:</string>
+    <string name="info_filled_amount">Filled Amount:</string>
+    <string name="info_total_sell_amount">Total Sell Amount:</string>
+    <string name="info_expire_at">Expire At:</string>
 
     <string name="message_empty_transactions">THERE’S NO ANY\nTRANSACTIONS YET</string>
     <string name="message_empty_exchange_history">THERE’S NO ANY\nEXCHANGES YET</string>

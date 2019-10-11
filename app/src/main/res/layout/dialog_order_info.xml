@@ -37,7 +37,7 @@
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin"
         android:layout_marginTop="@dimen/page_margin"
-        app:iiv_title="Total sell amount:" />
+        app:iiv_title="@string/info_total_sell_amount" />
 
     <com.blocksdecoded.dex.presentation.widgets.InfoItemView
         android:id="@+id/order_info_price"
@@ -47,7 +47,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin"
-        app:iiv_title="Price per coin:" />
+        app:iiv_title="@string/info_price_per_token" />
 
     <com.blocksdecoded.dex.presentation.widgets.InfoItemView
         android:id="@+id/order_info_receive_amount"
@@ -57,7 +57,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin"
-        app:iiv_title="Total receive:" />
+        app:iiv_title="@string/info_total_receive" />
 
     <com.blocksdecoded.dex.presentation.widgets.InfoItemView
         android:id="@+id/order_info_filled_amount"
@@ -67,7 +67,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin"
-        app:iiv_title="Filled amount:" />
+        app:iiv_title="@string/info_filled_amount" />
 
     <com.blocksdecoded.dex.presentation.widgets.InfoItemView
         android:id="@+id/order_info_expire_date"
@@ -77,7 +77,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin"
-        app:iiv_title="Expire at:" />
+        app:iiv_title="@string/info_expire_at" />
 
     <Button
         style="@style/PrimaryButtonRounded"

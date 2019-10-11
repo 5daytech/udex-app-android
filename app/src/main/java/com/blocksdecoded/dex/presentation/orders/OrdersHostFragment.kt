@@ -14,10 +14,8 @@ import com.blocksdecoded.dex.presentation.main.IFocusListener
 import com.blocksdecoded.dex.presentation.orders.info.OrderInfoDialog
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.FillOrderInfo
-import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_orders_host.*
-import java.math.BigDecimal
 
 class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host), IFocusListener {
 
