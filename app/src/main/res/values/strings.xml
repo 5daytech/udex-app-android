@@ -113,14 +113,12 @@
     <string name="onboarding_tokens_page">Trade Ether and Ethereum-based\ntokens directly with other users</string>
     <string name="onboarding_p2p_page">Trade peer-to-peer any ERC20\ntoken from your own wallet\nwithout trading fees</string>
 
-    <string name="info_weth">The reason you need wETH is to be able to trade ETH
-        for other ERC-20 tokens on decentralized platforms like TradEx.
-        Because decentralized platforms running on Ethereum use smart contracts to facilitate trades directly between users,
-        every user needs to have the same standardized format for every token they trade.
-        This ensures tokens don\’t get lost in translation.\n\n
-        When you \'wrap\' ETH, you aren\'t really wrapping so much as trading via a smart contract for an equal token called wETH.
-        If you want to get plain ETH back you need to \'unwrap\' it.
-        AKA trade it back for plain ETH.
+    <string name="info_weth">WETH lets you trade ETH for other ERC20 tokens on decentralized exchanges like DEX.
+        \n\nUnlike ETH, WETH is ERC20 compliant.
+        It used in the smart contracts that facilitate trades between users.
+        When you "wrap" ETH, you are trading your ETH for WETH via a smart contract.
+        WETH always has the same value as ETH.
+        WETH can be unwrapped back into ETH at any time.
     </string>
     <string name="error_biometric_not_enabled">Biometric Not Enabled</string>
     <string name="error_biometric_not_added_yet">You have not enabled biometric on this device. Go to Settings > Security to set up fingerprint or face access.</string>
@@ -155,16 +153,16 @@
 
     <!-- Settings About App -->
     <string name="settings_about_app">About App</string>
-    <string name="settings_about_app_title">BD DEX</string>
+    <string name="settings_about_app_title">DEX</string>
     <string name="settings_about_app_subtitle">Decentralized App</string>
     <string name="settings_about_terms_subtitle">Terms &amp; Privacy:</string>
-    <string name="settings_about_terms_text">This app is peer-to-peer. It does not depend on any web server or tech support personnel to function.
-\n\nIt works everywhere as long as there is internet. No entity can block this app from working or to block someone from using it.
-\n\nYour funds are securely stored on the phone itself, not anywhere else.
-\n\nIt’s your responsibility to backup your Key and keep it private. Never show it to anyone. If it’s lost, forgotten or stolen your funds can be used by the person who has your key.
-\n\nDo not jailbreak your phone, do not install apps from unknown (untrusted) sources, do not give your device to untrusted people, and keep the Operating System on your phone up to date. The security of your funds depends on this.
-\n\nThe entire code powering this app been open to the public scrutiny since the beginning. We tried to build the most secure and decentralized exchange we could, however there are no guarantees that there are no unintended software issues. That said, this exchange is likely to be significantly more secure than any smartphone exchange app out there.
-\n\nSome generic non-private app data like currency exchange rates are stored on decentralized storage(IPFS).</string>
+    <string name="settings_about_terms_text">DEX runs on a peer-to-peer network. It does not depend on web servers or specialist personnel in order to function.
+\n\nProviding there is an internet connection, DEX will work anywhere in the world. No entity can block the app from functioning or block someone from using it.
+\n\nYour funds are securely stored on your phone or tablet. Nobody including DEX has access to them or can see them.
+\n\nIt’s your responsibility to back up your private key and keep it safe. Never show it to anyone. If it’s lost, forgotten, or stolen, your funds are at risk.
+\n\nDo not jailbreak your phone, do not install apps from unknown or untrusted sources, do not give your device to untrusted people, and keep the operating system on your phone up to date. Failure to follow this guidance will put your assets at risk.
+\n\nThe code powering DEX is open to public scrutiny and has been since development began. The app is significantly more secure than proprietary smartphone exchanges, but we cannot guarantee an absence of bugs and security issues. The developers accept no liability for lost assets.
+\n\nSome non-private app data like currency exchange rates are stored on decentralized storage (IPFS).</string>
 
     <!-- Auth failed -->
     <string name="auth_load_error_title">Auth data decryption failed</string>

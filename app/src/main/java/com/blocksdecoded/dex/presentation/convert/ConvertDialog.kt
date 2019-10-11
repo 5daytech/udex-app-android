@@ -157,14 +157,14 @@ class ConvertDialog private constructor()
         }, onSwitchClick = {
         
         })
-    
-        convert_numpad?.bind(this, NumPadItemType.DOT, false)
 
         inputConnection = amount_input?.bind( onChange = { amount ->
             convert_amount?.setMaxBtnVisible(amount <= BigDecimal.ZERO)
 
             amountChangeSubject.onNext(amount)
         }, decimalProvider = { viewModel.decimalSize })
+
+        convert_numpad?.bind(this, NumPadItemType.DOT, false)
 
         focusInput()
     
