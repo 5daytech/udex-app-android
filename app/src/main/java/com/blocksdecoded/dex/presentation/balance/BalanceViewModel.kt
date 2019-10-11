@@ -87,9 +87,9 @@ class BalanceViewModel : CoreViewModel() {
                     adapter.balance,
                     ratesConverter.getCoinsPrice(adapter.coin.code, adapter.balance),
                     ratesConverter.getTokenPrice(adapter.coin.code),
-                    when(index) {
-                        0 -> WRAP
-                        1 -> UNWRAP
+                    when(adapter.coin.code) {
+                        "ETH" -> WRAP
+                        "WETH" -> UNWRAP
                         else -> NONE
                     }
                 )
@@ -152,13 +152,13 @@ class BalanceViewModel : CoreViewModel() {
         if (mBalances.value.isValidIndex(position)) {
             val balance = mBalances.value?.get(position)
             balance?.let {
-                //TODO: Refactor. P.s. pass only coin code
-                openConvertDialog.postValue(
-                    ConvertConfig(
-                        it.coin.code,
-                        if (position == 0) ConvertType.WRAP else ConvertType.UNWRAP
-                    )
-                )
+                val type = when(it.coin.code) {
+                    "ETH" -> ConvertType.WRAP
+                    "WETH" -> ConvertType.UNWRAP
+                    else -> ConvertType.WRAP
+                }
+
+                openConvertDialog.postValue(ConvertConfig(it.coin.code, type))
             }
         }
     }
