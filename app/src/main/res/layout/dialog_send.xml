@@ -42,7 +42,7 @@
             android:textColor="?AccentTextColor"/>
     </LinearLayout>
 
-    <com.blocksdecoded.dex.presentation.widgets.InputAmountView
+    <com.blocksdecoded.dex.presentation.widgets.inputs.InputAmountView
         android:id="@+id/send_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         android:layout_marginEnd="@dimen/element_margin"
         android:layout_marginTop="@dimen/page_margin"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.InputAddressView
+    <com.blocksdecoded.dex.presentation.widgets.inputs.InputAddressView
         android:id="@+id/send_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

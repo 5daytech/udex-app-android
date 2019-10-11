@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.widgets
+package com.blocksdecoded.dex.presentation.widgets.inputs
 
 import android.content.Context
 import android.util.AttributeSet
@@ -28,7 +28,7 @@ class InputAmountView : ConstraintLayout {
         invalidate()
     }
 
-    fun updateInput(hint: String? = null, error: String? = null) {
+    fun updateHint(hint: String? = null, error: String? = null) {
         amount_hint.visibility = if (error == null) View.VISIBLE else View.GONE
         amount_error.visibility = if (error == null) View.GONE else View.VISIBLE
         amount_hint.text = hint

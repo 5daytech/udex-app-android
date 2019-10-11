@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.widgets
+package com.blocksdecoded.dex.presentation.widgets.inputs
 
 import android.content.Context
 import android.util.AttributeSet

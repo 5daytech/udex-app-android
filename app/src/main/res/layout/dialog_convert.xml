@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/page_margin"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.InputAmountView
+    <com.blocksdecoded.dex.presentation.widgets.inputs.InputAmountView
         android:id="@+id/convert_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
