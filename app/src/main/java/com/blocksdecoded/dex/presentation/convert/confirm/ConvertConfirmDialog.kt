@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.convert
+package com.blocksdecoded.dex.presentation.convert.confirm
 
 import android.os.Bundle
 import android.view.View

@@ -17,6 +17,7 @@ import com.blocksdecoded.dex.presentation.convert.model.ConvertType.*
 import com.blocksdecoded.dex.presentation.convert.model.ConvertState
 import com.blocksdecoded.dex.presentation.common.ProcessingDialog
 import com.blocksdecoded.dex.presentation.common.TransactionSentDialog
+import com.blocksdecoded.dex.presentation.convert.confirm.ConvertConfirmDialog
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
@@ -115,13 +116,23 @@ class ConvertDialog private constructor()
         viewModel.info.observe(this, Observer { info ->
             context?.let {
                 val enabledColor = it.theme.getAttr(R.attr.PrimaryTextColor) ?: 0
+                val hintColor = it.theme.getAttr(R.attr.SecondaryHintTextColor) ?: 0
                 val errorColor = ContextCompat.getColor(it, R.color.red)
-                val amountInputColor = if (info.error.absoluteValue > 0) errorColor else enabledColor
+
+                val amountInputColor = if (info.error == 0) enabledColor else errorColor
+                val hintInputColor = if (info.error == 0) hintColor else errorColor
+
+                amount_input?.setTextColor(amountInputColor)
+                amount_hint?.setTextColor(hintInputColor)
+
+                if (info.error == 0) {
+                    amount_hint?.text = getString(R.string.hint_you_send, info.fiatAmount.toFiatDisplayFormat())
+                } else {
+                    amount_hint?.setText(info.error)
+                }
 
                 amount_input?.setTextColor(amountInputColor)
             }
-
-            amount_hint?.text = "You send $${info.fiatAmount.toFiatDisplayFormat()}"
         })
 
         viewModel.transactionSentEvent.observe(this, Observer { transactionHash ->

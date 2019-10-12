@@ -13,6 +13,7 @@ import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
+import com.blocksdecoded.dex.presentation.convert.confirm.ConvertConfirmInfo
 import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
 import com.blocksdecoded.dex.presentation.convert.model.ConvertType.*
 import com.blocksdecoded.dex.presentation.convert.model.ConvertInfo
@@ -130,11 +131,11 @@ class ConvertViewModel(
                 0
             )
 
-            adapter.validate(sendAmount, null, FeeRatePriority.MEDIUM)
+            adapter.validate(sendAmount, null, FeeRatePriority.HIGH)
                 .forEach {
                     when(it) {
                         is SendStateError.InsufficientAmount -> {
-                            info.error = R.string.error_invalid_amount
+                            info.error = R.string.error_insufficient_balance
                         }
                         is SendStateError.InsufficientFeeBalance -> {
                             info.error = R.string.error_insufficient_fee_balance
@@ -183,16 +184,20 @@ class ConvertViewModel(
 	
 	fun onConvertClick() {
         if (sendAmount <= maxAmount) {
-            showConfirmEvent.value = ConvertConfirmInfo(
-                config.type,
-                fromCoin,
-                sendAmount,
-                toCoin,
-                sendAmount,
-                feeInfo.value?.amount,
-                feeInfo.value?.coinCode,
-                processingDurationProvider.getEstimatedDuration(fromCoin, ETransactionType.CONVERT)
-            ) { convert() }
+            showConfirmEvent.value =
+                ConvertConfirmInfo(
+                    config.type,
+                    fromCoin,
+                    sendAmount,
+                    toCoin,
+                    sendAmount,
+                    feeInfo.value?.amount,
+                    feeInfo.value?.coinCode,
+                    processingDurationProvider.getEstimatedDuration(
+                        fromCoin,
+                        ETransactionType.CONVERT
+                    )
+                ) { convert() }
         } else {
             errorEvent.postValue(R.string.error_invalid_amount)
         }
