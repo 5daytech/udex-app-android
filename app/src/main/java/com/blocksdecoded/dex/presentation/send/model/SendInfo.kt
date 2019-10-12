@@ -4,5 +4,6 @@ import java.math.BigDecimal
 
 data class SendInfo(
     var fiatAmount: BigDecimal,
-    var error: Boolean
+    var hint: Int,
+    var error: Int
 )

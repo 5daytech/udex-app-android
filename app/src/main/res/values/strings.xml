@@ -26,6 +26,7 @@
     <string name="hint_all_transactions">All transactions</string>
     <string name="hint_available_balance">Available Balance</string>
     <string name="hint_equity_value">Equity Value (%1$s) ~</string>
+    <string name="hint_you_send">You send $%1$s</string>
     <string name="subtitle_restore">Enter Secret Key</string>
     <string name="subtitle_transaction_sent">Transaction sent \u2713</string>
     <string name="markets_list_hint">market info (24h)</string>
@@ -33,6 +34,7 @@
     <string name="message_order_creating">Order processing…</string>
     <string name="error_invalid_amount">Not enough funds</string>
     <string name="error_insufficient_fee_balance">Insufficient fee balance!</string>
+    <string name="error_insufficient_balance">Insufficient balance!</string>
     <string name="error_invalid_mnemonic">Invalid mnemonic</string>
     <string name="error_exchange_failed">Exchange failed</string>
     <string name="error_order_place">Order place failed</string>

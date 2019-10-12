@@ -15,6 +15,7 @@ import com.blocksdecoded.dex.core.manager.clipboard.ClipboardManager
 import com.blocksdecoded.dex.core.manager.duration.ETransactionType
 import com.blocksdecoded.dex.core.manager.duration.IProcessingDurationProvider
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
+import com.blocksdecoded.dex.presentation.send.confirm.SendConfirmDialog
 import com.blocksdecoded.dex.presentation.send.model.ReceiveAddressInfo
 import com.blocksdecoded.dex.presentation.send.model.SendInfo
 import com.blocksdecoded.dex.presentation.send.model.SendUserInput
@@ -63,7 +64,7 @@ class SendViewModel(
         sendEnabled.value = false
         amount.value = userInput.amount
         receiveAddress.value = ReceiveAddressInfo("", 0)
-        sendInfo.value = SendInfo(BigDecimal.ZERO, false)
+        sendInfo.value = SendInfo(BigDecimal.ZERO, 0, 0)
     }
 
     private fun confirm() {
@@ -104,7 +105,7 @@ class SendViewModel(
     
     private fun refreshSendEnable() {
         val validAmount = userInput.amount > BigDecimal.ZERO &&
-                !(sendInfo.value?.error ?: false)
+                (sendInfo.value?.error ?: 1) == 0
 
         val validAddress = userInput.address != null &&
                 (receiveAddress.value?.error ?: 1) == 0
@@ -115,16 +116,17 @@ class SendViewModel(
     private fun refreshSendAmount(sendAmount: BigDecimal) {
         val info = SendInfo(
             ratesConverter.getCoinsPrice(adapter.coin.code, sendAmount),
-            false
+            0,
+            0
         )
 
         adapter.validate(sendAmount, null, FeeRatePriority.MEDIUM).forEach {
             when(it) {
                 is SendStateError.InsufficientAmount -> {
-                    info.error = true
+                    info.error = R.string.error_insufficient_balance
                 }
                 is SendStateError.InsufficientFeeBalance -> {
-                    info.error = true
+                    info.error = R.string.error_insufficient_fee_balance
                 }
             }
         }

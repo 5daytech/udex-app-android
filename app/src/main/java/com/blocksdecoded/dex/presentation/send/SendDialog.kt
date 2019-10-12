@@ -16,6 +16,7 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.core.ui.reObserve
+import com.blocksdecoded.dex.presentation.send.confirm.SendConfirmDialog
 import com.blocksdecoded.dex.presentation.send.model.ReceiveAddressInfo
 import com.blocksdecoded.dex.presentation.send.model.SendInfo
 import com.blocksdecoded.dex.utils.getAttr
@@ -66,12 +67,20 @@ class SendDialog private constructor()
         context?.let {
             val enabledColor = it.theme.getAttr(R.attr.PrimaryTextColor) ?: 0
             val errorColor = ContextCompat.getColor(it, R.color.red)
-            val amountInputColor = if (info.error) errorColor else enabledColor
+            val hintColor = it.theme.getAttr(R.attr.SecondaryHintTextColor) ?: 0
+
+            val amountInputColor = if (info.error == 0) enabledColor else errorColor
+            val hintInputColor = if (info.error == 0) hintColor else errorColor
 
             amount_input?.setTextColor(amountInputColor)
-        }
+            amount_hint?.setTextColor(hintInputColor)
 
-        amount_hint?.text = "You send $${info.fiatAmount.toFiatDisplayFormat()}"
+            if (info.error == 0) {
+                amount_hint?.setText(getString(R.string.hint_you_send, info.fiatAmount.toFiatDisplayFormat()))
+            } else {
+                amount_hint?.setText(info.error)
+            }
+        }
     }
 
     private val amountObserver = Observer<BigDecimal> { amount ->
