@@ -5,7 +5,7 @@ import java.util.*
 
 object TimeUtils {
 
-    const val INPUT_HANDLE_DELAY = 150L
+    const val INPUT_HANDLE_DELAY = 100L
 
     fun getSecondsAgo(dateInMillis: Long): Long {
         val differenceInMillis = Date().time - dateInMillis
