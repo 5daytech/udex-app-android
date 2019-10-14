@@ -7,7 +7,6 @@ import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapter
-import com.blocksdecoded.dex.presentation.exchange.model.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.model.*
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
@@ -25,10 +24,16 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     protected abstract var state: T
     protected val mReceiveInfo = ExchangeAmountInfo(BigDecimal.ZERO)
 
-    protected var exchangeSide = ExchangeSide.BID
-
     protected val orderSide: EOrderSide
-        get() = if (exchangeSide == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL
+        get() {
+            val market = marketCodes[currentMarketPosition]
+
+            return if (market.first == state.sendCoin?.code) {
+                EOrderSide.BUY
+            } else {
+                EOrderSide.SELL
+            }
+        }
 
     protected var exchangeableCoins: List<Coin> = listOf()
     protected var marketCodes: List<Pair<String, String>> = listOf()
@@ -37,10 +42,12 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             val sendCoin = viewState.value?.sendCoin?.code ?: ""
             val receiveCoin = viewState.value?.receiveCoin?.code ?: ""
 
-            return marketCodes.indexOfFirst {
+            val marketIndex = marketCodes.indexOfFirst {
                 (it.first == sendCoin && it.second == receiveCoin) ||
                         (it.second == sendCoin && it.first == receiveCoin)
             }
+
+            return marketIndex
         }
 
     private var mSendCoins: List<ExchangeCoinItem> = listOf()
@@ -143,6 +150,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
 
             refreshPairs(state, false)
             updateReceiveAmount()
+            viewState.value = state
         }
     }
 
@@ -157,34 +165,27 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             val sendCoin = state?.sendCoin?.code ?: mSendCoins.first().code
             mReceiveCoins = getAvailableReceiveCoins(sendCoin)
 
-            if (this.state.receiveCoin == null) {
+            val currentReceiveIndex = mReceiveCoins.indexOfFirst { it.code == state?.receiveCoin?.code ?: ""}
+
+            if (currentReceiveIndex < 0 || this.state.receiveCoin == null) {
                 this.state.receiveCoin = mReceiveCoins.firstOrNull()
             }
         }
     }
 
     private fun getAvailableSendCoins(): List<ExchangeCoinItem> = exchangeableCoins
-        .filter { coin -> marketCodes
-            .firstOrNull {
-                when(this.exchangeSide) {
-                    ExchangeSide.BID -> it.first == coin.code
-                    ExchangeSide.ASK -> it.second == coin.code
-                }
-            } != null
-        }
         .map { getExchangeItem(it) }
 
     private fun getAvailableReceiveCoins(baseCoinCode: String): List<ExchangeCoinItem> =
         exchangeableCoins
             .filter { coin ->
                 marketCodes.firstOrNull {
-                    when(this.exchangeSide) {
-                        ExchangeSide.BID -> it.first.equals(baseCoinCode, true) &&
-                                it.second.equals(coin.code, true)
+                    val isBuySide = it.first.equals(baseCoinCode, true) &&
+                            it.second.equals(coin.code, true)
+                    val isSellSide = it.second.equals(baseCoinCode, true) &&
+                            it.first.equals(coin.code, true)
 
-                        ExchangeSide.ASK -> it.second.equals(baseCoinCode, true) &&
-                                it.first.equals(coin.code, true)
-                    }
+                    isBuySide || isSellSide
                 } != null
             }.map { getExchangeItem(it) }
 

@@ -113,7 +113,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 
 				val orderData = CreateOrderData(
 					marketCodes[currentMarketPosition],
-					if (exchangeSide == ExchangeSide.BID) EOrderSide.SELL else EOrderSide.BUY,
+					if (orderSide == EOrderSide.BUY) EOrderSide.SELL else EOrderSide.BUY,
 					amount,
 					mPriceInfo.sendPrice
 				)
@@ -138,8 +138,8 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		val pair = marketCodes[currentMarketPosition]
 		
 		val confirmInfo = ExchangeConfirmInfo(
-			if (exchangeSide == ExchangeSide.BID) pair.first else pair.second,
-			if (exchangeSide == ExchangeSide.BID) pair.second else pair.first,
+			state.sendCoin?.code ?: "",
+			state.receiveCoin?.code ?: "",
 			state.sendAmount,
 			mReceiveInfo.amount
 		) { placeOrder() }
@@ -170,11 +170,6 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 	}
 	
 	fun onSwitchClick() {
-		exchangeSide = when(exchangeSide) {
-			ExchangeSide.BID -> ExchangeSide.ASK
-			ExchangeSide.ASK -> ExchangeSide.BID
-		}
-
 		var currentReceive = mReceiveInfo.amount
 		var currentSend = state.sendAmount
 

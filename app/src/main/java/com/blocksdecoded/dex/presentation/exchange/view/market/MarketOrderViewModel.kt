@@ -132,8 +132,8 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
         val pair = marketCodes[currentMarketPosition]
 
         val confirmInfo = ExchangeConfirmInfo(
-            if (exchangeSide == ExchangeSide.BID) pair.first else pair.second,
-            if (exchangeSide == ExchangeSide.BID) pair.second else pair.first,
+            state.sendCoin?.code ?: "",
+            state.receiveCoin?.code ?: "",
             estimatedSendAmount,
             estimatedReceiveAmount
         ) { marketBuy() }
@@ -153,7 +153,6 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
 
         when(orderSide) {
             BUY -> {
-                exchangeSide = ExchangeSide.BID
                 state.sendCoin = getExchangeItem(baseCoin)
                 state.receiveCoin = getExchangeItem(quoteCoin)
                 state.sendAmount = amount
@@ -162,7 +161,6 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
                 updateReceiveAmount()
             }
             SELL -> {
-                exchangeSide = ExchangeSide.ASK
                 state.sendCoin = getExchangeItem(quoteCoin)
                 state.receiveCoin = getExchangeItem(baseCoin)
                 state.sendAmount = amount
@@ -194,11 +192,6 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
     }
 
     fun onSwitchClick() {
-        exchangeSide = when(exchangeSide) {
-            ExchangeSide.BID -> ExchangeSide.ASK
-            ExchangeSide.ASK -> ExchangeSide.BID
-        }
-
         val sendAmount = state.receiveAmount
         state = MarketOrderViewState(
             sendAmount = BigDecimal.ZERO,

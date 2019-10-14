@@ -115,7 +115,7 @@ class OrdersWatcher(
 			}
 		myOrdersSubject.onNext(uiMyOrders)
 	} catch (e: Exception) {
-		Logger.e(e)
+//		Logger.e(e)
 	}
 
 	private fun getMySelectedOrders(): RelayerOrders<Pair<SignedOrder, EOrderSide>> =
