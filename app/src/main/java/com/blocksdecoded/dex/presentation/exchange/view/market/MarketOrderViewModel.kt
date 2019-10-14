@@ -6,9 +6,9 @@ import com.blocksdecoded.dex.core.manager.zrx.model.FillOrderData
 import com.blocksdecoded.dex.core.manager.zrx.model.FillResult
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeAmountInfo
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeCoinItem
-import com.blocksdecoded.dex.presentation.exchange.view.model.MarketOrderViewState
+import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
+import com.blocksdecoded.dex.presentation.exchange.model.ExchangeCoinItem
+import com.blocksdecoded.dex.presentation.exchange.model.MarketOrderViewState
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.utils.Logger
@@ -59,7 +59,8 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
 
             state.receiveAmount = fillResult.receiveAmount
             estimatedReceiveAmount = fillResult.receiveAmount
-            receiveInfo.value = ExchangeAmountInfo(fillResult.receiveAmount)
+            receiveInfo.value =
+                ExchangeAmountInfo(fillResult.receiveAmount)
 
             exchangeEnabled.value = state.receiveAmount > BigDecimal.ZERO
 
@@ -86,7 +87,8 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
             state.sendAmount = fillResult.sendAmount
 
             estimatedSendAmount = fillResult.sendAmount
-            sendAmountInfo.value = ExchangeAmountInfo(fillResult.sendAmount)
+            sendAmountInfo.value =
+                ExchangeAmountInfo(fillResult.sendAmount)
 
             exchangeEnabled.value = state.receiveAmount > BigDecimal.ZERO && state.sendAmount > BigDecimal.ZERO
 

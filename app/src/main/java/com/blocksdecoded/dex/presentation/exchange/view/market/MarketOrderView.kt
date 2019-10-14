@@ -8,9 +8,9 @@ import android.view.inputmethod.InputConnection
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeAmountInfo
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairsInfo
-import com.blocksdecoded.dex.presentation.exchange.view.model.MarketOrderViewState
+import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
+import com.blocksdecoded.dex.presentation.exchange.model.ExchangePairsInfo
+import com.blocksdecoded.dex.presentation.exchange.model.MarketOrderViewState
 import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.visible

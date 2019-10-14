@@ -8,10 +8,9 @@ import android.widget.TextView
 import androidx.core.view.isInvisible
 import androidx.core.view.marginLeft
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeCoinItem
+import com.blocksdecoded.dex.presentation.exchange.model.ExchangeCoinItem
 import com.blocksdecoded.dex.presentation.widgets.BaseDropDownView
 import com.blocksdecoded.dex.presentation.widgets.CoinIconView
-import com.blocksdecoded.dex.utils.dp
 import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
@@ -74,8 +73,8 @@ class CoinDropDown : BaseDropDownView<ExchangeCoinItem> {
 		""
 
 	private class CoinDropDownAdapter(
-		items: List<ExchangeCoinItem>,
-		onItemPick: ((position: Int) -> Unit)? = null
+        items: List<ExchangeCoinItem>,
+        onItemPick: ((position: Int) -> Unit)? = null
 	): BaseDropDownView.PopupAdapter<ExchangeCoinItem>(items, onItemPick) {
 		override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinHolder =
 			CoinHolder(parent.inflate(R.layout.item_coin_spinner), onItemPick)

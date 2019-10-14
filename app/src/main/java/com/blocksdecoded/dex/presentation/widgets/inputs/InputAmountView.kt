@@ -9,7 +9,6 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.utils.getAttr
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
-import kotlinx.android.synthetic.main.view_amount_input.*
 import kotlinx.android.synthetic.main.view_amount_input.view.*
 
 class InputAmountView : ConstraintLayout {
@@ -52,7 +51,7 @@ class InputAmountView : ConstraintLayout {
         amount_hint?.setTextColor(hintInputColor)
 
         if (info.error == 0) {
-            amount_hint?.text = context.getString(R.string.hint_you_send, info.fiatAmount.toFiatDisplayFormat())
+            amount_hint?.text = context.getString(R.string.hint_you_send, info.value.toFiatDisplayFormat())
         } else {
             amount_hint?.setText(info.error)
         }

@@ -8,7 +8,10 @@ import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
-import com.blocksdecoded.dex.presentation.exchange.view.model.*
+import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
+import com.blocksdecoded.dex.presentation.exchange.model.ExchangeCoinItem
+import com.blocksdecoded.dex.presentation.exchange.model.ExchangePairsInfo
+import com.blocksdecoded.dex.presentation.exchange.model.IExchangeViewState
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
@@ -22,7 +25,8 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     private val adapterManager = App.adapterManager
 
     protected abstract var state: T
-    protected val mReceiveInfo = ExchangeAmountInfo(BigDecimal.ZERO)
+    protected val mReceiveInfo =
+        ExchangeAmountInfo(BigDecimal.ZERO)
 
     protected val orderSide: EOrderSide
         get() {
@@ -53,13 +57,23 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     private var mSendCoins: List<ExchangeCoinItem> = listOf()
         set(value) {
             field = value
-            sendCoins.postValue(ExchangePairsInfo(value, state.sendCoin))
+            sendCoins.postValue(
+                ExchangePairsInfo(
+                    value,
+                    state.sendCoin
+                )
+            )
         }
 
     private var mReceiveCoins: List<ExchangeCoinItem> = listOf()
         set(value) {
             field = value
-            receiveCoins.postValue(ExchangePairsInfo(value, state.receiveCoin))
+            receiveCoins.postValue(
+                ExchangePairsInfo(
+                    value,
+                    state.receiveCoin
+                )
+            )
         }
 
     val sendCoins = MutableLiveData<ExchangePairsInfo>()

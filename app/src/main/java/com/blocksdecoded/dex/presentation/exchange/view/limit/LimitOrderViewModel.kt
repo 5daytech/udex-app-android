@@ -6,9 +6,9 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.manager.zrx.model.CreateOrderData
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeCoinItem
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePriceInfo
-import com.blocksdecoded.dex.presentation.exchange.view.model.LimitOrderViewState
+import com.blocksdecoded.dex.presentation.exchange.model.ExchangeCoinItem
+import com.blocksdecoded.dex.presentation.exchange.model.LimitOrderViewState
+import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.normalizedDiv
@@ -21,16 +21,16 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 	private val ratesManager = App.ratesManager
 
 	override var state: LimitOrderViewState =
-		LimitOrderViewState(
-			BigDecimal.ZERO,
-			null,
-			null
-		)
+        LimitOrderViewState(
+            BigDecimal.ZERO,
+            null,
+            null
+        )
 
-	private val mPriceInfo = ExchangePriceInfo(BigDecimal.ZERO)
+	private val mPriceInfo = AmountInfo(BigDecimal.ZERO)
 
 	val averagePrice = MutableLiveData<BigDecimal>()
-	val priceInfo = MutableLiveData<ExchangePriceInfo>()
+	val priceInfo = MutableLiveData<AmountInfo>()
 
 	init {
 		init()
@@ -71,7 +71,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 
 	override fun updateReceiveAmount() {
 		state.sendAmount.let { amount ->
-			val receiveAmount = amount.multiply(mPriceInfo.sendPrice)
+			val receiveAmount = amount.multiply(mPriceInfo.value)
 			mReceiveInfo.amount = receiveAmount
 
 			receiveInfo.value = mReceiveInfo
@@ -87,16 +87,16 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 	
 	override fun initState(sendItem: ExchangeCoinItem?, receiveItem: ExchangeCoinItem?) {
 		state = LimitOrderViewState(
-			BigDecimal.ZERO,
-			sendItem,
-			receiveItem
-		)
+            BigDecimal.ZERO,
+            sendItem,
+            receiveItem
+        )
 		viewState.postValue(state)
 
 		mReceiveInfo.amount = BigDecimal.ZERO
 		receiveInfo.postValue(mReceiveInfo)
 
-		mPriceInfo.sendPrice = BigDecimal.ZERO
+		mPriceInfo.value = BigDecimal.ZERO
 		priceInfo.postValue(mPriceInfo)
 
 		averagePrice.postValue(BigDecimal.ZERO)
@@ -106,7 +106,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 	
 	private fun placeOrder() {
 		state.sendAmount.let { amount ->
-			if (amount > BigDecimal.ZERO && mPriceInfo.sendPrice > BigDecimal.ZERO) {
+			if (amount > BigDecimal.ZERO && mPriceInfo.value > BigDecimal.ZERO) {
 				messageEvent.postValue(R.string.message_order_creating)
 				showProcessingEvent.call()
 
@@ -114,7 +114,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 					marketCodes[currentMarketPosition],
 					if (orderSide == EOrderSide.BUY) EOrderSide.SELL else EOrderSide.BUY,
 					amount,
-					mPriceInfo.sendPrice
+					mPriceInfo.value
 				)
 				relayer?.createOrder(orderData)
 					?.uiSubscribe(disposables, {}, {
@@ -151,8 +151,8 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 	//region Public
 	
 	fun onPriceChange(price: BigDecimal) {
-		if (mPriceInfo.sendPrice != price) {
-			mPriceInfo.sendPrice = price
+		if (mPriceInfo.value != price) {
+			mPriceInfo.value = price
 			
 			updateReceiveAmount()
 		}
@@ -160,7 +160,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 	
 	fun onExchangeClick() {
 		viewState.value?.sendAmount?.let { amount ->
-			if (amount > BigDecimal.ZERO && mPriceInfo.sendPrice > BigDecimal.ZERO) {
+			if (amount > BigDecimal.ZERO && mPriceInfo.value > BigDecimal.ZERO) {
 				showConfirm()
 			} else {
 				errorEvent.postValue(R.string.message_invalid_amount)
@@ -181,13 +181,13 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		}
 
 		state = LimitOrderViewState(
-			sendAmount = currentReceive,
-			sendCoin = state.receiveCoin,
-			receiveCoin = state.sendCoin
-		)
+            sendAmount = currentReceive,
+            sendCoin = state.receiveCoin,
+            receiveCoin = state.sendCoin
+        )
 
 		mReceiveInfo.amount = currentSend
-		mPriceInfo.sendPrice = currentPrice
+		mPriceInfo.value = currentPrice
 
 		refreshPairs(state)
 

@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.exchange.view.model
+package com.blocksdecoded.dex.presentation.exchange.model
 
 import java.math.BigDecimal
 
@@ -20,10 +20,6 @@ data class LimitOrderViewState(
     override var sendCoin: ExchangeCoinItem?,
     override var receiveCoin: ExchangeCoinItem?
 ) : IExchangeViewState
-
-data class ExchangePriceInfo(
-    var sendPrice: BigDecimal
-)
 
 data class ExchangeAmountInfo(
     var amount: BigDecimal

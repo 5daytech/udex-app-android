@@ -13,11 +13,10 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.common.ProcessingDialog
 import com.blocksdecoded.dex.presentation.common.TransactionSentDialog
+import com.blocksdecoded.dex.presentation.exchange.ExchangeFragment.ExchangeType.*
 import com.blocksdecoded.dex.presentation.exchange.ExchangeFragment.InputField.*
-import com.blocksdecoded.dex.presentation.exchange.model.ExchangeType.*
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmDialog
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
-import com.blocksdecoded.dex.presentation.exchange.model.ExchangeType
 import com.blocksdecoded.dex.presentation.exchange.view.limit.LimitOrderViewModel
 import com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderViewModel
 import com.blocksdecoded.dex.presentation.main.IFocusListener
@@ -327,5 +326,10 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         MARKET_RECEIVE_AMOUNT,
         LIMIT_AMOUNT,
         LIMIT_PRICE
+    }
+
+    enum class ExchangeType {
+        MARKET,
+        LIMIT
     }
 }

@@ -70,7 +70,7 @@ class SendViewModel(
     private fun confirm() {
         val fee = adapter.fee(userInput.amount, null, feePriority = FeeRatePriority.MEDIUM)
         val feeFiatAmount = ratesConverter.getCoinsPrice("ETH", fee)
-        val fiatAmount = sendInfo.value?.fiatAmount ?: BigDecimal.ZERO
+        val fiatAmount = sendInfo.value?.value ?: BigDecimal.ZERO
 
         val sendConfirmData = SendConfirmDialog.SendConfirmData(
             adapter.coin,

@@ -7,7 +7,9 @@ import android.view.View
 import android.view.inputmethod.InputConnection
 import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.exchange.view.model.*
+import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
+import com.blocksdecoded.dex.presentation.exchange.model.ExchangePairsInfo
+import com.blocksdecoded.dex.presentation.exchange.model.LimitOrderViewState
 import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
@@ -82,8 +84,8 @@ class LimitOrderView: CardView {
 		updateTotal(totalInfo.amount)
 	}
 
-	fun updatePrice(priceInfo: ExchangePriceInfo) {
-		updatePrice(priceInfo.sendPrice)
+	fun updatePrice(priceInfo: AmountInfo) {
+		updatePrice(priceInfo.value)
 	}
 
 	fun updateAveragePrice(price: BigDecimal) {
