@@ -177,17 +177,16 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
         .map { getExchangeItem(it) }
 
     private fun getAvailableReceiveCoins(baseCoinCode: String): List<ExchangeCoinItem> =
-        exchangeableCoins
-            .filter { coin ->
-                marketCodes.firstOrNull {
-                    val isBuySide = it.first.equals(baseCoinCode, true) &&
-                            it.second.equals(coin.code, true)
-                    val isSellSide = it.second.equals(baseCoinCode, true) &&
-                            it.first.equals(coin.code, true)
+        exchangeableCoins.filter { coin ->
+            marketCodes.firstOrNull {
+                val isBuySide = it.first.equals(baseCoinCode, true) &&
+                        it.second.equals(coin.code, true)
+                val isSellSide = it.second.equals(baseCoinCode, true) &&
+                        it.first.equals(coin.code, true)
 
-                    isBuySide || isSellSide
-                } != null
-            }.map { getExchangeItem(it) }
+                isBuySide || isSellSide
+            } != null
+        }.map { getExchangeItem(it) }
 
     protected fun getExchangeItem(coin: Coin): ExchangeCoinItem {
         val balance = adapterManager.adapters

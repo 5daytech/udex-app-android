@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.manager.zrx.model.FillOrderData
 import com.blocksdecoded.dex.core.manager.zrx.model.FillResult
-import com.blocksdecoded.dex.presentation.exchange.model.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeAmountInfo

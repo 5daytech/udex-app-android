@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.manager.zrx.model.CreateOrderData
-import com.blocksdecoded.dex.presentation.exchange.model.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeCoinItem
@@ -12,9 +11,9 @@ import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePriceInfo
 import com.blocksdecoded.dex.presentation.exchange.view.model.LimitOrderViewState
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.Logger
+import com.blocksdecoded.dex.utils.normalizedDiv
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
-import java.math.MathContext
 
 class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 
@@ -174,8 +173,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		var currentSend = state.sendAmount
 
 		val currentPrice = if (mReceiveInfo.amount > BigDecimal.ZERO) {
-			val mc = MathContext(18)
-			state.sendAmount.divide(mReceiveInfo.amount, mc) ?: BigDecimal.ZERO
+			state.sendAmount.normalizedDiv(mReceiveInfo.amount)
 		} else {
 			currentReceive = currentSend
 			currentSend = BigDecimal.ZERO
