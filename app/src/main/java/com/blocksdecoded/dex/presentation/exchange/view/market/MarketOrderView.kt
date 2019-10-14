@@ -10,8 +10,8 @@ import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeAmountInfo
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairsInfo
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeReceiveInfo
 import com.blocksdecoded.dex.presentation.exchange.view.model.MarketOrderViewState
+import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
@@ -68,8 +68,8 @@ class MarketOrderView: CardView {
 		market_quote_spinner?.setSelectedPair(info.selectedCoin)
 	}
 
-	fun updateReceiveInfo(receiveInfo: ExchangeReceiveInfo) {
-		updateReceiveAmount(receiveInfo.receiveAmount)
+	fun updateReceiveInfo(receiveInfo: ExchangeAmountInfo) {
+		updateReceiveAmount(receiveInfo.amount)
 	}
 
 	fun updateSendInfo(info: ExchangeAmountInfo) {
@@ -85,7 +85,11 @@ class MarketOrderView: CardView {
 		market_base_spinner?.setSelectedPair(state.sendCoin)
 		market_quote_spinner?.setSelectedPair(state.receiveCoin)
 	}
-	
+
+	private fun updateHint(info: AmountInfo) {
+
+	}
+
 	private fun updateAmount(amount: BigDecimal) {
 		if (amount > BigDecimal.ZERO) {
 			market_amount_input?.setText(amount.stripTrailingZeros().toPlainString())

@@ -73,7 +73,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 	override fun updateReceiveAmount() {
 		state.sendAmount.let { amount ->
 			val receiveAmount = amount.multiply(mPriceInfo.sendPrice)
-			mReceiveInfo.receiveAmount = receiveAmount
+			mReceiveInfo.amount = receiveAmount
 
 			receiveInfo.value = mReceiveInfo
 
@@ -94,7 +94,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		)
 		viewState.postValue(state)
 
-		mReceiveInfo.receiveAmount = BigDecimal.ZERO
+		mReceiveInfo.amount = BigDecimal.ZERO
 		receiveInfo.postValue(mReceiveInfo)
 
 		mPriceInfo.sendPrice = BigDecimal.ZERO
@@ -141,7 +141,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 			if (exchangeSide == ExchangeSide.BID) pair.first else pair.second,
 			if (exchangeSide == ExchangeSide.BID) pair.second else pair.first,
 			state.sendAmount,
-			mReceiveInfo.receiveAmount
+			mReceiveInfo.amount
 		) { placeOrder() }
 
 		confirmEvent.value = confirmInfo
@@ -175,12 +175,12 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 			ExchangeSide.ASK -> ExchangeSide.BID
 		}
 
-		var currentReceive = mReceiveInfo.receiveAmount
+		var currentReceive = mReceiveInfo.amount
 		var currentSend = state.sendAmount
 
-		val currentPrice = if (mReceiveInfo.receiveAmount > BigDecimal.ZERO) {
+		val currentPrice = if (mReceiveInfo.amount > BigDecimal.ZERO) {
 			val mc = MathContext(18)
-			state.sendAmount.divide(mReceiveInfo.receiveAmount, mc) ?: BigDecimal.ZERO
+			state.sendAmount.divide(mReceiveInfo.amount, mc) ?: BigDecimal.ZERO
 		} else {
 			currentReceive = currentSend
 			currentSend = BigDecimal.ZERO
@@ -193,7 +193,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 			receiveCoin = state.sendCoin
 		)
 
-		mReceiveInfo.receiveAmount = currentSend
+		mReceiveInfo.amount = currentSend
 		mPriceInfo.sendPrice = currentPrice
 
 		refreshPairs(state)

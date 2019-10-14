@@ -65,6 +65,10 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         processingDialog?.dismiss()
     }
 
+    private val errorObserver = Observer<Int> {
+        ToastHelper.showErrorMessage(it)
+    }
+
     //region Lifecycle
     
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,6 +88,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         super.onViewCreated(view, savedInstanceState)
         
         exchange_numpad?.bind(this, NumPadItemType.DOT, false, scrollable = true)
+
         exchange_confirm?.setSingleClickListener {
             when(activeType) {
                 MARKET -> marketOrderViewModel.onExchangeClick()
@@ -172,14 +177,6 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         marketOrderViewModel.successEvent.observe(this, Observer {
             TransactionSentDialog.open(childFragmentManager, it)
         })
-
-        marketOrderViewModel.errorEvent.observe(this, Observer {
-            ToastHelper.showErrorMessage(it)
-        })
-    
-        marketOrderViewModel.exchangeEnabled.observe(this, exchangeEnableObserver)
-    
-        marketOrderViewModel.confirmEvent.observe(this, confirmObserver)
     
         marketOrderViewModel.exchangePrice.observe(this, Observer {
             val info = "Price per token: ${it.toDisplayFormat()}" + if (it == BigDecimal.ZERO) {
@@ -189,6 +186,9 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             exchange_info?.text = info
         })
 
+        marketOrderViewModel.errorEvent.observe(this, errorObserver)
+        marketOrderViewModel.exchangeEnabled.observe(this, exchangeEnableObserver)
+        marketOrderViewModel.confirmEvent.observe(this, confirmObserver)
         marketOrderViewModel.showProcessingEvent.observe(this, processingObserver)
         marketOrderViewModel.processingDismissEvent.observe(this, processingDismissObserver)
         marketOrderViewModel.focusExchangeEvent.observe(this, Observer {
@@ -224,10 +224,6 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         limitOrderViewModel.messageEvent.observe(this, Observer {
             ToastHelper.showSuccessMessage(it)
         })
-
-        limitOrderViewModel.errorEvent.observe(this, Observer {
-            ToastHelper.showErrorMessage(it)
-        })
     
         limitOrderViewModel.successEvent.observe(this, Observer {
             TransactionSentDialog.open(childFragmentManager, it)
@@ -249,6 +245,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             exchange_limit_view?.updateAveragePrice(it)
         })
 
+        limitOrderViewModel.errorEvent.observe(this, errorObserver)
         limitOrderViewModel.showProcessingEvent.observe(this, processingObserver)
         limitOrderViewModel.processingDismissEvent.observe(this, processingDismissObserver)
         limitOrderViewModel.focusExchangeEvent.observe(this, Observer {

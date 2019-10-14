@@ -9,7 +9,6 @@ import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeAmountInfo
 import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeCoinItem
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeReceiveInfo
 import com.blocksdecoded.dex.presentation.exchange.view.model.MarketOrderViewState
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
@@ -61,7 +60,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
 
             state.receiveAmount = fillResult.receiveAmount
             estimatedReceiveAmount = fillResult.receiveAmount
-            receiveInfo.value = ExchangeReceiveInfo(fillResult.receiveAmount)
+            receiveInfo.value = ExchangeAmountInfo(fillResult.receiveAmount)
 
             exchangeEnabled.value = state.receiveAmount > BigDecimal.ZERO
 

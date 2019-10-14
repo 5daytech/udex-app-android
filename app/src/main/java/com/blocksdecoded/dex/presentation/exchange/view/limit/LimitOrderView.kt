@@ -7,10 +7,8 @@ import android.view.View
 import android.view.inputmethod.InputConnection
 import androidx.cardview.widget.CardView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairsInfo
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePriceInfo
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeReceiveInfo
-import com.blocksdecoded.dex.presentation.exchange.view.model.LimitOrderViewState
+import com.blocksdecoded.dex.presentation.exchange.view.model.*
+import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toPriceFormat
@@ -80,8 +78,8 @@ class LimitOrderView: CardView {
 		limit_quote_spinner?.setSelectedPair(state.receiveCoin)
 	}
 
-	fun updateTotal(totalInfo: ExchangeReceiveInfo) {
-		updateTotal(totalInfo.receiveAmount)
+	fun updateTotal(totalInfo: ExchangeAmountInfo) {
+		updateTotal(totalInfo.amount)
 	}
 
 	fun updatePrice(priceInfo: ExchangePriceInfo) {
@@ -100,6 +98,10 @@ class LimitOrderView: CardView {
 			limit_total?.hint = "You Receive: - ${limit_quote_spinner.getSelectedSymbol()}"
 			limit_total?.text = ""
 		}
+	}
+
+	private fun updateHint(info: AmountInfo) {
+
 	}
 	
 	private fun updateAmount(amount: BigDecimal) {

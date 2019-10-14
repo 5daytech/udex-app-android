@@ -9,10 +9,7 @@ import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeSide
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeCoinItem
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangePairsInfo
-import com.blocksdecoded.dex.presentation.exchange.view.model.ExchangeReceiveInfo
-import com.blocksdecoded.dex.presentation.exchange.view.model.IExchangeViewState
+import com.blocksdecoded.dex.presentation.exchange.view.model.*
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
@@ -26,9 +23,10 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     private val adapterManager = App.adapterManager
 
     protected abstract var state: T
-    protected val mReceiveInfo = ExchangeReceiveInfo(BigDecimal.ZERO)
+    protected val mReceiveInfo = ExchangeAmountInfo(BigDecimal.ZERO)
 
     protected var exchangeSide = ExchangeSide.BID
+
     protected val orderSide: EOrderSide
         get() = if (exchangeSide == ExchangeSide.BID) EOrderSide.BUY else EOrderSide.SELL
 
@@ -48,29 +46,19 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     private var mSendCoins: List<ExchangeCoinItem> = listOf()
         set(value) {
             field = value
-            sendCoins.postValue(
-                ExchangePairsInfo(
-                    value,
-                    state.sendCoin
-                )
-            )
+            sendCoins.postValue(ExchangePairsInfo(value, state.sendCoin))
         }
 
     private var mReceiveCoins: List<ExchangeCoinItem> = listOf()
         set(value) {
             field = value
-            receiveCoins.postValue(
-                ExchangePairsInfo(
-                    value,
-                    state.receiveCoin
-                )
-            )
+            receiveCoins.postValue(ExchangePairsInfo(value, state.receiveCoin))
         }
 
     val sendCoins = MutableLiveData<ExchangePairsInfo>()
     val receiveCoins = MutableLiveData<ExchangePairsInfo>()
     val viewState = MutableLiveData<T>()
-    val receiveInfo = MutableLiveData<ExchangeReceiveInfo>()
+    val receiveInfo = MutableLiveData<ExchangeAmountInfo>()
 
     val exchangeEnabled = MutableLiveData<Boolean>()
     val exchangePrice = MutableLiveData<BigDecimal>()
@@ -166,7 +154,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
         }
 
         if (mSendCoins.isNotEmpty()) {
-            val sendCoin = state?.sendCoin?.code ?: mSendCoins.first()?.code
+            val sendCoin = state?.sendCoin?.code ?: mSendCoins.first().code
             mReceiveCoins = getAvailableReceiveCoins(sendCoin)
 
             if (this.state.receiveCoin == null) {

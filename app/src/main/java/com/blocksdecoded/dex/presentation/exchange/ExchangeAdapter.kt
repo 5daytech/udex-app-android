@@ -16,15 +16,11 @@ class ExchangeAdapter : PagerAdapter() {
 	}
 	
 	override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
-	
+
 	override fun getCount(): Int = 2
 	
 	override fun getPageTitle(position: Int): CharSequence? = when(position) {
 		0 -> "Market buy"
 		else -> "Place order"
-	}
-	
-	override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-		super.destroyItem(container, position, `object`)
 	}
 }
