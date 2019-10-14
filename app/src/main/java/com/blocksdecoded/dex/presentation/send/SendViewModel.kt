@@ -15,9 +15,9 @@ import com.blocksdecoded.dex.core.manager.clipboard.ClipboardManager
 import com.blocksdecoded.dex.core.manager.duration.ETransactionType
 import com.blocksdecoded.dex.core.manager.duration.IProcessingDurationProvider
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
+import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.send.confirm.SendConfirmDialog
 import com.blocksdecoded.dex.presentation.send.model.ReceiveAddressInfo
-import com.blocksdecoded.dex.presentation.send.model.SendInfo
 import com.blocksdecoded.dex.presentation.send.model.SendUserInput
 import java.lang.Exception
 import java.math.BigDecimal
@@ -36,7 +36,7 @@ class SendViewModel(
     val receiveAddress = MutableLiveData<ReceiveAddressInfo>()
     val sendEnabled = MutableLiveData<Boolean>()
     val amount = MutableLiveData<BigDecimal>()
-    val sendInfo = MutableLiveData<SendInfo>()
+    val sendInfo = MutableLiveData<AmountInfo>()
 
     val confirmEvent = SingleLiveEvent<SendConfirmDialog.SendConfirmData>()
     val dismissEvent = SingleLiveEvent<Unit>()
@@ -64,7 +64,7 @@ class SendViewModel(
         sendEnabled.value = false
         amount.value = userInput.amount
         receiveAddress.value = ReceiveAddressInfo("", 0)
-        sendInfo.value = SendInfo(BigDecimal.ZERO, 0, 0)
+        sendInfo.value = AmountInfo(BigDecimal.ZERO, 0)
     }
 
     private fun confirm() {
@@ -114,9 +114,8 @@ class SendViewModel(
     }
 
     private fun refreshSendAmount(sendAmount: BigDecimal) {
-        val info = SendInfo(
+        val info = AmountInfo(
             ratesConverter.getCoinsPrice(adapter.coin.code, sendAmount),
-            0,
             0
         )
 

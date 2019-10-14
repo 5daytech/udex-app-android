@@ -6,7 +6,7 @@ import com.blocksdecoded.dex.core.manager.duration.ETransactionType
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import com.blocksdecoded.dex.presentation.model.FeeInfo
+import com.blocksdecoded.dex.presentation.models.FeeInfo
 import com.blocksdecoded.dex.utils.normalizedDiv
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal

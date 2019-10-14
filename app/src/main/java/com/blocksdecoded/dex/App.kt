@@ -38,8 +38,6 @@ import com.blocksdecoded.dex.core.storage.*
 
 class App: Application() {
     companion object {
-        private const val testMode = true
-
         lateinit var instance: App
             private set
 

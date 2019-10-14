@@ -16,9 +16,9 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.core.ui.reObserve
+import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.send.confirm.SendConfirmDialog
 import com.blocksdecoded.dex.presentation.send.model.ReceiveAddressInfo
-import com.blocksdecoded.dex.presentation.send.model.SendInfo
 import com.blocksdecoded.dex.utils.getAttr
 import com.blocksdecoded.dex.utils.subscribeToInput
 import com.blocksdecoded.dex.utils.ui.ToastHelper
@@ -63,7 +63,7 @@ class SendDialog private constructor()
         send_confirm?.isEnabled = it
     }
 
-    private val infoObserver = Observer<SendInfo> { info ->
+    private val infoObserver = Observer<AmountInfo> { info ->
         context?.let {
             val enabledColor = it.theme.getAttr(R.attr.PrimaryTextColor) ?: 0
             val errorColor = ContextCompat.getColor(it, R.color.red)

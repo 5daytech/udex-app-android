@@ -16,9 +16,9 @@ import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.convert.confirm.ConvertConfirmInfo
 import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
 import com.blocksdecoded.dex.presentation.convert.model.ConvertType.*
-import com.blocksdecoded.dex.presentation.convert.model.ConvertInfo
 import com.blocksdecoded.dex.presentation.convert.model.ConvertState
-import com.blocksdecoded.dex.presentation.model.FeeInfo
+import com.blocksdecoded.dex.presentation.models.AmountInfo
+import com.blocksdecoded.dex.presentation.models.FeeInfo
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.uiSubscribe
@@ -49,7 +49,7 @@ class ConvertViewModel(
     val convertAmount = MutableLiveData<BigDecimal>()
     val receiveAmount = MutableLiveData<BigDecimal>()
     val convertEnabled = MutableLiveData<Boolean>()
-    val info = MutableLiveData<ConvertInfo>()
+    val info = MutableLiveData<AmountInfo>()
     val feeInfo = MutableLiveData<FeeInfo>()
 
     val dismissDialog = SingleLiveEvent<Unit>()
@@ -126,7 +126,7 @@ class ConvertViewModel(
 
     private fun refreshInfo(sendAmount: BigDecimal) {
         adapter?.let { adapter ->
-            val info = ConvertInfo(
+            val info = AmountInfo(
                 ratesConverter.getCoinsPrice(adapter.coin.code, sendAmount),
                 0
             )
