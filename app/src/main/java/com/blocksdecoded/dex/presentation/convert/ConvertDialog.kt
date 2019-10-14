@@ -115,23 +115,7 @@ class ConvertDialog private constructor()
 
         viewModel.info.observe(this, Observer { info ->
             context?.let {
-                val enabledColor = it.theme.getAttr(R.attr.PrimaryTextColor) ?: 0
-                val hintColor = it.theme.getAttr(R.attr.SecondaryHintTextColor) ?: 0
-                val errorColor = ContextCompat.getColor(it, R.color.red)
-
-                val amountInputColor = if (info.error == 0) enabledColor else errorColor
-                val hintInputColor = if (info.error == 0) hintColor else errorColor
-
-                amount_input?.setTextColor(amountInputColor)
-                amount_hint?.setTextColor(hintInputColor)
-
-                if (info.error == 0) {
-                    amount_hint?.text = getString(R.string.hint_you_send, info.fiatAmount.toFiatDisplayFormat())
-                } else {
-                    amount_hint?.setText(info.error)
-                }
-
-                amount_input?.setTextColor(amountInputColor)
+                convert_amount?.updateHint(info)
             }
         })
 

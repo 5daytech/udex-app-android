@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputConnection
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,10 +18,8 @@ import com.blocksdecoded.dex.core.ui.reObserve
 import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.send.confirm.SendConfirmDialog
 import com.blocksdecoded.dex.presentation.send.model.ReceiveAddressInfo
-import com.blocksdecoded.dex.utils.getAttr
 import com.blocksdecoded.dex.utils.subscribeToInput
 import com.blocksdecoded.dex.utils.ui.ToastHelper
-import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.dialog_send.*
@@ -65,21 +62,7 @@ class SendDialog private constructor()
 
     private val infoObserver = Observer<AmountInfo> { info ->
         context?.let {
-            val enabledColor = it.theme.getAttr(R.attr.PrimaryTextColor) ?: 0
-            val errorColor = ContextCompat.getColor(it, R.color.red)
-            val hintColor = it.theme.getAttr(R.attr.SecondaryHintTextColor) ?: 0
-
-            val amountInputColor = if (info.error == 0) enabledColor else errorColor
-            val hintInputColor = if (info.error == 0) hintColor else errorColor
-
-            amount_input?.setTextColor(amountInputColor)
-            amount_hint?.setTextColor(hintInputColor)
-
-            if (info.error == 0) {
-                amount_hint?.setText(getString(R.string.hint_you_send, info.fiatAmount.toFiatDisplayFormat()))
-            } else {
-                amount_hint?.setText(info.error)
-            }
+            send_amount?.updateHint(info)
         }
     }
 
