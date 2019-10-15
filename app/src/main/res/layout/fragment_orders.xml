@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/orders_recycler"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" />
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/orders_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.EmptyItemsView
+        android:id="@+id/orders_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:eiv_message="@string/message_empty_orders"
+        android:layout_marginTop="@dimen/bottom_sheet_big_margin"
+        android:visibility="visible"/>
+</FrameLayout>

@@ -12,6 +12,7 @@ import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.presentation.orders.recycler.OrderViewHolder
 import com.blocksdecoded.dex.presentation.orders.recycler.OrdersAdapter
+import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_orders.*
 
 class OrdersFragment: CoreFragment(R.layout.fragment_orders), OrderViewHolder.Listener {
@@ -34,7 +35,10 @@ class OrdersFragment: CoreFragment(R.layout.fragment_orders), OrderViewHolder.Li
                 BUY -> viewModel.buyOrders
                 SELL -> viewModel.sellOrders
                 MY -> viewModel.myOrders
-            }.observe(this, Observer { adapter.setOrders(it) })
+            }.observe(this, Observer {
+                orders_empty?.visible = it.isEmpty()
+                adapter.setOrders(it)
+            })
         }
     }
 
