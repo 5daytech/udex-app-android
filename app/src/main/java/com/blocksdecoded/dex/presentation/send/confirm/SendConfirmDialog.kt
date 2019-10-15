@@ -29,7 +29,7 @@ class SendConfirmDialog private constructor()
             send_confirm_fiat_amount?.text = "$${it.fiatAmount.toFiatDisplayFormat()}"
             send_confirm_address?.update(it.address)
             send_confirm_total_amount?.setFiat(it.total, isExactAmount = true)
-            send_confirm_fee?.setCoin(it.coin.code, it.fee, isExactAmount = false)
+            send_confirm_fee?.setCoin("ETH", it.fee, isExactAmount = false) //TODO: Get fee coin code from adapter
             send_confirm_duration?.setMillis(it.estimatedFinishTime)
         }
     }
