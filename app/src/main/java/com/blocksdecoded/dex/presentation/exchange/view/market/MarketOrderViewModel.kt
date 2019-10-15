@@ -5,10 +5,10 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.manager.zrx.model.FillOrderData
 import com.blocksdecoded.dex.core.manager.zrx.model.FillResult
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
-import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeCoinItem
 import com.blocksdecoded.dex.presentation.exchange.model.MarketOrderViewState
+import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
 import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
@@ -26,15 +26,15 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
             null
         )
 
-    init {
-        init()
-    }
-
     private var estimatedSendAmount = BigDecimal.ZERO
     private var estimatedReceiveAmount = BigDecimal.ZERO
 
-    val sendAmountInfo = MutableLiveData<ExchangeAmountInfo>()
+    val sendAmount = MutableLiveData<ExchangeAmountInfo>()
     val receiveHintInfo = MutableLiveData<AmountInfo>()
+
+    init {
+        init()
+    }
 
     //region Private
 
@@ -45,9 +45,12 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
             sendItem,
             receiveItem
         )
+
         viewState.postValue(state)
-        sendInfo.postValue(AmountInfo(BigDecimal.ZERO))
+        sendHintInfo.postValue(AmountInfo(BigDecimal.ZERO))
         receiveHintInfo.postValue(AmountInfo())
+        sendAmount.postValue(ExchangeAmountInfo(BigDecimal.ZERO))
+        receiveAmount.postValue(ExchangeAmountInfo(BigDecimal.ZERO))
     }
 
     override fun updateReceiveAmount() {
@@ -63,15 +66,18 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
 
             state.receiveAmount = fillResult.receiveAmount
             estimatedReceiveAmount = fillResult.receiveAmount
-            receiveAmount.value = ExchangeAmountInfo(fillResult.receiveAmount)
+
+            if (fillResult.receiveAmount != receiveAmount.value?.amount) {
+                receiveAmount.value = ExchangeAmountInfo(fillResult.receiveAmount)
+            }
 
             exchangeEnabled.value = state.receiveAmount > BigDecimal.ZERO
-
             estimatedSendAmount = if (fillResult.sendAmount != amount) {
                 fillResult.sendAmount
             } else {
                 amount
             }
+
             updateReceiveHint()
         }
     }
@@ -99,10 +105,11 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
 
             state.receiveAmount = amount
             state.sendAmount = fillResult.sendAmount
-
             estimatedSendAmount = fillResult.sendAmount
-            sendAmountInfo.value =
-                ExchangeAmountInfo(fillResult.sendAmount)
+
+            if (fillResult.sendAmount != sendAmount.value?.amount) {
+                sendAmount.value = ExchangeAmountInfo(fillResult.sendAmount)
+            }
 
             exchangeEnabled.value = state.receiveAmount > BigDecimal.ZERO && state.sendAmount > BigDecimal.ZERO
 

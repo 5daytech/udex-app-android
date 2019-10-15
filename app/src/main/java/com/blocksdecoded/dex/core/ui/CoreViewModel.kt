@@ -8,7 +8,11 @@ abstract class CoreViewModel: ViewModel() {
 
     val errorEvent = SingleLiveEvent<Int>()
     val messageEvent = SingleLiveEvent<Int>()
-    
+
+    protected fun onConnectionStateChanged() {
+
+    }
+
     override fun onCleared() {
         disposables.clear()
         super.onCleared()

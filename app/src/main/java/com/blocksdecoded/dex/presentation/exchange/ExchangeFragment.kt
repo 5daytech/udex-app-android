@@ -157,7 +157,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             exchange_market_view?.updateReceiveCoins(it)
         })
 
-        marketOrderViewModel.sendAmountInfo.observe(this, Observer {
+        marketOrderViewModel.sendAmount.observe(this, Observer {
             exchange_market_view?.updateSendHint(it)
         })
 
@@ -173,7 +173,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             exchange_market_view?.updateState(it)
         })
 
-        marketOrderViewModel.sendInfo.observe(this, Observer {
+        marketOrderViewModel.sendHintInfo.observe(this, Observer {
             exchange_market_view?.updateSendHint(it)
         })
     
@@ -228,7 +228,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             exchange_limit_view?.updateTotal(it)
         })
 
-        limitOrderViewModel.sendInfo.observe(this, Observer {
+        limitOrderViewModel.sendHintInfo.observe(this, Observer {
             exchange_limit_view?.updateSendInfo(it)
         })
     

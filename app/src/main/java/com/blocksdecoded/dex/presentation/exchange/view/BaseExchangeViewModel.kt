@@ -5,10 +5,10 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import com.blocksdecoded.dex.core.adapter.SendStateError
+import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeCoinItem
@@ -70,7 +70,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     val sendCoins = MutableLiveData<ExchangePairsInfo>()
     val receiveCoins = MutableLiveData<ExchangePairsInfo>()
     val viewState = MutableLiveData<T>()
-    val sendInfo = MutableLiveData<AmountInfo>()
+    val sendHintInfo = MutableLiveData<AmountInfo>()
     val receiveAmount = MutableLiveData<ExchangeAmountInfo>()
     val exchangeEnabled = MutableLiveData<Boolean>()
     val exchangePrice = MutableLiveData<BigDecimal>()
@@ -121,8 +121,9 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
         if (state.sendAmount.stripTrailingZeros() != amount.stripTrailingZeros()) {
             state.sendAmount = amount
 
-            updateSendInfo(amount)
             updateReceiveAmount()
+
+            updateSendInfo(amount)
         }
     }
 
@@ -146,7 +147,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             }
         }
 
-        sendInfo.value = info
+        sendHintInfo.value = info
     }
 
     fun onMaxClick() {
