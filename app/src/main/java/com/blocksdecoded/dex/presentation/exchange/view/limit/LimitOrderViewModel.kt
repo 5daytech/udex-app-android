@@ -134,8 +134,6 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 	}
 	
 	private fun showConfirm() {
-		val pair = marketCodes[currentMarketPosition]
-		
 		val confirmInfo = ExchangeConfirmInfo(
 			state.sendCoin?.code ?: "",
 			state.receiveCoin?.code ?: "",

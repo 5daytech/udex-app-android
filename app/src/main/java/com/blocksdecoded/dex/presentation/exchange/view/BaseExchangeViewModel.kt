@@ -46,34 +46,22 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             val sendCoin = viewState.value?.sendCoin?.code ?: ""
             val receiveCoin = viewState.value?.receiveCoin?.code ?: ""
 
-            val marketIndex = marketCodes.indexOfFirst {
+            return marketCodes.indexOfFirst {
                 (it.first == sendCoin && it.second == receiveCoin) ||
                         (it.second == sendCoin && it.first == receiveCoin)
             }
-
-            return marketIndex
         }
 
     private var mSendCoins: List<ExchangeCoinItem> = listOf()
         set(value) {
             field = value
-            sendCoins.postValue(
-                ExchangePairsInfo(
-                    value,
-                    state.sendCoin
-                )
-            )
+            sendCoins.postValue(ExchangePairsInfo(value, state.sendCoin))
         }
 
     private var mReceiveCoins: List<ExchangeCoinItem> = listOf()
         set(value) {
             field = value
-            receiveCoins.postValue(
-                ExchangePairsInfo(
-                    value,
-                    state.receiveCoin
-                )
-            )
+            receiveCoins.postValue(ExchangePairsInfo(value, state.receiveCoin))
         }
 
     val sendCoins = MutableLiveData<ExchangePairsInfo>()
@@ -163,8 +151,9 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             state.sendCoin = mSendCoins[position]
 
             refreshPairs(state, false)
-            updateReceiveAmount()
+
             viewState.value = state
+            updateReceiveAmount()
         }
     }
 
@@ -179,10 +168,11 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             val sendCoin = state?.sendCoin?.code ?: mSendCoins.first().code
             mReceiveCoins = getAvailableReceiveCoins(sendCoin)
 
-            val currentReceiveIndex = mReceiveCoins.indexOfFirst { it.code == state?.receiveCoin?.code ?: ""}
+            val currentReceiveIndex = mReceiveCoins.indexOfFirst { it.code == state?.receiveCoin?.code}
 
             if (currentReceiveIndex < 0 || this.state.receiveCoin == null) {
                 this.state.receiveCoin = mReceiveCoins.firstOrNull()
+                receiveCoins.postValue(ExchangePairsInfo(mReceiveCoins, state?.receiveCoin))
             }
         }
     }

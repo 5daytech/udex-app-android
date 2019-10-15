@@ -130,8 +130,6 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
     }
 
     private fun confirmExchange() {
-        val pair = marketCodes[currentMarketPosition]
-
         val confirmInfo = ExchangeConfirmInfo(
             state.sendCoin?.code ?: "",
             state.receiveCoin?.code ?: "",
