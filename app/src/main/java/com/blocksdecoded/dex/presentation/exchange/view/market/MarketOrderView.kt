@@ -7,12 +7,15 @@ import android.view.View
 import android.view.inputmethod.InputConnection
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangePairsInfo
 import com.blocksdecoded.dex.presentation.exchange.model.MarketOrderViewState
 import com.blocksdecoded.dex.presentation.models.AmountInfo
+import com.blocksdecoded.dex.utils.getAttr
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
+import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.view_market_order.view.*
@@ -86,8 +89,19 @@ class MarketOrderView: CardView {
 		market_quote_spinner?.setSelectedPair(state.receiveCoin)
 	}
 
-	private fun updateHint(info: AmountInfo) {
+	fun updateSendInfo(info: AmountInfo) {
+		val hintColor = context.theme.getAttr(R.attr.SecondaryHintTextColor) ?: 0
+		val errorColor = ContextCompat.getColor(context, R.color.red)
 
+		val hintInputColor = if (info.error == 0) hintColor else errorColor
+
+		market_amount_hint?.setTextColor(hintInputColor)
+
+		if (info.error == 0) {
+			market_amount_hint?.text = context.getString(R.string.hint_i_have, info.value.toFiatDisplayFormat())
+		} else {
+			market_amount_hint?.setText(info.error)
+		}
 	}
 
 	private fun updateAmount(amount: BigDecimal) {

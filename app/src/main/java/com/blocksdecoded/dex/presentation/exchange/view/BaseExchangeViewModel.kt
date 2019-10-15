@@ -2,7 +2,9 @@ package com.blocksdecoded.dex.presentation.exchange.view
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.FeeRatePriority
+import com.blocksdecoded.dex.core.adapter.SendStateError
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
@@ -12,11 +14,13 @@ import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeCoinItem
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangePairsInfo
 import com.blocksdecoded.dex.presentation.exchange.model.IExchangeViewState
+import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
 
 abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
+    private val ratesConverter = App.ratesConverter
     private val relayerManager = App.relayerAdapterManager
     private val coinManager = App.coinManager
     protected val relayer: IRelayerAdapter?
@@ -25,8 +29,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     private val adapterManager = App.adapterManager
 
     protected abstract var state: T
-    protected val mReceiveInfo =
-        ExchangeAmountInfo(BigDecimal.ZERO)
+    protected val mReceiveInfo = ExchangeAmountInfo(BigDecimal.ZERO)
 
     protected val orderSide: EOrderSide
         get() {
@@ -67,6 +70,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     val sendCoins = MutableLiveData<ExchangePairsInfo>()
     val receiveCoins = MutableLiveData<ExchangePairsInfo>()
     val viewState = MutableLiveData<T>()
+    val sendInfo = MutableLiveData<AmountInfo>()
     val receiveInfo = MutableLiveData<ExchangeAmountInfo>()
 
     val exchangeEnabled = MutableLiveData<Boolean>()
@@ -118,8 +122,32 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
         if (state.sendAmount.stripTrailingZeros() != amount.stripTrailingZeros()) {
             state.sendAmount = amount
 
+            updateSendInfo(amount)
             updateReceiveAmount()
         }
+    }
+
+    private fun updateSendInfo(amount: BigDecimal) {
+        val adapter = adapterManager.adapters
+            .firstOrNull { it.coin.code == state.sendCoin?.code}
+
+        val info = AmountInfo(
+            ratesConverter.getCoinsPrice(adapter?.coin?.code ?: "", amount),
+            0
+        )
+
+        adapter?.validate(amount, null, FeeRatePriority.MEDIUM)?.forEach {
+            when(it) {
+                is SendStateError.InsufficientAmount -> {
+                    info.error = R.string.error_insufficient_balance
+                }
+                is SendStateError.InsufficientFeeBalance -> {
+                    info.error = R.string.error_insufficient_fee_balance
+                }
+            }
+        }
+
+        sendInfo.value = info
     }
 
     fun onMaxClick() {

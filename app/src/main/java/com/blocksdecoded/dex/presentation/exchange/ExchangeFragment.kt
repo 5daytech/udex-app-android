@@ -168,6 +168,10 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         marketOrderViewModel.viewState.observe(this, Observer {
             exchange_market_view?.updateState(it)
         })
+
+        marketOrderViewModel.sendInfo.observe(this, Observer {
+            exchange_market_view?.updateSendInfo(it)
+        })
     
         marketOrderViewModel.messageEvent.observe(this, Observer {
             ToastHelper.showInfoMessage("Coins unlock and fill started")
@@ -218,6 +222,10 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
 
         limitOrderViewModel.receiveInfo.observe(this, Observer {
             exchange_limit_view?.updateTotal(it)
+        })
+
+        limitOrderViewModel.sendInfo.observe(this, Observer {
+            exchange_limit_view?.updateSendInfo(it)
         })
     
         limitOrderViewModel.messageEvent.observe(this, Observer {

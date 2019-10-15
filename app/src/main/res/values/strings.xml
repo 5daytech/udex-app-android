@@ -27,6 +27,8 @@
     <string name="hint_available_balance">Available Balance</string>
     <string name="hint_equity_value">Equity Value (%1$s) ~</string>
     <string name="hint_you_send">You send $%1$s</string>
+    <string name="hint_i_have">I have $%1$s</string>
+    <string name="hint_i_want">I want $%1$s</string>
     <string name="subtitle_restore">Enter Secret Key</string>
     <string name="subtitle_transaction_sent">Transaction sent \u2713</string>
     <string name="markets_list_hint">market info (24h)</string>

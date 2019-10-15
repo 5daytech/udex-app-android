@@ -6,12 +6,15 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.inputmethod.InputConnection
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangePairsInfo
 import com.blocksdecoded.dex.presentation.exchange.model.LimitOrderViewState
 import com.blocksdecoded.dex.presentation.models.AmountInfo
+import com.blocksdecoded.dex.utils.getAttr
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
+import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toPriceFormat
 import com.blocksdecoded.dex.utils.visible
@@ -102,8 +105,19 @@ class LimitOrderView: CardView {
 		}
 	}
 
-	private fun updateHint(info: AmountInfo) {
+	fun updateSendInfo(info: AmountInfo) {
+		val hintColor = context.theme.getAttr(R.attr.SecondaryHintTextColor) ?: 0
+		val errorColor = ContextCompat.getColor(context, R.color.red)
 
+		val hintInputColor = if (info.error == 0) hintColor else errorColor
+
+		limit_amount_hint?.setTextColor(hintInputColor)
+
+		if (info.error == 0) {
+			limit_amount_hint?.text = context.getString(R.string.hint_i_have, info.value.toFiatDisplayFormat())
+		} else {
+			limit_amount_hint?.setText(info.error)
+		}
 	}
 	
 	private fun updateAmount(amount: BigDecimal) {

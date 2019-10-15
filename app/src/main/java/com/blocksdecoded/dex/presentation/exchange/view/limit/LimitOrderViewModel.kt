@@ -102,6 +102,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		averagePrice.postValue(BigDecimal.ZERO)
 
 		refreshAveragePrice()
+		sendInfo.postValue(AmountInfo(BigDecimal.ZERO))
 	}
 	
 	private fun placeOrder() {

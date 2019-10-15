@@ -9,6 +9,7 @@ import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeCoinItem
 import com.blocksdecoded.dex.presentation.exchange.model.MarketOrderViewState
+import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.utils.Logger
@@ -44,6 +45,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
             receiveItem
         )
         viewState.postValue(state)
+        sendInfo.postValue(AmountInfo(BigDecimal.ZERO))
     }
 
     override fun updateReceiveAmount() {
