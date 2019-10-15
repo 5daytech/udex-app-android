@@ -26,17 +26,24 @@ class TotalBalanceView : LinearLayout {
         defStyleRes
     )
 
-    fun update(balanceInfo: TotalBalanceInfo, iconVisible: Boolean = true, isEstimated: Boolean = false) {
-        total_balance?.text = "${balanceInfo.balance.toDisplayFormat()} ${balanceInfo.coin.code}"
-        total_fiat_balance?.text = "$${balanceInfo.fiatBalance.toFiatDisplayFormat()}"
+    fun update(
+        balanceInfo: TotalBalanceInfo,
+        isIconVisible: Boolean = true,
+        isFiatPrimary: Boolean = false
+    ) {
+        if (isFiatPrimary) {
+            total_balance?.text = "$ ${balanceInfo.fiatBalance.toFiatDisplayFormat()}"
+            total_fiat_balance?.text = "~ ${balanceInfo.balance.toDisplayFormat()} ${balanceInfo.coin.code}"
+        } else {
+            total_balance?.text = "${balanceInfo.balance.toDisplayFormat()} ${balanceInfo.coin.code}"
+            total_fiat_balance?.text = "$${balanceInfo.fiatBalance.toFiatDisplayFormat()}"
+        }
 
-        total_amount_coin_icon?.visible = iconVisible
+        total_amount_coin_icon?.visible = isIconVisible
         total_amount_coin_icon?.bind(balanceInfo.coin.code)
 
-        total_balance_hint?.text = (if (isEstimated)
-            context.getString(R.string.hint_equity_value, balanceInfo.coin.code)
-        else
-            context.getString(R.string.hint_available_balance))
+        total_balance_hint?.visible = !isFiatPrimary
+        total_balance_hint?.text = context.getString(R.string.hint_available_balance)
     }
 
 }

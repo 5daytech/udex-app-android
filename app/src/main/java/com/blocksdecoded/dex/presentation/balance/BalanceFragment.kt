@@ -1,22 +1,21 @@
 package com.blocksdecoded.dex.presentation.balance
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
-
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.balance.recycler.BalanceViewHolder
-import com.blocksdecoded.dex.presentation.balance.recycler.BalanceAdapter
-import com.blocksdecoded.dex.presentation.receive.ReceiveDialog
-import com.blocksdecoded.dex.presentation.send.SendDialog
-import com.blocksdecoded.dex.presentation.transactions.TransactionsActivity
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.balance.recycler.BalanceAdapter
+import com.blocksdecoded.dex.presentation.balance.recycler.BalanceViewHolder
 import com.blocksdecoded.dex.presentation.balance.recycler.ManageCoinsViewHolder
 import com.blocksdecoded.dex.presentation.convert.ConvertDialog
+import com.blocksdecoded.dex.presentation.receive.ReceiveDialog
+import com.blocksdecoded.dex.presentation.send.SendDialog
 import com.blocksdecoded.dex.presentation.settings.coinmanager.CoinManagerActivity
+import com.blocksdecoded.dex.presentation.transactions.TransactionsActivity
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.view_top_up_account.*
@@ -42,7 +41,11 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
         })
 
         viewModel.totalBalance.observe(this, Observer {
-            balance_total?.update(it, isEstimated = true)
+            balance_total?.update(
+                it,
+                isIconVisible = false,
+                isFiatPrimary = true
+            )
         })
 
         viewModel.refreshing.observe(this, Observer {})
