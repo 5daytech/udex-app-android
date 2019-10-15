@@ -7,15 +7,13 @@ import android.view.View
 import android.view.inputmethod.InputConnection
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangePairsInfo
 import com.blocksdecoded.dex.presentation.exchange.model.MarketOrderViewState
 import com.blocksdecoded.dex.presentation.models.AmountInfo
-import com.blocksdecoded.dex.utils.getAttr
+import com.blocksdecoded.dex.utils.bindFiatAmountInfo
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
-import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.view_market_order.view.*
@@ -71,37 +69,36 @@ class MarketOrderView: CardView {
 		market_quote_spinner?.setSelectedPair(info.selectedCoin)
 	}
 
-	fun updateReceiveInfo(receiveInfo: ExchangeAmountInfo) {
+	fun updateReceiveAmount(receiveInfo: ExchangeAmountInfo) {
 		updateReceiveAmount(receiveInfo.amount)
 	}
 
-	fun updateSendInfo(info: ExchangeAmountInfo) {
+	fun updateSendHint(info: ExchangeAmountInfo) {
 		updateAmount(info.amount)
 	}
 	
 	@SuppressLint("SetTextI18n")
 	fun updateState(state: MarketOrderViewState) {
 		updateAmount(state.sendAmount)
-		
+
 		updateReceiveAmount(state.receiveAmount)
 		
 		market_base_spinner?.setSelectedPair(state.sendCoin)
 		market_quote_spinner?.setSelectedPair(state.receiveCoin)
 	}
 
-	fun updateSendInfo(info: AmountInfo) {
-		val hintColor = context.theme.getAttr(R.attr.SecondaryHintTextColor) ?: 0
-		val errorColor = ContextCompat.getColor(context, R.color.red)
+	fun updateSendHint(info: AmountInfo) {
+		market_amount_hint?.bindFiatAmountInfo(
+			info,
+			textRes = R.string.hint_i_have
+		)
+	}
 
-		val hintInputColor = if (info.error == 0) hintColor else errorColor
-
-		market_amount_hint?.setTextColor(hintInputColor)
-
-		if (info.error == 0) {
-			market_amount_hint?.text = context.getString(R.string.hint_i_have, info.value.toFiatDisplayFormat())
-		} else {
-			market_amount_hint?.setText(info.error)
-		}
+	fun updateReceiveHint(info: AmountInfo) {
+		market_receive_hint?.bindFiatAmountInfo(
+			info,
+			textRes = R.string.hint_i_want
+		)
 	}
 
 	private fun updateAmount(amount: BigDecimal) {

@@ -20,7 +20,7 @@ import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
 
 abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
-    private val ratesConverter = App.ratesConverter
+    protected val ratesConverter = App.ratesConverter
     private val relayerManager = App.relayerAdapterManager
     private val coinManager = App.coinManager
     protected val relayer: IRelayerAdapter?
@@ -71,8 +71,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
     val receiveCoins = MutableLiveData<ExchangePairsInfo>()
     val viewState = MutableLiveData<T>()
     val sendInfo = MutableLiveData<AmountInfo>()
-    val receiveInfo = MutableLiveData<ExchangeAmountInfo>()
-
+    val receiveAmount = MutableLiveData<ExchangeAmountInfo>()
     val exchangeEnabled = MutableLiveData<Boolean>()
     val exchangePrice = MutableLiveData<BigDecimal>()
 

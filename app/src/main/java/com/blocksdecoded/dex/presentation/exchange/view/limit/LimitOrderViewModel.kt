@@ -16,8 +16,6 @@ import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
 
 class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
-
-	private val ratesConverter = App.ratesConverter
 	private val ratesManager = App.ratesManager
 
 	override var state: LimitOrderViewState =
@@ -74,7 +72,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 			val receiveAmount = amount.multiply(mPriceInfo.value)
 			mReceiveInfo.amount = receiveAmount
 
-			receiveInfo.value = mReceiveInfo
+			this.receiveAmount.value = mReceiveInfo
 
 			exchangeEnabled.value = receiveAmount > BigDecimal.ZERO
 
@@ -94,7 +92,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 		viewState.postValue(state)
 
 		mReceiveInfo.amount = BigDecimal.ZERO
-		receiveInfo.postValue(mReceiveInfo)
+		receiveAmount.postValue(mReceiveInfo)
 
 		mPriceInfo.value = BigDecimal.ZERO
 		priceInfo.postValue(mPriceInfo)
@@ -192,7 +190,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 
 		viewState.value = state
 		priceInfo.postValue(mPriceInfo)
-		receiveInfo.postValue(mReceiveInfo)
+		receiveAmount.postValue(mReceiveInfo)
 
 		refreshAveragePrice()
 	}

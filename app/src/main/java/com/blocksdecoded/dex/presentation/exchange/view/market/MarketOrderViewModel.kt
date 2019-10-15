@@ -34,6 +34,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
     private var estimatedReceiveAmount = BigDecimal.ZERO
 
     val sendAmountInfo = MutableLiveData<ExchangeAmountInfo>()
+    val receiveHintInfo = MutableLiveData<AmountInfo>()
 
     //region Private
 
@@ -46,6 +47,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
         )
         viewState.postValue(state)
         sendInfo.postValue(AmountInfo(BigDecimal.ZERO))
+        receiveHintInfo.postValue(AmountInfo())
     }
 
     override fun updateReceiveAmount() {
@@ -61,8 +63,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
 
             state.receiveAmount = fillResult.receiveAmount
             estimatedReceiveAmount = fillResult.receiveAmount
-            receiveInfo.value =
-                ExchangeAmountInfo(fillResult.receiveAmount)
+            receiveAmount.value = ExchangeAmountInfo(fillResult.receiveAmount)
 
             exchangeEnabled.value = state.receiveAmount > BigDecimal.ZERO
 
@@ -71,7 +72,18 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
             } else {
                 amount
             }
+            updateReceiveHint()
         }
+    }
+
+    private fun updateReceiveHint() {
+        val receiveAmount = receiveAmount.value?.amount ?: BigDecimal.ZERO
+        val info = AmountInfo(
+            ratesConverter.getCoinsPrice(state.receiveCoin?.code ?: "", receiveAmount),
+            0
+        )
+
+        receiveHintInfo.postValue(info)
     }
 
     private fun updateSendAmount() {

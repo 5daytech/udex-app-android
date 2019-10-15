@@ -9,14 +9,20 @@ import android.util.TypedValue
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.annotation.AttrRes
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.ui.DimenUtils
+import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
+import kotlinx.android.synthetic.main.view_market_order.view.*
 
 
 fun <T>List<T>?.isValidIndex(index: Int): Boolean = index in 0 until (this?.size ?: 0)
@@ -125,3 +131,22 @@ var View.visible: Boolean
     set(value) {
         visibility = if (value) View.VISIBLE else View.GONE
     }
+
+fun TextView.bindFiatAmountInfo(
+    info: AmountInfo,
+    @AttrRes textColor: Int = R.attr.SecondaryHintTextColor,
+    @StringRes textRes: Int
+) {
+    val hintColor = context.theme.getAttr(textColor) ?: 0
+    val errorColor = ContextCompat.getColor(context, R.color.red)
+
+    val hintInputColor = if (info.error == 0) hintColor else errorColor
+
+    this.setTextColor(hintInputColor)
+
+    if (info.error == 0) {
+        this.text = context.getString(textRes, info.value.toFiatDisplayFormat())
+    } else {
+        this.setText(info.error)
+    }
+}
