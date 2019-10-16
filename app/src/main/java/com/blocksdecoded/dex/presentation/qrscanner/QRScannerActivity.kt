@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.send
+package com.blocksdecoded.dex.presentation.qrscanner
 
 import android.app.Activity
 import android.os.Bundle

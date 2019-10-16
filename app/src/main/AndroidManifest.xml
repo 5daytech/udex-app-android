@@ -48,7 +48,7 @@
         <activity android:name=".presentation.settings.security.SecurityCenterActivity"
                   android:screenOrientation="portrait"/>
 
-        <activity android:name="com.blocksdecoded.dex.presentation.send.QRScannerActivity"
+        <activity android:name="com.blocksdecoded.dex.presentation.qrscanner.QRScannerActivity"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppTheme.FullScreen"/>
 

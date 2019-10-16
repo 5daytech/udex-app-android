@@ -16,6 +16,7 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.core.ui.reObserve
 import com.blocksdecoded.dex.presentation.models.AmountInfo
+import com.blocksdecoded.dex.presentation.qrscanner.QRScannerActivity
 import com.blocksdecoded.dex.presentation.send.confirm.SendConfirmDialog
 import com.blocksdecoded.dex.presentation.send.model.ReceiveAddressInfo
 import com.blocksdecoded.dex.utils.subscribeToInput
