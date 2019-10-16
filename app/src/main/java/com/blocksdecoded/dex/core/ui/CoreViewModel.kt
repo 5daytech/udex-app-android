@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.core.ui
 
 import androidx.lifecycle.ViewModel
+import com.blocksdecoded.dex.App
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class CoreViewModel: ViewModel() {
@@ -9,9 +10,19 @@ abstract class CoreViewModel: ViewModel() {
     val errorEvent = SingleLiveEvent<Int>()
     val messageEvent = SingleLiveEvent<Int>()
 
-    protected fun onConnectionStateChanged() {
-
+    init {
+        App.networkStateManager.networkAvailabilitySubject
+            .subscribe {
+                if (App.networkStateManager.isConnected) {
+                    onNetworkConnectionAvailable()
+                } else {
+                    onNetworkConnectionLost()
+                }
+            }.let { disposables.add(it) }
     }
+
+    protected open fun onNetworkConnectionLost() { }
+    protected open fun onNetworkConnectionAvailable() { }
 
     override fun onCleared() {
         disposables.clear()

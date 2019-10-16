@@ -7,17 +7,17 @@ import com.blocksdecoded.dex.core.adapter.AdapterState
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.manager.IAdapterManager
 import com.blocksdecoded.dex.core.manager.ICoinManager
+import com.blocksdecoded.dex.core.manager.rates.IRatesManager
+import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinBalance
 import com.blocksdecoded.dex.core.model.EConvertType.*
-import com.blocksdecoded.dex.core.manager.rates.IRatesManager
-import com.blocksdecoded.dex.core.manager.rates.RatesConverter
-import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
 import com.blocksdecoded.dex.presentation.convert.model.ConvertType
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
+import com.blocksdecoded.dex.utils.isValidIndex
 import java.math.BigDecimal
 
 class BalanceViewModel : CoreViewModel() {
