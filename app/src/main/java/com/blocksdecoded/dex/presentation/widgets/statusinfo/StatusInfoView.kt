@@ -46,13 +46,13 @@ class StatusInfoView (
         this.initView(stringText, alertColorRes, textRes)
     }
 
-    private fun observeLifecycle(any: Context) {
-        if(any is AppCompatActivity) {
-            any.lifecycle.addObserver(object : LifecycleObserver {
+    private fun observeLifecycle(activity: Context) {
+        if(activity is AppCompatActivity) {
+            activity.lifecycle.addObserver(object : LifecycleObserver {
                 @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
                 fun onDestroy() {
-                    hide(any, Runnable{})
-                    any.lifecycle.removeObserver(this)
+                    hide(activity, Runnable{})
+                    activity.lifecycle.removeObserver(this)
                 }
             })
         }
