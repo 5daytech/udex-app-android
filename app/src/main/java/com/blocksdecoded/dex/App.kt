@@ -19,7 +19,7 @@ import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.core.manager.rates.RatesManager
 import com.blocksdecoded.dex.core.manager.rates.bootstrap.BootstrapApiClient
 import com.blocksdecoded.dex.core.manager.rates.remote.RatesApiClient
-import com.blocksdecoded.dex.core.manager.rates.remote.RatesClientConfig
+import com.blocksdecoded.dex.core.manager.rates.remote.config.RatesClientConfig
 import com.blocksdecoded.dex.core.manager.system.ISystemInfoManager
 import com.blocksdecoded.dex.core.manager.system.SystemInfoManager
 import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapterManager
@@ -138,7 +138,10 @@ class App: Application() {
             historicalRatesStorage,
             BootstrapApiClient(),
             RatesApiClient(),
-            RatesClientConfig(appConfiguration, sharedStorage)
+            RatesClientConfig(
+                appConfiguration,
+                sharedStorage
+            )
         )
         ratesConverter = RatesConverter(ratesManager = ratesManager)
         

@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.core.manager.rates.remote
+package com.blocksdecoded.dex.core.manager.rates.remote.config
 
 import com.blocksdecoded.dex.core.IAppConfiguration
 import com.blocksdecoded.dex.core.shared.ISharedStorage

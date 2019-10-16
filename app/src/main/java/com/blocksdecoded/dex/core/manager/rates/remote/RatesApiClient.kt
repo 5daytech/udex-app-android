@@ -1,7 +1,9 @@
 package com.blocksdecoded.dex.core.manager.rates.remote
 
-import com.blocksdecoded.dex.core.network.CoreApiClient
+import com.blocksdecoded.dex.core.manager.rates.model.RateStatData
+import com.blocksdecoded.dex.core.manager.rates.remote.config.IRatesClientConfig
 import com.blocksdecoded.dex.core.manager.rates.remote.model.RatesResponse
+import com.blocksdecoded.dex.core.network.CoreApiClient
 import com.blocksdecoded.dex.utils.TimeUtils
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -12,12 +14,11 @@ import java.util.concurrent.TimeoutException
 
 class RatesApiClient: CoreApiClient(), IRatesApiClient {
     private var mConfig: IRatesClientConfig? = null
-    private var mClient: CurrencyNetworkClient? = null
-    private var historicalRateMainClient: HistoricalRateNetworkClient? = null
+    private var mCurrencyRateClient: CurrencyNetworkClient? = null
+    private var mHistoricalRateMainClient: HistoricalRateNetworkClient? = null
 
-    private fun historicalRateApiClient(hostType: HostType): HistoricalRateNetworkClient? {
-        return historicalRateMainClient
-    }
+    private fun historicalRateApiClient(hostType: HostType): HistoricalRateNetworkClient? =
+        mHistoricalRateMainClient
 
     private fun <T> Single<T>.timeoutRetry(): Single<T> = this.retry { _, t2 ->
         when (t2) {
@@ -31,12 +32,12 @@ class RatesApiClient: CoreApiClient(), IRatesApiClient {
     override fun init(rateClientConfig: IRatesClientConfig) {
         mConfig = rateClientConfig
 
-        mClient = getRetrofitClient(
+        mCurrencyRateClient = getRetrofitClient(
             mConfig?.ipfsUrl ?: "",
             CurrencyNetworkClient::class.java
         )
 
-        historicalRateMainClient = getRetrofitClient(
+        mHistoricalRateMainClient = getRetrofitClient(
             rateClientConfig.historicalIpfsConfig,
             HistoricalRateNetworkClient::class.java
         )
@@ -50,14 +51,14 @@ class RatesApiClient: CoreApiClient(), IRatesApiClient {
             } ?: Single.error(Exception())
 
     override fun getRates(): Single<RatesResponse> =
-        mClient?.getCoins("${mConfig?.ipnsPath}index.json")
+        mCurrencyRateClient?.getCoins("${mConfig?.ipnsPath}index.json")
             ?.timeoutRetry() ?: Single.error(Exception("Market api client not initialized"))
 
-    //endregion
+    override fun getRateStats(coinCode: String): Single<RateStatData> =
+        historicalRateApiClient(HostType.MAIN)?.getRateStats("USD", coinCode)
+            ?: Single.error(Exception("Market api client not initialized"))
 
-    enum class HostType {
-        MAIN, FALLBACK
-    }
+    //endregion
 
     private interface HistoricalRateNetworkClient {
         @GET("xrates/historical/{coin}/{fiat}/{datePath}/index.json")
@@ -73,10 +74,20 @@ class RatesApiClient: CoreApiClient(), IRatesApiClient {
             @Path("fiat") currency: String,
             @Path("datePath") datePath: String
         ): Single<Map<String, String>>
+
+        @GET("xrates/stats/{fiat}/{coin}/index.json")
+        fun getRateStats(
+            @Path("fiat") currency: String,
+            @Path("coin") coinCode: String
+        ): Single<RateStatData>
     }
 
     private interface CurrencyNetworkClient {
         @GET
         fun getCoins(@Url url: String): Single<RatesResponse>
+    }
+
+    enum class HostType {
+        MAIN, FALLBACK
     }
 }
