@@ -5,8 +5,12 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Point
 import android.net.Uri
+import android.os.Build
 import android.util.TypedValue
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.annotation.AttrRes
@@ -22,8 +26,6 @@ import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.ui.DimenUtils
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
-import kotlinx.android.synthetic.main.view_market_order.view.*
-
 
 fun <T>List<T>?.isValidIndex(index: Int): Boolean = index in 0 until (this?.size ?: 0)
 
@@ -68,20 +70,6 @@ fun View.showKeyboard(toggleKeyboard: Boolean = true) {
         Logger.e(e)
     }
 }
-
-val Context.screenSize: Point
-    get() = Point().apply {
-        val wm = getSystemService(Context.WINDOW_SERVICE)
-        if (wm is WindowManager) {
-            wm.defaultDisplay.getSize(this)
-        }
-    }
-
-val Context.screenHeight
-    get() = screenSize.y
-
-val Context.screenWidth
-    get() = screenSize.x
 
 fun Context.openTransactionUrl(transactionHash: String) {
     openUrl("${App.appConfiguration.transactionExploreBaseUrl}$transactionHash")
@@ -150,3 +138,54 @@ fun TextView.bindFiatAmountInfo(
         this.setText(info.error)
     }
 }
+
+//region Resources
+
+val Context.density
+    get() = resources.displayMetrics.density
+
+val Context.scaledDensity
+    get() = resources.displayMetrics.scaledDensity
+
+val Context.screenHeight
+    get() = screenSize.y
+
+val Context.screenWidth
+    get() = screenSize.x
+
+val Context.screenSize: Point
+    get() = Point().apply {
+        val wm = getSystemService(Context.WINDOW_SERVICE)
+        if (wm is WindowManager) {
+            wm.defaultDisplay.getSize(this)
+        }
+    }
+
+val Context.statusBarHeight: Int
+    get() {
+        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+        return if (resourceId > 0)
+            resources.getDimensionPixelSize(resourceId)
+        else
+            dpToPx(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) 24 else 25)
+    }
+
+fun Context.dpToPx(dp: Int) = (dp * density).toInt()
+
+fun Context.pxToDp(px: Int) = (px / density).toInt()
+
+fun Context.pxToSp(px: Float) = px / scaledDensity
+
+fun Context.spToPx(sp: Float) = sp * scaledDensity
+
+fun Context.getColorRes(@ColorRes color: Int): Int = ContextCompat.getColor(this, color)
+
+val Activity.isTranslucentStatus: Boolean
+    get() {
+        val w = this.window
+        val lp = w.attributes
+        val flags = lp.flags
+        return flags and WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS == WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+    }
+
+//endregion
