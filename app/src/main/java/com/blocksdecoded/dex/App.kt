@@ -1,39 +1,39 @@
 package com.blocksdecoded.dex
 
 import android.app.Application
-import com.blocksdecoded.dex.core.adapter.AdapterFactory
-import com.blocksdecoded.dex.core.manager.rates.bootstrap.BootstrapApiClient
-import com.blocksdecoded.dex.core.manager.*
-import com.blocksdecoded.dex.core.manager.fee.FeeRateProvider
-import com.blocksdecoded.dex.core.manager.fee.IFeeRateProvider
-import com.blocksdecoded.dex.core.manager.rates.IRatesManager
-import com.blocksdecoded.dex.core.manager.rates.RatesManager
-import com.blocksdecoded.dex.core.manager.rates.remote.RatesApiClient
-import com.blocksdecoded.dex.core.manager.rates.remote.RatesClientConfig
-import com.blocksdecoded.dex.core.security.encryption.EncryptionManager
-import com.blocksdecoded.dex.core.security.encryption.IEncryptionManager
 import com.blocksdecoded.dex.core.AppConfiguration
 import com.blocksdecoded.dex.core.IAppConfiguration
+import com.blocksdecoded.dex.core.adapter.AdapterFactory
+import com.blocksdecoded.dex.core.manager.*
 import com.blocksdecoded.dex.core.manager.auth.AuthManager
 import com.blocksdecoded.dex.core.manager.auth.IAuthManager
 import com.blocksdecoded.dex.core.manager.auth.WordsManager
 import com.blocksdecoded.dex.core.manager.duration.IProcessingDurationProvider
 import com.blocksdecoded.dex.core.manager.duration.ProcessingDurationProvider
+import com.blocksdecoded.dex.core.manager.fee.FeeRateProvider
+import com.blocksdecoded.dex.core.manager.fee.IFeeRateProvider
+import com.blocksdecoded.dex.core.manager.history.ExchangeHistoryManager
+import com.blocksdecoded.dex.core.manager.history.IExchangeHistoryManager
+import com.blocksdecoded.dex.core.manager.rates.IRatesManager
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
+import com.blocksdecoded.dex.core.manager.rates.RatesManager
+import com.blocksdecoded.dex.core.manager.rates.bootstrap.BootstrapApiClient
+import com.blocksdecoded.dex.core.manager.rates.remote.RatesApiClient
+import com.blocksdecoded.dex.core.manager.rates.remote.RatesClientConfig
+import com.blocksdecoded.dex.core.manager.system.ISystemInfoManager
+import com.blocksdecoded.dex.core.manager.system.SystemInfoManager
+import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapterManager
+import com.blocksdecoded.dex.core.manager.zrx.IZrxKitManager
+import com.blocksdecoded.dex.core.manager.zrx.RelayerAdapterManager
+import com.blocksdecoded.dex.core.manager.zrx.ZrxKitManager
+import com.blocksdecoded.dex.core.network.NetworkStateManager
+import com.blocksdecoded.dex.core.security.*
+import com.blocksdecoded.dex.core.security.encryption.EncryptionManager
+import com.blocksdecoded.dex.core.security.encryption.IEncryptionManager
 import com.blocksdecoded.dex.core.shared.AppPreferences
 import com.blocksdecoded.dex.core.shared.IAppPreferences
 import com.blocksdecoded.dex.core.shared.ISharedStorage
 import com.blocksdecoded.dex.core.shared.SharedStorage
-import com.blocksdecoded.dex.core.manager.history.IExchangeHistoryManager
-import com.blocksdecoded.dex.core.manager.history.ExchangeHistoryManager
-import com.blocksdecoded.dex.core.manager.system.ISystemInfoManager
-import com.blocksdecoded.dex.core.manager.system.SystemInfoManager
-import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapterManager
-import com.blocksdecoded.dex.core.manager.zrx.RelayerAdapterManager
-import com.blocksdecoded.dex.core.manager.zrx.IZrxKitManager
-import com.blocksdecoded.dex.core.manager.zrx.ZrxKitManager
-import com.blocksdecoded.dex.core.security.*
-import com.blocksdecoded.dex.core.security.LockManager
 import com.blocksdecoded.dex.core.storage.*
 
 class App: Application() {
@@ -63,6 +63,7 @@ class App: Application() {
         lateinit var lockManager: ILockManager
         lateinit var backgroundManager: BackgroundManager
         lateinit var cleanupManager: ICleanupManager
+        lateinit var networkStateManager: NetworkStateManager
 
         lateinit var feeRateProvider: IFeeRateProvider
         lateinit var processingDurationProvider: IProcessingDurationProvider
@@ -107,6 +108,7 @@ class App: Application() {
 
         systemInfoManager = SystemInfoManager()
         backgroundManager = BackgroundManager(this)
+        networkStateManager = NetworkStateManager()
 
         // Auth
 	    wordsManager = WordsManager(appPreferences)

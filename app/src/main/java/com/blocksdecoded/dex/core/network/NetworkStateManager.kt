@@ -8,12 +8,11 @@ import android.net.NetworkRequest
 import com.blocksdecoded.dex.App
 import io.reactivex.subjects.PublishSubject
 
-class NetworkAvailabilityManager {
-
+class NetworkStateManager {
     private val connectivityManager = App.instance.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     var isConnected = connectivityManager.activeNetworkInfo?.isConnected ?: false
-    val networkAvailabilitySignal = PublishSubject.create<Unit>()
+    val networkAvailabilitySubject = PublishSubject.create<Unit>()
 
     init {
         listenNetworkViaConnectivityManager()
@@ -24,7 +23,7 @@ class NetworkAvailabilityManager {
 
         if (isConnected != newIsConnected) {
             isConnected = newIsConnected
-            networkAvailabilitySignal.onNext(Unit)
+            networkAvailabilitySubject.onNext(Unit)
         }
     }
 
