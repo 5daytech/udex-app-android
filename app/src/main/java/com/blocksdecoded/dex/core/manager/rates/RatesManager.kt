@@ -14,6 +14,7 @@ import com.blocksdecoded.dex.utils.ioSubscribe
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
+import java.util.*
 
 class RatesManager(
     private val coinManager: ICoinManager,
@@ -93,6 +94,10 @@ class RatesManager(
                     rate
                 }
             )
+    }
+
+    override fun getLatestRate(coinCode: String): Single<Rate> {
+        return Single.just(Rate(coinCode, Date().time, getMarket(coinCode).price))
     }
 
     //endregion

@@ -61,6 +61,7 @@
 
     <color name="violet">#5B41FE</color>
     <color name="transparent_violet">#605B41FE</color>
+    <color name="violet_20">#015B41FE</color>
 
     <color name="tab_inactive">#5C5C6A</color>
     <color name="tab_active">#3A62F9</color>

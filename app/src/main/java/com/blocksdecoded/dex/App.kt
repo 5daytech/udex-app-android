@@ -134,19 +134,18 @@ class App: Application() {
         // Rates
         val marketsStorage = MarketsStorage(appDatabase.marketsDao())
         val historicalRatesStorage = RatesStorage(appDatabase.ratesDao())
+        val ratesClientConfig = RatesClientConfig(appConfiguration, sharedStorage)
+        val ratesClient = RatesApiClient(ratesClientConfig)
         ratesManager = RatesManager(
             coinManager,
             marketsStorage,
             historicalRatesStorage,
             BootstrapApiClient(),
-            RatesApiClient(),
-            RatesClientConfig(
-                appConfiguration,
-                sharedStorage
-            )
+            ratesClient,
+            ratesClientConfig
         )
         ratesConverter = RatesConverter(ratesManager = ratesManager)
-        ratesStatsManager = RatesStatsManager(RatesApiClient(), ratesManager)
+        ratesStatsManager = RatesStatsManager(ratesClient, ratesManager)
         
         // Init adapter managers
         adapterFactory = AdapterFactory(ethereumKitManager, feeRateProvider)

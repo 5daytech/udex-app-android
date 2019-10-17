@@ -10,6 +10,7 @@ fun Double.toDisplayFormat(): String = CurrencyUtils.df.format(this)
 fun BigDecimal.toMediumDisplayFormat(): String = CurrencyUtils.mediumDf.format(this)
 
 fun BigDecimal.toPriceFormat(): String = CurrencyUtils.formatCoinPrice(this)
+fun BigDecimal.toPercentFormat(): String = CurrencyUtils.fiatFormat.format(this)
 fun Double.toFiatDisplayFormat(): String = CurrencyUtils.formatDoubleFiat(this)
 fun BigDecimal.toFiatDisplayFormat(): String = CurrencyUtils.formatBigDecimalFiat(this)
 
@@ -27,8 +28,8 @@ object CurrencyUtils {
     val mediumDf = DecimalFormat("#,##0.00####")
     val thousandFormat = DecimalFormat("#,##0.#")
 
-    private val fiatFormat = DecimalFormat("#,###.00")
-    private val smallFiatFormat = DecimalFormat("#,##0.00###")
+    val fiatFormat = DecimalFormat("#,##0.00")
+    val smallFiatFormat = DecimalFormat("#,##0.00###")
 
     fun formatCoinPrice(value: BigDecimal): String =
         when {

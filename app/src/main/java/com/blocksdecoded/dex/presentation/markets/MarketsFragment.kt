@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.main.IFocusListener
-import com.blocksdecoded.dex.presentation.markets.info.MarketInfoDialog
+import com.blocksdecoded.dex.presentation.markets.chart.ChartInfoDialog
 import com.blocksdecoded.dex.presentation.markets.recycler.MarketViewHolder
 import com.blocksdecoded.dex.presentation.markets.recycler.MarketsAdapter
 import com.blocksdecoded.dex.utils.visible
@@ -36,7 +36,7 @@ class MarketsFragment : CoreFragment(R.layout.fragment_markets), MarketViewHolde
 
         viewModel.openMarketInfoEvent.observe(this, Observer { coinCode ->
             activity?.let {
-                MarketInfoDialog.show(it.supportFragmentManager, coinCode)
+                ChartInfoDialog.show(it.supportFragmentManager, coinCode)
             }
         })
     }

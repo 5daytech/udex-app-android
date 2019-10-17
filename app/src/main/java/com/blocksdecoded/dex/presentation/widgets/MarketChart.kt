@@ -35,7 +35,7 @@ class MarketChart: LineChart {
 	
 	fun displayData(
 		data: List<Float>,
-		@ColorRes color: Int,
+		@ColorRes lineColor: Int,
 		@DrawableRes backgroundDrawable: Int
 	) {
 		this.visible = data.isNotEmpty()
@@ -66,10 +66,10 @@ class MarketChart: LineChart {
 		dataSet.lineWidth = 1f
 		dataSet.setDrawValues(false)
 		
-		dataSet.color = ContextCompat.getColor(context, color)
+		dataSet.color = ContextCompat.getColor(context, lineColor)
 		dataSet.fillDrawable = ContextCompat.getDrawable(context, backgroundDrawable)
 		
 		this.data = LineData(dataSet)
-		this.animateX(300)
+		this.animateXY(200, 500)
 	}
 }

@@ -22,7 +22,7 @@
         android:layout_marginEnd="@dimen/page_margin">
         <TextView
             style="@style/DialogTitleText"
-            android:id="@+id/market_coin_code"
+            android:id="@+id/chart_coin_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="?AccentTextColor"
@@ -32,16 +32,16 @@
             style="@style/DialogTitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/market_coin_code"
+            android:layout_toRightOf="@+id/chart_coin_code"
             android:text="Rate" />
 
         <TextView
             style="@style/DialogTitleText"
-            android:id="@+id/market_coin_price"
+            android:id="@+id/chart_coin_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_toStartOf="@+id/market_change_percent"
+            android:layout_toStartOf="@+id/chart_change_percent"
             android:layout_marginEnd="@dimen/page_margin"
             android:layout_centerVertical="true"
             android:textSize="17sp"
@@ -49,7 +49,7 @@
 
         <TextView
             style="@style/RegularText"
-            android:id="@+id/market_change_percent"
+            android:id="@+id/chart_change_percent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+4.77%"
@@ -69,7 +69,7 @@
         android:layout_height="@dimen/divider_height"/>
 
     <com.blocksdecoded.dex.presentation.widgets.OptionSelectorView
-        android:id="@+id/market_info_period_selector"
+        android:id="@+id/chart_period_selector"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
@@ -79,6 +79,7 @@
     <com.blocksdecoded.dex.presentation.widgets.MarketChart
         android:id="@+id/market_info_chart"
         android:layout_width="match_parent"
-        android:layout_height="250dp"/>
+        android:layout_height="250dp"
+        android:layout_margin="@dimen/page_margin"/>
 
 </LinearLayout>

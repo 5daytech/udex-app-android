@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 
 //region Core extensions
 
-fun <T> Single<T>.uiObserver() : Single<T> = this.subscribeOn(Schedulers.io())
+fun <T> Single<T>.uiObserve() : Single<T> = this.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 
 fun <T> Single<T>.ioSubscribe(
@@ -26,7 +26,7 @@ fun <T> Single<T>.ioSubscribe(
         ).let { disposables?.add(it) }
 }
 
-fun <T> Flowable<T>.uiObserver() : Flowable<T> = this.subscribeOn(Schedulers.io())
+fun <T> Flowable<T>.uiObserve() : Flowable<T> = this.subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
 
 fun <T> Flowable<T>.ioSubscribe(

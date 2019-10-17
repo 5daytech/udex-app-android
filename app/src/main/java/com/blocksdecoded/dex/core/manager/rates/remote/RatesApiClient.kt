@@ -12,8 +12,9 @@ import retrofit2.http.Url
 import java.math.BigDecimal
 import java.util.concurrent.TimeoutException
 
-class RatesApiClient: CoreApiClient(), IRatesApiClient {
-    private var mConfig: IRatesClientConfig? = null
+class RatesApiClient(
+    private var mConfig: IRatesClientConfig?
+): CoreApiClient(), IRatesApiClient {
     private var mCurrencyRateClient: CurrencyNetworkClient? = null
     private var mHistoricalRateMainClient: HistoricalRateNetworkClient? = null
 
@@ -29,17 +30,21 @@ class RatesApiClient: CoreApiClient(), IRatesApiClient {
 
     //region Public
 
+    init {
+        mConfig?.let {
+            mHistoricalRateMainClient = getRetrofitClient(
+                it.historicalIpfsConfig,
+                HistoricalRateNetworkClient::class.java
+            )
+        }
+    }
+
     override fun init(rateClientConfig: IRatesClientConfig) {
         mConfig = rateClientConfig
 
         mCurrencyRateClient = getRetrofitClient(
             mConfig?.ipfsUrl ?: "",
             CurrencyNetworkClient::class.java
-        )
-
-        mHistoricalRateMainClient = getRetrofitClient(
-            rateClientConfig.historicalIpfsConfig,
-            HistoricalRateNetworkClient::class.java
         )
     }
 

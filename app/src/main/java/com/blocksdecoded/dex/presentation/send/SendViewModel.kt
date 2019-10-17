@@ -7,7 +7,7 @@ import com.blocksdecoded.dex.core.adapter.FeeRatePriority
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.adapter.SendStateError
 import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.utils.uiObserver
+import com.blocksdecoded.dex.utils.uiObserve
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.utils.Logger
@@ -94,7 +94,7 @@ class SendViewModel(
         if (amount == BigDecimal.ZERO) return
 
         adapter.send(address, amount, userInput.feePriority)
-            .uiObserver()
+            .uiObserve()
             .subscribe({
                 dismissWithSuccessEvent.call()
             }, {

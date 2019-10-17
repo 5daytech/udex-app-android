@@ -5,6 +5,7 @@ import com.blocksdecoded.dex.core.manager.rates.model.*
 import com.blocksdecoded.dex.core.manager.rates.remote.IRatesApiClient
 import com.blocksdecoded.dex.core.model.ChartType
 import com.blocksdecoded.dex.core.model.Rate
+import com.blocksdecoded.dex.utils.Logger
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -65,6 +66,7 @@ class RatesStatsManager(
             .subscribe({
                 statsSubject.onNext(it)
             }, {
+                Logger.e(it)
                 statsSubject.onNext(StatsError(coinCode))
             })
             .let { disposables.add(it) }
