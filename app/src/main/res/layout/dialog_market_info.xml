@@ -1,8 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_dialog"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:layout_width="@dimen/collapse_view_width"
+        android:layout_height="@dimen/collapse_view_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/element_margin"
+        android:background="@drawable/bg_rounded_divider"/>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/page_margin"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin">
+        <TextView
+            style="@style/DialogTitleText"
+            android:id="@+id/market_coin_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?AccentTextColor"
+            android:text="Ethereum " />
+
+        <TextView
+            style="@style/DialogTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/market_coin_code"
+            android:text="Rate" />
+
+        <TextView
+            style="@style/DialogTitleText"
+            android:id="@+id/market_coin_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_toStartOf="@+id/market_change_percent"
+            android:layout_marginEnd="@dimen/page_margin"
+            android:layout_centerVertical="true"
+            android:textSize="17sp"
+            android:text="$200.00"/>
+
+        <TextView
+            style="@style/RegularText"
+            android:id="@+id/market_change_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+4.77%"
+            android:textColor="@color/green"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:textSize="17sp"
+            android:layout_gravity="end"/>
+    </RelativeLayout>
+
+    <View
+        style="@style/Divider"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_height="@dimen/divider_height"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.OptionSelectorView
+        android:id="@+id/market_info_period_selector"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        app:osv_options="1D,7D,1M,6M,1Y"
+        android:layout_marginTop="@dimen/element_margin"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.MarketChart
+        android:id="@+id/market_info_chart"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"/>
 
 </LinearLayout>

@@ -16,7 +16,7 @@ class MarketViewHolder(
 	private val listener: Listener
 ): RecyclerView.ViewHolder(containerView), LayoutContainer {
 	init {
-//		itemView.setOnClickListener { listener.onClick(adapterPosition) }
+		itemView.setOnClickListener { listener.onClick(adapterPosition) }
 	}
 	
 	fun onBind(market: MarketViewItem) {

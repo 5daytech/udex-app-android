@@ -1,14 +1,14 @@
 package com.blocksdecoded.dex.presentation.markets
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.main.IFocusListener
+import com.blocksdecoded.dex.presentation.markets.info.MarketInfoDialog
 import com.blocksdecoded.dex.presentation.markets.recycler.MarketViewHolder
 import com.blocksdecoded.dex.presentation.markets.recycler.MarketsAdapter
 import com.blocksdecoded.dex.utils.visible
@@ -33,6 +33,12 @@ class MarketsFragment : CoreFragment(R.layout.fragment_markets), MarketViewHolde
         viewModel.markets.observe(this, Observer { adapter.setMarkets(it) })
         
         viewModel.loading.observe(this, Observer { markets_refresh?.isRefreshing = it })
+
+        viewModel.openMarketInfoEvent.observe(this, Observer { coinCode ->
+            activity?.let {
+                MarketInfoDialog.show(it.supportFragmentManager, coinCode)
+            }
+        })
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +59,7 @@ class MarketsFragment : CoreFragment(R.layout.fragment_markets), MarketViewHolde
     //region ViewHolder
     
     override fun onClick(position: Int) {
-    
+        viewModel.onMarketClick(position)
     }
     
     //endregion
