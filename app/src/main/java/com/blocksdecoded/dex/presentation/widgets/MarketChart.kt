@@ -5,7 +5,9 @@ import android.util.AttributeSet
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import com.blocksdecoded.dex.utils.Logger
+import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.core.manager.rates.model.ChartPoint
+import com.blocksdecoded.dex.utils.getAttr
 import com.blocksdecoded.dex.utils.visible
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
@@ -18,10 +20,11 @@ class MarketChart: LineChart {
 	constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
 	
 	init {
-		this.setTouchEnabled(false)
-		this.isDragEnabled = false
-		this.setScaleEnabled(true)
+		this.setTouchEnabled(true)
+		this.isDragEnabled = true
+		this.setScaleEnabled(false)
 		this.setDrawGridBackground(false)
+		setGridBackgroundColor(context.theme.getAttr(R.attr.MainBackground) ?: 0)
 		this.setPinchZoom(false)
 		this.description?.isEnabled = false
 		this.setDrawBorders(false)
@@ -34,7 +37,7 @@ class MarketChart: LineChart {
 	}
 	
 	fun displayData(
-		data: List<Float>,
+		data: List<ChartPoint>,
 		@ColorRes lineColor: Int,
 		@DrawableRes backgroundDrawable: Int,
 		drawAnimationDuration: Int = 300
@@ -49,12 +52,12 @@ class MarketChart: LineChart {
 		this.resetZoom()
 		this.zoomOut()
 		val entries = arrayListOf<Entry>()
-		
-		data.forEachIndexed { index, fl ->
+
+		data.forEach {
 			try {
-				entries.add(Entry(index.toFloat(), fl))
+				entries.add(Entry(it.timestamp.toFloat(), it.value))
 			} catch (e: Exception) {
-				Logger.e(e)
+
 			}
 		}
 		
@@ -69,7 +72,7 @@ class MarketChart: LineChart {
 		
 		dataSet.color = ContextCompat.getColor(context, lineColor)
 		dataSet.fillDrawable = ContextCompat.getDrawable(context, backgroundDrawable)
-		
+
 		this.data = LineData(dataSet)
 		this.animateXY(drawAnimationDuration + (drawAnimationDuration / 2), drawAnimationDuration)
 	}

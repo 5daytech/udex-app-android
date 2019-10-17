@@ -76,11 +76,24 @@
         app:osv_options="1D,7D,1M,6M,1Y"
         android:layout_marginTop="@dimen/element_margin"/>
 
+    <TextView
+        style="@style/RegularText"
+        android:id="@+id/chart_picked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Touch chart to select value"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/element_margin"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColorHint="?HintTextColor"
+        android:lines="2"
+        android:textColor="?PrimaryTextColor"/>
+
     <com.blocksdecoded.dex.presentation.widgets.MarketChart
         android:id="@+id/market_info_chart"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginTop="@dimen/element_margin"
         android:layout_marginBottom="@dimen/page_margin" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

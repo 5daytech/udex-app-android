@@ -7,9 +7,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
+import com.blocksdecoded.dex.utils.TimeUtils
+import com.blocksdecoded.dex.utils.listeners.SimpleChartListener
 import com.blocksdecoded.dex.utils.ui.CurrencyUtils
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toPercentFormat
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.highlight.Highlight
 import kotlinx.android.synthetic.main.dialog_market_chart.*
 import java.math.BigDecimal
 
@@ -20,11 +24,21 @@ class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_chart) {
         ViewModelProviders.of(this).get(ChartInfoViewModel::class.java)
     }
 
+    private val chartListener = object : SimpleChartListener() {
+        override fun onValueSelected(e: Entry?, h: Highlight?) {
+            chart_picked?.text = "$${e?.y?.toBigDecimal()?.toFiatDisplayFormat()}\n" +
+                    "${TimeUtils.timestampToDisplay(e?.x?.toLong() ?: 0)}"
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chart_period_selector.addClickListener {
             viewModel.onPeriodSelect(it)
         }
+
+        market_info_chart.setOnChartValueSelectedListener(chartListener)
+        market_info_chart.onChartGestureListener = chartListener
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -37,8 +51,7 @@ class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_chart) {
         })
 
         viewModel.chartData.observe(this, Observer {
-            val points = it.chartData.map { it.value }
-            market_info_chart.displayData(points, R.color.chart, R.drawable.bg_chart)
+            market_info_chart.displayData(it.chartData, R.color.chart, R.drawable.bg_chart)
 
             chart_coin_price.text = "$${it.rateValue?.toFiatDisplayFormat()}"
 

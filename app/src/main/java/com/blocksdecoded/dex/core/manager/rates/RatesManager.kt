@@ -97,7 +97,7 @@ class RatesManager(
     }
 
     override fun getLatestRate(coinCode: String): Single<Rate> {
-        return Single.just(Rate(coinCode, Date().time, getMarket(coinCode).price))
+        return Single.just(Rate(coinCode, Date().time / 1000, getMarket(coinCode).price))
     }
 
     //endregion
