@@ -13,3 +13,9 @@ data class RateStatData(
     @SerializedName("market_cap") val marketCap: BigDecimal,
     @SerializedName("stats") val stats: Map<String, RateData>
 )
+
+sealed class StatsResponse
+data class StatsKey(val coinCode: String, val currencyCode: String)
+data class StatsData(val coinCode: String, val marketCap: BigDecimal, val stats: Map<String, List<ChartPoint>>, val diff: Map<String, BigDecimal>) : StatsResponse()
+data class StatsError(val coinCode: String) : StatsResponse()
+data class ChartPoint(val value: Float, val timestamp: Long)
