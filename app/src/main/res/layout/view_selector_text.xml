@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    style="@style/SemiboldText"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:text="Item"
+    android:textColor="?PrimaryTextColor"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:textSize="14sp"
+    android:layout_weight="1.0"
+    android:lines="1"
+    android:maxLines="1"
+    android:textAllCaps="false"
+    android:focusableInTouchMode="false"
+    android:focusable="false"
+    android:background="?selectableItemBackground" />

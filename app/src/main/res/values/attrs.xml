@@ -24,4 +24,12 @@
     <declare-styleable name="BaseDropDownView">
         <attr name="ddv_item_layout" format="reference|integer"/>
     </declare-styleable>
+
+    <declare-styleable name="OptionSelectorView">
+        <attr name="osv_options" format="string"/>
+        <attr name="selectedNumBackground" format="integer"/>
+        <attr name="defaultNumBackground" format="integer"/>
+        <attr name="selectedTextColor" format="reference|integer"/>
+        <attr name="defaultTextColor" format="reference|integer"/>
+    </declare-styleable>
 </resources>
