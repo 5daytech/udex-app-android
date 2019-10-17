@@ -81,7 +81,7 @@
         android:id="@+id/chart_picked"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Touch chart to select value"
+        android:hint="@string/chart_touch_to_select_value"
         android:layout_gravity="center_horizontal"
         android:padding="@dimen/element_margin"
         android:gravity="center"
@@ -117,7 +117,7 @@
             app:layout_constraintTop_toBottomOf="@+id/chart_market_cap"
             app:layout_constraintStart_toStartOf="@+id/chart_market_cap"
             android:layout_marginTop="@dimen/small_margin"
-            android:text="Mkt. Cap"/>
+            android:text="@string/chart_mkt_cap"/>
 
         <TextView
             style="@style/DialogTitleText"
@@ -136,7 +136,7 @@
             app:layout_constraintTop_toBottomOf="@+id/chart_high"
             app:layout_constraintStart_toStartOf="@+id/chart_high"
             android:layout_marginTop="@dimen/small_margin"
-            android:text="High"/>
+            android:text="@string/chart_high"/>
 
         <TextView
             style="@style/DialogTitleText"
@@ -155,7 +155,7 @@
             app:layout_constraintTop_toBottomOf="@+id/chart_low"
             app:layout_constraintStart_toStartOf="@+id/chart_low"
             android:layout_marginTop="@dimen/small_margin"
-            android:text="Low"/>
+            android:text="@string/chart_low"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

@@ -173,6 +173,12 @@
     <string name="auth_load_error_description">Something went wrong.\nAuth data can\'t be decrypted so app data will be reset now and you need to re-enter your mnemonic key to restore wallet.</string>
     <string name="send_invalid_recipient_address">Invalid recipient address!</string>
 
+    <!-- Chart -->
+    <string name="chart_touch_to_select_value">Touch chart to select value</string>
+    <string name="chart_mkt_cap">Mkt. Cap</string>
+    <string name="chart_high">High</string>
+    <string name="chart_low">Low</string>
+
     <!-- Placeholders -->
     <string-array name="placeholder_items">
         <item>WETH</item>
