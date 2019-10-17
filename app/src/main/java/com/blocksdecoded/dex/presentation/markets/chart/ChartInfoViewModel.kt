@@ -10,8 +10,7 @@ import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.uiObserve
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.blocksdecoded.dex.utils.uiSubscribe
 
 class ChartInfoViewModel : CoreViewModel() {
     private val coinManager = App.coinManager
@@ -25,21 +24,20 @@ class ChartInfoViewModel : CoreViewModel() {
     val coin = MutableLiveData<Coin>()
     val market = MutableLiveData<Market>()
     val chartData = MutableLiveData<ChartViewItem>()
+    val currentPeriod = MutableLiveData<Int>()
 
     fun init(coinCode: String) {
+        chartType = ChartType.DAILY
         market.value = ratesManager.getMarket(coinCode)
         coin.value = coinManager.getCoin(coinCode)
 
         ratesStatsManager.statsFlowable
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
+            .uiSubscribe(disposables, {
                 if (it is StatsData) {
                     statsData = it
                     showChart()
                 }
-            }, { Logger.e(it) }
-            ).let { disposables.add(it) }
+            })
 
         ratesManager.getLatestRate(coinManager.cleanCoinCode(coinCode))
             .uiObserve()
@@ -50,11 +48,21 @@ class ChartInfoViewModel : CoreViewModel() {
             ).let { disposables.add(it) }
 
         ratesStatsManager.syncStats(coinManager.cleanCoinCode(coinCode))
+        currentPeriod.value = chartType.ordinal
     }
 
     private fun showChart() {
         if (statsData != null && latestRate != null) {
-            chartData.postValue(RateChartViewFactory().createViewItem(chartType, statsData!!, latestRate))
+            chartData.value = RateChartViewFactory().createViewItem(chartType, statsData!!, latestRate)
+        }
+    }
+
+    fun onPeriodSelect(position: Int) {
+        val newType = ChartType.fromInt(position)
+        if (chartType != newType) {
+            chartType = newType
+            showChart()
+            currentPeriod.value = newType.ordinal
         }
     }
 }

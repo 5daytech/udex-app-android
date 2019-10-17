@@ -80,7 +80,8 @@
         android:id="@+id/market_info_chart"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_margin="@dimen/page_margin"/>
+        android:layout_marginTop="@dimen/element_margin"
+        android:layout_marginBottom="@dimen/page_margin" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

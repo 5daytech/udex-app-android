@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.presentation.markets.chart
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -9,14 +10,21 @@ import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.utils.ui.CurrencyUtils
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toPercentFormat
-import kotlinx.android.synthetic.main.dialog_market_info.*
+import kotlinx.android.synthetic.main.dialog_market_chart.*
 import java.math.BigDecimal
 
-class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_info) {
+class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_chart) {
 
     lateinit var coinCode: String
     val viewModel: ChartInfoViewModel by lazy {
         ViewModelProviders.of(this).get(ChartInfoViewModel::class.java)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        chart_period_selector.addClickListener {
+            viewModel.onPeriodSelect(it)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -40,6 +48,10 @@ class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_info) {
             chart_market_cap.text = "$${CurrencyUtils.withSuffix(it.marketCap)}"
             chart_high.text = "$${it.highValue.toFiatDisplayFormat()}"
             chart_low.text = "$${it.lowValue.toFiatDisplayFormat()}"
+        })
+
+        viewModel.currentPeriod.observe(this, Observer {
+            chart_period_selector.setSelectedView(it)
         })
     }
 

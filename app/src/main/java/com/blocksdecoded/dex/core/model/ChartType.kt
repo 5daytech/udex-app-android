@@ -11,5 +11,7 @@ enum class ChartType {
         val annualPoints = 53
         val map = values().associateBy(ChartType::name)
         fun fromString(type: String?): ChartType? = map[type]
+
+        fun fromInt(position: Int): ChartType = values()[position]
     }
 }
