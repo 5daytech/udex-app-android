@@ -12,8 +12,8 @@ import com.blocksdecoded.dex.utils.inflate
 class OptionSelectorView : LinearLayout, View.OnClickListener {
     private var mOptions = arrayListOf("first", "second")
 
-    private var mSelectedTextColor = R.attr.AccentTextColor
-    private var mDefaultTextColor = R.attr.HintTextColor
+    private var mSelectedTextColor = R.attr.PrimaryTextColor
+    private var mDefaultTextColor = R.attr.SecondaryHintTextColor
 
     private var mListener: ((number: Int) -> Unit)? = null
     private var mNumberViews = HashMap<Int, View>()
@@ -28,8 +28,8 @@ class OptionSelectorView : LinearLayout, View.OnClickListener {
         )
 
         try {
-            mSelectedTextColor = a.getInt(R.styleable.OptionSelectorView_selectedTextColor, R.attr.AccentTextColor)
-            mDefaultTextColor = a.getInt(R.styleable.OptionSelectorView_defaultTextColor, R.attr.HintTextColor)
+            mSelectedTextColor = a.getInt(R.styleable.OptionSelectorView_selectedTextColor, R.attr.PrimaryTextColor)
+            mDefaultTextColor = a.getInt(R.styleable.OptionSelectorView_defaultTextColor, R.attr.SecondaryHintTextColor)
 
             a.getString(R.styleable.OptionSelectorView_osv_options)?.let {
                 mOptions.clear()

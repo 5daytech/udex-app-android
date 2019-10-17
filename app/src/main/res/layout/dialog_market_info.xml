@@ -79,7 +79,69 @@
     <com.blocksdecoded.dex.presentation.widgets.MarketChart
         android:id="@+id/market_info_chart"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:layout_margin="@dimen/page_margin"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/big_margin">
+        <TextView
+            style="@style/DialogTitleText"
+            android:id="@+id/chart_market_cap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/page_margin"
+            android:text="$199m"/>
+
+        <TextView
+            style="@style/HintText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/chart_market_cap"
+            app:layout_constraintStart_toStartOf="@+id/chart_market_cap"
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="Mkt. Cap"/>
+
+        <TextView
+            style="@style/DialogTitleText"
+            android:id="@+id/chart_high"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="$300.0"/>
+
+        <TextView
+            style="@style/HintText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/chart_high"
+            app:layout_constraintStart_toStartOf="@+id/chart_high"
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="High"/>
+
+        <TextView
+            style="@style/DialogTitleText"
+            android:id="@+id/chart_low"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/page_margin"
+            android:text="$200.0"/>
+
+        <TextView
+            style="@style/HintText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/chart_low"
+            app:layout_constraintStart_toStartOf="@+id/chart_low"
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="Low"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

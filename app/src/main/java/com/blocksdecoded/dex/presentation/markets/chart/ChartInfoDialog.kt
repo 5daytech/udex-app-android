@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
+import com.blocksdecoded.dex.utils.ui.CurrencyUtils
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toPercentFormat
 import kotlinx.android.synthetic.main.dialog_market_info.*
@@ -35,6 +36,10 @@ class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_info) {
 
             val sign = if (it.diffValue >= BigDecimal.ZERO) "+" else "-"
             chart_change_percent.text = "$sign${it.diffValue.abs().toPercentFormat()}%"
+
+            chart_market_cap.text = "$${CurrencyUtils.withSuffix(it.marketCap)}"
+            chart_high.text = "$${it.highValue.toFiatDisplayFormat()}"
+            chart_low.text = "$${it.lowValue.toFiatDisplayFormat()}"
         })
     }
 

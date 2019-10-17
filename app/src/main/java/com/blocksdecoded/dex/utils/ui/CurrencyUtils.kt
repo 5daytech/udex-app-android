@@ -23,6 +23,14 @@ object CurrencyUtils {
             "kmbtpe"[exp - 1])
     }
 
+    fun withSuffix(amount: BigDecimal): String {
+        if (amount < BigDecimal(1000)) return "" + amount
+        val exp = (ln(amount.toDouble()) / ln(1000.0)).toInt()
+        return String.format("%.1f %c",
+            amount / BigDecimal(1000).pow(exp),
+            "kmbtpe"[exp - 1])
+    }
+
     val df = DecimalFormat("#,##0.00##")
     val longDf = DecimalFormat("#,##0.00#######")
     val mediumDf = DecimalFormat("#,##0.00####")
