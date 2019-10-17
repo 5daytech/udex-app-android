@@ -38,7 +38,7 @@ class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_chart) {
 
         viewModel.chartData.observe(this, Observer {
             val points = it.chartData.map { it.value }
-            market_info_chart.displayData(points, R.color.violet, R.drawable.bg_chart)
+            market_info_chart.displayData(points, R.color.chart, R.drawable.bg_chart)
 
             chart_coin_price.text = "$${it.rateValue?.toFiatDisplayFormat()}"
 

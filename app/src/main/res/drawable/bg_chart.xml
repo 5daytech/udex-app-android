@@ -2,6 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <gradient
         android:angle="90"
-        android:startColor="@color/violet_20"
-        android:endColor="@color/violet" />
+        android:startColor="@color/transparent_chart"
+        android:endColor="@color/chart" />
 </shape>
