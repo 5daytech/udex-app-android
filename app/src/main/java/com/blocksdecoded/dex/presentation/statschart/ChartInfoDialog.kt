@@ -1,6 +1,7 @@
 package com.blocksdecoded.dex.presentation.statschart
 
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
@@ -14,6 +15,7 @@ import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toPercentFormat
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.ChartTouchListener
 import kotlinx.android.synthetic.main.dialog_market_chart.*
 import java.math.BigDecimal
 
@@ -28,6 +30,20 @@ class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_chart) {
         override fun onValueSelected(e: Entry?, h: Highlight?) {
             chart_picked?.text = "$${e?.y?.toBigDecimal()?.toFiatDisplayFormat()}\n" +
                     "${TimeUtils.timestampToDisplay(e?.x?.toLong() ?: 0)}"
+        }
+
+        override fun onChartGestureStart(
+            me: MotionEvent?,
+            lastPerformedGesture: ChartTouchListener.ChartGesture?
+        ) {
+            isCancelable = false
+        }
+
+        override fun onChartGestureEnd(
+            me: MotionEvent?,
+            lastPerformedGesture: ChartTouchListener.ChartGesture?
+        ) {
+            isCancelable = true
         }
     }
 
