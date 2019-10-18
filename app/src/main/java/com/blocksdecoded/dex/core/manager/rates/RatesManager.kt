@@ -2,9 +2,8 @@ package com.blocksdecoded.dex.core.manager.rates
 
 import android.annotation.SuppressLint
 import com.blocksdecoded.dex.core.manager.ICoinManager
-import com.blocksdecoded.dex.core.manager.rates.bootstrap.IBootstrapClient
 import com.blocksdecoded.dex.core.manager.rates.remote.IRatesApiClient
-import com.blocksdecoded.dex.core.manager.rates.remote.config.IRatesClientConfig
+import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.Market
 import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.storage.IMarketsStorage
@@ -14,64 +13,67 @@ import com.blocksdecoded.dex.utils.ioSubscribe
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
-import java.util.*
+import java.math.BigDecimal
 
 class RatesManager(
     private val coinManager: ICoinManager,
     private val marketsStorage: IMarketsStorage,
     private val ratesStorage: IRatesStorage,
-    private val bootstrapClient: IBootstrapClient,
-    private val rateClient: IRatesApiClient,
-    private val rateClientConfig: IRatesClientConfig
+    private val rateClient: IRatesApiClient
 ): IRatesManager {
     private val disposables = CompositeDisposable()
 
-    override val marketsUpdateSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
-    override val marketsStateSubject: BehaviorSubject<MarketState> = BehaviorSubject.create()
+    override val ratesUpdateSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
+    override val ratesStateSubject: BehaviorSubject<RatesSyncState> = BehaviorSubject.create()
 
-    private var bootstrapSynced = false
+    private var availableCoins = listOf<Coin>()
     private var cachedRates = listOf<Market>()
+    private var latestRates = listOf<Rate>()
 
     init {
-        marketsStateSubject.onNext(MarketState.SYNCING)
+        ratesStateSubject.onNext(RatesSyncState.SYNCING)
+
+        coinManager.coinsUpdatedSubject
+            .subscribe {
+                availableCoins = coinManager.coins
+                syncRates()
+            }.let { disposables.add(it) }
 
         initialStorageFetch()
-
-        bootstrapConfig()
     }
 
     //region Private
-
-    private fun bootstrapConfig() {
-        bootstrapClient.getConfigs().ioSubscribe(disposables, {
-            bootstrapSynced = true
-            rateClientConfig.ipfsUrl = it.servers.first()
-            rateClient.init(rateClientConfig)
-            fetchRates()
-        }, {
-            Logger.e(it)
-            fetchRates()
-        })
-    }
 
     @SuppressLint("CheckResult")
     private fun initialStorageFetch() {
         marketsStorage.getAllMarkets().ioSubscribe(disposables, {
             cachedRates = it
-            marketsUpdateSubject.onNext(Unit)
+            ratesUpdateSubject.onNext(Unit)
         })
     }
 
-    private fun fetchRates() {
-        rateClient.getRates().ioSubscribe(disposables, {
-                cachedRates = it.data.markets
-                marketsStorage.save(*cachedRates.toTypedArray())
-                marketsStateSubject.onNext(MarketState.SYNCED)
-                marketsUpdateSubject.onNext(Unit)
-            }, {
-                marketsStateSubject.onNext(MarketState.FAILED)
-                Logger.e(it)
-            })
+    private fun syncRateStats(coinCode: String) {
+
+    }
+
+    private fun syncRates() {
+        rateClient.getLatestRates().ioSubscribe(disposables, { ratesData ->
+            val rates = ArrayList<Rate>()
+            availableCoins.forEach {
+                val cleanCoinCode = coinManager.cleanCoinCode(it.code)
+                rates.add(Rate(
+                    it.code,
+                    ratesData.timestamp / 1000,
+                    ratesData.rates[cleanCoinCode]?.toBigDecimal() ?: BigDecimal.ZERO
+                ))
+            }
+            latestRates = rates
+            ratesStateSubject.onNext(RatesSyncState.SYNCED)
+            ratesUpdateSubject.onNext(Unit)
+        }, {
+            ratesStateSubject.onNext(RatesSyncState.FAILED)
+            Logger.e(it)
+        })
     }
 
     //endregion
@@ -96,8 +98,17 @@ class RatesManager(
             )
     }
 
-    override fun getLatestRate(coinCode: String): Single<Rate> {
-        return Single.just(Rate(coinCode, Date().time / 1000, getMarket(coinCode).price))
+    override fun getLatestRateSingle(coinCode: String): Single<Rate> {
+        val rate = getLatestRate(coinManager.cleanCoinCode(coinCode))
+        return if (rate != null) {
+            Single.just(rate)
+        } else {
+            Single.error(NullPointerException())
+        }
+    }
+
+    override fun getLatestRate(coinCode: String): Rate? {
+        return latestRates.firstOrNull { it.coinCode == coinCode }
     }
 
     //endregion
@@ -110,23 +121,12 @@ class RatesManager(
                  coinCodes.indexOfFirst { symbol -> symbol.contains(it.coinCode) } >= 0
         }
 
-    override fun getMarket(coinCode: String): Market {
-        val cleanCoinCode = coinManager.cleanCoinCode(coinCode)
-        return cachedRates.firstOrNull {
-            it.coinCode == cleanCoinCode || it.coinCode.contains(cleanCoinCode, true)
-        } ?: Market(coinCode)
-    }
-
     override fun refresh() {
-        marketsStateSubject.value?.let {
-            if (it != MarketState.SYNCING) {
-                marketsStateSubject.onNext(MarketState.SYNCING)
+        ratesStateSubject.value?.let {
+            if (it != RatesSyncState.SYNCING) {
+                ratesStateSubject.onNext(RatesSyncState.SYNCING)
 
-                if (bootstrapSynced && rateClientConfig.ipfsUrl.isNotEmpty()) {
-                    fetchRates()
-                } else {
-                    bootstrapConfig()
-                }
+                syncRates()
             }
         }
     }
@@ -138,7 +138,6 @@ class RatesManager(
     }
 
     override fun clear() {
-        bootstrapSynced = false
         marketsStorage.deleteAll()
         stop()
     }

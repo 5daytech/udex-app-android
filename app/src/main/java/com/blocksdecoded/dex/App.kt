@@ -17,9 +17,7 @@ import com.blocksdecoded.dex.core.manager.history.IExchangeHistoryManager
 import com.blocksdecoded.dex.core.manager.rates.IRatesManager
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.core.manager.rates.RatesManager
-import com.blocksdecoded.dex.core.manager.rates.bootstrap.BootstrapApiClient
 import com.blocksdecoded.dex.core.manager.rates.remote.RatesApiClient
-import com.blocksdecoded.dex.core.manager.rates.remote.config.RatesClientConfig
 import com.blocksdecoded.dex.core.manager.rates.stats.RatesStatsManager
 import com.blocksdecoded.dex.core.manager.system.ISystemInfoManager
 import com.blocksdecoded.dex.core.manager.system.SystemInfoManager
@@ -134,16 +132,9 @@ class App: Application() {
         // Rates
         val marketsStorage = MarketsStorage(appDatabase.marketsDao())
         val historicalRatesStorage = RatesStorage(appDatabase.ratesDao())
-        val ratesClientConfig = RatesClientConfig(appConfiguration, sharedStorage)
-        val ratesClient = RatesApiClient(ratesClientConfig)
-        ratesManager = RatesManager(
-            coinManager,
-            marketsStorage,
-            historicalRatesStorage,
-            BootstrapApiClient(),
-            ratesClient,
-            ratesClientConfig
-        )
+        val ratesClient = RatesApiClient(appConfiguration)
+
+        ratesManager = RatesManager(coinManager, marketsStorage, historicalRatesStorage, ratesClient)
         ratesConverter = RatesConverter(ratesManager = ratesManager)
         ratesStatsManager = RatesStatsManager(ratesClient, ratesManager)
         

@@ -49,7 +49,7 @@ class OrdersViewModel : CoreViewModel() {
                 }
             }.let { disposables.add(it) }
 
-        ratesManager.marketsUpdateSubject.subscribe {
+        ratesManager.ratesUpdateSubject.subscribe {
             onPairsRefresh()
         }.let { disposables.add(it) }
     }

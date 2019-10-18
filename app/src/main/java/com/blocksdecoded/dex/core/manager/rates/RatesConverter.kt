@@ -1,17 +1,15 @@
 package com.blocksdecoded.dex.core.manager.rates
 
-import com.blocksdecoded.dex.core.model.Market
+import com.blocksdecoded.dex.core.model.Rate
 import java.math.BigDecimal
+import java.util.*
 
 class RatesConverter(
 	private val baseCoinCode: String = "ETH",
 	private val ratesManager: IRatesManager
 ) {
-	private fun getCoinRate(code: String): Market {
-		if (code.isEmpty()) return Market(code)
-
-		return ratesManager.getMarket(code)
-	}
+	private fun getCoinRate(code: String): Rate =
+		ratesManager.getLatestRate(code) ?: Rate(code, Date().time / 1000, BigDecimal.ZERO)
 
 	fun getCoinDiff(base: String, quote: String): BigDecimal {
 		val baseRate = getCoinRate(base)

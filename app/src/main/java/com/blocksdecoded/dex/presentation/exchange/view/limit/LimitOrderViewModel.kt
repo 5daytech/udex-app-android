@@ -33,7 +33,7 @@ class LimitOrderViewModel: BaseExchangeViewModel<LimitOrderViewState>() {
 	init {
 		init()
 
-		ratesManager.marketsStateSubject
+		ratesManager.ratesStateSubject
 			.subscribe { refreshAveragePrice() }
 			.let { disposables.add(it) }
 	}

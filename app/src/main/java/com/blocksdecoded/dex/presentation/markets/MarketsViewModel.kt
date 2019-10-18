@@ -2,7 +2,7 @@ package com.blocksdecoded.dex.presentation.markets
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.core.manager.rates.MarketState.*
+import com.blocksdecoded.dex.core.manager.rates.RatesSyncState.*
 import com.blocksdecoded.dex.core.model.Market
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
@@ -17,7 +17,7 @@ class MarketsViewModel : CoreViewModel() {
     val openMarketInfoEvent = SingleLiveEvent<String>()
 
     init {
-        ratesManager.marketsStateSubject
+        ratesManager.ratesStateSubject
             .subscribe {
                 loading.postValue(when(it) {
                     SYNCING -> true
@@ -27,7 +27,7 @@ class MarketsViewModel : CoreViewModel() {
             }
             .let { disposables.add(it) }
 
-        ratesManager.marketsUpdateSubject
+        ratesManager.ratesUpdateSubject
             .subscribe {
                 val rates = ratesManager.getMarkets(availableMarkets.map { it.code })
 

@@ -34,7 +34,7 @@ class MarketViewHolder(
 		market_price.text = "$${market.market.price.toFiatDisplayFormat()}"
 
 		market_change_percent.text = "${market.market.priceChange.absoluteValue}%"
-		market_volume.text = "Volume ${CurrencyUtils.withSuffix(market.market.volume)}"
+		market_volume.text = "Mrk. cap ${CurrencyUtils.withSuffix(market.market.marketCap)}"
 
 		market_change_percent.setTextColorRes(color)
 	}

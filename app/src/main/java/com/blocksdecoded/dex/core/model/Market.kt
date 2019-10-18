@@ -10,11 +10,7 @@ import java.math.BigDecimal
 data class Market(
 	@SerializedName("symbol") @PrimaryKey
 	val coinCode: String,
-	val totalSupply: Float = 0f,
-	val circulatingSupply: Float = 0f,
-	val volume: Float = 0f,
 	val marketCap: Float = 0f,
 	var price: BigDecimal = BigDecimal.ZERO,
-	@Expose @SerializedName("change") val priceChange: Float = 0f,
-	val history: List<Float> = listOf()
+	@Expose @SerializedName("change") val priceChange: Float = 0f
 )

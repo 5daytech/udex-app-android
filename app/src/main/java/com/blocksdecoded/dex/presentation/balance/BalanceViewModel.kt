@@ -51,7 +51,7 @@ class BalanceViewModel : CoreViewModel() {
         totalBalanceVisible.value = false
         topUpVisible.value = false
 
-        ratesManager.marketsUpdateSubject
+        ratesManager.ratesUpdateSubject
             .subscribe { updateBalance() }
             .let { disposables.add(it) }
         

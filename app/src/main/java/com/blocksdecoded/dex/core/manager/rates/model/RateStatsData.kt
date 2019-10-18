@@ -15,7 +15,28 @@ data class RateStatData(
 )
 
 sealed class StatsResponse
-data class StatsKey(val coinCode: String, val currencyCode: String)
-data class StatsData(val coinCode: String, val marketCap: BigDecimal, val stats: Map<String, List<ChartPoint>>, val diff: Map<String, BigDecimal>) : StatsResponse()
+
+data class StatsKey(
+    val coinCode: String,
+    val currencyCode: String
+)
+
+data class StatsData(
+    val coinCode: String,
+    val marketCap: BigDecimal,
+    val stats: Map<String, List<ChartPoint>>,
+    val diff: Map<String, BigDecimal>
+) : StatsResponse()
+
 data class StatsError(val coinCode: String) : StatsResponse()
-data class ChartPoint(val value: Float, val timestamp: Long)
+
+data class ChartPoint(
+    val value: Float,
+    val timestamp: Long
+)
+
+data class LatestRateData(
+    val rates: Map<String, String>,
+    val currency: String,
+    @SerializedName("time") val timestamp: Long
+)

@@ -5,7 +5,6 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.manager.rates.model.StatsData
 import com.blocksdecoded.dex.core.model.ChartType
 import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.core.model.Market
 import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.utils.Logger
@@ -23,13 +22,11 @@ class ChartInfoViewModel : CoreViewModel() {
     private var statsData: StatsData? = null
 
     val coin = MutableLiveData<Coin>()
-    val market = MutableLiveData<Market>()
     val chartData = MutableLiveData<ChartViewItem>()
     val currentPeriod = MutableLiveData<Int>()
 
     fun init(coinCode: String) {
         chartType = ChartType.fromString(appPreferences.selectedChartPeriod)
-        market.value = ratesManager.getMarket(coinCode)
         coin.value = coinManager.getCoin(coinCode)
 
         ratesStatsManager.statsFlowable
@@ -40,7 +37,7 @@ class ChartInfoViewModel : CoreViewModel() {
                 }
             })
 
-        ratesManager.getLatestRate(coinManager.cleanCoinCode(coinCode))
+        ratesManager.getLatestRateSingle(coinCode)
             .uiObserve()
             .subscribe({
                 latestRate = it

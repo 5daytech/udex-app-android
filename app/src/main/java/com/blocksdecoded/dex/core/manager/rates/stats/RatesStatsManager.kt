@@ -20,7 +20,6 @@ class RatesStatsManager(
     private val ratesApiClient: IRatesApiClient,
     private val rateStorage: IRatesManager
 ): IRatesStatsManager {
-
     private val cacheUpdateTimeInterval: Long = 30 * 60 * 60 // 30 minutes in seconds
     private val disposables = CompositeDisposable()
     private val cache = mutableMapOf<StatsKey, Pair<Long?, RateStatData>>()
@@ -41,7 +40,7 @@ class RatesStatsManager(
                 .onErrorResumeNext { ratesApiClient.getRateStats(coinCode) }
         }
 
-        val rateLocal = rateStorage.getLatestRate(coinCode)
+        val rateLocal = rateStorage.getLatestRateSingle(coinCode)
 
         Single.zip(rateLocal, rateStats, BiFunction<Rate, RateStatData, Pair<Rate, RateStatData>> { a, b -> Pair(a, b) })
             .map { (rate, data) ->

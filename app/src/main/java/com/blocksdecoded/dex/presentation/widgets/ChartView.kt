@@ -24,7 +24,6 @@ class ChartView: LineChart {
 		this.isDragEnabled = true
 		this.setScaleEnabled(false)
 		this.setDrawGridBackground(false)
-		setGridBackgroundColor(context.theme.getAttr(R.attr.MainBackground) ?: 0)
 		this.setPinchZoom(false)
 		this.description?.isEnabled = false
 		this.setDrawBorders(false)

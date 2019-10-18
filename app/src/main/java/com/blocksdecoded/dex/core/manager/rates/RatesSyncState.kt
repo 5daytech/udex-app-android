@@ -1,6 +1,6 @@
 package com.blocksdecoded.dex.core.manager.rates
 
-enum class MarketState {
+enum class RatesSyncState {
     SYNCING,
     SYNCED,
     FAILED
