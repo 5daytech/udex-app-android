@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.markets.chart
+package com.blocksdecoded.dex.presentation.statschart
 
 import com.blocksdecoded.dex.core.manager.rates.model.ChartPoint
 import com.blocksdecoded.dex.core.manager.rates.model.StatsData

@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.markets.chart
+package com.blocksdecoded.dex.presentation.statschart
 
 import android.os.Bundle
 import android.view.View

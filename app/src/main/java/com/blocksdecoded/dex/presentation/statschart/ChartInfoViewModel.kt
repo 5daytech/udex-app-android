@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.markets.chart
+package com.blocksdecoded.dex.presentation.statschart
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
