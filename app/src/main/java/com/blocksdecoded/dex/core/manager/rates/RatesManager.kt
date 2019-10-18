@@ -52,17 +52,14 @@ class RatesManager(
         })
     }
 
-    private fun syncRateStats(coinCode: String) {
-
-    }
-
     private fun syncRates() {
         rateClient.getLatestRates().ioSubscribe(disposables, { ratesData ->
             val rates = ArrayList<Rate>()
             availableCoins.forEach {
                 val cleanCoinCode = coinManager.cleanCoinCode(it.code)
+
                 rates.add(Rate(
-                    it.code,
+                    cleanCoinCode,
                     ratesData.timestamp / 1000,
                     ratesData.rates[cleanCoinCode]?.toBigDecimal() ?: BigDecimal.ZERO
                 ))
@@ -108,7 +105,7 @@ class RatesManager(
     }
 
     override fun getLatestRate(coinCode: String): Rate? {
-        return latestRates.firstOrNull { it.coinCode == coinCode }
+        return latestRates.firstOrNull { it.coinCode == coinManager.cleanCoinCode(coinCode) }
     }
 
     //endregion

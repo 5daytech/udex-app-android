@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.core.manager.rates.stats
 
+import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.manager.rates.IRatesManager
 import com.blocksdecoded.dex.core.manager.rates.model.*
 import com.blocksdecoded.dex.core.manager.rates.remote.IRatesApiClient
@@ -17,6 +18,7 @@ import java.math.BigDecimal
 import java.util.*
 
 class RatesStatsManager(
+    private val coinManager: ICoinManager,
     private val ratesApiClient: IRatesApiClient,
     private val rateStorage: IRatesManager
 ): IRatesStatsManager {
@@ -29,18 +31,20 @@ class RatesStatsManager(
         get() = statsSubject.toFlowable(BackpressureStrategy.BUFFER)
 
     override fun syncStats(coinCode: String) {
-        val statsKey = StatsKey(coinCode, "USD")
+        val cleanCoinCode = coinManager.cleanCoinCode(coinCode)
+
+        val statsKey = StatsKey(cleanCoinCode, "USD")
         val currentTime = Date().time / 1000 // timestamp in seconds
         val cached = cache[statsKey]
 
         val rateStats = if (cached != null && cached.first ?: 0 > currentTime - cacheUpdateTimeInterval) {
             Single.just(cached.second)
         } else {
-            ratesApiClient.getRateStats(coinCode)
-                .onErrorResumeNext { ratesApiClient.getRateStats(coinCode) }
+            ratesApiClient.getRateStats(cleanCoinCode)
+                .onErrorResumeNext { ratesApiClient.getRateStats(cleanCoinCode) }
         }
 
-        val rateLocal = rateStorage.getLatestRateSingle(coinCode)
+        val rateLocal = rateStorage.getLatestRateSingle(cleanCoinCode)
 
         Single.zip(rateLocal, rateStats, BiFunction<Rate, RateStatData, Pair<Rate, RateStatData>> { a, b -> Pair(a, b) })
             .map { (rate, data) ->
@@ -59,14 +63,14 @@ class RatesStatsManager(
                     diffs[type] = growthDiff(chartData)
                 }
 
-                StatsData(coinCode, data.marketCap, stats, diffs)
+                StatsData(cleanCoinCode, data.marketCap, stats, diffs)
             }
             .subscribeOn(Schedulers.io())
             .subscribe({
                 statsSubject.onNext(it)
             }, {
                 Logger.e(it)
-                statsSubject.onNext(StatsError(coinCode))
+                statsSubject.onNext(StatsError(cleanCoinCode))
             })
             .let { disposables.add(it) }
     }

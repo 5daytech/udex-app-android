@@ -32,8 +32,10 @@ class ChartInfoViewModel : CoreViewModel() {
         ratesStatsManager.statsFlowable
             .uiSubscribe(disposables, {
                 if (it is StatsData) {
-                    statsData = it
-                    showChart()
+                    if (it.coinCode == coinManager.cleanCoinCode(coinCode)) {
+                        statsData = it
+                        showChart()
+                    }
                 }
             })
 

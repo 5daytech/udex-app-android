@@ -6,13 +6,14 @@ import com.blocksdecoded.dex.core.manager.rates.RatesSyncState.*
 import com.blocksdecoded.dex.core.model.Market
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
+import com.blocksdecoded.dex.utils.uiSubscribe
 
 class MarketsViewModel : CoreViewModel() {
     val markets = MutableLiveData<List<MarketViewItem>>()
     val loading = MutableLiveData<Boolean>()
     
     private val ratesManager = App.ratesManager
-    private val availableMarkets = App.coinManager.coins
+    private val ratesStatsManager = App.ratesStatsManager
 
     val openMarketInfoEvent = SingleLiveEvent<String>()
 
@@ -29,9 +30,15 @@ class MarketsViewModel : CoreViewModel() {
 
         ratesManager.ratesUpdateSubject
             .subscribe {
-                val rates = ratesManager.getMarkets(availableMarkets.map { it.code })
+                val coins = App.coinManager.coins
 
-                markets.postValue(availableMarkets.mapIndexed { index, marketCoin ->
+                coins.forEach {
+                    ratesStatsManager.syncStats(App.coinManager.cleanCoinCode(it.code))
+                }
+
+                val rates = ratesManager.getMarkets(coins.map { it.code })
+
+                markets.postValue(coins.mapIndexed { index, marketCoin ->
                     MarketViewItem(
                         marketCoin,
                         rates.firstOrNull { it.coinCode == marketCoin.code || marketCoin.code.contains(it.coinCode)}
@@ -39,6 +46,11 @@ class MarketsViewModel : CoreViewModel() {
                 })
             }
             .let { disposables.add(it) }
+
+        ratesStatsManager.statsFlowable
+            .uiSubscribe(disposables, {
+
+            })
     }
 
     fun refresh() {

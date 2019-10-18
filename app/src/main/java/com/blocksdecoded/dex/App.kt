@@ -136,7 +136,7 @@ class App: Application() {
 
         ratesManager = RatesManager(coinManager, marketsStorage, historicalRatesStorage, ratesClient)
         ratesConverter = RatesConverter(ratesManager = ratesManager)
-        ratesStatsManager = RatesStatsManager(ratesClient, ratesManager)
+        ratesStatsManager = RatesStatsManager(coinManager, ratesClient, ratesManager)
         
         // Init adapter managers
         adapterFactory = AdapterFactory(ethereumKitManager, feeRateProvider)
