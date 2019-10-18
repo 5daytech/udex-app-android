@@ -9,6 +9,7 @@ interface IAppPreferences {
     var failedAttempts: Int?
     var lockoutUptime: Long?
     var baseEthereumProvider: String?
+    var selectedChartPeriod: String
 
     fun clear()
 }

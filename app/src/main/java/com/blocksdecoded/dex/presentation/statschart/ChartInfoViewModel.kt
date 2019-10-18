@@ -16,6 +16,7 @@ class ChartInfoViewModel : CoreViewModel() {
     private val coinManager = App.coinManager
     private val ratesManager = App.ratesManager
     private val ratesStatsManager = App.ratesStatsManager
+    private val appPreferences = App.appPreferences
 
     private var chartType = ChartType.DAILY
     private var latestRate: Rate? = null
@@ -27,7 +28,7 @@ class ChartInfoViewModel : CoreViewModel() {
     val currentPeriod = MutableLiveData<Int>()
 
     fun init(coinCode: String) {
-        chartType = ChartType.DAILY
+        chartType = ChartType.fromString(appPreferences.selectedChartPeriod)
         market.value = ratesManager.getMarket(coinCode)
         coin.value = coinManager.getCoin(coinCode)
 
@@ -63,6 +64,7 @@ class ChartInfoViewModel : CoreViewModel() {
             chartType = newType
             showChart()
             currentPeriod.value = newType.ordinal
+            appPreferences.selectedChartPeriod = newType.toString()
         }
     }
 }
