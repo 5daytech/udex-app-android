@@ -7,12 +7,12 @@ import com.blocksdecoded.dex.core.manager.rates.remote.IRatesApiClient
 import com.blocksdecoded.dex.core.model.ChartType
 import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.utils.Logger
+import com.blocksdecoded.dex.utils.ioSubscribe
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 import java.util.*
@@ -64,15 +64,12 @@ class RatesStatsManager(
                 }
 
                 StatsData(cleanCoinCode, data.marketCap, stats, diffs)
-            }
-            .subscribeOn(Schedulers.io())
-            .subscribe({
+            }.ioSubscribe(disposables, {
                 statsSubject.onNext(it)
             }, {
                 Logger.e(it)
                 statsSubject.onNext(StatsError(cleanCoinCode))
             })
-            .let { disposables.add(it) }
     }
 
     fun clear() {
@@ -95,7 +92,7 @@ class RatesStatsManager(
     }
 
 
-    fun convert(points: List<Float>, scaleMinutes: Int, lastTimestamp: Long): List<ChartPoint> {
+    private fun convert(points: List<Float>, scaleMinutes: Int, lastTimestamp: Long): List<ChartPoint> {
         val scaleSecs = scaleMinutes * 60
         var timestamp = lastTimestamp
 

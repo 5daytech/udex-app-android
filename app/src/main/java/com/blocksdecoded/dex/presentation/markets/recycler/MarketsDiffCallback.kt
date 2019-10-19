@@ -21,7 +21,7 @@ class MarketsDiffCallback(
         val oldCoin = oldMarkets[oldItemPosition]
         val newCoin = newMarkets[newItemPosition]
 
-        oldCoin.market.price == newCoin.market.price && oldCoin.market.priceChange == newCoin.market.priceChange
+        oldCoin.price == newCoin.price && oldCoin.change == newCoin.change
     } catch (e: Exception) {
         false
     }

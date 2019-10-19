@@ -7,9 +7,10 @@ import com.blocksdecoded.dex.presentation.markets.MarketViewItem
 import com.blocksdecoded.dex.utils.setTextColorRes
 import com.blocksdecoded.dex.utils.ui.CurrencyUtils
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
+import com.blocksdecoded.dex.utils.ui.toPercentFormat
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_market.*
-import kotlin.math.absoluteValue
+import java.math.BigDecimal
 
 class MarketViewHolder(
 	override val containerView: View,
@@ -20,7 +21,7 @@ class MarketViewHolder(
 	}
 	
 	fun onBind(market: MarketViewItem) {
-		val color = if (market.market.priceChange >= 0) {
+		val color = if (market.change >= BigDecimal.ZERO) {
 			market_change_img.setImageResource(R.drawable.ic_carret_up_green)
 			R.color.green
 		} else {
@@ -31,10 +32,10 @@ class MarketViewHolder(
 		market_name.text = market.coin.title
 		market_code.text = market.coin.code
 		market_coin_icon.bind(market.coin.code)
-		market_price.text = "$${market.market.price.toFiatDisplayFormat()}"
+		market_price.text = "$${market.price.toFiatDisplayFormat()}"
 
-		market_change_percent.text = "${market.market.priceChange.absoluteValue}%"
-		market_volume.text = "Mrk. cap ${CurrencyUtils.withSuffix(market.market.marketCap)}"
+		market_change_percent.text = "${market.change.abs().toPercentFormat()}%"
+		market_volume.text = "Mrk. cap ${CurrencyUtils.withSuffix(market.marketCap)}"
 
 		market_change_percent.setTextColorRes(color)
 	}
