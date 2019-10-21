@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ import com.blocksdecoded.dex.presentation.orders.OrdersHostFragment
 import com.blocksdecoded.dex.presentation.orders.model.FillOrderInfo
 import com.blocksdecoded.dex.presentation.send.SendViewModel
 import com.blocksdecoded.dex.presentation.settings.SettingsFragment
+import com.blocksdecoded.dex.presentation.widgets.statusinfo.StatusInfoView
 import com.blocksdecoded.dex.utils.Logger
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,6 +39,8 @@ class MainActivity :
     private lateinit var mainViewModel: MainViewModel
     private lateinit var sendViewModel: SendViewModel
     private lateinit var marketOrderViewModel: MarketOrderViewModel
+
+    private var statusInfoView: StatusInfoView? = null
 
     override fun onBackPressed() {
         if (main_view_pager?.currentItem != 0) {
@@ -65,6 +69,22 @@ class MainActivity :
         mainViewModel.settingsNotificationsAmount.observe(this, Observer {
             updateSettingsTabCounter(it)
         })
+
+        mainViewModel.isConnectionEnabled.observe(this, Observer { isConnected ->
+            statusInfoView = if (isConnected) {
+                statusInfoView?.setProgressVisible(false)
+                statusInfoView?.setText(R.string.connection_restored)
+                Handler().postDelayed({
+                    StatusInfoView.hide(this, null)
+                }, 2000)
+                null
+            } else {
+                StatusInfoView.addStatusBarInfoText(
+                    this,
+                    textRes = R.string.connection_no_available
+                )
+            }
+        })
     }
 
     override fun onResume() {
@@ -81,6 +101,8 @@ class MainActivity :
     }
 
     //endregion
+
+    //region Init
 
     private fun updateSettingsTabCounter(count: Int) {
         val countText = if (count < 1) "" else "!"
@@ -121,6 +143,8 @@ class MainActivity :
         val activeTab = intent.getIntExtra(EXTRA_ACTIVE_TAB, 0)
         main_view_pager?.setCurrentItem(activeTab, false)
     }
+
+    //endregion
 
     override fun requestFill(fillInfo: FillOrderInfo) {
         main_view_pager?.setCurrentItem(2, false)

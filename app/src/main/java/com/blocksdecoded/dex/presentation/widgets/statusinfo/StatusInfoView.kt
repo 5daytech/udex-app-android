@@ -12,16 +12,20 @@ import android.view.WindowManager
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.utils.getColorRes
+import com.blocksdecoded.dex.utils.dp
+import com.blocksdecoded.dex.utils.getAttr
 import com.blocksdecoded.dex.utils.isTranslucentStatus
 import com.blocksdecoded.dex.utils.listeners.SimpleAnimatorListener
 import com.blocksdecoded.dex.utils.statusBarHeight
@@ -40,6 +44,7 @@ class StatusInfoView (
     var statusBarColor: Int = 0
     var isStatusBarTranslucent: Boolean = false
     private var textView: TextView? = null
+    private var progressView: ProgressBar? = null
 
     init {
         this.observeLifecycle(activity)
@@ -74,15 +79,25 @@ class StatusInfoView (
             setBackgroundResource(android.R.color.transparent)
         }
 
-        val childContainer = LinearLayout(context)
-        childContainer.orientation = HORIZONTAL
-        childContainer.gravity = Gravity.CENTER_VERTICAL
-        childContainer.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        val childContainer = LinearLayout(context).apply {
+            orientation = HORIZONTAL
+            gravity = Gravity.CENTER
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        }
+
+        progressView = ProgressBar(context).apply {
+            val params = MarginLayoutParams(dp(12f), ViewGroup.LayoutParams.WRAP_CONTENT)
+            params.marginEnd = dp(4f)
+            layoutParams = params
+            isIndeterminate = true
+        }
 
         textView = TextView(context).apply {
-            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-            textSize = 13f
-            setTextColor(context.getColorRes(R.color.red_warning))
+            val lp = MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            lp.marginEnd = dp(16f)
+            layoutParams = lp
+            textSize = 12f
+            setTextColor(context.theme.getAttr(R.attr.PrimaryTextColor) ?: 0)
             gravity = Gravity.CENTER
             includeFontPadding = false
             this.text = when {
@@ -93,6 +108,7 @@ class StatusInfoView (
         }
 
 
+        childContainer.addView(progressView)
         childContainer.addView(textView)
         addView(childContainer)
 
@@ -111,15 +127,20 @@ class StatusInfoView (
 
     private fun configureWindowFlags() {
         activity.window.decorView.rootView.apply {
-            systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
+            var systemUiFlags = View.SYSTEM_UI_FLAG_LOW_PROFILE
+            if (App.appPreferences.isLightModeEnabled) {
+                systemUiFlags = systemUiFlags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+            systemUiVisibility = systemUiFlags
             setOnSystemUiVisibilityChangeListener {
-                this.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
+                this.systemUiVisibility = systemUiFlags
             }
         }
 
         isStatusBarTranslucent = activity.isTranslucentStatus
 
         activity.window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+
         statusBarColor = activity.window.statusBarColor
         activity.window.statusBarColor = Color.TRANSPARENT
     }
@@ -130,11 +151,15 @@ class StatusInfoView (
     }
 
     fun setText(text: String) {
-        textView?.text = "$text"
+        textView?.text = text
     }
 
-    fun setTextRes(@StringRes text: Int) {
+    fun setText(@StringRes text: Int) {
         textView?.text = "${context.resources.getString(text)}"
+    }
+
+    fun setProgressVisible(visible: Boolean) {
+        progressView?.isInvisible = !visible
     }
 
     companion object {
@@ -147,27 +172,29 @@ class StatusInfoView (
             @StringRes textRes: Int? = 0,
             @ColorRes alertColor: Int = 0
         ): StatusInfoView? {
+            val key = activity.toString()
             this.hide(activity,null)
 
             val statusBarInfoView = StatusInfoView(activity, text, alertColor, textRes)
 
-            if(activeInfoViews[activity.componentName.className] == null) {
-                activeInfoViews[activity.componentName.className] = mutableListOf()
+            if(activeInfoViews[key] == null) {
+                activeInfoViews[key] = mutableListOf()
             }
 
-            activeInfoViews[activity.componentName.className]?.add(statusBarInfoView)
+            activeInfoViews[key]?.add(statusBarInfoView)
 
             return statusBarInfoView
         }
 
         fun hide(activity: Activity, onHidden: Runnable?) {
-            if (activeInfoViews[activity.componentName.className] == null || activeInfoViews[activity.componentName.className]?.size == 0) {
+            val key = activity.toString()
+            if (activeInfoViews[key] == null || activeInfoViews[key]?.size == 0) {
                 onHidden?.run()
             } else {
-                activeInfoViews[activity.componentName.className]?.forEach {
-                    hideInternal(activity,it,onHidden)
+                activeInfoViews[key]?.forEach {
+                    hideInternal(activity, it, onHidden)
                 }
-                activeInfoViews[activity.componentName.className]?.clear()
+                activeInfoViews[key]?.clear()
             }
         }
 
@@ -177,13 +204,6 @@ class StatusInfoView (
             onHidden: Runnable?
         ) {
             if (statusInfoView.parent != null) {
-                activity.window.decorView.rootView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
-
-                activity.window.statusBarColor = statusInfoView.statusBarColor
-                if (statusInfoView.isStatusBarTranslucent) {
-                    activity.window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                }
-
                 val decor = activity.window.decorView as ViewGroup
 
                 statusInfoView.animate()
@@ -193,6 +213,17 @@ class StatusInfoView (
                     .setInterpolator(AccelerateInterpolator())
                     .setListener(object : SimpleAnimatorListener() {
                         override fun onAnimationEnd(animation: Animator?) {
+                            var systemUiFlags = View.SYSTEM_UI_FLAG_VISIBLE
+                            if (App.appPreferences.isLightModeEnabled) {
+                                systemUiFlags = systemUiFlags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                            }
+                            activity.window.decorView.rootView.systemUiVisibility = systemUiFlags
+
+                            activity.window.statusBarColor = statusInfoView.statusBarColor
+                            if (statusInfoView.isStatusBarTranslucent) {
+                                activity.window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                            }
+
                             decor.removeView(statusInfoView)
                             onHidden?.run()
                         }

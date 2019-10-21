@@ -180,6 +180,10 @@
     <string name="chart_high">High</string>
     <string name="chart_low">Low</string>
 
+
+    <string name="connection_restored">Connected</string>
+    <string name="connection_no_available">No connection…</string>
+
     <!-- Placeholders -->
     <string-array name="placeholder_items">
         <item>WETH</item>
