@@ -26,6 +26,8 @@ import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.ui.DimenUtils
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
+import com.blocksdecoded.dex.utils.ui.toPercentFormat
+import java.math.BigDecimal
 
 fun <T>List<T>?.isValidIndex(index: Int): Boolean = index in 0 until (this?.size ?: 0)
 
@@ -119,6 +121,17 @@ var View.visible: Boolean
     set(value) {
         visibility = if (value) View.VISIBLE else View.GONE
     }
+
+fun TextView?.bindChangePercent(change: BigDecimal, withSign: Boolean = true) {
+    val isPositive = change >= BigDecimal.ZERO
+    val sign = when {
+        !withSign -> ""
+        isPositive -> "+"
+        else -> "-"
+    }
+    this?.setTextColorRes(if (isPositive) R.color.green else R.color.red)
+    this?.text = "$sign${change.abs().toPercentFormat()}%"
+}
 
 fun TextView.bindFiatAmountInfo(
     info: AmountInfo,

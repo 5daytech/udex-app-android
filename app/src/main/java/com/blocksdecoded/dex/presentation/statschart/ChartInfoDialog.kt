@@ -9,16 +9,15 @@ import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.utils.TimeUtils
+import com.blocksdecoded.dex.utils.bindChangePercent
 import com.blocksdecoded.dex.utils.listeners.SimpleChartListener
-import com.blocksdecoded.dex.utils.ui.CurrencyUtils
+import com.blocksdecoded.dex.utils.ui.NumberUtils
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
-import com.blocksdecoded.dex.utils.ui.toPercentFormat
 import com.blocksdecoded.dex.utils.visible
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.ChartTouchListener
 import kotlinx.android.synthetic.main.dialog_market_chart.*
-import java.math.BigDecimal
 
 class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_chart) {
 
@@ -72,10 +71,8 @@ class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_chart) {
 
             chart_coin_price.text = "$${it.rateValue?.toFiatDisplayFormat()}"
 
-            val sign = if (it.diffValue >= BigDecimal.ZERO) "+" else "-"
-            chart_change_percent.text = "$sign${it.diffValue.abs().toPercentFormat()}%"
-
-            chart_market_cap.text = "$${CurrencyUtils.withSuffix(it.marketCap)}"
+            chart_change_percent.bindChangePercent(it.diffValue)
+            chart_market_cap.text = "$${NumberUtils.withSuffix(it.marketCap)}"
             chart_high.text = "$${it.highValue.toFiatDisplayFormat()}"
             chart_low.text = "$${it.lowValue.toFiatDisplayFormat()}"
         })

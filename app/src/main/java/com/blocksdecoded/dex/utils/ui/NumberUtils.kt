@@ -4,17 +4,17 @@ import java.math.BigDecimal
 import java.text.DecimalFormat
 import kotlin.math.ln
 
-fun BigDecimal.toDisplayFormat(): String = CurrencyUtils.df.format(this)
-fun BigDecimal.toLongDisplayFormat(): String = CurrencyUtils.longDf.format(this)
-fun Double.toDisplayFormat(): String = CurrencyUtils.df.format(this)
-fun BigDecimal.toMediumDisplayFormat(): String = CurrencyUtils.mediumDf.format(this)
+fun BigDecimal.toDisplayFormat(): String = NumberUtils.df.format(this)
+fun BigDecimal.toLongDisplayFormat(): String = NumberUtils.longDf.format(this)
+fun Double.toDisplayFormat(): String = NumberUtils.df.format(this)
+fun BigDecimal.toMediumDisplayFormat(): String = NumberUtils.mediumDf.format(this)
 
-fun BigDecimal.toPriceFormat(): String = CurrencyUtils.formatCoinPrice(this)
-fun BigDecimal.toPercentFormat(): String = CurrencyUtils.fiatFormat.format(this)
-fun Double.toFiatDisplayFormat(): String = CurrencyUtils.formatDoubleFiat(this)
-fun BigDecimal.toFiatDisplayFormat(): String = CurrencyUtils.formatBigDecimalFiat(this)
+fun BigDecimal.toPriceFormat(): String = NumberUtils.formatCoinPrice(this)
+fun BigDecimal.toPercentFormat(): String = NumberUtils.fiatFormat.format(this)
+fun Double.toFiatDisplayFormat(): String = NumberUtils.formatDoubleFiat(this)
+fun BigDecimal.toFiatDisplayFormat(): String = NumberUtils.formatBigDecimalFiat(this)
 
-object CurrencyUtils {
+object NumberUtils {
     fun withSuffix(count: Float): String {
         if (count < 1000) return "" + count
         val exp = (ln(count.toDouble()) / ln(1000.0)).toInt()
