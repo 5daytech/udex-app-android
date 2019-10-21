@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.presentation.statschart
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.manager.rates.model.StatsData
 import com.blocksdecoded.dex.core.model.ChartType
 import com.blocksdecoded.dex.core.model.Coin
@@ -24,8 +25,12 @@ class ChartInfoViewModel : CoreViewModel() {
     val coin = MutableLiveData<Coin>()
     val chartData = MutableLiveData<ChartViewItem>()
     val currentPeriod = MutableLiveData<Int>()
+    val loading = MutableLiveData<Boolean>()
+    val error = MutableLiveData<Int>()
 
     fun init(coinCode: String) {
+        loading.value = true
+        error.value = 0
         chartType = ChartType.fromString(appPreferences.selectedChartPeriod)
         coin.value = coinManager.getCoin(coinCode)
 
@@ -36,6 +41,8 @@ class ChartInfoViewModel : CoreViewModel() {
                         statsData = it
                         showChart()
                     }
+                } else {
+                    error.value = R.string.chart_loading_error
                 }
             })
 
@@ -53,6 +60,7 @@ class ChartInfoViewModel : CoreViewModel() {
 
     private fun showChart() {
         if (statsData != null && latestRate != null) {
+            loading.value = false
             chartData.value = RateChartViewFactory().createViewItem(chartType, statsData!!, latestRate)
         }
     }

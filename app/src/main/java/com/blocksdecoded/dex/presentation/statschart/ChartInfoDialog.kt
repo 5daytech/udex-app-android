@@ -13,6 +13,7 @@ import com.blocksdecoded.dex.utils.listeners.SimpleChartListener
 import com.blocksdecoded.dex.utils.ui.CurrencyUtils
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toPercentFormat
+import com.blocksdecoded.dex.utils.visible
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.ChartTouchListener
@@ -81,6 +82,19 @@ class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_chart) {
 
         viewModel.currentPeriod.observe(this, Observer {
             chart_period_selector.setSelectedView(it)
+        })
+
+        viewModel.loading.observe(this, Observer { loading ->
+            market_info_chart.visible = !loading
+
+            if (loading) {
+                val loadingPlaceholder = "$..."
+                chart_coin_price.text = loadingPlaceholder
+                chart_change_percent.text = loadingPlaceholder
+                chart_market_cap.text = loadingPlaceholder
+                chart_high.text = loadingPlaceholder
+                chart_low.text = loadingPlaceholder
+            }
         })
     }
 

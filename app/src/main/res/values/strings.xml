@@ -175,6 +175,7 @@
 
     <!-- Chart -->
     <string name="chart_touch_to_select_value">Touch chart to select value</string>
+    <string name="chart_loading_error">Chart loading error</string>
     <string name="chart_mkt_cap">Mkt. Cap</string>
     <string name="chart_high">High</string>
     <string name="chart_low">Low</string>
