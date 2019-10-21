@@ -59,7 +59,7 @@ class RatesManager(
                 val cleanCoinCode = coinManager.cleanCoinCode(it.code)
 
                 rates.add(Rate(
-                    cleanCoinCode,
+                    it.code,
                     ratesData.timestamp / 1000,
                     ratesData.rates[cleanCoinCode]?.toBigDecimal() ?: BigDecimal.ZERO
                 ))
@@ -96,7 +96,7 @@ class RatesManager(
     }
 
     override fun getLatestRateSingle(coinCode: String): Single<Rate> {
-        val rate = getLatestRate(coinManager.cleanCoinCode(coinCode))
+        val rate = getLatestRate(coinCode)
         return if (rate != null) {
             Single.just(rate)
         } else {
@@ -105,7 +105,7 @@ class RatesManager(
     }
 
     override fun getLatestRate(coinCode: String): Rate? {
-        return latestRates.firstOrNull { it.coinCode == coinManager.cleanCoinCode(coinCode) }
+        return latestRates.firstOrNull { it.coinCode == coinCode }
     }
 
     //endregion

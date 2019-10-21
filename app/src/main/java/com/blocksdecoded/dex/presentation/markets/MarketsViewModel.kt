@@ -5,8 +5,11 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.manager.rates.RatesSyncState.*
 import com.blocksdecoded.dex.core.manager.rates.model.StatsData
 import com.blocksdecoded.dex.core.model.ChartType
+import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
+import com.blocksdecoded.dex.utils.Logger
+import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.utils.uiSubscribe
 import java.math.BigDecimal
 
@@ -18,6 +21,8 @@ class MarketsViewModel : CoreViewModel() {
     private val ratesManager = App.ratesManager
     private val ratesStatsManager = App.ratesStatsManager
 
+    private var mRates = listOf<Rate?>()
+    private var mRateStats = arrayListOf<StatsData?>()
     val openMarketInfoEvent = SingleLiveEvent<String>()
 
     init {
@@ -35,20 +40,19 @@ class MarketsViewModel : CoreViewModel() {
             .subscribe {
                 val coins = coinManager.coins
 
-                coins.forEach {
-                    ratesStatsManager.syncStats(coinManager.cleanCoinCode(it.code))
+                mRates = coinManager.coins.mapIndexed { index, coin ->
+                    val rate = ratesManager.getLatestRate(coin.code)
+                    if (!mRateStats.isValidIndex(index)) {
+                        mRateStats.add(null)
+                    }
+                    rate
                 }
 
-                val rates = ratesManager.getMarkets(coins.map { it.code })
+                coins.forEach {
+                    ratesStatsManager.syncStats(it.code)
+                }
 
-                markets.postValue(coins.mapIndexed { index, marketCoin ->
-                    MarketViewItem(
-                        marketCoin,
-                        ratesManager.getLatestRate(marketCoin.code)?.price ?: BigDecimal.ZERO,
-                        BigDecimal.ZERO,
-                        BigDecimal.ZERO
-                    )
-                })
+                updateMarkets()
             }
             .let { disposables.add(it) }
 
@@ -56,19 +60,43 @@ class MarketsViewModel : CoreViewModel() {
             .uiSubscribe(disposables, { rateStats ->
                 when(rateStats) {
                     is StatsData -> {
-                        val index = markets.value?.indexOfFirst {
-                            rateStats.coinCode == coinManager.cleanCoinCode(it.coin.code)
+                        val index = mRates.indexOfFirst {
+                            it?.coinCode == rateStats.coinCode
                         }
-                        if (index != null && index >= 0) {
-                            markets.value?.get(index)?.let {
-                                it.change = rateStats.diff[ChartType.DAILY.name] ?: BigDecimal.ZERO
-                                it.marketCap = rateStats.marketCap
-                                markets.value = markets.value
-                            }
+
+                        if (index >= 0) {
+                            mRateStats[index] = rateStats
                         }
+
+                        updateMarkets()
                     }
                 }
-            })
+            }, { Logger.e(it) })
+    }
+
+    private fun updateMarkets() {
+        markets.postValue(mRates.mapIndexed { index, rate ->
+            val price = rate?.price ?: BigDecimal.ZERO
+            val stats = if (mRateStats.isValidIndex(index)) {
+                mRateStats[index]
+            } else {
+                ratesStatsManager.getStats(rate?.coinCode ?: "")
+            }
+            var change = BigDecimal.ZERO
+            var marketCap = BigDecimal.ZERO
+
+            if (stats is StatsData) {
+                change = stats.diff[ChartType.DAILY.name] ?: BigDecimal.ZERO
+                marketCap = stats.marketCap
+            }
+
+            MarketViewItem(
+                coinManager.getCoin(rate?.coinCode ?: ""),
+                price,
+                change,
+                marketCap
+            )
+        })
     }
 
     fun refresh() {

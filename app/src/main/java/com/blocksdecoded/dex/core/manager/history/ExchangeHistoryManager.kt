@@ -6,7 +6,7 @@ import com.blocksdecoded.dex.utils.Logger
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
-//TODO: Total refactoring and optimization
+//TODO: Refactoring and optimization
 class ExchangeHistoryManager(
     val adapterManager: IAdapterManager
 ) : IExchangeHistoryManager {
@@ -81,8 +81,5 @@ class ExchangeHistoryManager(
         }
 
         syncSubject.onNext(Unit)
-        exchangeTransactions.forEach {
-            Logger.d("Trade record ${it.key} - ${it.value}")
-        }
     }
 }

@@ -31,45 +31,65 @@ class RatesStatsManager(
         get() = statsSubject.toFlowable(BackpressureStrategy.BUFFER)
 
     override fun syncStats(coinCode: String) {
-        val cleanCoinCode = coinManager.cleanCoinCode(coinCode)
-
-        val statsKey = StatsKey(cleanCoinCode, "USD")
+        val statsKey = StatsKey(coinCode, "USD")
         val currentTime = Date().time / 1000 // timestamp in seconds
         val cached = cache[statsKey]
 
         val rateStats = if (cached != null && cached.first ?: 0 > currentTime - cacheUpdateTimeInterval) {
             Single.just(cached.second)
         } else {
-            ratesApiClient.getRateStats(cleanCoinCode)
-                .onErrorResumeNext { ratesApiClient.getRateStats(cleanCoinCode) }
+            ratesApiClient.getRateStats(coinManager.cleanCoinCode(coinCode))
+                .onErrorResumeNext { ratesApiClient.getRateStats(coinManager.cleanCoinCode(coinCode)) }
         }
 
-        val rateLocal = rateStorage.getLatestRateSingle(cleanCoinCode)
+        val rateLocal = rateStorage.getLatestRateSingle(coinCode)
 
-        Single.zip(rateLocal, rateStats, BiFunction<Rate, RateStatData, Pair<Rate, RateStatData>> { a, b -> Pair(a, b) })
-            .map { (rate, data) ->
-                val lastDailyTimestamp = data.stats[ChartType.DAILY.name]?.timestamp
-                cache[statsKey] = Pair(lastDailyTimestamp, data)
-
-                val stats = mutableMapOf<String, List<ChartPoint>>()
-                val diffs = mutableMapOf<String, BigDecimal>()
-
-                for (type in data.stats.keys) {
-                    val statsData = data.stats[type] ?: continue
-                    val chartType = ChartType.fromString(type) ?: continue
-                    val chartData = convert(statsData, rate, chartType)
-
-                    stats[type] = chartData
-                    diffs[type] = growthDiff(chartData)
-                }
-
-                StatsData(cleanCoinCode, data.marketCap, stats, diffs)
-            }.ioSubscribe(disposables, {
+        Single.zip(
+            rateLocal,
+            rateStats,
+            BiFunction<Rate, RateStatData, StatsData> { rate, stats ->
+                prepareStatsData(stats, statsKey, rate)
+            }).ioSubscribe(disposables, {
                 statsSubject.onNext(it)
             }, {
                 Logger.e(it)
-                statsSubject.onNext(StatsError(cleanCoinCode))
+                statsSubject.onNext(StatsError(coinCode))
             })
+    }
+
+    override fun getStats(coinCode: String): StatsResponse? {
+        val key = StatsKey(coinCode, "USD")
+        val data = cache[key]?.second
+        val rate = rateStorage.getLatestRate(coinCode)
+
+        return if (data != null && rate != null) {
+            prepareStatsData(data, key, rate)
+        } else {
+            null
+        }
+    }
+
+    private fun prepareStatsData(
+        data: RateStatData,
+        key: StatsKey,
+        rate: Rate?
+    ): StatsData {
+        val lastDailyTimestamp = data.stats[ChartType.DAILY.name]?.timestamp
+        cache[key] = Pair(lastDailyTimestamp, data)
+
+        val stats = mutableMapOf<String, List<ChartPoint>>()
+        val diffs = mutableMapOf<String, BigDecimal>()
+
+        for (type in data.stats.keys) {
+            val statsData = data.stats[type] ?: continue
+            val chartType = ChartType.fromString(type)
+            val chartData = convert(statsData, rate, chartType)
+
+            stats[type] = chartData
+            diffs[type] = growthDiff(chartData)
+        }
+
+        return StatsData(key.coinCode, data.marketCap, stats, diffs)
     }
 
     fun clear() {

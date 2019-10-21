@@ -7,4 +7,6 @@ interface IRatesStatsManager {
     val statsFlowable: Flowable<StatsResponse>
 
     fun syncStats(coinCode: String)
+
+    fun getStats(coinCode: String): StatsResponse?
 }

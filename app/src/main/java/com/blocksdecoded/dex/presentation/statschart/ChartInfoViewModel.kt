@@ -32,7 +32,7 @@ class ChartInfoViewModel : CoreViewModel() {
         ratesStatsManager.statsFlowable
             .uiSubscribe(disposables, {
                 if (it is StatsData) {
-                    if (it.coinCode == coinManager.cleanCoinCode(coinCode)) {
+                    if (it.coinCode == coinCode) {
                         statsData = it
                         showChart()
                     }
@@ -47,7 +47,7 @@ class ChartInfoViewModel : CoreViewModel() {
             }, { Logger.e(it) }
             ).let { disposables.add(it) }
 
-        ratesStatsManager.syncStats(coinManager.cleanCoinCode(coinCode))
+        ratesStatsManager.syncStats(coinCode)
         currentPeriod.value = chartType.ordinal
     }
 
