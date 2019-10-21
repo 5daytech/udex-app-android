@@ -32,7 +32,7 @@ class MarketViewHolder(
 				R.drawable.ic_carret_down_red
 		)
 		market_change_percent.bindChangePercent(market.change, withSign = false)
-		market_volume.text = "Mrk. cap ${NumberUtils.withSuffix(market.marketCap)}"
+		market_volume.text = "Mrk. Cap ${NumberUtils.withSuffix(market.marketCap)}"
 	}
 	
 	interface Listener {
