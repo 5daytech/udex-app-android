@@ -27,8 +27,12 @@ class RatesManager(
     override val ratesStateSubject: BehaviorSubject<RatesSyncState> = BehaviorSubject.create()
 
     private var availableCoins = listOf<Coin>()
-    private var cachedRates = listOf<Market>()
+    private var cachedMarkets = listOf<Market>()
     private var latestRates = listOf<Rate>()
+        set(value) {
+            field = value
+            ratesStorage.saveLatest(value)
+        }
 
     init {
         ratesStateSubject.onNext(RatesSyncState.SYNCING)
@@ -46,8 +50,8 @@ class RatesManager(
 
     @SuppressLint("CheckResult")
     private fun initialStorageFetch() {
-        marketsStorage.getAllMarkets().ioSubscribe(disposables, {
-            cachedRates = it
+        ratesStorage.getLatestRates().ioSubscribe(disposables, {
+            latestRates = it
             ratesUpdateSubject.onNext(Unit)
         })
     }
@@ -61,7 +65,8 @@ class RatesManager(
                 rates.add(Rate(
                     it.code,
                     ratesData.timestamp / 1000,
-                    ratesData.rates[cleanCoinCode]?.toBigDecimal() ?: BigDecimal.ZERO
+                    ratesData.rates[cleanCoinCode]?.toBigDecimal() ?: BigDecimal.ZERO,
+                    isLatest = true
                 ))
             }
             latestRates = rates
@@ -88,7 +93,7 @@ class RatesManager(
         return ratesStorage.getRateSingle(cleanCoinCode, timeStamp)
             .onErrorResumeNext(
                 rateClient.getHistoricalRate(cleanCoinCode, timeStamp).map {
-                    val rate = Rate(cleanCoinCode, timeStamp, it)
+                    val rate = Rate(cleanCoinCode, timeStamp, it, isLatest = false)
                     ratesStorage.save(rate)
                     rate
                 }
@@ -113,7 +118,7 @@ class RatesManager(
     //region Markets
 
     override fun getMarkets(coinCodes: List<String>): List<Market> =
-        cachedRates.filter {
+        cachedMarkets.filter {
             coinCodes.contains(it.coinCode) ||
                  coinCodes.indexOfFirst { symbol -> symbol.contains(it.coinCode) } >= 0
         }

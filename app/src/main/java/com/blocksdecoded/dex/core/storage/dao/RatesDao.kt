@@ -12,6 +12,12 @@ interface RatesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg rates: Rate)
 
+    @Query("SELECT * FROM Rate WHERE isLatest = 1")
+    fun getLatestRates(): List<Rate>
+
+    @Query("DELETE FROM Rate WHERE isLatest = 1")
+    fun deleteLatest()
+
     @Delete
     fun delete(rate: Rate)
 

@@ -9,7 +9,7 @@ class RatesConverter(
 	private val ratesManager: IRatesManager
 ) {
 	private fun getCoinRate(code: String): Rate =
-		ratesManager.getLatestRate(code) ?: Rate(code, Date().time / 1000, BigDecimal.ZERO)
+		ratesManager.getLatestRate(code) ?: Rate(code, Date().time / 1000, BigDecimal.ZERO, true)
 
 	fun getCoinDiff(base: String, quote: String): BigDecimal {
 		val baseRate = getCoinRate(base)
