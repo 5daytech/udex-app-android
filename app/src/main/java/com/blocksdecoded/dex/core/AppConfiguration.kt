@@ -8,8 +8,10 @@ import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.model.AssetItem
 import com.blocksdecoded.zrxkit.relayer.model.Relayer
 import com.blocksdecoded.zrxkit.relayer.model.RelayerConfig
-import io.horizontalsystems.ethereumkit.core.EthereumKit.*
-import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType.*
+import io.horizontalsystems.ethereumkit.core.EthereumKit.InfuraCredentials
+import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType
+import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType.MainNet
+import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType.Ropsten
 
 class AppConfiguration(
     override val testMode: Boolean = true
@@ -47,6 +49,21 @@ class AppConfiguration(
         Coin("Huobi", "HT", CoinType.Erc20("0x52E64BB7aEE0E5bdd3a1995E3b070e012277c0fd", 2)) // Its TMK
     )
 
+    private val coins = listOf(
+        Coin("Ethereum", "ETH", CoinType.Ethereum),
+        Coin("Wrapped ETH", "WETH", CoinType.Erc20("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", 18), R.string.info_weth),
+        Coin("0x", "ZRX", CoinType.Erc20("0xE41d2489571d322189246DaFA5ebDe1F4699F498", 18)),
+        Coin("Dai", "DAI", CoinType.Erc20("0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359", 18)),
+        Coin("Tether USD", "USDT", CoinType.Erc20("0x6D00364318D008C3AEA08c097c25F5639AB5D2e6", 6)),
+        Coin("Wrapped Bitcoin", "WBTC", CoinType.Erc20("0x2260fac5e5542a773aa44fbcfedf7c193bc2c599", 8))
+    )
+
+    private val exchangePairs = listOf(
+        getExchangePair("ZRX", "WETH"),
+        getExchangePair("DAI", "WETH"),
+        getExchangePair("USDT", "WETH")
+    )
+
     private val testExchangePairs = listOf(
         getExchangePair("WBTC", "WETH"),
         getExchangePair("ZRX", "WETH"),
@@ -62,11 +79,11 @@ class AppConfiguration(
         getExchangePair("LINK", "USDT")
     )
 
-    override val allCoins: List<Coin> = ropstenCoins
+    override val allExchangePairs: List<Pair<AssetItem, AssetItem>> = if (testMode) testExchangePairs else exchangePairs
 
-    override val allExchangePairs: List<Pair<AssetItem, AssetItem>> = testExchangePairs
+    override val allCoins: List<Coin> = if (testMode) ropstenCoins else coins
 
-    override val relayers: List<Relayer> = listOf(
+    private val testRelayers: List<Relayer> = listOf(
         Relayer(
             0,
             "BD Relayer",
@@ -76,6 +93,19 @@ class AppConfiguration(
             RelayerConfig("http://relayer.ropsten.fridayte.ch", "", "v2")
         )
     )
+
+    private val mainRelayers: List<Relayer> = listOf(
+        Relayer(
+            0,
+            "BD Relayer",
+            allExchangePairs,
+            listOf("0x2e8da0868e46fc943766a98b8d92a0380b29ce2a"),
+            zrxNetworkType.exchangeAddress,
+            RelayerConfig("http://relayer.ropsten.fridayte.ch", "", "v2")
+        )
+    )
+
+    override val relayers: List<Relayer> = if (testMode) testRelayers else mainRelayers
 
     private fun addressForSymbol(symbol: String): String = ((ropstenCoins.firstOrNull {
         when(it.type) {
