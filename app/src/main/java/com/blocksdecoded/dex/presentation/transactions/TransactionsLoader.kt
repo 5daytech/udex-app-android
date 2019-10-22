@@ -1,11 +1,12 @@
 package com.blocksdecoded.dex.presentation.transactions
 
 import com.blocksdecoded.dex.core.adapter.IAdapter
+import com.blocksdecoded.dex.core.manager.rates.IRatesManager
 import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.model.TransactionRecord
-import com.blocksdecoded.dex.core.manager.rates.IRatesManager
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.ioSubscribe
+import com.blocksdecoded.dex.utils.normalizedMul
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
@@ -49,19 +50,22 @@ class TransactionsLoader(
         loading = false
 
         transactions.mapIndexedTo(transactionItems, { index, transaction ->
-            val histRate = ratesManager.getRate(adapter.coin.code, transaction.timestamp)
+            val price = ratesManager.getRate(adapter.coin.code, transaction.timestamp)?.price ?: BigDecimal.ZERO
+            val feeRate = transaction.fee?.normalizedMul(price)
 
             TransactionViewItem(
-                adapter.coin,
-                transaction.transactionHash,
-                transaction.amount,
-                transaction.amount.multiply(histRate?.price ?: BigDecimal.ZERO),
-                histRate?.price ?: BigDecimal.ZERO,
-                transaction.from.firstOrNull()?.address,
-                transaction.to.firstOrNull()?.address,
-                transaction.to.firstOrNull()?.address == adapter.receiveAddress,
-                Date(transaction.timestamp * 1000),
-                TransactionStatus.Completed
+                coin = adapter.coin,
+                transactionHash = transaction.transactionHash,
+                coinValue = transaction.amount,
+                fiatValue = transaction.amount.multiply(price),
+                fee = transaction.fee,
+                fiatFee = feeRate,
+                historicalRate = price,
+                from = transaction.from.firstOrNull()?.address,
+                to = transaction.to.firstOrNull()?.address,
+                incoming = transaction.to.firstOrNull()?.address == adapter.receiveAddress,
+                date = Date(transaction.timestamp * 1000),
+                status = TransactionStatus.Completed
             )
         })
 
