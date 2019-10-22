@@ -38,7 +38,7 @@ class AppConfiguration(
 
     override val fixedCoinCodes = listOf("ETH", "WETH", "ZRX")
 
-    private val ropstenCoins = listOf(
+    private val testCoins = listOf(
         Coin("Ethereum", "ETH", CoinType.Ethereum),
         Coin("Wrapped ETH", "WETH", CoinType.Erc20("0xc778417e063141139fce010982780140aa0cd5ab", 18), R.string.info_weth),
         Coin("0x", "ZRX", CoinType.Erc20("0xff67881f8d12f372d91baae9752eb3631ff0ed00", 18)),
@@ -57,6 +57,8 @@ class AppConfiguration(
         Coin("Tether USD", "USDT", CoinType.Erc20("0x6D00364318D008C3AEA08c097c25F5639AB5D2e6", 6)),
         Coin("Wrapped Bitcoin", "WBTC", CoinType.Erc20("0x2260fac5e5542a773aa44fbcfedf7c193bc2c599", 8))
     )
+
+    override val allCoins: List<Coin> = if (testMode) testCoins else coins
 
     private val exchangePairs = listOf(
         getExchangePair("ZRX", "WETH"),
@@ -81,12 +83,10 @@ class AppConfiguration(
 
     override val allExchangePairs: List<Pair<AssetItem, AssetItem>> = if (testMode) testExchangePairs else exchangePairs
 
-    override val allCoins: List<Coin> = if (testMode) ropstenCoins else coins
-
     private val testRelayers: List<Relayer> = listOf(
         Relayer(
             0,
-            "BD Relayer",
+            "Ropsten Friday Tech",
             allExchangePairs,
             listOf("0x2e8da0868e46fc943766a98b8d92a0380b29ce2a"),
             zrxNetworkType.exchangeAddress,
@@ -97,25 +97,27 @@ class AppConfiguration(
     private val mainRelayers: List<Relayer> = listOf(
         Relayer(
             0,
-            "BD Relayer",
+            "Friday Tech",
             allExchangePairs,
             listOf("0x2e8da0868e46fc943766a98b8d92a0380b29ce2a"),
             zrxNetworkType.exchangeAddress,
-            RelayerConfig("http://relayer.ropsten.fridayte.ch", "", "v2")
+            RelayerConfig("http://relayer.fridayte.ch", "", "v2")
         )
     )
 
     override val relayers: List<Relayer> = if (testMode) testRelayers else mainRelayers
 
-    private fun addressForSymbol(symbol: String): String = ((ropstenCoins.firstOrNull {
+
+    private fun addressForSymbol(symbol: String): String = ((allCoins.firstOrNull {
         when(it.type) {
             is CoinType.Erc20 -> it.code.equals(symbol, true)
             else -> false
         }
-    } ?: ropstenCoins[1]).type as? CoinType.Erc20)?.address ?: ""
+    } ?: allCoins[1]).type as? CoinType.Erc20)?.address ?: ""
 
     private fun getExchangePair(from: String, to: String) =
         ZrxKit.assetItemForAddress(addressForSymbol(from)) to ZrxKit.assetItemForAddress(addressForSymbol(to))
+
 
     companion object {
         val DEFAULT = AppConfiguration()
