@@ -34,6 +34,7 @@ class TransactionInfoDialog private constructor()
         transaction_info_amount.setTextColorRes(if (isPositive) R.color.green else R.color.red)
 
         transaction_info_date.setDate(it.date)
+
         transaction_info_from.visible = it.incoming
         transaction_info_to.visible = !it.incoming
         transaction_info_from.setAddress(it.from)
@@ -42,6 +43,9 @@ class TransactionInfoDialog private constructor()
         transaction_info_hist_rate.setRate(it.coin, it.historicalRate)
 
         transaction_info_status.setStatus(it.status)
+
+        transaction_info_fee.visible = it.fee != null
+        transaction_info_fee.setFiat(it.fiatFee)
     }
 
     private val fullTransactionInfoObserver = Observer<String> { transactionHash ->

@@ -73,7 +73,8 @@
     <string name="action_wrap">Wrap</string>
     <string name="action_unwrap">Unwrap</string>
 
-    <string name="info_fee">Estimated Fee:</string>
+    <string name="info_fee">Fee:</string>
+    <string name="info_estimated_fee">Estimated Fee:</string>
     <string name="info_total">Total:</string>
     <string name="info_total_receive">Total Receive:</string>
     <string name="info_historical_rate">Rate Received:</string>

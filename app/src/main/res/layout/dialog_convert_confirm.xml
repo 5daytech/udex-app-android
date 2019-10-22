@@ -120,7 +120,7 @@
         android:id="@+id/convert_fee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:iiv_title="@string/info_fee"
+        app:iiv_title="@string/info_estimated_fee"
         app:layout_constraintTop_toBottomOf="@+id/convert_confirm_to_amount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

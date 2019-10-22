@@ -138,7 +138,7 @@
         android:id="@+id/exchange_confirm_fee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:iiv_title="@string/info_fee"
+        app:iiv_title="@string/info_estimated_fee"
         app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
