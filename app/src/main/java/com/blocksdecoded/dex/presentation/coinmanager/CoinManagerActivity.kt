@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.settings.coinmanager
+package com.blocksdecoded.dex.presentation.coinmanager
 
 import android.content.Context
 import android.content.Intent

@@ -14,7 +14,7 @@ import com.blocksdecoded.dex.presentation.balance.recycler.ManageCoinsViewHolder
 import com.blocksdecoded.dex.presentation.convert.ConvertDialog
 import com.blocksdecoded.dex.presentation.receive.ReceiveDialog
 import com.blocksdecoded.dex.presentation.send.SendDialog
-import com.blocksdecoded.dex.presentation.settings.coinmanager.CoinManagerActivity
+import com.blocksdecoded.dex.presentation.coinmanager.CoinManagerActivity
 import com.blocksdecoded.dex.presentation.transactions.TransactionsActivity
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_balance.*

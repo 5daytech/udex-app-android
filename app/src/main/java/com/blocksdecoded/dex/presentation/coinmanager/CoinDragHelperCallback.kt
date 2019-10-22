@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.settings.coinmanager
+package com.blocksdecoded.dex.presentation.coinmanager
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

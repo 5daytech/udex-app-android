@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.settings.coinmanager
+package com.blocksdecoded.dex.presentation.coinmanager
 
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.IAppConfiguration
