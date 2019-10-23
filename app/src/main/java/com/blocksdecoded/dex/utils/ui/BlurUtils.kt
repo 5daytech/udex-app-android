@@ -1,17 +1,18 @@
 package com.blocksdecoded.dex.utils.ui
 
-import android.util.DisplayMetrics
 import android.content.Context
 import android.content.Context.WINDOW_SERVICE
-import android.graphics.Point
-import android.view.WindowManager
 import android.graphics.Bitmap
+import android.graphics.Point
 import android.graphics.Rect
+import android.util.DisplayMetrics
+import android.view.WindowManager
 import androidx.fragment.app.FragmentActivity
 import androidx.renderscript.Allocation
 import androidx.renderscript.Element
 import androidx.renderscript.RenderScript
 import androidx.renderscript.ScriptIntrinsicBlur
+import com.blocksdecoded.dex.utils.statusBarHeight
 
 
 object BlurUtils {
@@ -39,21 +40,21 @@ object BlurUtils {
         return bitmap
     }
 
-    fun takeScreenShot(activity: FragmentActivity): Bitmap {
+    private fun takeScreenShot(activity: FragmentActivity): Bitmap {
         val view = activity.window.decorView
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
         val bitmap = view.drawingCache
+        activity.statusBarHeight
         val frame = Rect()
         activity.window.decorView.getWindowVisibleDisplayFrame(frame)
-        val statusBarHeight = frame.top
         val widthHeight = getScreenSize(activity)
         val bitmapResult = Bitmap.createBitmap(
             bitmap,
             0,
-            statusBarHeight,
+            0,
             widthHeight[0],
-            widthHeight[1] - statusBarHeight
+            widthHeight[1]
         )
         view.destroyDrawingCache()
         return bitmapResult

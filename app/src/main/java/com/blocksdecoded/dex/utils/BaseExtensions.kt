@@ -183,6 +183,14 @@ val Context.statusBarHeight: Int
             dpToPx(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) 24 else 25)
     }
 
+val Context.navBarHeight: Int
+    get() {
+        val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
+        return if (resourceId > 0) {
+            resources.getDimensionPixelSize(resourceId)
+        } else 0
+    }
+
 fun Context.dpToPx(dp: Int) = (dp * density).toInt()
 
 fun Context.pxToDp(px: Int) = (px / density).toInt()
