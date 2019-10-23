@@ -9,6 +9,7 @@ import com.blocksdecoded.dex.core.manager.IAdapterManager
 import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.manager.rates.IRatesManager
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
+import com.blocksdecoded.dex.core.model.BalanceState
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinBalance
 import com.blocksdecoded.dex.core.model.EConvertType.*
@@ -87,6 +88,7 @@ class BalanceViewModel : CoreViewModel() {
                     adapter.balance,
                     ratesConverter.getCoinsPrice(adapter.coin.code, adapter.balance),
                     ratesConverter.getTokenPrice(adapter.coin.code),
+                    BalanceState.SYNCING,
                     when(adapter.coin.code) {
                         "ETH" -> WRAP
                         "WETH" -> UNWRAP
