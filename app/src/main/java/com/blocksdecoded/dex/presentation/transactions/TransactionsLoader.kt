@@ -77,7 +77,7 @@ class TransactionsLoader(
             is AdapterState.Synced -> TransactionsState.SYNCED
             is AdapterState.NotSynced -> TransactionsState.FAILED
         }
-        syncSubject.onNext(Unit)
+        syncState.onNext(Unit)
     }
 
     private fun loadMeta(transactions: List<TransactionRecord>) {

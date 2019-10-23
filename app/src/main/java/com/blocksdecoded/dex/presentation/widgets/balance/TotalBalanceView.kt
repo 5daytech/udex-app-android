@@ -11,7 +11,13 @@ import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.view_total_balance.view.*
 
 class TotalBalanceView : LinearLayout {
-    
+
+    var progressVisible: Boolean = false
+        set(value) {
+            field = value
+            total_progress?.visible = value
+        }
+
     init {
     	View.inflate(context, R.layout.view_total_balance, this)
     }

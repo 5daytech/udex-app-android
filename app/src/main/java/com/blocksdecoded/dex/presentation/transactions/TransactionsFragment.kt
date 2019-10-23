@@ -58,6 +58,10 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
             transactions_container?.visible = !emptyTransactions
             empty_view?.visible = emptyTransactions
         })
+
+        viewModel.isSyncing.observe(this, Observer {
+            transactions_total_balance?.progressVisible = it
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

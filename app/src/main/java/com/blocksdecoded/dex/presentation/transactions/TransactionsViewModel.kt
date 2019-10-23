@@ -7,6 +7,8 @@ import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
+import com.blocksdecoded.dex.presentation.transactions.model.TransactionsState
+import com.blocksdecoded.dex.presentation.transactions.model.TransactionsState.*
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.blocksdecoded.dex.utils.isValidIndex
 
@@ -20,11 +22,12 @@ class TransactionsViewModel : CoreViewModel() {
     val coinName = MutableLiveData<String?>()
     val balance = MutableLiveData<TotalBalanceInfo>()
     val isEmpty = MutableLiveData<Boolean>()
+    val isSyncing = MutableLiveData<Boolean>()
+    val error = MutableLiveData<Int>()
     val transactions = MutableLiveData<List<TransactionViewItem>>()
+
     val syncTransaction = SingleLiveEvent<Int>()
-
     val finishEvent = SingleLiveEvent<Int>()
-
     val showTransactionInfoEvent = SingleLiveEvent<TransactionViewItem>()
 
     fun init(coinCode: String?) {
@@ -57,6 +60,28 @@ class TransactionsViewModel : CoreViewModel() {
                 isEmpty.postValue(transactionsLoader.transactionItems.isEmpty())
                 this.transactions.postValue(transactionsLoader.transactionItems)
             }.let { disposables.add(it) }
+
+        transactionsLoader.syncState.subscribe {
+            updateState(transactionsLoader.state)
+        }.let { disposables.add(it) }
+
+        updateState(transactionsLoader.state)
+    }
+
+    private fun updateState(state: TransactionsState) {
+        when(state) {
+            SYNCED -> {
+                error.postValue(0)
+                isSyncing.postValue(false)
+            }
+            SYNCING -> {
+                error.postValue(0)
+                isSyncing.postValue(true)
+            }
+            FAILED -> {
+                isSyncing.postValue(false)
+            }
+        }
     }
 
     fun onTransactionClick(position: Int) {
