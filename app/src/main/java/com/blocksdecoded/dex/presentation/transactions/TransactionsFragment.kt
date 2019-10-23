@@ -1,23 +1,22 @@
 package com.blocksdecoded.dex.presentation.transactions
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.transactions.recycler.TransactionViewHolder
-import com.blocksdecoded.dex.presentation.transactions.recycler.TransactionsAdapter
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.transactions.info.TransactionInfoDialog
+import com.blocksdecoded.dex.presentation.transactions.recycler.TransactionViewHolder
+import com.blocksdecoded.dex.presentation.transactions.recycler.TransactionsAdapter
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_transactions.*
 
 class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
-        TransactionViewHolder.OnClickListener {
+        TransactionViewHolder.OnClickListener, TransactionsAdapter.ILoadNextListener {
     private lateinit var viewModel: TransactionsViewModel
     private lateinit var adapter: TransactionsAdapter
     private var coinCode: String? = null
@@ -26,7 +25,7 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = TransactionsAdapter(this)
+        adapter = TransactionsAdapter(this, this)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -71,6 +70,10 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
     }
 
     //endregion
+
+    override fun loadNext() {
+        viewModel.loadNext()
+    }
 
     override fun onClick(position: Int) {
         viewModel.onTransactionClick(position)

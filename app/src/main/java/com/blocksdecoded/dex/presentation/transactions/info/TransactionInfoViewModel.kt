@@ -3,7 +3,7 @@ package com.blocksdecoded.dex.presentation.transactions.info
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import com.blocksdecoded.dex.presentation.transactions.TransactionViewItem
+import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
 
 class TransactionInfoViewModel: CoreViewModel() {
 

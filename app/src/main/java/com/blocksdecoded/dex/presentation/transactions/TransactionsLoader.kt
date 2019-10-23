@@ -1,9 +1,13 @@
 package com.blocksdecoded.dex.presentation.transactions
 
+import com.blocksdecoded.dex.core.adapter.AdapterState
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.manager.rates.IRatesManager
 import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.model.TransactionRecord
+import com.blocksdecoded.dex.presentation.transactions.model.TransactionStatus
+import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
+import com.blocksdecoded.dex.presentation.transactions.model.TransactionsState
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.ioSubscribe
 import com.blocksdecoded.dex.utils.normalizedMul
@@ -19,37 +23,67 @@ class TransactionsLoader(
     private val ratesManager: IRatesManager,
     private val disposables: CompositeDisposable
 ) {
-    private val pageLimit = 200
+    private val pageLimit = 10
 
+    private val transactions = ArrayList<TransactionRecord>()
     val transactionItems = arrayListOf<TransactionViewItem>()
     val syncSubject = PublishSubject.create<Unit>()
     val syncTransaction = PublishSubject.create<Int>()
 
+    var state = TransactionsState.SYNCING
+    val syncState = PublishSubject.create<Unit>()
+
+    var allLoaded = false
+    var loading: Boolean = false
+
     init {
         adapter.transactionRecordsFlowable.subscribe {
-            loadNext(false)
+            allLoaded = false
+            transactions.clear()
+            transactionItems.clear()
+            loadNext(initial = true)
         }?.let { disposables.add(it) }
 
+        adapter.stateUpdatedFlowable.subscribe {
+            updateState()
+        }.let { disposables.add(it) }
+
+        updateState()
         loadNext(true)
     }
 
-    var loading: Boolean = false
-
     fun loadNext(initial: Boolean = false) {
-        if (loading) return
+        if (loading || allLoaded) return
         loading = true
 
-        adapter.getTransactions(limit = pageLimit)
+        val from = transactions.lastOrNull()?.let {
+            it.transactionHash to it.interTransactionIndex
+        }
+
+        adapter.getTransactions(from = from, limit = pageLimit)
             .ioSubscribe(disposables,
-                { loadMeta(it) },
+                {
+                    allLoaded = it.isEmpty()
+                    transactions.addAll(it)
+                    loadMeta(it)
+                },
                 { loading = false }
             )
+    }
+
+    private fun updateState() {
+        state = when(adapter.state) {
+            is AdapterState.Syncing -> TransactionsState.SYNCING
+            is AdapterState.Synced -> TransactionsState.SYNCED
+            is AdapterState.NotSynced -> TransactionsState.FAILED
+        }
+        syncSubject.onNext(Unit)
     }
 
     private fun loadMeta(transactions: List<TransactionRecord>) {
         loading = false
 
-        transactions.mapIndexedTo(transactionItems, { index, transaction ->
+        transactions.mapIndexedTo(transactionItems, { _, transaction ->
             val price = ratesManager.getRate(adapter.coin.code, transaction.timestamp)?.price ?: BigDecimal.ZERO
             val feeRate = transaction.fee?.normalizedMul(price)
 
@@ -94,11 +128,5 @@ class TransactionsLoader(
             }, {
                 Logger.e(it)
             })
-    }
-
-    enum class TransactionsState {
-        SYNCED,
-        SYNCING,
-        FAILED
     }
 }

@@ -4,10 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.adapter.IAdapter
-import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
+import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
+import com.blocksdecoded.dex.utils.isValidIndex
 
 class TransactionsViewModel : CoreViewModel() {
     private val adapterManager = App.adapterManager
@@ -37,6 +38,7 @@ class TransactionsViewModel : CoreViewModel() {
             this.adapter = adapter
         }
 
+        adapter.refresh()
         transactionsLoader = TransactionsLoader(adapter, ratesManager, disposables)
 
         coinName.value = adapter.coin.title
@@ -67,6 +69,10 @@ class TransactionsViewModel : CoreViewModel() {
 
     fun onBackClick() {
         finishEvent.call()
+    }
+
+    fun loadNext() {
+        transactionsLoader.loadNext()
     }
 
 }

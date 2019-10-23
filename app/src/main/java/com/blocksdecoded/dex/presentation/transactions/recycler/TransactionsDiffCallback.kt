@@ -1,7 +1,7 @@
 package com.blocksdecoded.dex.presentation.transactions.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.blocksdecoded.dex.presentation.transactions.TransactionViewItem
+import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
 
 class TransactionsDiffCallback(
     private val oldTransactions: List<TransactionViewItem>,

@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.transactions
+package com.blocksdecoded.dex.presentation.transactions.model
 
 import com.blocksdecoded.dex.core.model.Coin
 import java.math.BigDecimal

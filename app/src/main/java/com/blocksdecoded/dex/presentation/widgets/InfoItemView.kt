@@ -6,7 +6,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.presentation.transactions.TransactionStatus
+import com.blocksdecoded.dex.presentation.transactions.model.TransactionStatus
 import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat

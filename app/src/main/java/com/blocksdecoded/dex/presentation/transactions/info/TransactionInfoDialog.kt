@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
-import com.blocksdecoded.dex.presentation.transactions.TransactionViewItem
+import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
 import com.blocksdecoded.dex.utils.openTransactionUrl
 import com.blocksdecoded.dex.utils.setTextColorRes
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat

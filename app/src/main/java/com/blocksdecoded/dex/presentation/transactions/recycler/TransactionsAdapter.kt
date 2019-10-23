@@ -5,13 +5,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.TransactionRecord
-import com.blocksdecoded.dex.presentation.transactions.TransactionViewItem
+import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
 import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.isValidIndex
-import kotlin.collections.ArrayList
 
 class TransactionsAdapter(
-    private val listener: TransactionViewHolder.OnClickListener
+    private val listener: TransactionViewHolder.OnClickListener,
+    private val loadNextListener: ILoadNextListener
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mTransactions = ArrayList<TransactionViewItem>()
 
@@ -23,6 +23,10 @@ class TransactionsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder) {
             is TransactionViewHolder -> holder.onBind(mTransactions[position])
+        }
+
+        if (position > itemCount - 4) {
+            loadNextListener.loadNext()
         }
     }
 
@@ -47,5 +51,9 @@ class TransactionsAdapter(
         if (it != null && mTransactions.isValidIndex(it)) {
             notifyItemChanged(it)
         }
+    }
+
+    interface ILoadNextListener {
+        fun loadNext()
     }
 }
