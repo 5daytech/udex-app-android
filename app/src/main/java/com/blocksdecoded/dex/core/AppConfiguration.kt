@@ -38,6 +38,8 @@ class AppConfiguration(
 
     override val fixedCoinCodes = listOf("ETH", "WETH", "ZRX")
 
+    //region Coins
+
     private val testCoins = listOf(
         Coin("Ethereum", "ETH", CoinType.Ethereum),
         Coin("Wrapped ETH", "WETH", CoinType.Erc20("0xc778417e063141139fce010982780140aa0cd5ab", 18), R.string.info_weth),
@@ -59,6 +61,10 @@ class AppConfiguration(
     )
 
     override val allCoins: List<Coin> = if (testMode) testCoins else coins
+
+    //endregion
+
+    // region Exchange pairs
 
     private val exchangePairs = listOf(
         getExchangePair("ZRX", "WETH"),
@@ -82,6 +88,10 @@ class AppConfiguration(
     )
 
     override val allExchangePairs: List<Pair<AssetItem, AssetItem>> = if (testMode) testExchangePairs else exchangePairs
+
+    //endregion
+
+    //region Relayers
 
     private val testRelayers: List<Relayer> = listOf(
         Relayer(
@@ -107,6 +117,7 @@ class AppConfiguration(
 
     override val relayers: List<Relayer> = if (testMode) testRelayers else mainRelayers
 
+    //endregion
 
     private fun addressForSymbol(symbol: String): String = ((allCoins.firstOrNull {
         when(it.type) {

@@ -44,7 +44,7 @@ class TransactionInfoDialog private constructor()
 
         transaction_info_status.setStatus(it.status)
 
-        transaction_info_fee.visible = it.fee != null
+        transaction_info_fee.visible = it.fee != null && !it.incoming
         transaction_info_fee.setFiat(it.fiatFee)
     }
 
