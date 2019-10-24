@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.BuildConfig
 import com.blocksdecoded.dex.R
 
 abstract class CoreActivity: AppCompatActivity() {
@@ -19,6 +20,10 @@ abstract class CoreActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val lightMode = App.appPreferences.isLightModeEnabled
         setTheme(if (lightMode) R.style.AppTheme_LightMode else R.style.AppTheme_DarkMode)
+
+        if (!BuildConfig.DEBUG) {
+            window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+        }
     }
 
     override fun setContentView(layoutResID: Int) {
