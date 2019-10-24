@@ -48,8 +48,14 @@ class BalanceViewModel : CoreViewModel() {
 
     init {
         mRefreshing.value = true
-        totalBalanceVisible.value = false
+        totalBalanceVisible.value = true
         topUpVisible.value = false
+
+        totalBalance.value = TotalBalanceInfo(
+            coinManager.getCoin(baseCoinCode),
+            BigDecimal.ZERO,
+            BigDecimal.ZERO
+        )
 
         balanceLoader.balancesSyncSubject.subscribe {
             syncBalances()
@@ -79,13 +85,14 @@ class BalanceViewModel : CoreViewModel() {
             val convertedBalance = it.balance.multiply(priceInBase)
             balance += convertedBalance
         }
-        
+
+        if (balanceLoader.isAllSynced) {
+            val isPositiveBalance = balance.stripTrailingZeros() > BigDecimal.ZERO
+            topUpVisible.postValue(!isPositiveBalance)
+            totalBalanceVisible.postValue(isPositiveBalance)
+        }
+
         val fiatBalance = ratesConverter.getCoinsPrice(baseCoinCode, balance)
-
-        val isEmptyBalance = balance.stripTrailingZeros() <= BigDecimal.ZERO
-        topUpVisible.postValue(isEmptyBalance)
-        totalBalanceVisible.postValue(!isEmptyBalance)
-
         totalBalance.postValue(
             TotalBalanceInfo(
                 coinManager.getCoin(baseCoinCode),

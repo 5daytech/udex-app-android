@@ -41,18 +41,12 @@ class BalanceViewHolder(
         balance_token_price.text = "$${coinBalance.pricePerToken.toFiatDisplayFormat()} per ${coinBalance.coin.code}"
         
         balance_buttons_container.visible = expanded
-    
-        if (coinBalance.balance > BigDecimal.ZERO) {
-            balance_send.isEnabled = true
-            balance_send.alpha = 1f
-            balance_convert.isEnabled = true
-            balance_convert.alpha = 1f
-        } else {
-            balance_send.isEnabled = false
-            balance_send.alpha = 0.4f
-            balance_convert.isEnabled = false
-            balance_convert.alpha = 0.4f
-        }
+
+        val isPositive = coinBalance.balance > BigDecimal.ZERO
+        balance_send.isEnabled = isPositive
+        balance_convert.isEnabled = isPositive
+        balance_send.alpha = if (isPositive) 1f else 0.4f
+        balance_convert.alpha = if (isPositive) 1f else 0.4f
         
         when(coinBalance.convertType) {
             NONE -> {

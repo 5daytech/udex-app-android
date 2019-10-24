@@ -1,6 +1,5 @@
 package com.blocksdecoded.dex.presentation.balance
 
-import android.util.Log
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.adapter.AdapterState
 import com.blocksdecoded.dex.core.adapter.IAdapter
@@ -23,6 +22,16 @@ class BalanceLoader(
 ) {
     val balancesSyncSubject = PublishSubject.create<Unit>()
     var balances = listOf<CoinBalance>()
+    val isAllSynced: Boolean
+        get() {
+            adapters.forEach {
+                if (it.state !is AdapterState.Synced) {
+                    return false
+                }
+            }
+
+            return adapters.isNotEmpty()
+        }
 
     private val balanceDisposable = CompositeDisposable()
 
@@ -36,7 +45,6 @@ class BalanceLoader(
 
         adaptersManager.adaptersUpdatedSignal
             .subscribe {
-                Log.d("ololo", "Adapters update signal ${adapters.size}")
                 onRefreshAdapters()
             }
             .let { disposables.add(it) }
@@ -53,9 +61,9 @@ class BalanceLoader(
 
     private fun onRefreshAdapters() {
         clear()
+
         adapters.forEach { adapter ->
             adapter.stateUpdatedFlowable.subscribe {
-                Log.d("ololo", "${adapter.coin.code} state is ${adapter.state.javaClass.simpleName}")
                 updateBalance()
             }.let { balanceDisposable.add(it) }
 
