@@ -7,7 +7,7 @@ import com.blocksdecoded.dex.core.manager.rates.remote.IRatesApiClient
 import com.blocksdecoded.dex.core.model.ChartType
 import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.utils.Logger
-import com.blocksdecoded.dex.utils.ioSubscribe
+import com.blocksdecoded.dex.utils.rx.ioSubscribe
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Single

@@ -8,7 +8,7 @@ import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.models.FeeInfo
 import com.blocksdecoded.dex.utils.normalizedDiv
-import com.blocksdecoded.dex.utils.uiSubscribe
+import com.blocksdecoded.dex.utils.rx.uiSubscribe
 import java.math.BigDecimal
 
 class ExchangeConfirmViewModel: CoreViewModel() {

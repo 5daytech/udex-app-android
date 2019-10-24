@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputConnection
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
@@ -22,16 +21,13 @@ import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
 import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
-import com.blocksdecoded.dex.utils.getAttr
-import com.blocksdecoded.dex.utils.subscribeToInput
+import com.blocksdecoded.dex.utils.rx.subscribeToInput
 import com.blocksdecoded.dex.utils.ui.ToastHelper
-import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.dialog_convert.*
 import kotlinx.android.synthetic.main.view_amount_input.*
 import java.math.BigDecimal
-import kotlin.math.absoluteValue
 
 class ConvertDialog private constructor()
     : BaseBottomDialog(R.layout.dialog_convert), NumPadItemsAdapter.Listener {

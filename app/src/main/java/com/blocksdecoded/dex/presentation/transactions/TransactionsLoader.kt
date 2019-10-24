@@ -9,7 +9,7 @@ import com.blocksdecoded.dex.presentation.transactions.model.TransactionStatus
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionsState
 import com.blocksdecoded.dex.utils.Logger
-import com.blocksdecoded.dex.utils.ioSubscribe
+import com.blocksdecoded.dex.utils.rx.ioSubscribe
 import com.blocksdecoded.dex.utils.normalizedMul
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable

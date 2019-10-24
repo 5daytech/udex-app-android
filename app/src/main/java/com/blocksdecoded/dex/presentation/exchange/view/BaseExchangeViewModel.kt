@@ -16,7 +16,7 @@ import com.blocksdecoded.dex.presentation.exchange.model.ExchangePairsInfo
 import com.blocksdecoded.dex.presentation.exchange.model.IExchangeViewState
 import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
-import com.blocksdecoded.dex.utils.uiSubscribe
+import com.blocksdecoded.dex.utils.rx.uiSubscribe
 import java.math.BigDecimal
 
 abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {

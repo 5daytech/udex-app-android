@@ -9,8 +9,8 @@ import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.utils.Logger
-import com.blocksdecoded.dex.utils.uiObserve
-import com.blocksdecoded.dex.utils.uiSubscribe
+import com.blocksdecoded.dex.utils.rx.uiObserve
+import com.blocksdecoded.dex.utils.rx.uiSubscribe
 
 class ChartInfoViewModel : CoreViewModel() {
     private val coinManager = App.coinManager

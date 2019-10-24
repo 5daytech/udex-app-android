@@ -1,5 +1,6 @@
-package com.blocksdecoded.dex.utils
+package com.blocksdecoded.dex.utils.rx
 
+import com.blocksdecoded.dex.utils.TimeUtils
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

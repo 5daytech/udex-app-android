@@ -9,7 +9,7 @@ import com.blocksdecoded.dex.core.storage.IEnabledCoinsStorage
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.utils.isValidIndex
-import com.blocksdecoded.dex.utils.uiSubscribe
+import com.blocksdecoded.dex.utils.rx.uiSubscribe
 
 class CoinManagerViewModel(
     private val appConfiguration: IAppConfiguration = App.appConfiguration,

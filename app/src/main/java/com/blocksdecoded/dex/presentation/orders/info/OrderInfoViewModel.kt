@@ -10,7 +10,7 @@ import com.blocksdecoded.dex.core.manager.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.presentation.orders.CancelOrderInfo
 import com.blocksdecoded.dex.presentation.orders.model.OrderInfoConfig
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
-import com.blocksdecoded.dex.utils.uiSubscribe
+import com.blocksdecoded.dex.utils.rx.uiSubscribe
 import java.math.BigDecimal
 
 class OrderInfoViewModel : CoreViewModel() {

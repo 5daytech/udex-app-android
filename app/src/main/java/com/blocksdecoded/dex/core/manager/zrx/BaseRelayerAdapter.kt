@@ -4,7 +4,7 @@ import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.manager.zrx.model.*
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
-import com.blocksdecoded.dex.utils.ioSubscribe
+import com.blocksdecoded.dex.utils.rx.ioSubscribe
 import com.blocksdecoded.dex.utils.normalizedMul
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.model.OrderInfo

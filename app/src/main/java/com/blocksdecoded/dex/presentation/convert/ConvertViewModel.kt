@@ -21,7 +21,7 @@ import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.models.FeeInfo
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.blocksdecoded.dex.utils.Logger
-import com.blocksdecoded.dex.utils.uiSubscribe
+import com.blocksdecoded.dex.utils.rx.uiSubscribe
 import com.blocksdecoded.zrxkit.contracts.WethWrapper
 import java.math.BigDecimal
 import java.net.SocketTimeoutException

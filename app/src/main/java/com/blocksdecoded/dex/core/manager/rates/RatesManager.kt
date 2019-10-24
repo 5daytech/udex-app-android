@@ -9,7 +9,7 @@ import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.storage.IMarketsStorage
 import com.blocksdecoded.dex.core.storage.IRatesStorage
 import com.blocksdecoded.dex.utils.Logger
-import com.blocksdecoded.dex.utils.ioSubscribe
+import com.blocksdecoded.dex.utils.rx.ioSubscribe
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject

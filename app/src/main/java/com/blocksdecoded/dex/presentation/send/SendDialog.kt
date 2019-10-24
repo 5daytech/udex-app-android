@@ -19,7 +19,7 @@ import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.qrscanner.QRScannerActivity
 import com.blocksdecoded.dex.presentation.send.confirm.SendConfirmDialog
 import com.blocksdecoded.dex.presentation.send.model.ReceiveAddressInfo
-import com.blocksdecoded.dex.utils.subscribeToInput
+import com.blocksdecoded.dex.utils.rx.subscribeToInput
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
