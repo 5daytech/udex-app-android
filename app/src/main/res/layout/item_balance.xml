@@ -24,13 +24,37 @@
             android:paddingBottom="@dimen/page_margin"
             android:paddingStart="@dimen/medium_margin"
             android:paddingEnd="@dimen/medium_margin">
+
+            <ImageView
+                android:id="@+id/balance_sync_error"
+                android:layout_width="@dimen/coin_size"
+                android:layout_height="@dimen/coin_size"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:padding="2dp"
+                android:tint="@color/red"
+                android:src="@drawable/ic_about"
+                android:visibility="gone"/>
+
+            <ProgressBar
+                android:id="@+id/balance_sync_progress"
+                android:layout_width="@dimen/coin_size"
+                android:layout_height="@dimen/coin_size"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="visible"
+                android:padding="2dp"/>
+
             <com.blocksdecoded.dex.presentation.widgets.CoinIconView
                 android:id="@+id/balance_icon"
                 android:layout_width="@dimen/coin_size"
                 android:layout_height="@dimen/coin_size"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="gone"/>
 
             <TextView
                 style="@style/BoldText"
@@ -64,10 +88,10 @@
                 android:id="@+id/balance_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toRightOf="@+id/balance_symbol"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textColor="?attr/PrimaryTextColor"
-                android:layout_marginStart="@dimen/element_margin"
+                android:layout_marginStart="32dp"
                 android:textSize="16sp"
                 android:text="Ethereum"/>
 

@@ -23,7 +23,8 @@ class BalanceDiffCallback(
 
         oldCoin.fiatBalance == newCoin.fiatBalance && oldCoin.balance == newCoin.balance &&
                 oldCoin.pricePerToken == newCoin.pricePerToken &&
-                oldCoin.convertType == newCoin.convertType
+                oldCoin.convertType == newCoin.convertType &&
+                oldCoin.state == newCoin.state
     } catch (e: Exception) {
         false
     }

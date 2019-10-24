@@ -1,6 +1,8 @@
 package com.blocksdecoded.dex.presentation.balance
 
+import android.util.Log
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.core.adapter.AdapterState
 import com.blocksdecoded.dex.core.adapter.IAdapter
 import com.blocksdecoded.dex.core.manager.IAdapterManager
 import com.blocksdecoded.dex.core.manager.ICoinManager
@@ -34,6 +36,7 @@ class BalanceLoader(
 
         adaptersManager.adaptersUpdatedSignal
             .subscribe {
+                Log.d("ololo", "Adapters update signal ${adapters.size}")
                 onRefreshAdapters()
             }
             .let { disposables.add(it) }
@@ -52,7 +55,8 @@ class BalanceLoader(
         clear()
         adapters.forEach { adapter ->
             adapter.stateUpdatedFlowable.subscribe {
-
+                Log.d("ololo", "${adapter.coin.code} state is ${adapter.state.javaClass.simpleName}")
+                updateBalance()
             }.let { balanceDisposable.add(it) }
 
             adapter.balanceUpdatedFlowable.subscribe {
@@ -70,7 +74,7 @@ class BalanceLoader(
                     adapter.balance,
                     ratesConverter.getCoinsPrice(adapter.coin.code, adapter.balance),
                     ratesConverter.getTokenPrice(adapter.coin.code),
-                    BalanceState.SYNCING,
+                    matchAdapterState(adapter),
                     when(adapter.coin.code) {
                         "ETH" -> EConvertType.WRAP
                         "WETH" -> EConvertType.UNWRAP
@@ -80,5 +84,19 @@ class BalanceLoader(
             }
 
         balancesSyncSubject.onNext(Unit)
+    }
+
+    private fun matchAdapterState(adapter: IAdapter): BalanceState {
+        return when(adapter.state) {
+            is AdapterState.Syncing -> {
+                BalanceState.SYNCING
+            }
+            is AdapterState.Synced -> {
+                BalanceState.SYNCED
+            }
+            is AdapterState.NotSynced -> {
+                BalanceState.FAILED
+            }
+        }
     }
 }

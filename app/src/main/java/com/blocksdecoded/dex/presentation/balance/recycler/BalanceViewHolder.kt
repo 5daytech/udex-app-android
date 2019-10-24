@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.core.model.BalanceState.*
 import com.blocksdecoded.dex.core.model.CoinBalance
 import com.blocksdecoded.dex.core.model.EConvertType.*
 import com.blocksdecoded.dex.utils.setVisible
@@ -64,6 +65,22 @@ class BalanceViewHolder(
             UNWRAP -> {
                 balance_convert.visible = true
                 balance_convert_type.setText(R.string.action_unwrap)
+            }
+        }
+
+        balance_sync_progress.visible = false
+        balance_icon.visible = false
+        balance_sync_error.visible = false
+
+        when(coinBalance.state) {
+            SYNCED -> {
+                balance_icon.visible = true
+            }
+            SYNCING -> {
+                balance_sync_progress.visible = true
+            }
+            FAILED -> {
+                balance_sync_error.visible = true
             }
         }
     }
