@@ -52,10 +52,10 @@ class BalanceViewModel : CoreViewModel() {
         topUpVisible.value = false
 
         balanceLoader.balancesSyncSubject.subscribe {
-            balances.postValue(balanceLoader.balances)
-            mRefreshing.postValue(false)
-            updateTotalBalance()
+            syncBalances()
         }.let { disposables.add(it) }
+
+        syncBalances()
     }
 
     override fun onCleared() {
@@ -64,6 +64,12 @@ class BalanceViewModel : CoreViewModel() {
     }
 
     //region Private
+
+    private fun syncBalances() {
+        balances.postValue(balanceLoader.balances)
+        mRefreshing.postValue(false)
+        updateTotalBalance()
+    }
 
     private fun updateTotalBalance() {
         var balance = BigDecimal.ZERO
