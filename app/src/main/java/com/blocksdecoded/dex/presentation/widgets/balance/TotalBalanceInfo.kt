@@ -5,6 +5,6 @@ import java.math.BigDecimal
 
 data class TotalBalanceInfo(
     val coin: Coin,
-    val balance: BigDecimal,
-    val fiatBalance: BigDecimal
+    var balance: BigDecimal,
+    var fiatBalance: BigDecimal
 )

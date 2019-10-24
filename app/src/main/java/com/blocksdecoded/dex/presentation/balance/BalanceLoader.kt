@@ -10,8 +10,11 @@ import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.core.model.BalanceState
 import com.blocksdecoded.dex.core.model.CoinBalance
 import com.blocksdecoded.dex.core.model.EConvertType
+import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
+import com.blocksdecoded.dex.utils.normalizedDiv
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
+import java.math.BigDecimal
 
 class BalanceLoader(
     private val coinManager: ICoinManager = App.coinManager,
@@ -20,8 +23,17 @@ class BalanceLoader(
     private val ratesConverter: RatesConverter = App.ratesConverter,
     private val disposables: CompositeDisposable
 ) {
+    val baseCoinCode = "ETH"
+
     val balancesSyncSubject = PublishSubject.create<Unit>()
     var balances = listOf<CoinBalance>()
+
+    var totalBalance = TotalBalanceInfo(
+        coinManager.getCoin(baseCoinCode),
+        BigDecimal.ZERO,
+        BigDecimal.ZERO
+    )
+
     val isAllSynced: Boolean
         get() {
             adapters.forEach {
@@ -91,7 +103,22 @@ class BalanceLoader(
                 )
             }
 
+        updateTotalBalance()
+
         balancesSyncSubject.onNext(Unit)
+    }
+
+    private fun updateTotalBalance() {
+        var totalFiat = BigDecimal.ZERO
+
+        balances.forEach {
+            totalFiat += it.fiatBalance
+        }
+
+        val balance = totalFiat.normalizedDiv(ratesConverter.getTokenPrice(baseCoinCode))
+
+        totalBalance.balance = balance
+        totalBalance.fiatBalance = totalFiat
     }
 
     private fun matchAdapterState(adapter: IAdapter): BalanceState {

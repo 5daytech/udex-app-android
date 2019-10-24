@@ -2,8 +2,6 @@ package com.blocksdecoded.dex.presentation.balance
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.core.manager.ICoinManager
-import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinBalance
 import com.blocksdecoded.dex.core.ui.CoreViewModel
@@ -15,10 +13,6 @@ import com.blocksdecoded.dex.utils.isValidIndex
 import java.math.BigDecimal
 
 class BalanceViewModel : CoreViewModel() {
-    private val baseCoinCode = "ETH"
-    private val coinManager: ICoinManager = App.coinManager
-    private val ratesConverter: RatesConverter = App.ratesConverter
-
     private var balanceLoader: BalanceLoader = BalanceLoader(
         App.coinManager,
         App.adapterManager,
@@ -26,11 +20,13 @@ class BalanceViewModel : CoreViewModel() {
         App.ratesConverter,
         disposables
     )
+    private val baseCoinCode: String
+        get() = balanceLoader.baseCoinCode
+
     private val mBalances: List<CoinBalance>
         get() = balanceLoader.balances
 
     val balances = MutableLiveData<List<CoinBalance>>()
-
     val totalBalance = MutableLiveData<TotalBalanceInfo>()
     val totalBalanceVisible = MutableLiveData<Boolean>()
     val topUpVisible = MutableLiveData<Boolean>()
@@ -45,12 +41,6 @@ class BalanceViewModel : CoreViewModel() {
     init {
         totalBalanceVisible.value = true
         topUpVisible.value = false
-
-        totalBalance.value = TotalBalanceInfo(
-            coinManager.getCoin(baseCoinCode),
-            BigDecimal.ZERO,
-            BigDecimal.ZERO
-        )
 
         balanceLoader.balancesSyncSubject.subscribe {
             syncBalances()
@@ -67,33 +57,15 @@ class BalanceViewModel : CoreViewModel() {
     //region Private
 
     private fun syncBalances() {
+        totalBalance.postValue(balanceLoader.totalBalance)
         balances.postValue(balanceLoader.balances)
-        updateTotalBalance()
-    }
-
-    private fun updateTotalBalance() {
-        var balance = BigDecimal.ZERO
-
-        mBalances.forEach {
-            val priceInBase = ratesConverter.baseFrom(it.coin.code)
-            val convertedBalance = it.balance.multiply(priceInBase)
-            balance += convertedBalance
-        }
 
         if (balanceLoader.isAllSynced) {
+            val balance = balanceLoader.totalBalance.balance
             val isPositiveBalance = balance.stripTrailingZeros() > BigDecimal.ZERO
             topUpVisible.postValue(!isPositiveBalance)
             totalBalanceVisible.postValue(isPositiveBalance)
         }
-
-        val fiatBalance = ratesConverter.getCoinsPrice(baseCoinCode, balance)
-        totalBalance.postValue(
-            TotalBalanceInfo(
-                coinManager.getCoin(baseCoinCode),
-                balance,
-                fiatBalance
-            )
-        )
     }
 
     //endregion
@@ -123,7 +95,7 @@ class BalanceViewModel : CoreViewModel() {
 
     fun onConvertClick(position: Int) {
         if (mBalances.isValidIndex(position)) {
-            val balance = mBalances.get(position)
+            val balance = mBalances[position]
             balance.let {
                 val type = when(it.coin.code) {
                     "ETH" -> ConvertType.WRAP
