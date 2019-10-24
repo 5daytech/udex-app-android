@@ -61,6 +61,12 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
 
         viewModel.isSyncing.observe(this, Observer {
             transactions_total_balance?.progressVisible = it
+
+            empty_view?.title = getString(if (it) {
+                R.string.message_syncing
+            } else {
+                R.string.message_empty_transactions
+            })
         })
     }
 

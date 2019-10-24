@@ -8,7 +8,7 @@ import com.blocksdecoded.dex.R
 import kotlinx.android.synthetic.main.view_empty_items.view.*
 
 class EmptyItemsView : ConstraintLayout {
-    private var title: String = ""
+    var title: String = ""
         set(value) {
             field = value
             empty_items_message?.text = value

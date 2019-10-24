@@ -88,6 +88,7 @@
     <string name="info_total_sell_amount">Total Sell Amount:</string>
     <string name="info_expire_at">Expire At:</string>
 
+    <string name="message_syncing">SYNCING…</string>
     <string name="message_empty_transactions">THERE’S NO ANY\nTRANSACTIONS YET</string>
     <string name="message_empty_exchange_history">THERE’S NO ANY\nEXCHANGES YET</string>
     <string name="message_empty_orders">THERE’S NO ANY\nORDERS YET</string>
