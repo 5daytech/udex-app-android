@@ -49,8 +49,6 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
             )
         })
 
-        viewModel.refreshing.observe(this, Observer {})
-
         viewModel.openReceiveDialog.observe(this, Observer { coinCode ->
             activity?.let {
                 ReceiveDialog.open(it.supportFragmentManager, coinCode)

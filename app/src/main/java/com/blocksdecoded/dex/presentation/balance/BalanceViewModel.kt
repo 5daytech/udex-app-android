@@ -1,6 +1,5 @@
 package com.blocksdecoded.dex.presentation.balance
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.manager.ICoinManager
@@ -30,9 +29,6 @@ class BalanceViewModel : CoreViewModel() {
     private val mBalances: List<CoinBalance>
         get() = balanceLoader.balances
 
-    private val mRefreshing = MutableLiveData<Boolean>()
-    val refreshing: LiveData<Boolean> = mRefreshing
-
     val balances = MutableLiveData<List<CoinBalance>>()
 
     val totalBalance = MutableLiveData<TotalBalanceInfo>()
@@ -47,7 +43,6 @@ class BalanceViewModel : CoreViewModel() {
     val openCoinManager = SingleLiveEvent<Unit>()
 
     init {
-        mRefreshing.value = true
         totalBalanceVisible.value = true
         topUpVisible.value = false
 
@@ -73,7 +68,6 @@ class BalanceViewModel : CoreViewModel() {
 
     private fun syncBalances() {
         balances.postValue(balanceLoader.balances)
-        mRefreshing.postValue(false)
         updateTotalBalance()
     }
 
