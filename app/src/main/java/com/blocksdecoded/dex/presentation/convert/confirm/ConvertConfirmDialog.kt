@@ -5,8 +5,9 @@ import android.view.View
 import androidx.fragment.app.FragmentManager
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.presentation.convert.model.ConvertType
-import com.blocksdecoded.dex.presentation.convert.model.ConvertType.*
+import com.blocksdecoded.dex.core.model.EConvertType
+import com.blocksdecoded.dex.core.model.EConvertType.UNWRAP
+import com.blocksdecoded.dex.core.model.EConvertType.WRAP
 import com.blocksdecoded.dex.presentation.dialogs.BaseDialog
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import kotlinx.android.synthetic.main.dialog_convert_confirm.*
@@ -34,6 +35,7 @@ class ConvertConfirmDialog : BaseDialog(R.layout.dialog_convert_confirm) {
         dialog_title?.text = when(confirmInfo.action) {
             WRAP -> getString(R.string.action_wrap)
             UNWRAP -> getString(R.string.action_unwrap)
+            else -> ""
         }
     }
 
@@ -47,7 +49,7 @@ class ConvertConfirmDialog : BaseDialog(R.layout.dialog_convert_confirm) {
 }
 
 data class ConvertConfirmInfo(
-    val action: ConvertType,
+    val action: EConvertType,
     val fromCoin: Coin,
     val fromAmount: BigDecimal,
     val toCoin: Coin,

@@ -7,7 +7,6 @@ import com.blocksdecoded.dex.core.model.CoinBalance
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
-import com.blocksdecoded.dex.presentation.convert.model.ConvertType
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.blocksdecoded.dex.utils.isValidIndex
 import java.math.BigDecimal
@@ -42,11 +41,13 @@ class BalanceViewModel : CoreViewModel() {
         totalBalanceVisible.value = true
         topUpVisible.value = false
 
+        totalBalance.value = balanceLoader.totalBalance
+
+        syncBalances()
+
         balanceLoader.balancesSyncSubject.subscribe {
             syncBalances()
         }.let { disposables.add(it) }
-
-        syncBalances()
     }
 
     override fun onCleared() {
@@ -97,13 +98,7 @@ class BalanceViewModel : CoreViewModel() {
         if (mBalances.isValidIndex(position)) {
             val balance = mBalances[position]
             balance.let {
-                val type = when(it.coin.code) {
-                    "ETH" -> ConvertType.WRAP
-                    "WETH" -> ConvertType.UNWRAP
-                    else -> ConvertType.WRAP
-                }
-
-                openConvertDialog.postValue(ConvertConfig(it.coin.code, type))
+                openConvertDialog.postValue(ConvertConfig(it.coin.code, it.convertType))
             }
         }
     }

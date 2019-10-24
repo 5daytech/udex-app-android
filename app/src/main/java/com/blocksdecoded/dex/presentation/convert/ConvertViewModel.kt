@@ -11,11 +11,12 @@ import com.blocksdecoded.dex.core.manager.duration.ETransactionType
 import com.blocksdecoded.dex.core.manager.duration.IProcessingDurationProvider
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.core.model.Coin
+import com.blocksdecoded.dex.core.model.EConvertType.UNWRAP
+import com.blocksdecoded.dex.core.model.EConvertType.WRAP
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.convert.confirm.ConvertConfirmInfo
 import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
-import com.blocksdecoded.dex.presentation.convert.model.ConvertType.*
 import com.blocksdecoded.dex.presentation.convert.model.ConvertState
 import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.models.FeeInfo
@@ -65,6 +66,7 @@ class ConvertViewModel(
                     it - when(config.type) {
                         WRAP -> minRemainingAmount
                         UNWRAP -> BigDecimal.ZERO
+                        else -> BigDecimal.ZERO
                     }
                 } else BigDecimal.ZERO
             } ?: BigDecimal.ZERO
@@ -112,6 +114,7 @@ class ConvertViewModel(
         val transactionPrice = when(config.type) {
             WRAP -> wethWrapper.depositEstimatedPrice
             UNWRAP -> wethWrapper.withdrawEstimatedPrice
+            else -> BigDecimal.ZERO
         }
 
         val transactionPriceFiat = ratesConverter.getCoinsPrice(adapter!!.coin.code, transactionPrice)
@@ -156,7 +159,8 @@ class ConvertViewModel(
             when(config.type) {
                 WRAP -> wethWrapper.deposit(sendRaw)
                 UNWRAP -> wethWrapper.withdraw(sendRaw)
-            }.uiSubscribe(disposables, {
+                else -> null
+            }?.uiSubscribe(disposables, {
                 dismissProcessingEvent.call()
                 transactionSentEvent.postValue(it.transactionHash)
                 dismissDialog.call()

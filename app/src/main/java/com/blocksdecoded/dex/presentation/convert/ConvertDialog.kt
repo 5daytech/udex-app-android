@@ -10,13 +10,14 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
-import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
-import com.blocksdecoded.dex.presentation.convert.model.ConvertType.*
-import com.blocksdecoded.dex.presentation.convert.model.ConvertState
+import com.blocksdecoded.dex.core.model.EConvertType.UNWRAP
+import com.blocksdecoded.dex.core.model.EConvertType.WRAP
 import com.blocksdecoded.dex.presentation.common.ProcessingDialog
 import com.blocksdecoded.dex.presentation.common.TransactionSentDialog
 import com.blocksdecoded.dex.presentation.convert.confirm.ConvertConfirmDialog
+import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
+import com.blocksdecoded.dex.presentation.convert.model.ConvertState
+import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
 import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
@@ -45,6 +46,7 @@ class ConvertDialog private constructor()
         val action = when (state.type) {
             WRAP -> "${getString(R.string.action_wrap)} "
             UNWRAP -> "${getString(R.string.action_unwrap)} "
+            else -> ""
         }
 
         convert_action_name?.text = action
