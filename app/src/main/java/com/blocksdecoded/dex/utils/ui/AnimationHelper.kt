@@ -2,7 +2,9 @@ package com.blocksdecoded.dex.utils.ui
 
 import android.animation.ObjectAnimator
 import android.view.View
-import android.view.animation.*
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
+import android.view.animation.Transformation
 import com.blocksdecoded.dex.utils.listeners.SimpleAnimationListener
 import com.blocksdecoded.dex.utils.visible
 
@@ -24,7 +26,7 @@ object AnimationHelper {
         }
     }
 
-    fun expand(v: View) {
+    fun expand(v: View, speed: Float = 1f) {
         v.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
         val targetHeight = v.measuredHeight
 
@@ -45,7 +47,7 @@ object AnimationHelper {
         }
 
         // 1dp/ms
-        a.duration = (((targetHeight / v.context.resources.displayMetrics.density)) * 2).toLong()
+        a.duration = ((((targetHeight / v.context.resources.displayMetrics.density)) * 2) / speed).toLong()
         v.startAnimation(a)
     }
 

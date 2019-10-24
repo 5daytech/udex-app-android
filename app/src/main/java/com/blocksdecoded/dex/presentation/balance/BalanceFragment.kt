@@ -11,11 +11,12 @@ import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.balance.recycler.BalanceAdapter
 import com.blocksdecoded.dex.presentation.balance.recycler.BalanceViewHolder
 import com.blocksdecoded.dex.presentation.balance.recycler.ManageCoinsViewHolder
+import com.blocksdecoded.dex.presentation.coinmanager.CoinManagerActivity
 import com.blocksdecoded.dex.presentation.convert.ConvertDialog
 import com.blocksdecoded.dex.presentation.receive.ReceiveDialog
 import com.blocksdecoded.dex.presentation.send.SendDialog
-import com.blocksdecoded.dex.presentation.coinmanager.CoinManagerActivity
 import com.blocksdecoded.dex.presentation.transactions.TransactionsActivity
+import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.view_top_up_account.*
@@ -79,7 +80,9 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
         })
 
         viewModel.topUpVisible.observe(this, Observer {
-            top_up_container?.visible = it
+            if (it && !top_up_container.visible) {
+                AnimationHelper.expand(top_up_container, speed = 1.5f)
+            }
         })
 
         viewModel.openCoinInfo.observe(this, Observer {
