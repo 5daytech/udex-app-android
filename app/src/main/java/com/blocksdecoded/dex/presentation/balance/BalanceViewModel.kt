@@ -9,6 +9,7 @@ import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.blocksdecoded.dex.utils.isValidIndex
+import io.reactivex.android.schedulers.AndroidSchedulers
 import java.math.BigDecimal
 
 class BalanceViewModel : CoreViewModel() {
@@ -42,12 +43,14 @@ class BalanceViewModel : CoreViewModel() {
         topUpVisible.value = false
 
         totalBalance.value = balanceLoader.totalBalance
-
+        balances.value = balanceLoader.balances
         syncBalances()
 
-        balanceLoader.balancesSyncSubject.subscribe {
-            syncBalances()
-        }.let { disposables.add(it) }
+        balanceLoader.balancesSyncSubject
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                syncBalances()
+            }.let { disposables.add(it) }
     }
 
     override fun onCleared() {

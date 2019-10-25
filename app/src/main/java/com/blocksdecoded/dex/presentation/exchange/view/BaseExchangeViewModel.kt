@@ -138,11 +138,11 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
 
         adapter?.validate(amount, null, FeeRatePriority.MEDIUM)?.forEach {
             when(it) {
-                is SendStateError.InsufficientAmount -> {
-                    info.error = R.string.error_insufficient_balance
-                }
                 is SendStateError.InsufficientFeeBalance -> {
                     info.error = R.string.error_insufficient_fee_balance
+                }
+                is SendStateError.InsufficientAmount -> {
+                    info.error = R.string.error_insufficient_balance
                 }
             }
         }
