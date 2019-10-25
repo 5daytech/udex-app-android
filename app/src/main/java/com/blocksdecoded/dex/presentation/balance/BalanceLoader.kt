@@ -56,9 +56,7 @@ class BalanceLoader(
             .let { disposables.add(it) }
 
         adaptersManager.adaptersUpdatedSignal
-            .subscribe {
-                onRefreshAdapters()
-            }
+            .subscribe { onRefreshAdapters() }
             .let { disposables.add(it) }
     }
 

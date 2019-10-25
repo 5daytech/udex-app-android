@@ -58,6 +58,11 @@ class BalanceViewModel : CoreViewModel() {
         balanceLoader.clear()
     }
 
+    override fun onNetworkConnectionAvailable() {
+        super.onNetworkConnectionAvailable()
+        balanceLoader.refresh()
+    }
+
     //region Private
 
     private fun syncBalances() {

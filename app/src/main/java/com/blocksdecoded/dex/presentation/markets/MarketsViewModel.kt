@@ -72,6 +72,13 @@ class MarketsViewModel : CoreViewModel() {
                     }
                 }
             }, { Logger.e(it) })
+
+        ratesManager.refresh()
+    }
+
+    override fun onNetworkConnectionAvailable() {
+        super.onNetworkConnectionAvailable()
+        refresh()
     }
 
     private fun updateMarkets() {
