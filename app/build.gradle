@@ -77,8 +77,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.browser:browser:1.2.0-alpha07'
-    implementation 'androidx.biometric:biometric:1.0.0-beta01'
+    implementation 'androidx.browser:browser:1.2.0-alpha08'
+    implementation 'androidx.biometric:biometric:1.0.0-rc01'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
@@ -91,13 +91,13 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
     // Room
-    def roomVersion = '2.2.0-alpha02'
+    def roomVersion = '2.2.0'
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-rxjava2:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
     // RxJava
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.11'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     // ZrxKit
