@@ -4,9 +4,10 @@ import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.manager.zrx.model.*
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
-import com.blocksdecoded.dex.utils.rx.ioSubscribe
 import com.blocksdecoded.dex.utils.normalizedMul
+import com.blocksdecoded.dex.utils.rx.ioSubscribe
 import com.blocksdecoded.zrxkit.ZrxKit
+import com.blocksdecoded.zrxkit.model.IOrder
 import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
 import io.horizontalsystems.ethereumkit.core.EthereumKit
@@ -163,6 +164,7 @@ class BaseRelayerAdapter(
 		amount: BigDecimal
 	): FillResult = try {
 		val orders = getPairOrders(coinPair, side).orders
+		val ordersToFill = arrayListOf<IOrder>()
 
 		var requestedAmount = amount
 		var fillAmount = BigDecimal.ZERO
@@ -184,12 +186,9 @@ class BaseRelayerAdapter(
 			}
 		}
 
-		FillResult(fillAmount, amount - requestedAmount)
+		FillResult(ordersToFill, fillAmount, amount - requestedAmount)
 	} catch (e: Exception) {
-		FillResult(
-			BigDecimal.ZERO,
-			BigDecimal.ZERO
-		)
+		FillResult.empty()
 	}
 
 	override fun calculateSendAmount(
@@ -198,6 +197,7 @@ class BaseRelayerAdapter(
 		amount: BigDecimal
 	): FillResult = try {
 		val orders = getPairOrders(coinPair, side).orders
+		val ordersToFill = arrayListOf<IOrder>()
 
 		var requestedAmount = amount
 		var fillAmount = BigDecimal.ZERO
@@ -219,12 +219,9 @@ class BaseRelayerAdapter(
 			}
 		}
 
-		FillResult(amount - requestedAmount, fillAmount)
+		FillResult(ordersToFill, amount - requestedAmount, fillAmount)
 	} catch (e: Exception) {
-		FillResult(
-			BigDecimal.ZERO,
-			BigDecimal.ZERO
-		)
+		FillResult.empty()
 	}
 
 	override fun stop() {

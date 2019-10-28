@@ -62,7 +62,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
                 marketCodes[currentMarket],
                 orderSide,
                 amount
-            ) ?: FillResult(BigDecimal.ZERO, BigDecimal.ZERO)
+            ) ?: FillResult.empty()
 
             state.receiveAmount = fillResult.receiveAmount
             estimatedReceiveAmount = fillResult.receiveAmount
@@ -101,7 +101,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
                 marketCodes[currentMarket],
                 orderSide,
                 amount
-            ) ?: FillResult(BigDecimal.ZERO, BigDecimal.ZERO)
+            ) ?: FillResult.empty()
 
             state.receiveAmount = amount
             state.sendAmount = fillResult.sendAmount
