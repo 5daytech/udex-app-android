@@ -77,9 +77,11 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
             balance_total?.visible = it
         })
 
-        viewModel.topUpVisible.observe(this, Observer {
-            if (it && !top_up_container.visible) {
+        viewModel.topUpVisible.observe(this, Observer { topUpVisible ->
+            if (topUpVisible && !top_up_container.visible) {
                 AnimationHelper.expand(top_up_container, speed = 1.5f)
+            } else {
+                top_up_container.visible = false
             }
         })
 
