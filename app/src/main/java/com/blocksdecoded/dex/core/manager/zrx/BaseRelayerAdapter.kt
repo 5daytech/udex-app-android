@@ -92,16 +92,16 @@ class BaseRelayerAdapter(
 	private fun refreshPair(baseAsset: String, quoteAsset: String) {
 		relayerManager.getOrderbook(relayerId, baseAsset, quoteAsset)
 			.ioSubscribe(disposables, {
-				buyOrders.updatePairOrders(baseAsset, quoteAsset, it.bids.records)
-				sellOrders.updatePairOrders(baseAsset, quoteAsset, it.asks.records)
+                val myAddress = ethereumKit.receiveAddress.toLowerCase()
 
-				val address = ethereumKit.receiveAddress.toLowerCase()
+				buyOrders.updatePairOrders(baseAsset, quoteAsset, it.bids.records.filterNot { it.order.makerAddress.equals(myAddress, false) })
+				sellOrders.updatePairOrders(baseAsset, quoteAsset, it.asks.records.filterNot { it.order.makerAddress.equals(myAddress, false) })
 
 				val myOrders = it.asks.records
 					.map { it.order }
-					.filter { it.makerAddress.equals(address, true) }
+					.filter { it.makerAddress.equals(myAddress, true) }
 					.map { it to EOrderSide.SELL }
-					.plus(it.bids.records.map { it.order }.filter { it.makerAddress.equals(address, true) }.map { it to EOrderSide.BUY })
+					.plus(it.bids.records.map { it.order }.filter { it.makerAddress.equals(myAddress, true) }.map { it to EOrderSide.BUY })
 
 				this.myOrders.updatePairOrders(baseAsset, quoteAsset, myOrders)
 
