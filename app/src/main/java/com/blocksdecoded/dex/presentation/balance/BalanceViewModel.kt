@@ -48,9 +48,8 @@ class BalanceViewModel : CoreViewModel() {
 
         balanceLoader.balancesSyncSubject
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                syncBalances()
-            }.let { disposables.add(it) }
+            .subscribe { syncBalances() }
+            .let { disposables.add(it) }
     }
 
     override fun onCleared() {

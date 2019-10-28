@@ -6,9 +6,9 @@ import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.model.AssetItem
 import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
+import com.blocksdecoded.zrxkit.relayer.model.OrderRecord
 import io.reactivex.Flowable
 import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 
 interface IZrxKitManager {
@@ -24,7 +24,7 @@ interface IAllowanceChecker {
 }
 
 interface IExchangeInteractor {
-    fun fill(orders: RelayerOrdersList<SignedOrder>, fillData: FillOrderData): Flowable<String>
+    fun fill(orders: List<SignedOrder>, fillData: FillOrderData): Flowable<String>
 
     fun createOrder(feeRecipient: String, createData: CreateOrderData): Flowable<SignedOrder>
 
@@ -48,10 +48,11 @@ interface IRelayerAdapter {
     val refreshInterval: Long
     val relayerId: Int
 
-    var buyOrders: RelayerOrdersList<SignedOrder>
-    var myOrdersInfo: RelayerOrdersList<OrderInfo>
-    var sellOrders: RelayerOrdersList<SignedOrder>
     var myOrders: RelayerOrdersList<Pair<SignedOrder, EOrderSide>>
+    var myOrdersInfo: RelayerOrdersList<OrderInfo>
+
+    var buyOrders: RelayerOrdersList<OrderRecord>
+    var sellOrders: RelayerOrdersList<OrderRecord>
 
     val allPairs: List<Pair<AssetItem, AssetItem>>
     val exchangePairs: List<ExchangePair>

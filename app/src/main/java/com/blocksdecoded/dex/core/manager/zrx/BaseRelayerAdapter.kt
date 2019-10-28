@@ -10,6 +10,7 @@ import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.model.IOrder
 import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
+import com.blocksdecoded.zrxkit.relayer.model.OrderRecord
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -33,8 +34,8 @@ class BaseRelayerAdapter(
 	private val relayer = relayerManager.availableRelayers[relayerId]
 
 	override var myOrdersInfo = RelayerOrdersList<OrderInfo>()
-	override var buyOrders = RelayerOrdersList<SignedOrder>()
-	override var sellOrders = RelayerOrdersList<SignedOrder>()
+	override var buyOrders = RelayerOrdersList<OrderRecord>()
+	override var sellOrders = RelayerOrdersList<OrderRecord>()
 	override var myOrders = RelayerOrdersList<Pair<SignedOrder, EOrderSide>>()
 
 	override val allPairs = relayer.availablePairs
@@ -91,8 +92,8 @@ class BaseRelayerAdapter(
 	private fun refreshPair(baseAsset: String, quoteAsset: String) {
 		relayerManager.getOrderbook(relayerId, baseAsset, quoteAsset)
 			.ioSubscribe(disposables, {
-				buyOrders.updatePairOrders(baseAsset, quoteAsset, it.bids.records.map { it.order })
-				sellOrders.updatePairOrders(baseAsset, quoteAsset, it.asks.records.map { it.order })
+				buyOrders.updatePairOrders(baseAsset, quoteAsset, it.bids.records)
+				sellOrders.updatePairOrders(baseAsset, quoteAsset, it.asks.records)
 
 				val address = ethereumKit.receiveAddress.toLowerCase()
 
@@ -112,7 +113,7 @@ class BaseRelayerAdapter(
 			})
 	}
 
-	private fun getPairOrders(coinPair: Pair<String, String>, side: EOrderSide): RelayerOrders<SignedOrder> {
+	private fun getPairOrders(coinPair: Pair<String, String>, side: EOrderSide): RelayerOrders<OrderRecord> {
 		val baseCoin = getErcCoin(coinPair.first)
 		val quoteCoin = getErcCoin(coinPair.second)
 
@@ -125,6 +126,9 @@ class BaseRelayerAdapter(
 		)
 	}
 
+	private fun calculateFillResult(orders: List<SignedOrder>): FillResult {
+		return FillResult.empty()
+	}
 	//endregion
 	
 	//region Public
@@ -140,7 +144,7 @@ class BaseRelayerAdapter(
 			else -> sellOrders
 		}
 
-		return exchangeInteractor.fill(orders, fillData)
+		return exchangeInteractor.fill(getPairOrders(fillData.coinPair, fillData.side).orders.map { it.order }, fillData)
 	}
 
 	override fun cancelOrder(order: SignedOrder): Flowable<String> =
@@ -148,7 +152,7 @@ class BaseRelayerAdapter(
 
 	override fun calculateBasePrice(coinPair: Pair<String, String>, side: EOrderSide): BigDecimal = try {
 		OrdersUtil.calculateBasePrice(
-			getPairOrders(coinPair, side).orders,
+			getPairOrders(coinPair, side).orders.map { it.order },
 			coinPair,
 			side
 		)

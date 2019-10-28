@@ -8,6 +8,7 @@ import com.blocksdecoded.dex.utils.normalizedDiv
 import com.blocksdecoded.zrxkit.model.EAssetProxyId
 import com.blocksdecoded.zrxkit.model.IOrder
 import com.blocksdecoded.zrxkit.model.SignedOrder
+import com.blocksdecoded.zrxkit.relayer.model.OrderRecord
 import java.math.BigDecimal
 
 object OrdersUtil {
@@ -36,15 +37,15 @@ object OrdersUtil {
         return NormalizedOrderData(makerCoin, takerCoin, makerAmount, takerAmount, price)
     }
 
-    fun normalizeOrderDataPrice(order: IOrder, isSellPrice: Boolean = true): NormalizedOrderData {
-        val makerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.makerAssetData))!!
-        val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.takerAssetData))!!
+    fun normalizeOrderDataPrice(record: OrderRecord, isSellPrice: Boolean = true): NormalizedOrderData {
+        val makerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(record.order.makerAssetData))!!
+        val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(record.order.takerAssetData))!!
 
-        val makerAmount = order.makerAssetAmount.toBigDecimal()
+        val makerAmount = record.order.makerAssetAmount.toBigDecimal()
             .movePointLeft((makerCoin.type as CoinType.Erc20).decimal)
             .stripTrailingZeros()
 
-        val takerAmount = order.takerAssetAmount.toBigDecimal()
+        val takerAmount = record.order.takerAssetAmount.toBigDecimal()
             .movePointLeft((takerCoin.type as CoinType.Erc20).decimal)
             .stripTrailingZeros()
 

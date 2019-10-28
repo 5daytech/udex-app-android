@@ -3,10 +3,10 @@ package com.blocksdecoded.dex.core.manager.zrx.model
 import io.reactivex.subjects.BehaviorSubject
 
 class RelayerOrdersList<T> {
-    private val allOrders: ArrayList<RelayerOrders<T>> = ArrayList()
+    private val allPairOrders: ArrayList<RelayerOrders<T>> = ArrayList()
     val pairUpdateSubject = BehaviorSubject.create<RelayerOrders<T>>()
 
-    fun getPair(baseAsset: String, quoteAsset: String): RelayerOrders<T> = allOrders.firstOrNull {
+    fun getPair(baseAsset: String, quoteAsset: String): RelayerOrders<T> = allPairOrders.firstOrNull {
         try {
             it.baseAsset == baseAsset && it.quoteAsset == quoteAsset
         } catch (e: Exception) {
@@ -15,7 +15,7 @@ class RelayerOrdersList<T> {
     } ?: RelayerOrders(baseAsset, quoteAsset, listOf())
 
     fun updatePairOrders(baseAsset: String, quoteAsset: String, orders: List<T>) {
-        val index = allOrders.indexOfFirst { it.baseAsset == baseAsset && it.quoteAsset == quoteAsset }
+        val index = this.allPairOrders.indexOfFirst { it.baseAsset == baseAsset && it.quoteAsset == quoteAsset }
 
         val newPair = RelayerOrders(
             baseAsset,
@@ -24,17 +24,19 @@ class RelayerOrdersList<T> {
         )
 
         if (index >= 0) {
-            allOrders[index] = newPair
+            this.allPairOrders[index] = newPair
         } else {
-            allOrders.add(newPair)
+            this.allPairOrders.add(newPair)
         }
 
         pairUpdateSubject.onNext(newPair)
     }
 
     fun clear() {
-        allOrders.clear()
+        allPairOrders.clear()
     }
+
+    override fun toString(): String = allPairOrders.toString()
 }
 
 data class RelayerOrders<T> (

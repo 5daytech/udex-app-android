@@ -7,9 +7,9 @@ import com.blocksdecoded.dex.core.manager.zrx.model.RelayerOrders
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder
-import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
+import com.blocksdecoded.zrxkit.relayer.model.OrderRecord
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
@@ -49,13 +49,13 @@ class OrdersWatcher(
 	init {
 		relayerAdapter.sellOrders.pairUpdateSubject.subscribe {
 			if (isSelectedPair(it.baseAsset, it.quoteAsset)) {
-				refreshSellOrders(it)
+				refreshSellOrders(it.orders)
 			}
 		}.let { disposables.add(it) }
 
 		relayerAdapter.buyOrders.pairUpdateSubject.subscribe {
 			if (isSelectedPair(it.baseAsset, it.quoteAsset)) {
-				refreshBuyOrders(it)
+				refreshBuyOrders(it.orders)
 			}
 		}.let { disposables.add(it) }
 
@@ -80,27 +80,27 @@ class OrdersWatcher(
 		val base = getCurrentExchangePair().baseAsset.assetData
 		val quote = getCurrentExchangePair().quoteAsset.assetData
 		
-		refreshBuyOrders(relayerAdapter.buyOrders.getPair(base, quote))
-		refreshSellOrders(relayerAdapter.sellOrders.getPair(base, quote))
+		refreshBuyOrders(relayerAdapter.buyOrders.getPair(base, quote).orders)
+		refreshSellOrders(relayerAdapter.sellOrders.getPair(base, quote).orders)
 		refreshMyOrders(relayerAdapter.myOrders.getPair(base, quote))
 	}
-	
-	private fun refreshSellOrders(pairOrders: RelayerOrders<SignedOrder>) {
-		uiSellOrders = pairOrders.orders
-			.map { UiOrder.fromOrder(coinManager, ratesConverter, it, SELL) }
+
+	private fun refreshBuyOrders(orders: List<OrderRecord>) {
+		uiBuyOrders = orders
+			.map { UiOrder.fromOrder(coinManager, ratesConverter, it.order, BUY) }
 			.sortedBy { it.price }
-		
-		sellOrdersSubject.onNext(uiSellOrders)
-	}
-	
-	private fun refreshBuyOrders(pairOrders: RelayerOrders<SignedOrder>) {
-		uiBuyOrders = pairOrders.orders
-			.map { UiOrder.fromOrder(coinManager, ratesConverter, it, BUY) }
-			.sortedBy { it.price }
-		
+
 		buyOrdersSubject.onNext(uiBuyOrders)
 	}
-	
+
+	private fun refreshSellOrders(orders: List<OrderRecord>) {
+		uiSellOrders = orders
+			.map { UiOrder.fromOrder(coinManager, ratesConverter, it.order, SELL) }
+			.sortedBy { it.price }
+
+		sellOrdersSubject.onNext(uiSellOrders)
+	}
+
 	private fun refreshMyOrders(pairOrders: RelayerOrders<Pair<SignedOrder, EOrderSide>>) = try {
 		uiMyOrders = pairOrders.orders
 			.mapIndexed { index, it ->

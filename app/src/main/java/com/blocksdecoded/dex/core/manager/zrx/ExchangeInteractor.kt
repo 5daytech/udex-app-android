@@ -5,7 +5,6 @@ import com.blocksdecoded.dex.core.CreateOrderException
 import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.manager.zrx.model.CreateOrderData
 import com.blocksdecoded.dex.core.manager.zrx.model.FillOrderData
-import com.blocksdecoded.dex.core.manager.zrx.model.RelayerOrdersList
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.zrxkit.ZrxKit
@@ -104,21 +103,21 @@ class ExchangeInteractor(
             Flowable.error(CancelOrderException(order.makerAddress, ethereumKit.receiveAddress))
         }
 
-    override fun fill(orders: RelayerOrdersList<SignedOrder>, fillData: FillOrderData): Flowable<String> {
+    override fun fill(orders: List<SignedOrder>, fillData: FillOrderData): Flowable<String> {
         val baseCoin = coinManager.getCoin(fillData.coinPair.first).type as CoinType.Erc20
         val quoteCoin = coinManager.getCoin(fillData.coinPair.second).type as CoinType.Erc20
 
-        val pairOrders = orders.getPair(
-            ZrxKit.assetItemForAddress(baseCoin.address).assetData,
-            ZrxKit.assetItemForAddress(quoteCoin.address).assetData
-        )
+//        val pairOrders = allPairOrders.getPair(
+//            ZrxKit.assetItemForAddress(baseCoin.address).assetData,
+//            ZrxKit.assetItemForAddress(quoteCoin.address).assetData
+//        )
 
         val calcAmount = fillData.amount.movePointRight(
             if (fillData.side == EOrderSide.BUY) quoteCoin.decimal else baseCoin.decimal
         )
 
         return allowanceChecker.enablePairAllowance(baseCoin.address to quoteCoin.address)
-            .flatMap { exchangeWrapper.marketBuyOrders(pairOrders.orders, calcAmount.toBigInteger()) }
+            .flatMap { exchangeWrapper.marketBuyOrders(orders, calcAmount.toBigInteger()) }
     }
 
     override fun ordersInfo(orders: List<SignedOrder>): Flowable<List<OrderInfo>> =
