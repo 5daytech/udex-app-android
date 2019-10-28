@@ -17,10 +17,7 @@ object OrdersUtil {
     private fun getErcCoin(coinCode: String): CoinType.Erc20 =
         coinManager.getCoin(coinCode).type as CoinType.Erc20
 
-    fun normalizeOrderData(
-        order: IOrder,
-        side: EOrderSide
-    ): NormalizedOrderData {
+    fun normalizeOrderData(order: SignedOrder): NormalizedOrderData {
         val makerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.makerAssetData))!!
         val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.takerAssetData))!!
 
@@ -34,7 +31,7 @@ object OrdersUtil {
 
         val price = takerAmount.normalizedDiv(makerAmount)
 
-        return NormalizedOrderData(makerCoin, takerCoin, makerAmount, takerAmount, price)
+        return NormalizedOrderData("", makerCoin, takerCoin, makerAmount, takerAmount, price, order)
     }
 
     fun normalizeOrderDataPrice(record: OrderRecord, isSellPrice: Boolean = true): NormalizedOrderData {
@@ -55,7 +52,7 @@ object OrdersUtil {
             takerAmount.normalizedDiv(makerAmount)
         }
 
-        return NormalizedOrderData(makerCoin, takerCoin, makerAmount, takerAmount, price)
+        return NormalizedOrderData(record.metaData?.orderHash ?: "", makerCoin, takerCoin, makerAmount, takerAmount, price, record.order)
     }
 
     fun calculateBasePrice(orders: List<SignedOrder>, coinPair: Pair<String, String>, side: EOrderSide): BigDecimal =

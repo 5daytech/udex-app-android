@@ -101,7 +101,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     // ZrxKit
-    implementation 'com.github.blocksdecoded:zrx-kit-android:fa8e8b5a67'
+    implementation 'com.github.blocksdecoded:zrx-kit-android:447e83132d'
     // EthereumKit
     implementation 'com.github.horizontalsystems:ethereum-kit-android:055850e'
     // HdWalletKit

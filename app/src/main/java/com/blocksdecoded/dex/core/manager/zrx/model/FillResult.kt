@@ -1,10 +1,10 @@
 package com.blocksdecoded.dex.core.manager.zrx.model
 
-import com.blocksdecoded.zrxkit.model.IOrder
+import com.blocksdecoded.zrxkit.model.SignedOrder
 import java.math.BigDecimal
 
 data class FillResult(
-    val orders: List<IOrder>,
+    val orders: List<SignedOrder>,
     val receiveAmount: BigDecimal,
     val sendAmount: BigDecimal
 ) {

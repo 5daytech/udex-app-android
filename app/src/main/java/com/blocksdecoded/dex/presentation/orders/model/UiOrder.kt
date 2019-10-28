@@ -1,14 +1,14 @@
 package com.blocksdecoded.dex.presentation.orders.model
 
 import com.blocksdecoded.dex.core.manager.ICoinManager
-import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.core.manager.rates.RatesConverter
 import com.blocksdecoded.dex.core.manager.zrx.OrdersUtil
+import com.blocksdecoded.dex.core.model.Coin
+import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.zrxkit.model.EAssetProxyId
-import com.blocksdecoded.zrxkit.model.IOrder
 import com.blocksdecoded.zrxkit.model.OrderInfo
+import com.blocksdecoded.zrxkit.model.SignedOrder
 import java.math.BigDecimal
 
 data class UiOrder(
@@ -29,12 +29,12 @@ data class UiOrder(
         fun fromOrder(
             coinManager: ICoinManager,
             ratesConverter: RatesConverter,
-            order: IOrder,
+            order: SignedOrder,
             side: EOrderSide,
             orderInfo: OrderInfo? = null,
             isMine: Boolean = false
         ): UiOrder {
-            val normalizedData = OrdersUtil.normalizeOrderData(order, side)
+            val normalizedData = OrdersUtil.normalizeOrderData(order)
 
             val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.takerAssetData))!!
 

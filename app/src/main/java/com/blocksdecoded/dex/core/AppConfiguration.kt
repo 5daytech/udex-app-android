@@ -14,7 +14,7 @@ import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType.MainNet
 import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType.Ropsten
 
 class AppConfiguration(
-    override val testMode: Boolean = true
+    override val testMode: Boolean = BuildConfig.testMode
 ): IAppConfiguration {
 
     override val networkType: NetworkType = if (testMode) Ropsten else MainNet

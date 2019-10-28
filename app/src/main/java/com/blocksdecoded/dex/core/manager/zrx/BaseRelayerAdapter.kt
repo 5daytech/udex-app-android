@@ -4,10 +4,10 @@ import com.blocksdecoded.dex.core.manager.ICoinManager
 import com.blocksdecoded.dex.core.manager.zrx.model.*
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
+import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.normalizedMul
 import com.blocksdecoded.dex.utils.rx.ioSubscribe
 import com.blocksdecoded.zrxkit.ZrxKit
-import com.blocksdecoded.zrxkit.model.IOrder
 import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
 import com.blocksdecoded.zrxkit.relayer.model.OrderRecord
@@ -126,8 +126,39 @@ class BaseRelayerAdapter(
 		)
 	}
 
-	private fun calculateFillResult(orders: List<SignedOrder>): FillResult {
-		return FillResult.empty()
+	private fun calculateFillResult(
+		orders: List<OrderRecord>,
+		side: EOrderSide,
+		amount: BigDecimal
+	): FillResult = try {
+		val ordersToFill = arrayListOf<SignedOrder>()
+
+		var requestedAmount = amount
+		var fillAmount = BigDecimal.ZERO
+
+		val sortedOrders = orders.map { OrdersUtil.normalizeOrderDataPrice(it) }
+			.apply { if (side == EOrderSide.BUY) sortedByDescending { it.price } else sortedBy { it.price } }
+
+		for (orderData in sortedOrders) {
+			if (requestedAmount != BigDecimal.ZERO) {
+				if (requestedAmount >= orderData.takerAmount) {
+					fillAmount += orderData.makerAmount
+					requestedAmount -= orderData.takerAmount
+				} else {
+					fillAmount += requestedAmount.normalizedMul(orderData.price)
+					requestedAmount = BigDecimal.ZERO
+				}
+
+				orderData.order?.let { ordersToFill.add(it) }
+			} else {
+				break
+			}
+		}
+
+		FillResult(ordersToFill, fillAmount, amount - requestedAmount)
+	} catch (e: Exception) {
+		Logger.e(e)
+		FillResult.empty()
 	}
 	//endregion
 	
@@ -139,12 +170,14 @@ class BaseRelayerAdapter(
 		exchangeInteractor.createOrder(relayer.feeRecipients.first(), createData)
 
 	override fun fill(fillData: FillOrderData): Flowable<String> {
-		val orders = when(fillData.side) {
-			EOrderSide.BUY -> buyOrders
-			else -> sellOrders
-		}
+		val ordersRecords = getPairOrders(fillData.coinPair, fillData.side).orders
+		val fillResult = calculateFillResult(
+			ordersRecords,
+			fillData.side,
+			fillData.amount
+		)
 
-		return exchangeInteractor.fill(getPairOrders(fillData.coinPair, fillData.side).orders.map { it.order }, fillData)
+		return exchangeInteractor.fill(fillResult.orders, fillData)
 	}
 
 	override fun cancelOrder(order: SignedOrder): Flowable<String> =
@@ -157,6 +190,7 @@ class BaseRelayerAdapter(
 			side
 		)
 	} catch (e: Exception) {
+		Logger.e(e)
 		BigDecimal.ZERO
 	}
 
@@ -168,30 +202,9 @@ class BaseRelayerAdapter(
 		amount: BigDecimal
 	): FillResult = try {
 		val orders = getPairOrders(coinPair, side).orders
-		val ordersToFill = arrayListOf<IOrder>()
-
-		var requestedAmount = amount
-		var fillAmount = BigDecimal.ZERO
-
-		val sortedOrders = orders.map { OrdersUtil.normalizeOrderDataPrice(it) }
-			.apply { if (side == EOrderSide.BUY) sortedByDescending { it.price } else sortedBy { it.price } }
-
-		for (order in sortedOrders) {
-			if (requestedAmount != BigDecimal.ZERO) {
-				if (requestedAmount >= order.takerAmount) {
-					fillAmount += order.makerAmount
-					requestedAmount -= order.takerAmount
-				} else {
-					fillAmount += requestedAmount.normalizedMul(order.price)
-					requestedAmount = BigDecimal.ZERO
-				}
-			} else {
-				break
-			}
-		}
-
-		FillResult(ordersToFill, fillAmount, amount - requestedAmount)
+		calculateFillResult(orders, side, amount)
 	} catch (e: Exception) {
+		Logger.e(e)
 		FillResult.empty()
 	}
 
@@ -201,7 +214,7 @@ class BaseRelayerAdapter(
 		amount: BigDecimal
 	): FillResult = try {
 		val orders = getPairOrders(coinPair, side).orders
-		val ordersToFill = arrayListOf<IOrder>()
+		val ordersToFill = arrayListOf<SignedOrder>()
 
 		var requestedAmount = amount
 		var fillAmount = BigDecimal.ZERO
