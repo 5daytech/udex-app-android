@@ -5,7 +5,6 @@ import com.blocksdecoded.dex.core.model.Coin
 interface IProcessingDurationProvider {
 
     fun getEstimatedDuration(coin: Coin, type: ETransactionType): Long
-
 }
 
 enum class ETransactionType {

@@ -1,11 +1,11 @@
 package com.blocksdecoded.dex.data.manager.rates
 
 import android.annotation.SuppressLint
-import com.blocksdecoded.dex.data.manager.ICoinManager
-import com.blocksdecoded.dex.data.manager.rates.remote.IRatesApiClient
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.Market
 import com.blocksdecoded.dex.core.model.Rate
+import com.blocksdecoded.dex.data.manager.ICoinManager
+import com.blocksdecoded.dex.data.manager.rates.remote.IRatesApiClient
 import com.blocksdecoded.dex.data.storage.IMarketsStorage
 import com.blocksdecoded.dex.data.storage.IRatesStorage
 import com.blocksdecoded.dex.utils.Logger
@@ -20,7 +20,7 @@ class RatesManager(
     private val marketsStorage: IMarketsStorage,
     private val ratesStorage: IRatesStorage,
     private val rateClient: IRatesApiClient
-): IRatesManager {
+) : IRatesManager {
     private val disposables = CompositeDisposable()
 
     override val ratesUpdateSubject: BehaviorSubject<Unit> = BehaviorSubject.create()

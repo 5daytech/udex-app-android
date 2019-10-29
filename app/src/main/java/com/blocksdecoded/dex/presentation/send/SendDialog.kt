@@ -9,26 +9,26 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
-import com.blocksdecoded.dex.presentation.widgets.NumPadItem
-import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
-import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
-import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.core.ui.reObserve
+import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
 import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.qrscanner.QRScannerActivity
 import com.blocksdecoded.dex.presentation.send.confirm.SendConfirmDialog
 import com.blocksdecoded.dex.presentation.send.model.ReceiveAddressInfo
+import com.blocksdecoded.dex.presentation.widgets.NumPadItem
+import com.blocksdecoded.dex.presentation.widgets.NumPadItemType
+import com.blocksdecoded.dex.presentation.widgets.NumPadItemsAdapter
+import com.blocksdecoded.dex.presentation.widgets.click.setSingleClickListener
 import com.blocksdecoded.dex.utils.rx.subscribeToInput
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
+import java.math.BigDecimal
 import kotlinx.android.synthetic.main.dialog_send.*
 import kotlinx.android.synthetic.main.view_amount_input.*
-import java.math.BigDecimal
 
-class SendDialog private constructor()
-    : BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Listener {
+class SendDialog private constructor() :
+    BaseBottomDialog(R.layout.dialog_send), NumPadItemsAdapter.Listener {
 
     private lateinit var viewModel: SendViewModel
     private var coinCode: String = ""
@@ -37,8 +37,8 @@ class SendDialog private constructor()
     private var disposable: Disposable? = null
 
     //region Observers
-    
-    private val messageObserver = Observer<Int?> { error ->  error?.let { ToastHelper.showErrorMessage(it) } }
+
+    private val messageObserver = Observer<Int?> { error -> error?.let { ToastHelper.showErrorMessage(it) } }
 
     private val dismissObserver = Observer<Unit> { dismiss() }
 
@@ -75,7 +75,7 @@ class SendDialog private constructor()
             amount_input?.setText("")
         }
     }
-    
+
     private val coinObserver = Observer<Coin> { coin ->
         send_coin_name?.text = coin.title
         send_coin_icon?.bind(coinCode)
@@ -117,7 +117,7 @@ class SendDialog private constructor()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        send_amount?.bindInitial( onMaxClick = {
+        send_amount?.bindInitial(onMaxClick = {
             viewModel.onMaxClicked()
         }, onSwitchClick = {
             viewModel.onSwitchClick()
@@ -131,7 +131,7 @@ class SendDialog private constructor()
 
         send_numpad?.bind(this, NumPadItemType.DOT, false)
 
-        inputConnection = amount_input?.bind ( onChange = { amount ->
+        inputConnection = amount_input?.bind(onChange = { amount ->
                 send_amount?.setMaxBtnVisible(amount <= BigDecimal.ZERO)
                 amountChangeSubject.onNext(amount)
             }, decimalProvider = { viewModel.decimalSize })

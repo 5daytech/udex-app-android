@@ -42,7 +42,5 @@ class NetworkStateManager {
                 onUpdateStatus()
             }
         })
-
     }
-
 }

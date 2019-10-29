@@ -18,19 +18,19 @@ import com.blocksdecoded.dex.utils.showKeyboard
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import kotlinx.android.synthetic.main.activity_restore_wallet.*
 
-class RestoreWalletActivity: SwipeableActivity(), WordInputViewHolder.OnWordChangeListener {
+class RestoreWalletActivity : SwipeableActivity(), WordInputViewHolder.OnWordChangeListener {
 
     private lateinit var viewModel: RestoreWalletViewModel
     private val words = MutableList(12) { "" }
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restore_wallet)
-    
+
         viewModel = ViewModelProviders.of(this).get(RestoreWalletViewModel::class.java)
-        
+
         toolbar.bind(MainToolbar.getBackAction { finish() })
-    
+
         viewModel.errorEvent.observe(this, Observer {
             ToastHelper.showErrorMessage(it)
             focusInput()
@@ -41,11 +41,11 @@ class RestoreWalletActivity: SwipeableActivity(), WordInputViewHolder.OnWordChan
             MainActivity.start(this)
             this@RestoreWalletActivity.finish()
         })
-        
+
         restore_recycler.isNestedScrollingEnabled = false
         restore_recycler.layoutManager = GridLayoutManager(this, 2)
         restore_recycler.adapter = WordsInputAdapter(this)
-        
+
         restore_confirm.setOnClickListener {
             if (!restore_single_line_input?.text.isNullOrEmpty()) {
                 restore_single_line_input.text.toString().split(" ").forEachIndexed { index, s ->

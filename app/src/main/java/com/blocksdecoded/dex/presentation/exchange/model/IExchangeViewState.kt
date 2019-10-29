@@ -25,7 +25,7 @@ data class ExchangeAmountInfo(
     var amount: BigDecimal
 )
 
-data class ExchangePairsInfo (
+data class ExchangePairsInfo(
     val coins: List<ExchangeCoinItem>,
     val selectedCoin: ExchangeCoinItem? = null
 )

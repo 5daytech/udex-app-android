@@ -1,16 +1,16 @@
 package com.blocksdecoded.dex.presentation.transactions
 
+import com.blocksdecoded.dex.core.model.Rate
+import com.blocksdecoded.dex.core.model.TransactionRecord
 import com.blocksdecoded.dex.data.adapter.AdapterState
 import com.blocksdecoded.dex.data.adapter.IAdapter
 import com.blocksdecoded.dex.data.manager.rates.IRatesManager
-import com.blocksdecoded.dex.core.model.Rate
-import com.blocksdecoded.dex.core.model.TransactionRecord
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionStatus
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionsState
 import com.blocksdecoded.dex.utils.Logger
-import com.blocksdecoded.dex.utils.rx.ioSubscribe
 import com.blocksdecoded.dex.utils.normalizedMul
+import com.blocksdecoded.dex.utils.rx.ioSubscribe
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
@@ -72,7 +72,7 @@ class TransactionsLoader(
     }
 
     private fun updateState() {
-        state = when(adapter.state) {
+        state = when (adapter.state) {
             is AdapterState.Syncing -> TransactionsState.SYNCING
             is AdapterState.Synced -> TransactionsState.SYNCED
             is AdapterState.NotSynced -> TransactionsState.FAILED

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 class ManageCoinsViewHolder(
     view: View,
     private val listener: Listener
-): RecyclerView.ViewHolder(view) {
+) : RecyclerView.ViewHolder(view) {
     init { itemView.setOnClickListener { listener.onClick() } }
 
     interface Listener {

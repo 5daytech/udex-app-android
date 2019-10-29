@@ -20,5 +20,4 @@ interface EnabledCoinsDao {
     fun insertCoins(coins: List<EnabledCoin>) {
         coins.forEach { insert(it) }
     }
-
 }

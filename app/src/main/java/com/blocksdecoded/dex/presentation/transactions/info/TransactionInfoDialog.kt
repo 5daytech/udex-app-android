@@ -13,11 +13,11 @@ import com.blocksdecoded.dex.utils.setTextColorRes
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.visible
-import kotlinx.android.synthetic.main.dialog_transaction_info.*
 import java.math.BigDecimal
+import kotlinx.android.synthetic.main.dialog_transaction_info.*
 
-class TransactionInfoDialog private constructor()
-	: BaseBottomDialog(R.layout.dialog_transaction_info) {
+class TransactionInfoDialog private constructor() :
+    BaseBottomDialog(R.layout.dialog_transaction_info) {
 
     private lateinit var viewModel: TransactionInfoViewModel
     private lateinit var transactionItem: TransactionViewItem
@@ -51,14 +51,14 @@ class TransactionInfoDialog private constructor()
     private val fullTransactionInfoObserver = Observer<String> { transactionHash ->
         activity?.openTransactionUrl(transactionHash)
     }
-	
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         transaction_info_full?.setOnClickListener {
             viewModel.onFullInfoClicked()
         }
-	}
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -73,15 +73,14 @@ class TransactionInfoDialog private constructor()
             viewModel.init(transactionItem)
         }
     }
-	
-	companion object {
-		fun show(fragmentManager: FragmentManager, transactionItem: TransactionViewItem) {
-			val dialog = TransactionInfoDialog()
+
+    companion object {
+        fun show(fragmentManager: FragmentManager, transactionItem: TransactionViewItem) {
+            val dialog = TransactionInfoDialog()
 
             dialog.transactionItem = transactionItem
 
-			dialog.show(fragmentManager, "transaction_info")
-		}
-	}
-	
+            dialog.show(fragmentManager, "transaction_info")
+        }
+    }
 }

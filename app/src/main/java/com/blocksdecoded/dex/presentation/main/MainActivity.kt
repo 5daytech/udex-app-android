@@ -184,8 +184,8 @@ class MainActivity :
         }
     }
 
-    private class MainPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
-        override fun getItem(p0: Int): Fragment = when(p0) {
+    private class MainPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+        override fun getItem(p0: Int): Fragment = when (p0) {
             0 -> BalanceFragment.newInstance()
             1 -> OrdersHostFragment.newInstance()
             2 -> ExchangeFragment.newInstance()

@@ -21,7 +21,7 @@ class KeyStoreManager(private val keyAlias: String) : IKeyStoreManager, IKeyProv
         private const val BLOCK_MODE = KeyProperties.BLOCK_MODE_CBC
         private const val PADDING = KeyProperties.ENCRYPTION_PADDING_PKCS7
 
-        private const val AUTH_DURATION_SEC = 86400 //24 hours in seconds (24x60x60)
+        private const val AUTH_DURATION_SEC = 86400 // 24 hours in seconds (24x60x60)
     }
 
     override val transformationSymmetric: String = "$ALGORITHM/$BLOCK_MODE/$PADDING"
@@ -96,5 +96,4 @@ class KeyStoreManager(private val keyAlias: String) : IKeyStoreManager, IKeyProv
     private fun validateKey() {
         CipherWrapper(transformationSymmetric).encrypt("abc", getKey())
     }
-
 }

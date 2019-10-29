@@ -1,7 +1,6 @@
 package com.blocksdecoded.dex.presentation.orders.recycler
 
 import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
@@ -15,7 +14,7 @@ import kotlinx.android.synthetic.main.item_order.*
 class OrderViewHolder(
     override val containerView: View,
     private val listener: Listener
-): RecyclerView.ViewHolder(containerView), LayoutContainer {
+) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     init {
         itemView.setOnClickListener { listener.onClick(adapterPosition) }

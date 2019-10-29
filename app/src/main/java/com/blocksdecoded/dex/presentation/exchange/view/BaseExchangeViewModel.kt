@@ -3,12 +3,12 @@ package com.blocksdecoded.dex.presentation.exchange.view
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.data.adapter.FeeRatePriority
-import com.blocksdecoded.dex.data.adapter.SendStateError
-import com.blocksdecoded.dex.data.manager.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
+import com.blocksdecoded.dex.data.adapter.FeeRatePriority
+import com.blocksdecoded.dex.data.adapter.SendStateError
+import com.blocksdecoded.dex.data.manager.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeCoinItem
@@ -19,7 +19,7 @@ import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.rx.uiSubscribe
 import java.math.BigDecimal
 
-abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
+abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
     protected val ratesConverter = App.ratesConverter
     private val relayerManager = App.relayerAdapterManager
     private val coinManager = App.coinManager
@@ -104,7 +104,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
 
                 adapterManager.adaptersUpdatedSignal.subscribe {
                         refreshPairs(viewState.value)
-                        exchangeableCoins.forEach {  coin ->
+                        exchangeableCoins.forEach { coin ->
                             val adapter = adapterManager.adapters.firstOrNull { it.coin.code == coin.code }
 
                             adapter?.balanceUpdatedFlowable
@@ -129,7 +129,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
 
     private fun updateSendInfo(amount: BigDecimal) {
         val adapter = adapterManager.adapters
-            .firstOrNull { it.coin.code == state.sendCoin?.code}
+            .firstOrNull { it.coin.code == state.sendCoin?.code }
 
         val info = AmountInfo(
             ratesConverter.getCoinsPrice(adapter?.coin?.code ?: "", amount),
@@ -137,7 +137,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
         )
 
         adapter?.validate(amount, null, FeeRatePriority.MEDIUM)?.forEach {
-            when(it) {
+            when (it) {
                 is SendStateError.InsufficientFeeBalance -> {
                     info.error = R.string.error_insufficient_fee_balance
                 }
@@ -196,7 +196,7 @@ abstract class BaseExchangeViewModel<T: IExchangeViewState> : CoreViewModel() {
             val sendCoin = state?.sendCoin?.code ?: mSendCoins.first().code
             mReceiveCoins = getAvailableReceiveCoins(sendCoin)
 
-            val currentReceiveIndex = mReceiveCoins.indexOfFirst { it.code == state?.receiveCoin?.code}
+            val currentReceiveIndex = mReceiveCoins.indexOfFirst { it.code == state?.receiveCoin?.code }
 
             if (currentReceiveIndex < 0 || this.state.receiveCoin == null) {
                 this.state.receiveCoin = mReceiveCoins.firstOrNull()

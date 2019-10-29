@@ -15,7 +15,7 @@ class AmountEditText : EditText {
     private var changeListener: ((amount: BigDecimal) -> Unit)? = null
     private var decimalProvider: (() -> Int?)? = null
 
-    private val amountTextWatcher = object: SimpleTextWatcher() {
+    private val amountTextWatcher = object : SimpleTextWatcher() {
         override fun afterTextChanged(s: Editable?) {
             val amountText = s?.toString() ?: ""
             var amountNumber = when {
@@ -37,7 +37,7 @@ class AmountEditText : EditText {
     }
 
     constructor(context: Context?) : super(context) { init() }
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)  { init() }
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) { init() }
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
@@ -55,13 +55,13 @@ class AmountEditText : EditText {
         addTextChangedListener(amountTextWatcher)
     }
 
-    fun bind(onChange: (amount: BigDecimal) -> Unit) : InputConnection =
+    fun bind(onChange: (amount: BigDecimal) -> Unit): InputConnection =
         bind(onChange, null)
 
     fun bind(
         onChange: (amount: BigDecimal) -> Unit,
         decimalProvider: (() -> Int?)? = null
-    ) : InputConnection {
+    ): InputConnection {
         changeListener = onChange
         this.decimalProvider = decimalProvider
 

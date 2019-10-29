@@ -35,7 +35,7 @@ class PinViewModel : CoreViewModel(), IPinView {
     private var useCase: IBasePinUseCase? = null
 
     fun init(interactionType: PinInteractionType, showCancel: Boolean) {
-        useCase = when(interactionType) {
+        useCase = when (interactionType) {
             SET_PIN -> SetPinUseCase(this, pinManager)
             UNLOCK -> UnlockPinUseCase(
                 this,

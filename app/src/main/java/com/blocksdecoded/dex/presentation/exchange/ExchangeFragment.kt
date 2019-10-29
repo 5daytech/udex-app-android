@@ -1,14 +1,13 @@
 package com.blocksdecoded.dex.presentation.exchange
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
-
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.common.ProcessingDialog
@@ -30,28 +29,28 @@ import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.disposables.CompositeDisposable
+import java.math.BigDecimal
 import kotlinx.android.synthetic.main.fragment_exchange.*
 import kotlinx.android.synthetic.main.view_limit_order.*
 import kotlinx.android.synthetic.main.view_market_order.*
-import java.math.BigDecimal
 
 class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAdapter.Listener, IFocusListener {
 
     private lateinit var limitOrderViewModel: LimitOrderViewModel
     private lateinit var marketOrderViewModel: MarketOrderViewModel
 
-	private lateinit var exchangeAdapter: ExchangeAdapter
-    
+    private lateinit var exchangeAdapter: ExchangeAdapter
+
     private val disposables = CompositeDisposable()
     private var processingDialog: DialogFragment? = null
-    
+
     private val activeType: ExchangeType
         get() = if (exchange_pager.currentItem == 0) MARKET else LIMIT
-    
+
     private val exchangeEnableObserver = Observer<Boolean> {
         exchange_confirm?.isEnabled = it
     }
-    
+
     private val confirmObserver = Observer<ExchangeConfirmInfo> {
         ExchangeConfirmDialog.open(childFragmentManager, it)
     }
@@ -69,44 +68,44 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     }
 
     //region Lifecycle
-    
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		exchangeAdapter = ExchangeAdapter()
-	}
-	
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        exchangeAdapter = ExchangeAdapter()
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
+
         initMarketViewModel()
 
         initLimitViewModel()
     }
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         exchange_numpad?.bind(this, NumPadItemType.DOT, false, scrollable = true)
 
         exchange_confirm?.setSingleClickListener {
-            when(activeType) {
+            when (activeType) {
                 MARKET -> marketOrderViewModel.onExchangeClick()
                 LIMIT -> limitOrderViewModel.onExchangeClick()
             }
         }
-        
+
         exchange_pager?.adapter = exchangeAdapter
         exchange_tab_layout?.setupWithViewPager(exchange_pager)
-        
+
         exchange_pager?.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
-                exchange_confirm?.text = when(activeType) {
+                exchange_confirm?.text = when (activeType) {
                     MARKET -> "Exchange"
                     LIMIT -> "Place order"
                 }
             }
         })
-    
+
         // Market view
         exchange_market_view?.bind(
             onMaxClick = { marketOrderViewModel.onMaxClick() },
@@ -122,7 +121,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         exchange_market_view?.receiveAmountChangeSubject?.subscribeToInput {
             marketOrderViewModel.onReceiveAmountChange(it)
         }?.let { disposables.add(it) }
-    
+
         // Limit view
         exchange_limit_view?.bind(
             onMaxClick = { limitOrderViewModel.onMaxClick() },
@@ -130,11 +129,11 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             onReceiveCoinPick = { limitOrderViewModel.onReceiveCoinPick(it) },
             onSwitchClick = { limitOrderViewModel.onSwitchClick() }
         )
-    
+
         exchange_limit_view?.amountChangeSubject?.subscribeToInput {
             limitOrderViewModel.onSendAmountChange(it)
         }?.let { disposables.add(it) }
-    
+
         exchange_limit_view?.priceChangeSubject?.subscribeToInput {
             limitOrderViewModel.onPriceChange(it)
         }?.let { disposables.add(it) }
@@ -148,11 +147,11 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         activity?.let {
             marketOrderViewModel = ViewModelProviders.of(it).get(MarketOrderViewModel::class.java)
         } ?: return
-    
+
         marketOrderViewModel.sendCoins.observe(this, Observer {
             exchange_market_view?.updateSendCoins(it)
         })
-    
+
         marketOrderViewModel.receiveCoins.observe(this, Observer {
             exchange_market_view?.updateReceiveCoins(it)
         })
@@ -168,7 +167,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         marketOrderViewModel.receiveHintInfo.observe(this, Observer {
             exchange_market_view?.updateReceiveHint(it)
         })
-    
+
         marketOrderViewModel.viewState.observe(this, Observer {
             exchange_market_view?.updateState(it)
         })
@@ -176,20 +175,20 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         marketOrderViewModel.sendHintInfo.observe(this, Observer {
             exchange_market_view?.updateSendHint(it)
         })
-    
+
         marketOrderViewModel.messageEvent.observe(this, Observer {
             ToastHelper.showInfoMessage("Coins unlock and fill started")
         })
-    
+
         marketOrderViewModel.successEvent.observe(this, Observer {
             TransactionSentDialog.open(childFragmentManager, it)
         })
-    
+
         marketOrderViewModel.exchangePrice.observe(this, Observer {
             val info = "Price per token: ${it.toDisplayFormat()}" + if (it == BigDecimal.ZERO) {
                 "\nOrderbook is empty"
             } else { "" }
-        
+
             exchange_info?.text = info
         })
 
@@ -211,11 +210,11 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         limitOrderViewModel.sendCoins.observe(this, Observer {
             exchange_limit_view?.updateSendCoins(it)
         })
-    
+
         limitOrderViewModel.receiveCoins.observe(this, Observer {
             exchange_limit_view?.updateReceiveCoins(it)
         })
-    
+
         limitOrderViewModel.viewState.observe(this, Observer {
             exchange_limit_view?.updateState(it)
         })
@@ -231,24 +230,24 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         limitOrderViewModel.sendHintInfo.observe(this, Observer {
             exchange_limit_view?.updateSendInfo(it)
         })
-    
+
         limitOrderViewModel.messageEvent.observe(this, Observer {
             ToastHelper.showSuccessMessage(it)
         })
-    
+
         limitOrderViewModel.successEvent.observe(this, Observer {
             TransactionSentDialog.open(childFragmentManager, it)
         })
-    
+
         limitOrderViewModel.exchangeEnabled.observe(this, exchangeEnableObserver)
-    
+
         limitOrderViewModel.confirmEvent.observe(this, confirmObserver)
-    
+
         limitOrderViewModel.exchangePrice.observe(this, Observer {
             val info = "Price per token: ${it.toDisplayFormat()}" + if (it == BigDecimal.ZERO) {
                 "\nOrderbook is empty"
             } else { "" }
-        
+
             exchange_info?.text = info
         })
 
@@ -263,14 +262,14 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
             exchange_pager.currentItem = 1
         })
     }
-    
+
     //endregion
 
     override fun onFocused() {
         Handler().post {
             fragment_exchange_container?.visible = true
 
-            when(activeType) {
+            when (activeType) {
                 MARKET -> market_amount_input
                 LIMIT -> limit_amount_input
             }?.requestFocus()
@@ -279,21 +278,21 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
 
     override fun onItemClick(item: NumPadItem) {
         val inputType = getInputField()
-        
-        val inputField = when(inputType) {
+
+        val inputField = when (inputType) {
             MARKET_AMOUNT -> market_amount_input
             MARKET_RECEIVE_AMOUNT -> market_receive_input
             LIMIT_AMOUNT -> limit_amount_input
             LIMIT_PRICE -> limit_price_input
         }
-        
-        val inputConnection = when(inputType) {
+
+        val inputConnection = when (inputType) {
             MARKET_AMOUNT -> exchange_market_view?.sendInputConnection
             MARKET_RECEIVE_AMOUNT -> exchange_market_view?.receiveInputConnection
             LIMIT_AMOUNT -> exchange_limit_view?.amountInputConnection
             LIMIT_PRICE -> exchange_limit_view?.priceInputConnection
         }
-        
+
         when (item.type) {
             NumPadItemType.NUMBER -> inputConnection?.commitText(item.number.toString(), 1)
             NumPadItemType.DELETE -> inputConnection?.deleteSurroundingText(1, 0)
@@ -306,7 +305,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     }
 
     override fun onItemLongClick(item: NumPadItem) {
-        val inputField = when(getInputField()) {
+        val inputField = when (getInputField()) {
             MARKET_AMOUNT -> market_amount_input
             MARKET_RECEIVE_AMOUNT -> market_receive_input
             LIMIT_AMOUNT -> limit_amount_input
@@ -318,12 +317,12 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         }
     }
 
-    private fun getInputField(): InputField = when(currentFocus?.id) {
+    private fun getInputField(): InputField = when (currentFocus?.id) {
         R.id.market_amount_input -> MARKET_AMOUNT
         R.id.market_receive_input -> MARKET_RECEIVE_AMOUNT
         R.id.limit_amount_input -> LIMIT_AMOUNT
         R.id.limit_price_input -> LIMIT_PRICE
-        else -> when(activeType) {
+        else -> when (activeType) {
             MARKET -> MARKET_AMOUNT
             LIMIT -> LIMIT_AMOUNT
         }

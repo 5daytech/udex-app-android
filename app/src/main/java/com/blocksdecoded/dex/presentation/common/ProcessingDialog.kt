@@ -8,25 +8,25 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseDialog
 import kotlinx.android.synthetic.main.dialog_step_processing.*
 
-class ProcessingDialog:
-	BaseDialog(R.layout.dialog_step_processing) {
+class ProcessingDialog :
+    BaseDialog(R.layout.dialog_step_processing) {
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
-		processing_timer?.bind(60) {
-			dismiss()
-		}
-	}
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        processing_timer?.bind(60) {
+            dismiss()
+        }
+    }
 
-	companion object {
-		fun show(fragmentManager: FragmentManager): DialogFragment {
-			val dialog = ProcessingDialog()
+    companion object {
+        fun show(fragmentManager: FragmentManager): DialogFragment {
+            val dialog = ProcessingDialog()
 
-			dialog.isCancelable = false
+            dialog.isCancelable = false
 
-			dialog.show(fragmentManager, "processing")
+            dialog.show(fragmentManager, "processing")
 
-			return dialog
-		}
-	}
+            return dialog
+        }
+    }
 }

@@ -29,7 +29,7 @@ import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toPercentFormat
 import java.math.BigDecimal
 
-fun <T>List<T>?.isValidIndex(index: Int): Boolean = index in 0 until (this?.size ?: 0)
+fun <T> List<T>?.isValidIndex(index: Int): Boolean = index in 0 until (this?.size ?: 0)
 
 fun Activity?.showKeyboard() {
     this?.window?.setSoftInputMode(
@@ -101,7 +101,7 @@ fun View.dp(value: Float): Int = DimenUtils.dp(value, context)
 fun ViewGroup.inflate(@LayoutRes layoutId: Int, attach: Boolean = false): View =
     LayoutInflater.from(context).inflate(layoutId, this, attach)
 
-val Fragment.currentFocus : View?
+val Fragment.currentFocus: View?
     get() = activity?.window?.currentFocus
 
 fun Resources.Theme.getAttr(attr: Int): Int? {

@@ -14,13 +14,13 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
 class OrdersWatcher(
-	private val coinManager: ICoinManager,
-	private val relayerAdapter: IRelayerAdapter,
-	private val ratesConverter: RatesConverter
+    private val coinManager: ICoinManager,
+    private val relayerAdapter: IRelayerAdapter,
+    private val ratesConverter: RatesConverter
 ) {
-	private val disposables = CompositeDisposable()
+    private val disposables = CompositeDisposable()
 
-	var currentSelectedPair: Int = 0
+    var currentSelectedPair: Int = 0
         get() {
             if (field >= relayerAdapter.exchangePairs.size) {
                 field = 0
@@ -28,128 +28,127 @@ class OrdersWatcher(
 
             return field
         }
-		set(value) {
-			if (field == value) return
-			field = value
-			selectedPairSubject.onNext(value)
-			updateCachedOrders()
-		}
+        set(value) {
+            if (field == value) return
+            field = value
+            selectedPairSubject.onNext(value)
+            updateCachedOrders()
+        }
 
-	val selectedPairSubject: BehaviorSubject<Int> = BehaviorSubject.create()
-	
-	var uiBuyOrders: List<UiOrder> = listOf()
-	val buyOrdersSubject: BehaviorSubject<List<UiOrder>> = BehaviorSubject.create()
-	
-	var uiSellOrders: List<UiOrder> = listOf()
-	val sellOrdersSubject: BehaviorSubject<List<UiOrder>> = BehaviorSubject.create()
-	
-	var uiMyOrders: List<UiOrder> = listOf()
-	val myOrdersSubject: BehaviorSubject<List<UiOrder>> = BehaviorSubject.create()
-	
-	init {
-		relayerAdapter.sellOrders.pairUpdateSubject.subscribe {
-			if (isSelectedPair(it.baseAsset, it.quoteAsset)) {
-				refreshSellOrders(it.orders)
-			}
-		}.let { disposables.add(it) }
+    val selectedPairSubject: BehaviorSubject<Int> = BehaviorSubject.create()
 
-		relayerAdapter.buyOrders.pairUpdateSubject.subscribe {
-			if (isSelectedPair(it.baseAsset, it.quoteAsset)) {
-				refreshBuyOrders(it.orders)
-			}
-		}.let { disposables.add(it) }
+    var uiBuyOrders: List<UiOrder> = listOf()
+    val buyOrdersSubject: BehaviorSubject<List<UiOrder>> = BehaviorSubject.create()
 
-		relayerAdapter.myOrders.pairUpdateSubject.subscribe {
-			if (isSelectedPair(it.baseAsset, it.quoteAsset)) {
-				refreshMyOrders(it)
-			}
-		}.let { disposables.add(it) }
-	}
+    var uiSellOrders: List<UiOrder> = listOf()
+    val sellOrdersSubject: BehaviorSubject<List<UiOrder>> = BehaviorSubject.create()
 
-	private fun getCurrentExchangePair(): ExchangePair {
-		val selectedPairOutOfBounds = currentSelectedPair >= relayerAdapter.exchangePairs.size
+    var uiMyOrders: List<UiOrder> = listOf()
+    val myOrdersSubject: BehaviorSubject<List<UiOrder>> = BehaviorSubject.create()
 
-		if (selectedPairOutOfBounds) {
-			currentSelectedPair = 0
-		}
+    init {
+        relayerAdapter.sellOrders.pairUpdateSubject.subscribe {
+            if (isSelectedPair(it.baseAsset, it.quoteAsset)) {
+                refreshSellOrders(it.orders)
+            }
+        }.let { disposables.add(it) }
 
-		return relayerAdapter.exchangePairs[currentSelectedPair]
-	}
-	
-	private fun updateCachedOrders() {
-		val base = getCurrentExchangePair().baseAsset.assetData
-		val quote = getCurrentExchangePair().quoteAsset.assetData
-		
-		refreshBuyOrders(relayerAdapter.buyOrders.getPair(base, quote).orders)
-		refreshSellOrders(relayerAdapter.sellOrders.getPair(base, quote).orders)
-		refreshMyOrders(relayerAdapter.myOrders.getPair(base, quote))
-	}
+        relayerAdapter.buyOrders.pairUpdateSubject.subscribe {
+            if (isSelectedPair(it.baseAsset, it.quoteAsset)) {
+                refreshBuyOrders(it.orders)
+            }
+        }.let { disposables.add(it) }
 
-	private fun refreshBuyOrders(orders: List<OrderRecord>) {
-		uiBuyOrders = orders
-			.map { UiOrder.fromOrder(coinManager, ratesConverter, it.order, BUY) }
-			.sortedBy { it.price }
+        relayerAdapter.myOrders.pairUpdateSubject.subscribe {
+            if (isSelectedPair(it.baseAsset, it.quoteAsset)) {
+                refreshMyOrders(it)
+            }
+        }.let { disposables.add(it) }
+    }
 
-		buyOrdersSubject.onNext(uiBuyOrders)
-	}
+    private fun getCurrentExchangePair(): ExchangePair {
+        val selectedPairOutOfBounds = currentSelectedPair >= relayerAdapter.exchangePairs.size
 
-	private fun refreshSellOrders(orders: List<OrderRecord>) {
-		uiSellOrders = orders
-			.map { UiOrder.fromOrder(coinManager, ratesConverter, it.order, SELL) }
-			.sortedBy { it.price }
+        if (selectedPairOutOfBounds) {
+            currentSelectedPair = 0
+        }
 
-		sellOrdersSubject.onNext(uiSellOrders)
-	}
+        return relayerAdapter.exchangePairs[currentSelectedPair]
+    }
 
-	private fun refreshMyOrders(pairOrders: RelayerOrders<Pair<SignedOrder, EOrderSide>>) = try {
-		uiMyOrders = pairOrders.orders
-			.mapIndexed { index, it ->
-				UiOrder.fromOrder(
-					coinManager,
-					ratesConverter,
-					it.first,
-					it.second,
-					isMine = true,
-					orderInfo = relayerAdapter.myOrdersInfo.getPair(pairOrders.baseAsset, pairOrders.quoteAsset).orders[index]
-				)
-			}
-		myOrdersSubject.onNext(uiMyOrders)
-	} catch (e: Exception) {
-//		Logger.e(e)
-	}
+    private fun updateCachedOrders() {
+        val base = getCurrentExchangePair().baseAsset.assetData
+        val quote = getCurrentExchangePair().quoteAsset.assetData
 
-	private fun getMySelectedOrders(): RelayerOrders<Pair<SignedOrder, EOrderSide>> =
-		relayerAdapter.myOrders.getPair(
-			getCurrentExchangePair().baseAsset.assetData,
-			getCurrentExchangePair().quoteAsset.assetData
-		)
+        refreshBuyOrders(relayerAdapter.buyOrders.getPair(base, quote).orders)
+        refreshSellOrders(relayerAdapter.sellOrders.getPair(base, quote).orders)
+        refreshMyOrders(relayerAdapter.myOrders.getPair(base, quote))
+    }
 
-	private fun getSelectedOrdersInfo(): RelayerOrders<OrderInfo> =
-		relayerAdapter.myOrdersInfo.getPair(
-			getCurrentExchangePair().baseAsset.assetData,
-			getCurrentExchangePair().quoteAsset.assetData
-		)
-	
-	private fun isSelectedPair(baseAsset: String, quoteAsset: String): Boolean =
-		getCurrentExchangePair().baseAsset.assetData.equals(baseAsset, true) &&
-				getCurrentExchangePair().quoteAsset.assetData.equals(quoteAsset, true)
-	
-	//TODO: Replace with order hash
-	fun getMyOrder(position: Int, side: EOrderSide): Triple<SignedOrder, OrderInfo, EOrderSide>? = when(side) {
-		MY -> {
-			val myOrder = getMySelectedOrders().orders[position]
-			val orderInfo = getSelectedOrdersInfo().orders[position]
+    private fun refreshBuyOrders(orders: List<OrderRecord>) {
+        uiBuyOrders = orders
+            .map { UiOrder.fromOrder(coinManager, ratesConverter, it.order, BUY) }
+            .sortedBy { it.price }
 
-			Triple(myOrder.first, orderInfo, myOrder.second)
-		}
-		else -> null
-	}
-	
-	fun start() {
-	
-	}
-	
-	fun stop() {
-		disposables.dispose()
-	}
+        buyOrdersSubject.onNext(uiBuyOrders)
+    }
+
+    private fun refreshSellOrders(orders: List<OrderRecord>) {
+        uiSellOrders = orders
+            .map { UiOrder.fromOrder(coinManager, ratesConverter, it.order, SELL) }
+            .sortedBy { it.price }
+
+        sellOrdersSubject.onNext(uiSellOrders)
+    }
+
+    private fun refreshMyOrders(pairOrders: RelayerOrders<Pair<SignedOrder, EOrderSide>>) = try {
+        uiMyOrders = pairOrders.orders
+            .mapIndexed { index, it ->
+                UiOrder.fromOrder(
+                    coinManager,
+                    ratesConverter,
+                    it.first,
+                    it.second,
+                    isMine = true,
+                    orderInfo = relayerAdapter.myOrdersInfo.getPair(pairOrders.baseAsset, pairOrders.quoteAsset).orders[index]
+                )
+            }
+        myOrdersSubject.onNext(uiMyOrders)
+    } catch (e: Exception) {
+// 		Logger.e(e)
+    }
+
+    private fun getMySelectedOrders(): RelayerOrders<Pair<SignedOrder, EOrderSide>> =
+        relayerAdapter.myOrders.getPair(
+            getCurrentExchangePair().baseAsset.assetData,
+            getCurrentExchangePair().quoteAsset.assetData
+        )
+
+    private fun getSelectedOrdersInfo(): RelayerOrders<OrderInfo> =
+        relayerAdapter.myOrdersInfo.getPair(
+            getCurrentExchangePair().baseAsset.assetData,
+            getCurrentExchangePair().quoteAsset.assetData
+        )
+
+    private fun isSelectedPair(baseAsset: String, quoteAsset: String): Boolean =
+        getCurrentExchangePair().baseAsset.assetData.equals(baseAsset, true) &&
+                getCurrentExchangePair().quoteAsset.assetData.equals(quoteAsset, true)
+
+    // TODO: Replace with order hash
+    fun getMyOrder(position: Int, side: EOrderSide): Triple<SignedOrder, OrderInfo, EOrderSide>? = when (side) {
+        MY -> {
+            val myOrder = getMySelectedOrders().orders[position]
+            val orderInfo = getSelectedOrdersInfo().orders[position]
+
+            Triple(myOrder.first, orderInfo, myOrder.second)
+        }
+        else -> null
+    }
+
+    fun start() {
+    }
+
+    fun stop() {
+        disposables.dispose()
+    }
 }

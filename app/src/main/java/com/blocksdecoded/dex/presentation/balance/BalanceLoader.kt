@@ -1,15 +1,15 @@
 package com.blocksdecoded.dex.presentation.balance
 
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.core.model.BalanceState
+import com.blocksdecoded.dex.core.model.CoinBalance
+import com.blocksdecoded.dex.core.model.EConvertType
 import com.blocksdecoded.dex.data.adapter.AdapterState
 import com.blocksdecoded.dex.data.adapter.IAdapter
 import com.blocksdecoded.dex.data.manager.IAdapterManager
 import com.blocksdecoded.dex.data.manager.ICoinManager
 import com.blocksdecoded.dex.data.manager.rates.IRatesManager
 import com.blocksdecoded.dex.data.manager.rates.RatesConverter
-import com.blocksdecoded.dex.core.model.BalanceState
-import com.blocksdecoded.dex.core.model.CoinBalance
-import com.blocksdecoded.dex.core.model.EConvertType
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.blocksdecoded.dex.utils.normalizedDiv
 import io.reactivex.disposables.CompositeDisposable
@@ -93,7 +93,7 @@ class BalanceLoader(
                     ratesConverter.getCoinsPrice(adapter.coin.code, adapter.balance),
                     ratesConverter.getTokenPrice(adapter.coin.code),
                     matchAdapterState(adapter),
-                    when(adapter.coin.code) {
+                    when (adapter.coin.code) {
                         "ETH" -> EConvertType.WRAP
                         "WETH" -> EConvertType.UNWRAP
                         else -> EConvertType.NONE
@@ -120,7 +120,7 @@ class BalanceLoader(
     }
 
     private fun matchAdapterState(adapter: IAdapter): BalanceState {
-        return when(adapter.state) {
+        return when (adapter.state) {
             is AdapterState.Syncing -> {
                 BalanceState.SYNCING
             }

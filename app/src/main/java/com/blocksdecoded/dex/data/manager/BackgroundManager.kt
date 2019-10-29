@@ -47,11 +47,10 @@ class BackgroundManager(application: Application) : Application.ActivityLifecycl
         refs--
 
         if (refs == 0) {
-            //App is in background
+            // App is in background
             listeners.forEach { listener ->
                 listener.didEnterBackground()
             }
-
         }
     }
 
@@ -64,5 +63,4 @@ class BackgroundManager(application: Application) : Application.ActivityLifecycl
     override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {}
 
     override fun onActivityDestroyed(activity: Activity?) {}
-
 }

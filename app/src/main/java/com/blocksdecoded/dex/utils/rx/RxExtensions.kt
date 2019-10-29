@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 //region Core extensions
 
-fun <T> Single<T>.uiObserve() : Single<T> = this.subscribeOn(Schedulers.io())
+fun <T> Single<T>.uiObserve(): Single<T> = this.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 
 fun <T> Single<T>.ioSubscribe(
@@ -27,7 +27,7 @@ fun <T> Single<T>.ioSubscribe(
         ).let { disposables?.add(it) }
 }
 
-fun <T> Flowable<T>.uiObserve() : Flowable<T> = this.subscribeOn(Schedulers.io())
+fun <T> Flowable<T>.uiObserve(): Flowable<T> = this.subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
 
 fun <T> Flowable<T>.ioSubscribe(
@@ -56,7 +56,7 @@ fun <T> Flowable<T>.uiSubscribe(
     onNext: (T) -> Unit,
     onError: ((Throwable) -> Unit)? = null,
     onComplete: (() -> Unit)? = null
-) : Disposable = this.subscribeOn(Schedulers.io())
+): Disposable = this.subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
     .subscribe({ onNext(it) },
         { onError?.invoke(it) },
@@ -70,7 +70,7 @@ fun <T> Flowable<T>.uiSubscribe(
 fun <T> PublishSubject<T>.subscribeToInput(
     delay: Long = TimeUtils.INPUT_HANDLE_DELAY,
     onNext: (T) -> Unit
-) : Disposable = this.debounce(delay, TimeUnit.MILLISECONDS)
+): Disposable = this.debounce(delay, TimeUnit.MILLISECONDS)
     .observeOn(AndroidSchedulers.mainThread())
     .subscribe(onNext)
 

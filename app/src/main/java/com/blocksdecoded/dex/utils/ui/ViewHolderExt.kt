@@ -2,9 +2,9 @@ package com.blocksdecoded.dex.utils.ui
 
 import android.animation.ValueAnimator
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import androidx.annotation.AttrRes
+import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.utils.getAttr
 
 var RecyclerView.ViewHolder.height

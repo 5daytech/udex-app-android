@@ -5,15 +5,15 @@ import android.view.View
 import androidx.fragment.app.FragmentManager
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.data.manager.clipboard.ClipboardManager
 import com.blocksdecoded.dex.presentation.dialogs.BaseBottomDialog
-import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.ui.QrUtils
 import com.blocksdecoded.dex.utils.ui.ShareUtils
-import com.blocksdecoded.dex.data.manager.clipboard.ClipboardManager
+import com.blocksdecoded.dex.utils.ui.ToastHelper
 import kotlinx.android.synthetic.main.dialog_receive.*
 
-class ReceiveDialog private constructor()
-    : BaseBottomDialog(R.layout.dialog_receive)  {
+class ReceiveDialog private constructor() :
+    BaseBottomDialog(R.layout.dialog_receive) {
     var coinCode: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +37,6 @@ class ReceiveDialog private constructor()
         try {
             receive_qr?.setImageBitmap(QrUtils.getBarcode(receiveAddress))
         } catch (e: Exception) {
-
         }
 
         receive_forward?.setOnClickListener {

@@ -20,7 +20,7 @@ class CoinManager(
         val disposable = enabledCoinsStorage.enabledCoinsObservable()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {enabledCoinsFromStorage ->
+            .subscribe { enabledCoinsFromStorage ->
                 if (enabledCoinsFromStorage.isEmpty()) {
                     enableDefaultCoins()
                     return@subscribe
@@ -28,7 +28,7 @@ class CoinManager(
 
                 val enabledCoins = mutableListOf<Coin>()
                 enabledCoinsFromStorage.forEach { enabledCoin ->
-                    allCoins.firstOrNull { coin -> coin.code == enabledCoin.coinCode}
+                    allCoins.firstOrNull { coin -> coin.code == enabledCoin.coinCode }
                         ?.let { enabledCoins.add(it) }
                 }
                 coins = enabledCoins
@@ -52,12 +52,12 @@ class CoinManager(
 
         return if (baseIndex >= 0) baseCoins[baseIndex] else coinCode
     }
-    
+
     override fun getCoin(code: String): Coin =
         allCoins.firstOrNull { it.code == code } ?: throw Exception("Coin $code not found")
 
     override fun getErcCoinForAddress(address: String): Coin? = coins.firstOrNull {
-        when(it.type) {
+        when (it.type) {
             is CoinType.Erc20 -> it.type.address.equals(address, true)
             else -> false
         }
@@ -65,7 +65,7 @@ class CoinManager(
 
     override fun enableDefaultCoins() {
         val enabledCoins = mutableListOf<EnabledCoin>()
-        appConfiguration.defaultCoinCodes.forEachIndexed{order, coinCode ->
+        appConfiguration.defaultCoinCodes.forEachIndexed { order, coinCode ->
             enabledCoins.add(EnabledCoin(coinCode, order))
         }
         enabledCoinsStorage.save(enabledCoins)

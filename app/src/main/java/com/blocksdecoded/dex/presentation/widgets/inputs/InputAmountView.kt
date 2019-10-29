@@ -22,10 +22,9 @@ class InputAmountView : ConstraintLayout {
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-
     fun bindInitial(onMaxClick: (() -> (Unit))? = null, onSwitchClick: (() -> (Unit))? = null) {
         amount_switch.visibility = View.GONE
-        amount_max.visibility =  View.VISIBLE
+        amount_max.visibility = View.VISIBLE
 
         amount_max?.setOnClickListener { onMaxClick?.invoke() }
         amount_switch?.setOnClickListener { onSwitchClick?.invoke() }
@@ -70,5 +69,4 @@ class InputAmountView : ConstraintLayout {
     fun setMaxBtnVisible(visible: Boolean) {
         amount_max.visibility = if (visible) View.VISIBLE else View.GONE
     }
-
 }

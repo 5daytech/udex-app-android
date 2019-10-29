@@ -1,7 +1,7 @@
 package com.blocksdecoded.dex.data.adapter
 
-import com.blocksdecoded.dex.data.manager.fee.IFeeRateProvider
 import com.blocksdecoded.dex.core.model.Coin
+import com.blocksdecoded.dex.data.manager.fee.IFeeRateProvider
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -61,5 +61,4 @@ abstract class EthereumBaseAdapter(
     open fun sendSingle(address: String, amount: String, gasPrice: Long): Single<Unit> {
         return Single.just(Unit)
     }
-
 }

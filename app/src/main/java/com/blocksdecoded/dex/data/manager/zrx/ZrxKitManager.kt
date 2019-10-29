@@ -9,9 +9,9 @@ import java.math.BigInteger
 class ZrxKitManager(
     private val appConfiguration: IAppConfiguration,
     private val authManager: IAuthManager
-): IZrxKitManager {
+) : IZrxKitManager {
     val gasProvider: ZrxKit.GasInfoProvider = object : ZrxKit.GasInfoProvider() {
-        override fun getGasLimit(contractFunc: String?): BigInteger = when(contractFunc) {
+        override fun getGasLimit(contractFunc: String?): BigInteger = when (contractFunc) {
             "deposit" -> 100000.toBigInteger()
             "withdraw" -> 100000.toBigInteger()
             "approve" -> 80000.toBigInteger()
@@ -25,7 +25,7 @@ class ZrxKitManager(
 
     override fun zrxKit(): ZrxKit {
         kit?.let { return it }
-    
+
         authManager.authData?.let { auth ->
             kit = ZrxKit.getInstance(
                 appConfiguration.relayers,
@@ -34,10 +34,10 @@ class ZrxKitManager(
                 appConfiguration.zrxNetworkType,
                 gasProvider
             )
-    
+
             return kit!!
         }
-        
+
         throw UnauthorizedException()
     }
 }

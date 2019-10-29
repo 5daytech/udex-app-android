@@ -3,11 +3,11 @@ package com.blocksdecoded.dex.presentation.statschart
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.data.manager.rates.model.StatsData
 import com.blocksdecoded.dex.core.model.ChartType
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.ui.CoreViewModel
+import com.blocksdecoded.dex.data.manager.rates.model.StatsData
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.rx.uiObserve
 import com.blocksdecoded.dex.utils.rx.uiSubscribe

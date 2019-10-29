@@ -1,19 +1,19 @@
 package com.blocksdecoded.dex.data.manager.rates.remote
 
 import com.blocksdecoded.dex.core.IAppConfiguration
+import com.blocksdecoded.dex.core.network.CoreApiClient
 import com.blocksdecoded.dex.data.manager.rates.model.LatestRateData
 import com.blocksdecoded.dex.data.manager.rates.model.RateStatData
-import com.blocksdecoded.dex.core.network.CoreApiClient
 import com.blocksdecoded.dex.utils.TimeUtils
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Path
 import java.math.BigDecimal
 import java.util.concurrent.TimeoutException
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 class RatesApiClient(
     appConfiguration: IAppConfiguration
-): CoreApiClient(), IRatesApiClient {
+) : CoreApiClient(), IRatesApiClient {
     private var mainClient: HistoricalRateNetworkClient? = null
 
     private fun historicalRateApiClient(hostType: HostType): HistoricalRateNetworkClient? =

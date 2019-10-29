@@ -8,11 +8,11 @@ import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.presentation.dialogs.BaseDialog
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toMediumDisplayFormat
-import kotlinx.android.synthetic.main.dialog_send_confirm.*
 import java.math.BigDecimal
+import kotlinx.android.synthetic.main.dialog_send_confirm.*
 
-class SendConfirmDialog private constructor()
-    : BaseDialog(R.layout.dialog_send_confirm) {
+class SendConfirmDialog private constructor() :
+    BaseDialog(R.layout.dialog_send_confirm) {
 
     private var sendConfirmData: SendConfirmData? = null
 
@@ -29,7 +29,7 @@ class SendConfirmDialog private constructor()
             send_confirm_fiat_amount?.text = "$${it.fiatAmount.toFiatDisplayFormat()}"
             send_confirm_address?.update(it.address)
             send_confirm_total_amount?.setFiat(it.total, isExactAmount = true)
-            send_confirm_fee?.setCoin("ETH", it.fee, isExactAmount = false) //TODO: Get fee coin code from adapter
+            send_confirm_fee?.setCoin("ETH", it.fee, isExactAmount = false) // TODO: Get fee coin code from adapter
             send_confirm_duration?.setMillis(it.estimatedFinishTime)
         }
     }

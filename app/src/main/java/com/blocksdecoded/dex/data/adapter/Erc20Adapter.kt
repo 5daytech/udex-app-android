@@ -1,10 +1,10 @@
 package com.blocksdecoded.dex.data.adapter
 
 import android.content.Context
-import com.blocksdecoded.dex.data.manager.fee.IFeeRateProvider
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.TransactionAddress
 import com.blocksdecoded.dex.core.model.TransactionRecord
+import com.blocksdecoded.dex.data.manager.fee.IFeeRateProvider
 import io.horizontalsystems.erc20kit.core.Erc20Kit
 import io.horizontalsystems.erc20kit.core.TransactionKey
 import io.horizontalsystems.erc20kit.models.TransactionInfo
@@ -106,5 +106,4 @@ class Erc20Adapter(
             Erc20Kit.clear(context)
         }
     }
-
 }

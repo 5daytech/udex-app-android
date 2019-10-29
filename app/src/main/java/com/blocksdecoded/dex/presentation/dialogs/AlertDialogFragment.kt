@@ -10,7 +10,7 @@ class AlertDialogFragment(
     private var description: Int,
     private var buttonText: Int,
     private var onConfirm: (() -> Unit)? = null
-): BaseDialog(R.layout.dialog_alert) {
+) : BaseDialog(R.layout.dialog_alert) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -6,7 +6,7 @@ import android.widget.ImageView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.utils.ui.CoinResUtil
 
-class CoinIconView: ImageView {
+class CoinIconView : ImageView {
 
     init {
         setImageResource(R.drawable.ic_coin_placeholder)

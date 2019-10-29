@@ -23,26 +23,26 @@ class GuestActivity : CoreActivity() {
         GuestPageConfig(GuestPageType.INFO, R.string.onboarding_main_page, 0, R.drawable.ic_onboarding_main),
         GuestPageConfig(GuestPageType.INFO, R.string.onboarding_tokens_page, 0, R.drawable.ic_onboarding_tokens)
     )
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guest)
         initTransparentStatusBar()
 
         viewModel = ViewModelProviders.of(this).get(GuestViewModel::class.java)
-        
+
         viewModel.openBackupEvent.observe(this, Observer {
             MainActivity.start(this)
         })
-    
+
         viewModel.openRestoreEvent.observe(this, Observer {
             RestoreWalletActivity.start(this)
         })
-        
+
         viewModel.finishEvent.observe(this, Observer {
             finish()
         })
-        
+
         guest_create_wallet.setSingleClickListener { viewModel.onCreateClick() }
         guest_restore_wallet.setSingleClickListener { viewModel.onRestoreClick() }
 

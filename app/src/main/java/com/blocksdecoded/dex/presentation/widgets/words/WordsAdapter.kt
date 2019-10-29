@@ -21,5 +21,4 @@ class WordsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class ViewHolderWord(val textView: TextView) : RecyclerView.ViewHolder(textView)
-
 }

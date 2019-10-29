@@ -15,14 +15,14 @@ import kotlinx.android.synthetic.main.fragment_guest_onboarding_main.*
 class GuestOnboardingAdapter(
     fragmentManager: FragmentManager,
     private val pages: List<GuestPageConfig>
-): FragmentPagerAdapter(fragmentManager) {
+) : FragmentPagerAdapter(fragmentManager) {
     override fun getItem(position: Int): Fragment =
         GuestOnboardingFragment.newInstance(pages[position])
 
     override fun getCount(): Int = pages.size
 }
 
-class GuestOnboardingFragment: Fragment() {
+class GuestOnboardingFragment : Fragment() {
     private var config: GuestPageConfig? = null
 
     override fun onCreateView(

@@ -8,9 +8,9 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.orders.model.ExchangePairViewItem
 import kotlinx.android.synthetic.main.view_current_pair.view.*
 
-class ExchangePairsView: LinearLayout {
+class ExchangePairsView : LinearLayout {
     init { View.inflate(context, R.layout.view_current_pair, this) }
-    
+
     var selectedPair: Int = 0
         set(value) {
             field = value
@@ -23,11 +23,11 @@ class ExchangePairsView: LinearLayout {
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
-    
+
     fun init(onSelectPair: (Int) -> Unit) {
         current_pair_drop_down?.init(onSelectPair)
     }
-    
+
     fun refreshPairs(pairs: List<ExchangePairViewItem>) {
         current_pair_drop_down?.setData(pairs)
     }

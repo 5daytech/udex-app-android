@@ -15,7 +15,7 @@ object TimeUtils {
     fun dateInUTC(timestamp: Long, dateFormat: String): String {
         val dateFormatter = SimpleDateFormat(dateFormat, Locale("US"))
         dateFormatter.timeZone = TimeZone.getTimeZone("UTC")
-        return dateFormatter.format(Date(timestamp * 1000)) //timestamp in seconds
+        return dateFormatter.format(Date(timestamp * 1000)) // timestamp in seconds
     }
 
     fun timestampToDisplay(timestamp: Long): String {

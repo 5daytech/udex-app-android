@@ -32,12 +32,12 @@ import com.blocksdecoded.dex.utils.statusBarHeight
 import kotlin.math.absoluteValue
 
 @SuppressLint("ViewConstructor")
-class StatusInfoView (
+class StatusInfoView(
     context: Context,
     stringText: String?,
     @ColorRes alertColorRes: Int,
     @StringRes textRes: Int?
-) : LinearLayout(context, null,0) {
+) : LinearLayout(context, null, 0) {
     private val activity: Activity
         get() = context as Activity
 
@@ -52,11 +52,11 @@ class StatusInfoView (
     }
 
     private fun observeLifecycle(activity: Context) {
-        if(activity is AppCompatActivity) {
+        if (activity is AppCompatActivity) {
             activity.lifecycle.addObserver(object : LifecycleObserver {
                 @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
                 fun onDestroy() {
-                    hide(activity, Runnable{})
+                    hide(activity, Runnable {})
                     activity.lifecycle.removeObserver(this)
                 }
             })
@@ -106,7 +106,6 @@ class StatusInfoView (
                 else -> ""
             }
         }
-
 
         childContainer.addView(progressView)
         childContainer.addView(textView)
@@ -173,11 +172,11 @@ class StatusInfoView (
             @ColorRes alertColor: Int = 0
         ): StatusInfoView? {
             val key = activity.toString()
-            this.hide(activity,null)
+            this.hide(activity, null)
 
             val statusBarInfoView = StatusInfoView(activity, text, alertColor, textRes)
 
-            if(activeInfoViews[key] == null) {
+            if (activeInfoViews[key] == null) {
                 activeInfoViews[key] = mutableListOf()
             }
 

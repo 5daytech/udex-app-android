@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.*
+import android.view.GestureDetector
+import android.view.MotionEvent
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
@@ -11,10 +13,8 @@ import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_numpad_button.*
-import android.view.MotionEvent
-import android.view.GestureDetector
 
-class NumPadView: RecyclerView {
+class NumPadView : RecyclerView {
     var showFingerPrintButton: Boolean = false
         set(value) {
             field = value
@@ -43,7 +43,7 @@ class NumPadView: RecyclerView {
         adapter = numPadAdapter
 
         if (!scrollable) {
-            //disables BottomSheet dragging in numpad area
+            // disables BottomSheet dragging in numpad area
             this.setOnTouchListener { _, event ->
                 when (event?.action) {
                     MotionEvent.ACTION_DOWN,

@@ -4,13 +4,13 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
-import com.blocksdecoded.dex.utils.setTextColorRes
 import com.blocksdecoded.dex.utils.TimeUtils
+import com.blocksdecoded.dex.utils.setTextColorRes
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
+import java.math.BigDecimal
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_transaction.*
-import java.math.BigDecimal
 
 class TransactionViewHolder(
     override val containerView: View,

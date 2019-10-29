@@ -14,7 +14,7 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.BuildConfig
 import com.blocksdecoded.dex.R
 
-abstract class CoreActivity: AppCompatActivity() {
+abstract class CoreActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

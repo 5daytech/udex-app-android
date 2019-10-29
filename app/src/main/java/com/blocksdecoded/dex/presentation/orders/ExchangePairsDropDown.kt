@@ -15,7 +15,7 @@ import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.visible
 
-class ExchangePairsDropDown: BaseDropDownView<ExchangePairViewItem> {
+class ExchangePairsDropDown : BaseDropDownView<ExchangePairViewItem> {
     override val popupVerticalOffset: Int = 0
 
     constructor(context: Context?) : super(context)
@@ -51,7 +51,7 @@ class ExchangePairsDropDown: BaseDropDownView<ExchangePairViewItem> {
     private class OrdersPopupAdapter(
         items: List<ExchangePairViewItem>,
         onItemPick: ((position: Int) -> Unit)? = null
-    ): BaseDropDownView.PopupAdapter<ExchangePairViewItem>(items, onItemPick) {
+    ) : BaseDropDownView.PopupAdapter<ExchangePairViewItem>(items, onItemPick) {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DropDownHolder<ExchangePairViewItem> =
             ExchangePairHolder(parent.inflate(R.layout.item_exchange_pair), onItemPick)
 
@@ -60,7 +60,7 @@ class ExchangePairsDropDown: BaseDropDownView<ExchangePairViewItem> {
             (holder as ExchangePairHolder).divider.isInvisible = position == itemCount - 1
         }
 
-        private class ExchangePairHolder (
+        private class ExchangePairHolder(
             view: View,
             onItemPick: ((position: Int) -> Unit)? = null
         ) : DropDownHolder<ExchangePairViewItem> (view, onItemPick) {

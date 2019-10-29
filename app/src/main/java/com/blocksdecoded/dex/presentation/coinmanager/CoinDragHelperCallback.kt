@@ -23,7 +23,7 @@ class CoinDragHelperCallback(private var listener: Listener) : ItemTouchHelper.C
     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
         val fromPosition = viewHolder.adapterPosition
         val toPosition = target.adapterPosition
-        if(dragFrom == -1) {
+        if (dragFrom == -1) {
             dragFrom = fromPosition
         }
         dragTo = toPosition
@@ -37,7 +37,7 @@ class CoinDragHelperCallback(private var listener: Listener) : ItemTouchHelper.C
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         super.clearView(recyclerView, viewHolder)
 
-        if(dragFrom != -1 && dragTo != -1 && dragFrom != dragTo) {
+        if (dragFrom != -1 && dragTo != -1 && dragFrom != dragTo) {
             listener.onItemMoveEnded(dragFrom, dragTo)
         }
 

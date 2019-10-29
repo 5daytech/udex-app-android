@@ -66,7 +66,6 @@ class CoinManagerAdapter(
                 )
             }
         }
-
     }
 
     override fun onItemMoved(from: Int, to: Int) {

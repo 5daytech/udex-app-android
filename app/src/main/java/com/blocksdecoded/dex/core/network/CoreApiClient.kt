@@ -1,12 +1,12 @@
 package com.blocksdecoded.dex.core.network
 
 import com.google.gson.GsonBuilder
+import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.*
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
 abstract class CoreApiClient {
 

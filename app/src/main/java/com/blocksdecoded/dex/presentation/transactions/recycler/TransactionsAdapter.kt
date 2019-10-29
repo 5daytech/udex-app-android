@@ -12,7 +12,7 @@ import com.blocksdecoded.dex.utils.isValidIndex
 class TransactionsAdapter(
     private val listener: TransactionViewHolder.OnClickListener,
     private val loadNextListener: ILoadNextListener
-): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mTransactions = ArrayList<TransactionViewItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -21,7 +21,7 @@ class TransactionsAdapter(
     override fun getItemCount(): Int = mTransactions.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder) {
+        when (holder) {
             is TransactionViewHolder -> holder.onBind(mTransactions[position])
         }
 
@@ -40,11 +40,9 @@ class TransactionsAdapter(
     }
 
     fun addNextTransactions(transactions: List<TransactionRecord>) {
-
     }
 
     fun addBeforeTransactions(transactions: List<TransactionRecord>) {
-
     }
 
     fun syncTransaction(it: Int?) {

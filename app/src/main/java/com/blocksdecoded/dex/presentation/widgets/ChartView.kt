@@ -12,65 +12,64 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 
-class ChartView: LineChart {
-	constructor(context: Context?) : super(context)
-	constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-	constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
-	
-	init {
-		this.setTouchEnabled(true)
-		this.isDragEnabled = true
-		this.setScaleEnabled(false)
-		this.setDrawGridBackground(false)
-		this.setPinchZoom(false)
-		this.description?.isEnabled = false
-		this.setDrawBorders(false)
-		this.axisLeft?.isEnabled = false
-		this.axisRight?.isEnabled = false
-		this.xAxis?.isEnabled = false
-		this.setBorderWidth(0f)
-		this.legend.isEnabled = false
-		this.setViewPortOffsets(0f, 0f, 0f, 0f)
-	}
-	
-	fun displayData(
-		data: List<ChartPoint>,
-		@ColorRes lineColor: Int,
-		@DrawableRes backgroundDrawable: Int,
-		drawAnimationDuration: Int = 300
-	) {
-		this.visible = data.isNotEmpty()
-		
-		if (data.isEmpty()) {
-			this.clear()
-			return
-		}
-		
-		this.resetZoom()
-		this.zoomOut()
-		val entries = arrayListOf<Entry>()
+class ChartView : LineChart {
+    constructor(context: Context?) : super(context)
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
 
-		data.forEach {
-			try {
-				entries.add(Entry(it.timestamp.toFloat(), it.value))
-			} catch (e: Exception) {
+    init {
+        this.setTouchEnabled(true)
+        this.isDragEnabled = true
+        this.setScaleEnabled(false)
+        this.setDrawGridBackground(false)
+        this.setPinchZoom(false)
+        this.description?.isEnabled = false
+        this.setDrawBorders(false)
+        this.axisLeft?.isEnabled = false
+        this.axisRight?.isEnabled = false
+        this.xAxis?.isEnabled = false
+        this.setBorderWidth(0f)
+        this.legend.isEnabled = false
+        this.setViewPortOffsets(0f, 0f, 0f, 0f)
+    }
 
-			}
-		}
-		
-		val dataSet = LineDataSet(entries, "")
-		dataSet.setDrawCircleHole(false)
-		dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
-		dataSet.setDrawCircles(false)
-		dataSet.cubicIntensity = 0.1f
-		dataSet.setDrawFilled(true)
-		dataSet.lineWidth = 1f
-		dataSet.setDrawValues(false)
-		
-		dataSet.color = ContextCompat.getColor(context, lineColor)
-		dataSet.fillDrawable = ContextCompat.getDrawable(context, backgroundDrawable)
+    fun displayData(
+        data: List<ChartPoint>,
+        @ColorRes lineColor: Int,
+        @DrawableRes backgroundDrawable: Int,
+        drawAnimationDuration: Int = 300
+    ) {
+        this.visible = data.isNotEmpty()
 
-		this.data = LineData(dataSet)
-		this.animateXY(drawAnimationDuration + (drawAnimationDuration / 2), drawAnimationDuration)
-	}
+        if (data.isEmpty()) {
+            this.clear()
+            return
+        }
+
+        this.resetZoom()
+        this.zoomOut()
+        val entries = arrayListOf<Entry>()
+
+        data.forEach {
+            try {
+                entries.add(Entry(it.timestamp.toFloat(), it.value))
+            } catch (e: Exception) {
+            }
+        }
+
+        val dataSet = LineDataSet(entries, "")
+        dataSet.setDrawCircleHole(false)
+        dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+        dataSet.setDrawCircles(false)
+        dataSet.cubicIntensity = 0.1f
+        dataSet.setDrawFilled(true)
+        dataSet.lineWidth = 1f
+        dataSet.setDrawValues(false)
+
+        dataSet.color = ContextCompat.getColor(context, lineColor)
+        dataSet.fillDrawable = ContextCompat.getDrawable(context, backgroundDrawable)
+
+        this.data = LineData(dataSet)
+        this.animateXY(drawAnimationDuration + (drawAnimationDuration / 2), drawAnimationDuration)
+    }
 }

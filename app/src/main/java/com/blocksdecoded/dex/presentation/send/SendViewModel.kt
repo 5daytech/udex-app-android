@@ -3,14 +3,12 @@ package com.blocksdecoded.dex.presentation.send
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.core.model.Coin
+import com.blocksdecoded.dex.core.ui.CoreViewModel
+import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.data.adapter.FeeRatePriority
 import com.blocksdecoded.dex.data.adapter.IAdapter
 import com.blocksdecoded.dex.data.adapter.SendStateError
-import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.utils.rx.uiObserve
-import com.blocksdecoded.dex.core.ui.CoreViewModel
-import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.data.manager.clipboard.ClipboardManager
 import com.blocksdecoded.dex.data.manager.duration.ETransactionType
 import com.blocksdecoded.dex.data.manager.duration.IProcessingDurationProvider
@@ -19,13 +17,15 @@ import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.send.confirm.SendConfirmDialog
 import com.blocksdecoded.dex.presentation.send.model.ReceiveAddressInfo
 import com.blocksdecoded.dex.presentation.send.model.SendUserInput
+import com.blocksdecoded.dex.utils.Logger
+import com.blocksdecoded.dex.utils.rx.uiObserve
 import java.lang.Exception
 import java.math.BigDecimal
 
 class SendViewModel(
     private val ratesConverter: RatesConverter = App.ratesConverter,
     private val estimatedDurationProvider: IProcessingDurationProvider = App.processingDurationProvider
-): CoreViewModel() {
+) : CoreViewModel() {
 
     private lateinit var adapter: IAdapter
     private var userInput = SendUserInput()
@@ -53,7 +53,7 @@ class SendViewModel(
         } else {
             this.adapter = adapter
         }
-    
+
         coin.value = adapter.coin
         decimalSize = adapter.decimal
         reset()
@@ -102,7 +102,7 @@ class SendViewModel(
                 messageEvent.postValue(R.string.error_send)
             }).let { disposables.add(it) }
     }
-    
+
     private fun refreshSendEnable() {
         val validAmount = userInput.amount > BigDecimal.ZERO &&
                 (sendInfo.value?.error ?: 1) == 0
@@ -120,7 +120,7 @@ class SendViewModel(
         )
 
         adapter.validate(sendAmount, null, FeeRatePriority.MEDIUM).forEach {
-            when(it) {
+            when (it) {
                 is SendStateError.InsufficientAmount -> {
                     info.error = R.string.error_insufficient_balance
                 }
@@ -174,7 +174,6 @@ class SendViewModel(
     }
 
     fun onSwitchClick() {
-
     }
 
     fun onPasteClick() {
@@ -184,7 +183,7 @@ class SendViewModel(
     fun onDeleteAddressClick() {
         receiveAddress.value = ReceiveAddressInfo("", 0)
         userInput.address = null
-	    refreshSendEnable()
+        refreshSendEnable()
     }
 
     fun onSendClicked() {

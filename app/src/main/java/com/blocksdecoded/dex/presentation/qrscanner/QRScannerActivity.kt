@@ -70,5 +70,4 @@ class QRScannerActivity : AppCompatActivity() {
             intentIntegrator.initiateScan()
         }
     }
-
 }

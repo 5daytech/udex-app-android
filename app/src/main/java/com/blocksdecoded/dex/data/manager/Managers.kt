@@ -1,8 +1,8 @@
 package com.blocksdecoded.dex.data.manager
 
-import com.blocksdecoded.dex.data.adapter.IAdapter
 import com.blocksdecoded.dex.core.model.AuthData
 import com.blocksdecoded.dex.core.model.Coin
+import com.blocksdecoded.dex.data.adapter.IAdapter
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
@@ -39,7 +39,7 @@ interface IAdapterManager {
 interface IWordsManager {
     var isBackedUp: Boolean
     var backedUpSignal: PublishSubject<Unit>
-    
+
     fun validate(words: List<String>)
     fun generateWords(): List<String>
 }

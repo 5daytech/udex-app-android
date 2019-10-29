@@ -22,7 +22,7 @@ class OrdersViewModel : CoreViewModel() {
 
     private val currentPair: Pair<String, String>?
         get() = availablePairs.value?.let { pairs ->
-            selectedPairPosition.value?.let {  position ->
+            selectedPairPosition.value?.let { position ->
                 if (pairs.isValidIndex(position))
                     pairs[position].baseCoin to pairs[position].quoteCoin
                 else
@@ -69,7 +69,7 @@ class OrdersViewModel : CoreViewModel() {
             sellOrders.postValue(orders)
         }, { Logger.e(it) })?.let { disposables.add(it) }
 
-        zrxOrdersWatcher?.myOrdersSubject?.subscribe({orders ->
+        zrxOrdersWatcher?.myOrdersSubject?.subscribe({ orders ->
             myOrders.postValue(orders)
         }, { Logger.e(it) })?.let { disposables.add(it) }
 
@@ -121,9 +121,9 @@ class OrdersViewModel : CoreViewModel() {
     fun onPickPair(position: Int) {
         zrxOrdersWatcher?.currentSelectedPair = position
     }
-    
+
     fun onOrderClick(position: Int, side: EOrderSide) {
-        when(side) {
+        when (side) {
             BUY -> {
                 if (buyOrders.value != null && buyOrders.value!!.isValidIndex(position)) {
                     currentPair?.let {

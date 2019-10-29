@@ -5,7 +5,7 @@ import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
 
-class TransactionInfoViewModel: CoreViewModel() {
+class TransactionInfoViewModel : CoreViewModel() {
 
     val transactionView = MutableLiveData<TransactionViewItem>()
 
@@ -21,6 +21,4 @@ class TransactionInfoViewModel: CoreViewModel() {
             fullInfoEvent.value = it.transactionHash
         }
     }
-
-
 }

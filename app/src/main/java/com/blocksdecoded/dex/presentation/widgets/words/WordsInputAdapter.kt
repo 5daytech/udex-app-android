@@ -17,5 +17,4 @@ class WordsInputAdapter(private val listener: WordInputViewHolder.OnWordChangeLi
     override fun onBindViewHolder(holder: WordInputViewHolder, position: Int) {
         holder.bind(position)
     }
-
 }

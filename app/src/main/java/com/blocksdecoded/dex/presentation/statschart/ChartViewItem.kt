@@ -1,9 +1,9 @@
 package com.blocksdecoded.dex.presentation.statschart
 
-import com.blocksdecoded.dex.data.manager.rates.model.ChartPoint
-import com.blocksdecoded.dex.data.manager.rates.model.StatsData
 import com.blocksdecoded.dex.core.model.ChartType
 import com.blocksdecoded.dex.core.model.Rate
+import com.blocksdecoded.dex.data.manager.rates.model.ChartPoint
+import com.blocksdecoded.dex.data.manager.rates.model.StatsData
 import java.math.BigDecimal
 
 data class ChartViewItem(

@@ -2,12 +2,12 @@ package com.blocksdecoded.dex.presentation.widgets
 
 import android.content.Context
 import android.util.AttributeSet
-import com.google.android.material.tabs.TabLayout
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.blocksdecoded.dex.R
+import com.google.android.material.tabs.TabLayout
 
-class DividedTabLayout: TabLayout {
+class DividedTabLayout : TabLayout {
     constructor(context: Context?) : super(context) {
         init(null)
     }

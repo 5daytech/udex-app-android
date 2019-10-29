@@ -97,13 +97,13 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        balance_recycler?.layoutManager = object: LinearLayoutManager(context) {
+        balance_recycler?.layoutManager = object : LinearLayoutManager(context) {
             override fun supportsPredictiveItemAnimations(): Boolean = false
         }
 
         balance_recycler?.adapter = adapter
         (balance_recycler?.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
-        
+
         swipe_refresh?.setOnRefreshListener {
             viewModel.refresh()
             swipe_refresh?.isRefreshing = false
@@ -130,5 +130,4 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
     companion object {
         fun newInstance() = BalanceFragment()
     }
-
 }

@@ -23,7 +23,6 @@ class FeeRateProvider(context: Context) : IFeeRateProvider, FeeRateKit.Listener 
     override fun ethereumGasPrice(priority: FeeRatePriority): Long = feeRate(etherFeeRates, priority)
 
     override fun onRefresh(rates: List<FeeRate>) {
-
     }
 
     private fun feeRate(feeRate: FeeRate, priority: FeeRatePriority): Long = when (priority) {

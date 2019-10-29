@@ -15,7 +15,7 @@ import com.blocksdecoded.dex.presentation.orders.recycler.OrdersAdapter
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_orders.*
 
-class OrdersFragment: CoreFragment(R.layout.fragment_orders), OrderViewHolder.Listener {
+class OrdersFragment : CoreFragment(R.layout.fragment_orders), OrderViewHolder.Listener {
 
     private lateinit var adapter: OrdersAdapter
     private lateinit var viewModel: OrdersViewModel
@@ -25,13 +25,13 @@ class OrdersFragment: CoreFragment(R.layout.fragment_orders), OrderViewHolder.Li
         super.onCreate(savedInstanceState)
         adapter = OrdersAdapter(this)
     }
-    
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (savedInstanceState == null && activity != null) {
             viewModel = ViewModelProviders.of(activity!!).get(OrdersViewModel::class.java)
-            
-            when(side) {
+
+            when (side) {
                 BUY -> viewModel.buyOrders
                 SELL -> viewModel.sellOrders
                 MY -> viewModel.myOrders
@@ -52,7 +52,7 @@ class OrdersFragment: CoreFragment(R.layout.fragment_orders), OrderViewHolder.Li
     override fun onClick(position: Int) {
         viewModel.onOrderClick(position, side)
     }
-    
+
     companion object {
         fun newInstance(orderSide: EOrderSide): Fragment = OrdersFragment().apply {
             side = orderSide

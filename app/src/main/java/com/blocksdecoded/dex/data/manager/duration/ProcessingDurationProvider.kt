@@ -10,7 +10,7 @@ class ProcessingDurationProvider : IProcessingDurationProvider {
     override fun getEstimatedDuration(
         coin: Coin,
         type: ETransactionType
-    ): Long = when(type) {
+    ): Long = when (type) {
         SEND -> 20
         CONVERT -> 20
         EXCHANGE -> 30

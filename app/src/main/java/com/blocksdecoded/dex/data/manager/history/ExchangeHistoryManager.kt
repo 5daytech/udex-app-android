@@ -1,12 +1,12 @@
 package com.blocksdecoded.dex.data.manager.history
 
-import com.blocksdecoded.dex.data.manager.IAdapterManager
 import com.blocksdecoded.dex.core.model.TransactionRecord
+import com.blocksdecoded.dex.data.manager.IAdapterManager
 import com.blocksdecoded.dex.utils.Logger
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
-//TODO: Refactoring and optimization
+// TODO: Refactoring and optimization
 class ExchangeHistoryManager(
     val adapterManager: IAdapterManager
 ) : IExchangeHistoryManager {

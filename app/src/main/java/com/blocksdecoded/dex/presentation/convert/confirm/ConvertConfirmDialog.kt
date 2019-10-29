@@ -10,8 +10,8 @@ import com.blocksdecoded.dex.core.model.EConvertType.UNWRAP
 import com.blocksdecoded.dex.core.model.EConvertType.WRAP
 import com.blocksdecoded.dex.presentation.dialogs.BaseDialog
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
-import kotlinx.android.synthetic.main.dialog_convert_confirm.*
 import java.math.BigDecimal
+import kotlinx.android.synthetic.main.dialog_convert_confirm.*
 
 class ConvertConfirmDialog : BaseDialog(R.layout.dialog_convert_confirm) {
     lateinit var confirmInfo: ConvertConfirmInfo
@@ -32,7 +32,7 @@ class ConvertConfirmDialog : BaseDialog(R.layout.dialog_convert_confirm) {
             dismiss()
         }
 
-        dialog_title?.text = when(confirmInfo.action) {
+        dialog_title?.text = when (confirmInfo.action) {
             WRAP -> getString(R.string.action_wrap)
             UNWRAP -> getString(R.string.action_unwrap)
             else -> ""

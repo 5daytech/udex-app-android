@@ -3,6 +3,11 @@ package com.blocksdecoded.dex
 import android.app.Application
 import com.blocksdecoded.dex.core.AppConfiguration
 import com.blocksdecoded.dex.core.IAppConfiguration
+import com.blocksdecoded.dex.core.network.NetworkStateManager
+import com.blocksdecoded.dex.core.shared.AppPreferences
+import com.blocksdecoded.dex.core.shared.IAppPreferences
+import com.blocksdecoded.dex.core.shared.ISharedStorage
+import com.blocksdecoded.dex.core.shared.SharedStorage
 import com.blocksdecoded.dex.data.adapter.AdapterFactory
 import com.blocksdecoded.dex.data.manager.*
 import com.blocksdecoded.dex.data.manager.auth.AuthManager
@@ -25,17 +30,12 @@ import com.blocksdecoded.dex.data.manager.zrx.IRelayerAdapterManager
 import com.blocksdecoded.dex.data.manager.zrx.IZrxKitManager
 import com.blocksdecoded.dex.data.manager.zrx.RelayerAdapterManager
 import com.blocksdecoded.dex.data.manager.zrx.ZrxKitManager
-import com.blocksdecoded.dex.core.network.NetworkStateManager
 import com.blocksdecoded.dex.data.security.*
 import com.blocksdecoded.dex.data.security.encryption.EncryptionManager
 import com.blocksdecoded.dex.data.security.encryption.IEncryptionManager
-import com.blocksdecoded.dex.data.shared.AppPreferences
-import com.blocksdecoded.dex.data.shared.IAppPreferences
-import com.blocksdecoded.dex.core.shared.ISharedStorage
-import com.blocksdecoded.dex.core.shared.SharedStorage
 import com.blocksdecoded.dex.data.storage.*
 
-class App: Application() {
+class App : Application() {
     companion object {
         lateinit var instance: App
             private set
@@ -45,7 +45,7 @@ class App: Application() {
         // Kits
         lateinit var zrxKitManager: IZrxKitManager
         lateinit var ethereumKitManager: IEthereumKitManager
-        
+
         // Managers
         lateinit var coinManager: ICoinManager
         lateinit var adapterManager: IAdapterManager
@@ -71,10 +71,10 @@ class App: Application() {
         lateinit var ratesManager: IRatesManager
         lateinit var ratesStatsManager: RatesStatsManager
         lateinit var ratesConverter: RatesConverter
-        
+
         // Factories
         lateinit var adapterFactory: AdapterFactory
-        
+
         // Storage
         lateinit var appDatabase: AppDatabase
         lateinit var enabledCoinsStorage: IEnabledCoinsStorage
@@ -111,8 +111,8 @@ class App: Application() {
         networkStateManager = NetworkStateManager()
 
         // Auth
-	    wordsManager = WordsManager(appPreferences)
-	    authManager = AuthManager(securedStorage, coinManager)
+        wordsManager = WordsManager(appPreferences)
+        authManager = AuthManager(securedStorage, coinManager)
         pinManager = PinManager(securedStorage)
 
         keyStoreChangeListener = KeyStoreChangeListener(systemInfoManager, keyStoreManager).apply {
@@ -137,7 +137,7 @@ class App: Application() {
         ratesManager = RatesManager(coinManager, marketsStorage, historicalRatesStorage, ratesClient)
         ratesConverter = RatesConverter(ratesManager = ratesManager)
         ratesStatsManager = RatesStatsManager(coinManager, ratesClient, ratesManager)
-        
+
         // Init adapter managers
         adapterFactory = AdapterFactory(ethereumKitManager, feeRateProvider)
         adapterManager = AdapterManager(coinManager, adapterFactory, ethereumKitManager, authManager).also {

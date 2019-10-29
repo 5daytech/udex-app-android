@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.blocksdecoded.dex.App
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class CoreViewModel: ViewModel() {
+abstract class CoreViewModel : ViewModel() {
     protected val disposables = CompositeDisposable()
 
     val errorEvent = SingleLiveEvent<Int>()

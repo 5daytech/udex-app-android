@@ -26,21 +26,21 @@ import com.blocksdecoded.dex.utils.rx.subscribeToInput
 import com.blocksdecoded.dex.utils.ui.ToastHelper
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
+import java.math.BigDecimal
 import kotlinx.android.synthetic.main.dialog_convert.*
 import kotlinx.android.synthetic.main.view_amount_input.*
-import java.math.BigDecimal
 
-class ConvertDialog private constructor()
-    : BaseBottomDialog(R.layout.dialog_convert), NumPadItemsAdapter.Listener {
+class ConvertDialog private constructor() :
+    BaseBottomDialog(R.layout.dialog_convert), NumPadItemsAdapter.Listener {
 
     private lateinit var viewModel: ConvertViewModel
     lateinit var config: ConvertConfig
-    
+
     private var inputConnection: InputConnection? = null
     private val amountChangeSubject: PublishSubject<BigDecimal> = PublishSubject.create()
     private var disposable: Disposable? = null
     private var processingDialog: DialogFragment? = null
-    
+
     @SuppressLint("SetTextI18n")
     private fun updateState(state: ConvertState) {
         val action = when (state.type) {
@@ -52,12 +52,12 @@ class ConvertDialog private constructor()
         convert_action_name?.text = action
         convert_confirm?.text = action
         convert_coin_code?.text = state.fromCoin.code
-    
+
         convert_total_balance.update(state.balance, false)
         convert_coin_icon?.bind(state.fromCoin.code)
         convert_amount?.updateAmountPrefix(state.fromCoin.code)
     }
-    
+
     private fun updateReceiveAmount(amount: BigDecimal) {
         if (amount > BigDecimal.ZERO) {
             convert_receive_amount?.text = amount.stripTrailingZeros().toPlainString()
@@ -65,7 +65,7 @@ class ConvertDialog private constructor()
             convert_receive_amount?.text = ""
         }
     }
-    
+
     private fun updateSendAmount(amount: BigDecimal) {
         if (amount > BigDecimal.ZERO) {
             amount_input?.setText(amount.stripTrailingZeros().toPlainString())
@@ -74,17 +74,17 @@ class ConvertDialog private constructor()
             amount_input?.setText("")
         }
     }
-    
+
     //region Lifecycle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         activity?.let {
             viewModel = ViewModelProviders.of(it).get(ConvertViewModel::class.java)
             viewModel.init(config)
         }
-        
+
         disposable = amountChangeSubject.subscribeToInput {
             viewModel.onAmountChanged(it)
         }
@@ -92,21 +92,21 @@ class ConvertDialog private constructor()
         viewModel.convertState.observe(this, Observer { state ->
             updateState(state)
         })
-        
+
         viewModel.errorEvent.observe(this, Observer {
             ToastHelper.showErrorMessage(it)
         })
-        
+
         viewModel.messageEvent.observe(this, Observer {
             ToastHelper.showInfoMessage(it)
         })
-        
+
         viewModel.convertAmount.observe(this, Observer { amount -> updateSendAmount(amount) })
-        
-        viewModel.receiveAmount.observe(this, Observer {amount ->
+
+        viewModel.receiveAmount.observe(this, Observer { amount ->
             updateReceiveAmount(amount)
         })
-        
+
         viewModel.convertEnabled.observe(this, Observer {
             convert_confirm?.isEnabled = it
         })
@@ -141,17 +141,16 @@ class ConvertDialog private constructor()
             fragmentManager?.let { ConvertConfirmDialog.show(it, info) }
         })
     }
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
-        convert_amount?.bindInitial( onMaxClick = {
+
+        convert_amount?.bindInitial(onMaxClick = {
             viewModel.onMaxClicked()
         }, onSwitchClick = {
-        
         })
 
-        inputConnection = amount_input?.bind( onChange = { amount ->
+        inputConnection = amount_input?.bind(onChange = { amount ->
             convert_amount?.setMaxBtnVisible(amount <= BigDecimal.ZERO)
 
             amountChangeSubject.onNext(amount)
@@ -160,10 +159,10 @@ class ConvertDialog private constructor()
         convert_numpad?.bind(this, NumPadItemType.DOT, false)
 
         focusInput()
-    
+
         convert_confirm?.setSingleClickListener { viewModel.onConvertClick() }
     }
-    
+
     //endregion
 
     private fun focusInput() {

@@ -11,14 +11,14 @@ import com.blocksdecoded.dex.utils.setVisible
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.visible
+import java.math.BigDecimal
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_balance.*
-import java.math.BigDecimal
 
 class BalanceViewHolder(
     override val containerView: View,
     private val listener: Listener
-): RecyclerView.ViewHolder(containerView), LayoutContainer {
+) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     init {
         itemView.setOnClickListener { listener.onClick(adapterPosition) }
@@ -39,7 +39,7 @@ class BalanceViewHolder(
         balance_amount.text = "${coinBalance.balance.toDisplayFormat()} ${coinBalance.coin.code}"
         balance_fiat_amount.text = "$${coinBalance.fiatBalance.toFiatDisplayFormat()}"
         balance_token_price.text = "$${coinBalance.pricePerToken.toFiatDisplayFormat()} per ${coinBalance.coin.code}"
-        
+
         balance_buttons_container.visible = expanded
 
         val isPositive = coinBalance.balance > BigDecimal.ZERO
@@ -47,8 +47,8 @@ class BalanceViewHolder(
         balance_convert.isEnabled = isPositive
         balance_send.alpha = if (isPositive) 1f else 0.4f
         balance_convert.alpha = if (isPositive) 1f else 0.4f
-        
-        when(coinBalance.convertType) {
+
+        when (coinBalance.convertType) {
             NONE -> {
                 balance_convert.visible = false
             }
@@ -66,7 +66,7 @@ class BalanceViewHolder(
         balance_icon.visible = false
         balance_sync_error.visible = false
 
-        when(coinBalance.state) {
+        when (coinBalance.state) {
             SYNCED -> {
                 balance_icon.visible = true
             }

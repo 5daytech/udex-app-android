@@ -10,7 +10,7 @@ import com.blocksdecoded.dex.utils.inflate
 class BalanceAdapter(
     private val walletListener: BalanceViewHolder.Listener,
     private val manageCoinsListener: ManageCoinsViewHolder.Listener
-): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val TYPE_WALLET = 1
     private val TYPE_MANAGE_COINS = 2
@@ -26,16 +26,15 @@ class BalanceAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        when(viewType) {
+        when (viewType) {
             TYPE_WALLET -> BalanceViewHolder(parent.inflate(R.layout.item_balance), walletListener)
             else -> ManageCoinsViewHolder(parent.inflate(R.layout.item_manage_coins), manageCoinsListener)
         }
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = Unit
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
-        when(holder) {
+        when (holder) {
             is BalanceViewHolder -> {
                 if (payloads.isEmpty()) {
                     holder.onBind(mBalances[position], mExpandedViewPosition == position)

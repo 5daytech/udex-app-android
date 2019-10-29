@@ -16,7 +16,7 @@ class ExchangeHistoryAdapter(
     override fun getItemCount(): Int = exchangeHistory.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder) {
+        when (holder) {
             is ExchangeHistoryViewHolder -> holder.onBind(exchangeHistory[position])
         }
     }

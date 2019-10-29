@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.data.shared
+package com.blocksdecoded.dex.core.shared
 
 interface IAppPreferences {
     var isBackedUp: Boolean

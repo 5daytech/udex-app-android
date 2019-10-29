@@ -5,8 +5,8 @@ import android.view.View
 import androidx.fragment.app.FragmentManager
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseDialog
-import kotlinx.android.synthetic.main.dialog_cancel_confirm.*
 import java.math.BigDecimal
+import kotlinx.android.synthetic.main.dialog_cancel_confirm.*
 
 class CancelOrderConfirmDialog : BaseDialog(R.layout.dialog_cancel_confirm) {
 
@@ -14,7 +14,6 @@ class CancelOrderConfirmDialog : BaseDialog(R.layout.dialog_cancel_confirm) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         cancel_confirm_btn?.setOnClickListener {
             cancelOrderInfo.onConfirm()

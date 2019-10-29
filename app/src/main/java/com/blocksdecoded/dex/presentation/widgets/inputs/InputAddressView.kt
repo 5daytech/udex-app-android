@@ -20,9 +20,9 @@ class InputAddressView : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     fun bindAddressInputInitial(
-            onBarcodeClick: (() -> Unit)? = null,
-            onPasteClick: (() -> Unit)? = null,
-            onDeleteClick: (() -> Unit)? = null
+        onBarcodeClick: (() -> Unit)? = null,
+        onPasteClick: (() -> Unit)? = null,
+        onDeleteClick: (() -> Unit)? = null
     ) {
         address_barcode_scan?.visibility = View.VISIBLE
         address_paste?.visibility = View.VISIBLE
@@ -37,8 +37,8 @@ class InputAddressView : ConstraintLayout {
 
     private fun updateAddress(address: String) {
         val empty = address.isEmpty()
-        address_barcode_scan.visibility =  if (empty) View.VISIBLE else View.GONE
-        address_paste.visibility =  if (empty) View.VISIBLE else View.GONE
+        address_barcode_scan.visibility = if (empty) View.VISIBLE else View.GONE
+        address_paste.visibility = if (empty) View.VISIBLE else View.GONE
         address_delete.visibility = if (!empty) View.VISIBLE else View.GONE
 
         address_input.text = address

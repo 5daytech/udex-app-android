@@ -1,10 +1,10 @@
 package com.blocksdecoded.dex.data.adapter
 
 import android.content.Context
-import com.blocksdecoded.dex.data.manager.fee.IFeeRateProvider
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.TransactionAddress
 import com.blocksdecoded.dex.core.model.TransactionRecord
+import com.blocksdecoded.dex.data.manager.fee.IFeeRateProvider
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.horizontalsystems.ethereumkit.models.TransactionInfo
 import io.reactivex.Flowable

@@ -2,12 +2,12 @@ package com.blocksdecoded.dex.presentation.markets
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.data.manager.rates.RatesSyncState.*
-import com.blocksdecoded.dex.data.manager.rates.model.StatsData
 import com.blocksdecoded.dex.core.model.ChartType
 import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
+import com.blocksdecoded.dex.data.manager.rates.RatesSyncState.*
+import com.blocksdecoded.dex.data.manager.rates.model.StatsData
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.utils.rx.uiSubscribe
@@ -28,7 +28,7 @@ class MarketsViewModel : CoreViewModel() {
     init {
         ratesManager.ratesStateSubject
             .subscribe {
-                loading.postValue(when(it) {
+                loading.postValue(when (it) {
                     SYNCING -> true
                     SYNCED -> false
                     FAILED -> false
@@ -58,7 +58,7 @@ class MarketsViewModel : CoreViewModel() {
 
         ratesStatsManager.statsFlowable
             .uiSubscribe(disposables, { rateStats ->
-                when(rateStats) {
+                when (rateStats) {
                     is StatsData -> {
                         val index = mRates.indexOfFirst {
                             it?.coinCode == rateStats.coinCode

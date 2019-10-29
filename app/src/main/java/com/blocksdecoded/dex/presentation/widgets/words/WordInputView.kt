@@ -20,7 +20,6 @@ class WordInputView : LinearLayout {
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-
     fun bindPrefix(prefix: String) {
         word_prefix?.text = prefix
     }

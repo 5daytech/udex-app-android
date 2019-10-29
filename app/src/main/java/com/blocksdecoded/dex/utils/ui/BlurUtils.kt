@@ -14,7 +14,6 @@ import androidx.renderscript.RenderScript
 import androidx.renderscript.ScriptIntrinsicBlur
 import com.blocksdecoded.dex.utils.statusBarHeight
 
-
 object BlurUtils {
     private const val WIDTH_INDEX = 0
     private const val HEIGHT_INDEX = 1

@@ -10,10 +10,10 @@ import com.blocksdecoded.dex.LaunchActivity
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.SwipeableActivity
 import com.blocksdecoded.dex.presentation.backup.BackupIntroActivity
-import com.blocksdecoded.dex.presentation.pin.PinActivity
-import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.presentation.dialogs.AlertDialogFragment
 import com.blocksdecoded.dex.presentation.dialogs.ConfirmActionDialog
+import com.blocksdecoded.dex.presentation.pin.PinActivity
+import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import kotlinx.android.synthetic.main.activity_security_center.*
 import kotlinx.android.synthetic.main.activity_security_center.toolbar
 

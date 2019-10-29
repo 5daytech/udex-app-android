@@ -57,5 +57,4 @@ class BackupIntroActivity : SwipeableActivity() {
             context.startActivity(intent)
         }
     }
-
 }

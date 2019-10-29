@@ -20,7 +20,7 @@ class KeyStoreViewModel : CoreViewModel() {
     val closeApplication = SingleLiveEvent<Void>()
 
     fun init(mode: KeyStoreActivity.Companion.ModeType) {
-        title.value = when(mode) {
+        title.value = when (mode) {
             NO_SYSTEM_LOCK -> R.string.keystore_system_lock_required
             INVALID_KEY -> R.string.keystore_key_invalidated
             USER_AUTHENTICATION -> R.string.keystore_user_auth
@@ -28,7 +28,7 @@ class KeyStoreViewModel : CoreViewModel() {
 
         cleanupManager.cleanUserData()
 
-        when(mode) {
+        when (mode) {
             NO_SYSTEM_LOCK -> showNoSystemLockWarning.call()
             INVALID_KEY -> showInvalidKeyWarning.call()
             USER_AUTHENTICATION -> promptUserAuthentication.call()

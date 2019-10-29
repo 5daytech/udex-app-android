@@ -5,14 +5,14 @@ import android.util.AttributeSet
 import android.view.*
 import android.widget.PopupWindow
 import androidx.annotation.CallSuper
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.utils.inflate
-import com.blocksdecoded.dex.utils.ui.isVisible
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isInvisible
 import com.blocksdecoded.dex.utils.isValidIndex
+import com.blocksdecoded.dex.utils.ui.isVisible
 import kotlinx.android.synthetic.main.view_drop_down.view.*
 
 abstract class BaseDropDownView<T> : ConstraintLayout {

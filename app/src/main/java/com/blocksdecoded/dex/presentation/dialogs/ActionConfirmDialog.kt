@@ -71,8 +71,8 @@ class ConfirmActionDialog(
     }
 }
 
-class ConfirmationsAdapter(private var listener: Listener, private val confirmations: List<CheckBoxItem>)
-    : RecyclerView.Adapter<ViewHolderConfirmation>() {
+class ConfirmationsAdapter(private var listener: Listener, private val confirmations: List<CheckBoxItem>) :
+    RecyclerView.Adapter<ViewHolderConfirmation>() {
 
     interface Listener {
         fun onItemCheckMarkClick(position: Int, checked: Boolean)
@@ -92,7 +92,7 @@ class ConfirmationsAdapter(private var listener: Listener, private val confirmat
 class ViewHolderConfirmation(
     view: View,
     private val listener: ConfirmationsAdapter.Listener
-) : RecyclerView.ViewHolder(view){
+) : RecyclerView.ViewHolder(view) {
 
     private val confirmCheckbox = itemView.findViewById<CheckBox>(R.id.confirm_checkbox)
 

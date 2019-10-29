@@ -2,10 +2,10 @@ package com.blocksdecoded.dex.data.manager.zrx
 
 import com.blocksdecoded.dex.core.CancelOrderException
 import com.blocksdecoded.dex.core.CreateOrderException
+import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.data.manager.ICoinManager
 import com.blocksdecoded.dex.data.manager.zrx.model.CreateOrderData
 import com.blocksdecoded.dex.data.manager.zrx.model.FillOrderData
-import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.contracts.ZrxExchangeWrapper
@@ -37,12 +37,12 @@ class ExchangeInteractor(
     ): Flowable<SignedOrder> {
         val expirationTime = ((Date().time / 1000) + (60 * 60 * 24 * 7)).toString() // Order valid for 7 days
 
-        val makerAsset = when(side) {
+        val makerAsset = when (side) {
             EOrderSide.BUY -> takeAsset
             else -> makeAsset
         }
 
-        val takerAsset = when(side) {
+        val takerAsset = when (side) {
             EOrderSide.BUY -> makeAsset
             else -> takeAsset
         }

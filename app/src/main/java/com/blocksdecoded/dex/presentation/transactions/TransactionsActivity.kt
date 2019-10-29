@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.blocksdecoded.dex.core.ui.SwipeableActivity
 
-class TransactionsActivity: SwipeableActivity() {
+class TransactionsActivity : SwipeableActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

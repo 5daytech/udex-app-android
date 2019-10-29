@@ -12,7 +12,8 @@ data class TransactionRecord(
     val fee: BigDecimal? = null,
     val timestamp: Long,
     val from: List<TransactionAddress>,
-    val to: List<TransactionAddress>) : Comparable<TransactionRecord> {
+    val to: List<TransactionAddress>
+) : Comparable<TransactionRecord> {
 
     override fun compareTo(other: TransactionRecord): Int {
         return when {

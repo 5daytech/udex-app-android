@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: "org.jmailen.kotlinter"
+
 android {
     def STRING = "String"
     def INFURA_PROJECT_ID = "INFURA_PROJECT_ID"
@@ -63,6 +65,14 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinter {
+        ignoreFailures = false
+        reporters = ['checkstyle', 'plain']
+        experimentalRules = false
+        fileBatchSize = 30
+        disabledRules = ["no-wildcard-imports"]
     }
 }
 

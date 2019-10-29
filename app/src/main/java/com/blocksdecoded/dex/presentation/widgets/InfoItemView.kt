@@ -11,11 +11,11 @@ import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.dex.utils.ui.toFiatDisplayFormat
 import com.blocksdecoded.dex.utils.ui.toLongDisplayFormat
 import com.blocksdecoded.dex.utils.visible
-import kotlinx.android.synthetic.main.view_info_item.view.*
 import java.math.BigDecimal
 import java.util.*
+import kotlinx.android.synthetic.main.view_info_item.view.*
 
-class InfoItemView: ConstraintLayout {
+class InfoItemView : ConstraintLayout {
 
     private var dividerVisible = true
         set(value) {
@@ -123,5 +123,4 @@ class InfoItemView: ConstraintLayout {
         info_text_value?.text = "Confirmed"
         info_text_value?.visible = true
     }
-
 }

@@ -1,10 +1,10 @@
 package com.blocksdecoded.dex.presentation.orders.model
 
+import com.blocksdecoded.dex.core.model.Coin
+import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.data.manager.ICoinManager
 import com.blocksdecoded.dex.data.manager.rates.RatesConverter
 import com.blocksdecoded.dex.data.manager.zrx.OrdersUtil
-import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.zrxkit.model.EAssetProxyId
 import com.blocksdecoded.zrxkit.model.OrderInfo
@@ -12,19 +12,19 @@ import com.blocksdecoded.zrxkit.model.SignedOrder
 import java.math.BigDecimal
 
 data class UiOrder(
-        val makerCoin: Coin,
-        val takerCoin: Coin,
-        val price: BigDecimal,
-        val makerAmount: BigDecimal,
-        val takerAmount: BigDecimal,
-        val makerFiatAmount: BigDecimal,
-        val takerFiatAmount: BigDecimal,
-        val expireDate: String,
-        val side: EOrderSide,
-        val isMine: Boolean,
-        val status: String,
-        val filledAmount: BigDecimal
-){
+    val makerCoin: Coin,
+    val takerCoin: Coin,
+    val price: BigDecimal,
+    val makerAmount: BigDecimal,
+    val takerAmount: BigDecimal,
+    val makerFiatAmount: BigDecimal,
+    val takerFiatAmount: BigDecimal,
+    val expireDate: String,
+    val side: EOrderSide,
+    val isMine: Boolean,
+    val status: String,
+    val filledAmount: BigDecimal
+) {
     companion object {
         fun fromOrder(
             coinManager: ICoinManager,

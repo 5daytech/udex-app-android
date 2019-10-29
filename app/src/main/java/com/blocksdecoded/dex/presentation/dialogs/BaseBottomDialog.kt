@@ -20,8 +20,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlin.math.roundToInt
 
 abstract class BaseBottomDialog(
-        private val layoutId: Int
-): BottomSheetDialogFragment() {
+    private val layoutId: Int
+) : BottomSheetDialogFragment() {
     private var backgroundDrawable: BitmapDrawable? = null
     private val backgroundBlurEnabled = false
 

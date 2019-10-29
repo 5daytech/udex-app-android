@@ -1,21 +1,20 @@
 package com.blocksdecoded.dex.presentation.settings
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.BuildConfig
-
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
-import com.blocksdecoded.dex.presentation.settings.security.SecurityCenterActivity
 import com.blocksdecoded.dex.presentation.coinmanager.CoinManagerActivity
 import com.blocksdecoded.dex.presentation.exchangehistory.ExchangeHistoryActivity
 import com.blocksdecoded.dex.presentation.main.IFocusListener
 import com.blocksdecoded.dex.presentation.main.MainActivity
 import com.blocksdecoded.dex.presentation.settings.addressbook.AddressBookActivity
+import com.blocksdecoded.dex.presentation.settings.security.SecurityCenterActivity
 import com.blocksdecoded.dex.utils.ui.ShareUtils
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -99,5 +98,4 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings), IFocusListene
     companion object {
         fun newInstance() = SettingsFragment()
     }
-
 }

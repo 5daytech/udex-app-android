@@ -15,10 +15,10 @@ import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType.Ropsten
 
 class AppConfiguration(
     override val testMode: Boolean = BuildConfig.testMode
-): IAppConfiguration {
+) : IAppConfiguration {
 
     override val networkType: NetworkType = if (testMode) Ropsten else MainNet
-    override val zrxNetworkType: ZrxKit.NetworkType  = if (testMode) ZrxKit.NetworkType.Ropsten else ZrxKit.NetworkType.MainNet
+    override val zrxNetworkType: ZrxKit.NetworkType = if (testMode) ZrxKit.NetworkType.Ropsten else ZrxKit.NetworkType.MainNet
 
     override val etherscanKey: String = BuildConfig.ETHERSCAN_KEY
     override val infuraCredentials: InfuraCredentials = InfuraCredentials(
@@ -120,7 +120,7 @@ class AppConfiguration(
     //endregion
 
     private fun addressForSymbol(symbol: String): String = ((allCoins.firstOrNull {
-        when(it.type) {
+        when (it.type) {
             is CoinType.Erc20 -> it.code.equals(symbol, true)
             else -> false
         }
@@ -128,7 +128,6 @@ class AppConfiguration(
 
     private fun getExchangePair(from: String, to: String) =
         ZrxKit.assetItemForAddress(addressForSymbol(from)) to ZrxKit.assetItemForAddress(addressForSymbol(to))
-
 
     companion object {
         val DEFAULT = AppConfiguration()

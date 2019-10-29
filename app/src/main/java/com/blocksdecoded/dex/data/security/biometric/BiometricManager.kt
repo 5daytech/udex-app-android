@@ -23,7 +23,7 @@ class BiometricManager(
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                 super.onAuthenticationError(errorCode, errString)
 
-                val type = when(errorCode) {
+                val type = when (errorCode) {
                     BiometricPrompt.ERROR_NEGATIVE_BUTTON -> ErrorType.CANCEL
                     BiometricPrompt.ERROR_LOCKOUT, BiometricPrompt.ERROR_LOCKOUT_PERMANENT -> ErrorType.LOCKOUT
                     else -> ErrorType.UNKNOWN

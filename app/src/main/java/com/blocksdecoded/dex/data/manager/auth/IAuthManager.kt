@@ -1,9 +1,9 @@
 package com.blocksdecoded.dex.data.manager.auth
 
 import android.security.keystore.UserNotAuthenticatedException
+import com.blocksdecoded.dex.core.model.AuthData
 import com.blocksdecoded.dex.data.manager.IAdapterManager
 import com.blocksdecoded.dex.data.manager.zrx.IRelayerAdapterManager
-import com.blocksdecoded.dex.core.model.AuthData
 import io.reactivex.subjects.PublishSubject
 
 interface IAuthManager {

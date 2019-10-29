@@ -1,8 +1,8 @@
 package com.blocksdecoded.dex.data.manager.zrx
 
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.data.manager.zrx.model.NormalizedOrderData
 import com.blocksdecoded.dex.core.model.CoinType
+import com.blocksdecoded.dex.data.manager.zrx.model.NormalizedOrderData
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.normalizedDiv
 import com.blocksdecoded.zrxkit.model.EAssetProxyId

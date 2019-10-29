@@ -1,19 +1,17 @@
 package com.blocksdecoded.dex.presentation.settings
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.utils.visible
-import kotlinx.android.synthetic.main.view_settings_item.view.*
 import kotlin.math.absoluteValue
+import kotlinx.android.synthetic.main.view_settings_item.view.*
 
-class SettingsItemView: ConstraintLayout {
+class SettingsItemView : ConstraintLayout {
     init { View.inflate(context, R.layout.view_settings_item, this) }
 
     private var title: String = "name"

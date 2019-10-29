@@ -19,5 +19,4 @@ class PinManager(private val securedStorage: ISecuredStorage) : IPinManager {
     override fun clear() {
         securedStorage.removePin()
     }
-
 }

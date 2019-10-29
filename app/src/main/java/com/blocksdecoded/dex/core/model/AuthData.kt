@@ -16,7 +16,7 @@ class AuthData {
 
     private val wordsSeparator = " "
     private val partsSeparator = "|"
-    
+
     constructor(words: List<String>, walletId: String = UUID.randomUUID().toString()) {
         this.words = words
         this.walletId = walletId
@@ -41,7 +41,7 @@ class AuthData {
         }
         initPrivateKey()
     }
-    
+
     private fun initPrivateKey() {
         val hdWallet = HDWallet(seed, 60)
         privateKey = hdWallet.privateKey(0, 0, true).privKey

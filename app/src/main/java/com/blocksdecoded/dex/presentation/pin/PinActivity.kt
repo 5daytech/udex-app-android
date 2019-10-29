@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.data.security.biometric.BiometricManager
 import com.blocksdecoded.dex.core.ui.CoreActivity
+import com.blocksdecoded.dex.data.security.biometric.BiometricManager
 import com.blocksdecoded.dex.presentation.main.MainActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.presentation.widgets.NumPadItem
@@ -166,7 +166,7 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener, BiometricManage
     }
 
     override fun onItemClick(item: NumPadItem) {
-        visiblePage?.let {  page ->
+        visiblePage?.let { page ->
             when (item.type) {
                 NUMBER -> viewModel.onNumberEnter(page, item.number.toString())
                 DELETE -> viewModel.onDeleteClick(page)
@@ -177,7 +177,6 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener, BiometricManage
     }
 
     override fun onItemLongClick(item: NumPadItem) {
-
     }
 
     //region Biometric
@@ -232,4 +231,3 @@ class PinActivity : CoreActivity(), NumPadItemsAdapter.Listener, BiometricManage
         }
     }
 }
-

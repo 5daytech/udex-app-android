@@ -1,11 +1,11 @@
 package com.blocksdecoded.dex.data.manager.rates.stats
 
+import com.blocksdecoded.dex.core.model.ChartType
+import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.data.manager.ICoinManager
 import com.blocksdecoded.dex.data.manager.rates.IRatesManager
 import com.blocksdecoded.dex.data.manager.rates.model.*
 import com.blocksdecoded.dex.data.manager.rates.remote.IRatesApiClient
-import com.blocksdecoded.dex.core.model.ChartType
-import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.rx.ioSubscribe
 import io.reactivex.BackpressureStrategy
@@ -21,7 +21,7 @@ class RatesStatsManager(
     private val coinManager: ICoinManager,
     private val ratesApiClient: IRatesApiClient,
     private val rateStorage: IRatesManager
-): IRatesStatsManager {
+) : IRatesStatsManager {
     private val cacheUpdateTimeInterval: Long = 30 * 60 * 60 // 30 minutes in seconds
     private val disposables = CompositeDisposable()
     private val cache = mutableMapOf<StatsKey, Pair<Long?, RateStatData>>()
@@ -110,7 +110,6 @@ class RatesStatsManager(
 
         return points
     }
-
 
     private fun convert(points: List<Float>, scaleMinutes: Int, lastTimestamp: Long): List<ChartPoint> {
         val scaleSecs = scaleMinutes * 60

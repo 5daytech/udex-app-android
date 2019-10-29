@@ -11,7 +11,7 @@ import com.blocksdecoded.dex.R
 
 abstract class BaseDialog(
     private val layoutId: Int
-): DialogFragment() {
+) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = activity?.let {

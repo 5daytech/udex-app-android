@@ -1,7 +1,6 @@
 package com.blocksdecoded.dex.utils.ui
 
 import android.graphics.Bitmap
-import com.blocksdecoded.dex.App
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter

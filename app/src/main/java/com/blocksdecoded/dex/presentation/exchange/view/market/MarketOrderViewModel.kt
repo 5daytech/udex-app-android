@@ -16,7 +16,7 @@ import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.rx.uiSubscribe
 import java.math.BigDecimal
 
-class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
+class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
 
     override var state: MarketOrderViewState =
         MarketOrderViewState(
@@ -120,7 +120,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
             }
         }
     }
-    
+
     private fun marketBuy() {
         state.sendAmount.let { amount ->
             val receiveAmount = state.receiveAmount
@@ -171,7 +171,7 @@ class MarketOrderViewModel: BaseExchangeViewModel<MarketOrderViewState>() {
         val baseCoin = exchangeableCoins.firstOrNull { it.code == coins.first } ?: return
         val quoteCoin = exchangeableCoins.firstOrNull { it.code == coins.second } ?: return
 
-        when(orderSide) {
+        when (orderSide) {
             BUY -> {
                 state.sendCoin = getExchangeItem(baseCoin)
                 state.receiveCoin = getExchangeItem(quoteCoin)

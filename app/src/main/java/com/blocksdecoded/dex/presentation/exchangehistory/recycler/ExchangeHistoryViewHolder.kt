@@ -10,15 +10,15 @@ import com.blocksdecoded.dex.data.manager.history.ExchangeRecordItem
 import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.setTextColorRes
+import java.math.BigDecimal
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_trade_record.*
 import kotlinx.android.synthetic.main.item_trade_tx_record.*
-import java.math.BigDecimal
 
 class ExchangeHistoryViewHolder(
     override val containerView: View,
     val onClick: (Int) -> Unit
-): RecyclerView.ViewHolder(containerView), LayoutContainer {
+) : RecyclerView.ViewHolder(containerView), LayoutContainer {
     private val adapter = ExchangeRecordsAdapter()
 
     init {
@@ -33,7 +33,7 @@ class ExchangeHistoryViewHolder(
         adapter.setRecords(exchangeRecord.fromCoins)
     }
 
-    private class ExchangeRecordsAdapter: RecyclerView.Adapter<ExchangeRecordViewHolder>() {
+    private class ExchangeRecordsAdapter : RecyclerView.Adapter<ExchangeRecordViewHolder>() {
         private var records = listOf<ExchangeRecordItem>()
 
         fun setRecords(records: List<ExchangeRecordItem>) {
@@ -52,7 +52,7 @@ class ExchangeHistoryViewHolder(
 
     private class ExchangeRecordViewHolder(
         override val containerView: View
-    ): RecyclerView.ViewHolder(containerView), LayoutContainer {
+    ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun onBind(exchangeRecordItem: ExchangeRecordItem) {
             val isPositive = exchangeRecordItem.transactionRecord.amount >= BigDecimal.ZERO
             item_trade_tx_coin_icon.bind(exchangeRecordItem.coinCode)

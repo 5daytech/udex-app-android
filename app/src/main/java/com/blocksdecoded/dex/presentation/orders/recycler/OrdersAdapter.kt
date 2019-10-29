@@ -7,8 +7,8 @@ import com.blocksdecoded.dex.presentation.orders.model.UiOrder
 import com.blocksdecoded.dex.utils.inflate
 
 class OrdersAdapter(
-        private val listener: OrderViewHolder.Listener
-): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val listener: OrderViewHolder.Listener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val mOrders = ArrayList<UiOrder>()
 
@@ -19,7 +19,7 @@ class OrdersAdapter(
     override fun getItemCount(): Int = mOrders.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder) {
+        when (holder) {
             is OrderViewHolder -> holder.onBind(mOrders[position])
         }
     }

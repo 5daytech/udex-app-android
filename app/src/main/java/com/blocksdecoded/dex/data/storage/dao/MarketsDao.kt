@@ -21,5 +21,4 @@ interface MarketsDao {
 
     @Query("SELECT * FROM Market WHERE coinCode = :coinCode")
     fun getMarket(coinCode: String): Single<Market>
-
 }

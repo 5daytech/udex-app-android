@@ -4,7 +4,7 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 
-class BackupIntroViewModel: CoreViewModel() {
+class BackupIntroViewModel : CoreViewModel() {
     private val pinManager = App.pinManager
 
     val openBackupEvent = SingleLiveEvent<Unit>()

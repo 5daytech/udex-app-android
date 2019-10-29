@@ -2,9 +2,9 @@ package com.blocksdecoded.dex.presentation.pin.cases.manage
 
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.data.security.IPinManager
-import com.blocksdecoded.dex.presentation.pin.cases.IPinView
 import com.blocksdecoded.dex.presentation.pin.PinPage
 import com.blocksdecoded.dex.presentation.pin.cases.BasePinUseCase
+import com.blocksdecoded.dex.presentation.pin.cases.IPinView
 
 class SetPinUseCase(
     view: IPinView,

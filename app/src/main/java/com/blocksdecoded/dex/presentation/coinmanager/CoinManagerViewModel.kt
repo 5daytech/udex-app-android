@@ -2,12 +2,12 @@ package com.blocksdecoded.dex.presentation.coinmanager
 
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.IAppConfiguration
-import com.blocksdecoded.dex.data.manager.ICoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.EnabledCoin
-import com.blocksdecoded.dex.data.storage.IEnabledCoinsStorage
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
+import com.blocksdecoded.dex.data.manager.ICoinManager
+import com.blocksdecoded.dex.data.storage.IEnabledCoinsStorage
 import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.utils.rx.uiSubscribe
 
@@ -47,7 +47,7 @@ class CoinManagerViewModel(
 
                 enabledCoinsFromStorage.forEach { enabledCoin ->
                     coinManager.allCoins
-                        .firstOrNull { coin -> coin.code == enabledCoin.coinCode}?.let { enabledCoins.add(it) }
+                        .firstOrNull { coin -> coin.code == enabledCoin.coinCode }?.let { enabledCoins.add(it) }
                 }
 
                 this.enabledCoins = enabledCoins
@@ -58,7 +58,7 @@ class CoinManagerViewModel(
     private fun saveEnabledCoins(coins: List<Coin>) {
         val enabledCoins = mutableListOf<EnabledCoin>()
 
-        coins.forEachIndexed{order, coinCode ->
+        coins.forEachIndexed { order, coinCode ->
             enabledCoins.add(EnabledCoin(coinCode.code, order))
         }
 

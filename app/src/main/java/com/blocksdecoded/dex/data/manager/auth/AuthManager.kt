@@ -2,12 +2,12 @@ package com.blocksdecoded.dex.data.manager.auth
 
 import android.security.keystore.UserNotAuthenticatedException
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.core.model.AuthData
 import com.blocksdecoded.dex.data.adapter.Erc20Adapter
 import com.blocksdecoded.dex.data.adapter.EthereumAdapter
 import com.blocksdecoded.dex.data.manager.IAdapterManager
 import com.blocksdecoded.dex.data.manager.ICoinManager
 import com.blocksdecoded.dex.data.manager.zrx.IRelayerAdapterManager
-import com.blocksdecoded.dex.core.model.AuthData
 import com.blocksdecoded.dex.data.security.ISecuredStorage
 import io.reactivex.subjects.PublishSubject
 
@@ -19,8 +19,8 @@ class AuthManager(
     override var relayerAdapterManager: IRelayerAdapterManager? = null
 
     override var authData: AuthData? = null
-        get() = securedStorage.authData//TODO: Load via safeLoad
-    
+        get() = securedStorage.authData // TODO: Load via safeLoad
+
     override var authDataSubject = PublishSubject.create<Unit>()
 
     override val isLoggedIn: Boolean

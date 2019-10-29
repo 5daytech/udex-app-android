@@ -40,5 +40,4 @@ class CipherWrapper(
         val decodedData = cipher.doFinal(encryptedData)
         return String(decodedData)
     }
-
 }

@@ -5,7 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import com.blocksdecoded.dex.App
 
-object ClipboardManager: IClipboardManager {
+object ClipboardManager : IClipboardManager {
     private val clipboard: ClipboardManager?
         get() = App.instance.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
 

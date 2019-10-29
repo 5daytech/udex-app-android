@@ -19,9 +19,9 @@ class TotalBalanceView : LinearLayout {
         }
 
     init {
-    	View.inflate(context, R.layout.view_total_balance, this)
+        View.inflate(context, R.layout.view_total_balance, this)
     }
-    
+
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
@@ -51,5 +51,4 @@ class TotalBalanceView : LinearLayout {
         total_balance_hint?.visible = !isFiatPrimary
         total_balance_hint?.text = context.getString(R.string.hint_available_balance)
     }
-
 }

@@ -3,9 +3,9 @@ package com.blocksdecoded.dex.presentation.transactions
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.data.adapter.IAdapter
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
+import com.blocksdecoded.dex.data.adapter.IAdapter
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionsState
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionsState.*
@@ -69,7 +69,7 @@ class TransactionsViewModel : CoreViewModel() {
     }
 
     private fun updateState(state: TransactionsState) {
-        when(state) {
+        when (state) {
             SYNCED -> {
                 error.postValue(0)
                 isSyncing.postValue(false)
@@ -99,5 +99,4 @@ class TransactionsViewModel : CoreViewModel() {
     fun loadNext() {
         transactionsLoader.loadNext()
     }
-
 }

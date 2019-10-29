@@ -2,9 +2,9 @@ package com.blocksdecoded.dex.presentation.exchangehistory
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.data.manager.history.ExchangeRecord
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
+import com.blocksdecoded.dex.data.manager.history.ExchangeRecord
 import com.blocksdecoded.dex.utils.isValidIndex
 
 class ExchangeHistoryViewModel : CoreViewModel() {

@@ -1,7 +1,7 @@
 package com.blocksdecoded.dex.data.manager.auth
 
+import com.blocksdecoded.dex.core.shared.IAppPreferences
 import com.blocksdecoded.dex.data.manager.IWordsManager
-import com.blocksdecoded.dex.data.shared.IAppPreferences
 import io.horizontalsystems.hdwalletkit.Mnemonic
 import io.reactivex.subjects.PublishSubject
 
@@ -22,6 +22,5 @@ class WordsManager(private val preferences: IAppPreferences) :
         Mnemonic().validate(words)
     }
 
-    override fun generateWords() : List<String> = Mnemonic().generate()
-
+    override fun generateWords(): List<String> = Mnemonic().generate()
 }

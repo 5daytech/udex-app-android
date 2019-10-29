@@ -52,7 +52,7 @@ object NumberUtils {
         } else {
             fiatFormat.format(value)
         }
-    
+
     fun formatDoubleFiat(double: Double): String =
         if (double < 10.0) {
             smallFiatFormat.format(double)

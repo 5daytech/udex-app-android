@@ -1,8 +1,8 @@
 package com.blocksdecoded.dex.data.manager.zrx
 
+import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.data.manager.ICoinManager
 import com.blocksdecoded.dex.data.manager.zrx.model.*
-import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.normalizedMul
@@ -21,234 +21,234 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class BaseRelayerAdapter(
-	private val coinManager: ICoinManager,
-	private val ethereumKit: EthereumKit,
-	private val exchangeInteractor: IExchangeInteractor,
-	zrxKit: ZrxKit,
-	override val refreshInterval: Long,
-	override val relayerId: Int
-): IRelayerAdapter {
-	private val disposables = CompositeDisposable()
-	
-	private val relayerManager = zrxKit.relayerManager
-	private val relayer = relayerManager.availableRelayers[relayerId]
+    private val coinManager: ICoinManager,
+    private val ethereumKit: EthereumKit,
+    private val exchangeInteractor: IExchangeInteractor,
+    zrxKit: ZrxKit,
+    override val refreshInterval: Long,
+    override val relayerId: Int
+) : IRelayerAdapter {
+    private val disposables = CompositeDisposable()
 
-	override var myOrdersInfo = RelayerOrdersList<OrderInfo>()
-	override var buyOrders = RelayerOrdersList<OrderRecord>()
-	override var sellOrders = RelayerOrdersList<OrderRecord>()
-	override var myOrders = RelayerOrdersList<Pair<SignedOrder, EOrderSide>>()
+    private val relayerManager = zrxKit.relayerManager
+    private val relayer = relayerManager.availableRelayers[relayerId]
 
-	override val allPairs = relayer.availablePairs
-	override var exchangePairs: List<ExchangePair> = listOf()
-	override val pairsUpdateSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
-	
-	init {
-		initPairs()
+    override var myOrdersInfo = RelayerOrdersList<OrderInfo>()
+    override var buyOrders = RelayerOrdersList<OrderRecord>()
+    override var sellOrders = RelayerOrdersList<OrderRecord>()
+    override var myOrders = RelayerOrdersList<Pair<SignedOrder, EOrderSide>>()
 
-		coinManager.coinsUpdatedSubject.subscribe {
-			initPairs()
-		}.let { disposables.add(it) }
+    override val allPairs = relayer.availablePairs
+    override var exchangePairs: List<ExchangePair> = listOf()
+    override val pairsUpdateSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
-		Observable.interval(refreshInterval, TimeUnit.SECONDS)
-			.subscribeOn(Schedulers.io())
-			.observeOn(Schedulers.io())
-			.subscribe { refreshOrders() }
-			.let { disposables.add(it) }
-	}
+    init {
+        initPairs()
 
-	//region Private
+        coinManager.coinsUpdatedSubject.subscribe {
+            initPairs()
+        }.let { disposables.add(it) }
 
-	private fun initPairs() {
-		exchangePairs = allPairs.filter {
-			val baseCoin = coinManager.getErcCoinForAddress(it.first.address)
-			val quoteCoin = coinManager.getErcCoinForAddress(it.second.address)
+        Observable.interval(refreshInterval, TimeUnit.SECONDS)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe { refreshOrders() }
+            .let { disposables.add(it) }
+    }
 
-			baseCoin != null && quoteCoin != null
-		}.map {
-			ExchangePair(
-				(coinManager.getErcCoinForAddress(it.first.address)?.code ?: ""),
-				(coinManager.getErcCoinForAddress(it.second.address)?.code ?: ""),
-				it.first,
-				it.second
-			)
-		}
+    //region Private
 
-		pairsUpdateSubject.onNext(Unit)
-		refreshOrders()
-	}
+    private fun initPairs() {
+        exchangePairs = allPairs.filter {
+            val baseCoin = coinManager.getErcCoinForAddress(it.first.address)
+            val quoteCoin = coinManager.getErcCoinForAddress(it.second.address)
 
-	private fun getErcCoin(coinCode: String): CoinType.Erc20 =
-		coinManager.getCoin(coinCode).type as CoinType.Erc20
+            baseCoin != null && quoteCoin != null
+        }.map {
+            ExchangePair(
+                (coinManager.getErcCoinForAddress(it.first.address)?.code ?: ""),
+                (coinManager.getErcCoinForAddress(it.second.address)?.code ?: ""),
+                it.first,
+                it.second
+            )
+        }
 
-	private fun refreshOrders() {
-		relayer.availablePairs.forEachIndexed { index, pair ->
-			val base = pair.first.assetData
-			val quote = pair.second.assetData
+        pairsUpdateSubject.onNext(Unit)
+        refreshOrders()
+    }
 
-			refreshPair(base, quote)
-		}
-	}
+    private fun getErcCoin(coinCode: String): CoinType.Erc20 =
+        coinManager.getCoin(coinCode).type as CoinType.Erc20
 
-	private fun refreshPair(baseAsset: String, quoteAsset: String) {
-		relayerManager.getOrderbook(relayerId, baseAsset, quoteAsset)
-			.ioSubscribe(disposables, {
+    private fun refreshOrders() {
+        relayer.availablePairs.forEachIndexed { index, pair ->
+            val base = pair.first.assetData
+            val quote = pair.second.assetData
+
+            refreshPair(base, quote)
+        }
+    }
+
+    private fun refreshPair(baseAsset: String, quoteAsset: String) {
+        relayerManager.getOrderbook(relayerId, baseAsset, quoteAsset)
+            .ioSubscribe(disposables, {
                 val myAddress = ethereumKit.receiveAddress.toLowerCase()
 
-				buyOrders.updatePairOrders(baseAsset, quoteAsset, it.bids.records.filterNot { it.order.makerAddress.equals(myAddress, false) })
-				sellOrders.updatePairOrders(baseAsset, quoteAsset, it.asks.records.filterNot { it.order.makerAddress.equals(myAddress, false) })
+                buyOrders.updatePairOrders(baseAsset, quoteAsset, it.bids.records.filterNot { it.order.makerAddress.equals(myAddress, false) })
+                sellOrders.updatePairOrders(baseAsset, quoteAsset, it.asks.records.filterNot { it.order.makerAddress.equals(myAddress, false) })
 
-				val myOrders = it.asks.records
-					.map { it.order }
-					.filter { it.makerAddress.equals(myAddress, true) }
-					.map { it to EOrderSide.SELL }
-					.plus(it.bids.records.map { it.order }.filter { it.makerAddress.equals(myAddress, true) }.map { it to EOrderSide.BUY })
+                val myOrders = it.asks.records
+                    .map { it.order }
+                    .filter { it.makerAddress.equals(myAddress, true) }
+                    .map { it to EOrderSide.SELL }
+                    .plus(it.bids.records.map { it.order }.filter { it.makerAddress.equals(myAddress, true) }.map { it to EOrderSide.BUY })
 
-				this.myOrders.updatePairOrders(baseAsset, quoteAsset, myOrders)
+                this.myOrders.updatePairOrders(baseAsset, quoteAsset, myOrders)
 
-				exchangeInteractor.ordersInfo(myOrders.map { it.first })
-					.ioSubscribe(disposables, { ordersInfo ->
-						myOrdersInfo.updatePairOrders(baseAsset, quoteAsset, ordersInfo)
-						this.myOrders.updatePairOrders(baseAsset, quoteAsset, myOrders)
-					}, { })
-			})
-	}
+                exchangeInteractor.ordersInfo(myOrders.map { it.first })
+                    .ioSubscribe(disposables, { ordersInfo ->
+                        myOrdersInfo.updatePairOrders(baseAsset, quoteAsset, ordersInfo)
+                        this.myOrders.updatePairOrders(baseAsset, quoteAsset, myOrders)
+                    }, { })
+            })
+    }
 
-	private fun getPairOrders(coinPair: Pair<String, String>, side: EOrderSide): RelayerOrders<OrderRecord> {
-		val baseCoin = getErcCoin(coinPair.first)
-		val quoteCoin = getErcCoin(coinPair.second)
+    private fun getPairOrders(coinPair: Pair<String, String>, side: EOrderSide): RelayerOrders<OrderRecord> {
+        val baseCoin = getErcCoin(coinPair.first)
+        val quoteCoin = getErcCoin(coinPair.second)
 
-		return when(side) {
-			EOrderSide.BUY -> buyOrders
-			else -> sellOrders
-		}.getPair(
-			ZrxKit.assetItemForAddress(baseCoin.address).assetData,
-			ZrxKit.assetItemForAddress(quoteCoin.address).assetData
-		)
-	}
+        return when (side) {
+            EOrderSide.BUY -> buyOrders
+            else -> sellOrders
+        }.getPair(
+            ZrxKit.assetItemForAddress(baseCoin.address).assetData,
+            ZrxKit.assetItemForAddress(quoteCoin.address).assetData
+        )
+    }
 
-	private fun calculateFillResult(
-		orders: List<OrderRecord>,
-		side: EOrderSide,
-		amount: BigDecimal
-	): FillResult = try {
-		val ordersToFill = arrayListOf<SignedOrder>()
+    private fun calculateFillResult(
+        orders: List<OrderRecord>,
+        side: EOrderSide,
+        amount: BigDecimal
+    ): FillResult = try {
+        val ordersToFill = arrayListOf<SignedOrder>()
 
-		var requestedAmount = amount
-		var fillAmount = BigDecimal.ZERO
+        var requestedAmount = amount
+        var fillAmount = BigDecimal.ZERO
 
-		val sortedOrders = orders.map { OrdersUtil.normalizeOrderDataPrice(it) }
-			.apply { if (side == EOrderSide.BUY) sortedByDescending { it.price } else sortedBy { it.price } }
+        val sortedOrders = orders.map { OrdersUtil.normalizeOrderDataPrice(it) }
+            .apply { if (side == EOrderSide.BUY) sortedByDescending { it.price } else sortedBy { it.price } }
 
-		for (orderData in sortedOrders) {
-			if (requestedAmount != BigDecimal.ZERO) {
-				if (requestedAmount >= orderData.takerAmount) {
-					fillAmount += orderData.makerAmount
-					requestedAmount -= orderData.takerAmount
-				} else {
-					fillAmount += requestedAmount.normalizedMul(orderData.price)
-					requestedAmount = BigDecimal.ZERO
-				}
+        for (orderData in sortedOrders) {
+            if (requestedAmount != BigDecimal.ZERO) {
+                if (requestedAmount >= orderData.takerAmount) {
+                    fillAmount += orderData.makerAmount
+                    requestedAmount -= orderData.takerAmount
+                } else {
+                    fillAmount += requestedAmount.normalizedMul(orderData.price)
+                    requestedAmount = BigDecimal.ZERO
+                }
 
-				orderData.order?.let { ordersToFill.add(it) }
-			} else {
-				break
-			}
-		}
+                orderData.order?.let { ordersToFill.add(it) }
+            } else {
+                break
+            }
+        }
 
-		FillResult(ordersToFill, fillAmount, amount - requestedAmount)
-	} catch (e: Exception) {
-		Logger.e(e)
-		FillResult.empty()
-	}
-	//endregion
-	
-	//region Public
+        FillResult(ordersToFill, fillAmount, amount - requestedAmount)
+    } catch (e: Exception) {
+        Logger.e(e)
+        FillResult.empty()
+    }
+    //endregion
 
-	//region Exchange
+    //region Public
 
-	override fun createOrder(createData: CreateOrderData): Flowable<SignedOrder> =
-		exchangeInteractor.createOrder(relayer.feeRecipients.first(), createData)
+    //region Exchange
 
-	override fun fill(fillData: FillOrderData): Flowable<String> {
-		val ordersRecords = getPairOrders(fillData.coinPair, fillData.side).orders
-		val fillResult = calculateFillResult(
-			ordersRecords,
-			fillData.side,
-			fillData.amount
-		)
+    override fun createOrder(createData: CreateOrderData): Flowable<SignedOrder> =
+        exchangeInteractor.createOrder(relayer.feeRecipients.first(), createData)
 
-		return exchangeInteractor.fill(fillResult.orders, fillData)
-	}
+    override fun fill(fillData: FillOrderData): Flowable<String> {
+        val ordersRecords = getPairOrders(fillData.coinPair, fillData.side).orders
+        val fillResult = calculateFillResult(
+            ordersRecords,
+            fillData.side,
+            fillData.amount
+        )
 
-	override fun cancelOrder(order: SignedOrder): Flowable<String> =
-		exchangeInteractor.cancelOrder(order)
+        return exchangeInteractor.fill(fillResult.orders, fillData)
+    }
 
-	override fun calculateBasePrice(coinPair: Pair<String, String>, side: EOrderSide): BigDecimal = try {
-		OrdersUtil.calculateBasePrice(
-			getPairOrders(coinPair, side).orders.map { it.order },
-			coinPair,
-			side
-		)
-	} catch (e: Exception) {
-		Logger.e(e)
-		BigDecimal.ZERO
-	}
+    override fun cancelOrder(order: SignedOrder): Flowable<String> =
+        exchangeInteractor.cancelOrder(order)
 
-	//endregion
+    override fun calculateBasePrice(coinPair: Pair<String, String>, side: EOrderSide): BigDecimal = try {
+        OrdersUtil.calculateBasePrice(
+            getPairOrders(coinPair, side).orders.map { it.order },
+            coinPair,
+            side
+        )
+    } catch (e: Exception) {
+        Logger.e(e)
+        BigDecimal.ZERO
+    }
 
-	override fun calculateFillAmount(
-		coinPair: Pair<String, String>,
-		side: EOrderSide,
-		amount: BigDecimal
-	): FillResult = try {
-		val orders = getPairOrders(coinPair, side).orders
-		calculateFillResult(orders, side, amount)
-	} catch (e: Exception) {
-		Logger.e(e)
-		FillResult.empty()
-	}
+    //endregion
 
-	override fun calculateSendAmount(
-		coinPair: Pair<String, String>,
-		side: EOrderSide,
-		amount: BigDecimal
-	): FillResult = try {
-		val orders = getPairOrders(coinPair, side).orders
-		val ordersToFill = arrayListOf<SignedOrder>()
+    override fun calculateFillAmount(
+        coinPair: Pair<String, String>,
+        side: EOrderSide,
+        amount: BigDecimal
+    ): FillResult = try {
+        val orders = getPairOrders(coinPair, side).orders
+        calculateFillResult(orders, side, amount)
+    } catch (e: Exception) {
+        Logger.e(e)
+        FillResult.empty()
+    }
 
-		var requestedAmount = amount
-		var fillAmount = BigDecimal.ZERO
+    override fun calculateSendAmount(
+        coinPair: Pair<String, String>,
+        side: EOrderSide,
+        amount: BigDecimal
+    ): FillResult = try {
+        val orders = getPairOrders(coinPair, side).orders
+        val ordersToFill = arrayListOf<SignedOrder>()
 
-		val sortedOrders = orders.map { OrdersUtil.normalizeOrderDataPrice(it, isSellPrice = false) }
-			.apply { if (side == EOrderSide.BUY) sortedByDescending { it.price } else sortedBy { it.price } }
+        var requestedAmount = amount
+        var fillAmount = BigDecimal.ZERO
 
-		for (order in sortedOrders) {
-			if (requestedAmount != BigDecimal.ZERO) {
-				if (requestedAmount >= order.makerAmount) {
-					fillAmount += order.takerAmount
-					requestedAmount -= order.makerAmount
-				} else {
-					fillAmount += requestedAmount.normalizedMul(order.price)
-					requestedAmount = BigDecimal.ZERO
-				}
-			} else {
-				break
-			}
-		}
+        val sortedOrders = orders.map { OrdersUtil.normalizeOrderDataPrice(it, isSellPrice = false) }
+            .apply { if (side == EOrderSide.BUY) sortedByDescending { it.price } else sortedBy { it.price } }
 
-		FillResult(ordersToFill, amount - requestedAmount, fillAmount)
-	} catch (e: Exception) {
-		FillResult.empty()
-	}
+        for (order in sortedOrders) {
+            if (requestedAmount != BigDecimal.ZERO) {
+                if (requestedAmount >= order.makerAmount) {
+                    fillAmount += order.takerAmount
+                    requestedAmount -= order.makerAmount
+                } else {
+                    fillAmount += requestedAmount.normalizedMul(order.price)
+                    requestedAmount = BigDecimal.ZERO
+                }
+            } else {
+                break
+            }
+        }
 
-	override fun stop() {
-		disposables.clear()
-		buyOrders.clear()
-		sellOrders.clear()
-		myOrders.clear()
-		myOrdersInfo.clear()
-		exchangePairs = listOf()
-	}
+        FillResult(ordersToFill, amount - requestedAmount, fillAmount)
+    } catch (e: Exception) {
+        FillResult.empty()
+    }
 
-	//endregion
+    override fun stop() {
+        disposables.clear()
+        buyOrders.clear()
+        sellOrders.clear()
+        myOrders.clear()
+        myOrdersInfo.clear()
+        exchangePairs = listOf()
+    }
+
+    //endregion
 }

@@ -3,6 +3,11 @@ package com.blocksdecoded.dex.presentation.convert
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.core.model.Coin
+import com.blocksdecoded.dex.core.model.EConvertType.UNWRAP
+import com.blocksdecoded.dex.core.model.EConvertType.WRAP
+import com.blocksdecoded.dex.core.ui.CoreViewModel
+import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.data.adapter.FeeRatePriority
 import com.blocksdecoded.dex.data.adapter.IAdapter
 import com.blocksdecoded.dex.data.adapter.SendStateError
@@ -10,11 +15,6 @@ import com.blocksdecoded.dex.data.manager.ICoinManager
 import com.blocksdecoded.dex.data.manager.duration.ETransactionType
 import com.blocksdecoded.dex.data.manager.duration.IProcessingDurationProvider
 import com.blocksdecoded.dex.data.manager.rates.RatesConverter
-import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.core.model.EConvertType.UNWRAP
-import com.blocksdecoded.dex.core.model.EConvertType.WRAP
-import com.blocksdecoded.dex.core.ui.CoreViewModel
-import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.presentation.convert.confirm.ConvertConfirmInfo
 import com.blocksdecoded.dex.presentation.convert.model.ConvertConfig
 import com.blocksdecoded.dex.presentation.convert.model.ConvertState
@@ -41,11 +41,11 @@ class ConvertViewModel(
     private lateinit var toCoin: Coin
 
     private var adapter: IAdapter? = null
-    
-	private var sendAmount = BigDecimal.ZERO
-	
+
+    private var sendAmount = BigDecimal.ZERO
+
     var decimalSize: Int = 18
-	
+
     val convertState = MutableLiveData<ConvertState>()
     val convertAmount = MutableLiveData<BigDecimal>()
     val receiveAmount = MutableLiveData<BigDecimal>()
@@ -63,7 +63,7 @@ class ConvertViewModel(
         get() = feeInfo.value?.amount?.let { fee ->
             adapter?.balance?.let {
                 if (it >= fee) {
-                    it - when(config.type) {
+                    it - when (config.type) {
                         WRAP -> minRemainingAmount
                         UNWRAP -> BigDecimal.ZERO
                         else -> BigDecimal.ZERO
@@ -71,7 +71,7 @@ class ConvertViewModel(
                 } else BigDecimal.ZERO
             } ?: BigDecimal.ZERO
         } ?: BigDecimal.ZERO
-    
+
     fun init(config: ConvertConfig) {
         this.config = config
 
@@ -83,7 +83,7 @@ class ConvertViewModel(
             dismissDialog.call()
             return
         }
-        
+
         fromCoin = coinManager.getCoin(config.coinCode)
         toCoin = coinManager.getCoin(
             if (config.type == WRAP)
@@ -91,13 +91,13 @@ class ConvertViewModel(
             else
                 "ETH"
         )
-        
+
         val balanceInfo = TotalBalanceInfo(
             adapter!!.coin,
             adapter!!.balance,
             ratesConverter.getCoinsPrice(adapter!!.coin.code, adapter!!.balance)
         )
-        
+
         convertState.value = ConvertState(
             fromCoin,
             toCoin,
@@ -111,7 +111,7 @@ class ConvertViewModel(
         dismissDialog.reset()
         decimalSize = adapter?.decimal ?: 18
 
-        val transactionPrice = when(config.type) {
+        val transactionPrice = when (config.type) {
             WRAP -> wethWrapper.depositEstimatedPrice
             UNWRAP -> wethWrapper.withdrawEstimatedPrice
             else -> BigDecimal.ZERO
@@ -136,7 +136,7 @@ class ConvertViewModel(
 
             adapter.validate(sendAmount, null, FeeRatePriority.HIGH)
                 .forEach {
-                    when(it) {
+                    when (it) {
                         is SendStateError.InsufficientAmount -> {
                             info.error = R.string.error_insufficient_balance
                         }
@@ -156,7 +156,7 @@ class ConvertViewModel(
             val sendRaw = sendAmount.movePointRight(18).stripTrailingZeros().toBigInteger()
             onAmountChanged(BigDecimal.ZERO, true)
 
-            when(config.type) {
+            when (config.type) {
                 WRAP -> wethWrapper.deposit(sendRaw)
                 UNWRAP -> wethWrapper.withdraw(sendRaw)
                 else -> null
@@ -185,8 +185,8 @@ class ConvertViewModel(
     fun onMaxClicked() {
         onAmountChanged(maxAmount, true)
     }
-	
-	fun onConvertClick() {
+
+    fun onConvertClick() {
         if (sendAmount <= maxAmount) {
             showConfirmEvent.value =
                 ConvertConfirmInfo(
@@ -205,8 +205,8 @@ class ConvertViewModel(
         } else {
             errorEvent.postValue(R.string.error_invalid_amount)
         }
-	}
-    
+    }
+
     fun onAmountChanged(amount: BigDecimal?, updateLiveData: Boolean = false) {
         if (sendAmount != amount) {
             sendAmount = amount ?: BigDecimal.ZERO

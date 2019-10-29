@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.viewpager.widget.ViewPager
 
-open class NonScrollableViewPager: ViewPager {
+open class NonScrollableViewPager : ViewPager {
     var scrollEnabled = false
 
     constructor(context: Context) : super(context)

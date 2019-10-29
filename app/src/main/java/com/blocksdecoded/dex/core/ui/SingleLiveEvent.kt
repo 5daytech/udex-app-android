@@ -30,7 +30,6 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     fun call() {
         value = null
     }
-
 }
 
 fun <T> LiveData<T>.reObserve(owner: LifecycleOwner, observer: Observer<T>) {

@@ -1,8 +1,8 @@
 package com.blocksdecoded.dex.data.manager
 
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.core.model.AuthData
 import com.blocksdecoded.dex.core.IAppConfiguration
+import com.blocksdecoded.dex.core.model.AuthData
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 
 class EthereumKitManager(
