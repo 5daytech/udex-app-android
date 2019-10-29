@@ -141,7 +141,7 @@ class BaseRelayerAdapter(
 
         for (orderData in sortedOrders) {
             if (requestedAmount != BigDecimal.ZERO) {
-                if (requestedAmount >= orderData.takerAmount) {
+                if (requestedAmount > orderData.takerAmount) {
                     fillAmount += orderData.makerAmount
                     requestedAmount -= orderData.takerAmount
                 } else {
@@ -170,9 +170,8 @@ class BaseRelayerAdapter(
         exchangeInteractor.createOrder(relayer.feeRecipients.first(), createData)
 
     override fun fill(fillData: FillOrderData): Flowable<String> {
-        val ordersRecords = getPairOrders(fillData.coinPair, fillData.side).orders
-        val fillResult = calculateFillResult(
-            ordersRecords,
+        val fillResult = calculateSendAmount(
+            fillData.coinPair,
             fillData.side,
             fillData.amount
         )
@@ -222,15 +221,17 @@ class BaseRelayerAdapter(
         val sortedOrders = orders.map { OrdersUtil.normalizeOrderDataPrice(it, isSellPrice = false) }
             .apply { if (side == EOrderSide.BUY) sortedByDescending { it.price } else sortedBy { it.price } }
 
-        for (order in sortedOrders) {
+        for (normalizedOrder in sortedOrders) {
             if (requestedAmount != BigDecimal.ZERO) {
-                if (requestedAmount >= order.makerAmount) {
-                    fillAmount += order.takerAmount
-                    requestedAmount -= order.makerAmount
+                if (requestedAmount > normalizedOrder.makerAmount) {
+                    fillAmount += normalizedOrder.takerAmount
+                    requestedAmount -= normalizedOrder.makerAmount
                 } else {
-                    fillAmount += requestedAmount.normalizedMul(order.price)
+                    fillAmount += requestedAmount.normalizedMul(normalizedOrder.price)
                     requestedAmount = BigDecimal.ZERO
                 }
+
+                normalizedOrder.order?.let { ordersToFill.add(it) }
             } else {
                 break
             }
