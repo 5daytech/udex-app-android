@@ -92,11 +92,12 @@ class RatesManager(
 
         return ratesStorage.getRateSingle(cleanCoinCode, timeStamp)
             .onErrorResumeNext(
-                rateClient.getHistoricalRate(cleanCoinCode, timeStamp).map {
-                    val rate = Rate(cleanCoinCode, timeStamp, it, isLatest = false)
-                    ratesStorage.save(rate)
-                    rate
-                }
+                rateClient.getHistoricalRate(cleanCoinCode, timeStamp)
+                    .map {
+                        val rate = Rate(cleanCoinCode, timeStamp, it, isLatest = false)
+                        ratesStorage.save(rate)
+                        rate
+                    }
             )
     }
 

@@ -6,17 +6,20 @@ import com.blocksdecoded.dex.data.manager.rates.model.LatestRateData
 import com.blocksdecoded.dex.data.manager.rates.model.RateStatData
 import com.blocksdecoded.dex.utils.TimeUtils
 import io.reactivex.Single
-import java.math.BigDecimal
-import java.util.concurrent.TimeoutException
 import retrofit2.http.GET
 import retrofit2.http.Path
+import java.math.BigDecimal
+import java.util.concurrent.TimeoutException
 
 class RatesApiClient(
     appConfiguration: IAppConfiguration
 ) : CoreApiClient(), IRatesApiClient {
-    private var mainClient: HistoricalRateNetworkClient? = null
+    private var mainClient = getRetrofitClient(
+        "https://${appConfiguration.ipfsMainGateway}/ipns/${appConfiguration.ipfsId}/",
+        HistoricalRateNetworkClient::class.java
+    )
 
-    private fun historicalRateApiClient(hostType: HostType): HistoricalRateNetworkClient? =
+    private fun getApiClient(hostType: HostType): HistoricalRateNetworkClient =
         mainClient
 
     private fun <T> Single<T>.timeoutRetry(): Single<T> = this.retry { _, t2 ->
@@ -28,29 +31,26 @@ class RatesApiClient(
 
     //region Public
 
-    init {
-        mainClient = getRetrofitClient(
-            "https://${appConfiguration.ipfsMainGateway}/ipns/${appConfiguration.ipfsId}/",
-            HistoricalRateNetworkClient::class.java
-        )
-    }
-
     override fun getHistoricalRate(coinCode: String, timestamp: Long): Single<BigDecimal> =
-        historicalRateApiClient(HostType.MAIN)
-            ?.getRateByHour(coinCode, "USD", TimeUtils.dateInUTC(timestamp, "yyyy/MM/dd/HH"))
-            ?.flatMap { minuteRates ->
-                Single.just(minuteRates.getValue(TimeUtils.dateInUTC(timestamp, "mm")).toBigDecimal())
-            } ?: Single.error(Exception())
+        getApiClient(HostType.MAIN)
+            .getRateByHour(coinCode, "USD", TimeUtils.dateInUTC(timestamp, "yyyy/MM/dd/HH"))
+            .map { minuteRates ->
+                minuteRates.getValue(TimeUtils.dateInUTC(timestamp, "mm")).toBigDecimal()
+            }.onErrorResumeNext(getDayRate(coinCode, timestamp))
 
     override fun getLatestRates(): Single<LatestRateData> =
-        historicalRateApiClient(HostType.MAIN)?.getLatestRates("USD")
-            ?.timeoutRetry() ?: Single.error(Exception("Market api client not initialized"))
+        getApiClient(HostType.MAIN).getLatestRates("USD")
+            .timeoutRetry()
 
     override fun getRateStats(coinCode: String): Single<RateStatData> =
-        historicalRateApiClient(HostType.MAIN)?.getRateStats("USD", coinCode)
-            ?: Single.error(Exception("Market api client not initialized"))
+        getApiClient(HostType.MAIN).getRateStats("USD", coinCode)
 
     //endregion
+
+    private fun getDayRate(coinCode: String, timestamp: Long): Single<BigDecimal> =
+        getApiClient(HostType.MAIN)
+            .getRateByDay(coinCode, "USD", TimeUtils.dateInUTC(timestamp, "yyyy/MM/dd"))
+            .map { it.toBigDecimal() }
 
     enum class HostType {
         MAIN, FALLBACK

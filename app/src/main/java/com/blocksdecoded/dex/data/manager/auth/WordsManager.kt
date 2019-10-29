@@ -5,8 +5,9 @@ import com.blocksdecoded.dex.data.manager.IWordsManager
 import io.horizontalsystems.hdwalletkit.Mnemonic
 import io.reactivex.subjects.PublishSubject
 
-class WordsManager(private val preferences: IAppPreferences) :
-    IWordsManager {
+class WordsManager(
+    private val preferences: IAppPreferences
+) : IWordsManager {
 
     override var isBackedUp: Boolean
         get() = preferences.isBackedUp
