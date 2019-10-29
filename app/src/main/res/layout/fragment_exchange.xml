@@ -54,7 +54,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:padding="@dimen/element_margin">
-            <com.blocksdecoded.dex.presentation.exchange.view.market.MarketOrderView
+            <com.blocksdecoded.dex.presentation.exchange.market.MarketOrderView
                 android:id="@+id/exchange_market_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                 app:cardElevation="0dp"
                 android:padding="@dimen/element_margin"/>
 
-            <com.blocksdecoded.dex.presentation.exchange.view.limit.LimitOrderView
+            <com.blocksdecoded.dex.presentation.exchange.limit.LimitOrderView
                 android:id="@+id/exchange_limit_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

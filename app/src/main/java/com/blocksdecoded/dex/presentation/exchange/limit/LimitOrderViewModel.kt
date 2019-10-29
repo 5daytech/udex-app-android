@@ -1,13 +1,13 @@
-package com.blocksdecoded.dex.presentation.exchange.view.limit
+package com.blocksdecoded.dex.presentation.exchange.limit
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.data.manager.zrx.model.CreateOrderData
+import com.blocksdecoded.dex.presentation.exchange.BaseExchangeViewModel
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeCoinItem
 import com.blocksdecoded.dex.presentation.exchange.model.LimitOrderViewState
-import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
 import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.utils.Logger

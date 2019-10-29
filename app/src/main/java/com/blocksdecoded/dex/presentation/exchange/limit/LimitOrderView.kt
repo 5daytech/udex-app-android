@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.exchange.view.limit
+package com.blocksdecoded.dex.presentation.exchange.limit
 
 import android.annotation.SuppressLint
 import android.content.Context

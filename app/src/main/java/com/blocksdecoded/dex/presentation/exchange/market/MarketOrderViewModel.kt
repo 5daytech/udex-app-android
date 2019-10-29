@@ -1,14 +1,14 @@
-package com.blocksdecoded.dex.presentation.exchange.view.market
+package com.blocksdecoded.dex.presentation.exchange.market
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.data.manager.zrx.model.FillOrderData
 import com.blocksdecoded.dex.data.manager.zrx.model.FillResult
+import com.blocksdecoded.dex.presentation.exchange.BaseExchangeViewModel
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeCoinItem
 import com.blocksdecoded.dex.presentation.exchange.model.MarketOrderViewState
-import com.blocksdecoded.dex.presentation.exchange.view.BaseExchangeViewModel
 import com.blocksdecoded.dex.presentation.models.AmountInfo
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*

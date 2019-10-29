@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.exchange.view
+package com.blocksdecoded.dex.presentation.exchange
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App

@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.presentation.exchange.view.market
+package com.blocksdecoded.dex.presentation.exchange.market
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -16,8 +16,8 @@ import com.blocksdecoded.dex.utils.bindFiatAmountInfo
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
-import java.math.BigDecimal
 import kotlinx.android.synthetic.main.view_market_order.view.*
+import java.math.BigDecimal
 
 class MarketOrderView : CardView {
     init { View.inflate(context, R.layout.view_market_order, this) }
