@@ -2,8 +2,8 @@ package com.blocksdecoded.dex.presentation.exchange.view.market
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.manager.zrx.model.FillOrderData
-import com.blocksdecoded.dex.core.manager.zrx.model.FillResult
+import com.blocksdecoded.dex.data.manager.zrx.model.FillOrderData
+import com.blocksdecoded.dex.data.manager.zrx.model.FillResult
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeCoinItem

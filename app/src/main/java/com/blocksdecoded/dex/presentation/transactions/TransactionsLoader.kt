@@ -1,8 +1,8 @@
 package com.blocksdecoded.dex.presentation.transactions
 
-import com.blocksdecoded.dex.core.adapter.AdapterState
-import com.blocksdecoded.dex.core.adapter.IAdapter
-import com.blocksdecoded.dex.core.manager.rates.IRatesManager
+import com.blocksdecoded.dex.data.adapter.AdapterState
+import com.blocksdecoded.dex.data.adapter.IAdapter
+import com.blocksdecoded.dex.data.manager.rates.IRatesManager
 import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.model.TransactionRecord
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionStatus

@@ -1,13 +1,12 @@
 package com.blocksdecoded.dex.presentation.pin.cases.unlock
 
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.manager.system.ISystemInfoManager
-import com.blocksdecoded.dex.core.security.ILockManager
-import com.blocksdecoded.dex.core.security.IPinManager
-import com.blocksdecoded.dex.core.security.encryption.IEncryptionManager
-import com.blocksdecoded.dex.core.shared.IAppPreferences
+import com.blocksdecoded.dex.data.manager.system.ISystemInfoManager
+import com.blocksdecoded.dex.data.security.ILockManager
+import com.blocksdecoded.dex.data.security.IPinManager
+import com.blocksdecoded.dex.data.security.encryption.IEncryptionManager
+import com.blocksdecoded.dex.data.shared.IAppPreferences
 import com.blocksdecoded.dex.presentation.pin.PinPage
-import com.blocksdecoded.dex.presentation.pin.cases.BasePinUseCase
 import com.blocksdecoded.dex.presentation.pin.cases.IBasePinUseCase
 import com.blocksdecoded.dex.presentation.pin.cases.IPinView
 

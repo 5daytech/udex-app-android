@@ -2,8 +2,6 @@ package com.blocksdecoded.dex.presentation.restore
 
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.manager.auth.AuthManager
-import com.blocksdecoded.dex.core.manager.IWordsManager
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import io.horizontalsystems.hdwalletkit.Mnemonic

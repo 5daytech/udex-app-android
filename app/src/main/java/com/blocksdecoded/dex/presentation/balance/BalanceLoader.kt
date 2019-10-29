@@ -1,12 +1,12 @@
 package com.blocksdecoded.dex.presentation.balance
 
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.core.adapter.AdapterState
-import com.blocksdecoded.dex.core.adapter.IAdapter
-import com.blocksdecoded.dex.core.manager.IAdapterManager
-import com.blocksdecoded.dex.core.manager.ICoinManager
-import com.blocksdecoded.dex.core.manager.rates.IRatesManager
-import com.blocksdecoded.dex.core.manager.rates.RatesConverter
+import com.blocksdecoded.dex.data.adapter.AdapterState
+import com.blocksdecoded.dex.data.adapter.IAdapter
+import com.blocksdecoded.dex.data.manager.IAdapterManager
+import com.blocksdecoded.dex.data.manager.ICoinManager
+import com.blocksdecoded.dex.data.manager.rates.IRatesManager
+import com.blocksdecoded.dex.data.manager.rates.RatesConverter
 import com.blocksdecoded.dex.core.model.BalanceState
 import com.blocksdecoded.dex.core.model.CoinBalance
 import com.blocksdecoded.dex.core.model.EConvertType

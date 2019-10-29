@@ -2,8 +2,8 @@ package com.blocksdecoded.dex.presentation.markets
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.core.manager.rates.RatesSyncState.*
-import com.blocksdecoded.dex.core.manager.rates.model.StatsData
+import com.blocksdecoded.dex.data.manager.rates.RatesSyncState.*
+import com.blocksdecoded.dex.data.manager.rates.model.StatsData
 import com.blocksdecoded.dex.core.model.ChartType
 import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.ui.CoreViewModel

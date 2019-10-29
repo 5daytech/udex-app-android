@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.security.biometric.BiometricManager
+import com.blocksdecoded.dex.data.security.biometric.BiometricManager
 import com.blocksdecoded.dex.core.ui.CoreActivity
 import com.blocksdecoded.dex.presentation.main.MainActivity
 import com.blocksdecoded.dex.presentation.widgets.MainToolbar

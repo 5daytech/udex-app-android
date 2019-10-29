@@ -2,14 +2,11 @@ package com.blocksdecoded.dex.presentation.exchangehistory.recycler
 
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.manager.history.ExchangeRecord
-import com.blocksdecoded.dex.core.manager.history.ExchangeRecordItem
-import com.blocksdecoded.dex.presentation.widgets.CoinIconView
-import com.blocksdecoded.dex.presentation.widgets.HashView
+import com.blocksdecoded.dex.data.manager.history.ExchangeRecord
+import com.blocksdecoded.dex.data.manager.history.ExchangeRecordItem
 import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.setTextColorRes

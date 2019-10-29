@@ -1,7 +1,7 @@
 package com.blocksdecoded.dex.presentation.statschart
 
-import com.blocksdecoded.dex.core.manager.rates.model.ChartPoint
-import com.blocksdecoded.dex.core.manager.rates.model.StatsData
+import com.blocksdecoded.dex.data.manager.rates.model.ChartPoint
+import com.blocksdecoded.dex.data.manager.rates.model.StatsData
 import com.blocksdecoded.dex.core.model.ChartType
 import com.blocksdecoded.dex.core.model.Rate
 import java.math.BigDecimal

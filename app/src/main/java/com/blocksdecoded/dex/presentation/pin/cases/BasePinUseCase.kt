@@ -1,7 +1,7 @@
 package com.blocksdecoded.dex.presentation.pin.cases
 
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.security.IPinManager
+import com.blocksdecoded.dex.data.security.IPinManager
 
 abstract class BasePinUseCase(
     var view: IPinView,

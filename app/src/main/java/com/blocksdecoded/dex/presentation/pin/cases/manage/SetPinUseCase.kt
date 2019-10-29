@@ -1,7 +1,7 @@
 package com.blocksdecoded.dex.presentation.pin.cases.manage
 
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.security.IPinManager
+import com.blocksdecoded.dex.data.security.IPinManager
 import com.blocksdecoded.dex.presentation.pin.cases.IPinView
 import com.blocksdecoded.dex.presentation.pin.PinPage
 import com.blocksdecoded.dex.presentation.pin.cases.BasePinUseCase

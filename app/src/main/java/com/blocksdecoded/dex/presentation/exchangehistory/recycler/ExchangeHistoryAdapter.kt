@@ -3,7 +3,7 @@ package com.blocksdecoded.dex.presentation.exchangehistory.recycler
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.manager.history.ExchangeRecord
+import com.blocksdecoded.dex.data.manager.history.ExchangeRecord
 import com.blocksdecoded.dex.utils.inflate
 
 class ExchangeHistoryAdapter(

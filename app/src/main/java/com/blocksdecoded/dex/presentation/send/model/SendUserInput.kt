@@ -1,6 +1,6 @@
 package com.blocksdecoded.dex.presentation.send.model
 
-import com.blocksdecoded.dex.core.adapter.FeeRatePriority
+import com.blocksdecoded.dex.data.adapter.FeeRatePriority
 import java.math.BigDecimal
 
 class SendUserInput {

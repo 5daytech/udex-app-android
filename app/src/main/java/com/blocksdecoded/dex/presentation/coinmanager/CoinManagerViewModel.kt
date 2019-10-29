@@ -2,10 +2,10 @@ package com.blocksdecoded.dex.presentation.coinmanager
 
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.IAppConfiguration
-import com.blocksdecoded.dex.core.manager.ICoinManager
+import com.blocksdecoded.dex.data.manager.ICoinManager
 import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.EnabledCoin
-import com.blocksdecoded.dex.core.storage.IEnabledCoinsStorage
+import com.blocksdecoded.dex.data.storage.IEnabledCoinsStorage
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.utils.isValidIndex

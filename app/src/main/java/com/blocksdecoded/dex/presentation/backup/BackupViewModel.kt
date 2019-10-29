@@ -5,7 +5,7 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import com.blocksdecoded.dex.core.manager.clipboard.ClipboardManager
+import com.blocksdecoded.dex.data.manager.clipboard.ClipboardManager
 
 class BackupViewModel : CoreViewModel() {
 	

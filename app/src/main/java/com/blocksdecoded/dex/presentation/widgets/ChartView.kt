@@ -5,9 +5,7 @@ import android.util.AttributeSet
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.manager.rates.model.ChartPoint
-import com.blocksdecoded.dex.utils.getAttr
+import com.blocksdecoded.dex.data.manager.rates.model.ChartPoint
 import com.blocksdecoded.dex.utils.visible
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
