@@ -182,6 +182,9 @@ class BaseRelayerAdapter(
     override fun cancelOrder(order: SignedOrder): Flowable<String> =
         exchangeInteractor.cancelOrder(order)
 
+    override fun batchCancelOrders(orders: List<SignedOrder>): Flowable<String> =
+        exchangeInteractor.batchCancelOrders(orders)
+
     override fun calculateBasePrice(coinPair: Pair<String, String>, side: EOrderSide): BigDecimal = try {
         OrdersUtil.calculateBasePrice(
             getPairOrders(coinPair, side).orders.map { it.order },

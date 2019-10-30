@@ -145,6 +145,8 @@ class OrdersWatcher(
         else -> null
     }
 
+    fun getMyOrders(): List<SignedOrder>? = getMySelectedOrders().orders.map { it.first }
+
     fun start() {
     }
 

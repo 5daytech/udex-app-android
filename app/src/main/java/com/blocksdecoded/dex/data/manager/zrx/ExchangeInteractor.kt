@@ -103,14 +103,14 @@ class ExchangeInteractor(
             Flowable.error(CancelOrderException(order.makerAddress, ethereumKit.receiveAddress))
         }
 
+    override fun batchCancelOrders(orders: List<SignedOrder>): Flowable<String> {
+        //TODO: Add interaction with exchange contract
+        return Flowable.empty()
+    }
+
     override fun fill(orders: List<SignedOrder>, fillData: FillOrderData): Flowable<String> {
         val baseCoin = coinManager.getCoin(fillData.coinPair.first).type as CoinType.Erc20
         val quoteCoin = coinManager.getCoin(fillData.coinPair.second).type as CoinType.Erc20
-
-//        val pairOrders = allPairOrders.getPair(
-//            ZrxKit.assetItemForAddress(baseCoin.address).assetData,
-//            ZrxKit.assetItemForAddress(quoteCoin.address).assetData
-//        )
 
         val calcAmount = fillData.amount.movePointRight(
             if (fillData.side == EOrderSide.BUY) quoteCoin.decimal else baseCoin.decimal

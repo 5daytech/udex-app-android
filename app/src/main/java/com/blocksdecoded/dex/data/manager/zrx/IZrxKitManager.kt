@@ -30,6 +30,8 @@ interface IExchangeInteractor {
 
     fun cancelOrder(order: SignedOrder): Flowable<String>
 
+    fun batchCancelOrders(orders: List<SignedOrder>): Flowable<String>
+
     fun ordersInfo(orders: List<SignedOrder>): Flowable<List<OrderInfo>>
 }
 
@@ -79,4 +81,6 @@ interface IRelayerAdapter {
     fun createOrder(createData: CreateOrderData): Flowable<SignedOrder>
 
     fun cancelOrder(order: SignedOrder): Flowable<String>
+
+    fun batchCancelOrders(orders: List<SignedOrder>): Flowable<String>
 }

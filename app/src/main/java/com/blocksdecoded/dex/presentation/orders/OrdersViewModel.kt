@@ -2,13 +2,16 @@ package com.blocksdecoded.dex.presentation.orders
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
+import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreViewModel
+import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.data.manager.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.data.manager.zrx.OrdersWatcher
 import com.blocksdecoded.dex.presentation.orders.model.*
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.isValidIndex
+import com.blocksdecoded.dex.utils.rx.uiSubscribe
 
 class OrdersViewModel : CoreViewModel() {
     private val coinManager = App.coinManager
@@ -39,6 +42,8 @@ class OrdersViewModel : CoreViewModel() {
 
     val orderInfoEvent = MutableLiveData<OrderInfoConfig>()
     val fillOrderEvent = MutableLiveData<FillOrderInfo>()
+
+    val cancelAllConfirmEvent = SingleLiveEvent<Unit>()
 
     init {
         relayerManager.mainRelayerUpdatedSignal
@@ -150,6 +155,31 @@ class OrdersViewModel : CoreViewModel() {
                         ))
                     }
                 }
+            }
+        }
+    }
+
+    fun onCancelAllClick() {
+        if (!myOrders.value.isNullOrEmpty()) {
+            val orders = zrxOrdersWatcher?.getMyOrders()
+
+            if (orders != null) {
+                cancelAllConfirmEvent.call()
+            }
+        }
+    }
+
+    fun onCancelAllConfirm() {
+        if (!myOrders.value.isNullOrEmpty()) {
+            val orders = zrxOrdersWatcher?.getMyOrders()
+
+            if (orders != null) {
+                relayer?.batchCancelOrders(orders)
+                    ?.uiSubscribe(disposables, {
+                        messageEvent.postValue(R.string.message_cancel_started)
+                    }, {
+                        errorEvent.postValue(R.string.error_cancel_order)
+                    })
             }
         }
     }
