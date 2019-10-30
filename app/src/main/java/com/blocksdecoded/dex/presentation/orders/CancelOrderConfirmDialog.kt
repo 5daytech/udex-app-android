@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.FragmentManager
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.presentation.dialogs.BaseDialog
-import java.math.BigDecimal
+import com.blocksdecoded.dex.presentation.orders.model.CancelOrderInfo
 import kotlinx.android.synthetic.main.dialog_cancel_confirm.*
 
 class CancelOrderConfirmDialog : BaseDialog(R.layout.dialog_cancel_confirm) {
@@ -34,10 +34,3 @@ class CancelOrderConfirmDialog : BaseDialog(R.layout.dialog_cancel_confirm) {
         }
     }
 }
-
-data class CancelOrderInfo(
-    val estimatedFee: BigDecimal,
-    val feeCoinCode: String?,
-    val processingDuration: Long,
-    val onConfirm: () -> Unit
-)

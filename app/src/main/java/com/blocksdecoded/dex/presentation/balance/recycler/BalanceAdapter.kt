@@ -5,11 +5,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.model.CoinBalance
+import com.blocksdecoded.dex.presentation.common.ActionViewHolder
+import com.blocksdecoded.dex.utils.getAttr
 import com.blocksdecoded.dex.utils.inflate
 
 class BalanceAdapter(
     private val walletListener: BalanceViewHolder.Listener,
-    private val manageCoinsListener: ManageCoinsViewHolder.Listener
+    private val manageCoinsListener: ActionViewHolder.Listener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val TYPE_WALLET = 1
@@ -28,7 +30,15 @@ class BalanceAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             TYPE_WALLET -> BalanceViewHolder(parent.inflate(R.layout.item_balance), walletListener)
-            else -> ManageCoinsViewHolder(parent.inflate(R.layout.item_manage_coins), manageCoinsListener)
+            else -> {
+                val tint = parent.context.theme.getAttr(R.attr.AccentTextColor) ?: 0
+
+                ActionViewHolder(
+                    parent.inflate(R.layout.item_action),
+                    ActionViewHolder.ActionConfig(R.drawable.ic_manage_coins, R.string.action_add_coin, tint),
+                    manageCoinsListener
+                )
+            }
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = Unit

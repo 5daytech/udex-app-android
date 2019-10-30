@@ -9,11 +9,11 @@
     android:layout_marginTop="@dimen/page_margin"
     android:layout_marginBottom="@dimen/page_margin">
     <ImageView
-        android:id="@+id/manage_coin_icon"
+        android:id="@+id/item_action_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/manage_coin_hint"
+        app:layout_constraintEnd_toStartOf="@+id/item_action_hint"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -23,14 +23,14 @@
 
     <TextView
         style="@style/BoldText"
-        android:id="@+id/manage_coin_hint"
+        android:id="@+id/item_action_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/manage_coin_icon"
+        app:layout_constraintStart_toEndOf="@+id/item_action_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="@dimen/page_margin"
         android:textColor="?AccentTextColor"
-        android:text="Add Coin"/>
+        android:text="@string/action_add_coin"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

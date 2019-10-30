@@ -10,8 +10,8 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.balance.recycler.BalanceAdapter
 import com.blocksdecoded.dex.presentation.balance.recycler.BalanceViewHolder
-import com.blocksdecoded.dex.presentation.balance.recycler.ManageCoinsViewHolder
 import com.blocksdecoded.dex.presentation.coinmanager.CoinManagerActivity
+import com.blocksdecoded.dex.presentation.common.ActionViewHolder
 import com.blocksdecoded.dex.presentation.convert.ConvertDialog
 import com.blocksdecoded.dex.presentation.receive.ReceiveDialog
 import com.blocksdecoded.dex.presentation.send.SendDialog
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.view_top_up_account.*
 
 class BalanceFragment : CoreFragment(R.layout.fragment_balance),
         BalanceViewHolder.Listener,
-        ManageCoinsViewHolder.Listener {
+        ActionViewHolder.Listener {
 
     private lateinit var adapter: BalanceAdapter
     private lateinit var viewModel: BalanceViewModel

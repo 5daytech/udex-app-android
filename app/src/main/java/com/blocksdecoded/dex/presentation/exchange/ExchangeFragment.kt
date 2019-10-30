@@ -32,10 +32,10 @@ import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.ui.toDisplayFormat
 import com.blocksdecoded.dex.utils.visible
 import io.reactivex.disposables.CompositeDisposable
+import java.math.BigDecimal
 import kotlinx.android.synthetic.main.fragment_exchange.*
 import kotlinx.android.synthetic.main.view_limit_order.*
 import kotlinx.android.synthetic.main.view_market_order.*
-import java.math.BigDecimal
 
 class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAdapter.Listener, IFocusListener {
 

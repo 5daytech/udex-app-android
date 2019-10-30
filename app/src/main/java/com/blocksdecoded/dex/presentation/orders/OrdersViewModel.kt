@@ -5,6 +5,7 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
+import com.blocksdecoded.dex.data.manager.duration.ETransactionType
 import com.blocksdecoded.dex.data.manager.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.data.manager.zrx.OrdersWatcher
 import com.blocksdecoded.dex.presentation.orders.model.*
@@ -12,12 +13,15 @@ import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.isValidIndex
 import com.blocksdecoded.dex.utils.rx.uiSubscribe
+import java.math.BigDecimal
 
 class OrdersViewModel : CoreViewModel() {
     private val coinManager = App.coinManager
     private val relayerManager = App.relayerAdapterManager
     private val ratesConverter = App.ratesConverter
     private val ratesManager = App.ratesManager
+    private val adapterManager = App.adapterManager
+    private val processingTimeProvider = App.processingDurationProvider
 
     private val relayer: IRelayerAdapter?
         get() = relayerManager.mainRelayer
@@ -43,7 +47,7 @@ class OrdersViewModel : CoreViewModel() {
     val orderInfoEvent = MutableLiveData<OrderInfoConfig>()
     val fillOrderEvent = MutableLiveData<FillOrderInfo>()
 
-    val cancelAllConfirmEvent = SingleLiveEvent<Unit>()
+    val cancelAllConfirmEvent = SingleLiveEvent<CancelOrderInfo>()
 
     init {
         relayerManager.mainRelayerUpdatedSignal
@@ -121,6 +125,21 @@ class OrdersViewModel : CoreViewModel() {
         myOrders.postValue(zrxOrdersWatcher?.uiMyOrders)
     }
 
+    private fun cancelAllMyOrders() {
+        if (!myOrders.value.isNullOrEmpty()) {
+            val orders = zrxOrdersWatcher?.getMyOrders()
+
+            if (orders != null) {
+                relayer?.batchCancelOrders(orders)
+                    ?.uiSubscribe(disposables, {
+                        messageEvent.postValue(R.string.message_cancel_started)
+                    }, {
+                        errorEvent.postValue(R.string.error_cancel_order)
+                    })
+            }
+        }
+    }
+
     //endregion
 
     fun onPickPair(position: Int) {
@@ -159,27 +178,25 @@ class OrdersViewModel : CoreViewModel() {
         }
     }
 
-    fun onCancelAllClick() {
-        if (!myOrders.value.isNullOrEmpty()) {
-            val orders = zrxOrdersWatcher?.getMyOrders()
+    fun onActionClick(side: EOrderSide) {
+        when (side) {
+            MY -> {
+                if (!myOrders.value.isNullOrEmpty()) {
+                    val orders = zrxOrdersWatcher?.getMyOrders()
 
-            if (orders != null) {
-                cancelAllConfirmEvent.call()
-            }
-        }
-    }
+                    if (orders != null) {
+                        val adapter = adapterManager.adapters
+                            .firstOrNull { it.coin.code == currentPair?.first } ?: return
 
-    fun onCancelAllConfirm() {
-        if (!myOrders.value.isNullOrEmpty()) {
-            val orders = zrxOrdersWatcher?.getMyOrders()
+                        val cancelInfo = CancelOrderInfo(
+                            BigDecimal.ZERO,
+                            adapter.feeCoinCode,
+                            processingTimeProvider.getEstimatedDuration(adapter.coin, ETransactionType.CANCEL)
+                        ) { cancelAllMyOrders() }
 
-            if (orders != null) {
-                relayer?.batchCancelOrders(orders)
-                    ?.uiSubscribe(disposables, {
-                        messageEvent.postValue(R.string.message_cancel_started)
-                    }, {
-                        errorEvent.postValue(R.string.error_cancel_order)
-                    })
+                        cancelAllConfirmEvent.postValue(cancelInfo)
+                    }
+                }
             }
         }
     }

@@ -186,6 +186,9 @@
     <string name="connection_restored">Connected</string>
     <string name="connection_no_available">No connection…</string>
 
+    <string name="orders_cancel_all">Cancel All Orders</string>
+    <string name="action_add_coin">Add Coin</string>
+
     <!-- Placeholders -->
     <string-array name="placeholder_items">
         <item>WETH</item>

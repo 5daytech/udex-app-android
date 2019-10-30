@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.presentation.orders
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -8,14 +9,18 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.common.ActionViewHolder
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.presentation.orders.recycler.OrderViewHolder
 import com.blocksdecoded.dex.presentation.orders.recycler.OrdersAdapter
+import com.blocksdecoded.dex.utils.getColorRes
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_orders.*
 
-class OrdersFragment : CoreFragment(R.layout.fragment_orders), OrderViewHolder.Listener {
+class OrdersFragment : CoreFragment(R.layout.fragment_orders),
+    OrderViewHolder.Listener,
+    ActionViewHolder.Listener {
 
     private lateinit var adapter: OrdersAdapter
     private lateinit var viewModel: OrdersViewModel
@@ -23,7 +28,16 @@ class OrdersFragment : CoreFragment(R.layout.fragment_orders), OrderViewHolder.L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = OrdersAdapter(this)
+        val actionConfig = if (side == MY) {
+            ActionViewHolder.ActionConfig(
+                R.drawable.ic_cancel_circle,
+                R.string.orders_cancel_all,
+                context?.getColorRes(R.color.red) ?: Color.BLACK
+            )
+        } else {
+            null
+        }
+        adapter = OrdersAdapter(this, this, actionConfig)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -51,6 +65,10 @@ class OrdersFragment : CoreFragment(R.layout.fragment_orders), OrderViewHolder.L
 
     override fun onClick(position: Int) {
         viewModel.onOrderClick(position, side)
+    }
+
+    override fun onClick() {
+        viewModel.onActionClick(side)
     }
 
     companion object {

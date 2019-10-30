@@ -13,6 +13,7 @@ import com.blocksdecoded.dex.presentation.main.IFocusListener
 import com.blocksdecoded.dex.presentation.orders.info.OrderInfoDialog
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.FillOrderInfo
+import com.blocksdecoded.dex.utils.ui.ToastHelper
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_orders_host.*
 
@@ -56,6 +57,18 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host), IFocusLi
                     val secondTab = orders_tab_layout.getTabAt(1)
                     secondTab?.text = "BUY $it"
                 }
+            })
+
+            viewModel.messageEvent.observe(this, Observer {
+                ToastHelper.showSuccessMessage(it)
+            })
+
+            viewModel.errorEvent.observe(this, Observer {
+                ToastHelper.showErrorMessage(it)
+            })
+
+            viewModel.cancelAllConfirmEvent.observe(this, Observer { cancelInfo ->
+                fragmentManager?.let { CancelOrderConfirmDialog.show(it, cancelInfo) }
             })
         }
     }

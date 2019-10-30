@@ -104,7 +104,7 @@ class ExchangeInteractor(
         }
 
     override fun batchCancelOrders(orders: List<SignedOrder>): Flowable<String> {
-        //TODO: Add interaction with exchange contract
+        // TODO: Add interaction with exchange contract
         return Flowable.empty()
     }
 
