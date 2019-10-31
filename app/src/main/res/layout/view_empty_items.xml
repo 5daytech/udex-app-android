@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_error"/>
+        android:src="@drawable/ic_empty_list"/>
 
     <TextView
         style="@style/RegularText"
