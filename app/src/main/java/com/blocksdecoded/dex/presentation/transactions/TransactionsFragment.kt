@@ -55,7 +55,7 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
         })
 
         viewModel.isEmpty.observe(this, Observer { emptyTransactions ->
-            transactions_container?.visible = !emptyTransactions
+            transactions_recycler?.visible = !emptyTransactions
             empty_view?.visible = emptyTransactions
         })
 
