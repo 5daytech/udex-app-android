@@ -18,7 +18,7 @@ class OrdersAdapter(
     private val TYPE_ACTION = 1
     private val TYPE_ORDER = 2
 
-    override fun getItemViewType(position: Int): Int = if (position == 0 && actionConfig != null) {
+    override fun getItemViewType(position: Int): Int = if (position == mOrders.size && actionConfig != null) {
         TYPE_ACTION
     } else {
         TYPE_ORDER

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/item_action_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:background="?selectableItemBackground"
-    android:layout_marginTop="@dimen/page_margin"
-    android:layout_marginBottom="@dimen/page_margin">
+    android:layout_marginTop="@dimen/medium_margin"
+    android:layout_marginBottom="@dimen/medium_margin">
     <ImageView
         android:id="@+id/item_action_icon"
         android:layout_width="wrap_content"
@@ -19,7 +20,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         android:src="@drawable/ic_manage_coins"
         android:tint="?AccentTextColor"
-        android:padding="@dimen/medium_margin" />
+        android:layout_marginEnd="@dimen/element_margin"/>
 
     <TextView
         style="@style/BoldText"
