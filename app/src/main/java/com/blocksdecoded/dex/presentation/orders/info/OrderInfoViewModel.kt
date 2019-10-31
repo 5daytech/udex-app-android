@@ -62,6 +62,7 @@ class OrderInfoViewModel : CoreViewModel() {
                 .firstOrNull { it.coin.code == uiOrder.makerCoin.code } ?: return
 
             showCancelConfirmEvent.value = CancelOrderInfo(
+                1,
                 BigDecimal.ZERO,
                 adapter.feeCoinCode,
                 processingTimeProvider.getEstimatedDuration(adapter.coin, ETransactionType.CANCEL)

@@ -189,6 +189,7 @@ class OrdersViewModel : CoreViewModel() {
                             .firstOrNull { it.coin.code == currentPair?.first } ?: return
 
                         val cancelInfo = CancelOrderInfo(
+                            orders.size,
                             BigDecimal.ZERO,
                             adapter.feeCoinCode,
                             processingTimeProvider.getEstimatedDuration(adapter.coin, ETransactionType.CANCEL)

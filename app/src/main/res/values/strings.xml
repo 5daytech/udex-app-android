@@ -187,6 +187,7 @@
     <string name="connection_no_available">No connection…</string>
 
     <string name="orders_cancel_all">Cancel All Orders</string>
+    <string name="orders_cancel">Cancel Order</string>
     <string name="action_add_coin">Add Coin</string>
 
     <!-- Placeholders -->

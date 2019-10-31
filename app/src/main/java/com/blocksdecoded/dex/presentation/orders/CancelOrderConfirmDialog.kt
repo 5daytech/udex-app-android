@@ -22,6 +22,12 @@ class CancelOrderConfirmDialog : BaseDialog(R.layout.dialog_cancel_confirm) {
 
         cancel_fee?.setCoin(cancelOrderInfo.feeCoinCode ?: "", cancelOrderInfo.estimatedFee, isExactAmount = false)
         cancel_duration?.setMillis(cancelOrderInfo.processingDuration)
+
+        cancel_title.setText(if (cancelOrderInfo.orderCount == 1) {
+            R.string.orders_cancel
+        } else {
+            R.string.orders_cancel_all
+        })
     }
 
     companion object {

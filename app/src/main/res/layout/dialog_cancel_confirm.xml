@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/page_margin"
         android:layout_marginTop="@dimen/element_margin"
-        android:text="Cancel order"/>
+        android:text="@string/orders_cancel"/>
 
     <com.blocksdecoded.dex.presentation.widgets.InfoItemView
         android:id="@+id/cancel_fee"
