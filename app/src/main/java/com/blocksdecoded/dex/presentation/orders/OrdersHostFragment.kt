@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
+import com.blocksdecoded.dex.presentation.common.TransactionSentDialog
 import com.blocksdecoded.dex.presentation.main.IFocusListener
 import com.blocksdecoded.dex.presentation.orders.info.OrderInfoDialog
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
@@ -69,6 +70,10 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host), IFocusLi
 
             viewModel.cancelAllConfirmEvent.observe(this, Observer { cancelInfo ->
                 fragmentManager?.let { CancelOrderConfirmDialog.show(it, cancelInfo) }
+            })
+
+            viewModel.transactionSentEvent.observe(this, Observer { transactionHash ->
+                fragmentManager?.let { TransactionSentDialog.show(it, transactionHash) }
             })
         }
     }

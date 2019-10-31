@@ -119,7 +119,7 @@ class ConvertDialog private constructor() :
 
         viewModel.transactionSentEvent.observe(this, Observer { transactionHash ->
             if (activity != null && transactionHash != null) {
-                TransactionSentDialog.open(activity!!.supportFragmentManager, transactionHash)
+                TransactionSentDialog.show(activity!!.supportFragmentManager, transactionHash)
             }
         })
 

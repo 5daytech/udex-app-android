@@ -46,6 +46,7 @@ class OrdersViewModel : CoreViewModel() {
 
     val orderInfoEvent = MutableLiveData<OrderInfoConfig>()
     val fillOrderEvent = MutableLiveData<FillOrderInfo>()
+    val transactionSentEvent = SingleLiveEvent<String>()
 
     val cancelAllConfirmEvent = SingleLiveEvent<CancelOrderInfo>()
 
@@ -130,9 +131,10 @@ class OrdersViewModel : CoreViewModel() {
             val orders = zrxOrdersWatcher?.getMyOrders()
 
             if (orders != null) {
+                messageEvent.value = R.string.message_cancel_started
                 relayer?.batchCancelOrders(orders)
                     ?.uiSubscribe(disposables, {
-                        messageEvent.postValue(R.string.message_cancel_started)
+                        transactionSentEvent.postValue(it)
                     }, {
                         errorEvent.postValue(R.string.error_cancel_order)
                     })

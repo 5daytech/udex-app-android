@@ -77,7 +77,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
     }
 
     private val transactionSentObserver = Observer<String> {
-        TransactionSentDialog.open(childFragmentManager, it)
+        TransactionSentDialog.show(childFragmentManager, it)
     }
 
     private val exchangePriceObserver = Observer<BigDecimal> {

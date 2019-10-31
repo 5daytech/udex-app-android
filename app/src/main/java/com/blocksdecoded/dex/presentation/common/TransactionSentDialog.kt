@@ -35,7 +35,7 @@ class TransactionSentDialog private constructor() :
     }
 
     companion object {
-        fun open(fragmentManager: FragmentManager, transactionHash: String) {
+        fun show(fragmentManager: FragmentManager, transactionHash: String) {
             val fragment = TransactionSentDialog()
 
             fragment.transactionHash = transactionHash
