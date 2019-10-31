@@ -23,14 +23,14 @@ import com.blocksdecoded.dex.presentation.models.FeeInfo
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.rx.uiSubscribe
-import com.blocksdecoded.zrxkit.contracts.WethWrapper
+import com.blocksdecoded.zrxkit.contracts.IWethWrapper
 import java.math.BigDecimal
 import java.net.SocketTimeoutException
 import kotlin.math.absoluteValue
 
 class ConvertViewModel(
     private val coinManager: ICoinManager = App.coinManager,
-    private val wethWrapper: WethWrapper = App.zrxKitManager.zrxKit().getWethWrapperInstance(),
+    private val wethWrapper: IWethWrapper = App.zrxKitManager.zrxKit().getWethWrapperInstance(),
     private val ratesConverter: RatesConverter = App.ratesConverter,
     private val processingDurationProvider: IProcessingDurationProvider = App.processingDurationProvider
 ) : CoreViewModel() {

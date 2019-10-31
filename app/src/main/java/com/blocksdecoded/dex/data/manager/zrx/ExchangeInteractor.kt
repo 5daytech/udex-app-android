@@ -8,7 +8,7 @@ import com.blocksdecoded.dex.data.manager.zrx.model.CreateOrderData
 import com.blocksdecoded.dex.data.manager.zrx.model.FillOrderData
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.zrxkit.ZrxKit
-import com.blocksdecoded.zrxkit.contracts.ZrxExchangeWrapper
+import com.blocksdecoded.zrxkit.contracts.IZrxExchange
 import com.blocksdecoded.zrxkit.model.Order
 import com.blocksdecoded.zrxkit.model.OrderInfo
 import com.blocksdecoded.zrxkit.model.SignedOrder
@@ -21,7 +21,7 @@ class ExchangeInteractor(
     private val coinManager: ICoinManager,
     private val ethereumKit: EthereumKit,
     private val zrxKit: ZrxKit,
-    private val exchangeWrapper: ZrxExchangeWrapper,
+    private val exchangeWrapper: IZrxExchange,
     private val allowanceChecker: IAllowanceChecker
 ) : IExchangeInteractor {
 
@@ -49,7 +49,7 @@ class ExchangeInteractor(
 
         val order = Order(
             makerAddress = ethereumKit.receiveAddress.toLowerCase(),
-            exchangeAddress = exchangeWrapper.contractAddress,
+            exchangeAddress = exchangeWrapper.address,
             makerAssetData = makerAsset,
             takerAssetData = takerAsset,
             makerAssetAmount = makeAmount.toString(),
