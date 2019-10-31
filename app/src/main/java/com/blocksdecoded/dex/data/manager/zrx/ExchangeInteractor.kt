@@ -103,9 +103,8 @@ class ExchangeInteractor(
             Flowable.error(CancelOrderException(order.makerAddress, ethereumKit.receiveAddress))
         }
 
-    override fun batchCancelOrders(orders: List<SignedOrder>): Flowable<String> {
-        return exchangeWrapper.batchCancelOrders(orders)
-    }
+    override fun batchCancelOrders(orders: List<SignedOrder>): Flowable<String> =
+        exchangeWrapper.batchCancelOrders(orders)
 
     override fun fill(orders: List<SignedOrder>, fillData: FillOrderData): Flowable<String> {
         val baseCoin = coinManager.getCoin(fillData.coinPair.first).type as CoinType.Erc20
