@@ -89,9 +89,9 @@
     <string name="info_expire_at">Expire At:</string>
 
     <string name="message_syncing">SYNCING…</string>
-    <string name="message_empty_transactions">THERE’S NO ANY\nTRANSACTIONS YET</string>
-    <string name="message_empty_exchange_history">THERE’S NO ANY\nEXCHANGES YET</string>
-    <string name="message_empty_orders">THERE’S NO ANY\nORDERS YET</string>
+    <string name="message_empty_transactions">NO TRANSACTIONS YET</string>
+    <string name="message_empty_exchange_history">NO HISTORY YET</string>
+    <string name="message_empty_orders">NO ORDERS YET</string>
 
     <string name="top_up_title">Top-up Your Account</string>
     <string name="top_up_description">Add coins before starting\nto exchange</string>
