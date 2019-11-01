@@ -62,9 +62,10 @@
             android:layout_marginBottom="@dimen/small_margin"
             android:padding="6dp"
             android:scaleType="centerCrop"
+            android:tint="?AccentTextColor"
             android:src="@drawable/ic_qr"
             android:visibility="visible"
-            />
+            android:background="@color/transparent" />
 
         <Button
             android:id="@+id/address_paste"

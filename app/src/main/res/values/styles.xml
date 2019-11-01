@@ -105,7 +105,7 @@
         <item name="ActionButtonBackground">@color/black</item>
         <item name="MainBackground">@color/black</item>
         <item name="MainDarkBackground">@color/black</item>
-        <item name="SmallActionButtonColor">@color/black</item>
+        <item name="SmallActionButtonColor">@color/gold_main</item>
         <item name="AccentBackground">@color/gold_accent</item>
         <item name="DividerColor">@color/gold_divider</item>
         <item name="OddOrderBackground">@color/gold_accent</item>
