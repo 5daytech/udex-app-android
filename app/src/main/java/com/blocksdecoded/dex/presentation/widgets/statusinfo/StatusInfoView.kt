@@ -22,13 +22,9 @@ import androidx.core.view.isInvisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.utils.dp
-import com.blocksdecoded.dex.utils.getAttr
-import com.blocksdecoded.dex.utils.isTranslucentStatus
+import com.blocksdecoded.dex.utils.*
 import com.blocksdecoded.dex.utils.listeners.SimpleAnimatorListener
-import com.blocksdecoded.dex.utils.statusBarHeight
 import kotlin.math.absoluteValue
 
 @SuppressLint("ViewConstructor")
@@ -127,7 +123,7 @@ class StatusInfoView(
     private fun configureWindowFlags() {
         activity.window.decorView.rootView.apply {
             var systemUiFlags = View.SYSTEM_UI_FLAG_LOW_PROFILE
-            if (App.appPreferences.isLightModeEnabled) {
+            if (ThemeHelper.isLightTheme()) {
                 systemUiFlags = systemUiFlags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             }
             systemUiVisibility = systemUiFlags
@@ -213,7 +209,7 @@ class StatusInfoView(
                     .setListener(object : SimpleAnimatorListener() {
                         override fun onAnimationEnd(animation: Animator?) {
                             var systemUiFlags = View.SYSTEM_UI_FLAG_VISIBLE
-                            if (App.appPreferences.isLightModeEnabled) {
+                            if (ThemeHelper.isLightTheme()) {
                                 systemUiFlags = systemUiFlags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                             }
                             activity.window.decorView.rootView.systemUiVisibility = systemUiFlags

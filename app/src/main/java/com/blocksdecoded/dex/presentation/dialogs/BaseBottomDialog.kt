@@ -9,9 +9,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.*
 import androidx.annotation.NonNull
-import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.utils.Logger
+import com.blocksdecoded.dex.utils.ThemeHelper
 import com.blocksdecoded.dex.utils.getColorRes
 import com.blocksdecoded.dex.utils.ui.BlurUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -26,13 +26,8 @@ abstract class BaseBottomDialog(
     private val backgroundBlurEnabled = false
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val theme = if (App.appPreferences.isLightModeEnabled)
-            R.style.LightBottomSheet
-        else
-            R.style.DarkBottomSheet
-
         val dialog = activity?.let {
-            BottomSheetDialog(it, theme)
+            BottomSheetDialog(it, ThemeHelper.getBottomDialogTheme())
         }
 
         requireNotNull(dialog)

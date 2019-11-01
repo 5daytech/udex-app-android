@@ -12,14 +12,13 @@ import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.BuildConfig
-import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.utils.ThemeHelper
 
 abstract class CoreActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val lightMode = App.appPreferences.isLightModeEnabled
-        setTheme(if (lightMode) R.style.AppTheme_LightMode else R.style.AppTheme_DarkMode)
+        setTheme(ThemeHelper.getActivityTheme())
 
         if (!BuildConfig.DEBUG) {
             window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)

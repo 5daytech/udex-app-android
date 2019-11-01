@@ -6,8 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
-import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.R
+import com.blocksdecoded.dex.utils.ThemeHelper
 
 abstract class BaseDialog(
     private val layoutId: Int
@@ -15,12 +14,7 @@ abstract class BaseDialog(
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = activity?.let {
-            val theme = if (App.appPreferences.isLightModeEnabled)
-                R.style.LightFloatingDialog
-            else
-                R.style.DarkFloatingDialog
-
-            Dialog(it, theme)
+            Dialog(it, ThemeHelper.getFloatingDialogTheme())
         }
 
         requireNotNull(dialog)

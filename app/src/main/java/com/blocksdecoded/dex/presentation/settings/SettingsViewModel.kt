@@ -17,7 +17,7 @@ class SettingsViewModel : CoreViewModel() {
     val restartAppEvent = SingleLiveEvent<Unit>()
 
     init {
-        lightMode.value = appPreferences.isLightModeEnabled
+        lightMode.value = appPreferences.selectedTheme == 1
         isBackedUp.value = appPreferences.isBackedUp
     }
 
@@ -30,7 +30,7 @@ class SettingsViewModel : CoreViewModel() {
     }
 
     fun onLightModeSwitch(isLightModeOn: Boolean) {
-        appPreferences.isLightModeEnabled = isLightModeOn
+        appPreferences.selectedTheme = if (isLightModeOn) 1 else 0
         restartAppEvent.call()
     }
 

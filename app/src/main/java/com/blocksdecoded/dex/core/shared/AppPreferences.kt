@@ -5,7 +5,7 @@ class AppPreferences(
 ) : IAppPreferences {
 
     private val IS_BACKED_UP = "is_backed_up"
-    private val IS_LIGHT_MODE_ENABLED = "is_light_mode_enabled"
+    private val SELECTED_THEME = "selected_theme"
     private val IS_FINGERPRINT_ENABLED = "is_fingerprint_enabled"
     private val SELECTED_CHART_PERIOD = "selected_chart_period"
 
@@ -17,9 +17,9 @@ class AppPreferences(
         get() = sharedStorage.getPreference(IS_FINGERPRINT_ENABLED, false)
         set(value) { sharedStorage.setPreference(IS_FINGERPRINT_ENABLED, value) }
 
-    override var isLightModeEnabled: Boolean
-        get() = sharedStorage.getPreference(IS_LIGHT_MODE_ENABLED, false)
-        set(value) { sharedStorage.setPreference(IS_LIGHT_MODE_ENABLED, value) }
+    override var selectedTheme: Int
+        get() = sharedStorage.getPreference(SELECTED_THEME, 0)
+        set(value) { sharedStorage.setPreference(SELECTED_THEME, value) }
 
     override var selectedChartPeriod: String
         get() = sharedStorage.getPreference(SELECTED_CHART_PERIOD, "")
