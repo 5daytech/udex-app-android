@@ -47,13 +47,14 @@
     <color name="red">#E83958</color>
     <color name="red_warning">#ff5e3a</color>
     <color name="dark_red">#B30000</color>
-    <color name="yellow">#FFB23F</color>
-    <color name="dark_yellow">#F3BA2F</color>
-    <color name="bright_yellow">#fffa5a</color>
+    <color name="orange">#FF8A00</color>
+
     <color name="turquoise">#56D6FF</color>
     <color name="transparent_turquoise_40">#4056D6FF</color>
 
-    <color name="orange">#FF8A00</color>
+    <color name="yellow">#FFB23F</color>
+    <color name="dark_yellow">#F3BA2F</color>
+    <color name="bright_yellow">#fffa5a</color>
 
     <color name="blue">#2F82FF</color>
     <color name="transparent_blue">#602F82FF</color>

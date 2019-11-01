@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/page_margin"
+    android:paddingEnd="@dimen/page_margin">
+
+    <ImageView
+        android:id="@+id/settings_item_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:tint="?AccentTextColor"
+        android:src="@drawable/ic_light_mode"/>
+
+    <TextView
+        style="@style/SettingsText"
+        android:id="@+id/settings_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/settings_item_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="@dimen/page_margin"
+        android:gravity="center_vertical"
+        android:text="@string/settings_theme"/>
+
+    <com.rm.rmswitch.RMTristateSwitch
+        style="@style/SwitchStyle"
+        android:id="@+id/settings_item_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:forceAspectRatio="true"
+        app:state="left"
+        app:enabled="true"
+        app:switchDesign="large"
+        app:switchToggleLeftColor="@color/yellow"
+        app:switchToggleLeftImage="@drawable/ic_filled_circle"
+        app:switchToggleMiddleColor="@color/turquoise"
+        app:switchToggleMiddleImage="@drawable/ic_filled_circle"
+        app:switchToggleRightColor="@color/blue"
+        app:switchToggleRightImage="@drawable/ic_filled_circle"/>
+
+    <View
+        style="@style/Divider"
+        android:id="@+id/settings_item_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,6 @@ package com.blocksdecoded.dex.presentation.settings
 
 import android.os.Bundle
 import android.view.View
-import android.widget.CompoundButton
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blocksdecoded.dex.App
@@ -35,13 +34,15 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings), IFocusListene
             activity?.let { SecurityCenterActivity.start(it) }
         })
 
-        viewModel.lightMode.observe(this, Observer { lightMode ->
+        viewModel.selectedTheme.observe(this, Observer { lightMode ->
             lightMode?.let {
                 light_mode?.apply {
-                    isChecked = it
+                    selectedTheme = it
 
-                    switchOnCheckedChangeListener = CompoundButton.OnCheckedChangeListener { _, isChecked ->
-                        viewModel.onLightModeSwitch(isChecked)
+                    switchOnCheckedChangeListener = object: ThemeSwitchView.ThemeSwitchListener {
+                        override fun onChange(state: Int) {
+                            viewModel.onThemeChanged(state)
+                        }
                     }
                 }
             }

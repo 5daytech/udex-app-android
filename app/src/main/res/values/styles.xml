@@ -80,6 +80,33 @@
         <item name="AccentTextColor">@color/turquoise</item>
     </style>
 
+    <style name="AppTheme.GoldMode">
+        <item name="colorAccent">@color/yellow</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@color/dark_main</item>
+        <item name="android:windowBackground">@color/dark_main</item>
+        <item name="selectableItemBackground">@drawable/bg_selectable_item</item>
+        <item name="selectableItemBackgroundBorderless">@drawable/bg_selectable_item_borderless</item>
+        <item name="SelectableRippleColor">@drawable/bg_selectable_item</item>
+        <item name="PrimaryTextColor">@color/main_light_text</item>
+        <item name="PrimaryLightColor">@color/white</item>
+        <item name="HintTextColor">@color/light_hint</item>
+        <item name="SecondaryHintTextColor">@color/light_secondary_hint</item>
+        <item name="ActionButtonBackground">@color/dark_main</item>
+        <item name="MainBackground">@color/dark_main</item>
+        <item name="MainDarkBackground">@color/dark_main_dark</item>
+        <item name="SmallActionButtonColor">@color/action_button_dark</item>
+        <item name="AccentBackground">@color/dark_accent</item>
+        <item name="DividerColor">@color/dark_divider</item>
+        <item name="OddOrderBackground">@color/dark_accent</item>
+        <item name="EvenOrderBackground">@color/dark_main</item>
+        <item name="EmptyCircleColor">@color/dark_empty_circle</item>
+        <item name="AttentionColor">@color/bright_yellow</item>
+        <item name="PrimaryButtonColor">@color/yellow</item>
+        <item name="PrimaryButtonTransparentColor">@color/transparent_violet</item>
+        <item name="AccentTextColor">@color/yellow</item>
+    </style>
+
     <style name="AppTheme.DarkLaunchScreen">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

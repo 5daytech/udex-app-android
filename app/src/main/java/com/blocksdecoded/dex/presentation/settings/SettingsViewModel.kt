@@ -9,7 +9,7 @@ class SettingsViewModel : CoreViewModel() {
 
     private val appPreferences = App.appPreferences
 
-    val lightMode = MutableLiveData<Boolean>()
+    val selectedTheme = MutableLiveData<Int>()
     val isBackedUp = MutableLiveData<Boolean>()
 
     val openSecurityCenterEvent = SingleLiveEvent<Unit>()
@@ -17,7 +17,7 @@ class SettingsViewModel : CoreViewModel() {
     val restartAppEvent = SingleLiveEvent<Unit>()
 
     init {
-        lightMode.value = appPreferences.selectedTheme == 1
+        selectedTheme.value = appPreferences.selectedTheme
         isBackedUp.value = appPreferences.isBackedUp
     }
 
@@ -29,12 +29,14 @@ class SettingsViewModel : CoreViewModel() {
         openAboutAppEvent.call()
     }
 
-    fun onLightModeSwitch(isLightModeOn: Boolean) {
-        appPreferences.selectedTheme = if (isLightModeOn) 1 else 0
-        restartAppEvent.call()
-    }
-
     fun onResume() {
         isBackedUp.value = appPreferences.isBackedUp
+    }
+
+    fun onThemeChanged(theme: Int) {
+        if (appPreferences.selectedTheme != theme) {
+            appPreferences.selectedTheme = theme
+            restartAppEvent.call()
+        }
     }
 }
