@@ -3,6 +3,7 @@ package com.blocksdecoded.dex.presentation.main
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
@@ -27,6 +28,7 @@ import com.blocksdecoded.dex.presentation.send.SendViewModel
 import com.blocksdecoded.dex.presentation.settings.SettingsFragment
 import com.blocksdecoded.dex.presentation.widgets.statusinfo.StatusInfoView
 import com.blocksdecoded.dex.utils.Logger
+import com.blocksdecoded.dex.utils.getAttr
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main_content.*
@@ -113,7 +115,7 @@ class MainActivity :
         main_view_pager?.adapter = adapter
         main_view_pager?.offscreenPageLimit = 4
 
-        main_bottom_nav?.defaultBackgroundColor = ContextCompat.getColor(this, R.color.dark_main)
+        main_bottom_nav?.defaultBackgroundColor = theme.getAttr(R.attr.NavigationColor) ?: Color.BLACK
 
         main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_wallet, R.drawable.tab_balance, 0))
         main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_orders, R.drawable.tab_orders, 0))
@@ -121,7 +123,7 @@ class MainActivity :
         main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_markets, R.drawable.tab_markets, 0))
         main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_settings, R.drawable.tab_settings, 0))
 
-        main_bottom_nav?.accentColor = ContextCompat.getColor(this, R.color.turquoise)
+        main_bottom_nav?.accentColor = theme.getAttr(R.attr.AccentTextColor) ?: Color.WHITE
         main_bottom_nav?.inactiveColor = ContextCompat.getColor(this, R.color.tab_inactive)
         main_bottom_nav?.titleState = AHBottomNavigation.TitleState.ALWAYS_HIDE
         main_bottom_nav?.setUseElevation(false)
