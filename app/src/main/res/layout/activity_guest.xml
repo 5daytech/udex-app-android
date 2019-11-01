@@ -48,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="?PrimaryTextColor"
             android:layout_marginStart="@dimen/page_margin"
             android:layout_marginEnd="@dimen/page_margin"
             android:layout_marginBottom="@dimen/bottom_sheet_small_margin"
