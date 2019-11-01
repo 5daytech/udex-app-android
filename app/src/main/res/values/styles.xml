@@ -5,6 +5,8 @@
     <attr name="AccentTextColor" format="reference|color"/>
     <attr name="HintTextColor" format="reference|color"/>
     <attr name="PrimaryButtonColor" format="reference|color"/>
+    <attr name="PrimaryButtonTextColor" format="reference|color"/>
+    <attr name="PrimaryButtonTransparentTextColor" format="reference|color"/>
     <attr name="PrimaryButtonTransparentColor" format="reference|color"/>
     <attr name="SecondaryHintTextColor" format="reference|color"/>
     <attr name="ActionButtonBackground" format="reference|color"/>
@@ -51,6 +53,8 @@
         <item name="EmptyCircleColor">@color/light_empty_circle</item>
         <item name="AttentionColor">@color/orange</item>
         <item name="PrimaryButtonColor">@color/blue</item>
+        <item name="PrimaryButtonTextColor">@color/white</item>
+        <item name="PrimaryButtonTransparentTextColor">@color/transparent_white</item>
         <item name="PrimaryButtonTransparentColor">@color/transparent_blue</item>
         <item name="AccentTextColor">@color/blue</item>
     </style>
@@ -78,6 +82,8 @@
         <item name="EmptyCircleColor">@color/dark_empty_circle</item>
         <item name="AttentionColor">@color/bright_yellow</item>
         <item name="PrimaryButtonColor">@color/violet</item>
+        <item name="PrimaryButtonTextColor">@color/white</item>
+        <item name="PrimaryButtonTransparentTextColor">@color/transparent_white</item>
         <item name="PrimaryButtonTransparentColor">@color/transparent_violet</item>
         <item name="AccentTextColor">@color/turquoise</item>
     </style>
@@ -106,8 +112,10 @@
         <item name="EvenOrderBackground">@color/black</item>
         <item name="EmptyCircleColor">@color/gold_accent</item>
         <item name="AttentionColor">@color/red</item>
-        <item name="PrimaryButtonColor">@color/dark_yellow</item>
-        <item name="PrimaryButtonTransparentColor">@color/transparent_dark_yellow</item>
+        <item name="PrimaryButtonColor">@color/yellow</item>
+        <item name="PrimaryButtonTextColor">@color/black</item>
+        <item name="PrimaryButtonTransparentTextColor">@color/black</item>
+        <item name="PrimaryButtonTransparentColor">@color/transparent_yellow</item>
         <item name="AccentTextColor">@color/yellow</item>
     </style>
 

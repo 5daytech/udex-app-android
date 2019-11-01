@@ -53,6 +53,7 @@
     <color name="white">#FFF</color>
     <color name="transparent_white">#50FFFFFF</color>
     <color name="black">#000</color>
+    <color name="transparent_black">#50000000</color>
     <color name="green">#2ECC71</color>
     <color name="transparent_green">#502ECC71</color>
     <color name="red">#E83958</color>
