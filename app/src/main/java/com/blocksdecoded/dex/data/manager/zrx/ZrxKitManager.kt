@@ -15,7 +15,7 @@ class ZrxKitManager(
             "deposit" -> 100000.toBigInteger()
             "withdraw" -> 100000.toBigInteger()
             "approve" -> 80000.toBigInteger()
-            else -> 300_000.toBigInteger()
+            else -> 500_000.toBigInteger()
         }
 
         override fun getGasPrice(contractFunc: String?): BigInteger = 5_000_000_000L.toBigInteger()
