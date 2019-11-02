@@ -83,7 +83,6 @@ fun View.setTopMargin(top: Int) {
 fun ViewGroup.inflate(@LayoutRes layoutId: Int, attach: Boolean = false): View =
     LayoutInflater.from(context).inflate(layoutId, this, attach)
 
-
 fun TextView.setTextColorRes(@ColorRes colorRes: Int) {
     setTextColor(ContextCompat.getColor(this.context, colorRes))
 }

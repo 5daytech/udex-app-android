@@ -7,7 +7,7 @@ object ThemeHelper {
     private val selectedThemePosition: Int
         get() = App.appPreferences.selectedTheme
 
-    fun isLightTheme(): Boolean = when(selectedThemePosition) {
+    fun isLightTheme(): Boolean = when (selectedThemePosition) {
         1 -> true
 
         else -> false

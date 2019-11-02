@@ -39,7 +39,7 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings), IFocusListene
                 light_mode?.apply {
                     selectedTheme = it
 
-                    switchOnCheckedChangeListener = object: ThemeSwitchView.ThemeSwitchListener {
+                    switchOnCheckedChangeListener = object : ThemeSwitchView.ThemeSwitchListener {
                         override fun onChange(state: Int) {
                             viewModel.onThemeChanged(state)
                         }
