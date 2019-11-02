@@ -90,6 +90,7 @@
 
     <style name="AppTheme.GoldMode">
         <item name="colorAccent">@color/yellow</item>
+        <item name="colorPrimary">@color/yellow</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:statusBarColor">@color/black</item>
         <item name="android:windowBackground">@color/black</item>
@@ -147,7 +148,7 @@
     <!-- Dialogs -->
 
     <style name="BaseBottomDialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">?AccentTextColor</item>
         <item name="android:navigationBarColor">?NavigationColor</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@color/transparent</item>
@@ -162,7 +163,7 @@
     </style>
 
     <style name="BaseFloatingDialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">?AccentTextColor</item>
         <item name="android:windowBackground">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.5</item>
