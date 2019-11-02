@@ -122,10 +122,10 @@
     <style name="AppTheme.DarkLaunchScreen">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor">@color/dark_main</item>
+        <item name="android:statusBarColor">@color/black</item>
         <item name="android:windowBackground">@drawable/bg_launch_screen</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:navigationBarColor">@color/dark_main</item>
+        <item name="android:navigationBarColor">@color/black</item>
     </style>
 
     <!-- Screens -->
