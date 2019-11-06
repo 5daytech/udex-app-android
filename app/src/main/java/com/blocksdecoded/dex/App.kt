@@ -26,14 +26,14 @@ import com.blocksdecoded.dex.data.manager.rates.remote.RatesApiClient
 import com.blocksdecoded.dex.data.manager.rates.stats.RatesStatsManager
 import com.blocksdecoded.dex.data.manager.system.ISystemInfoManager
 import com.blocksdecoded.dex.data.manager.system.SystemInfoManager
-import com.blocksdecoded.dex.data.manager.zrx.IRelayerAdapterManager
-import com.blocksdecoded.dex.data.manager.zrx.IZrxKitManager
-import com.blocksdecoded.dex.data.manager.zrx.RelayerAdapterManager
-import com.blocksdecoded.dex.data.manager.zrx.ZrxKitManager
 import com.blocksdecoded.dex.data.security.*
 import com.blocksdecoded.dex.data.security.encryption.EncryptionManager
 import com.blocksdecoded.dex.data.security.encryption.IEncryptionManager
 import com.blocksdecoded.dex.data.storage.*
+import com.blocksdecoded.dex.data.zrx.IRelayerAdapterManager
+import com.blocksdecoded.dex.data.zrx.IZrxKitManager
+import com.blocksdecoded.dex.data.zrx.RelayerAdapterManager
+import com.blocksdecoded.dex.data.zrx.ZrxKitManager
 
 class App : Application() {
     companion object {
@@ -98,6 +98,8 @@ class App : Application() {
 
         enabledCoinsStorage = EnabledCoinsStorage(appDatabase.enabledCoinsDao())
         coinManager = CoinManager(appConfiguration, enabledCoinsStorage)
+        feeRateProvider = FeeRateProvider(this)
+        processingDurationProvider = ProcessingDurationProvider()
 
         KeyStoreManager("MASTER_KEY").apply {
             keyStoreManager = this
@@ -124,10 +126,7 @@ class App : Application() {
 
         // Init kits
         ethereumKitManager = EthereumKitManager(appConfiguration)
-        zrxKitManager = ZrxKitManager(appConfiguration, authManager)
-
-        feeRateProvider = FeeRateProvider(this)
-        processingDurationProvider = ProcessingDurationProvider()
+        zrxKitManager = ZrxKitManager(appConfiguration, authManager, feeRateProvider)
 
         // Rates
         val marketsStorage = MarketsStorage(appDatabase.marketsDao())

@@ -3,7 +3,7 @@ package com.blocksdecoded.dex.presentation.exchange.limit
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.data.manager.zrx.model.CreateOrderData
+import com.blocksdecoded.dex.data.zrx.model.CreateOrderData
 import com.blocksdecoded.dex.presentation.exchange.BaseExchangeViewModel
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeCoinItem

@@ -1,9 +1,9 @@
-package com.blocksdecoded.dex.data.manager.zrx
+package com.blocksdecoded.dex.data.zrx
 
 import com.blocksdecoded.dex.data.manager.ICoinManager
 import com.blocksdecoded.dex.data.manager.rates.RatesConverter
-import com.blocksdecoded.dex.data.manager.zrx.model.ExchangePair
-import com.blocksdecoded.dex.data.manager.zrx.model.RelayerOrders
+import com.blocksdecoded.dex.data.zrx.model.ExchangePair
+import com.blocksdecoded.dex.data.zrx.model.RelayerOrders
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide.*
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder

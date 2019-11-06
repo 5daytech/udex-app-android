@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.data.manager.zrx
+package com.blocksdecoded.dex.data.zrx
 
 import android.os.Handler
 import android.os.HandlerThread

@@ -1,6 +1,7 @@
-package com.blocksdecoded.dex.data.manager.zrx
+package com.blocksdecoded.dex.data.zrx
 
 import com.blocksdecoded.dex.data.manager.zrx.model.*
+import com.blocksdecoded.dex.data.zrx.model.*
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.model.AssetItem

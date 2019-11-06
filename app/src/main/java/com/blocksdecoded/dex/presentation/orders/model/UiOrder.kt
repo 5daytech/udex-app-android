@@ -4,7 +4,7 @@ import com.blocksdecoded.dex.core.model.Coin
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.data.manager.ICoinManager
 import com.blocksdecoded.dex.data.manager.rates.RatesConverter
-import com.blocksdecoded.dex.data.manager.zrx.OrdersUtil
+import com.blocksdecoded.dex.data.zrx.OrdersUtil
 import com.blocksdecoded.dex.utils.TimeUtils
 import com.blocksdecoded.zrxkit.model.EAssetProxyId
 import com.blocksdecoded.zrxkit.model.OrderInfo

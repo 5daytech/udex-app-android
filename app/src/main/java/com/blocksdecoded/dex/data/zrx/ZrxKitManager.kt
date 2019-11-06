@@ -1,14 +1,17 @@
-package com.blocksdecoded.dex.data.manager.zrx
+package com.blocksdecoded.dex.data.zrx
 
 import com.blocksdecoded.dex.core.IAppConfiguration
 import com.blocksdecoded.dex.core.UnauthorizedException
+import com.blocksdecoded.dex.data.adapter.FeeRatePriority
 import com.blocksdecoded.dex.data.manager.auth.IAuthManager
+import com.blocksdecoded.dex.data.manager.fee.IFeeRateProvider
 import com.blocksdecoded.zrxkit.ZrxKit
 import java.math.BigInteger
 
 class ZrxKitManager(
     private val appConfiguration: IAppConfiguration,
-    private val authManager: IAuthManager
+    private val authManager: IAuthManager,
+    private val feeRateProvider: IFeeRateProvider
 ) : IZrxKitManager {
     val gasProvider: ZrxKit.GasInfoProvider = object : ZrxKit.GasInfoProvider() {
         override fun getGasLimit(contractFunc: String?): BigInteger = when (contractFunc) {
@@ -18,7 +21,8 @@ class ZrxKitManager(
             else -> 500_000.toBigInteger()
         }
 
-        override fun getGasPrice(contractFunc: String?): BigInteger = 5_000_000_000L.toBigInteger()
+        override fun getGasPrice(contractFunc: String?): BigInteger =
+            feeRateProvider.ethereumGasPrice(FeeRatePriority.MEDIUM).toBigInteger()
     }
 
     private var kit: ZrxKit? = null

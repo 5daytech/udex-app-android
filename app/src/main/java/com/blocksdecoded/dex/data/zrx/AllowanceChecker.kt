@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.data.manager.zrx
+package com.blocksdecoded.dex.data.zrx
 
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.model.AssetItem

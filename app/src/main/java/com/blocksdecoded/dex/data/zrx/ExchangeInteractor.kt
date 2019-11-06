@@ -1,11 +1,11 @@
-package com.blocksdecoded.dex.data.manager.zrx
+package com.blocksdecoded.dex.data.zrx
 
 import com.blocksdecoded.dex.core.CancelOrderException
 import com.blocksdecoded.dex.core.CreateOrderException
 import com.blocksdecoded.dex.core.model.CoinType
 import com.blocksdecoded.dex.data.manager.ICoinManager
-import com.blocksdecoded.dex.data.manager.zrx.model.CreateOrderData
-import com.blocksdecoded.dex.data.manager.zrx.model.FillOrderData
+import com.blocksdecoded.dex.data.zrx.model.CreateOrderData
+import com.blocksdecoded.dex.data.zrx.model.FillOrderData
 import com.blocksdecoded.dex.presentation.orders.model.EOrderSide
 import com.blocksdecoded.zrxkit.ZrxKit
 import com.blocksdecoded.zrxkit.contracts.IZrxExchange

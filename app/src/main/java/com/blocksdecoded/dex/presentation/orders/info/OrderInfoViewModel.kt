@@ -6,7 +6,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.data.manager.duration.ETransactionType
-import com.blocksdecoded.dex.data.manager.zrx.IRelayerAdapter
+import com.blocksdecoded.dex.data.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.presentation.orders.model.CancelOrderInfo
 import com.blocksdecoded.dex.presentation.orders.model.OrderInfoConfig
 import com.blocksdecoded.dex.presentation.orders.model.UiOrder

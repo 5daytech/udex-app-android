@@ -28,7 +28,7 @@ class AppConfiguration(
 
     override val appShareUrl = "https://github.com/blocksdecoded/dex-app-android"
 
-    override val transactionExploreBaseUrl = "https://ropsten.etherscan.io/tx/"
+    override val transactionExploreBaseUrl = if (testMode) "https://ropsten.etherscan.io/tx/" else "https://etherscan.io/tx/"
     override val ipfsId = "QmXTJZBMMRmBbPun6HFt3tmb3tfYF2usLPxFoacL7G5uMX"
     override val ipfsMainGateway = "ipfs-ext.horizontalsystems.xyz"
     override val ipfsFallbackGateway = "ipfs.io"

@@ -1,4 +1,4 @@
-package com.blocksdecoded.dex.data.manager.zrx.model
+package com.blocksdecoded.dex.data.zrx.model
 
 import io.reactivex.subjects.BehaviorSubject
 

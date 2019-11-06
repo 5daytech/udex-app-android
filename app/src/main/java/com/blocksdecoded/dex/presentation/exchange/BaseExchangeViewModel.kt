@@ -8,7 +8,7 @@ import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import com.blocksdecoded.dex.data.adapter.FeeRatePriority
 import com.blocksdecoded.dex.data.adapter.SendStateError
-import com.blocksdecoded.dex.data.manager.zrx.IRelayerAdapter
+import com.blocksdecoded.dex.data.zrx.IRelayerAdapter
 import com.blocksdecoded.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeAmountInfo
 import com.blocksdecoded.dex.presentation.exchange.model.ExchangeCoinItem

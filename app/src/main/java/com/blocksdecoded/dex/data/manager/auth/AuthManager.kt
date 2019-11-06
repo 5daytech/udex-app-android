@@ -7,8 +7,8 @@ import com.blocksdecoded.dex.data.adapter.Erc20Adapter
 import com.blocksdecoded.dex.data.adapter.EthereumAdapter
 import com.blocksdecoded.dex.data.manager.IAdapterManager
 import com.blocksdecoded.dex.data.manager.ICoinManager
-import com.blocksdecoded.dex.data.manager.zrx.IRelayerAdapterManager
 import com.blocksdecoded.dex.data.security.ISecuredStorage
+import com.blocksdecoded.dex.data.zrx.IRelayerAdapterManager
 import io.reactivex.subjects.PublishSubject
 
 class AuthManager(
