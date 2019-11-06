@@ -175,18 +175,16 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
             BUY -> {
                 state.sendCoin = getExchangeItem(baseCoin)
                 state.receiveCoin = getExchangeItem(quoteCoin)
-                state.sendAmount = amount
+                onSendAmountChange(amount)
                 refreshPairs(state)
                 viewState.value = state
-                updateReceiveAmount()
             }
             SELL -> {
                 state.sendCoin = getExchangeItem(quoteCoin)
                 state.receiveCoin = getExchangeItem(baseCoin)
-                state.sendAmount = amount
+                onSendAmountChange(amount)
                 refreshPairs(state)
                 viewState.value = state
-                updateReceiveAmount()
             }
             MY -> {}
         }
