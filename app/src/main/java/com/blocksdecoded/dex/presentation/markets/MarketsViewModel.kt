@@ -26,7 +26,6 @@ class MarketsViewModel : CoreViewModel() {
                 loading.value = false
                 updateMarkets(it)
             }, {
-
             }).let { disposables.add(it) }
 
         preload()

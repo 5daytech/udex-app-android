@@ -58,7 +58,6 @@ class ChartInfoViewModel : CoreViewModel() {
         val newType = ChartType.values()[position]
         if (chartType != newType) {
             loadChartType(newType)
-
         }
     }
 
@@ -72,9 +71,7 @@ class ChartInfoViewModel : CoreViewModel() {
         ratesManager.chartInfo(coinCode, type)
 
         if (chartInfo == null) {
-
         } else {
-
         }
     }
 }

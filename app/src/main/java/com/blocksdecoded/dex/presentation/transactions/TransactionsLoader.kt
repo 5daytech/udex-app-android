@@ -10,7 +10,6 @@ import com.blocksdecoded.dex.presentation.transactions.model.TransactionsState
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.normalizedMul
 import com.blocksdecoded.dex.utils.rx.ioSubscribe
-import io.reactivex.BackpressureStrategy
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
@@ -114,7 +113,7 @@ class TransactionsLoader(
             )
         }
 
-        Single.concatArray(*ratesRequestPool.toTypedArray()).toObservable().toFlowable(BackpressureStrategy.BUFFER)
+        Single.concatArray(*ratesRequestPool.toTypedArray())
             .ioSubscribe(disposables, {
                 val indexes = ArrayList<Int>()
                 transactionItems.forEachIndexed { index, transaction ->
