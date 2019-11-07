@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="com.blocksdecoded.dex">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.blocksdecoded.dex">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.GoldMode"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name=".LaunchActivity"
-                  android:screenOrientation="portrait"
-                  android:windowSoftInputMode="stateAlwaysHidden"
-                  android:theme="@style/AppTheme.DarkLaunchScreen">
+        <activity android:name=".presentation.howitworks.HowItWorksActivity"></activity>
+        <activity
+            android:name=".LaunchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.DarkLaunchScreen"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".presentation.main.MainActivity"
-                  android:screenOrientation="portrait"
-                  android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"/>
-
-        <activity android:name=".presentation.transactions.TransactionsActivity"
-                  android:screenOrientation="portrait"/>
-
-        <activity android:name=".presentation.restore.RestoreWalletActivity"
-                  android:screenOrientation="portrait"
-                  android:windowSoftInputMode="stateAlwaysVisible"/>
-
-        <activity android:name=".presentation.backup.BackupActivity"
-                  android:screenOrientation="portrait"/>
-
-        <activity android:name=".presentation.guest.GuestActivity"
-                  android:screenOrientation="portrait" />
-
-        <activity android:name=".presentation.settings.security.SecurityCenterActivity"
-                  android:screenOrientation="portrait"/>
-
-        <activity android:name="com.blocksdecoded.dex.presentation.qrscanner.QRScannerActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/AppTheme.FullScreen"/>
-
-        <activity android:name=".presentation.settings.AboutAppActivity"
-                  android:screenOrientation="portrait"/>
-
-        <activity android:name=".presentation.settings.language.LanguageActivity"
-                  android:screenOrientation="portrait"/>
-
-        <activity android:name=".presentation.settings.addressbook.AddressBookActivity"
-                  android:screenOrientation="portrait"/>
-
-        <activity android:name=".presentation.pin.PinActivity"
-                  android:screenOrientation="portrait"/>
-
-        <activity android:name=".presentation.exchangehistory.ExchangeHistoryActivity"
-                  android:screenOrientation="portrait"/>
-
-        <activity android:name="com.blocksdecoded.dex.presentation.coinmanager.CoinManagerActivity"
-                  android:screenOrientation="portrait"/>
-
-        <activity android:name=".presentation.backup.BackupIntroActivity"
-                  android:screenOrientation="portrait"/>
-
-        <activity android:name=".presentation.keystore.KeyStoreActivity"
-                  android:screenOrientation="portrait"/>
-
-
+        <activity
+            android:name=".presentation.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" />
+        <activity
+            android:name=".presentation.transactions.TransactionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.restore.RestoreWalletActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity
+            android:name=".presentation.backup.BackupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.guest.GuestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.settings.security.SecurityCenterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.qrscanner.QRScannerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen" />
+        <activity
+            android:name=".presentation.settings.AboutAppActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.settings.language.LanguageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.settings.addressbook.AddressBookActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.pin.PinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.exchangehistory.ExchangeHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.coinmanager.CoinManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.backup.BackupIntroActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.keystore.KeyStoreActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
