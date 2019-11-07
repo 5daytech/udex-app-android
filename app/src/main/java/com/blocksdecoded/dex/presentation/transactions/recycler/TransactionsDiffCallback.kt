@@ -13,7 +13,8 @@ class TransactionsDiffCallback(
     override fun getNewListSize(): Int = newTransactions.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-        oldTransactions[oldItemPosition].transactionHash == newTransactions[newItemPosition].transactionHash
+        oldTransactions[oldItemPosition].transactionHash == newTransactions[newItemPosition].transactionHash &&
+                oldTransactions[oldItemPosition].innerIndex == newTransactions[newItemPosition].innerIndex
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val old = oldTransactions[oldItemPosition]

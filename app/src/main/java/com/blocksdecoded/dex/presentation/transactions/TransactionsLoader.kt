@@ -1,6 +1,5 @@
 package com.blocksdecoded.dex.presentation.transactions
 
-import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.model.TransactionRecord
 import com.blocksdecoded.dex.data.adapter.AdapterState
 import com.blocksdecoded.dex.data.adapter.IAdapter
@@ -11,9 +10,11 @@ import com.blocksdecoded.dex.presentation.transactions.model.TransactionsState
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.normalizedMul
 import com.blocksdecoded.dex.utils.rx.ioSubscribe
+import io.reactivex.BackpressureStrategy
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
+import java.math.BigDecimal
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -83,47 +84,55 @@ class TransactionsLoader(
         loading = false
 
         transactions.mapIndexedTo(transactionItems, { _, transaction ->
-            val price = ratesManager.getHistoricalRate(adapter.coin.code, transaction.timestamp).cache()
-            val feeRate = transaction.fee?.normalizedMul(price.blockingGet())
+            val price = BigDecimal.ZERO
+            val feeRate = transaction.fee?.normalizedMul(price)
 
             TransactionViewItem(
                 coin = adapter.coin,
                 transactionHash = transaction.transactionHash,
                 coinValue = transaction.amount,
-                fiatValue = transaction.amount.multiply(price.blockingGet()),
+                fiatValue = transaction.amount.multiply(price),
                 fee = transaction.fee,
                 fiatFee = feeRate,
-                historicalRate = price.blockingGet(),
+                historicalRate = price,
                 from = transaction.from.firstOrNull()?.address,
                 to = transaction.to.firstOrNull()?.address,
                 incoming = transaction.to.firstOrNull()?.address == adapter.receiveAddress,
                 date = Date(transaction.timestamp * 1000),
-                status = TransactionStatus.Completed
+                status = TransactionStatus.Completed,
+                innerIndex = transaction.interTransactionIndex
             )
         })
 
         syncSubject.onNext(Unit)
 
-        val ratesRequestPool = ArrayList<Single<Pair<TransactionRecord, Rate>>>()
-//        transactions.forEach { transaction ->
-//            ratesRequestPool.add(
-//                ratesManager.getHistoricalRate(adapter.coin.code, transaction.timestamp)
-//                    .map { rate -> transaction to rate }
-//            )
-//        }
+        val ratesRequestPool = ArrayList<Single<Pair<TransactionRecord, BigDecimal>>>()
+        transactions.forEach { transaction ->
+            ratesRequestPool.add(
+                ratesManager.getHistoricalRate(adapter.coin.code, transaction.timestamp)
+                    .map { rate -> transaction to rate }
+            )
+        }
 
-        Single.concatArray(*ratesRequestPool.toTypedArray())
+        Single.concatArray(*ratesRequestPool.toTypedArray()).toObservable().toFlowable(BackpressureStrategy.BUFFER)
             .ioSubscribe(disposables, {
-                val index = transactionItems.indexOfFirst { transaction ->
-                    transaction.transactionHash == it.first.transactionHash
+                val indexes = ArrayList<Int>()
+                transactionItems.forEachIndexed { index, transaction ->
+                    if (transaction.transactionHash == it.first.transactionHash &&
+                        transaction.date?.time == it.first.timestamp * 1000 &&
+                        transaction.innerIndex == it.first.interTransactionIndex) {
+                        indexes.add(index)
+                    }
                 }
 
-                if (index >= 0) {
-                    transactionItems[index].fiatValue = it.first.amount.multiply(it.second.price)
-                    transactionItems[index].historicalRate = it.second.price
+                indexes.forEach { index ->
+                    transactionItems[index].fiatValue = it.first.amount.multiply(it.second)
+                    transactionItems[index].fiatFee = it.first.fee?.multiply(it.second)
+                    transactionItems[index].historicalRate = it.second
                     syncTransaction.onNext(index)
-                    syncSubject.onNext(Unit)
                 }
+
+                syncSubject.onNext(Unit)
             }, {
                 Logger.e(it)
             })
