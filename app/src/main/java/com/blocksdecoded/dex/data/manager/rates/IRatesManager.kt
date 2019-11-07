@@ -1,27 +1,28 @@
 package com.blocksdecoded.dex.data.manager.rates
 
-import com.blocksdecoded.dex.core.model.Market
-import com.blocksdecoded.dex.core.model.Rate
+import io.horizontalsystems.xrateskit.entities.ChartInfo
+import io.horizontalsystems.xrateskit.entities.ChartType
+import io.horizontalsystems.xrateskit.entities.MarketInfo
+import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.subjects.BehaviorSubject
+import java.math.BigDecimal
 
 interface IRatesManager {
-    val ratesUpdateSubject: BehaviorSubject<Unit>
-    val ratesStateSubject: BehaviorSubject<RatesSyncState>
+    fun getMarketsObservable(): Observable<Map<String, MarketInfo>>
 
-    fun getMarkets(coinCodes: List<String>): List<Market>
+    fun getMarkets(coinCodes: List<String>): List<MarketInfo?>
 
-    fun getRateSingle(coinCode: String, timeStamp: Long): Single<Rate>
+    fun getMarketInfo(coinCode: String): MarketInfo?
 
-    fun getRate(coinCode: String, timeStamp: Long): Rate?
+    fun chartInfo(coinCode: String, chartType: ChartType): ChartInfo?
 
-    fun getLatestRateSingle(coinCode: String): Single<Rate>
+    fun chartInfoObservable(coinCode: String, chartType: ChartType): Observable<ChartInfo>
 
-    fun getLatestRate(coinCode: String): Rate?
+    fun getHistoricalRate(coinCode: String, timeStamp: Long): Single<BigDecimal>
+
+    fun getLatestRateSingle(coinCode: String): Single<BigDecimal>
+
+    fun getLatestRate(coinCode: String): BigDecimal?
 
     fun refresh()
-
-    fun stop()
-
-    fun clear()
 }

@@ -1,9 +1,9 @@
 package com.blocksdecoded.dex.presentation.statschart
 
-import com.blocksdecoded.dex.core.model.ChartType
-import com.blocksdecoded.dex.core.model.Rate
-import com.blocksdecoded.dex.data.manager.rates.model.ChartPoint
-import com.blocksdecoded.dex.data.manager.rates.model.StatsData
+import io.horizontalsystems.xrateskit.entities.ChartInfo
+import io.horizontalsystems.xrateskit.entities.ChartPoint
+import io.horizontalsystems.xrateskit.entities.ChartType
+import io.horizontalsystems.xrateskit.entities.MarketInfo
 import java.math.BigDecimal
 
 data class ChartViewItem(
@@ -18,27 +18,19 @@ data class ChartViewItem(
 )
 
 class RateChartViewFactory {
-    fun createViewItem(chartType: ChartType, statData: StatsData, rate: Rate?): ChartViewItem? {
-        val diff = statData.diff[chartType.name] ?: return null
-        val points = statData.stats[chartType.name] ?: return null
-
-        val minValue = points.minBy { it.value }?.value ?: 0f
-        val maxValue = points.maxBy { it.value }?.value ?: 0f
-
-        val lowValue = minValue.toBigDecimal()
-        val highValue = maxValue.toBigDecimal()
-        val marketCap = statData.marketCap
-        val rateValue = rate?.price
+    fun createViewItem(chartType: ChartType, chartInfo: ChartInfo?, marketInfo: MarketInfo?): ChartViewItem? {
+        val minValue = chartInfo?.points?.minBy { it.value }?.value ?: 0f
+        val maxValue = chartInfo?.points?.maxBy { it.value }?.value ?: 0f
 
         return ChartViewItem(
             chartType,
-            rateValue,
-            marketCap,
-            lowValue,
-            highValue,
-            diff,
-            points,
-            rate?.timestamp?.times(1000)
+            marketInfo?.rate,
+            marketInfo?.marketCap?.toBigDecimal() ?: BigDecimal.ZERO,
+            minValue.toString().toBigDecimal(),
+            maxValue.toString().toBigDecimal(),
+            marketInfo?.diff ?: BigDecimal.ZERO,
+            chartInfo?.points ?: listOf(),
+            marketInfo?.timestamp?.times(1000)
         )
     }
 }

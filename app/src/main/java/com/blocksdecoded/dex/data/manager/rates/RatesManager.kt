@@ -1,81 +1,39 @@
 package com.blocksdecoded.dex.data.manager.rates
 
-import android.annotation.SuppressLint
+import android.content.Context
 import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.core.model.Market
-import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.data.manager.ICoinManager
-import com.blocksdecoded.dex.data.manager.rates.remote.IRatesApiClient
-import com.blocksdecoded.dex.data.storage.IMarketsStorage
-import com.blocksdecoded.dex.data.storage.IRatesStorage
-import com.blocksdecoded.dex.utils.Logger
-import com.blocksdecoded.dex.utils.rx.ioSubscribe
+import io.horizontalsystems.xrateskit.XRatesKit
+import io.horizontalsystems.xrateskit.entities.ChartInfo
+import io.horizontalsystems.xrateskit.entities.ChartType
+import io.horizontalsystems.xrateskit.entities.MarketInfo
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
 
 class RatesManager(
-    private val coinManager: ICoinManager,
-    private val marketsStorage: IMarketsStorage,
-    private val ratesStorage: IRatesStorage,
-    private val rateClient: IRatesApiClient
+    context: Context,
+    private val coinManager: ICoinManager
 ) : IRatesManager {
+    private val currencyCode = "USD"
     private val disposables = CompositeDisposable()
-
-    override val ratesUpdateSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
-    override val ratesStateSubject: BehaviorSubject<RatesSyncState> = BehaviorSubject.create()
-
-    private var availableCoins = listOf<Coin>()
-    private var cachedMarkets = listOf<Market>()
-    private var latestRates = listOf<Rate>()
-        set(value) {
-            field = value
-            ratesStorage.saveLatest(value)
-        }
+    private val kit: XRatesKit = XRatesKit.create(context, currencyCode, 10 * 60)
 
     init {
-        ratesStateSubject.onNext(RatesSyncState.SYNCING)
-
         coinManager.coinsUpdatedSubject
             .subscribe {
-                availableCoins = coinManager.coins
-                syncRates()
+                onCoinsUpdated(coinManager.coins)
             }.let { disposables.add(it) }
-
-        initialStorageFetch()
     }
 
     //region Private
 
-    @SuppressLint("CheckResult")
-    private fun initialStorageFetch() {
-        ratesStorage.getLatestRates().ioSubscribe(disposables, {
-            latestRates = it
-            ratesUpdateSubject.onNext(Unit)
-        })
-    }
+    private fun cleanCode(coinCode: String): String =
+        coinManager.cleanCoinCode(coinCode)
 
-    private fun syncRates() {
-        rateClient.getLatestRates().ioSubscribe(disposables, { ratesData ->
-            val rates = ArrayList<Rate>()
-            availableCoins.forEach {
-                val cleanCoinCode = coinManager.cleanCoinCode(it.code)
-
-                rates.add(Rate(
-                    it.code,
-                    ratesData.timestamp / 1000,
-                    ratesData.rates[cleanCoinCode]?.toBigDecimal() ?: BigDecimal.ZERO,
-                    isLatest = true
-                ))
-            }
-            latestRates = rates
-            ratesStateSubject.onNext(RatesSyncState.SYNCED)
-            ratesUpdateSubject.onNext(Unit)
-        }, {
-            ratesStateSubject.onNext(RatesSyncState.FAILED)
-            Logger.e(it)
-        })
+    private fun onCoinsUpdated(coins: List<Coin>) {
+        kit.set(coins.map { cleanCode(it.code) })
     }
 
     //endregion
@@ -84,25 +42,13 @@ class RatesManager(
 
     //region Rates
 
-    override fun getRate(coinCode: String, timeStamp: Long): Rate? =
-        ratesStorage.getRate(coinManager.cleanCoinCode(coinCode), timeStamp)
-
-    override fun getRateSingle(coinCode: String, timeStamp: Long): Single<Rate> {
-        val cleanCoinCode = coinManager.cleanCoinCode(coinCode)
-
-        return ratesStorage.getRateSingle(cleanCoinCode, timeStamp)
-            .onErrorResumeNext(
-                rateClient.getHistoricalRate(cleanCoinCode, timeStamp)
-                    .map {
-                        val rate = Rate(cleanCoinCode, timeStamp, it, isLatest = false)
-                        ratesStorage.save(rate)
-                        rate
-                    }
-            )
+    override fun getHistoricalRate(coinCode: String, timeStamp: Long): Single<BigDecimal> {
+        return kit.historicalRate(cleanCode(coinCode), currencyCode, timeStamp)
     }
 
-    override fun getLatestRateSingle(coinCode: String): Single<Rate> {
+    override fun getLatestRateSingle(coinCode: String): Single<BigDecimal> {
         val rate = getLatestRate(coinCode)
+
         return if (rate != null) {
             Single.just(rate)
         } else {
@@ -110,39 +56,45 @@ class RatesManager(
         }
     }
 
-    override fun getLatestRate(coinCode: String): Rate? {
-        return latestRates.firstOrNull { it.coinCode == coinCode }
+    override fun getLatestRate(coinCode: String): BigDecimal? {
+        val marketInfo = getMarketInfo(coinCode)
+
+        return when {
+            marketInfo == null -> null
+            marketInfo.isExpired() -> null
+            else -> marketInfo.rate
+        }
     }
 
     //endregion
 
     //region Markets
 
-    override fun getMarkets(coinCodes: List<String>): List<Market> =
-        cachedMarkets.filter {
-            coinCodes.contains(it.coinCode) ||
-                 coinCodes.indexOfFirst { symbol -> symbol.contains(it.coinCode) } >= 0
-        }
+    override fun getMarketsObservable(): Observable<Map<String, MarketInfo>> =
+        kit.marketInfoMapObservable(currencyCode)
 
-    override fun refresh() {
-        ratesStateSubject.value?.let {
-            if (it != RatesSyncState.SYNCING) {
-                ratesStateSubject.onNext(RatesSyncState.SYNCING)
-
-                syncRates()
-            }
-        }
+    override fun chartInfoObservable(
+        coinCode: String,
+        chartType: ChartType
+    ): Observable<ChartInfo> {
+        return kit.chartInfoObservable(cleanCode(coinCode), currencyCode, chartType)
     }
+
+    override fun getMarketInfo(coinCode: String): MarketInfo? {
+        return kit.getMarketInfo(cleanCode(coinCode), currencyCode)
+    }
+
+    override fun getMarkets(coinCodes: List<String>): List<MarketInfo?> =
+        coinCodes.map { getMarketInfo(it) }
 
     //endregion
 
-    override fun stop() {
-        disposables.dispose()
+    override fun chartInfo(coinCode: String, chartType: ChartType): ChartInfo? {
+        return kit.getChartInfo(cleanCode(coinCode), currencyCode, chartType)
     }
 
-    override fun clear() {
-        marketsStorage.deleteAll()
-        stop()
+    override fun refresh() {
+        kit.refresh()
     }
 
     //endregion

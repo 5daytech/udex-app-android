@@ -5,12 +5,12 @@ import android.util.AttributeSet
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import com.blocksdecoded.dex.data.manager.rates.model.ChartPoint
 import com.blocksdecoded.dex.utils.visible
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import io.horizontalsystems.xrateskit.entities.ChartPoint
 
 class ChartView : LineChart {
     constructor(context: Context?) : super(context)
@@ -52,7 +52,7 @@ class ChartView : LineChart {
 
         data.forEach {
             try {
-                entries.add(Entry(it.timestamp.toFloat(), it.value))
+                entries.add(Entry(it.timestamp.toFloat(), it.value.toFloat()))
             } catch (e: Exception) {
             }
         }

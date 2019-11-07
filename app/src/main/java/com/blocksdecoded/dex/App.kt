@@ -22,14 +22,14 @@ import com.blocksdecoded.dex.data.manager.history.IExchangeHistoryManager
 import com.blocksdecoded.dex.data.manager.rates.IRatesManager
 import com.blocksdecoded.dex.data.manager.rates.RatesConverter
 import com.blocksdecoded.dex.data.manager.rates.RatesManager
-import com.blocksdecoded.dex.data.manager.rates.remote.RatesApiClient
-import com.blocksdecoded.dex.data.manager.rates.stats.RatesStatsManager
 import com.blocksdecoded.dex.data.manager.system.ISystemInfoManager
 import com.blocksdecoded.dex.data.manager.system.SystemInfoManager
 import com.blocksdecoded.dex.data.security.*
 import com.blocksdecoded.dex.data.security.encryption.EncryptionManager
 import com.blocksdecoded.dex.data.security.encryption.IEncryptionManager
-import com.blocksdecoded.dex.data.storage.*
+import com.blocksdecoded.dex.data.storage.AppDatabase
+import com.blocksdecoded.dex.data.storage.EnabledCoinsStorage
+import com.blocksdecoded.dex.data.storage.IEnabledCoinsStorage
 import com.blocksdecoded.dex.data.zrx.IRelayerAdapterManager
 import com.blocksdecoded.dex.data.zrx.IZrxKitManager
 import com.blocksdecoded.dex.data.zrx.RelayerAdapterManager
@@ -69,7 +69,6 @@ class App : Application() {
 
         // Rates
         lateinit var ratesManager: IRatesManager
-        lateinit var ratesStatsManager: RatesStatsManager
         lateinit var ratesConverter: RatesConverter
 
         // Factories
@@ -129,13 +128,8 @@ class App : Application() {
         zrxKitManager = ZrxKitManager(appConfiguration, authManager, feeRateProvider)
 
         // Rates
-        val marketsStorage = MarketsStorage(appDatabase.marketsDao())
-        val historicalRatesStorage = RatesStorage(appDatabase.ratesDao())
-        val ratesClient = RatesApiClient(appConfiguration)
-
-        ratesManager = RatesManager(coinManager, marketsStorage, historicalRatesStorage, ratesClient)
+        ratesManager = RatesManager(this, coinManager)
         ratesConverter = RatesConverter(ratesManager = ratesManager)
-        ratesStatsManager = RatesStatsManager(coinManager, ratesClient, ratesManager)
 
         // Init adapter managers
         adapterFactory = AdapterFactory(ethereumKitManager, feeRateProvider)

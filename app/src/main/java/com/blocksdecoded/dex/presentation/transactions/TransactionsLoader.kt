@@ -14,7 +14,6 @@ import com.blocksdecoded.dex.utils.rx.ioSubscribe
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
-import java.math.BigDecimal
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -84,17 +83,17 @@ class TransactionsLoader(
         loading = false
 
         transactions.mapIndexedTo(transactionItems, { _, transaction ->
-            val price = ratesManager.getRate(adapter.coin.code, transaction.timestamp)?.price ?: BigDecimal.ZERO
-            val feeRate = transaction.fee?.normalizedMul(price)
+            val price = ratesManager.getHistoricalRate(adapter.coin.code, transaction.timestamp).cache()
+            val feeRate = transaction.fee?.normalizedMul(price.blockingGet())
 
             TransactionViewItem(
                 coin = adapter.coin,
                 transactionHash = transaction.transactionHash,
                 coinValue = transaction.amount,
-                fiatValue = transaction.amount.multiply(price),
+                fiatValue = transaction.amount.multiply(price.blockingGet()),
                 fee = transaction.fee,
                 fiatFee = feeRate,
-                historicalRate = price,
+                historicalRate = price.blockingGet(),
                 from = transaction.from.firstOrNull()?.address,
                 to = transaction.to.firstOrNull()?.address,
                 incoming = transaction.to.firstOrNull()?.address == adapter.receiveAddress,
@@ -106,12 +105,12 @@ class TransactionsLoader(
         syncSubject.onNext(Unit)
 
         val ratesRequestPool = ArrayList<Single<Pair<TransactionRecord, Rate>>>()
-        transactions.forEach { transaction ->
-            ratesRequestPool.add(
-                ratesManager.getRateSingle(adapter.coin.code, transaction.timestamp)
-                    .map { rate -> transaction to rate }
-            )
-        }
+//        transactions.forEach { transaction ->
+//            ratesRequestPool.add(
+//                ratesManager.getHistoricalRate(adapter.coin.code, transaction.timestamp)
+//                    .map { rate -> transaction to rate }
+//            )
+//        }
 
         Single.concatArray(*ratesRequestPool.toTypedArray())
             .ioSubscribe(disposables, {

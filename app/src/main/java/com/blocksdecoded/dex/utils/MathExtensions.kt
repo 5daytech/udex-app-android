@@ -18,8 +18,11 @@ fun BigDecimal.normalizedDiv(
     precision: Int = 8,
     roundingMode: RoundingMode = RoundingMode.FLOOR
 ): BigDecimal {
-    return this.divide(divisor, precision, roundingMode)
-        .stripTrailingZeros()
+    return if (divisor == BigDecimal.ZERO)
+        BigDecimal.ZERO
+    else
+        this.divide(divisor, precision, roundingMode)
+            .stripTrailingZeros()
 }
 
 fun BigDecimal.normalizedMul(

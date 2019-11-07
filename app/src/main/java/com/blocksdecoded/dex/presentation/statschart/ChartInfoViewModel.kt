@@ -2,25 +2,23 @@ package com.blocksdecoded.dex.presentation.statschart
 
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.model.ChartType
 import com.blocksdecoded.dex.core.model.Coin
-import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.ui.CoreViewModel
-import com.blocksdecoded.dex.data.manager.rates.model.StatsData
 import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.rx.uiObserve
-import com.blocksdecoded.dex.utils.rx.uiSubscribe
+import io.horizontalsystems.xrateskit.entities.ChartType
+import io.horizontalsystems.xrateskit.entities.MarketInfo
+import java.math.BigDecimal
 
 class ChartInfoViewModel : CoreViewModel() {
     private val coinManager = App.coinManager
     private val ratesManager = App.ratesManager
-    private val ratesStatsManager = App.ratesStatsManager
     private val appPreferences = App.appPreferences
 
+    private lateinit var coinCode: String
     private var chartType = ChartType.DAILY
-    private var latestRate: Rate? = null
-    private var statsData: StatsData? = null
+    private var latestRate: BigDecimal? = null
+    private var marketInfo: MarketInfo? = null
 
     val coin = MutableLiveData<Coin>()
     val chartData = MutableLiveData<ChartViewItem>()
@@ -29,22 +27,12 @@ class ChartInfoViewModel : CoreViewModel() {
     val error = MutableLiveData<Int>()
 
     fun init(coinCode: String) {
+        this.coinCode = coinCode
         loading.value = true
         error.value = 0
-        chartType = ChartType.fromString(appPreferences.selectedChartPeriod)
+        chartType = ChartType.fromString(appPreferences.selectedChartPeriod) ?: ChartType.DAILY
         coin.value = coinManager.getCoin(coinCode)
-
-        ratesStatsManager.statsFlowable
-            .uiSubscribe(disposables, {
-                if (it is StatsData) {
-                    if (it.coinCode == coinCode) {
-                        statsData = it
-                        showChart()
-                    }
-                } else {
-                    error.value = R.string.chart_loading_error
-                }
-            })
+        currentPeriod.value = chartType.ordinal
 
         ratesManager.getLatestRateSingle(coinCode)
             .uiObserve()
@@ -54,24 +42,39 @@ class ChartInfoViewModel : CoreViewModel() {
             }, { Logger.e(it) }
             ).let { disposables.add(it) }
 
-        ratesStatsManager.syncStats(coinCode)
-        currentPeriod.value = chartType.ordinal
+        loadChartType(chartType)
     }
 
     private fun showChart() {
-        if (statsData != null && latestRate != null) {
+        if (latestRate != null) {
+            val marketInfo = ratesManager.getMarketInfo(coin.value?.code ?: "")
             loading.value = false
-            chartData.value = RateChartViewFactory().createViewItem(chartType, statsData!!, latestRate)
+            val chartInfo = ratesManager.chartInfo(coinCode, chartType)
+            chartData.value = RateChartViewFactory().createViewItem(chartType, chartInfo, marketInfo)
         }
     }
 
     fun onPeriodSelect(position: Int) {
-        val newType = ChartType.fromInt(position)
+        val newType = ChartType.values()[position]
         if (chartType != newType) {
-            chartType = newType
-            showChart()
-            currentPeriod.value = newType.ordinal
-            appPreferences.selectedChartPeriod = newType.toString()
+            loadChartType(newType)
+
+        }
+    }
+
+    private fun loadChartType(type: ChartType) {
+        chartType = type
+        currentPeriod.value = type.ordinal
+        appPreferences.selectedChartPeriod = type.toString()
+        showChart()
+        val chartInfo = ratesManager.chartInfo(coinCode, type)
+
+        ratesManager.chartInfo(coinCode, type)
+
+        if (chartInfo == null) {
+
+        } else {
+
         }
     }
 }

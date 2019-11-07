@@ -1,16 +1,12 @@
 package com.blocksdecoded.dex.presentation.markets
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
-import com.blocksdecoded.dex.core.model.ChartType
-import com.blocksdecoded.dex.core.model.Rate
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import com.blocksdecoded.dex.data.manager.rates.RatesSyncState.*
-import com.blocksdecoded.dex.data.manager.rates.model.StatsData
-import com.blocksdecoded.dex.utils.Logger
-import com.blocksdecoded.dex.utils.isValidIndex
-import com.blocksdecoded.dex.utils.rx.uiSubscribe
+import com.blocksdecoded.dex.utils.rx.ioObserve
+import io.horizontalsystems.xrateskit.entities.MarketInfo
 import java.math.BigDecimal
 
 class MarketsViewModel : CoreViewModel() {
@@ -19,61 +15,22 @@ class MarketsViewModel : CoreViewModel() {
 
     private val coinManager = App.coinManager
     private val ratesManager = App.ratesManager
-    private val ratesStatsManager = App.ratesStatsManager
 
-    private var mRates = listOf<Rate?>()
-    private var mRateStats = arrayListOf<StatsData?>()
     val openMarketInfoEvent = SingleLiveEvent<String>()
 
     init {
-        ratesManager.ratesStateSubject
-            .subscribe {
-                loading.postValue(when (it) {
-                    SYNCING -> true
-                    SYNCED -> false
-                    FAILED -> false
-                })
-            }
-            .let { disposables.add(it) }
+        loading.value = true
+        ratesManager.getMarketsObservable().ioObserve()
+            .subscribe({
+                Log.d("ololo", "Markets update ${it.keys}")
+                loading.value = false
+                updateMarkets(it)
+            }, {
 
-        ratesManager.ratesUpdateSubject
-            .subscribe {
-                val coins = coinManager.coins
+            }).let { disposables.add(it) }
 
-                mRates = coinManager.coins.mapIndexed { index, coin ->
-                    val rate = ratesManager.getLatestRate(coin.code)
-                    if (!mRateStats.isValidIndex(index)) {
-                        mRateStats.add(null)
-                    }
-                    rate
-                }
-
-                coins.forEach {
-                    ratesStatsManager.syncStats(it.code)
-                }
-
-                updateMarkets()
-            }
-            .let { disposables.add(it) }
-
-        ratesStatsManager.statsFlowable
-            .uiSubscribe(disposables, { rateStats ->
-                when (rateStats) {
-                    is StatsData -> {
-                        val index = mRates.indexOfFirst {
-                            it?.coinCode == rateStats.coinCode
-                        }
-
-                        if (index >= 0) {
-                            mRateStats[index] = rateStats
-                        }
-
-                        updateMarkets()
-                    }
-                }
-            }, { Logger.e(it) })
-
-        ratesManager.refresh()
+        preload()
+        refresh()
     }
 
     override fun onNetworkConnectionAvailable() {
@@ -81,27 +38,29 @@ class MarketsViewModel : CoreViewModel() {
         refresh()
     }
 
-    private fun updateMarkets() {
-        markets.postValue(mRates.mapIndexed { index, rate ->
-            val price = rate?.price ?: BigDecimal.ZERO
-            val stats = if (mRateStats.isValidIndex(index)) {
-                mRateStats[index]
-            } else {
-                ratesStatsManager.getStats(rate?.coinCode ?: "")
-            }
-            var change = BigDecimal.ZERO
-            var marketCap = BigDecimal.ZERO
-
-            if (stats is StatsData) {
-                change = stats.diff[ChartType.DAILY.name] ?: BigDecimal.ZERO
-                marketCap = stats.marketCap
-            }
+    private fun preload() {
+        loading.value = false
+        markets.value = coinManager.coins.map {
+            val marketInfo = ratesManager.getMarketInfo(it.code)
 
             MarketViewItem(
-                coinManager.getCoin(rate?.coinCode ?: ""),
-                price,
-                change,
-                marketCap
+                it,
+                marketInfo?.rate ?: BigDecimal.ZERO,
+                marketInfo?.diff ?: BigDecimal.ZERO,
+                marketInfo?.marketCap?.toBigDecimal() ?: BigDecimal.ZERO
+            )
+        }
+    }
+
+    private fun updateMarkets(markets: Map<String, MarketInfo>) {
+        this.markets.postValue(coinManager.coins.map {
+            val marketInfo = markets[coinManager.cleanCoinCode(it.code)]
+
+            MarketViewItem(
+                it,
+                marketInfo?.rate ?: BigDecimal.ZERO,
+                marketInfo?.diff ?: BigDecimal.ZERO,
+                marketInfo?.marketCap?.toBigDecimal() ?: BigDecimal.ZERO
             )
         })
     }

@@ -51,9 +51,9 @@ class BalanceLoader(
         get() = adaptersManager.adapters
 
     init {
-        ratesManager.ratesUpdateSubject
-            .subscribe { updateBalance() }
-            .let { disposables.add(it) }
+//        ratesManager.ratesUpdateSubject
+//            .subscribe { updateBalance() }
+//            .let { disposables.add(it) }
 
         adaptersManager.adaptersUpdatedSignal
             .subscribe { onRefreshAdapters() }
@@ -91,7 +91,7 @@ class BalanceLoader(
                     coinManager.coins[index],
                     adapter.balance,
                     ratesConverter.getCoinsPrice(adapter.coin.code, adapter.balance),
-                    ratesConverter.getTokenPrice(adapter.coin.code),
+                    ratesConverter.getCoinPrice(adapter.coin.code),
                     matchAdapterState(adapter),
                     when (adapter.coin.code) {
                         "ETH" -> EConvertType.WRAP
@@ -113,7 +113,7 @@ class BalanceLoader(
             totalFiat += it.fiatBalance
         }
 
-        val balance = totalFiat.normalizedDiv(ratesConverter.getTokenPrice(baseCoinCode))
+        val balance = totalFiat.normalizedDiv(ratesConverter.getCoinPrice(baseCoinCode))
 
         totalBalance.balance = balance
         totalBalance.fiatBalance = totalFiat

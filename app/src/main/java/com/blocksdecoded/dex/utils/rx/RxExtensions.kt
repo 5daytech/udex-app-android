@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.utils.rx
 
 import com.blocksdecoded.dex.utils.TimeUtils
 import io.reactivex.Flowable
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -26,6 +27,9 @@ fun <T> Single<T>.ioSubscribe(
             { onError?.invoke(it) }
         ).let { disposables?.add(it) }
 }
+
+fun <T> Observable<T>.ioObserve(): Observable<T> = this.subscribeOn(Schedulers.io())
+    .observeOn(Schedulers.io())
 
 fun <T> Flowable<T>.uiObserve(): Flowable<T> = this.subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())

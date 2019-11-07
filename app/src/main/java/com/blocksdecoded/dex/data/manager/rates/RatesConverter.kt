@@ -1,43 +1,43 @@
 package com.blocksdecoded.dex.data.manager.rates
 
-import com.blocksdecoded.dex.core.model.Rate
+import com.blocksdecoded.dex.utils.normalizedDiv
+import com.blocksdecoded.dex.utils.normalizedMul
 import java.math.BigDecimal
-import java.util.*
 
 class RatesConverter(
     private val baseCoinCode: String = "ETH",
     private val ratesManager: IRatesManager
 ) {
-    private fun getCoinRate(code: String): Rate =
-        ratesManager.getLatestRate(code) ?: Rate(code, Date().time / 1000, BigDecimal.ZERO, true)
+    private fun getCoinRate(code: String): BigDecimal =
+        ratesManager.getLatestRate(code) ?: BigDecimal.ZERO
 
     fun getCoinDiff(base: String, quote: String): BigDecimal {
         val baseRate = getCoinRate(base)
         val fromRate = getCoinRate(quote)
 
-        return if (baseRate.price == BigDecimal.ZERO || fromRate.price == BigDecimal.ZERO) {
+        return if (baseRate == BigDecimal.ZERO || fromRate == BigDecimal.ZERO) {
             BigDecimal.ZERO
         } else {
-            (baseRate.price / fromRate.price)
+            baseRate.normalizedDiv(fromRate)
         }
     }
 
-    fun getTokenPrice(code: String): BigDecimal = getCoinRate(code).price
+    fun getCoinPrice(code: String): BigDecimal = getCoinRate(code)
 
     fun baseFrom(code: String): BigDecimal {
         val baseRate = getCoinRate(baseCoinCode)
         val fromRate = getCoinRate(code)
 
-        return if (baseRate.price == BigDecimal.ZERO || fromRate.price == BigDecimal.ZERO) {
+        return if (baseRate == BigDecimal.ZERO || fromRate == BigDecimal.ZERO) {
             BigDecimal.ZERO
         } else {
-            fromRate.price / baseRate.price
+            fromRate.normalizedDiv(baseRate)
         }
     }
 
     fun getCoinsPrice(code: String, amount: BigDecimal): BigDecimal {
         val rate = getCoinRate(code)
 
-        return amount.multiply(rate.price)
+        return amount.normalizedMul(rate)
     }
 }

@@ -59,9 +59,9 @@ class OrdersViewModel : CoreViewModel() {
                 }
             }.let { disposables.add(it) }
 
-        ratesManager.ratesUpdateSubject.subscribe {
-            onPairsRefresh()
-        }.let { disposables.add(it) }
+//        ratesManager.ratesUpdateSubject.subscribe {
+//            onPairsRefresh()
+//        }.let { disposables.add(it) }
     }
 
     //region Private
@@ -102,9 +102,9 @@ class OrdersViewModel : CoreViewModel() {
         val exchangePairs = pairs.map {
             ExchangePairViewItem(
                 it.first,
-                ratesConverter.getTokenPrice(it.first),
+                ratesConverter.getCoinPrice(it.first),
                 it.second,
-                ratesConverter.getTokenPrice(it.second)
+                ratesConverter.getCoinPrice(it.second)
             )
         }
 
