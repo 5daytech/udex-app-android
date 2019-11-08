@@ -59,9 +59,9 @@ class OrdersViewModel : CoreViewModel() {
                 }
             }.let { disposables.add(it) }
 
-//        ratesManager.ratesUpdateSubject.subscribe {
-//            onPairsRefresh()
-//        }.let { disposables.add(it) }
+        ratesManager.getMarketsObservable().subscribe {
+            onPairsRefresh()
+        }.let { disposables.add(it) }
     }
 
     //region Private
