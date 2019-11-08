@@ -51,9 +51,9 @@ class BalanceLoader(
         get() = adaptersManager.adapters
 
     init {
-//        ratesManager.ratesUpdateSubject
-//            .subscribe { updateBalance() }
-//            .let { disposables.add(it) }
+        ratesManager.getMarketsObservable()
+            .subscribe { updateBalance() }
+            .let { disposables.add(it) }
 
         adaptersManager.adaptersUpdatedSignal
             .subscribe { onRefreshAdapters() }

@@ -18,7 +18,7 @@ class RatesManager(
 ) : IRatesManager {
     private val currencyCode = "USD"
     private val disposables = CompositeDisposable()
-    private val kit: XRatesKit = XRatesKit.create(context, currencyCode, 10 * 60)
+    private val kit: XRatesKit = XRatesKit.create(context, currencyCode, 60 * 10)
 
     init {
         coinManager.coinsUpdatedSubject
