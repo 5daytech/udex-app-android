@@ -8,7 +8,7 @@
     android:layout_marginEnd="@dimen/element_margin"
     android:layout_marginBottom="@dimen/element_margin"
     app:cardBackgroundColor="?attr/AccentBackground"
-    app:cardElevation="8dp"
+    app:cardElevation="4dp"
     app:cardCornerRadius="@dimen/small_margin">
 
     <LinearLayout

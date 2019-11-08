@@ -5,11 +5,14 @@ import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
 import io.horizontalsystems.xrateskit.entities.MarketInfo
+import io.reactivex.disposables.Disposable
 import java.math.BigDecimal
 
 class MarketsViewModel : CoreViewModel() {
     val markets = MutableLiveData<List<MarketViewItem>>()
     val loading = MutableLiveData<Boolean>()
+
+    private var marketsDisposable: Disposable? = null
 
     private val coinManager = App.coinManager
     private val ratesManager = App.ratesManager
@@ -20,18 +23,27 @@ class MarketsViewModel : CoreViewModel() {
         loading.value = true
         refresh()
 
-        ratesManager.getMarketsObservable()
-            .subscribe {
-                loading.postValue(false)
-                updateMarkets(it)
-            }.let { disposables.add(it) }
+        observeMarketsChange()
 
         preload()
+
+        coinManager.coinsUpdatedSubject
+            .subscribe { observeMarketsChange() }
+            .let { disposables.add(it) }
     }
 
     override fun onNetworkConnectionAvailable() {
         super.onNetworkConnectionAvailable()
         refresh()
+    }
+
+    private fun observeMarketsChange() {
+        marketsDisposable?.dispose()
+        ratesManager.getMarketsObservable()
+            .subscribe {
+                loading.postValue(false)
+                updateMarkets(it)
+            }.let { marketsDisposable = it }
     }
 
     private fun preload() {
@@ -62,6 +74,7 @@ class MarketsViewModel : CoreViewModel() {
     }
 
     fun refresh() {
+        loading.value = true
         ratesManager.refresh()
     }
 
@@ -69,5 +82,10 @@ class MarketsViewModel : CoreViewModel() {
         markets.value?.get(position)?.let {
             openMarketInfoEvent.value = it.coin.code
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        marketsDisposable?.dispose()
     }
 }
