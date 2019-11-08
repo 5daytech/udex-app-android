@@ -90,11 +90,22 @@
         android:lines="2"
         android:textColor="?PrimaryTextColor"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.ChartView
-        android:id="@+id/market_info_chart"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginBottom="@dimen/page_margin" />
+        android:layout_height="200dp">
+        <com.blocksdecoded.dex.presentation.widgets.ChartView
+            android:id="@+id/market_info_chart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="@dimen/page_margin"
+            android:visibility="gone"/>
+        <ProgressBar
+            android:id="@+id/chart_progress"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_gravity="center"/>
+    </FrameLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

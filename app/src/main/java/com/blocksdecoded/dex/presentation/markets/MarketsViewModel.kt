@@ -1,11 +1,9 @@
 package com.blocksdecoded.dex.presentation.markets
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blocksdecoded.dex.App
 import com.blocksdecoded.dex.core.ui.CoreViewModel
 import com.blocksdecoded.dex.core.ui.SingleLiveEvent
-import com.blocksdecoded.dex.utils.rx.ioObserve
 import io.horizontalsystems.xrateskit.entities.MarketInfo
 import java.math.BigDecimal
 
@@ -20,16 +18,15 @@ class MarketsViewModel : CoreViewModel() {
 
     init {
         loading.value = true
-        ratesManager.getMarketsObservable().ioObserve()
-            .subscribe({
-                Log.d("ololo", "Markets update ${it.keys}")
-                loading.value = false
+        refresh()
+
+        ratesManager.getMarketsObservable()
+            .subscribe {
+                loading.postValue(false)
                 updateMarkets(it)
-            }, {
-            }).let { disposables.add(it) }
+            }.let { disposables.add(it) }
 
         preload()
-        refresh()
     }
 
     override fun onNetworkConnectionAvailable() {
@@ -46,7 +43,7 @@ class MarketsViewModel : CoreViewModel() {
                 it,
                 marketInfo?.rate ?: BigDecimal.ZERO,
                 marketInfo?.diff ?: BigDecimal.ZERO,
-                marketInfo?.marketCap?.toBigDecimal() ?: BigDecimal.ZERO
+                marketInfo?.marketCap ?: 0.0
             )
         }
     }
@@ -59,7 +56,7 @@ class MarketsViewModel : CoreViewModel() {
                 it,
                 marketInfo?.rate ?: BigDecimal.ZERO,
                 marketInfo?.diff ?: BigDecimal.ZERO,
-                marketInfo?.marketCap?.toBigDecimal() ?: BigDecimal.ZERO
+                marketInfo?.marketCap ?: 0.0
             )
         })
     }

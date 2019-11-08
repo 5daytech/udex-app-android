@@ -9,7 +9,7 @@ import java.math.BigDecimal
 data class ChartViewItem(
     val type: ChartType,
     val rateValue: BigDecimal?,
-    val marketCap: BigDecimal,
+    val marketCap: Double,
     val lowValue: BigDecimal,
     val highValue: BigDecimal,
     val diffValue: BigDecimal,
@@ -19,16 +19,22 @@ data class ChartViewItem(
 
 class RateChartViewFactory {
     fun createViewItem(chartType: ChartType, chartInfo: ChartInfo?, marketInfo: MarketInfo?): ChartViewItem? {
-        val minValue = chartInfo?.points?.minBy { it.value }?.value ?: 0f
-        val maxValue = chartInfo?.points?.maxBy { it.value }?.value ?: 0f
+        val chartPoints = chartInfo?.points ?: listOf()
+
+        val minValue = chartPoints.minBy { it.value }?.value?.toDouble() ?: 0.0
+        val maxValue = chartPoints.maxBy { it.value }?.value?.toDouble() ?: 0.0
+
+        val startValue = chartPoints.firstOrNull()?.value?.toDouble() ?: 0.0
+        val endValue = chartPoints.lastOrNull()?.value?.toDouble() ?: 0.0
+        val diffValue = ((endValue - startValue) / startValue * 100).toBigDecimal()
 
         return ChartViewItem(
             chartType,
             marketInfo?.rate,
-            marketInfo?.marketCap?.toBigDecimal() ?: BigDecimal.ZERO,
+            marketInfo?.marketCap ?: 0.0,
             minValue.toString().toBigDecimal(),
             maxValue.toString().toBigDecimal(),
-            marketInfo?.diff ?: BigDecimal.ZERO,
+            if (chartType == ChartType.DAILY) marketInfo?.diff ?: BigDecimal.ZERO else diffValue,
             chartInfo?.points ?: listOf(),
             marketInfo?.timestamp?.times(1000)
         )

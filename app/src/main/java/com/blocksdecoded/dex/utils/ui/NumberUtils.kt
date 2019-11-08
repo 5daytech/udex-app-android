@@ -3,6 +3,7 @@ package com.blocksdecoded.dex.utils.ui
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import kotlin.math.ln
+import kotlin.math.pow
 
 fun BigDecimal.toDisplayFormat(): String = NumberUtils.df.format(this)
 fun BigDecimal.toLongDisplayFormat(): String = NumberUtils.longDf.format(this)
@@ -15,11 +16,11 @@ fun Double.toFiatDisplayFormat(): String = NumberUtils.formatDoubleFiat(this)
 fun BigDecimal.toFiatDisplayFormat(): String = NumberUtils.formatBigDecimalFiat(this)
 
 object NumberUtils {
-    fun withSuffix(count: Float): String {
+    fun withSuffix(count: Double): String {
         if (count < 1000) return "" + count
-        val exp = (ln(count.toDouble()) / ln(1000.0)).toInt()
+        val exp = (ln(count) / ln(1000.0)).toInt()
         return String.format("%.1f %c",
-            count / Math.pow(1000.0, exp.toDouble()),
+            count / 1000.0.pow(exp.toDouble()),
             "kmbtpe"[exp - 1])
     }
 

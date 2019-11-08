@@ -7,5 +7,5 @@ data class MarketViewItem(
     val coin: Coin,
     var price: BigDecimal,
     var change: BigDecimal,
-    var marketCap: BigDecimal
+    var marketCap: Double
 )
