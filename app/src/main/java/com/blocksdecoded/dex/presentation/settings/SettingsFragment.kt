@@ -10,6 +10,7 @@ import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.core.ui.CoreFragment
 import com.blocksdecoded.dex.presentation.coinmanager.CoinManagerActivity
 import com.blocksdecoded.dex.presentation.exchangehistory.ExchangeHistoryActivity
+import com.blocksdecoded.dex.presentation.howitworks.guide.GuideDialog
 import com.blocksdecoded.dex.presentation.main.IFocusListener
 import com.blocksdecoded.dex.presentation.main.MainActivity
 import com.blocksdecoded.dex.presentation.settings.addressbook.AddressBookActivity
@@ -66,6 +67,10 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings), IFocusListene
             activity?.let {
                 ShareUtils.shareMessage(it, App.appConfiguration.appShareUrl)
             }
+        }
+
+        how_it_works?.setOnClickListener {
+            GuideDialog.show(childFragmentManager)
         }
 
         light_mode?.setOnClickListener {
