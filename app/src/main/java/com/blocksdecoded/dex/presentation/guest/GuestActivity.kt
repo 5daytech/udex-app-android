@@ -47,7 +47,7 @@ class GuestActivity : CoreActivity() {
         guest_restore_wallet.setSingleClickListener { viewModel.onRestoreClick() }
 
         onboarding_viewpager.adapter = GuestOnboardingAdapter(supportFragmentManager, onboardingPages)
-        onboarding_indicator.setViewPager(onboarding_viewpager)
+        onboarding_indicator.bindViewPager(onboarding_viewpager)
 
         initTransparentStatusBar()
     }

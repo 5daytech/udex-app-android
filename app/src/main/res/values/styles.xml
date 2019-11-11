@@ -276,6 +276,12 @@
         <item name="android:textColor">?attr/SecondaryHintTextColor</item>
     </style>
 
+    <style name="BoldHintText" parent="BoldText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">?attr/SecondaryHintTextColor</item>
+    </style>
+
     <style name="HintText" parent="RegularText">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">?attr/HintTextColor</item>

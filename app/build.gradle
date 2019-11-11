@@ -131,9 +131,6 @@ dependencies {
     // Chart
     implementation 'com.github.PhilJay:MPAndroidChart:3.0.3'
 
-    // Pager indicator
-    implementation 'me.relex:circleindicator:2.1.4'
-
     // Bottom Navigation
     implementation 'com.aurelhubert:ahbottomnavigation:2.3.4'
 
