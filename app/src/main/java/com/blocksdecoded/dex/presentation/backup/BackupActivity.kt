@@ -43,7 +43,7 @@ class BackupActivity : SwipeableActivity() {
         backup_copy.setOnClickListener { viewModel.onCopyClick() }
 
         backup_recycler.adapter = adapter
-        backup_recycler.layoutManager = GridLayoutManager(this, 1)
+        backup_recycler.layoutManager = GridLayoutManager(this, 2)
     }
 
     companion object {

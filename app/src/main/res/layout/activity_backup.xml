@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -9,12 +10,14 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
         app:mt_title="Backup"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/backup_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         android:overScrollMode="never"
         android:layout_margin="@dimen/page_margin"/>
 
@@ -23,9 +26,12 @@
         android:id="@+id/backup_copy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        app:layout_constraintTop_toBottomOf="@+id/backup_recycler"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin"
+        android:layout_marginBottom="@dimen/big_margin"
         android:text="Copy to clipboard"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
