@@ -21,6 +21,7 @@ import com.blocksdecoded.dex.core.ui.CoreActivity
 import com.blocksdecoded.dex.presentation.balance.BalanceFragment
 import com.blocksdecoded.dex.presentation.exchange.ExchangeFragment
 import com.blocksdecoded.dex.presentation.exchange.market.MarketOrderViewModel
+import com.blocksdecoded.dex.presentation.howitworks.guide.GuideDialog
 import com.blocksdecoded.dex.presentation.markets.MarketsFragment
 import com.blocksdecoded.dex.presentation.orders.OrdersHostFragment
 import com.blocksdecoded.dex.presentation.orders.model.FillOrderInfo
@@ -86,6 +87,10 @@ class MainActivity :
                     textRes = R.string.connection_no_available
                 )
             }
+        })
+
+        mainViewModel.showGuideEvent.observe(this, Observer {
+            GuideDialog.show(supportFragmentManager)
         })
     }
 

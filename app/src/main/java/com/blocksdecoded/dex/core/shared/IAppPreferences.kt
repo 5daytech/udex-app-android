@@ -5,6 +5,7 @@ interface IAppPreferences {
     var isFingerprintEnabled: Boolean
     var selectedTheme: Int
     var iUnderstand: Boolean
+    var isGuideShown: Boolean
     var baseEthereumProvider: String?
     var selectedChartPeriod: String
 

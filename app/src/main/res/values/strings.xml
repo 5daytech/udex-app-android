@@ -191,6 +191,14 @@
     <string name="orders_cancel">Cancel Order</string>
     <string name="action_add_coin">Add Coin</string>
 
+    <!-- Guide -->
+    <string name="guide_page_1">Welcome to DEX</string>
+    <string name="guide_page_2">What is DEX</string>
+    <string name="guide_page_3">How it Works</string>
+    <string name="guide_page_1_description">Thanks for downloading DEX. Let’s\ntake 20 sec to learn how it works</string>
+    <string name="guide_page_2_description">Decentralized, real-time and\nnon-custodial crypto exchange</string>
+    <string name="guide_page_3_description">You should fund your wallet, add\nEthereum coins to get started</string>
+
     <!-- Placeholders -->
     <string-array name="placeholder_items">
         <item>WETH</item>

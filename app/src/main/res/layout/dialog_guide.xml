@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_dialog">
+
+    <View
+        android:id="@+id/collapse_indicator"
+        android:layout_width="@dimen/collapse_view_width"
+        android:layout_height="@dimen/collapse_view_height"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/element_margin"
+        android:background="@drawable/bg_rounded_divider"/>
+
+    <com.blocksdecoded.dex.presentation.widgets.pagers.WrapContentViewPager
+        android:id="@+id/guide_view_pager"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/collapse_indicator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:overScrollMode="never"
+        android:layout_marginTop="@dimen/big_margin" />
+
+    <com.blocksdecoded.dex.presentation.widgets.PagerCircleIndicator
+        android:id="@+id/guide_pager_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guide_view_pager"
+        android:layout_marginTop="@dimen/element_margin"
+        android:layout_marginEnd="@dimen/element_margin"
+        android:background="@color/transparent_black"/>
+
+    <LinearLayout
+        android:id="@+id/guide_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="@dimen/page_margin"
+        android:paddingStart="@dimen/big_margin"
+        android:paddingTop="@dimen/medium_margin"
+        android:paddingBottom="@dimen/medium_margin"
+        android:background="?selectableItemBackground">
+        <TextView
+            style="@style/BoldText"
+            android:id="@+id/guide_action_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?AccentTextColor"
+            android:textAllCaps="true"
+            android:textSize="13sp"
+            android:text="NEXT"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/guide_action"
+            app:layout_constraintBottom_toBottomOf="@+id/guide_action"
+            app:layout_constraintEnd_toEndOf="@+id/guide_action"
+            android:layout_marginEnd="@dimen/element_margin"
+            android:layout_marginStart="@dimen/small_margin"
+            android:src="@drawable/ic_chevron_right"
+            android:tint="?AccentTextColor"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

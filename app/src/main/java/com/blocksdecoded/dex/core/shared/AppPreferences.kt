@@ -7,6 +7,7 @@ class AppPreferences(
     private val IS_BACKED_UP = "is_backed_up"
     private val SELECTED_THEME = "selected_theme"
     private val IS_FINGERPRINT_ENABLED = "is_fingerprint_enabled"
+    private val IS_GUIDE_SHOWN = "is_guide_shown"
     private val SELECTED_CHART_PERIOD = "selected_chart_period"
 
     override var isBackedUp: Boolean
@@ -24,6 +25,10 @@ class AppPreferences(
     override var selectedChartPeriod: String
         get() = sharedStorage.getPreference(SELECTED_CHART_PERIOD, "")
         set(value) { sharedStorage.setPreference(SELECTED_CHART_PERIOD, value) }
+
+    override var isGuideShown: Boolean
+        get() = sharedStorage.getPreference(IS_GUIDE_SHOWN, false)
+        set(value) { sharedStorage.setPreference(IS_GUIDE_SHOWN, value) }
 
     override var iUnderstand: Boolean
         get() = TODO("not implemented") // To change initializer of created properties use File | Settings | File Templates.

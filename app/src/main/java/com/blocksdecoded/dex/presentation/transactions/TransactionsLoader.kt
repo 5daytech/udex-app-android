@@ -1,5 +1,6 @@
 package com.blocksdecoded.dex.presentation.transactions
 
+import android.util.Log
 import com.blocksdecoded.dex.core.model.TransactionRecord
 import com.blocksdecoded.dex.data.adapter.AdapterState
 import com.blocksdecoded.dex.data.adapter.IAdapter
@@ -7,9 +8,9 @@ import com.blocksdecoded.dex.data.manager.rates.IRatesManager
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionStatus
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionsState
-import com.blocksdecoded.dex.utils.Logger
 import com.blocksdecoded.dex.utils.normalizedMul
 import com.blocksdecoded.dex.utils.rx.ioSubscribe
+import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
@@ -23,6 +24,8 @@ class TransactionsLoader(
     private val disposables: CompositeDisposable
 ) {
     private val pageLimit = 10
+
+    private var transactionsFlow: Flowable<Pair<TransactionRecord, BigDecimal>>? = null
 
     private val transactions = ArrayList<TransactionRecord>()
     val transactionItems = arrayListOf<TransactionViewItem>()
@@ -49,6 +52,12 @@ class TransactionsLoader(
 
         updateState()
         loadNext(true)
+
+        transactionsFlow = Flowable.empty()
+
+        transactionsFlow?.ioSubscribe(disposables, {
+            Log.d("ololo", "On next items ${it.second}")
+        }, {})
     }
 
     fun loadNext(initial: Boolean = false) {
@@ -113,8 +122,10 @@ class TransactionsLoader(
             )
         }
 
+        transactionsFlow?.mergeWith(Single.concatArray(*ratesRequestPool.toTypedArray()))
+
         Single.concatArray(*ratesRequestPool.toTypedArray())
-            .ioSubscribe(disposables, {
+            .subscribe({
                 val indexes = ArrayList<Int>()
                 transactionItems.forEachIndexed { index, transaction ->
                     if (transaction.transactionHash == it.first.transactionHash &&
@@ -133,7 +144,7 @@ class TransactionsLoader(
 
                 syncSubject.onNext(Unit)
             }, {
-                Logger.e(it)
-            })
+                Log.d("ololo", "Error ${it.message}")
+            }).let { disposables.add(it) }
     }
 }
