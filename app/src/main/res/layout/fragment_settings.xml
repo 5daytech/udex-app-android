@@ -103,7 +103,7 @@
                 android:layout_marginTop="@dimen/big_margin"
                 app:siv_action_switch="false"
                 app:siv_title="@string/settings_how_it_works"
-                app:siv_icon="@drawable/ic_about"
+                app:siv_icon="@drawable/ic_info"
                 android:background="?selectableItemBackground" />
 
             <com.blocksdecoded.dex.presentation.settings.SettingsItemView
