@@ -100,7 +100,7 @@ class AppConfiguration(
             allExchangePairs,
             listOf("0x2e8da0868e46fc943766a98b8d92a0380b29ce2a"),
             zrxNetworkType.exchangeAddress,
-            RelayerConfig("http://relayer.ropsten.fridayte.ch", "", "v2")
+            RelayerConfig("https://relayer.ropsten.fridayte.ch", "", "v2")
         )
     )
 
@@ -111,7 +111,7 @@ class AppConfiguration(
             allExchangePairs,
             listOf("0x2e8da0868e46fc943766a98b8d92a0380b29ce2a"),
             zrxNetworkType.exchangeAddress,
-            RelayerConfig("http://relayer.fridayte.ch", "", "v2")
+            RelayerConfig("https://relayer.fridayte.ch", "", "v2")
         )
     )
 
