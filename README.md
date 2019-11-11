@@ -1,3 +1,4 @@
+[![API: 23+](https://img.shields.io/badge/API-23+-brightgreen.svg)](https://opensource.org/licenses/MIT)
 # Decentralized Exchange App
 
 We believe that private property is untouchable and market access is unconditional.
