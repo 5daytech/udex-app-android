@@ -37,7 +37,7 @@
         app:layout_constraintTop_toTopOf="@+id/guide_view_pager"
         android:layout_marginTop="@dimen/element_margin"
         android:layout_marginEnd="@dimen/element_margin"
-        android:background="@color/transparent_black"/>
+        android:background="?TransparentBackground"/>
 
     <LinearLayout
         android:id="@+id/guide_action"

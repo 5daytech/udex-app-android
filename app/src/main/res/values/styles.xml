@@ -21,6 +21,7 @@
     <attr name="EmptyCircleColor" format="reference|color"/>
     <attr name="AttentionColor" format="reference|color"/>
     <attr name="NavigationColor" format="reference|color"/>
+    <attr name="TransparentBackground" format="reference|color"/>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -57,6 +58,7 @@
         <item name="PrimaryButtonTransparentTextColor">@color/transparent_white</item>
         <item name="PrimaryButtonTransparentColor">@color/transparent_blue</item>
         <item name="AccentTextColor">@color/blue</item>
+        <item name="TransparentBackground">@color/light_accent_transparent</item>
     </style>
 
     <style name="AppTheme.DarkMode">
@@ -86,6 +88,7 @@
         <item name="PrimaryButtonTransparentTextColor">@color/transparent_white</item>
         <item name="PrimaryButtonTransparentColor">@color/transparent_violet</item>
         <item name="AccentTextColor">@color/turquoise</item>
+        <item name="TransparentBackground">@color/dark_accent_transparent</item>
     </style>
 
     <style name="AppTheme.GoldMode">
@@ -118,6 +121,7 @@
         <item name="PrimaryButtonTransparentTextColor">@color/black</item>
         <item name="PrimaryButtonTransparentColor">@color/transparent_yellow</item>
         <item name="AccentTextColor">@color/yellow</item>
+        <item name="TransparentBackground">@color/gold_accent_transparent</item>
     </style>
 
     <style name="AppTheme.DarkLaunchScreen">

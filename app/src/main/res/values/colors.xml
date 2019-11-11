@@ -11,18 +11,21 @@
     <color name="gold_main">#191C23</color>
     <color name="gold_main_dark">#1B1B20</color>
     <color name="gold_accent">#0F1115</color>
+    <color name="gold_accent_transparent">#500F1115</color>
     <color name="gold_divider">#1F2025</color>
     <color name="gold_empty_circle">#353744</color>
 
     <color name="dark_main">#1E1E24</color>
     <color name="dark_main_dark">#1B1B20</color>
     <color name="dark_accent">#21222C</color>
+    <color name="dark_accent_transparent">#5021222C</color>
     <color name="dark_divider">#353744</color>
     <color name="dark_empty_circle">#353744</color>
 
     <color name="light_main">#FBFBFB</color>
     <color name="light_main_dark">#F6F6F6</color>
     <color name="light_accent">#FFF</color>
+    <color name="light_accent_transparent">#50FFFFFF</color>
     <color name="light_divider">#EBECED</color>
     <color name="light_empty_circle">#eeeeee</color>
 

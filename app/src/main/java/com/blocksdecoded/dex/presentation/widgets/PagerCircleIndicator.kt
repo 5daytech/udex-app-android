@@ -1,12 +1,14 @@
 package com.blocksdecoded.dex.presentation.widgets
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.ViewPager
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.utils.dp
+import com.blocksdecoded.dex.utils.getAttr
 import com.blocksdecoded.dex.utils.inflate
 import kotlinx.android.synthetic.main.view_pager_indicator.view.*
 
@@ -52,6 +54,7 @@ class PagerCircleIndicator : ConstraintLayout {
             dotView.layoutParams = layoutParams
             dotView.setBackgroundResource(R.drawable.ic_circle_white)
             dotView.alpha = if (i == 0) selectedAlpha else disabledAlpha
+            dotView.background.setTint(context.theme.getAttr(R.attr.PrimaryTextColor) ?: Color.WHITE)
             pager_indicators.addView(dotView)
         }
     }
