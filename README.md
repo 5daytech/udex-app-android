@@ -1,3 +1,4 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 [![API: 23+](https://img.shields.io/badge/API-23+-brightgreen.svg)](https://opensource.org/licenses/MIT)
 # Decentralized Exchange App
 
