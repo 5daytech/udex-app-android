@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BD Dex</string>
+    <string name="app_name">UDEX</string>
 
     <!-- Menu -->
     <string name="title_wallet">Wallet</string>
@@ -117,11 +117,11 @@
 
     <!-- Guest Onboarding -->
     <string name="onboarding_about_app">Decentralized\nExchange</string>
-    <string name="onboarding_main_page">ADEX is a decentralized, real-time\nand non-custodial exchange built\non 0x protocol technology</string>
+    <string name="onboarding_main_page">UDEX is a decentralized, real-time\nand non-custodial exchange built\non 0x protocol technology</string>
     <string name="onboarding_tokens_page">Trade Ether and Ethereum-based\ntokens directly with other users</string>
     <string name="onboarding_p2p_page">Trade peer-to-peer any ERC20\ntoken from your own wallet\nwithout trading fees</string>
 
-    <string name="info_weth">WETH lets you trade ETH for other ERC20 tokens on decentralized exchanges like DEX.
+    <string name="info_weth">WETH lets you trade ETH for other ERC20 tokens on decentralized exchanges like UDEX.
         \n\nUnlike ETH, WETH is ERC20 compliant.
         It used in the smart contracts that facilitate trades between users.
         When you "wrap" ETH, you are trading your ETH for WETH via a smart contract.
@@ -161,15 +161,15 @@
 
     <!-- Settings About App -->
     <string name="settings_about_app">About App</string>
-    <string name="settings_about_app_title">DEX</string>
+    <string name="settings_about_app_title">UDEX</string>
     <string name="settings_about_app_subtitle">Decentralized App</string>
     <string name="settings_about_terms_subtitle">Terms &amp; Privacy:</string>
-    <string name="settings_about_terms_text">DEX runs on a peer-to-peer network. It does not depend on web servers or specialist personnel in order to function.
-\n\nProviding there is an internet connection, DEX will work anywhere in the world. No entity can block the app from functioning or block someone from using it.
-\n\nYour funds are securely stored on your phone or tablet. Nobody including DEX has access to them or can see them.
+    <string name="settings_about_terms_text">UDEX runs on a peer-to-peer network. It does not depend on web servers or specialist personnel in order to function.
+\n\nProviding there is an internet connection, UDEX will work anywhere in the world. No entity can block the app from functioning or block someone from using it.
+\n\nYour funds are securely stored on your phone or tablet. Nobody including UDEX has access to them or can see them.
 \n\nIt’s your responsibility to back up your private key and keep it safe. Never show it to anyone. If it’s lost, forgotten, or stolen, your funds are at risk.
 \n\nDo not jailbreak your phone, do not install apps from unknown or untrusted sources, do not give your device to untrusted people, and keep the operating system on your phone up to date. Failure to follow this guidance will put your assets at risk.
-\n\nThe code powering DEX is open to public scrutiny and has been since development began. The app is significantly more secure than proprietary smartphone exchanges, but we cannot guarantee an absence of bugs and security issues. The developers accept no liability for lost assets.
+\n\nThe code powering UDEX is open to public scrutiny and has been since development began. The app is significantly more secure than proprietary smartphone exchanges, but we cannot guarantee an absence of bugs and security issues. The developers accept no liability for lost assets.
 \n\nSome non-private app data like currency exchange rates are stored on decentralized storage (IPFS).</string>
 
     <!-- Auth failed -->
@@ -193,10 +193,10 @@
     <string name="action_add_coin">Add Coin</string>
 
     <!-- Guide -->
-    <string name="guide_page_1">Welcome to DEX</string>
-    <string name="guide_page_2">What is DEX</string>
+    <string name="guide_page_1">Welcome to UDEX</string>
+    <string name="guide_page_2">What is UDEX</string>
     <string name="guide_page_3">How it Works</string>
-    <string name="guide_page_1_description">Thanks for downloading DEX. Let’s\ntake 20 sec to learn how it works</string>
+    <string name="guide_page_1_description">Thanks for downloading UDEX. Let’s\ntake 20 sec to learn how it works</string>
     <string name="guide_page_2_description">Decentralized, real-time and\nnon-custodial crypto exchange</string>
     <string name="guide_page_3_description">You should fund your wallet, add\nEthereum coins to get started</string>
 
