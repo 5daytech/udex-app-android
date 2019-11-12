@@ -41,8 +41,8 @@ class TransactionsViewModel : CoreViewModel() {
             this.adapter = adapter
         }
 
-        adapter.refresh()
         transactionsLoader = TransactionsLoader(adapter, ratesManager, disposables)
+        adapter.refresh()
 
         coinName.value = adapter.coin.title
         balance.value = TotalBalanceInfo(
