@@ -54,10 +54,13 @@
             app:layout_constraintEnd_toStartOf="@+id/top_up_buy_crypto"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="@dimen/big_margin"
-            android:paddingStart="@dimen/page_margin"
-            android:paddingEnd="@dimen/page_margin"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/white"
+            android:paddingStart="@dimen/big_margin"
+            android:paddingEnd="@dimen/big_margin"
+            android:textSize="11sp"
+            android:backgroundTint="?AccentBackground"
+            android:textColor="?PrimaryTextColor"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:layout_marginEnd="@dimen/element_margin"
             android:text="Add Coins"/>
 
         <Button
@@ -70,10 +73,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="@dimen/big_margin"
-            android:paddingStart="@dimen/page_margin"
-            android:paddingEnd="@dimen/page_margin"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/white"
+            android:paddingStart="@dimen/big_margin"
+            android:paddingEnd="@dimen/big_margin"
+            android:layout_marginStart="@dimen/element_margin"
+            android:textSize="11sp"
+            android:backgroundTint="?AccentBackground"
+            android:textColor="?PrimaryTextColor"
             android:text="Buy Crypto"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
