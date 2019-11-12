@@ -79,7 +79,7 @@
             android:textSize="11sp"
             android:backgroundTint="?AccentBackground"
             android:textColor="?PrimaryTextColor"
-            android:text="Buy Crypto"/>
+            android:text="@string/action_buy_crypto"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

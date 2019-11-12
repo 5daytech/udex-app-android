@@ -2,6 +2,7 @@ package com.blocksdecoded.dex.presentation.widgets
 
 import android.content.Context
 import android.util.AttributeSet
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.blocksdecoded.dex.R
 import com.blocksdecoded.dex.utils.visible
@@ -51,6 +52,14 @@ class MainToolbar : AppBarLayout {
             toolbar_left_action?.setImageResource(it.iconRes)
             toolbar_left_action?.setOnClickListener { leftActionButton.onClick() }
         }
+
+        toolbar_right_action?.visible = rightActionButton != null
+
+        rightActionButton?.let {
+            toolbar_right_action_text?.setText(it.textRes)
+            toolbar_right_action_image?.setImageResource(it.iconRes)
+            toolbar_right_action?.setOnClickListener { rightActionButton.onClick() }
+        }
     }
 
     fun setTitle(@StringRes stringRes: Int) {
@@ -58,13 +67,13 @@ class MainToolbar : AppBarLayout {
     }
 
     data class ActionInfo(
-        val iconRes: Int,
-        val text: String = "",
+        @DrawableRes val iconRes: Int,
+        @StringRes val textRes: Int = 0,
         val onClick: () -> Unit
     )
 
     companion object {
         fun getBackAction(onClick: () -> Unit): ActionInfo =
-            ActionInfo(R.drawable.ic_back, "", onClick)
+            ActionInfo(R.drawable.ic_back, 0, onClick)
     }
 }

@@ -74,6 +74,7 @@
     <string name="action_send">Send</string>
     <string name="action_wrap">Wrap</string>
     <string name="action_unwrap">Unwrap</string>
+    <string name="action_buy_crypto">Buy Crypto</string>
 
     <string name="info_fee">Fee:</string>
     <string name="info_estimated_fee">Estimated Fee:</string>

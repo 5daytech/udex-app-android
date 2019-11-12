@@ -58,4 +58,45 @@
         android:background="?attr/HintTextColor"
         android:alpha="0.3"/>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/toolbar_right_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="@dimen/page_margin"
+        app:cardBackgroundColor="?AccentBackground"
+        app:cardCornerRadius="@dimen/small_corner_radius"
+        app:cardElevation="4dp"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/medium_margin"
+            android:paddingEnd="@dimen/medium_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:paddingBottom="@dimen/medium_margin"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/toolbar_right_action_image"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:tint="?AccentTextColor"
+                android:src="@drawable/ic_credit_card"/>
+
+            <TextView
+                style="@style/BoldText"
+                android:id="@+id/toolbar_right_action_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Action"
+                android:textAllCaps="true"
+                android:textSize="10sp"
+                android:layout_marginStart="@dimen/element_margin"
+                android:textColor="?AccentTextColor"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

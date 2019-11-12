@@ -17,6 +17,7 @@ import com.blocksdecoded.dex.presentation.dialogs.AlertDialogFragment
 import com.blocksdecoded.dex.presentation.receive.ReceiveDialog
 import com.blocksdecoded.dex.presentation.send.SendDialog
 import com.blocksdecoded.dex.presentation.transactions.TransactionsActivity
+import com.blocksdecoded.dex.presentation.widgets.MainToolbar
 import com.blocksdecoded.dex.utils.openUrl
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.visible
@@ -29,6 +30,11 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
 
     private lateinit var adapter: BalanceAdapter
     private lateinit var viewModel: BalanceViewModel
+
+    private val buyCryptoToolbarAction = MainToolbar.ActionInfo(
+        R.drawable.ic_credit_card,
+        R.string.action_buy_crypto
+    ) { viewModel.onBuyCryptoClick() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,9 +88,11 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
         viewModel.topUpVisible.observe(this, Observer { topUpVisible ->
             if (topUpVisible) {
                 if (!top_up_container.visible) {
+                    toolbar.bind(rightActionButton = null)
                     AnimationHelper.expand(top_up_container, speed = 1.5f)
                 }
             } else {
+                toolbar.bind(rightActionButton = buyCryptoToolbarAction)
                 top_up_container.visible = false
             }
         })
