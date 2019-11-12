@@ -13,9 +13,11 @@ import com.blocksdecoded.dex.presentation.balance.recycler.BalanceViewHolder
 import com.blocksdecoded.dex.presentation.coinmanager.CoinManagerActivity
 import com.blocksdecoded.dex.presentation.common.ActionViewHolder
 import com.blocksdecoded.dex.presentation.convert.ConvertDialog
+import com.blocksdecoded.dex.presentation.dialogs.AlertDialogFragment
 import com.blocksdecoded.dex.presentation.receive.ReceiveDialog
 import com.blocksdecoded.dex.presentation.send.SendDialog
 import com.blocksdecoded.dex.presentation.transactions.TransactionsActivity
+import com.blocksdecoded.dex.utils.openUrl
 import com.blocksdecoded.dex.utils.ui.AnimationHelper
 import com.blocksdecoded.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_balance.*
@@ -94,6 +96,18 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
         viewModel.openCoinManager.observe(this, Observer {
             activity?.let { CoinManagerActivity.start(it) }
         })
+
+        viewModel.openUrlEvent.observe(this, Observer { url ->
+            activity?.let { it.openUrl(url) }
+        })
+
+        viewModel.showTestModeDialog.observe(this, Observer {
+            AlertDialogFragment.newInstance(
+                R.string.test_network,
+                R.string.test_network_buy_crypto_description,
+                R.string.ok
+            ).show(childFragmentManager, "test_mode_buy_crypto")
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -112,6 +126,8 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
         }
 
         top_up_add_coins?.setOnClickListener { viewModel.onAddCoinsClick() }
+
+        top_up_buy_crypto?.setOnClickListener { viewModel.onBuyCryptoClick() }
     }
 
     //region ViewHolder

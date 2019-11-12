@@ -27,6 +27,7 @@ class AppConfiguration(
     )
 
     override val appShareUrl = "https://github.com/blocksdecoded/dex-app-android"
+    override val merchantId: String = BuildConfig.MERCHANT_ID
 
     override val transactionExploreBaseUrl = if (testMode) "https://ropsten.etherscan.io/tx/" else "https://etherscan.io/tx/"
     override val ipfsId = "QmXTJZBMMRmBbPun6HFt3tmb3tfYF2usLPxFoacL7G5uMX"

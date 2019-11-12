@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme.GoldMode"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".presentation.howitworks.HowItWorksActivity"></activity>
+        <activity android:name=".presentation.howitworks.HowItWorksActivity" />
+
         <activity
             android:name=".LaunchActivity"
             android:screenOrientation="portrait"

@@ -200,6 +200,10 @@
     <string name="guide_page_2_description">Decentralized, real-time and\nnon-custodial crypto exchange</string>
     <string name="guide_page_3_description">You should fund your wallet, add\nEthereum coins to get started</string>
 
+
+    <string name="test_network">Test Network</string>
+    <string name="test_network_buy_crypto_description">\"Buy Crypto\" feature is not available on TestNet networks</string>
+
     <!-- Placeholders -->
     <string-array name="placeholder_items">
         <item>WETH</item>

@@ -9,6 +9,8 @@ import com.blocksdecoded.dex.core.shared.IAppPreferences
 import com.blocksdecoded.dex.core.shared.ISharedStorage
 import com.blocksdecoded.dex.core.shared.SharedStorage
 import com.blocksdecoded.dex.data.adapter.AdapterFactory
+import com.blocksdecoded.dex.data.buycrypto.BuyCryptoProvider
+import com.blocksdecoded.dex.data.buycrypto.IBuyCryptoProvider
 import com.blocksdecoded.dex.data.manager.*
 import com.blocksdecoded.dex.data.manager.auth.AuthManager
 import com.blocksdecoded.dex.data.manager.auth.IAuthManager
@@ -63,6 +65,7 @@ class App : Application() {
         lateinit var backgroundManager: BackgroundManager
         lateinit var cleanupManager: ICleanupManager
         lateinit var networkStateManager: NetworkStateManager
+        lateinit var buyCryptoProvider: IBuyCryptoProvider
 
         lateinit var feeRateProvider: IFeeRateProvider
         lateinit var processingDurationProvider: IProcessingDurationProvider
@@ -126,6 +129,8 @@ class App : Application() {
         // Init kits
         ethereumKitManager = EthereumKitManager(appConfiguration)
         zrxKitManager = ZrxKitManager(appConfiguration, authManager, feeRateProvider)
+
+        buyCryptoProvider = BuyCryptoProvider(appConfiguration)
 
         // Rates
         ratesManager = RatesManager(this, coinManager)

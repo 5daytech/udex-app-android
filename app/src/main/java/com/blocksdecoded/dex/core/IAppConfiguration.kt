@@ -13,6 +13,8 @@ interface IAppConfiguration {
     val etherscanKey: String
     val infuraCredentials: EthereumKit.InfuraCredentials
 
+    val merchantId: String
+
     val appShareUrl: String
     val transactionExploreBaseUrl: String
 

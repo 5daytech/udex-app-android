@@ -57,7 +57,7 @@ class GuideDialog : BaseBottomDialog(R.layout.dialog_guide) {
     private class GuidePagerAdapter(
         fm: FragmentManager,
         val pages: List<GuidePageConfig>
-    ): FragmentPagerAdapter(fm) {
+    ) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment = GuideDialogPage.newInstance(pages[position])
 
         override fun getCount(): Int = pages.size

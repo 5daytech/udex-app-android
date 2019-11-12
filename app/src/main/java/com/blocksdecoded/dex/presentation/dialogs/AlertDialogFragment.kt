@@ -24,10 +24,6 @@ class AlertDialogFragment(
         }
     }
 
-    interface Listener {
-        fun onConfirmClick()
-    }
-
     companion object {
         fun newInstance(
             title: Int,

@@ -6,11 +6,17 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: "org.jmailen.kotlinter"
 
+Properties properties = new Properties()
+if (project.rootProject.file('local.properties').exists()) {
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+}
+
 android {
     def STRING = "String"
     def INFURA_PROJECT_ID = "INFURA_PROJECT_ID"
     def INFURA_PROJECT_SECRET = "INFURA_PROJECT_SECRET"
     def ETHERESCAN_KEY = "ETHERSCAN_KEY"
+    def MERCHANT_ID = "MERCHANT_ID"
 
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -23,7 +29,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
+        buildConfigField STRING, MERCHANT_ID, properties.getProperty("merchant_id", "\"\"")
     }
+
     buildTypes {
         debug {
             debuggable true

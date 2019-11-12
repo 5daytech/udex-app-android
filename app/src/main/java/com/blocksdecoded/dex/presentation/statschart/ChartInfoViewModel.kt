@@ -75,7 +75,7 @@ class ChartInfoViewModel : CoreViewModel() {
                     displayChartInfo()
                     chartDisposable?.dispose()
                     chartDisposable = null
-                }, { error.postValue(R.string.chart_loading_error)})
+                }, { error.postValue(R.string.chart_loading_error) })
         } else {
             displayChartInfo()
         }

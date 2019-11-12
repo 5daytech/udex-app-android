@@ -13,6 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import java.math.BigDecimal
 
 class BalanceViewModel : CoreViewModel() {
+    private val buyCryptoProvider = App.buyCryptoProvider
     private var balanceLoader: BalanceLoader = BalanceLoader(
         App.coinManager,
         App.adapterManager,
@@ -37,6 +38,8 @@ class BalanceViewModel : CoreViewModel() {
     val openConvertDialog = SingleLiveEvent<ConvertConfig>()
     val openCoinInfo = SingleLiveEvent<Coin>()
     val openCoinManager = SingleLiveEvent<Unit>()
+    val openUrlEvent = SingleLiveEvent<String>()
+    val showTestModeDialog = SingleLiveEvent<Unit>()
 
     init {
         totalBalanceVisible.value = true
@@ -87,6 +90,16 @@ class BalanceViewModel : CoreViewModel() {
     fun onAddCoinsClick() {
         val baseCoinIndex = mBalances.indexOfFirst { it.coin.code == baseCoinCode }
         onReceiveClick(baseCoinIndex)
+    }
+
+    fun onBuyCryptoClick() {
+        if (buyCryptoProvider.isFeatureAvailable) {
+            App.adapterManager.adapters.firstOrNull { it.coin.code == baseCoinCode }?.let {
+                openUrlEvent.postValue(buyCryptoProvider.getBuyUrl(baseCoinCode, it.receiveAddress))
+            }
+        } else {
+            showTestModeDialog.call()
+        }
     }
 
     fun onSendClick(position: Int) {
