@@ -1,6 +1,5 @@
 package com.blocksdecoded.dex.presentation.transactions
 
-import android.util.Log
 import com.blocksdecoded.dex.core.model.TransactionRecord
 import com.blocksdecoded.dex.data.adapter.AdapterState
 import com.blocksdecoded.dex.data.adapter.IAdapter
@@ -9,9 +8,9 @@ import com.blocksdecoded.dex.presentation.transactions.model.TransactionStatus
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionsState
 import com.blocksdecoded.dex.utils.normalizedMul
+import com.blocksdecoded.dex.utils.rx.ioObserve
 import com.blocksdecoded.dex.utils.rx.ioSubscribe
-import io.reactivex.Flowable
-import io.reactivex.Single
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
@@ -23,14 +22,13 @@ class TransactionsLoader(
     private val ratesManager: IRatesManager,
     private val disposables: CompositeDisposable
 ) {
-    private val pageLimit = 10
-
-    private var transactionsFlow: Flowable<Pair<TransactionRecord, BigDecimal>>? = null
+    private val pageLimit = 15
 
     private val transactions = ArrayList<TransactionRecord>()
+
     val transactionItems = arrayListOf<TransactionViewItem>()
     val syncSubject = PublishSubject.create<Unit>()
-    val syncTransaction = PublishSubject.create<Int>()
+    val syncTransactions = PublishSubject.create<List<Int>>()
 
     var state = TransactionsState.SYNCING
     val syncState = PublishSubject.create<Unit>()
@@ -52,12 +50,6 @@ class TransactionsLoader(
 
         updateState()
         loadNext(true)
-
-        transactionsFlow = Flowable.empty()
-
-        transactionsFlow?.ioSubscribe(disposables, {
-            Log.d("ololo", "On next items ${it.second}")
-        }, {})
     }
 
     fun loadNext(initial: Boolean = false) {
@@ -114,37 +106,42 @@ class TransactionsLoader(
 
         syncSubject.onNext(Unit)
 
-        val ratesRequestPool = ArrayList<Single<Pair<TransactionRecord, BigDecimal>>>()
-        transactions.forEach { transaction ->
+        val timestamps = hashSetOf(*transactions.map { it.timestamp }.toTypedArray())
+        val ratesRequestPool = ArrayList<Observable<Pair<Long, BigDecimal>>>()
+
+        timestamps.forEach { timestamp ->
             ratesRequestPool.add(
-                ratesManager.getHistoricalRate(adapter.coin.code, transaction.timestamp)
-                    .map { rate -> transaction to rate }
+                ratesManager.getHistoricalRate(adapter.coin.code, timestamp)
+                    .retry(2) {
+                        it is NullPointerException
+                    }
+                    .map { rate -> timestamp to rate }
+                    .toObservable()
             )
         }
 
-        transactionsFlow?.mergeWith(Single.concatArray(*ratesRequestPool.toTypedArray()))
-
-        Single.concatArray(*ratesRequestPool.toTypedArray())
+        Observable.concatDelayError(ratesRequestPool).ioObserve()
             .subscribe({
-                val indexes = ArrayList<Int>()
-                transactionItems.forEachIndexed { index, transaction ->
-                    if (transaction.transactionHash == it.first.transactionHash &&
-                        transaction.date?.time == it.first.timestamp * 1000 &&
-                        transaction.innerIndex == it.first.interTransactionIndex) {
-                        indexes.add(index)
-                    }
-                }
+                onTransactionRateLoaded(it)
+            }, { }).let { disposables.add(it) }
+    }
 
-                indexes.forEach { index ->
-                    transactionItems[index].fiatValue = it.first.amount.multiply(it.second)
-                    transactionItems[index].fiatFee = it.first.fee?.multiply(it.second)
-                    transactionItems[index].historicalRate = it.second
-                    syncTransaction.onNext(index)
-                }
+    @Synchronized
+    private fun onTransactionRateLoaded(data: Pair<Long, BigDecimal>) {
+        val indexes = ArrayList<Int>()
+        transactionItems.forEachIndexed { index, transaction ->
+            if (transaction.date?.time == data.first * 1000) {
+                indexes.add(index)
+            }
+        }
 
-                syncSubject.onNext(Unit)
-            }, {
-                Log.d("ololo", "Error ${it.message}")
-            }).let { disposables.add(it) }
+        indexes.forEach { index ->
+            transactionItems[index].fiatValue = transactionItems[index].coinValue.multiply(data.second)
+            transactionItems[index].fiatFee = transactionItems[index].fee?.multiply(data.second)
+            transactionItems[index].historicalRate = data.second
+        }
+
+        syncTransactions.onNext(indexes)
+        syncSubject.onNext(Unit)
     }
 }

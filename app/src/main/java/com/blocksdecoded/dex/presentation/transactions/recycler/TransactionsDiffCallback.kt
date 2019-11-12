@@ -22,6 +22,7 @@ class TransactionsDiffCallback(
 
         return old.coinValue == new.coinValue &&
                 old.fiatValue == new.fiatValue &&
+                old.historicalRate == new.historicalRate &&
                 old.date == new.date &&
                 old.status == new.status
     }

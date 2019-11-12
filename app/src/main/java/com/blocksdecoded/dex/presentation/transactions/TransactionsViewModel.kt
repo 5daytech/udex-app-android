@@ -11,6 +11,8 @@ import com.blocksdecoded.dex.presentation.transactions.model.TransactionsState
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionsState.*
 import com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.blocksdecoded.dex.utils.isValidIndex
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class TransactionsViewModel : CoreViewModel() {
     private val adapterManager = App.adapterManager
@@ -26,7 +28,7 @@ class TransactionsViewModel : CoreViewModel() {
     val error = MutableLiveData<Int>()
     val transactions = MutableLiveData<List<TransactionViewItem>>()
 
-    val syncTransaction = SingleLiveEvent<Int>()
+    val syncTransactions = SingleLiveEvent<List<Int>>()
     val finishEvent = SingleLiveEvent<Int>()
     val showTransactionInfoEvent = SingleLiveEvent<TransactionViewItem>()
 
@@ -51,14 +53,18 @@ class TransactionsViewModel : CoreViewModel() {
             ratesConverter.getCoinsPrice(adapter.coin.code, adapter.balance)
         )
 
-        transactionsLoader.syncTransaction
-            .subscribe { syncTransaction.postValue(it) }
+        transactionsLoader.syncTransactions
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { syncTransactions.value = it }
             .let { disposables.add(it) }
 
         transactionsLoader.syncSubject
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                isEmpty.postValue(transactionsLoader.transactionItems.isEmpty())
-                this.transactions.postValue(transactionsLoader.transactionItems)
+                isEmpty.value = transactionsLoader.transactionItems.isEmpty()
+                this.transactions.value = transactionsLoader.transactionItems
             }.let { disposables.add(it) }
 
         transactionsLoader.syncState.subscribe {

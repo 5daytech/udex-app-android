@@ -42,8 +42,8 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
             TransactionInfoDialog.show(childFragmentManager, it)
         })
 
-        viewModel.syncTransaction.observe(this, Observer {
-            adapter.syncTransaction(it)
+        viewModel.syncTransactions.observe(this, Observer {
+            adapter.syncTransactions(it)
         })
 
         viewModel.coinName.observe(this, Observer {

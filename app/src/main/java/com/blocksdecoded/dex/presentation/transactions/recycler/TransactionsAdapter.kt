@@ -4,7 +4,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.blocksdecoded.dex.R
-import com.blocksdecoded.dex.core.model.TransactionRecord
 import com.blocksdecoded.dex.presentation.transactions.model.TransactionViewItem
 import com.blocksdecoded.dex.utils.inflate
 import com.blocksdecoded.dex.utils.isValidIndex
@@ -25,7 +24,7 @@ class TransactionsAdapter(
             is TransactionViewHolder -> holder.onBind(mTransactions[position])
         }
 
-        if (position > itemCount - 4) {
+        if (position > itemCount - 3) {
             loadNextListener.loadNext()
         }
     }
@@ -39,15 +38,11 @@ class TransactionsAdapter(
         diffUtil.dispatchUpdatesTo(this)
     }
 
-    fun addNextTransactions(transactions: List<TransactionRecord>) {
-    }
-
-    fun addBeforeTransactions(transactions: List<TransactionRecord>) {
-    }
-
-    fun syncTransaction(it: Int?) {
-        if (it != null && mTransactions.isValidIndex(it)) {
-            notifyItemChanged(it)
+    fun syncTransactions(indexes: List<Int>?) {
+        indexes?.forEach {
+            if (mTransactions.isValidIndex(it)) {
+                notifyItemChanged(it)
+            }
         }
     }
 

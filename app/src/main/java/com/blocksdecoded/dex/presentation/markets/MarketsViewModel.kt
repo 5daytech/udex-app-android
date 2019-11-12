@@ -74,7 +74,7 @@ class MarketsViewModel : CoreViewModel() {
     }
 
     fun refresh() {
-        loading.value = true
+        loading.postValue(true)
         ratesManager.refresh()
     }
 
