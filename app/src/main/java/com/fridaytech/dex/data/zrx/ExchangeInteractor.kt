@@ -25,6 +25,8 @@ class ExchangeInteractor(
     private val allowanceChecker: IAllowanceChecker
 ) : IExchangeInteractor {
 
+    private val orderValidTime = 60 * 60 * 24 * 3 // 3 days
+
     //region Private
 
     private fun postOrder(
@@ -35,7 +37,7 @@ class ExchangeInteractor(
         takeAmount: BigInteger,
         side: EOrderSide
     ): Flowable<SignedOrder> {
-        val expirationTime = ((Date().time / 1000) + (60 * 60 * 24 * 7)).toString() // Order valid for 7 days
+        val expirationTime = ((Date().time / 1000) + orderValidTime).toString() // Order valid for 3 days
 
         val makerAsset = when (side) {
             EOrderSide.BUY -> takeAsset
