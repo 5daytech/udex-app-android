@@ -51,6 +51,16 @@ android {
         }
     }
 
+    signingConfigs {
+        debug {
+            storeFile file("debug.keystore")
+        }
+
+        release {
+
+        }
+    }
+
     flavorDimensions "network"
     productFlavors {
         devTestnet {
