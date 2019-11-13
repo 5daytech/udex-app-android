@@ -37,7 +37,10 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
         viewModel.messageEvent.observe(this, Observer { ToastHelper.showSuccessMessage(it) })
         viewModel.finishEvent.observe(this, Observer { activity?.finish() })
 
-        viewModel.transactions.observe(this, Observer { adapter.setTransactions(it) })
+        viewModel.transactions.observe(this, Observer {
+            adapter.setTransactions(it)
+        })
+
         viewModel.showTransactionInfoEvent.observe(this, Observer {
             TransactionInfoDialog.show(childFragmentManager, it)
         })

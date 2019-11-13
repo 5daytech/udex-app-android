@@ -33,7 +33,7 @@ class TransactionsViewModel : CoreViewModel() {
     val showTransactionInfoEvent = SingleLiveEvent<TransactionViewItem>()
 
     fun init(coinCode: String?) {
-        isEmpty.postValue(false)
+        isEmpty.value = false
         val adapter = adapterManager.adapters.firstOrNull { it.coin.code == coinCode }
 
         if (adapter == null) {
@@ -63,8 +63,8 @@ class TransactionsViewModel : CoreViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                isEmpty.value = transactionsLoader.transactionItems.isEmpty()
                 this.transactions.value = transactionsLoader.transactionItems
+                isEmpty.value = transactionsLoader.transactionItems.isEmpty()
             }.let { disposables.add(it) }
 
         transactionsLoader.syncState.subscribe {
@@ -72,6 +72,8 @@ class TransactionsViewModel : CoreViewModel() {
         }.let { disposables.add(it) }
 
         updateState(transactionsLoader.state)
+
+        transactionsLoader.loadNext(initial = true)
     }
 
     private fun updateState(state: TransactionsState) {

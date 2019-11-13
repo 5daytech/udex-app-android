@@ -12,6 +12,7 @@ import com.blocksdecoded.dex.utils.rx.ioObserve
 import com.blocksdecoded.dex.utils.rx.ioSubscribe
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 import java.util.*
@@ -31,7 +32,7 @@ class TransactionsLoader(
     val syncTransactions = PublishSubject.create<List<Int>>()
 
     var state = TransactionsState.SYNCING
-    val syncState = PublishSubject.create<Unit>()
+    val syncState = BehaviorSubject.create<Unit>()
 
     var allLoaded = false
     var loading: Boolean = false
@@ -49,7 +50,6 @@ class TransactionsLoader(
         }.let { disposables.add(it) }
 
         updateState()
-        loadNext(true)
     }
 
     fun loadNext(initial: Boolean = false) {
@@ -61,14 +61,12 @@ class TransactionsLoader(
         }
 
         adapter.getTransactions(from = from, limit = pageLimit)
-            .ioSubscribe(disposables,
-                {
-                    allLoaded = it.isEmpty()
-                    transactions.addAll(it)
-                    loadMeta(it)
-                },
-                { loading = false }
-            )
+            .ioSubscribe(disposables, {
+                allLoaded = it.isEmpty()
+                transactions.addAll(it)
+                loading = false
+                loadMeta(it)
+            }, { loading = false })
     }
 
     private fun updateState() {
@@ -81,8 +79,6 @@ class TransactionsLoader(
     }
 
     private fun loadMeta(transactions: List<TransactionRecord>) {
-        loading = false
-
         transactions.mapIndexedTo(transactionItems, { _, transaction ->
             val price = BigDecimal.ZERO
             val feeRate = transaction.fee?.normalizedMul(price)

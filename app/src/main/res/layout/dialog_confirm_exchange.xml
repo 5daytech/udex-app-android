@@ -96,7 +96,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:paddingTop="@dimen/medium_margin"
         android:layout_marginEnd="@dimen/page_margin"
-        android:textColor="@color/turquoise"
+        android:textColor="@color/green"
         android:textSize="13sp"
         android:text="You Buy"/>
 
