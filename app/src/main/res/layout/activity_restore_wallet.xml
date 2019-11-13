@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.blocksdecoded.dex.presentation.widgets.MainToolbar
+    <com.fridaytech.dex.presentation.widgets.MainToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                style="@style/SmallHintText"
+                style="@style/BoldText"
                 android:id="@+id/restore_subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -38,6 +38,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:textAllCaps="false"
                 android:textSize="15sp"
+                android:textColor="@color/yellow"
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <EditText
@@ -46,10 +47,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/element_margin"
                 android:layout_marginEnd="@dimen/element_margin"
-                android:paddingBottom="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingTop="8dp"
+                android:paddingBottom="@dimen/element_margin"
+                android:paddingLeft="@dimen/element_margin"
+                android:paddingRight="@dimen/element_margin"
+                android:paddingTop="@dimen/element_margin"
+                android:layout_marginTop="@dimen/element_margin"
                 android:visibility="visible"
                 android:lines="3"
                 android:gravity="top"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <com.blocksdecoded.dex.presentation.widgets.MainToolbar
+    <com.fridaytech.dex.presentation.widgets.MainToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:orientation="vertical">
 
-        <com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceView
+        <com.fridaytech.dex.presentation.widgets.balance.TotalBalanceView
             android:id="@+id/transactions_total_balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <com.blocksdecoded.dex.presentation.widgets.EmptyItemsView
+            <com.fridaytech.dex.presentation.widgets.EmptyItemsView
                 android:id="@+id/empty_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

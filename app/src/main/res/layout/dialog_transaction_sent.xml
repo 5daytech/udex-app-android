@@ -16,7 +16,7 @@
         android:layout_marginTop="@dimen/element_margin"
         android:text="@string/subtitle_transaction_sent"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.HashView
+    <com.fridaytech.dex.presentation.widgets.HashView
         android:id="@+id/dialog_sent_transaction_hash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

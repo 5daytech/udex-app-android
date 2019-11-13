@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     >
 
-    <com.blocksdecoded.dex.presentation.widgets.MainToolbar
+    <com.fridaytech.dex.presentation.widgets.MainToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceView
+            <com.fridaytech.dex.presentation.widgets.balance.TotalBalanceView
                 android:id="@+id/balance_total"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

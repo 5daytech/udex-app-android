@@ -22,7 +22,7 @@
         android:layout_marginBottom="@dimen/big_margin"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin">
-        <com.blocksdecoded.dex.presentation.widgets.CoinIconView
+        <com.fridaytech.dex.presentation.widgets.CoinIconView
             android:id="@+id/receive_coin_icon"
             android:layout_width="@dimen/coin_size"
             android:layout_height="@dimen/coin_size"
@@ -71,7 +71,7 @@
         android:layout_gravity="start"
         android:text="@string/hint_your_address" />
 
-    <com.blocksdecoded.dex.presentation.widgets.HashView
+    <com.fridaytech.dex.presentation.widgets.HashView
         android:id="@+id/receive_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

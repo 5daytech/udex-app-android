@@ -1,6 +1,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 [![API: 23+](https://img.shields.io/badge/API-23+-brightgreen.svg)](https://opensource.org/licenses/MIT)
-# Decentralized Exchange App
+# UDEX
+### Decentralized Exchange App
 
 We believe that private property is untouchable and market access is unconditional.
 
@@ -14,7 +15,7 @@ Wallet to wallet token trading is the most secure way to trade ERC20 tokens dire
 
 Trading cryptocurrencies doesn't have to mean losing custody. Use UDEX to maintain control of your ERC20 tokens while trading directly from your wallet. Trade when you want, where you want, without a middleman.
 
-More information - [Software-Design-Specifications](https://github.com/blocksdecoded/dex-app-android/wiki/Software-Design-Specifications)
+More information - [Software-Design-Specifications](https://github.com/5daytech/dex-app-android/wiki/Software-Design-Specifications)
 
 ## Advantages
 

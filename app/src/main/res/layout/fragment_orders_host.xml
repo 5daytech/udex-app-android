@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:visibility="visible">
 
-    <com.blocksdecoded.dex.presentation.widgets.MainToolbar
+    <com.fridaytech.dex.presentation.widgets.MainToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:orientation="vertical"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <com.blocksdecoded.dex.presentation.orders.ExchangePairsView
+        <com.fridaytech.dex.presentation.orders.ExchangePairsView
             android:id="@+id/orders_host_pair_picker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             android:paddingTop="@dimen/medium_margin"
             android:paddingBottom="@dimen/medium_margin" />
 
-        <com.blocksdecoded.dex.presentation.widgets.DividedTabLayout
+        <com.fridaytech.dex.presentation.widgets.DividedTabLayout
             android:id="@+id/orders_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="My" />
-        </com.blocksdecoded.dex.presentation.widgets.DividedTabLayout>
+        </com.fridaytech.dex.presentation.widgets.DividedTabLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/orders_view_pager"

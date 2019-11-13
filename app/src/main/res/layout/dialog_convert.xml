@@ -20,7 +20,7 @@
         android:layout_marginTop="@dimen/page_margin"
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin">
-        <com.blocksdecoded.dex.presentation.widgets.CoinIconView
+        <com.fridaytech.dex.presentation.widgets.CoinIconView
             android:id="@+id/convert_coin_icon"
             android:layout_width="@dimen/coin_size"
             android:layout_height="@dimen/coin_size" />
@@ -42,20 +42,20 @@
             android:textColor="?AccentTextColor"/>
     </LinearLayout>
 
-    <com.blocksdecoded.dex.presentation.widgets.balance.TotalBalanceView
+    <com.fridaytech.dex.presentation.widgets.balance.TotalBalanceView
         android:id="@+id/convert_total_balance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/page_margin"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.inputs.InputAmountView
+    <com.fridaytech.dex.presentation.widgets.inputs.InputAmountView
         android:id="@+id/convert_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/element_margin"
         android:layout_marginEnd="@dimen/element_margin"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+    <com.fridaytech.dex.presentation.widgets.InfoItemView
         android:id="@+id/convert_estimated_fee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
         android:layout_margin="@dimen/page_margin"
         android:text="@string/action_convert" />
 
-    <com.blocksdecoded.dex.presentation.widgets.NumPadView
+    <com.fridaytech.dex.presentation.widgets.NumPadView
         android:id="@+id/convert_numpad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

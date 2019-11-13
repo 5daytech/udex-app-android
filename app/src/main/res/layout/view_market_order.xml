@@ -16,7 +16,7 @@
         android:layout_margin="@dimen/page_margin"
         android:text="I have"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.inputs.AmountEditText
+    <com.fridaytech.dex.presentation.widgets.inputs.AmountEditText
         style="@style/PrimaryNumberInput"
         android:id="@+id/market_amount_input"
         android:layout_width="0dp"
@@ -69,7 +69,7 @@
         android:layout_marginStart="@dimen/page_margin"
         android:text="I want"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.inputs.AmountEditText
+    <com.fridaytech.dex.presentation.widgets.inputs.AmountEditText
         style="@style/PrimaryNumberInput"
         android:id="@+id/market_receive_input"
         android:layout_width="0dp"
@@ -86,7 +86,7 @@
         android:hint="0.0"
         android:maxLines="1" />
 
-    <com.blocksdecoded.dex.presentation.exchange.CoinDropDown
+    <com.fridaytech.dex.presentation.exchange.CoinDropDown
         android:id="@+id/market_base_spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/market_amount_input"
         app:ddv_item_layout="@layout/item_coin_spinner" />
 
-    <com.blocksdecoded.dex.presentation.exchange.CoinDropDown
+    <com.fridaytech.dex.presentation.exchange.CoinDropDown
         android:id="@+id/market_quote_spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

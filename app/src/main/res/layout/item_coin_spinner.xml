@@ -11,7 +11,7 @@
     android:paddingEnd="@dimen/element_margin"
     android:paddingTop="@dimen/element_margin">
 
-    <com.blocksdecoded.dex.presentation.widgets.CoinIconView
+    <com.fridaytech.dex.presentation.widgets.CoinIconView
         android:id="@+id/item_coin_spinner_icon"
         android:layout_width="@dimen/small_coin_size"
         android:layout_height="@dimen/small_coin_size"

@@ -32,7 +32,7 @@
         android:textSize="15sp"
         android:text="value"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.HashView
+    <com.fridaytech.dex.presentation.widgets.HashView
         android:id="@+id/info_address_value"
         android:layout_width="@dimen/short_address_width"
         android:layout_height="wrap_content"

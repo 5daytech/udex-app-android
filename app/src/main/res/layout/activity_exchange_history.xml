@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.blocksdecoded.dex.presentation.widgets.MainToolbar
+    <com.fridaytech.dex.presentation.widgets.MainToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-        <com.blocksdecoded.dex.presentation.widgets.EmptyItemsView
+        <com.fridaytech.dex.presentation.widgets.EmptyItemsView
             android:id="@+id/empty_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

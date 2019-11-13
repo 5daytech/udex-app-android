@@ -20,7 +20,7 @@
             android:paddingBottom="40dp"
             app:layout_constraintBottom_toBottomOf="@+id/onboarding_indicator"/>
 
-        <com.blocksdecoded.dex.presentation.widgets.PagerCircleIndicator
+        <com.fridaytech.dex.presentation.widgets.PagerCircleIndicator
             android:id="@+id/onboarding_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

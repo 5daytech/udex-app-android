@@ -13,7 +13,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:text="@string/hint_available_balance"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.CoinIconView
+    <com.fridaytech.dex.presentation.widgets.CoinIconView
         android:id="@+id/total_amount_coin_icon"
         android:layout_width="38dp"
         android:layout_height="@dimen/big_coin_size"

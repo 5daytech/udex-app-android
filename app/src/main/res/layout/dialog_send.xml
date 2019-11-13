@@ -20,7 +20,7 @@
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin"
         android:layout_marginTop="@dimen/page_margin">
-        <com.blocksdecoded.dex.presentation.widgets.CoinIconView
+        <com.fridaytech.dex.presentation.widgets.CoinIconView
             android:id="@+id/send_coin_icon"
             android:layout_width="@dimen/coin_size"
             android:layout_height="@dimen/coin_size" />
@@ -42,7 +42,7 @@
             android:textColor="?AccentTextColor"/>
     </LinearLayout>
 
-    <com.blocksdecoded.dex.presentation.widgets.inputs.InputAmountView
+    <com.fridaytech.dex.presentation.widgets.inputs.InputAmountView
         android:id="@+id/send_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         android:layout_marginEnd="@dimen/element_margin"
         android:layout_marginTop="@dimen/page_margin"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.inputs.InputAddressView
+    <com.fridaytech.dex.presentation.widgets.inputs.InputAddressView
         android:id="@+id/send_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
         android:layout_margin="@dimen/page_margin"
         android:text="Send" />
 
-    <com.blocksdecoded.dex.presentation.widgets.NumPadView
+    <com.fridaytech.dex.presentation.widgets.NumPadView
         android:id="@+id/send_numpad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

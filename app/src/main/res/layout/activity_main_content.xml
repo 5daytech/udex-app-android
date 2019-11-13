@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.blocksdecoded.dex.presentation.widgets.pagers.NonScrollableViewPager
+    <com.fridaytech.dex.presentation.widgets.pagers.NonScrollableViewPager
         android:id="@+id/main_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

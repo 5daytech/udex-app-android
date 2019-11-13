@@ -16,7 +16,7 @@
         android:gravity="center"
         android:text="Processing..."/>
 
-    <com.blocksdecoded.dex.presentation.widgets.TimerProgress
+    <com.fridaytech.dex.presentation.widgets.TimerProgress
         android:id="@+id/processing_timer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

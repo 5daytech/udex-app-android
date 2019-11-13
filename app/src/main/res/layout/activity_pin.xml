@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.blocksdecoded.dex.presentation.widgets.MainToolbar
+    <com.fridaytech.dex.presentation.widgets.MainToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintBottom_toTopOf="@+id/pin_numpad"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.NumPadView
+    <com.fridaytech.dex.presentation.widgets.NumPadView
         android:id="@+id/pin_numpad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

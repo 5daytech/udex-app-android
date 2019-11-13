@@ -17,7 +17,7 @@
         android:layout_marginTop="@dimen/element_margin"
         android:text="@string/orders_cancel"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+    <com.fridaytech.dex.presentation.widgets.InfoItemView
         android:id="@+id/cancel_fee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:layout_marginEnd="@dimen/page_margin"
         app:iiv_title="@string/info_estimated_fee"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+    <com.fridaytech.dex.presentation.widgets.InfoItemView
         android:id="@+id/cancel_duration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -47,7 +47,7 @@
                 android:visibility="visible"
                 android:padding="2dp"/>
 
-            <com.blocksdecoded.dex.presentation.widgets.CoinIconView
+            <com.fridaytech.dex.presentation.widgets.CoinIconView
                 android:id="@+id/balance_icon"
                 android:layout_width="@dimen/coin_size"
                 android:layout_height="@dimen/coin_size"

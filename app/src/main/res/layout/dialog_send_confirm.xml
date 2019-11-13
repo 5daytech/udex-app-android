@@ -36,7 +36,7 @@
         android:textColor="?attr/PrimaryTextColor"
         android:text="$0.00"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.HashView
+    <com.fridaytech.dex.presentation.widgets.HashView
         android:id="@+id/send_confirm_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         android:layout_gravity="center_horizontal"
         android:singleLine="true" />
 
-    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+    <com.fridaytech.dex.presentation.widgets.InfoItemView
         android:id="@+id/send_confirm_fee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
         android:layout_marginEnd="@dimen/page_margin"
         app:iiv_title="@string/info_estimated_fee"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+    <com.fridaytech.dex.presentation.widgets.InfoItemView
         android:id="@+id/send_confirm_duration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
         android:layout_marginEnd="@dimen/page_margin"
         app:iiv_title="@string/info_duration"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+    <com.fridaytech.dex.presentation.widgets.InfoItemView
         android:id="@+id/send_confirm_total_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

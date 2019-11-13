@@ -68,7 +68,7 @@
         android:layout_marginTop="@dimen/medium_margin"
         android:layout_height="@dimen/divider_height"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.OptionSelectorView
+    <com.fridaytech.dex.presentation.widgets.OptionSelectorView
         android:id="@+id/chart_period_selector"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -93,7 +93,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="200dp">
-        <com.blocksdecoded.dex.presentation.widgets.ChartView
+        <com.fridaytech.dex.presentation.widgets.ChartView
             android:id="@+id/market_info_chart"
             android:layout_width="match_parent"
             android:layout_height="200dp"

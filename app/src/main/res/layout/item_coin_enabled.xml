@@ -49,7 +49,7 @@
         tools:text="ETH"
         android:textColor="?HintTextColor" />
 
-    <com.blocksdecoded.dex.presentation.widgets.CoinIconView
+    <com.fridaytech.dex.presentation.widgets.CoinIconView
         android:id="@+id/enabled_coin_icon"
         android:layout_width="@dimen/coin_size"
         android:layout_height="@dimen/coin_size"

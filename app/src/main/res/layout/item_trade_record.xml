@@ -8,7 +8,7 @@
     android:paddingEnd="@dimen/page_margin"
     android:paddingTop="@dimen/page_margin">
 
-    <com.blocksdecoded.dex.presentation.widgets.HashView
+    <com.fridaytech.dex.presentation.widgets.HashView
         android:id="@+id/trade_record_hash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

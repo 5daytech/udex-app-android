@@ -31,7 +31,7 @@
         android:layout_marginTop="@dimen/page_margin"
         android:gravity="center"
         android:padding="@dimen/element_margin">
-        <com.blocksdecoded.dex.presentation.widgets.CoinIconView
+        <com.fridaytech.dex.presentation.widgets.CoinIconView
             android:id="@+id/exchange_confirm_from_coin"
             android:layout_width="@dimen/big_coin_size"
             android:layout_height="@dimen/big_coin_size"
@@ -45,7 +45,7 @@
             android:layout_marginLeft="@dimen/element_margin"
             android:layout_marginRight="@dimen/element_margin"/>
 
-        <com.blocksdecoded.dex.presentation.widgets.CoinIconView
+        <com.fridaytech.dex.presentation.widgets.CoinIconView
             android:id="@+id/exchange_confirm_to_coin"
             android:layout_width="@dimen/big_coin_size"
             android:layout_height="@dimen/big_coin_size"
@@ -124,7 +124,7 @@
 
     <!-- Price -->
 
-    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+    <com.fridaytech.dex.presentation.widgets.InfoItemView
         android:id="@+id/exchange_confirm_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
         android:layout_marginTop="@dimen/page_margin"
         app:iiv_title="@string/info_price_per_token"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+    <com.fridaytech.dex.presentation.widgets.InfoItemView
         android:id="@+id/exchange_confirm_fee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginEnd="@dimen/page_margin" />
 
-    <com.blocksdecoded.dex.presentation.widgets.InfoItemView
+    <com.fridaytech.dex.presentation.widgets.InfoItemView
         android:id="@+id/exchange_confirm_processing_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

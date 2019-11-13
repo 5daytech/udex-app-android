@@ -18,7 +18,7 @@
         android:layout_marginTop="@dimen/element_margin"
         android:background="@drawable/bg_rounded_divider"/>
 
-    <com.blocksdecoded.dex.presentation.widgets.pagers.WrapContentViewPager
+    <com.fridaytech.dex.presentation.widgets.pagers.WrapContentViewPager
         android:id="@+id/guide_view_pager"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         android:overScrollMode="never"
         android:layout_marginTop="@dimen/big_margin" />
 
-    <com.blocksdecoded.dex.presentation.widgets.PagerCircleIndicator
+    <com.fridaytech.dex.presentation.widgets.PagerCircleIndicator
         android:id="@+id/guide_pager_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
