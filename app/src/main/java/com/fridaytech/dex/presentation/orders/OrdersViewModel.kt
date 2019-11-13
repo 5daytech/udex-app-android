@@ -13,6 +13,7 @@ import com.fridaytech.dex.presentation.orders.model.EOrderSide.*
 import com.fridaytech.dex.utils.Logger
 import com.fridaytech.dex.utils.isValidIndex
 import com.fridaytech.dex.utils.rx.uiSubscribe
+import io.reactivex.disposables.Disposable
 import java.math.BigDecimal
 
 class OrdersViewModel : CoreViewModel() {
@@ -22,6 +23,8 @@ class OrdersViewModel : CoreViewModel() {
     private val ratesManager = App.ratesManager
     private val adapterManager = App.adapterManager
     private val processingTimeProvider = App.processingDurationProvider
+
+    private var marketsDisposable: Disposable? = null
 
     private val relayer: IRelayerAdapter?
         get() = relayerManager.mainRelayer
@@ -55,18 +58,27 @@ class OrdersViewModel : CoreViewModel() {
         relayerManager.mainRelayerUpdatedSignal
             .subscribe {
                 relayer?.let {
-                    zrxOrdersWatcher =
-                        OrdersWatcher(coinManager, it, ratesConverter)
+                    zrxOrdersWatcher = OrdersWatcher(coinManager, it, ratesConverter)
                     onRelayerInitialized()
                 }
             }.let { disposables.add(it) }
 
-        ratesManager.getMarketsObservable().subscribe {
-            onPairsRefresh()
-        }.let { disposables.add(it) }
+        observeMarketsChange()
+
+        coinManager.coinsUpdatedSubject
+            .subscribe { observeMarketsChange() }
+            .let { disposables.add(it) }
     }
 
     //region Private
+
+    private fun observeMarketsChange() {
+        marketsDisposable?.dispose()
+        ratesManager.getMarketsObservable()
+            .subscribe {
+                onPairsRefresh()
+            }.let { marketsDisposable = it }
+    }
 
     private fun onRelayerInitialized() {
         relayer?.pairsUpdateSubject?.subscribe({
