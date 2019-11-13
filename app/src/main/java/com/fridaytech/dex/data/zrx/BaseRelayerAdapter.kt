@@ -1,9 +1,5 @@
 package com.fridaytech.dex.data.zrx
 
-import com.blocksdecoded.zrxkit.ZrxKit
-import com.blocksdecoded.zrxkit.model.OrderInfo
-import com.blocksdecoded.zrxkit.model.SignedOrder
-import com.blocksdecoded.zrxkit.relayer.model.OrderRecord
 import com.fridaytech.dex.core.model.CoinType
 import com.fridaytech.dex.data.manager.ICoinManager
 import com.fridaytech.dex.data.zrx.model.*
@@ -11,6 +7,10 @@ import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.utils.Logger
 import com.fridaytech.dex.utils.normalizedMul
 import com.fridaytech.dex.utils.rx.ioSubscribe
+import com.fridaytech.zrxkit.ZrxKit
+import com.fridaytech.zrxkit.model.OrderInfo
+import com.fridaytech.zrxkit.model.SignedOrder
+import com.fridaytech.zrxkit.relayer.model.OrderRecord
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.Flowable
 import io.reactivex.Observable

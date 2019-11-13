@@ -1,6 +1,6 @@
 package com.fridaytech.dex.data.zrx.model
 
-import com.blocksdecoded.zrxkit.model.SignedOrder
+import com.fridaytech.zrxkit.model.SignedOrder
 import java.math.BigDecimal
 
 data class FillResult(

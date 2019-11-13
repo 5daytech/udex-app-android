@@ -1,11 +1,11 @@
 package com.fridaytech.dex.data.zrx
 
-import com.blocksdecoded.zrxkit.ZrxKit
 import com.fridaytech.dex.core.IAppConfiguration
 import com.fridaytech.dex.core.UnauthorizedException
 import com.fridaytech.dex.data.adapter.FeeRatePriority
 import com.fridaytech.dex.data.manager.auth.IAuthManager
 import com.fridaytech.dex.data.manager.fee.IFeeRateProvider
+import com.fridaytech.zrxkit.ZrxKit
 import java.math.BigInteger
 
 class ZrxKitManager(

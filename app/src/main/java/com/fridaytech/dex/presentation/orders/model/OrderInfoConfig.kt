@@ -1,7 +1,7 @@
 package com.fridaytech.dex.presentation.orders.model
 
-import com.blocksdecoded.zrxkit.model.OrderInfo
-import com.blocksdecoded.zrxkit.model.SignedOrder
+import com.fridaytech.zrxkit.model.OrderInfo
+import com.fridaytech.zrxkit.model.SignedOrder
 
 data class OrderInfoConfig(
     val order: SignedOrder,

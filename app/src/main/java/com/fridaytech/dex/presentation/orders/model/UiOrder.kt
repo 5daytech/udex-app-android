@@ -1,14 +1,14 @@
 package com.fridaytech.dex.presentation.orders.model
 
-import com.blocksdecoded.zrxkit.model.EAssetProxyId
-import com.blocksdecoded.zrxkit.model.OrderInfo
-import com.blocksdecoded.zrxkit.model.SignedOrder
 import com.fridaytech.dex.core.model.Coin
 import com.fridaytech.dex.core.model.CoinType
 import com.fridaytech.dex.data.manager.ICoinManager
 import com.fridaytech.dex.data.manager.rates.RatesConverter
 import com.fridaytech.dex.data.zrx.OrdersUtil
 import com.fridaytech.dex.utils.TimeUtils
+import com.fridaytech.zrxkit.model.EAssetProxyId
+import com.fridaytech.zrxkit.model.OrderInfo
+import com.fridaytech.zrxkit.model.SignedOrder
 import java.math.BigDecimal
 
 data class UiOrder(

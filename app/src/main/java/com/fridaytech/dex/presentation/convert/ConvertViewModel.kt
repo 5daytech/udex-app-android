@@ -1,7 +1,6 @@
 package com.fridaytech.dex.presentation.convert
 
 import androidx.lifecycle.MutableLiveData
-import com.blocksdecoded.zrxkit.contracts.IWethWrapper
 import com.fridaytech.dex.App
 import com.fridaytech.dex.R
 import com.fridaytech.dex.core.model.Coin
@@ -24,6 +23,7 @@ import com.fridaytech.dex.presentation.models.FeeInfo
 import com.fridaytech.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.fridaytech.dex.utils.Logger
 import com.fridaytech.dex.utils.rx.uiSubscribe
+import com.fridaytech.zrxkit.contracts.IWethWrapper
 import java.math.BigDecimal
 import java.net.SocketTimeoutException
 import kotlin.math.absoluteValue

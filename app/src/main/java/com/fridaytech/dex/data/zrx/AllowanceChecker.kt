@@ -1,7 +1,7 @@
 package com.fridaytech.dex.data.zrx
 
-import com.blocksdecoded.zrxkit.ZrxKit
-import com.blocksdecoded.zrxkit.model.AssetItem
+import com.fridaytech.zrxkit.ZrxKit
+import com.fridaytech.zrxkit.model.AssetItem
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 import io.reactivex.Flowable
 import java.math.BigInteger

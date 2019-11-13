@@ -1,8 +1,5 @@
 package com.fridaytech.dex.data.zrx
 
-import com.blocksdecoded.zrxkit.model.OrderInfo
-import com.blocksdecoded.zrxkit.model.SignedOrder
-import com.blocksdecoded.zrxkit.relayer.model.OrderRecord
 import com.fridaytech.dex.data.manager.ICoinManager
 import com.fridaytech.dex.data.manager.rates.RatesConverter
 import com.fridaytech.dex.data.zrx.model.ExchangePair
@@ -10,6 +7,9 @@ import com.fridaytech.dex.data.zrx.model.RelayerOrders
 import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.presentation.orders.model.EOrderSide.*
 import com.fridaytech.dex.presentation.orders.model.UiOrder
+import com.fridaytech.zrxkit.model.OrderInfo
+import com.fridaytech.zrxkit.model.SignedOrder
+import com.fridaytech.zrxkit.relayer.model.OrderRecord
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 

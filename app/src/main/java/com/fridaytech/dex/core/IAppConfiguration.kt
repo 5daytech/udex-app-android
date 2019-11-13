@@ -1,9 +1,9 @@
 package com.fridaytech.dex.core
 
-import com.blocksdecoded.zrxkit.ZrxKit
-import com.blocksdecoded.zrxkit.model.AssetItem
-import com.blocksdecoded.zrxkit.relayer.model.Relayer
 import com.fridaytech.dex.core.model.Coin
+import com.fridaytech.zrxkit.ZrxKit
+import com.fridaytech.zrxkit.model.AssetItem
+import com.fridaytech.zrxkit.relayer.model.Relayer
 import io.horizontalsystems.ethereumkit.core.EthereumKit
 
 interface IAppConfiguration {

@@ -1,13 +1,13 @@
 package com.fridaytech.dex.core
 
-import com.blocksdecoded.zrxkit.ZrxKit
-import com.blocksdecoded.zrxkit.model.AssetItem
-import com.blocksdecoded.zrxkit.relayer.model.Relayer
-import com.blocksdecoded.zrxkit.relayer.model.RelayerConfig
 import com.fridaytech.dex.BuildConfig
 import com.fridaytech.dex.R
 import com.fridaytech.dex.core.model.Coin
 import com.fridaytech.dex.core.model.CoinType
+import com.fridaytech.zrxkit.ZrxKit
+import com.fridaytech.zrxkit.model.AssetItem
+import com.fridaytech.zrxkit.relayer.model.Relayer
+import com.fridaytech.zrxkit.relayer.model.RelayerConfig
 import io.horizontalsystems.ethereumkit.core.EthereumKit.InfuraCredentials
 import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType
 import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType.MainNet

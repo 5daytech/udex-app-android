@@ -1,12 +1,12 @@
 package com.fridaytech.dex.data.zrx
 
-import com.blocksdecoded.zrxkit.ZrxKit
-import com.blocksdecoded.zrxkit.model.AssetItem
-import com.blocksdecoded.zrxkit.model.OrderInfo
-import com.blocksdecoded.zrxkit.model.SignedOrder
-import com.blocksdecoded.zrxkit.relayer.model.OrderRecord
 import com.fridaytech.dex.data.zrx.model.*
 import com.fridaytech.dex.presentation.orders.model.EOrderSide
+import com.fridaytech.zrxkit.ZrxKit
+import com.fridaytech.zrxkit.model.AssetItem
+import com.fridaytech.zrxkit.model.OrderInfo
+import com.fridaytech.zrxkit.model.SignedOrder
+import com.fridaytech.zrxkit.relayer.model.OrderRecord
 import io.reactivex.Flowable
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal

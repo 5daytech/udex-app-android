@@ -1,6 +1,6 @@
 package com.fridaytech.dex.data.zrx.model
 
-import com.blocksdecoded.zrxkit.model.AssetItem
+import com.fridaytech.zrxkit.model.AssetItem
 
 data class ExchangePair(
     val baseCoinCode: String,
