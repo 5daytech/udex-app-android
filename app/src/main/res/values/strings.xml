@@ -62,7 +62,7 @@
     <string name="settings_share">Tell Friends</string>
     <string name="settings_how_it_works">How it Works?</string>
     <string name="settings_address_book">Address Book</string>
-    <string name="settings_history">Exchange History</string>
+    <string name="title_trade_history">Trade History</string>
     <string name="settings_coin_manager">Coin Manager</string>
     <string name="action_cancel_order">Cancel order</string>
     <string name="action_forward">Share</string>

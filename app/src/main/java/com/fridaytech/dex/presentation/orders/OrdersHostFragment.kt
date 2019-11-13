@@ -10,10 +10,12 @@ import androidx.lifecycle.ViewModelProviders
 import com.fridaytech.dex.R
 import com.fridaytech.dex.core.ui.CoreFragment
 import com.fridaytech.dex.presentation.common.TransactionSentDialog
+import com.fridaytech.dex.presentation.exchangehistory.ExchangeHistoryActivity
 import com.fridaytech.dex.presentation.main.IFocusListener
 import com.fridaytech.dex.presentation.orders.info.OrderInfoDialog
 import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.presentation.orders.model.FillOrderInfo
+import com.fridaytech.dex.presentation.widgets.MainToolbar
 import com.fridaytech.dex.utils.ui.ToastHelper
 import com.fridaytech.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_orders_host.*
@@ -94,6 +96,11 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
         orders_host_pair_picker?.init {
             viewModel.onPickPair(it)
         }
+
+        toolbar?.bind(rightActionButton = MainToolbar.ActionInfo(
+            R.drawable.ic_exchange_history,
+            R.string.title_trade_history
+        ) { activity?.let { ExchangeHistoryActivity.start(it) } })
     }
 
     override fun onFocused() {

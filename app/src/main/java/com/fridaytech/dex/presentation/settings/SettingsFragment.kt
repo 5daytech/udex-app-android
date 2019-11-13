@@ -9,7 +9,6 @@ import com.fridaytech.dex.BuildConfig
 import com.fridaytech.dex.R
 import com.fridaytech.dex.core.ui.CoreFragment
 import com.fridaytech.dex.presentation.coinmanager.CoinManagerActivity
-import com.fridaytech.dex.presentation.exchangehistory.ExchangeHistoryActivity
 import com.fridaytech.dex.presentation.howitworks.guide.GuideDialog
 import com.fridaytech.dex.presentation.main.IFocusListener
 import com.fridaytech.dex.presentation.main.MainActivity
@@ -91,10 +90,6 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings),
 
         coin_manager?.setOnClickListener {
             activity?.let { CoinManagerActivity.start(it) }
-        }
-
-        exchange_history?.setOnClickListener {
-            activity?.let { ExchangeHistoryActivity.start(it) }
         }
     }
 

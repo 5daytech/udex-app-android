@@ -37,8 +37,7 @@ class OrdersFragment : CoreFragment(R.layout.fragment_orders),
         } else {
             null
         }
-        adapter =
-            OrdersAdapter(this, this, actionConfig)
+        adapter = OrdersAdapter(this, this, actionConfig)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

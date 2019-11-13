@@ -39,21 +39,10 @@
                 android:background="?selectableItemBackground"/>
 
             <com.fridaytech.dex.presentation.settings.SettingsItemView
-                android:id="@+id/exchange_history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/security_center"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:siv_action_switch="false"
-                app:siv_title="@string/settings_history"
-                app:siv_icon="@drawable/ic_exchange_history"
-                android:background="?selectableItemBackground" />
-
-            <com.fridaytech.dex.presentation.settings.SettingsItemView
                 android:id="@+id/coin_manager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/exchange_history"
+                app:layout_constraintTop_toBottomOf="@+id/security_center"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:siv_action_switch="false"
                 app:siv_title="@string/settings_coin_manager"
