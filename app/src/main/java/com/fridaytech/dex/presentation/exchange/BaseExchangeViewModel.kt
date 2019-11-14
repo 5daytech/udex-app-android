@@ -100,7 +100,7 @@ abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
         exchangeEnabled.value = false
 
         relayerManager.mainRelayerUpdatedSignal.subscribe {
-            relayer?.pairsUpdateSubject?.subscribe {
+            relayer?.pairsSyncSubject?.subscribe {
                 marketCodes = relayer?.exchangePairs?.map { it.baseCoinCode to it.quoteCoinCode } ?: listOf()
 
                 exchangeableCoins = coinManager.coins.filter { coin ->

@@ -85,7 +85,7 @@ class OrdersViewModel : CoreViewModel() {
     }
 
     private fun onRelayerInitialized() {
-        relayer?.pairsUpdateSubject?.subscribe({
+        relayer?.pairsSyncSubject?.subscribe({
             onPairsRefresh()
         }, { Logger.e(it) })?.let { disposables.add(it) }
 

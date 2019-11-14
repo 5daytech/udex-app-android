@@ -50,15 +50,16 @@ interface IRelayerAdapter {
     val refreshInterval: Long
     val relayerId: Int
 
-    var myOrders: RelayerOrdersList<Pair<SignedOrder, EOrderSide>>
-    var myOrdersInfo: RelayerOrdersList<OrderInfo>
+    var myOrders: List<SignedOrder>
+    var myOrdersInfo: List<OrderInfo>
+    val myOrdersSyncSubject: BehaviorSubject<Unit>
 
     var buyOrders: RelayerOrdersList<OrderRecord>
     var sellOrders: RelayerOrdersList<OrderRecord>
 
     val allPairs: List<Pair<AssetItem, AssetItem>>
     val exchangePairs: List<ExchangePair>
-    val pairsUpdateSubject: BehaviorSubject<Unit>
+    val pairsSyncSubject: BehaviorSubject<Unit>
 
     fun stop()
 

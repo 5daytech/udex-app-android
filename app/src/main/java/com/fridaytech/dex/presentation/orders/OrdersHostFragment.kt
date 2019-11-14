@@ -157,8 +157,8 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
     ) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment {
             return when (position) {
-                0 -> OrdersFragment.newInstance(EOrderSide.BUY)
-                1 -> OrdersFragment.newInstance(EOrderSide.SELL)
+                0 -> OrdersFragment.newInstance(EOrderSide.SELL)
+                1 -> OrdersFragment.newInstance(EOrderSide.BUY)
                 2 -> OrdersFragment.newInstance(EOrderSide.MY)
                 else -> throw Exception("Orders host adapter fragment at position not exist $position")
             }

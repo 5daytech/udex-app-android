@@ -36,14 +36,16 @@ class BaseRelayerAdapter(
     private val relayerManager = zrxKit.relayerManager
     private val relayer = relayerManager.availableRelayers[relayerId]
 
-    override var myOrdersInfo = RelayerOrdersList<OrderInfo>()
+    override var myOrders: List<SignedOrder> = listOf()
+    override var myOrdersInfo: List<OrderInfo> = listOf()
+    override val myOrdersSyncSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
+
     override var buyOrders = RelayerOrdersList<OrderRecord>()
     override var sellOrders = RelayerOrdersList<OrderRecord>()
-    override var myOrders = RelayerOrdersList<Pair<SignedOrder, EOrderSide>>()
 
     override val allPairs = relayer.availablePairs
     override var exchangePairs: List<ExchangePair> = listOf()
-    override val pairsUpdateSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
+    override val pairsSyncSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
     init {
         initPairs()
@@ -76,7 +78,7 @@ class BaseRelayerAdapter(
             )
         }
 
-        pairsUpdateSubject.onNext(Unit)
+        pairsSyncSubject.onNext(Unit)
         refreshOrders()
     }
 
@@ -84,6 +86,18 @@ class BaseRelayerAdapter(
         coinManager.getCoin(coinCode).type as CoinType.Erc20
 
     private fun refreshOrders() {
+        relayerManager.getOrders(relayerId, ethereumKit.receiveAddress)
+            .ioSubscribe(disposables, {
+                this.myOrders = it.records.map { it.order }.sortedByDescending { it.salt }
+                myOrdersSyncSubject.onNext(Unit)
+
+                exchangeInteractor.ordersInfo(myOrders)
+                    .ioSubscribe(disposables, { ordersInfo ->
+                        myOrdersInfo = ordersInfo
+                        myOrdersSyncSubject.onNext(Unit)
+                    }, { })
+            }, {})
+
         relayer.availablePairs.forEachIndexed { index, pair ->
             val base = pair.first.assetData
             val quote = pair.second.assetData
@@ -97,22 +111,16 @@ class BaseRelayerAdapter(
             .ioSubscribe(disposables, {
                 val myAddress = ethereumKit.receiveAddress.toLowerCase()
 
-                buyOrders.updatePairOrders(baseAsset, quoteAsset, it.bids.records.filterNot { it.order.makerAddress.equals(myAddress, false) })
-                sellOrders.updatePairOrders(baseAsset, quoteAsset, it.asks.records.filterNot { it.order.makerAddress.equals(myAddress, false) })
-
-                val myOrders = it.asks.records
-                    .map { it.order }
-                    .filter { it.makerAddress.equals(myAddress, true) }
-                    .map { it to EOrderSide.SELL }
-                    .plus(it.bids.records.map { it.order }.filter { it.makerAddress.equals(myAddress, true) }.map { it to EOrderSide.BUY })
-
-                this.myOrders.updatePairOrders(baseAsset, quoteAsset, myOrders)
-
-                exchangeInteractor.ordersInfo(myOrders.map { it.first })
-                    .ioSubscribe(disposables, { ordersInfo ->
-                        myOrdersInfo.updatePairOrders(baseAsset, quoteAsset, ordersInfo)
-                        this.myOrders.updatePairOrders(baseAsset, quoteAsset, myOrders)
-                    }, { })
+                buyOrders.updatePairOrders(
+                    baseAsset,
+                    quoteAsset,
+                    it.bids.records.filterNot { it.order.makerAddress.equals(myAddress, false) }
+                )
+                sellOrders.updatePairOrders(
+                    baseAsset,
+                    quoteAsset,
+                    it.asks.records.filterNot { it.order.makerAddress.equals(myAddress, false) }
+                )
             })
     }
 
@@ -269,8 +277,8 @@ class BaseRelayerAdapter(
         disposables.clear()
         buyOrders.clear()
         sellOrders.clear()
-        myOrders.clear()
-        myOrdersInfo.clear()
+        myOrders = listOf()
+        myOrdersInfo = listOf()
         exchangePairs = listOf()
     }
 

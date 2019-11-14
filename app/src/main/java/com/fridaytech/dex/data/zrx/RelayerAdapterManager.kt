@@ -22,7 +22,7 @@ class RelayerAdapterManager(
     private val handler: Handler
     private val disposables = CompositeDisposable()
 
-    override val refreshInterval = 15L
+    override val refreshInterval = 10L
 
     override var mainRelayer: IRelayerAdapter? = null
     override val mainRelayerUpdatedSignal: BehaviorSubject<Unit> = BehaviorSubject.create()
