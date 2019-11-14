@@ -15,8 +15,8 @@ fun BigInteger.fromDecimals(decimals: Int): BigDecimal {
 
 fun BigDecimal.normalizedDiv(
     divisor: BigDecimal,
-    precision: Int = 8,
-    roundingMode: RoundingMode = RoundingMode.FLOOR
+    precision: Int = 18,
+    roundingMode: RoundingMode = RoundingMode.UP
 ): BigDecimal {
     return if (divisor == BigDecimal.ZERO)
         BigDecimal.ZERO
@@ -27,8 +27,8 @@ fun BigDecimal.normalizedDiv(
 
 fun BigDecimal.normalizedMul(
     multiplicand: BigDecimal,
-    precision: Int = 10,
-    roundingMode: RoundingMode = RoundingMode.FLOOR
+    precision: Int = 18,
+    roundingMode: RoundingMode = RoundingMode.UP
 ): BigDecimal {
     val mc = MathContext(precision, roundingMode)
 
