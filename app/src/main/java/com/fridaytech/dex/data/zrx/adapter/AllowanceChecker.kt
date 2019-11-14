@@ -1,5 +1,6 @@
-package com.fridaytech.dex.data.zrx
+package com.fridaytech.dex.data.zrx.adapter
 
+import com.fridaytech.dex.data.zrx.IAllowanceChecker
 import com.fridaytech.zrxkit.ZrxKit
 import com.fridaytech.zrxkit.model.AssetItem
 import io.horizontalsystems.ethereumkit.core.EthereumKit

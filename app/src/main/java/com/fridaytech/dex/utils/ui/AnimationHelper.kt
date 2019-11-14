@@ -26,8 +26,8 @@ object AnimationHelper {
         }
     }
 
-    fun expand(v: View, speed: Float = 1f) {
-        v.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
+    fun expand(v: View, speed: Float = 1f, measureSpec: Int = View.MeasureSpec.UNSPECIFIED) {
+        v.measure(View.MeasureSpec.makeMeasureSpec(0, measureSpec), View.MeasureSpec.makeMeasureSpec(0, measureSpec))
         val targetHeight = v.measuredHeight
 
         v.alpha = 0.3f

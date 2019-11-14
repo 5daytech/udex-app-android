@@ -5,6 +5,9 @@ import android.os.HandlerThread
 import com.fridaytech.dex.data.manager.ICoinManager
 import com.fridaytech.dex.data.manager.IEthereumKitManager
 import com.fridaytech.dex.data.manager.auth.IAuthManager
+import com.fridaytech.dex.data.zrx.adapter.AllowanceChecker
+import com.fridaytech.dex.data.zrx.adapter.BaseRelayerAdapter
+import com.fridaytech.dex.data.zrx.adapter.ExchangeInteractor
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject

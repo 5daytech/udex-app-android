@@ -1,7 +1,8 @@
-package com.fridaytech.dex.data.zrx
+package com.fridaytech.dex.data.zrx.adapter
 
 import com.fridaytech.dex.data.manager.ICoinManager
 import com.fridaytech.dex.data.manager.rates.RatesConverter
+import com.fridaytech.dex.data.zrx.IRelayerAdapter
 import com.fridaytech.dex.data.zrx.model.ExchangePair
 import com.fridaytech.dex.data.zrx.model.RelayerOrders
 import com.fridaytech.dex.presentation.orders.model.EOrderSide

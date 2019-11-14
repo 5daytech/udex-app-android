@@ -7,7 +7,7 @@ import com.fridaytech.dex.core.ui.CoreViewModel
 import com.fridaytech.dex.core.ui.SingleLiveEvent
 import com.fridaytech.dex.data.manager.duration.ETransactionType
 import com.fridaytech.dex.data.zrx.IRelayerAdapter
-import com.fridaytech.dex.data.zrx.OrdersWatcher
+import com.fridaytech.dex.data.zrx.adapter.OrdersWatcher
 import com.fridaytech.dex.presentation.orders.model.*
 import com.fridaytech.dex.presentation.orders.model.EOrderSide.*
 import com.fridaytech.dex.utils.Logger
@@ -58,7 +58,11 @@ class OrdersViewModel : CoreViewModel() {
         relayerManager.mainRelayerUpdatedSignal
             .subscribe {
                 relayer?.let {
-                    zrxOrdersWatcher = OrdersWatcher(coinManager, it, ratesConverter)
+                    zrxOrdersWatcher = OrdersWatcher(
+                        coinManager,
+                        it,
+                        ratesConverter
+                    )
                     onRelayerInitialized()
                 }
             }.let { disposables.add(it) }

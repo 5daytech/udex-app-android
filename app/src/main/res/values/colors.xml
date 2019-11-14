@@ -67,8 +67,8 @@
     <color name="turquoise">#56D6FF</color>
     <color name="transparent_turquoise_40">#4056D6FF</color>
 
-    <color name="yellow">#E8B843</color>
-    <color name="transparent_yellow">#60E8B843</color>
+    <color name="yellow">#FFD600</color>
+    <color name="transparent_yellow">#60FFD600</color>
     <color name="dark_yellow">#D89900</color>
     <color name="transparent_dark_yellow">#60D89900</color>
     <color name="bright_yellow">#fffa5a</color>

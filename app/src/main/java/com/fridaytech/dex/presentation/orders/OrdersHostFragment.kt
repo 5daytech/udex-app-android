@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager.widget.ViewPager
 import com.fridaytech.dex.R
 import com.fridaytech.dex.core.ui.CoreFragment
 import com.fridaytech.dex.presentation.common.TransactionSentDialog
@@ -29,8 +30,7 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fragmentManager?.let {
-            adapter =
-                OrdersHostAdapter(it)
+            adapter = OrdersHostAdapter(it)
         }
     }
 
@@ -55,13 +55,8 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
                 (context as? OrderFillListener)?.requestFill(fillInfo)
             })
 
-            viewModel.exchangeCoinSymbol.observe(this, Observer {
-                if (orders_tab_layout.tabCount > 0) {
-                    val firstTab = orders_tab_layout.getTabAt(0)
-                    firstTab?.text = "SELL $it"
-                    val secondTab = orders_tab_layout.getTabAt(1)
-                    secondTab?.text = "BUY $it"
-                }
+            viewModel.exchangeCoinSymbol.observe(this, Observer { coinCode ->
+                orders_selected_base_coin?.text = "$coinCode:"
             })
 
             viewModel.messageEvent.observe(this, Observer {
@@ -91,7 +86,6 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
         super.onViewCreated(view, savedInstanceState)
 
         orders_view_pager?.adapter = adapter
-        orders_tab_layout?.setupWithViewPager(orders_view_pager)
 
         orders_host_pair_picker?.init {
             viewModel.onPickPair(it)
@@ -101,6 +95,49 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
             R.drawable.ic_exchange_history,
             R.string.title_trade_history
         ) { activity?.let { ExchangeHistoryActivity.start(it) } })
+
+        orders_view_pager?.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                refreshActionsAvailability()
+            }
+        })
+
+        orders_side_buy.setOnClickListener {
+            orders_view_pager.currentItem = 0
+        }
+
+        orders_side_sell.setOnClickListener {
+            orders_view_pager.currentItem = 1
+        }
+
+        orders_my.setOnClickListener {
+            orders_view_pager.currentItem = 2
+        }
+
+        refreshActionsAvailability()
+    }
+
+    private fun refreshActionsAvailability() {
+        orders_my?.isEnabled = false
+        orders_side_buy?.isEnabled = false
+        orders_side_sell?.isEnabled = false
+
+        when (orders_view_pager?.currentItem) {
+            0 -> {
+                orders_side_sell?.isEnabled = true
+                orders_my?.isEnabled = true
+            }
+
+            1 -> {
+                orders_side_buy?.isEnabled = true
+                orders_my?.isEnabled = true
+            }
+
+            2 -> {
+                orders_side_buy?.isEnabled = true
+                orders_side_sell?.isEnabled = true
+            }
+        }
     }
 
     override fun onFocused() {

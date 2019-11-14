@@ -1,9 +1,11 @@
-package com.fridaytech.dex.data.zrx
+package com.fridaytech.dex.data.zrx.adapter
 
 import com.fridaytech.dex.core.CancelOrderException
 import com.fridaytech.dex.core.CreateOrderException
 import com.fridaytech.dex.core.model.CoinType
 import com.fridaytech.dex.data.manager.ICoinManager
+import com.fridaytech.dex.data.zrx.IAllowanceChecker
+import com.fridaytech.dex.data.zrx.IExchangeInteractor
 import com.fridaytech.dex.data.zrx.model.CreateOrderData
 import com.fridaytech.dex.data.zrx.model.FillOrderData
 import com.fridaytech.dex.presentation.orders.model.EOrderSide

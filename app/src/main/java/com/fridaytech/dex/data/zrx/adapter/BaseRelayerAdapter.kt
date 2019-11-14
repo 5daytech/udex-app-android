@@ -1,7 +1,10 @@
-package com.fridaytech.dex.data.zrx
+package com.fridaytech.dex.data.zrx.adapter
 
 import com.fridaytech.dex.core.model.CoinType
 import com.fridaytech.dex.data.manager.ICoinManager
+import com.fridaytech.dex.data.zrx.IExchangeInteractor
+import com.fridaytech.dex.data.zrx.IRelayerAdapter
+import com.fridaytech.dex.data.zrx.OrdersUtil
 import com.fridaytech.dex.data.zrx.model.*
 import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.utils.Logger
@@ -36,8 +39,7 @@ class BaseRelayerAdapter(
     override var myOrdersInfo = RelayerOrdersList<OrderInfo>()
     override var buyOrders = RelayerOrdersList<OrderRecord>()
     override var sellOrders = RelayerOrdersList<OrderRecord>()
-    override var myOrders =
-        RelayerOrdersList<Pair<SignedOrder, EOrderSide>>()
+    override var myOrders = RelayerOrdersList<Pair<SignedOrder, EOrderSide>>()
 
     override val allPairs = relayer.availablePairs
     override var exchangePairs: List<ExchangePair> = listOf()
