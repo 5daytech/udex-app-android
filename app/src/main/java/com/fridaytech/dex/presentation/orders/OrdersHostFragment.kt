@@ -18,6 +18,7 @@ import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.presentation.orders.model.FillOrderInfo
 import com.fridaytech.dex.presentation.widgets.MainToolbar
 import com.fridaytech.dex.utils.ui.ToastHelper
+import com.fridaytech.dex.utils.ui.ViewCollapseHelper
 import com.fridaytech.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_orders_host.*
 
@@ -26,6 +27,8 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
 
     private var adapter: OrdersHostAdapter? = null
     private lateinit var viewModel: OrdersViewModel
+
+    private lateinit var pickerCollapseHelper : ViewCollapseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,6 +99,8 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
             R.string.title_trade_history
         ) { activity?.let { ExchangeHistoryActivity.start(it) } })
 
+        pickerCollapseHelper = ViewCollapseHelper(orders_host_pair_picker)
+
         orders_view_pager?.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 refreshActionsAvailability()
@@ -122,6 +127,8 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
         orders_side_buy?.isEnabled = false
         orders_side_sell?.isEnabled = false
 
+        var pickerVisible = true
+
         when (orders_view_pager?.currentItem) {
             0 -> {
                 orders_side_sell?.isEnabled = true
@@ -136,6 +143,15 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
             2 -> {
                 orders_side_buy?.isEnabled = true
                 orders_side_sell?.isEnabled = true
+                pickerVisible = false
+            }
+        }
+
+        if (orders_host_pair_picker.visible != pickerVisible) {
+            if (pickerVisible) {
+                pickerCollapseHelper.expand()
+            } else {
+                pickerCollapseHelper.collapse()
             }
         }
     }
