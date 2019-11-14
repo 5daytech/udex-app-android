@@ -51,14 +51,14 @@ object NumberUtils {
         }
 
     fun formatBigDecimalFiat(value: BigDecimal): String =
-        if (value < BigDecimal.TEN) {
+        if (value < BigDecimal.ONE) {
             smallFiatFormat.format(value)
         } else {
             fiatFormat.format(value)
         }
 
     fun formatDoubleFiat(double: Double): String =
-        if (double < 10.0) {
+        if (double < 1.0) {
             smallFiatFormat.format(double)
         } else {
             fiatFormat.format(double)
