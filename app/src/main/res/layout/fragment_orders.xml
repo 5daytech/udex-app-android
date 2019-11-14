@@ -12,8 +12,9 @@
         android:id="@+id/orders_empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         app:eiv_message="@string/message_empty_orders"
-        android:layout_marginTop="@dimen/bottom_sheet_big_margin"
+        android:layout_marginBottom="48dp"
         android:visibility="visible"/>
 
 </FrameLayout>
