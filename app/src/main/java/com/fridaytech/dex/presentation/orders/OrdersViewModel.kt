@@ -50,9 +50,7 @@ class OrdersViewModel : CoreViewModel() {
     val orderInfoEvent = MutableLiveData<OrderInfoConfig>()
     val fillOrderEvent = MutableLiveData<FillOrderInfo>()
     val transactionSentEvent = SingleLiveEvent<String>()
-
-    val cancelAllConfirmEvent =
-        SingleLiveEvent<CancelOrderInfo>()
+    val cancelAllConfirmEvent = SingleLiveEvent<CancelOrderInfo>()
 
     init {
         relayerManager.mainRelayerUpdatedSignal
@@ -139,9 +137,11 @@ class OrdersViewModel : CoreViewModel() {
     }
 
     private fun refreshOrders() {
-        buyOrders.postValue(zrxOrdersWatcher?.uiBuyOrders)
-        sellOrders.postValue(zrxOrdersWatcher?.uiSellOrders)
-        myOrders.postValue(zrxOrdersWatcher?.uiMyOrders)
+        if (zrxOrdersWatcher != null) {
+            buyOrders.postValue(zrxOrdersWatcher?.uiBuyOrders)
+            sellOrders.postValue(zrxOrdersWatcher?.uiSellOrders)
+            myOrders.postValue(zrxOrdersWatcher?.uiMyOrders)
+        }
     }
 
     private fun cancelAllMyOrders() {
