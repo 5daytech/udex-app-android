@@ -1,5 +1,6 @@
 package com.fridaytech.dex.data.zrx.adapter
 
+import android.util.Log
 import com.fridaytech.dex.data.manager.ICoinManager
 import com.fridaytech.dex.data.manager.rates.RatesConverter
 import com.fridaytech.dex.data.zrx.IRelayerAdapter
@@ -86,21 +87,24 @@ class OrdersWatcher(
 
     private fun refreshBuyOrders(orders: List<OrderRecord>) {
         uiBuyOrders = orders
-            .map { UiOrder.fromOrder(coinManager, ratesConverter, it.order, BUY) }
+            .map { UiOrder.fromOrder(coinManager, ratesConverter, it, BUY) }
             .sortedBy { it.price }
 
         buyOrdersSubject.onNext(uiBuyOrders)
+        Log.d("ololo", "Sell Orders is ${uiBuyOrders.first()}")
     }
 
     private fun refreshSellOrders(orders: List<OrderRecord>) {
         uiSellOrders = orders
-            .map { UiOrder.fromOrder(coinManager, ratesConverter, it.order, SELL) }
+            .map { UiOrder.fromOrder(coinManager, ratesConverter, it, SELL) }
             .sortedBy { it.price }
 
         sellOrdersSubject.onNext(uiSellOrders)
+
+        Log.d("ololo", "Sell Orders is ${uiSellOrders.first()}")
     }
 
-    private fun refreshMyOrders(myOrders: List<SignedOrder>) = try {
+    private fun refreshMyOrders(myOrders: List<OrderRecord>) = try {
         uiMyOrders = myOrders.mapIndexed { index, it ->
             val orderInfo = OrderInfo("", "", BigInteger.ZERO)
             UiOrder.fromOrder(
@@ -122,17 +126,16 @@ class OrdersWatcher(
                 getCurrentExchangePair().quoteAsset.assetData.equals(quoteAsset, true)
 
     // TODO: Replace with order hash
-    fun getMyOrder(position: Int, side: EOrderSide): Triple<SignedOrder, OrderInfo, EOrderSide>? = when (side) {
+    fun getMyOrder(position: Int, side: EOrderSide): Triple<OrderRecord, OrderInfo, EOrderSide>? = when (side) {
         MY -> {
             val myOrder = relayerAdapter.myOrders[position]
-//            val orderInfo = getSelectedOrdersInfo().orders[position]
 
             Triple(myOrder, OrderInfo("", "", BigInteger.ZERO), MY)
         }
         else -> null
     }
 
-    fun getMyOrders(): List<SignedOrder>? = relayerAdapter.myOrders
+    fun getMyOrders(): List<SignedOrder>? = relayerAdapter.myOrders.map { it.order }
 
     fun start() {
     }

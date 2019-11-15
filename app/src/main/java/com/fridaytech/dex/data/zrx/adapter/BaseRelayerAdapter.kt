@@ -36,7 +36,7 @@ class BaseRelayerAdapter(
     private val relayerManager = zrxKit.relayerManager
     private val relayer = relayerManager.availableRelayers[relayerId]
 
-    override var myOrders: List<SignedOrder> = listOf()
+    override var myOrders: List<OrderRecord> = listOf()
     override var myOrdersInfo: List<OrderInfo> = listOf()
     override val myOrdersSyncSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
@@ -88,10 +88,10 @@ class BaseRelayerAdapter(
     private fun refreshOrders() {
         relayerManager.getOrders(relayerId, ethereumKit.receiveAddress)
             .ioSubscribe(disposables, {
-                this.myOrders = it.records.map { it.order }.sortedByDescending { it.salt }
+                this.myOrders = it.records.map { it}.sortedByDescending { it.order.salt }
                 myOrdersSyncSubject.onNext(Unit)
 
-                exchangeInteractor.ordersInfo(myOrders)
+                exchangeInteractor.ordersInfo(myOrders.map { it.order })
                     .ioSubscribe(disposables, { ordersInfo ->
                         myOrdersInfo = ordersInfo
                         myOrdersSyncSubject.onNext(Unit)

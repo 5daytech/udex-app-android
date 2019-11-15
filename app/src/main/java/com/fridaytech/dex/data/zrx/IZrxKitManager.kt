@@ -48,7 +48,7 @@ interface IRelayerAdapter {
     val refreshInterval: Long
     val relayerId: Int
 
-    var myOrders: List<SignedOrder>
+    var myOrders: List<OrderRecord>
     var myOrdersInfo: List<OrderInfo>
     val myOrdersSyncSubject: BehaviorSubject<Unit>
 

@@ -8,7 +8,7 @@ import com.fridaytech.dex.data.zrx.OrdersUtil
 import com.fridaytech.dex.utils.TimeUtils
 import com.fridaytech.zrxkit.model.EAssetProxyId
 import com.fridaytech.zrxkit.model.OrderInfo
-import com.fridaytech.zrxkit.model.SignedOrder
+import com.fridaytech.zrxkit.relayer.model.OrderRecord
 import java.math.BigDecimal
 
 data class UiOrder(
@@ -29,14 +29,14 @@ data class UiOrder(
         fun fromOrder(
             coinManager: ICoinManager,
             ratesConverter: RatesConverter,
-            order: SignedOrder,
+            orderRecord: OrderRecord,
             side: EOrderSide,
             orderInfo: OrderInfo? = null,
             isMine: Boolean = false
         ): UiOrder {
-            val normalizedData = OrdersUtil.normalizeOrderData(order)
+            val normalizedData = OrdersUtil.normalizeOrderData(orderRecord.order)
 
-            val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.takerAssetData))!!
+            val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(orderRecord.order.takerAssetData))!!
 
             val filledAmount = orderInfo?.orderTakerAssetFilledAmount?.toBigDecimal()
                 ?.movePointLeft((takerCoin.type as CoinType.Erc20).decimal)
@@ -56,7 +56,7 @@ data class UiOrder(
                     normalizedData.takerCoin.code,
                     normalizedData.takerAmount
                 ),
-                TimeUtils.timestampToDisplay(order.expirationTimeSeconds.toLong()),
+                TimeUtils.timestampToDisplay(orderRecord.order.expirationTimeSeconds.toLong()),
                 side,
                 isMine,
                 orderInfo?.orderStatus ?: "unknown",

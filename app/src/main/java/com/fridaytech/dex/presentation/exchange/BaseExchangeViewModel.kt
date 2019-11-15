@@ -87,8 +87,7 @@ abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
     val exchangePrice = MutableLiveData<BigDecimal>()
 
     val successEvent = SingleLiveEvent<String>()
-    val confirmEvent =
-        SingleLiveEvent<ExchangeConfirmInfo>()
+    val confirmEvent = SingleLiveEvent<ExchangeConfirmInfo>()
     val showProcessingEvent = SingleLiveEvent<Unit>()
     val processingDismissEvent = SingleLiveEvent<Unit>()
     val focusExchangeEvent = SingleLiveEvent<Unit>()

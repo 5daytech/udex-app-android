@@ -36,7 +36,7 @@ class OrderInfoViewModel : CoreViewModel() {
             this.orderInfo.value = UiOrder.fromOrder(
                 coinManager,
                 ratesConverter,
-                it.order,
+                it.orderRecord,
                 it.side,
                 orderInfo = it.info,
                 isMine = true
@@ -47,7 +47,7 @@ class OrderInfoViewModel : CoreViewModel() {
     private fun onCancelConfirm() {
         order?.let {
             messageEvent.postValue(R.string.message_cancel_started)
-            relayerAdapter?.cancelOrder(it.order)
+            relayerAdapter?.cancelOrder(it.orderRecord.order)
                 ?.uiSubscribe(disposables, {
                     successEvent.postValue(it)
                     dismissEvent.call()
