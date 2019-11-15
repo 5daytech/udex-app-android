@@ -35,7 +35,7 @@ class AppConfiguration(
     override val ipfsFallbackGateway = "ipfs.io"
 
     override val defaultCoinCodes: List<String>
-        get() = listOf("ETH", "WETH", "ZRX", "USDT", "LINK")
+        get() = listOf("ETH", "WETH", "ZRX", "DAI")
 
     override val fixedCoinCodes = listOf("ETH", "WETH", "ZRX")
 
@@ -57,10 +57,9 @@ class AppConfiguration(
         Coin("Wrapped ETH", "WETH", CoinType.Erc20("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", 18), R.string.info_weth),
         Coin("0x", "ZRX", CoinType.Erc20("0xE41d2489571d322189246DaFA5ebDe1F4699F498", 18)),
         Coin("Dai", "DAI", CoinType.Erc20("0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359", 18)),
-        Coin("Tether USD", "USDT", CoinType.Erc20("0x6D00364318D008C3AEA08c097c25F5639AB5D2e6", 6)),
         Coin("USD Coin", "USDC", CoinType.Erc20("0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", 6)),
         Coin("Livepeer Token", "LPT", CoinType.Erc20("0x58b6a8a3302369daec383334672404ee733ab239", 18)),
-        Coin("Wrapped Bitcoin", "WBTC", CoinType.Erc20("0x2260fac5e5542a773aa44fbcfedf7c193bc2c599", 8))
+        Coin("Basic Attention Token", "BAT", CoinType.Erc20("0x0D8775F648430679A709E98d2b0Cb6250d2887EF", 18))
     )
 
     override val allCoins: List<Coin> = if (testMode) testCoins else coins
@@ -73,7 +72,9 @@ class AppConfiguration(
         getExchangePair("ZRX", "WETH"),
         getExchangePair("DAI", "WETH"),
         getExchangePair("USDC", "WETH"),
-        getExchangePair("LPT", "WETH")
+        getExchangePair("BAT", "WETH"),
+        getExchangePair("LPT", "WETH"),
+        getExchangePair("USDC", "DAI")
     )
 
     private val testExchangePairs = listOf(

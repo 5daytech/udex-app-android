@@ -63,7 +63,7 @@ class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_chart) {
         viewModel.init(coinCode)
 
         viewModel.coin.observe(this, Observer {
-            chart_coin_code.text = "${it.title} "
+            chart_coin_code.text = "${it.code} "
         })
 
         viewModel.chartData.observe(this, Observer {

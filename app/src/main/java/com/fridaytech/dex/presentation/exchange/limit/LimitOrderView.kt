@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import com.fridaytech.dex.R
 import com.fridaytech.dex.presentation.exchange.model.ExchangeAmountInfo
 import com.fridaytech.dex.presentation.exchange.model.ExchangePairsInfo
-import com.fridaytech.dex.presentation.exchange.model.LimitOrderViewState
+import com.fridaytech.dex.presentation.exchange.model.IExchangeViewState
 import com.fridaytech.dex.presentation.models.AmountInfo
 import com.fridaytech.dex.utils.getAttr
 import com.fridaytech.dex.utils.ui.AnimationHelper
@@ -19,8 +19,8 @@ import com.fridaytech.dex.utils.ui.toLongDisplayFormat
 import com.fridaytech.dex.utils.ui.toPriceFormat
 import com.fridaytech.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
-import java.math.BigDecimal
 import kotlinx.android.synthetic.main.view_limit_order.view.*
+import java.math.BigDecimal
 
 class LimitOrderView : CardView {
     init { View.inflate(context, R.layout.view_limit_order, this) }
@@ -29,7 +29,7 @@ class LimitOrderView : CardView {
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) { init() }
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) { init() }
 
-    private var state: LimitOrderViewState? = null
+    private var state: IExchangeViewState? = null
 
     var amountInputConnection: InputConnection? = null
     var priceInputConnection: InputConnection? = null
@@ -75,7 +75,7 @@ class LimitOrderView : CardView {
     }
 
     @SuppressLint("SetTextI18n")
-    fun updateState(state: LimitOrderViewState) {
+    fun updateState(state: IExchangeViewState) {
         this.state = state
         updateAmount(state.sendAmount)
 
