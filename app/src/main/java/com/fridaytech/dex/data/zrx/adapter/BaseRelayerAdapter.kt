@@ -8,6 +8,7 @@ import com.fridaytech.dex.data.zrx.OrdersUtil
 import com.fridaytech.dex.data.zrx.model.*
 import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.utils.Logger
+import com.fridaytech.dex.utils.normalizedDiv
 import com.fridaytech.dex.utils.normalizedMul
 import com.fridaytech.dex.utils.rx.ioSubscribe
 import com.fridaytech.zrxkit.ZrxKit
@@ -106,6 +107,19 @@ class BaseRelayerAdapter(
         }
     }
 
+    private fun isFillableOrder(orderRecord: OrderRecord): Boolean {
+        val remaining = orderRecord.metaData?.remainingFillableTakerAssetAmount?.toBigDecimalOrNull() ?: BigDecimal.ZERO
+        val takerAmount = orderRecord.order.takerAssetAmount.toBigDecimalOrNull() ?: BigDecimal.ZERO
+
+        return if (remaining.stripTrailingZeros() > BigDecimal.ZERO && takerAmount > BigDecimal.ZERO) {
+            val percent = remaining.normalizedDiv(takerAmount).toDouble()
+
+            percent > 0.01
+        } else {
+            false
+        }
+    }
+
     private fun refreshPair(baseAsset: String, quoteAsset: String) {
         relayerManager.getOrderbook(relayerId, baseAsset, quoteAsset)
             .ioSubscribe(disposables, {
@@ -114,12 +128,17 @@ class BaseRelayerAdapter(
                 buyOrders.updatePairOrders(
                     baseAsset,
                     quoteAsset,
-                    it.bids.records.filterNot { it.order.makerAddress.equals(myAddress, false) }
+                    it.bids.records
+                        .filterNot { it.order.makerAddress.equals(myAddress, false) }
+                        .filter { isFillableOrder(it) }
                 )
+
                 sellOrders.updatePairOrders(
                     baseAsset,
                     quoteAsset,
-                    it.asks.records.filterNot { it.order.makerAddress.equals(myAddress, false) }
+                    it.asks.records
+                        .filterNot { it.order.makerAddress.equals(myAddress, false) }
+                        .filter { isFillableOrder(it) }
                 )
             })
     }
@@ -148,17 +167,14 @@ class BaseRelayerAdapter(
         var fillAmount = BigDecimal.ZERO
 
         val sortedOrders = orders.map {
-            OrdersUtil.normalizeOrderDataPrice(
-                it
-            )
-        }
-            .apply { if (side == EOrderSide.BUY) sortedByDescending { it.price } else sortedBy { it.price } }
+            OrdersUtil.normalizeOrderDataPrice(it)
+        }.apply { if (side == EOrderSide.BUY) sortedByDescending { it.price } else sortedBy { it.price } }
 
         for (orderData in sortedOrders) {
             if (requestedAmount != BigDecimal.ZERO) {
-                if (requestedAmount > orderData.takerAmount) {
-                    fillAmount += orderData.makerAmount
-                    requestedAmount -= orderData.takerAmount
+                if (requestedAmount > orderData.remainingTakerAmount) {
+                    fillAmount += orderData.remainingMakerAmount
+                    requestedAmount -= orderData.remainingTakerAmount
                 } else {
                     fillAmount += requestedAmount.normalizedMul(orderData.price)
                     requestedAmount = BigDecimal.ZERO
@@ -179,6 +195,9 @@ class BaseRelayerAdapter(
         Logger.e(e)
         FillResult.empty()
     }
+
+
+
     //endregion
 
     //region Public
@@ -241,18 +260,14 @@ class BaseRelayerAdapter(
         var fillAmount = BigDecimal.ZERO
 
         val sortedOrders = orders.map {
-            OrdersUtil.normalizeOrderDataPrice(
-                it,
-                isSellPrice = false
-            )
-        }
-            .apply { if (side == EOrderSide.BUY) sortedByDescending { it.price } else sortedBy { it.price } }
+            OrdersUtil.normalizeOrderDataPrice(it, isSellPrice = false)
+        }.apply { if (side == EOrderSide.BUY) sortedByDescending { it.price } else sortedBy { it.price } }
 
         for (normalizedOrder in sortedOrders) {
             if (requestedAmount != BigDecimal.ZERO) {
-                if (requestedAmount > normalizedOrder.makerAmount) {
-                    fillAmount += normalizedOrder.takerAmount
-                    requestedAmount -= normalizedOrder.makerAmount
+                if (requestedAmount > normalizedOrder.remainingMakerAmount) {
+                    fillAmount += normalizedOrder.remainingTakerAmount
+                    requestedAmount -= normalizedOrder.remainingMakerAmount
                 } else {
                     fillAmount += requestedAmount.normalizedMul(normalizedOrder.price)
                     requestedAmount = BigDecimal.ZERO

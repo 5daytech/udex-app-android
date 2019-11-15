@@ -34,7 +34,7 @@ data class UiOrder(
             orderInfo: OrderInfo? = null,
             isMine: Boolean = false
         ): UiOrder {
-            val normalizedData = OrdersUtil.normalizeOrderData(orderRecord.order)
+            val normalizedData = OrdersUtil.normalizeOrderData(orderRecord)
 
             val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(orderRecord.order.takerAssetData))!!
 
@@ -46,15 +46,15 @@ data class UiOrder(
                 normalizedData.makerCoin,
                 normalizedData.takerCoin,
                 normalizedData.price,
-                normalizedData.makerAmount,
-                normalizedData.takerAmount,
+                normalizedData.remainingMakerAmount,
+                normalizedData.remainingTakerAmount,
                 ratesConverter.getCoinsPrice(
                     normalizedData.makerCoin.code,
-                    normalizedData.makerAmount
+                    normalizedData.remainingMakerAmount
                 ),
                 ratesConverter.getCoinsPrice(
                     normalizedData.takerCoin.code,
-                    normalizedData.takerAmount
+                    normalizedData.remainingTakerAmount
                 ),
                 TimeUtils.timestampToDisplay(orderRecord.order.expirationTimeSeconds.toLong()),
                 side,

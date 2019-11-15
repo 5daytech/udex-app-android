@@ -17,17 +17,27 @@ object OrdersUtil {
     private fun getErcCoin(coinCode: String): CoinType.Erc20 =
         coinManager.getCoin(coinCode).type as CoinType.Erc20
 
-    fun normalizeOrderData(order: SignedOrder): NormalizedOrderData {
-        val makerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.makerAssetData))!!
-        val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(order.takerAssetData))!!
+    fun normalizeOrderData(orderRecord: OrderRecord): NormalizedOrderData {
+        val makerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(orderRecord.order.makerAssetData))!!
+        val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(orderRecord.order.takerAssetData))!!
 
-        val makerAmount = order.makerAssetAmount.toBigDecimal()
+        val makerAmount = orderRecord.order.makerAssetAmount.toBigDecimal()
             .movePointLeft((makerCoin.type as CoinType.Erc20).decimal)
             .stripTrailingZeros()
 
-        val takerAmount = order.takerAssetAmount.toBigDecimal()
+        val takerAmount = orderRecord.order.takerAssetAmount.toBigDecimal()
             .movePointLeft((takerCoin.type as CoinType.Erc20).decimal)
             .stripTrailingZeros()
+
+        val remainingTakerAmount = orderRecord.metaData?.remainingFillableTakerAssetAmount?.toBigDecimal()
+            ?.movePointLeft(takerCoin.type.decimal)
+            ?.stripTrailingZeros() ?: BigDecimal.ZERO
+
+        val remainingMakerAmount = if (remainingTakerAmount > BigDecimal.ZERO) {
+            makerAmount * remainingTakerAmount.normalizedDiv(takerAmount)
+        } else {
+            BigDecimal.ZERO
+        }
 
         val price = takerAmount.normalizedDiv(makerAmount)
 
@@ -36,23 +46,35 @@ object OrdersUtil {
             makerCoin,
             takerCoin,
             makerAmount,
+            remainingMakerAmount,
             takerAmount,
+            remainingTakerAmount,
             price,
-            order
+            orderRecord.order
         )
     }
 
-    fun normalizeOrderDataPrice(record: OrderRecord, isSellPrice: Boolean = true): NormalizedOrderData {
-        val makerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(record.order.makerAssetData))!!
-        val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(record.order.takerAssetData))!!
+    fun normalizeOrderDataPrice(orderRecord: OrderRecord, isSellPrice: Boolean = true): NormalizedOrderData {
+        val makerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(orderRecord.order.makerAssetData))!!
+        val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(orderRecord.order.takerAssetData))!!
 
-        val makerAmount = record.order.makerAssetAmount.toBigDecimal()
+        val makerAmount = orderRecord.order.makerAssetAmount.toBigDecimal()
             .movePointLeft((makerCoin.type as CoinType.Erc20).decimal)
             .stripTrailingZeros()
 
-        val takerAmount = record.order.takerAssetAmount.toBigDecimal()
+        val takerAmount = orderRecord.order.takerAssetAmount.toBigDecimal()
             .movePointLeft((takerCoin.type as CoinType.Erc20).decimal)
             .stripTrailingZeros()
+
+        val remainingTakerAmount = orderRecord.metaData?.remainingFillableTakerAssetAmount?.toBigDecimal() ?: BigDecimal.ZERO
+            .movePointLeft(takerCoin.type.decimal)
+            .stripTrailingZeros()
+
+        val remainingMakerAmount = if (remainingTakerAmount > BigDecimal.ZERO) {
+            makerAmount * remainingTakerAmount.normalizedDiv(takerAmount)
+        } else {
+            BigDecimal.ZERO
+        }
 
         val price = if (isSellPrice) {
             makerAmount.normalizedDiv(takerAmount)
@@ -61,13 +83,15 @@ object OrdersUtil {
         }
 
         return NormalizedOrderData(
-            record.metaData?.orderHash ?: "",
+            orderRecord.metaData?.orderHash ?: "",
             makerCoin,
             takerCoin,
             makerAmount,
+            remainingMakerAmount,
             takerAmount,
+            remainingTakerAmount,
             price,
-            record.order
+            orderRecord.order
         )
     }
 
