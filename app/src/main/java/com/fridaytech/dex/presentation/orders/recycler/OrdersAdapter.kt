@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.fridaytech.dex.R
 import com.fridaytech.dex.presentation.common.ActionViewHolder
-import com.fridaytech.dex.presentation.orders.model.UiOrder
+import com.fridaytech.dex.data.zrx.model.SimpleOrder
 import com.fridaytech.dex.utils.inflate
 
 class OrdersAdapter(
@@ -13,7 +13,7 @@ class OrdersAdapter(
     private val actionConfig: ActionViewHolder.ActionConfig? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val mOrders = ArrayList<UiOrder>()
+    private val mOrders = ArrayList<SimpleOrder>()
 
     private val TYPE_ACTION = 1
     private val TYPE_ORDER = 2
@@ -50,7 +50,7 @@ class OrdersAdapter(
         }
     }
 
-    fun setOrders(orders: List<UiOrder>) {
+    fun setOrders(orders: List<SimpleOrder>) {
         mOrders.clear()
         mOrders.addAll(orders)
         notifyDataSetChanged()

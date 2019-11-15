@@ -8,6 +8,7 @@ import com.fridaytech.dex.core.ui.SingleLiveEvent
 import com.fridaytech.dex.data.manager.duration.ETransactionType
 import com.fridaytech.dex.data.zrx.IRelayerAdapter
 import com.fridaytech.dex.data.zrx.adapter.OrdersWatcher
+import com.fridaytech.dex.data.zrx.model.SimpleOrder
 import com.fridaytech.dex.presentation.orders.model.*
 import com.fridaytech.dex.presentation.orders.model.EOrderSide.*
 import com.fridaytech.dex.utils.Logger
@@ -42,9 +43,9 @@ class OrdersViewModel : CoreViewModel() {
 
     val availablePairs = MutableLiveData<List<ExchangePairViewItem>>()
     val selectedPairPosition = MutableLiveData<Int>()
-    val buyOrders: MutableLiveData<List<UiOrder>> = MutableLiveData()
-    val sellOrders: MutableLiveData<List<UiOrder>> = MutableLiveData()
-    val myOrders: MutableLiveData<List<UiOrder>> = MutableLiveData()
+    val buyOrders: MutableLiveData<List<SimpleOrder>> = MutableLiveData()
+    val sellOrders: MutableLiveData<List<SimpleOrder>> = MutableLiveData()
+    val myOrders: MutableLiveData<List<SimpleOrder>> = MutableLiveData()
     val exchangeCoinSymbol = MutableLiveData<String>()
 
     val orderInfoEvent = MutableLiveData<OrderInfoConfig>()
@@ -138,9 +139,9 @@ class OrdersViewModel : CoreViewModel() {
 
     private fun refreshOrders() {
         if (zrxOrdersWatcher != null) {
-            buyOrders.postValue(zrxOrdersWatcher?.uiBuyOrders)
-            sellOrders.postValue(zrxOrdersWatcher?.uiSellOrders)
-            myOrders.postValue(zrxOrdersWatcher?.uiMyOrders)
+            buyOrders.postValue(zrxOrdersWatcher?.simpleBuyOrders)
+            sellOrders.postValue(zrxOrdersWatcher?.simpleSellOrders)
+            myOrders.postValue(zrxOrdersWatcher?.simpleMyOrders)
         }
     }
 

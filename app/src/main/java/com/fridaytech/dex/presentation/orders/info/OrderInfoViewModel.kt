@@ -9,7 +9,7 @@ import com.fridaytech.dex.data.manager.duration.ETransactionType
 import com.fridaytech.dex.data.zrx.IRelayerAdapter
 import com.fridaytech.dex.presentation.orders.model.CancelOrderInfo
 import com.fridaytech.dex.presentation.orders.model.OrderInfoConfig
-import com.fridaytech.dex.presentation.orders.model.UiOrder
+import com.fridaytech.dex.data.zrx.model.SimpleOrder
 import com.fridaytech.dex.utils.rx.uiSubscribe
 import java.math.BigDecimal
 
@@ -22,7 +22,7 @@ class OrderInfoViewModel : CoreViewModel() {
         get() = App.relayerAdapterManager.mainRelayer
     private var order: OrderInfoConfig? = null
 
-    val orderInfo = MutableLiveData<UiOrder>()
+    val orderInfo = MutableLiveData<SimpleOrder>()
 
     val dismissEvent = SingleLiveEvent<Unit>()
     val successEvent = SingleLiveEvent<String>()
@@ -33,7 +33,7 @@ class OrderInfoViewModel : CoreViewModel() {
         this.order = orderInfo
 
         order?.let {
-            this.orderInfo.value = UiOrder.fromOrder(
+            this.orderInfo.value = SimpleOrder.fromOrder(
                 coinManager,
                 ratesConverter,
                 it.orderRecord,

@@ -1,17 +1,18 @@
-package com.fridaytech.dex.presentation.orders.model
+package com.fridaytech.dex.data.zrx.model
 
 import com.fridaytech.dex.core.model.Coin
 import com.fridaytech.dex.core.model.CoinType
 import com.fridaytech.dex.data.manager.ICoinManager
 import com.fridaytech.dex.data.manager.rates.RatesConverter
 import com.fridaytech.dex.data.zrx.OrdersUtil
+import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.utils.TimeUtils
 import com.fridaytech.zrxkit.model.EAssetProxyId
 import com.fridaytech.zrxkit.model.OrderInfo
 import com.fridaytech.zrxkit.relayer.model.OrderRecord
 import java.math.BigDecimal
 
-data class UiOrder(
+data class SimpleOrder(
     val makerCoin: Coin,
     val takerCoin: Coin,
     val price: BigDecimal,
@@ -33,7 +34,7 @@ data class UiOrder(
             side: EOrderSide,
             orderInfo: OrderInfo? = null,
             isMine: Boolean = false
-        ): UiOrder {
+        ): SimpleOrder {
             val normalizedData = OrdersUtil.normalizeOrderData(orderRecord)
 
             val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(orderRecord.order.takerAssetData))!!
@@ -42,7 +43,7 @@ data class UiOrder(
                 ?.movePointLeft((takerCoin.type as CoinType.Erc20).decimal)
                 ?.stripTrailingZeros() ?: BigDecimal.ZERO
 
-            return UiOrder(
+            return SimpleOrder(
                 normalizedData.makerCoin,
                 normalizedData.takerCoin,
                 normalizedData.price,

@@ -4,9 +4,9 @@ import com.fridaytech.dex.data.manager.ICoinManager
 import com.fridaytech.dex.data.manager.rates.RatesConverter
 import com.fridaytech.dex.data.zrx.IRelayerAdapter
 import com.fridaytech.dex.data.zrx.model.ExchangePair
+import com.fridaytech.dex.data.zrx.model.SimpleOrder
 import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.presentation.orders.model.EOrderSide.*
-import com.fridaytech.dex.presentation.orders.model.UiOrder
 import com.fridaytech.zrxkit.model.OrderInfo
 import com.fridaytech.zrxkit.model.SignedOrder
 import com.fridaytech.zrxkit.relayer.model.OrderRecord
@@ -38,14 +38,14 @@ class OrdersWatcher(
 
     val selectedPairSubject: BehaviorSubject<Int> = BehaviorSubject.create()
 
-    var uiBuyOrders: List<UiOrder> = listOf()
-    val buyOrdersSubject: BehaviorSubject<List<UiOrder>> = BehaviorSubject.create()
+    var simpleBuyOrders: List<SimpleOrder> = listOf()
+    val buyOrdersSubject: BehaviorSubject<List<SimpleOrder>> = BehaviorSubject.create()
 
-    var uiSellOrders: List<UiOrder> = listOf()
-    val sellOrdersSubject: BehaviorSubject<List<UiOrder>> = BehaviorSubject.create()
+    var simpleSellOrders: List<SimpleOrder> = listOf()
+    val sellOrdersSubject: BehaviorSubject<List<SimpleOrder>> = BehaviorSubject.create()
 
-    var uiMyOrders: List<UiOrder> = listOf()
-    val myOrdersSubject: BehaviorSubject<List<UiOrder>> = BehaviorSubject.create()
+    var simpleMyOrders: List<SimpleOrder> = listOf()
+    val myOrdersSubject: BehaviorSubject<List<SimpleOrder>> = BehaviorSubject.create()
 
     init {
         relayerAdapter.sellOrders.pairUpdateSubject.subscribe {
@@ -85,25 +85,25 @@ class OrdersWatcher(
     }
 
     private fun refreshBuyOrders(orders: List<OrderRecord>) {
-        uiBuyOrders = orders
-            .map { UiOrder.fromOrder(coinManager, ratesConverter, it, BUY) }
+        simpleBuyOrders = orders
+            .map { SimpleOrder.fromOrder(coinManager, ratesConverter, it, BUY) }
             .sortedBy { it.price }
 
-        buyOrdersSubject.onNext(uiBuyOrders)
+        buyOrdersSubject.onNext(simpleBuyOrders)
     }
 
     private fun refreshSellOrders(orders: List<OrderRecord>) {
-        uiSellOrders = orders
-            .map { UiOrder.fromOrder(coinManager, ratesConverter, it, SELL) }
+        simpleSellOrders = orders
+            .map { SimpleOrder.fromOrder(coinManager, ratesConverter, it, SELL) }
             .sortedBy { it.price }
 
-        sellOrdersSubject.onNext(uiSellOrders)
+        sellOrdersSubject.onNext(simpleSellOrders)
     }
 
     private fun refreshMyOrders(myOrders: List<OrderRecord>) = try {
-        uiMyOrders = myOrders.mapIndexed { index, it ->
+        simpleMyOrders = myOrders.mapIndexed { index, it ->
             val orderInfo = OrderInfo("", "", BigInteger.ZERO)
-            UiOrder.fromOrder(
+            SimpleOrder.fromOrder(
                 coinManager,
                 ratesConverter,
                 it,
@@ -112,7 +112,7 @@ class OrdersWatcher(
                 orderInfo = orderInfo
             )
         }
-        myOrdersSubject.onNext(uiMyOrders)
+        myOrdersSubject.onNext(simpleMyOrders)
     } catch (e: Exception) {
 // 		Logger.e(e)
     }
