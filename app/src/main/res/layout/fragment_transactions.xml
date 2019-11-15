@@ -31,7 +31,8 @@
                 android:id="@+id/empty_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/bottom_sheet_big_margin"
+                android:layout_marginBottom="@dimen/bottom_sheet_big_margin"
+                android:layout_gravity="center"
                 app:eiv_message="@string/message_empty_transactions"
                 android:visibility="gone"/>
 
