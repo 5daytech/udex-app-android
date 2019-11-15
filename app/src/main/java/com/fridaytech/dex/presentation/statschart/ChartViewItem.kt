@@ -5,6 +5,8 @@ import io.horizontalsystems.xrateskit.entities.ChartPoint
 import io.horizontalsystems.xrateskit.entities.ChartType
 import io.horizontalsystems.xrateskit.entities.MarketInfo
 import java.math.BigDecimal
+import java.math.MathContext
+import java.math.RoundingMode
 
 data class ChartViewItem(
     val type: ChartType,
@@ -26,7 +28,13 @@ class RateChartViewFactory {
 
         val startValue = chartPoints.firstOrNull()?.value?.toDouble() ?: 0.0
         val endValue = chartPoints.lastOrNull()?.value?.toDouble() ?: 0.0
-        val diffValue = ((endValue - startValue) / startValue * 100).toBigDecimal()
+
+        val diffValue = if (endValue > 0.0 && startValue > 0.0) {
+            val mathContext = MathContext(18, RoundingMode.FLOOR)
+            ((endValue - startValue) / startValue * 100).toBigDecimal(mathContext)
+        } else {
+            BigDecimal.ZERO
+        }
 
         return ChartViewItem(
             chartType,
