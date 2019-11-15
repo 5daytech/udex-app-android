@@ -15,6 +15,7 @@ import com.fridaytech.dex.presentation.orders.model.EOrderSide.*
 import com.fridaytech.dex.utils.Logger
 import com.fridaytech.dex.utils.rx.uiSubscribe
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
 
@@ -38,6 +39,10 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
 
     //region Private
 
+    private fun BigDecimal.scaleToView(): BigDecimal = setScale(
+        9, RoundingMode.FLOOR
+    ).stripTrailingZeros()
+
     override fun initState(sendItem: ExchangeCoinItem?, receiveItem: ExchangeCoinItem?) {
         state = MarketOrderViewState(
             BigDecimal.ZERO,
@@ -49,16 +54,10 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
         viewState.postValue(state)
         sendHintInfo.postValue(AmountInfo(BigDecimal.ZERO))
         receiveHintInfo.postValue(AmountInfo())
-        sendAmount.postValue(
-            ExchangeAmountInfo(
-                BigDecimal.ZERO
-            )
-        )
-        receiveAmount.postValue(
-            ExchangeAmountInfo(
-                BigDecimal.ZERO
-            )
-        )
+        sendAmount.postValue(ExchangeAmountInfo(BigDecimal.ZERO))
+        receiveAmount.postValue(ExchangeAmountInfo(BigDecimal.ZERO))
+        estimatedReceiveAmount = BigDecimal.ZERO
+        estimatedSendAmount = BigDecimal.ZERO
     }
 
     override fun updateReceiveAmount() {
@@ -71,13 +70,13 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
                 orderSide,
                 amount
             ) ?: FillResult.empty()
-
-            state.receiveAmount = fillResult.receiveAmount
             estimatedReceiveAmount = fillResult.receiveAmount
 
-            if (fillResult.receiveAmount != receiveAmount.value?.amount) {
-                receiveAmount.value =
-                    ExchangeAmountInfo(fillResult.receiveAmount)
+            val roundedReceiveAmount = fillResult.receiveAmount.scaleToView()
+
+            state.receiveAmount = roundedReceiveAmount
+            if (roundedReceiveAmount != receiveAmount.value?.amount) {
+                receiveAmount.value = ExchangeAmountInfo(roundedReceiveAmount)
             }
 
             exchangeEnabled.value = state.receiveAmount > BigDecimal.ZERO
@@ -87,18 +86,9 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
                 amount
             }
 
+            updateSendHint(amount)
             updateReceiveHint()
         }
-    }
-
-    private fun updateReceiveHint() {
-        val receiveAmount = receiveAmount.value?.amount ?: BigDecimal.ZERO
-        val info = AmountInfo(
-            ratesConverter.getCoinsPrice(state.receiveCoin?.code ?: "", receiveAmount),
-            0
-        )
-
-        receiveHintInfo.postValue(info)
     }
 
     private fun updateSendAmount() {
@@ -112,13 +102,15 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
                 amount
             ) ?: FillResult.empty()
 
-            state.receiveAmount = amount
-            state.sendAmount = fillResult.sendAmount
             estimatedSendAmount = fillResult.sendAmount
 
-            if (fillResult.sendAmount != sendAmount.value?.amount) {
-                sendAmount.value =
-                    ExchangeAmountInfo(fillResult.sendAmount)
+            val roundedSendAmount = fillResult.sendAmount.scaleToView()
+
+            state.receiveAmount = amount
+            state.sendAmount = roundedSendAmount
+
+            if (roundedSendAmount != sendAmount.value?.amount) {
+                sendAmount.value = ExchangeAmountInfo(roundedSendAmount)
             }
 
             exchangeEnabled.value = state.receiveAmount > BigDecimal.ZERO && state.sendAmount > BigDecimal.ZERO
@@ -128,20 +120,32 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
             } else {
                 amount
             }
+
+            updateSendHint(roundedSendAmount)
+            updateReceiveHint()
         }
+    }
+
+    private fun updateReceiveHint() {
+        val receiveAmount = state.receiveAmount
+        val info = AmountInfo(
+            ratesConverter.getCoinsPrice(state.receiveCoin?.code ?: "", receiveAmount),
+            0
+        )
+
+        receiveHintInfo.postValue(info)
     }
 
     private fun marketBuy() {
         state.sendAmount.let { amount ->
-            val receiveAmount = state.receiveAmount
-            if (amount > BigDecimal.ZERO && receiveAmount > BigDecimal.ZERO) {
+            if (amount > BigDecimal.ZERO && estimatedReceiveAmount > BigDecimal.ZERO) {
                 messageEvent.postValue(R.string.message_wait_blockchain)
                 showProcessingEvent.call()
 
                 val fillData = FillOrderData(
                     marketCodes[currentMarketPosition],
                     orderSide,
-                    state.receiveAmount
+                    estimatedReceiveAmount
                 )
 
                 relayer?.fill(fillData)
@@ -201,11 +205,15 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
     }
 
     fun onReceiveAmountChange(amount: BigDecimal) {
-        if (state.receiveAmount.stripTrailingZeros() != amount.stripTrailingZeros()) {
+        if (state.receiveAmount.stripTrailingZeros() != amount) {
             state.receiveAmount = amount
 
             updateSendAmount()
         }
+    }
+
+    override fun onSendAmountChange(amount: BigDecimal) {
+        super.onSendAmountChange(amount.scaleToView())
     }
 
     fun onExchangeClick() {
@@ -221,6 +229,7 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
 
     fun onSwitchClick() {
         val sendAmount = state.receiveAmount
+
         state = MarketOrderViewState(
             sendAmount = BigDecimal.ZERO,
             receiveAmount = BigDecimal.ZERO,

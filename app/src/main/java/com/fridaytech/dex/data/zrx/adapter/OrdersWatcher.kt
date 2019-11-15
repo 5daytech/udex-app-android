@@ -1,6 +1,5 @@
 package com.fridaytech.dex.data.zrx.adapter
 
-import android.util.Log
 import com.fridaytech.dex.data.manager.ICoinManager
 import com.fridaytech.dex.data.manager.rates.RatesConverter
 import com.fridaytech.dex.data.zrx.IRelayerAdapter
@@ -91,7 +90,6 @@ class OrdersWatcher(
             .sortedBy { it.price }
 
         buyOrdersSubject.onNext(uiBuyOrders)
-        Log.d("ololo", "Sell Orders is ${uiBuyOrders.first()}")
     }
 
     private fun refreshSellOrders(orders: List<OrderRecord>) {
@@ -100,8 +98,6 @@ class OrdersWatcher(
             .sortedBy { it.price }
 
         sellOrdersSubject.onNext(uiSellOrders)
-
-        Log.d("ololo", "Sell Orders is ${uiSellOrders.first()}")
     }
 
     private fun refreshMyOrders(myOrders: List<OrderRecord>) = try {

@@ -128,17 +128,17 @@ abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
         }.let { disposables.add(it) }
     }
 
-    fun onSendAmountChange(amount: BigDecimal) {
+    open fun onSendAmountChange(amount: BigDecimal) {
         if (state.sendAmount.stripTrailingZeros() != amount.stripTrailingZeros()) {
             state.sendAmount = amount
 
             updateReceiveAmount()
 
-            updateSendInfo(amount)
+            updateSendHint(amount)
         }
     }
 
-    private fun updateSendInfo(amount: BigDecimal) {
+    protected fun updateSendHint(amount: BigDecimal) {
         val adapter = adapterManager.adapters
             .firstOrNull { it.coin.code == state.sendCoin?.code }
 
