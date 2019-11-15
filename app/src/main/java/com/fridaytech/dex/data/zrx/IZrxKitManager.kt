@@ -16,11 +16,9 @@ interface IZrxKitManager {
 }
 
 interface IAllowanceChecker {
-    fun enableAllowance(address: String): Flowable<Boolean>
+    fun checkAndUnlockAssetPairForPost(assetPair: Pair<AssetItem, AssetItem>, side: EOrderSide): Flowable<Boolean>
 
-    fun enableAssetPairAllowance(assetPair: Pair<AssetItem, AssetItem>): Flowable<Boolean>
-
-    fun enablePairAllowance(pair: Pair<String, String>): Flowable<Boolean>
+    fun checkAndUnlockPairForFill(pair: Pair<String, String>, side: EOrderSide): Flowable<Boolean>
 }
 
 interface IExchangeInteractor {

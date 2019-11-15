@@ -31,7 +31,7 @@ class ExchangeInteractor(
 
     //region Private
 
-    private fun postOrder(
+    private fun postOrderToRelayer(
         feeRecipient: String,
         makeAsset: String,
         makeAmount: BigInteger,
@@ -96,8 +96,8 @@ class ExchangeInteractor(
             if (createData.side == EOrderSide.BUY) baseCoin.decimal else quoteCoin.decimal
         ).stripTrailingZeros().toBigInteger()
 
-        return allowanceChecker.enableAssetPairAllowance(baseAsset to quoteAsset)
-            .flatMap { postOrder(feeRecipient, baseAsset.assetData, makerAmount, quoteAsset.assetData, takerAmount, createData.side) }
+        return allowanceChecker.checkAndUnlockAssetPairForPost(baseAsset to quoteAsset, createData.side)
+            .flatMap { postOrderToRelayer(feeRecipient, baseAsset.assetData, makerAmount, quoteAsset.assetData, takerAmount, createData.side) }
     }
 
     override fun cancelOrder(order: SignedOrder): Flowable<String> =
@@ -123,7 +123,7 @@ class ExchangeInteractor(
             if (fillData.side == EOrderSide.BUY) quoteCoin.decimal else baseCoin.decimal
         )
 
-        return allowanceChecker.enablePairAllowance(baseCoin.address to quoteCoin.address)
+        return allowanceChecker.checkAndUnlockPairForFill(baseCoin.address to quoteCoin.address, fillData.side)
             .flatMap { exchangeWrapper.marketBuyOrders(orders, calcAmount.toBigInteger()) }
     }
 

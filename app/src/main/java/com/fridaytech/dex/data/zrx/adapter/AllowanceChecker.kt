@@ -1,6 +1,7 @@
 package com.fridaytech.dex.data.zrx.adapter
 
 import com.fridaytech.dex.data.zrx.IAllowanceChecker
+import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.zrxkit.ZrxKit
 import com.fridaytech.zrxkit.model.AssetItem
 import io.horizontalsystems.ethereumkit.core.EthereumKit
@@ -11,7 +12,7 @@ class AllowanceChecker(
     private val ethereumKit: EthereumKit,
     private val zrxKit: ZrxKit
 ) : IAllowanceChecker {
-    override fun enableAllowance(address: String): Flowable<Boolean> {
+    private fun checkAndUnlockTokenAddress(address: String): Flowable<Boolean> {
         val coinWrapper = zrxKit.getErc20ProxyInstance(address)
 
         return coinWrapper.proxyAllowance(ethereumKit.receiveAddress)
@@ -26,15 +27,29 @@ class AllowanceChecker(
             }
     }
 
-    override fun enablePairAllowance(pair: Pair<String, String>): Flowable<Boolean> {
-        return enableAllowance(pair.first)
-            .flatMap { enableAllowance(pair.second) }
+    // Give allowance on fill
+    override fun checkAndUnlockPairForFill(
+        pair: Pair<String, String>,
+        side: EOrderSide
+    ): Flowable<Boolean> {
+        val addressToUnlock = when (side) {
+            EOrderSide.SELL -> pair.second
+            else -> pair.first
+        }
+
+        return checkAndUnlockTokenAddress(addressToUnlock)
     }
 
-    override fun enableAssetPairAllowance(assetPair: Pair<AssetItem, AssetItem>): Flowable<Boolean> {
-        val base = assetPair.first
-        val quote = assetPair.second
+    // Give allowance on order create
+    override fun checkAndUnlockAssetPairForPost(
+        assetPair: Pair<AssetItem, AssetItem>,
+        side: EOrderSide
+    ): Flowable<Boolean> {
+        val addressToUnlock = when (side) {
+            EOrderSide.SELL -> assetPair.first.address
+            else -> assetPair.second.address
+        }
 
-        return enablePairAllowance(base.address to quote.address)
+        return checkAndUnlockTokenAddress(addressToUnlock)
     }
 }
