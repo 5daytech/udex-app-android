@@ -66,9 +66,9 @@ object OrdersUtil {
             .movePointLeft((takerCoin.type as CoinType.Erc20).decimal)
             .stripTrailingZeros()
 
-        val remainingTakerAmount = orderRecord.metaData?.remainingFillableTakerAssetAmount?.toBigDecimal() ?: BigDecimal.ZERO
-            .movePointLeft(takerCoin.type.decimal)
-            .stripTrailingZeros()
+        val remainingTakerAmount = orderRecord.metaData?.remainingFillableTakerAssetAmount?.toBigDecimal()
+            ?.movePointLeft(takerCoin.type.decimal)
+            ?.stripTrailingZeros() ?: BigDecimal.ZERO
 
         val remainingMakerAmount = if (remainingTakerAmount > BigDecimal.ZERO) {
             makerAmount * remainingTakerAmount.normalizedDiv(takerAmount)
