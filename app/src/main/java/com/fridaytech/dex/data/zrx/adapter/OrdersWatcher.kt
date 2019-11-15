@@ -137,6 +137,6 @@ class OrdersWatcher(
     }
 
     fun stop() {
-        disposables.dispose()
+        disposables.clear()
     }
 }

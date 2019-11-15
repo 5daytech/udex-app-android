@@ -17,6 +17,7 @@ import com.fridaytech.dex.utils.rx.uiSubscribe
 import java.math.BigDecimal
 import java.math.RoundingMode
 
+//TODO: This class need to be refactored
 class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
 
     override var state: MarketOrderViewState =

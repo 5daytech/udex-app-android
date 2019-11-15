@@ -12,6 +12,7 @@ class ExchangeHistoryManager(
 ) : IExchangeHistoryManager {
 
     private val disposables = CompositeDisposable()
+    private val transactionsDisposables = CompositeDisposable()
 
     override val exchangeHistory: List<ExchangeRecord>
         get() = exchangeTransactions.values.toList().sortedByDescending { it.timestamp }
@@ -24,7 +25,10 @@ class ExchangeHistoryManager(
 
     init {
         adapterManager.adaptersUpdatedSignal
-            .subscribe { subscribeToAdapters() }
+            .subscribe {
+                transactionsDisposables.clear()
+                subscribeToAdapters()
+            }
             .let { disposables.add(it) }
     }
 
@@ -32,13 +36,13 @@ class ExchangeHistoryManager(
         adapterManager.adapters.forEach { adapter ->
             transactionsPool[adapter.coin.code] = ArrayList()
 
-            adapter.getTransactions(limit = 300).subscribe({
+            adapter.getTransactions(limit = 400).subscribe({
                 refreshTransactionsPool(adapter.coin.code, it)
-            }, { Logger.e(it) }).let { disposables.add(it) }
+            }, { Logger.e(it) }).let { transactionsDisposables.add(it) }
 
             adapter.transactionRecordsFlowable.subscribe({
                 refreshTransactionsPool(adapter.coin.code, it)
-            }, { Logger.e(it) }).let { disposables.add(it) }
+            }, { Logger.e(it) }).let { transactionsDisposables.add(it) }
         }
     }
 
