@@ -23,10 +23,13 @@ class RateChartViewFactory {
     fun createViewItem(chartType: ChartType, chartInfo: ChartInfo?, marketInfo: MarketInfo?): ChartViewItem? {
         val chartPoints = chartInfo?.points ?: listOf()
 
-        val minValue = chartPoints.minBy { it.value }?.value?.toDouble() ?: 0.0
+        val minValue = chartPoints
+            .filter { it.value > BigDecimal.ZERO }
+            .minBy { it.value }?.value?.toDouble() ?: 0.0
         val maxValue = chartPoints.maxBy { it.value }?.value?.toDouble() ?: 0.0
 
-        val startValue = chartPoints.firstOrNull()?.value?.toDouble() ?: 0.0
+        val startValue = chartPoints.firstOrNull { it.value > BigDecimal.ZERO }?.value?.toDouble() ?: 0.0
+
         val endValue = chartPoints.lastOrNull()?.value?.toDouble() ?: 0.0
 
         val diffValue = if (endValue > 0.0 && startValue > 0.0) {
