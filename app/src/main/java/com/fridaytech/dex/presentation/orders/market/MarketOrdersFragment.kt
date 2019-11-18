@@ -75,9 +75,15 @@ class MarketOrdersFragment : CoreFragment(R.layout.fragment_market_orders), Mark
 
         market_orders_sell.layoutManager = LinearLayoutManager(context)
         market_orders_sell.adapter = sellAdapter
+        market_orders_sell.setOnTouchListener { v, event ->
+            true
+        }
 
         market_orders_buy.layoutManager = LinearLayoutManager(context)
         market_orders_buy.adapter = buyAdapter
+        market_orders_buy.setOnTouchListener { v, event ->
+            true
+        }
     }
 
     //endregion
