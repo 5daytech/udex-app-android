@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/element_margin"
-        app:mt_title="@string/title_trade_history"/>
+        app:mt_title="@string/title_trade_history"
+        android:visibility="gone"/>
 
     <FrameLayout
         android:layout_width="match_parent"

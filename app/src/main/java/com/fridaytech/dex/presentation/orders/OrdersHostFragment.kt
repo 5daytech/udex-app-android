@@ -11,12 +11,11 @@ import androidx.viewpager.widget.ViewPager
 import com.fridaytech.dex.R
 import com.fridaytech.dex.core.ui.CoreFragment
 import com.fridaytech.dex.presentation.common.TransactionSentDialog
-import com.fridaytech.dex.presentation.exchangehistory.ExchangeHistoryActivity
+import com.fridaytech.dex.presentation.exchangehistory.ExchangeHistoryFragment
 import com.fridaytech.dex.presentation.main.IFocusListener
 import com.fridaytech.dex.presentation.orders.info.OrderInfoDialog
 import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.presentation.orders.model.FillOrderInfo
-import com.fridaytech.dex.presentation.widgets.MainToolbar
 import com.fridaytech.dex.utils.ui.ToastHelper
 import com.fridaytech.dex.utils.ui.ViewCollapseHelper
 import com.fridaytech.dex.utils.visible
@@ -91,13 +90,8 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
         orders_view_pager?.adapter = adapter
 
         orders_host_pair_picker?.init {
-            viewModel.onPickPair(it)
+//            viewModel.onPickPair(it)
         }
-
-        toolbar?.bind(rightActionButton = MainToolbar.ActionInfo(
-            R.drawable.ic_exchange_history,
-            R.string.title_trade_history
-        ) { activity?.let { ExchangeHistoryActivity.start(it) } })
 
         pickerCollapseHelper = ViewCollapseHelper(orders_host_pair_picker)
 
@@ -107,16 +101,12 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
             }
         })
 
-        orders_side_buy.setOnClickListener {
+        orders_my.setOnClickListener {
             orders_view_pager.currentItem = 0
         }
 
-        orders_side_sell.setOnClickListener {
+        orders_trade_history.setOnClickListener {
             orders_view_pager.currentItem = 1
-        }
-
-        orders_my.setOnClickListener {
-            orders_view_pager.currentItem = 2
         }
 
         refreshActionsAvailability()
@@ -124,34 +114,19 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
 
     private fun refreshActionsAvailability() {
         orders_my?.isEnabled = false
-        orders_side_buy?.isEnabled = false
-        orders_side_sell?.isEnabled = false
-
-        var pickerVisible = true
+        orders_trade_history?.isEnabled = false
 
         when (orders_view_pager?.currentItem) {
             0 -> {
-                orders_side_sell?.isEnabled = true
-                orders_my?.isEnabled = true
+                orders_my?.isEnabled = false
+                orders_trade_history?.isEnabled = true
+                toolbar.title = getString(R.string.title_orders)
             }
 
             1 -> {
-                orders_side_buy?.isEnabled = true
                 orders_my?.isEnabled = true
-            }
-
-            2 -> {
-                orders_side_buy?.isEnabled = true
-                orders_side_sell?.isEnabled = true
-                pickerVisible = false
-            }
-        }
-
-        if (orders_host_pair_picker.visible != pickerVisible) {
-            if (pickerVisible) {
-                pickerCollapseHelper.expand()
-            } else {
-                pickerCollapseHelper.collapse()
+                orders_trade_history?.isEnabled = false
+                toolbar.title = getString(R.string.title_trade_history)
             }
         }
     }
@@ -173,20 +148,12 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
     ) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment {
             return when (position) {
-                0 -> OrdersFragment.newInstance(EOrderSide.SELL)
-                1 -> OrdersFragment.newInstance(EOrderSide.BUY)
-                2 -> OrdersFragment.newInstance(EOrderSide.MY)
+                0 -> OrdersFragment.newInstance(EOrderSide.MY)
+                1 -> ExchangeHistoryFragment.newInstance()
                 else -> throw Exception("Orders host adapter fragment at position not exist $position")
             }
         }
 
-        override fun getCount(): Int = 3
-
-        override fun getPageTitle(position: Int): CharSequence? {
-            return when (position) {
-                2 -> "My Orders"
-                else -> ""
-            }
-        }
+        override fun getCount(): Int = 2
     }
 }

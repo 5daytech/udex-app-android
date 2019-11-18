@@ -1,4 +1,4 @@
-package com.fridaytech.dex.presentation.orders
+package com.fridaytech.dex.presentation.orders.widgets
 
 import android.content.Context
 import android.graphics.PorterDuff
@@ -46,7 +46,9 @@ class ExchangePairsDropDown :
 
     fun init(onItemPick: (position: Int) -> Unit) {
         val adapter =
-            OrdersPopupAdapter(listOf())
+            OrdersPopupAdapter(
+                listOf()
+            )
         init(adapter, onItemPick)
     }
 

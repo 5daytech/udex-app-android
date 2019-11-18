@@ -1,4 +1,4 @@
-package com.fridaytech.dex.presentation.orders
+package com.fridaytech.dex.presentation.orders.widgets
 
 import android.content.Context
 import android.util.AttributeSet

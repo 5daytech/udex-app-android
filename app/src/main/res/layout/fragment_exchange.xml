@@ -22,6 +22,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:paddingBottom="@dimen/element_margin"
+            android:visibility="gone"
             app:mt_title="Exchange"/>
 
         <com.fridaytech.dex.presentation.widgets.DividedTabLayout
@@ -33,6 +34,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginLeft="@dimen/page_margin"
             android:layout_marginRight="@dimen/page_margin"
+            android:layout_marginTop="@dimen/page_margin"
             app:tabSelectedTextColor="?attr/PrimaryTextColor"
             app:tabIndicator="@color/transparent"
             app:tabTextColor="?attr/SecondaryHintTextColor">

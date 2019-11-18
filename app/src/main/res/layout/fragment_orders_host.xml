@@ -22,7 +22,7 @@
         android:orientation="vertical"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <com.fridaytech.dex.presentation.orders.ExchangePairsView
+        <com.fridaytech.dex.presentation.orders.widgets.ExchangePairsView
             android:id="@+id/orders_host_pair_picker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +32,8 @@
             android:layout_gravity="center_horizontal"
             android:background="?attr/AccentBackground"
             android:paddingTop="@dimen/element_margin"
-            android:paddingBottom="@dimen/element_margin" />
+            android:paddingBottom="@dimen/element_margin"
+            android:visibility="gone"/>
 
         <TextView
             style="@style/SemiboldText"
@@ -46,6 +47,7 @@
             android:paddingTop="@dimen/medium_margin"
             android:paddingBottom="@dimen/medium_margin"
             android:textColor="?PrimaryTextColor"
+            android:visibility="gone"
             android:text="ZRX:"/>
 
         <TextView
@@ -65,6 +67,7 @@
             android:background="@drawable/selector_option_item"
             android:textColor="@drawable/selector_option_text"
             android:enabled="false"
+            android:visibility="gone"
             android:text="BUY"/>
 
         <TextView
@@ -84,6 +87,7 @@
             android:background="@drawable/selector_option_item"
             android:textColor="@drawable/selector_option_text"
             android:enabled="true"
+            android:visibility="gone"
             android:text="SELL"/>
 
         <TextView
@@ -92,13 +96,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/orders_selected_base_coin"
-            app:layout_constraintBottom_toBottomOf="@+id/orders_selected_base_coin"
-            app:layout_constraintStart_toEndOf="@+id/orders_side_sell"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/orders_trade_history"
             android:paddingStart="@dimen/big_margin"
             android:paddingEnd="@dimen/big_margin"
             android:paddingTop="@dimen/element_margin"
             android:paddingBottom="@dimen/element_margin"
+            android:layout_marginTop="@dimen/page_margin"
             android:background="@drawable/selector_option_item"
             android:textColor="@drawable/selector_option_text"
             android:enabled="true"
@@ -106,11 +111,31 @@
             android:textAllCaps="true"
             android:text="My Orders"/>
 
+        <TextView
+            style="@style/SemiboldText"
+            android:id="@+id/orders_trade_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/orders_my"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/page_margin"
+            android:paddingStart="@dimen/medium_margin"
+            android:paddingEnd="@dimen/medium_margin"
+            android:paddingTop="@dimen/element_margin"
+            android:paddingBottom="@dimen/element_margin"
+            android:background="@drawable/selector_option_item"
+            android:textColor="@drawable/selector_option_text"
+            android:enabled="true"
+            android:textSize="12sp"
+            android:textAllCaps="true"
+            android:text="Trade History"/>
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/orders_view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/orders_selected_base_coin"
+            app:layout_constraintTop_toBottomOf="@+id/orders_my"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

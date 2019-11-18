@@ -32,10 +32,10 @@ import com.fridaytech.dex.utils.ui.ToastHelper
 import com.fridaytech.dex.utils.ui.toDisplayFormat
 import com.fridaytech.dex.utils.visible
 import io.reactivex.disposables.CompositeDisposable
-import java.math.BigDecimal
 import kotlinx.android.synthetic.main.fragment_exchange.*
 import kotlinx.android.synthetic.main.view_limit_order.*
 import kotlinx.android.synthetic.main.view_market_order.*
+import java.math.BigDecimal
 
 class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAdapter.Listener,
     IFocusListener {
@@ -344,24 +344,24 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         MARKET,
         LIMIT
     }
-}
 
-class ExchangeAdapter : PagerAdapter() {
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val viewId = when (position) {
-            0 -> R.id.exchange_market_view
-            else -> R.id.exchange_limit_view
+    private class ExchangeAdapter : PagerAdapter() {
+        override fun instantiateItem(container: ViewGroup, position: Int): Any {
+            val viewId = when (position) {
+                0 -> R.id.exchange_market_view
+                else -> R.id.exchange_limit_view
+            }
+
+            return container.findViewById(viewId)
         }
 
-        return container.findViewById(viewId)
-    }
+        override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
 
-    override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
+        override fun getCount(): Int = 2
 
-    override fun getCount(): Int = 2
-
-    override fun getPageTitle(position: Int): CharSequence? = when (position) {
-        0 -> "Market buy"
-        else -> "Place order"
+        override fun getPageTitle(position: Int): CharSequence? = when (position) {
+            0 -> "Exchange"
+            else -> "Limit Order"
+        }
     }
 }

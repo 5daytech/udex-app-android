@@ -9,14 +9,13 @@
     android:gravity="center"
     android:paddingStart="@dimen/element_margin"
     android:paddingEnd="@dimen/element_margin"
-    android:paddingTop="@dimen/element_margin">
+    android:paddingTop="@dimen/medium_margin">
 
     <com.fridaytech.dex.presentation.widgets.CoinIconView
         android:id="@+id/item_coin_spinner_icon"
-        android:layout_width="@dimen/small_coin_size"
-        android:layout_height="@dimen/small_coin_size"
-        app:layout_constraintTop_toTopOf="@+id/item_coin_spinner_title"
-        app:layout_constraintBottom_toBottomOf="@+id/item_coin_spinner_balance"
+        android:layout_width="@dimen/coin_size"
+        android:layout_height="@dimen/coin_size"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:visibility="visible"/>
 
@@ -27,6 +26,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/item_coin_spinner_icon"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/item_coin_spinner_icon"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="@dimen/element_margin"
         android:textSize="14sp"
@@ -44,7 +44,7 @@
         android:layout_marginStart="@dimen/element_margin"
         android:maxLines="1"
         android:ellipsize="end"
-        android:visibility="visible"
+        android:visibility="gone"
         android:textColor="?attr/HintTextColor"
         android:textSize="13sp"
         android:text="0.0 ETH"/>
@@ -56,8 +56,8 @@
         android:layout_height="@dimen/divider_height"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_coin_spinner_balance"
+        app:layout_constraintTop_toBottomOf="@+id/item_coin_spinner_icon"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="@dimen/element_margin"/>
+        android:layout_marginTop="@dimen/medium_margin"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
