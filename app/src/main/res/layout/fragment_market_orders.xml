@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/coordinator"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible">
+
+    <com.fridaytech.dex.presentation.widgets.MainToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        app:elevation="0dp"
+        app:mt_title="@string/title_markets"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <com.fridaytech.dex.presentation.orders.widgets.ExchangePairsView
+            android:id="@+id/market_orders_pair_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_gravity="center_horizontal"
+            android:background="?attr/AccentBackground"
+            android:paddingTop="@dimen/small_margin"
+            android:paddingBottom="@dimen/element_margin" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@+id/market_orders_spread_hint"
+            app:layout_constraintBottom_toBottomOf="@+id/market_orders_spread_hint"
+            android:background="?DividerColor"/>
+        <TextView
+            style="@style/HintText"
+            android:id="@+id/market_orders_spread_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/market_orders_pair_picker"
+            app:layout_constraintEnd_toStartOf="@+id/market_orders_spread"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:paddingTop="@dimen/medium_margin"
+            android:paddingBottom="@dimen/medium_margin"
+            android:textSize="13sp"
+            android:text="Spread: "/>
+
+        <TextView
+            style="@style/RegularText"
+            android:id="@+id/market_orders_spread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/market_orders_spread_hint"
+            app:layout_constraintTop_toTopOf="@+id/market_orders_spread_hint"
+            app:layout_constraintBottom_toBottomOf="@+id/market_orders_spread_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="?PrimaryTextColor"
+            android:textSize="13.5sp"
+            android:text="10.05%"/>
+
+        <LinearLayout
+            android:id="@+id/market_orders_title_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/market_orders_spread_hint"
+            android:paddingStart="@dimen/page_margin"
+            android:paddingEnd="@dimen/page_margin"
+            android:paddingTop="@dimen/element_margin"
+            android:paddingBottom="@dimen/element_margin">
+            <TextView
+                style="@style/HintText"
+                android:id="@+id/market_orders_buy_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:paddingEnd="@dimen/page_margin"
+                android:text="Buy"/>
+
+            <TextView
+                style="@style/HintText"
+                android:id="@+id/market_orders_sell_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/page_margin"
+                android:layout_weight="1.0"
+                android:text="Sell"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/market_orders_title_container"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/market_orders_buy"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/market_orders_sell"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"/>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -29,20 +29,22 @@ class ExchangeHistoryFragment : CoreFragment(R.layout.activity_exchange_history)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this)
-            .get(ExchangeHistoryViewModel::class.java)
+        activity?.let { activity ->
+            viewModel = ViewModelProviders.of(activity)
+                .get(ExchangeHistoryViewModel::class.java)
 
-        viewModel.trades.observe(this, Observer {
-            adapter.setTrades(it)
-        })
+            viewModel.trades.observe(this, Observer {
+                adapter.setTrades(it)
+            })
 
-        viewModel.emptyTradesVisible.observe(this, Observer {
-            empty_view?.visible = it
-        })
+            viewModel.emptyTradesVisible.observe(this, Observer {
+                empty_view?.visible = it
+            })
 
-        viewModel.openTransactionInfoEvent.observe(this, Observer {
-            activity?.openTransactionUrl(it)
-        })
+            viewModel.openTransactionInfoEvent.observe(this, Observer {
+                activity?.openTransactionUrl(it)
+            })
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

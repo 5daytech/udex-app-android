@@ -13,9 +13,11 @@ import com.fridaytech.dex.presentation.orders.model.*
 import com.fridaytech.dex.presentation.orders.model.EOrderSide.*
 import com.fridaytech.dex.utils.Logger
 import com.fridaytech.dex.utils.isValidIndex
+import com.fridaytech.dex.utils.normalizedDiv
 import com.fridaytech.dex.utils.rx.uiSubscribe
 import io.reactivex.disposables.Disposable
 import java.math.BigDecimal
+import kotlin.math.absoluteValue
 
 class OrdersViewModel : CoreViewModel() {
     private val coinManager = App.coinManager
@@ -41,12 +43,16 @@ class OrdersViewModel : CoreViewModel() {
             }
         }
 
+    private var mBuyOrders = listOf<SimpleOrder>()
+    private var mSellOrders = listOf<SimpleOrder>()
+
     val availablePairs = MutableLiveData<List<ExchangePairViewItem>>()
     val selectedPairPosition = MutableLiveData<Int>()
     val buyOrders: MutableLiveData<List<SimpleOrder>> = MutableLiveData()
     val sellOrders: MutableLiveData<List<SimpleOrder>> = MutableLiveData()
     val myOrders: MutableLiveData<List<SimpleOrder>> = MutableLiveData()
     val exchangeCoinSymbol = MutableLiveData<String>()
+    val spreadPercent = MutableLiveData<Double>()
 
     val orderInfoEvent = MutableLiveData<OrderInfoConfig>()
     val fillOrderEvent = MutableLiveData<FillOrderInfo>()
@@ -71,6 +77,8 @@ class OrdersViewModel : CoreViewModel() {
         coinManager.coinsUpdatedSubject
             .subscribe { observeMarketsChange() }
             .let { disposables.add(it) }
+
+        spreadPercent.value = 0.0
     }
 
     //region Private
@@ -90,10 +98,14 @@ class OrdersViewModel : CoreViewModel() {
 
         zrxOrdersWatcher?.buyOrdersSubject?.subscribe({ orders ->
             buyOrders.postValue(orders)
+            mBuyOrders = orders
+            updateSpread()
         }, { Logger.e(it) })?.let { disposables.add(it) }
 
         zrxOrdersWatcher?.sellOrdersSubject?.subscribe({ orders ->
             sellOrders.postValue(orders)
+            mSellOrders = orders
+            updateSpread()
         }, { Logger.e(it) })?.let { disposables.add(it) }
 
         zrxOrdersWatcher?.myOrdersSubject?.subscribe({ orders ->
@@ -110,6 +122,20 @@ class OrdersViewModel : CoreViewModel() {
 
         selectedPairPosition.postValue(0)
         refreshOrders()
+    }
+
+    private fun updateSpread() {
+        val buyOrder = mBuyOrders.firstOrNull()
+        val buyPrice = buyOrder?.makerAmount?.normalizedDiv(buyOrder.takerAmount)?.toDouble()
+
+        val sellPrice = mSellOrders.firstOrNull()?.price?.toDouble()
+
+        if (buyPrice != null && sellPrice != null) {
+            val diffPercent = 100 * (buyPrice - sellPrice).absoluteValue / ((buyPrice + sellPrice) / 2)
+            spreadPercent.postValue(diffPercent)
+        } else {
+            spreadPercent.postValue(0.0)
+        }
     }
 
     private fun onPairsRefresh() {
@@ -139,9 +165,13 @@ class OrdersViewModel : CoreViewModel() {
 
     private fun refreshOrders() {
         if (zrxOrdersWatcher != null) {
+            mBuyOrders = zrxOrdersWatcher?.simpleBuyOrders ?: listOf()
+            mSellOrders = zrxOrdersWatcher?.simpleSellOrders ?: listOf()
+
             buyOrders.postValue(zrxOrdersWatcher?.simpleBuyOrders)
             sellOrders.postValue(zrxOrdersWatcher?.simpleSellOrders)
             myOrders.postValue(zrxOrdersWatcher?.simpleMyOrders)
+            updateSpread()
         }
     }
 

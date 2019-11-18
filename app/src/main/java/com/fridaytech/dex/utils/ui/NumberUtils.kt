@@ -13,10 +13,9 @@ fun BigDecimal.toMediumDisplayFormat(): String = NumberUtils.mediumDf.format(thi
 fun BigDecimal.toPriceFormat(): String =
     NumberUtils.formatCoinPrice(this)
 fun BigDecimal.toPercentFormat(): String = NumberUtils.fiatFormat.format(this)
-fun Double.toFiatDisplayFormat(): String =
-    NumberUtils.formatDoubleFiat(this)
-fun BigDecimal.toFiatDisplayFormat(): String =
-    NumberUtils.formatBigDecimalFiat(this)
+fun Double.toPercentFormat(): String = NumberUtils.fiatFormat.format(this)
+fun Double.toFiatDisplayFormat(): String = NumberUtils.formatDoubleFiat(this)
+fun BigDecimal.toFiatDisplayFormat(): String = NumberUtils.formatBigDecimalFiat(this)
 
 object NumberUtils {
     fun withSuffix(count: Double): String {
