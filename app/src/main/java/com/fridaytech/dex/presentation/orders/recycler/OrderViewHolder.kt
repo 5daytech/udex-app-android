@@ -3,8 +3,8 @@ package com.fridaytech.dex.presentation.orders.recycler
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.fridaytech.dex.R
-import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.data.zrx.model.SimpleOrder
+import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.utils.ui.getAttr
 import com.fridaytech.dex.utils.ui.toDisplayFormat
 import com.fridaytech.dex.utils.ui.toFiatDisplayFormat

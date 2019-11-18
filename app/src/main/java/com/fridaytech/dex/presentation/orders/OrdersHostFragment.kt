@@ -27,7 +27,7 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
     private var adapter: OrdersHostAdapter? = null
     private lateinit var viewModel: OrdersViewModel
 
-    private lateinit var pickerCollapseHelper : ViewCollapseHelper
+    private lateinit var pickerCollapseHelper: ViewCollapseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

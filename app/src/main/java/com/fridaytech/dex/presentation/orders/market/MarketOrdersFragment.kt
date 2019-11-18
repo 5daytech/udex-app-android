@@ -88,7 +88,6 @@ class MarketOrdersFragment : CoreFragment(R.layout.fragment_market_orders), Mark
     //region ViewHolder
 
     override fun onClick(position: Int) {
-
     }
 
     //endregion

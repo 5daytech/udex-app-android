@@ -19,8 +19,8 @@ import com.fridaytech.dex.utils.ui.toLongDisplayFormat
 import com.fridaytech.dex.utils.ui.toPriceFormat
 import com.fridaytech.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.view_limit_order.view.*
 import java.math.BigDecimal
+import kotlinx.android.synthetic.main.view_limit_order.view.*
 
 class LimitOrderView : CardView {
     init { View.inflate(context, R.layout.view_limit_order, this) }

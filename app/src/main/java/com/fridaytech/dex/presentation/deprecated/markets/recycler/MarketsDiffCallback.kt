@@ -1,7 +1,7 @@
-package com.fridaytech.dex.presentation.markets.recycler
+package com.fridaytech.dex.presentation.deprecated.markets.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.fridaytech.dex.presentation.markets.MarketViewItem
+import com.fridaytech.dex.presentation.deprecated.markets.MarketViewItem
 
 class MarketsDiffCallback(
     private val oldMarkets: List<MarketViewItem>,

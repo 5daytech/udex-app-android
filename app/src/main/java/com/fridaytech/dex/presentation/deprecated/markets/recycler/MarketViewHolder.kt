@@ -1,9 +1,9 @@
-package com.fridaytech.dex.presentation.markets.recycler
+package com.fridaytech.dex.presentation.deprecated.markets.recycler
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.fridaytech.dex.R
-import com.fridaytech.dex.presentation.markets.MarketViewItem
+import com.fridaytech.dex.presentation.deprecated.markets.MarketViewItem
 import com.fridaytech.dex.utils.bindChangePercent
 import com.fridaytech.dex.utils.ui.NumberUtils
 import com.fridaytech.dex.utils.ui.toFiatDisplayFormat

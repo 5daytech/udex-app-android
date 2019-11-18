@@ -1,4 +1,4 @@
-package com.fridaytech.dex.presentation.markets
+package com.fridaytech.dex.presentation.deprecated.markets
 
 import androidx.lifecycle.MutableLiveData
 import com.fridaytech.dex.App

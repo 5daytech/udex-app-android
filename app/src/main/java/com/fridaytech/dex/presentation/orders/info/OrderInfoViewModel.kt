@@ -7,9 +7,9 @@ import com.fridaytech.dex.core.ui.CoreViewModel
 import com.fridaytech.dex.core.ui.SingleLiveEvent
 import com.fridaytech.dex.data.manager.duration.ETransactionType
 import com.fridaytech.dex.data.zrx.IRelayerAdapter
+import com.fridaytech.dex.data.zrx.model.SimpleOrder
 import com.fridaytech.dex.presentation.orders.model.CancelOrderInfo
 import com.fridaytech.dex.presentation.orders.model.OrderInfoConfig
-import com.fridaytech.dex.data.zrx.model.SimpleOrder
 import com.fridaytech.dex.utils.rx.uiSubscribe
 import java.math.BigDecimal
 

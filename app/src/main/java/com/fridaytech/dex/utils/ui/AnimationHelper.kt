@@ -8,7 +8,6 @@ import android.view.animation.Transformation
 import com.fridaytech.dex.utils.listeners.SimpleAnimationListener
 import com.fridaytech.dex.utils.visible
 
-
 object AnimationHelper {
 
     const val VERY_FAST_ANIMATION = 150L

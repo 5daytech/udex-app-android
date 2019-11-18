@@ -1,4 +1,4 @@
-package com.fridaytech.dex.presentation.markets
+package com.fridaytech.dex.presentation.deprecated.markets
 
 import android.os.Bundle
 import android.view.View
@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fridaytech.dex.R
 import com.fridaytech.dex.core.ui.CoreFragment
 import com.fridaytech.dex.presentation.main.IFocusListener
-import com.fridaytech.dex.presentation.markets.recycler.MarketViewHolder
-import com.fridaytech.dex.presentation.markets.recycler.MarketsAdapter
+import com.fridaytech.dex.presentation.deprecated.markets.recycler.MarketViewHolder
+import com.fridaytech.dex.presentation.deprecated.markets.recycler.MarketsAdapter
 import com.fridaytech.dex.presentation.statschart.ChartInfoDialog
 import com.fridaytech.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_markets.*

@@ -89,7 +89,7 @@ class BaseRelayerAdapter(
     private fun refreshOrders() {
         relayerManager.getOrders(relayerId, ethereumKit.receiveAddress)
             .ioSubscribe(disposables, {
-                this.myOrders = it.records.map { it}.sortedByDescending { it.order.salt }
+                this.myOrders = it.records.map { it }.sortedByDescending { it.order.salt }
                 myOrdersSyncSubject.onNext(Unit)
 
                 exchangeInteractor.ordersInfo(myOrders.map { it.order })
@@ -195,8 +195,6 @@ class BaseRelayerAdapter(
         Logger.e(e)
         FillResult.empty()
     }
-
-
 
     //endregion
 
