@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:background="@color/transparent"
         app:elevation="0dp"
-        app:mt_title="@string/title_orders"/>
+        app:mt_title="@string/title_orders"
+        android:visibility="gone"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
@@ -95,10 +96,9 @@
             android:id="@+id/orders_my"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/orders_trade_history"
+            android:layout_marginStart="@dimen/page_margin"
             android:paddingStart="@dimen/big_margin"
             android:paddingEnd="@dimen/big_margin"
             android:paddingTop="@dimen/element_margin"
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@+id/orders_my"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/page_margin"
             android:layout_marginTop="@dimen/page_margin"
             android:paddingStart="@dimen/medium_margin"
             android:paddingEnd="@dimen/medium_margin"
@@ -139,7 +139,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="@dimen/element_margin" />
+            android:layout_marginTop="@dimen/page_margin" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

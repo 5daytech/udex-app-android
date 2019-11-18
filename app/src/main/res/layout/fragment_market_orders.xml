@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<LinearLayout
+    android:orientation="vertical"
     android:id="@+id/coordinator"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,6 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@color/transparent"
         app:elevation="0dp"
+        app:layout_scrollFlags=""
         app:mt_title="@string/title_markets"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -105,14 +107,16 @@
                 android:id="@+id/market_orders_buy"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.0"/>
+                android:layout_weight="1.0"
+                android:overScrollMode="never"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/market_orders_sell"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.0"/>
+                android:layout_weight="1.0"
+                android:overScrollMode="never"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
