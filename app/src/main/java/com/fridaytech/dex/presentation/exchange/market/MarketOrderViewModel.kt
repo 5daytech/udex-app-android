@@ -153,7 +153,7 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
                     ?.uiSubscribe(disposables, {
                         processingDismissEvent.call()
                         initState(state.sendCoin, state.receiveCoin)
-                        successEvent.postValue(it)
+                        transactionsSentEvent.postValue(it)
                     }, {
                         Logger.e(it)
                         processingDismissEvent.call()

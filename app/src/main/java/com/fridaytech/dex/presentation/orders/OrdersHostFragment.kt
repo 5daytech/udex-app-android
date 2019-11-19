@@ -62,7 +62,7 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
             })
 
             viewModel.messageEvent.observe(this, Observer {
-                ToastHelper.showSuccessMessage(it)
+                ToastHelper.showInfoMessage(it)
             })
 
             viewModel.errorEvent.observe(this, Observer {

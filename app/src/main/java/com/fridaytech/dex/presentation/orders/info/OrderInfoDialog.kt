@@ -32,14 +32,14 @@ class OrderInfoDialog : BaseBottomDialog(R.layout.dialog_order_info) {
             ToastHelper.showErrorMessage(it)
         })
 
-        viewModel.successEvent.observe(this, Observer { hash ->
+        viewModel.transactionSentEvent.observe(this, Observer { hash ->
             fragmentManager?.let {
                 TransactionSentDialog.show(it, hash)
             }
         })
 
         viewModel.messageEvent.observe(this, Observer {
-            ToastHelper.showSuccessMessage(it)
+            ToastHelper.showInfoMessage(it)
         })
 
         viewModel.orderInfo.observe(this, Observer { order ->

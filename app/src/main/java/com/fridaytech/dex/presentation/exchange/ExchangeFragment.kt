@@ -77,6 +77,10 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         ToastHelper.showSuccessMessage(it)
     }
 
+    private val messageObserver = Observer<Int> {
+        ToastHelper.showInfoMessage(it)
+    }
+
     private val transactionSentObserver = Observer<String> {
         TransactionSentDialog.show(childFragmentManager, it)
     }
@@ -209,7 +213,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         })
 
         marketOrderViewModel.exchangePrice.observe(this, exchangePriceObserver)
-        marketOrderViewModel.successEvent.observe(this, transactionSentObserver)
+        marketOrderViewModel.transactionsSentEvent.observe(this, transactionSentObserver)
         marketOrderViewModel.errorEvent.observe(this, errorObserver)
         marketOrderViewModel.exchangeEnabled.observe(this, exchangeEnableObserver)
         marketOrderViewModel.confirmEvent.observe(this, confirmObserver)
@@ -255,10 +259,11 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         })
 
         limitOrderViewModel.exchangePrice.observe(this, exchangePriceObserver)
-        limitOrderViewModel.successEvent.observe(this, transactionSentObserver)
+        limitOrderViewModel.transactionsSentEvent.observe(this, transactionSentObserver)
         limitOrderViewModel.exchangeEnabled.observe(this, exchangeEnableObserver)
         limitOrderViewModel.confirmEvent.observe(this, confirmObserver)
-        limitOrderViewModel.messageEvent.observe(this, successObserver)
+        limitOrderViewModel.messageEvent.observe(this, messageObserver)
+        limitOrderViewModel.successEvent.observe(this, successObserver)
         limitOrderViewModel.errorEvent.observe(this, errorObserver)
         limitOrderViewModel.showProcessingEvent.observe(this, processingObserver)
         limitOrderViewModel.processingDismissEvent.observe(this, processingDismissObserver)

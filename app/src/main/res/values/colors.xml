@@ -56,6 +56,7 @@
     <color name="black">#000</color>
     <color name="transparent_black">#50000000</color>
     <color name="green">#2ECC71</color>
+    <color name="dark_green">#00AD49</color>
     <color name="transparent_green">#502ECC71</color>
     <color name="red">#E83958</color>
     <color name="red_warning">#ff5e3a</color>

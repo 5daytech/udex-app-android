@@ -35,7 +35,7 @@ class TransactionsFragment : CoreFragment(R.layout.fragment_transactions),
         viewModel.init(coinCode)
 
         viewModel.errorEvent.observe(this, Observer { ToastHelper.showErrorMessage(it) })
-        viewModel.messageEvent.observe(this, Observer { ToastHelper.showSuccessMessage(it) })
+        viewModel.messageEvent.observe(this, Observer { ToastHelper.showInfoMessage(it) })
         viewModel.finishEvent.observe(this, Observer { activity?.finish() })
 
         viewModel.transactions.observe(this, Observer {

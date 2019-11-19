@@ -12,7 +12,6 @@ class RestoreWalletViewModel : CoreViewModel() {
     private val authManager = App.authManager
     private val wordsManager = App.wordsManager
 
-    val successEvent = SingleLiveEvent<Int>()
     val navigateToMain = SingleLiveEvent<Unit>()
 
     fun onRestoreClick(words: List<String>) {

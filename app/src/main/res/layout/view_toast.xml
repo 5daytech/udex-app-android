@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RegularText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        style="@style/RegularText"
+        android:id="@+id/toast_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Item"
+        android:textColor="@color/white"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="@dimen/page_margin"
+        android:paddingBottom="@dimen/page_margin"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:textSize="14sp"
+        android:lines="1"
+        android:maxLines="1"
+        android:textAllCaps="false"
+        android:focusableInTouchMode="false"
+        android:background="@drawable/bg_corner_8dp"
+        android:backgroundTint="@color/blue"
+        android:focusable="false" />
+
+</FrameLayout>

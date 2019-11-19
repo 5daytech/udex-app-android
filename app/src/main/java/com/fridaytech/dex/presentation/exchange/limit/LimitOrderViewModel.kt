@@ -122,11 +122,11 @@ class LimitOrderViewModel : BaseExchangeViewModel<LimitOrderViewState>() {
                         Logger.e(it)
                     }, {
                         processingDismissEvent.call()
-                        messageEvent.postValue(R.string.message_order_created)
+                        successEvent.postValue(R.string.message_order_created)
                         initState(state.sendCoin, state.receiveCoin)
                     })
             } else {
-                messageEvent.postValue(R.string.message_invalid_amount)
+                errorEvent.postValue(R.string.message_invalid_amount)
             }
         }
     }

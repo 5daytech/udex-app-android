@@ -242,7 +242,7 @@
     </style>
 
     <style name="ButtonSmallGrey" parent="BoldText">
-        <item name="android:background">@drawable/bg_grey</item>
+        <item name="android:background">@drawable/bg_grey_6dp</item>
         <item name="android:textColor">?attr/PrimaryTextColor</item>
         <item name="android:letterSpacing">0</item>
         <item name="android:minHeight">0dp</item>

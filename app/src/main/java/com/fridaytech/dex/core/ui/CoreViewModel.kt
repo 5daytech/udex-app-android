@@ -7,6 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 abstract class CoreViewModel : ViewModel() {
     protected val disposables = CompositeDisposable()
 
+    val successEvent = SingleLiveEvent<Int>()
     val errorEvent = SingleLiveEvent<Int>()
     val messageEvent = SingleLiveEvent<Int>()
 
