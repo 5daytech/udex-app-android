@@ -108,7 +108,7 @@
         <item name="PrimaryTextColor">@color/white</item>
         <item name="PrimaryLightColor">@color/white</item>
         <item name="HintTextColor">@color/gold_hint</item>
-        <item name="SecondaryHintTextColor">@color/gold_hint</item>
+        <item name="SecondaryHintTextColor">@color/gold_secondary_hint</item>
         <item name="ActionButtonBackground">@color/black</item>
         <item name="MainBackground">@color/black</item>
         <item name="MainDarkBackground">@color/black</item>

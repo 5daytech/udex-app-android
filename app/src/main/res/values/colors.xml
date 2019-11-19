@@ -14,6 +14,8 @@
     <color name="gold_accent_transparent">#500F1115</color>
     <color name="gold_divider">#1F2025</color>
     <color name="gold_empty_circle">#353744</color>
+    <color name="gold_hint">#91949D</color>
+    <color name="gold_secondary_hint">#595C66</color>
 
     <color name="dark_main">#1E1E24</color>
     <color name="dark_main_dark">#1B1B20</color>
@@ -21,6 +23,8 @@
     <color name="dark_accent_transparent">#5021222C</color>
     <color name="dark_divider">#353744</color>
     <color name="dark_empty_circle">#353744</color>
+    <color name="dark_hint">#6B7388</color>
+    <color name="dark_secondary_hint">#4B4E56</color>
 
     <color name="light_main">#FBFBFB</color>
     <color name="light_main_dark">#F6F6F6</color>
@@ -28,6 +32,8 @@
     <color name="light_accent_transparent">#50FFFFFF</color>
     <color name="light_divider">#EBECED</color>
     <color name="light_empty_circle">#eeeeee</color>
+    <color name="light_hint">#90939B</color>
+    <color name="light_secondary_hint">#B9BCC2</color>
 
     <!--Text-->
     <color name="light_text">#FFF</color>
@@ -35,14 +41,6 @@
 
     <color name="dark_text">#1E1E24</color>
     <color name="main_dark_text">#1E1E24</color>
-
-    <color name="light_hint">#7F8CAD</color>
-    <color name="light_secondary_hint">#4B4E56</color>
-
-    <color name="dark_hint">#B9BBC1</color>
-    <color name="dark_secondary_hint">#B7BAC0</color>
-
-    <color name="gold_hint">#91949D</color>
 
     <color name="action_button_dark">#282931</color>
     <color name="light_action_button">#eeeeee</color>
