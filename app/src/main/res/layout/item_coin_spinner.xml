@@ -17,6 +17,7 @@
         android:layout_height="@dimen/coin_size"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/item_coin_spinner_balance"
         android:visibility="visible"/>
 
     <TextView
@@ -26,7 +27,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/item_coin_spinner_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/item_coin_spinner_icon"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="@dimen/element_margin"
         android:textSize="14sp"
@@ -42,9 +42,8 @@
         app:layout_constraintStart_toEndOf="@+id/item_coin_spinner_icon"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/element_margin"
-        android:maxLines="1"
+        android:maxLines="2"
         android:ellipsize="end"
-        android:visibility="gone"
         android:textColor="?attr/HintTextColor"
         android:textSize="13sp"
         android:text="0.0 ETH"/>
@@ -56,7 +55,7 @@
         android:layout_height="@dimen/divider_height"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_coin_spinner_icon"
+        app:layout_constraintTop_toBottomOf="@+id/item_coin_spinner_balance"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="@dimen/medium_margin"/>
 

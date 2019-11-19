@@ -31,7 +31,7 @@ class CoinDropDown :
         selectedView?.findViewById<CoinIconView>(R.id.item_coin_spinner_icon)?.bind(item.code)
         selectedView?.findViewById<TextView>(R.id.item_coin_spinner_title)?.text = item.code
         selectedView?.findViewById<TextView>(R.id.item_coin_spinner_balance)?.text =
-                    "${item.balance?.toDisplayFormat()} ${item.code}"
+                    "Balance:\n${item.balance?.toDisplayFormat()}"
         selectedView?.setBackgroundResource(R.color.transparent)
     }
 
@@ -102,7 +102,7 @@ class CoinDropDown :
             override fun onBind(data: ExchangeCoinItem) {
                 coinIcon.bind(data.code)
                 title.text = data.code
-                balance.text = "${data.balance?.toDisplayFormat()} ${data.code}"
+                balance.text = "Balance:\n${data.balance.toDisplayFormat()}"
             }
         }
     }

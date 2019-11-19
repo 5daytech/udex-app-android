@@ -10,8 +10,7 @@ fun BigDecimal.toLongDisplayFormat(): String = NumberUtils.longDf.format(this)
 fun Double.toDisplayFormat(): String = NumberUtils.df.format(this)
 fun BigDecimal.toMediumDisplayFormat(): String = NumberUtils.mediumDf.format(this)
 
-fun BigDecimal.toPriceFormat(): String =
-    NumberUtils.formatCoinPrice(this)
+fun BigDecimal.toPriceFormat(): String = NumberUtils.formatCoinPrice(this)
 fun BigDecimal.toPercentFormat(): String = NumberUtils.fiatFormat.format(this)
 fun Double.toPercentFormat(): String = NumberUtils.fiatFormat.format(this)
 fun Double.toFiatDisplayFormat(): String = NumberUtils.formatDoubleFiat(this)
