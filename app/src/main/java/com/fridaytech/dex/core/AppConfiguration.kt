@@ -58,6 +58,10 @@ class AppConfiguration(
         Coin("0x", "ZRX", CoinType.Erc20("0xE41d2489571d322189246DaFA5ebDe1F4699F498", 18)),
         Coin("Dai", "DAI", CoinType.Erc20("0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359", 18)),
         Coin("USD Coin", "USDC", CoinType.Erc20("0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", 6)),
+        Coin("ChainLink", "LINK", CoinType.Erc20("0x514910771af9ca656af840dff83e8264ecf986ca", 18)),
+        Coin("OmiseGO", "OMG", CoinType.Erc20("0xd26114cd6EE289AccF82350c8d8487fedB8A0C07", 18)),
+        Coin("Maker", "MKR", CoinType.Erc20("0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2", 18)),
+        Coin("FOAM Token", "FOAM", CoinType.Erc20("0x4946fcea7c692606e8908002e55a582af44ac121", 18)),
         Coin("Livepeer Token", "LPT", CoinType.Erc20("0x58b6a8a3302369daec383334672404ee733ab239", 18)),
         Coin("Basic Attention Token", "BAT", CoinType.Erc20("0x0D8775F648430679A709E98d2b0Cb6250d2887EF", 18))
     )
@@ -70,10 +74,14 @@ class AppConfiguration(
 
     private val exchangePairs = listOf(
         getExchangePair("ZRX", "WETH"),
-        getExchangePair("DAI", "WETH"),
-        getExchangePair("USDC", "WETH"),
         getExchangePair("BAT", "WETH"),
         getExchangePair("LPT", "WETH"),
+        getExchangePair("LINK", "WETH"),
+        getExchangePair("FOAM", "WETH"),
+        getExchangePair("MKR", "WETH"),
+        getExchangePair("OMG", "WETH"),
+        getExchangePair("DAI", "WETH"),
+        getExchangePair("USDC", "WETH"),
         getExchangePair("USDC", "DAI")
     )
 
