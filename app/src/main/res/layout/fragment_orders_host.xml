@@ -92,13 +92,14 @@
             android:text="SELL"/>
 
         <TextView
-            style="@style/SemiboldText"
+            style="@style/RegularText"
             android:id="@+id/orders_my"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="@dimen/page_margin"
+            app:layout_constraintEnd_toStartOf="@+id/orders_trade_history"
+            app:layout_constraintHorizontal_chainStyle="packed"
             android:paddingStart="@dimen/big_margin"
             android:paddingEnd="@dimen/big_margin"
             android:paddingTop="@dimen/element_margin"
@@ -107,17 +108,17 @@
             android:background="@drawable/selector_option_item"
             android:textColor="@drawable/selector_option_text"
             android:enabled="true"
-            android:textSize="12sp"
-            android:textAllCaps="true"
+            android:textSize="14sp"
             android:text="My Orders"/>
 
         <TextView
-            style="@style/SemiboldText"
+            style="@style/RegularText"
             android:id="@+id/orders_trade_history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@+id/orders_my"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="@dimen/page_margin"
             android:layout_marginTop="@dimen/page_margin"
             android:paddingStart="@dimen/medium_margin"
@@ -127,8 +128,7 @@
             android:background="@drawable/selector_option_item"
             android:textColor="@drawable/selector_option_text"
             android:enabled="true"
-            android:textSize="12sp"
-            android:textAllCaps="true"
+            android:textSize="14sp"
             android:text="Trade History"/>
 
         <androidx.viewpager.widget.ViewPager

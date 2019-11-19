@@ -360,7 +360,7 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         override fun getCount(): Int = 2
 
         override fun getPageTitle(position: Int): CharSequence? = when (position) {
-            0 -> "Exchange"
+            0 -> "Market"
             else -> "Limit Order"
         }
     }

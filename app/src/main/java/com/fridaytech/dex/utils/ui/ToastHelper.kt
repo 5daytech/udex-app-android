@@ -22,7 +22,7 @@ object ToastHelper {
     }
 
     fun showSuccessMessage(text: Int, durationInMillis: Long = 2000) {
-        showMessage(text, R.color.dark_yellow, durationInMillis)
+        showMessage(text, R.color.green, durationInMillis)
     }
 
     fun showErrorMessage(text: Int) {
@@ -37,7 +37,7 @@ object ToastHelper {
         val toastText = toast.view.findViewById(android.R.id.message) as TextView
         toastText.setTextColor(ContextCompat.getColor(toast.view.context, R.color.white))
         toast.view.background.setColorFilter(ContextCompat.getColor(toast.view.context, backgroundColor), PorterDuff.Mode.SRC_IN)
-        toast.setGravity(Gravity.TOP, 0, 120)
+        toast.setGravity(Gravity.FILL_HORIZONTAL or Gravity.TOP, 0, 120)
         toast.show()
 
         Handler().postDelayed({ toast.cancel() }, durationInMillis)
@@ -51,7 +51,7 @@ object ToastHelper {
         val toastText = toast.view.findViewById(android.R.id.message) as TextView
         toastText.setTextColor(ContextCompat.getColor(toast.view.context, R.color.white))
         toast.view.background.setColorFilter(ContextCompat.getColor(toast.view.context, backgroundColor), PorterDuff.Mode.SRC_IN)
-        toast.setGravity(Gravity.TOP, 0, 120)
+        toast.setGravity(Gravity.FILL_HORIZONTAL or Gravity.TOP, 0, 120)
         toast.show()
 
         Handler().postDelayed({ toast.cancel() }, durationInMillis)
