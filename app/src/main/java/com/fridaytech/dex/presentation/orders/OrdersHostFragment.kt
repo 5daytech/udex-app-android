@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.viewpager.widget.ViewPager
 import com.fridaytech.dex.R
 import com.fridaytech.dex.core.ui.CoreFragment
 import com.fridaytech.dex.presentation.common.TransactionSentDialog
@@ -17,7 +16,6 @@ import com.fridaytech.dex.presentation.orders.info.OrderInfoDialog
 import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.presentation.orders.model.FillOrderInfo
 import com.fridaytech.dex.utils.ui.ToastHelper
-import com.fridaytech.dex.utils.ui.ViewCollapseHelper
 import com.fridaytech.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_orders_host.*
 
@@ -26,8 +24,6 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
 
     private var adapter: OrdersHostAdapter? = null
     private lateinit var viewModel: OrdersViewModel
-
-    private lateinit var pickerCollapseHelper: ViewCollapseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,24 +37,12 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
         activity?.let {
             viewModel = ViewModelProviders.of(it).get(OrdersViewModel::class.java)
 
-            viewModel.availablePairs.observe(this, Observer { availablePairs ->
-                orders_host_pair_picker?.refreshPairs(availablePairs)
-            })
-
-            viewModel.selectedPairPosition.observe(this, Observer { selectedPair ->
-                orders_host_pair_picker?.selectedPair = selectedPair
-            })
-
             viewModel.orderInfoEvent.observe(this, Observer {
                 OrderInfoDialog.show(childFragmentManager, it)
             })
 
             viewModel.fillOrderEvent.observe(this, Observer { fillInfo ->
                 (context as? OrderFillListener)?.requestFill(fillInfo)
-            })
-
-            viewModel.exchangeCoinSymbol.observe(this, Observer { coinCode ->
-                orders_selected_base_coin?.text = "$coinCode:"
             })
 
             viewModel.messageEvent.observe(this, Observer {
@@ -71,10 +55,7 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
 
             viewModel.cancelAllConfirmEvent.observe(this, Observer { cancelInfo ->
                 fragmentManager?.let {
-                    CancelOrderConfirmDialog.show(
-                        it,
-                        cancelInfo
-                    )
+                    CancelOrderConfirmDialog.show(it, cancelInfo)
                 }
             })
 
@@ -88,47 +69,7 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
         super.onViewCreated(view, savedInstanceState)
 
         orders_view_pager?.adapter = adapter
-
-        orders_host_pair_picker?.init {
-//            viewModel.onPickPair(it)
-        }
-
-        pickerCollapseHelper = ViewCollapseHelper(orders_host_pair_picker)
-
-        orders_view_pager?.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
-            override fun onPageSelected(position: Int) {
-                refreshActionsAvailability()
-            }
-        })
-
-        orders_my.setOnClickListener {
-            orders_view_pager.currentItem = 0
-        }
-
-        orders_trade_history.setOnClickListener {
-            orders_view_pager.currentItem = 1
-        }
-
-        refreshActionsAvailability()
-    }
-
-    private fun refreshActionsAvailability() {
-        orders_my?.isEnabled = false
-        orders_trade_history?.isEnabled = false
-
-        when (orders_view_pager?.currentItem) {
-            0 -> {
-                orders_my?.isEnabled = false
-                orders_trade_history?.isEnabled = true
-                toolbar.title = getString(R.string.title_orders)
-            }
-
-            1 -> {
-                orders_my?.isEnabled = true
-                orders_trade_history?.isEnabled = false
-                toolbar.title = getString(R.string.title_trade_history)
-            }
-        }
+        orders_tab_layout.setupWithViewPager(orders_view_pager)
     }
 
     override fun onFocused() {
@@ -155,5 +96,10 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
         }
 
         override fun getCount(): Int = 2
+
+        override fun getPageTitle(position: Int): CharSequence? = when (position) {
+            0 -> "My Orders"
+            else -> "Trade History"
+        }
     }
 }

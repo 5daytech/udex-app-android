@@ -35,8 +35,12 @@
             android:layout_marginLeft="@dimen/page_margin"
             android:layout_marginRight="@dimen/page_margin"
             android:layout_marginTop="@dimen/page_margin"
-            app:tabSelectedTextColor="?attr/PrimaryTextColor"
-            app:tabIndicator="@color/transparent"
+            app:tabTextAppearance="@style/TabTextStyle"
+            app:tabSelectedTextColor="?attr/AccentTextColor"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="2dp"
+            app:tabIndicatorColor="?AccentTextColor"
+            app:tabIndicatorGravity="bottom"
             app:tabTextColor="?attr/SecondaryHintTextColor">
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

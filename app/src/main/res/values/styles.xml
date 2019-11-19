@@ -43,8 +43,8 @@
         <item name="MainBackground">@color/light_main</item>
         <item name="PrimaryTextColor">@color/main_dark_text</item>
         <item name="PrimaryLightColor">@color/dark_text</item>
-        <item name="HintTextColor">@color/dark_hint</item>
-        <item name="SecondaryHintTextColor">@color/dark_secondary_hint</item>
+        <item name="HintTextColor">@color/light_hint</item>
+        <item name="SecondaryHintTextColor">@color/light_secondary_hint</item>
         <item name="ActionButtonBackground">@color/light_main</item>
         <item name="MainDarkBackground">@color/light_main_dark</item>
         <item name="SmallActionButtonColor">@color/light_action_button</item>
@@ -73,8 +73,8 @@
         <item name="SelectableRippleColor">@drawable/bg_selectable_item</item>
         <item name="PrimaryTextColor">@color/main_light_text</item>
         <item name="PrimaryLightColor">@color/white</item>
-        <item name="HintTextColor">@color/light_hint</item>
-        <item name="SecondaryHintTextColor">@color/light_secondary_hint</item>
+        <item name="HintTextColor">@color/dark_hint</item>
+        <item name="SecondaryHintTextColor">@color/dark_secondary_hint</item>
         <item name="ActionButtonBackground">@color/dark_main</item>
         <item name="MainBackground">@color/dark_main</item>
         <item name="MainDarkBackground">@color/dark_main_dark</item>
@@ -268,6 +268,11 @@
     </style>
 
     <!-- Texts -->
+    <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/sf_pro_display_semibold</item>
+    </style>
+
     <style name="MainTitleText" parent="BoldText">
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">?attr/PrimaryTextColor</item>
