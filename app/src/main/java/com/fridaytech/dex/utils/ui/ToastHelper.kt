@@ -22,7 +22,7 @@ object ToastHelper {
     }
 
     fun showSuccessMessage(text: Int, durationInMillis: Long = 2000) {
-        showMessage(text, R.color.green, durationInMillis)
+        showMessage(text, R.color.dark_yellow, durationInMillis)
     }
 
     fun showErrorMessage(text: Int) {

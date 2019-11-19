@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         app:layout_constraintTop_toBottomOf="@+id/market_amount_input"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="24dp" />
 
     <TextView
         style="@style/SmallHintText"
@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/market_receive_hint"
         app:layout_constraintVertical_bias="0.0"
         android:layout_marginTop="@dimen/element_margin"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="36dp"
         android:layout_marginStart="@dimen/page_margin"
         android:ellipsize="end"
         android:hint="0.0"

@@ -46,7 +46,7 @@
         android:ellipsize="end"
         android:textColor="?attr/HintTextColor"
         android:textSize="13sp"
-        android:text="0.0 ETH"/>
+        android:text="Balance:\n0.0 ETH"/>
 
     <View
         style="@style/Divider"
