@@ -65,10 +65,12 @@
     <color name="orange">#FF8A00</color>
 
     <color name="turquoise">#56D6FF</color>
-    <color name="transparent_turquoise_40">#4056D6FF</color>
+    <color name="transparent_turquoise_40">#6056D6FF</color>
+    <color name="transparent_turquoise_20">#2056D6FF</color>
 
     <color name="yellow">#FFD600</color>
     <color name="transparent_yellow">#60FFD600</color>
+    <color name="transparent_yellow_20">#20FFD600</color>
     <color name="dark_yellow">#D89900</color>
     <color name="transparent_dark_yellow">#60D89900</color>
     <color name="bright_yellow">#fffa5a</color>
@@ -78,7 +80,8 @@
     <color name="transparent_blue_20">#202F82FF</color>
 
     <color name="violet">#5B41FE</color>
-    <color name="transparent_violet">#605B41FE</color>
+    <color name="transparent_violet">#705B41FE</color>
+    <color name="transparent_violet_20">#205B41FE</color>
     <color name="violet_20">#015B41FE</color>
 
     <color name="chart">#3D3BEE</color>

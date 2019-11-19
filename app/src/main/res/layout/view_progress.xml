@@ -18,7 +18,7 @@
         style="@style/HintText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/element_margin"
+        android:layout_marginTop="@dimen/page_margin"
         android:layout_gravity="center"
         android:text="1:30"/>
 

@@ -4,7 +4,7 @@
         <shape android:shape="rectangle" >
             <corners android:radius="5dp"/>
 
-            <solid android:color="@color/transparent_blue_20"/>
+            <solid android:color="?TransparentAccentTextColor"/>
         </shape>
     </item>
     <item>
@@ -12,24 +12,17 @@
             <shape android:shape="rectangle" >
                 <corners android:radius="5dp" />
 
-                <gradient
-                    android:angle="180"
-                    android:endColor="@color/blue"
-                    android:centerColor="@color/dark_bg"
-                    android:startColor="@color/dark_main" />
+                <solid android:color="?AccentTextColor"/>
             </shape>
         </clip>
     </item>
+
     <item>
         <clip>
             <shape android:shape="rectangle" >
                 <corners android:radius="5dp" />
 
-                <gradient
-                    android:angle="180"
-                    android:endColor="@color/blue"
-                    android:centerColor="@color/light_blue"
-                    android:startColor="@color/light_hint" />
+                <solid android:color="?AccentTextColor"/>
             </shape>
         </clip>
     </item>

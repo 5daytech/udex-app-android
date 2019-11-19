@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.RelativeLayout
 import com.fridaytech.dex.R
-import java.util.*
 import kotlinx.android.synthetic.main.view_progress.view.*
 
 class TimerProgress : RelativeLayout {
@@ -34,8 +33,8 @@ class TimerProgress : RelativeLayout {
             }
 
             override fun onTick(p0: Long) {
-                val secondsLeft = seconds - (p0 / 1000).toInt()
-                progress_hint?.text = "$secondsLeft:$seconds"
+                val remainingSeconds = (p0 / 1000).toInt()
+                progress_hint?.text = "$remainingSeconds"
 
                 progress_bar?.progress = (milliseconds - p0).toInt()
             }

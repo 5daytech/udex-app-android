@@ -34,6 +34,7 @@
     <string name="markets_list_hint">market info (24h)</string>
     <string name="message_wait_blockchain">Wait till transaction is added to blockchain</string>
     <string name="message_order_creating">Order processing…</string>
+    <string name="message_exchange_in_progress">Exchange in Progress</string>
     <string name="error_invalid_amount">Not enough funds</string>
     <string name="error_insufficient_fee_balance">Insufficient fee balance!</string>
     <string name="error_insufficient_balance">Insufficient balance!</string>
