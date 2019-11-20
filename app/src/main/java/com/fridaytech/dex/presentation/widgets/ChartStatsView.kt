@@ -2,7 +2,7 @@ package com.fridaytech.dex.presentation.widgets
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.LinearLayout
 import com.fridaytech.dex.R
 import com.fridaytech.dex.presentation.statschart.ChartViewItem
 import com.fridaytech.dex.utils.inflate
@@ -12,7 +12,7 @@ import com.fridaytech.dex.utils.ui.toFiatDisplayFormat
 import com.fridaytech.dex.utils.visible
 import kotlinx.android.synthetic.main.view_chart_stats.view.*
 
-class ChartStatsView : ConstraintLayout {
+class ChartStatsView : LinearLayout {
 
     init {
         inflate(R.layout.view_chart_stats, attach = true)

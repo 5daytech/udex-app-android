@@ -16,6 +16,7 @@ import com.fridaytech.dex.presentation.convert.ConvertDialog
 import com.fridaytech.dex.presentation.dialogs.AlertDialogFragment
 import com.fridaytech.dex.presentation.receive.ReceiveDialog
 import com.fridaytech.dex.presentation.send.SendDialog
+import com.fridaytech.dex.presentation.statschart.ChartInfoDialog
 import com.fridaytech.dex.presentation.transactions.TransactionsActivity
 import com.fridaytech.dex.presentation.widgets.MainToolbar
 import com.fridaytech.dex.utils.openUrl
@@ -112,6 +113,10 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
             activity?.let { it.openUrl(url) }
         })
 
+        viewModel.openCoinRateStats.observe(this, Observer {
+            ChartInfoDialog.show(childFragmentManager, it.code)
+        })
+
         viewModel.showTestModeDialog.observe(this, Observer {
             AlertDialogFragment.newInstance(
                 R.string.test_network,
@@ -154,6 +159,7 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
     override fun onTransactionsClick(position: Int) = viewModel.onTransactionsClick(position)
     override fun onConvertClick(position: Int) = viewModel.onConvertClick(position)
     override fun onInfoClick(position: Int) = viewModel.onInfoClick(position)
+    override fun onRateStatsClick(position: Int) = viewModel.onRateStatsClick(position)
     //endregion
 
     companion object {

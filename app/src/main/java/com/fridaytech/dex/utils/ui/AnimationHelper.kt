@@ -36,6 +36,7 @@ object AnimationHelper {
                 v.visibility = View.VISIBLE
                 v.layoutParams.height = if (interpolatedTime == 1f) targetHeight else (targetHeight * interpolatedTime).toInt()
                 v.requestLayout()
+                v.invalidate()
                 if (interpolatedTime > 0.3f) {
                     v.alpha = interpolatedTime
                 }
@@ -51,7 +52,7 @@ object AnimationHelper {
         v.startAnimation(a)
     }
 
-    fun collapse(v: View) {
+    fun collapse(v: View, speed: Float = 1f) {
         val initialHeight = v.measuredHeight
 
         val a = object : Animation() {
@@ -82,7 +83,7 @@ object AnimationHelper {
         })
 
         // 1dp/ms
-        a.duration = (((initialHeight / v.context.resources.displayMetrics.density)) * 2).toLong()
+        a.duration = (((initialHeight / v.context.resources.displayMetrics.density)) * 2 / speed).toLong()
         v.startAnimation(a)
     }
 

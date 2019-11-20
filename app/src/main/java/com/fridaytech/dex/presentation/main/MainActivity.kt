@@ -129,7 +129,7 @@ class MainActivity :
         main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_wallet, R.drawable.tab_balance, 0))
         main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_orders, R.drawable.tab_orders, 0))
         main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_exchange, R.drawable.tab_exchange, 0))
-        main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_markets, R.drawable.tab_markets, 0))
+        main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_markets, R.drawable.ic_markets, 0))
         main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_settings, R.drawable.tab_settings, 0))
 
         main_bottom_nav?.accentColor = theme.getAttr(R.attr.AccentTextColor) ?: Color.WHITE

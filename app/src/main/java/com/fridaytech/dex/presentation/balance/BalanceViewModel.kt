@@ -38,6 +38,7 @@ class BalanceViewModel : CoreViewModel() {
     val openTransactions = SingleLiveEvent<String>()
     val openConvertDialog = SingleLiveEvent<ConvertConfig>()
     val openCoinInfo = SingleLiveEvent<Coin>()
+    val openCoinRateStats = SingleLiveEvent<Coin>()
     val openCoinManager = SingleLiveEvent<Unit>()
     val openUrlEvent = SingleLiveEvent<String>()
     val showTestModeDialog = SingleLiveEvent<Unit>()
@@ -138,6 +139,12 @@ class BalanceViewModel : CoreViewModel() {
     fun onInfoClick(position: Int) {
         if (mBalances.isValidIndex(position)) {
             openCoinInfo.postValue(mBalances[position].coin)
+        }
+    }
+
+    fun onRateStatsClick(position: Int) {
+        if (mBalances.isValidIndex(position)) {
+            openCoinRateStats.postValue(mBalances[position].coin)
         }
     }
 

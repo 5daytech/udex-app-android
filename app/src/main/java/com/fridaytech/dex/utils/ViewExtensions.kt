@@ -51,16 +51,16 @@ fun View.showKeyboard(toggleKeyboard: Boolean = true) {
     }
 }
 
-fun View.setVisible(visible: Boolean, animated: Boolean = false) {
+fun View.setVisible(visible: Boolean, animated: Boolean = false, animationSpeed: Float = 1f) {
     if (!animated) {
         this.visible = visible
         return
     }
 
     if (visible) {
-        AnimationHelper.expand(this)
+        AnimationHelper.expand(this, animationSpeed)
     } else {
-        AnimationHelper.collapse(this)
+        AnimationHelper.collapse(this, animationSpeed)
     }
 }
 
