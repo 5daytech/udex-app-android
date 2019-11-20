@@ -36,10 +36,8 @@ class BalanceViewModel : CoreViewModel() {
     val openSendDialog = SingleLiveEvent<String>()
     val openReceiveDialog = SingleLiveEvent<String>()
     val openTransactions = SingleLiveEvent<String>()
-    val openConvertDialog =
-        SingleLiveEvent<ConvertConfig>()
-    val openCoinInfo =
-        SingleLiveEvent<Coin>()
+    val openConvertDialog = SingleLiveEvent<ConvertConfig>()
+    val openCoinInfo = SingleLiveEvent<Coin>()
     val openCoinManager = SingleLiveEvent<Unit>()
     val openUrlEvent = SingleLiveEvent<String>()
     val showTestModeDialog = SingleLiveEvent<Unit>()

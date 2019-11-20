@@ -28,7 +28,7 @@
     <ImageView
         android:id="@+id/guide_page_image"
         android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         android:layout_marginTop="@dimen/big_margin"
         android:layout_marginStart="@dimen/page_margin"
         android:scaleType="centerInside"

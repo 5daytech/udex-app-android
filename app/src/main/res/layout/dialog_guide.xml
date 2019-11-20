@@ -50,7 +50,7 @@
         android:paddingStart="@dimen/big_margin"
         android:paddingTop="@dimen/medium_margin"
         android:paddingBottom="@dimen/medium_margin"
-        android:background="?selectableItemBackground">
+        android:background="?TransparentBackground">
         <TextView
             style="@style/BoldText"
             android:id="@+id/guide_action_text"
