@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.fridaytech.dex.presentation.widgets.OptionSelectorView
+        android:id="@+id/chart_period_selector"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        app:osv_options="1D,7D,1M,6M,1Y"
+        android:layout_marginTop="@dimen/element_margin"/>
+
+    <TextView
+        style="@style/RegularText"
+        android:id="@+id/chart_picked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/chart_touch_to_select_value"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/element_margin"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColorHint="?HintTextColor"
+        android:lines="2"
+        android:textColor="?PrimaryTextColor"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <com.fridaytech.dex.presentation.widgets.ChartView
+            android:id="@+id/market_info_chart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="@dimen/page_margin"
+            android:visibility="gone"/>
+        <ProgressBar
+            android:id="@+id/chart_progress"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/big_margin">
+        <TextView
+            style="@style/DialogTitleText"
+            android:id="@+id/chart_market_cap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/page_margin"
+            android:text="$199m"/>
+
+        <TextView
+            style="@style/HintText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/chart_market_cap"
+            app:layout_constraintStart_toStartOf="@+id/chart_market_cap"
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="@string/chart_mkt_cap"/>
+
+        <TextView
+            style="@style/DialogTitleText"
+            android:id="@+id/chart_high"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="$300.0"/>
+
+        <TextView
+            style="@style/HintText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/chart_high"
+            app:layout_constraintStart_toStartOf="@+id/chart_high"
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="@string/chart_high"/>
+
+        <TextView
+            style="@style/DialogTitleText"
+            android:id="@+id/chart_low"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/page_margin"
+            android:text="$200.0"/>
+
+        <TextView
+            style="@style/HintText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/chart_low"
+            app:layout_constraintStart_toStartOf="@+id/chart_low"
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="@string/chart_low"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

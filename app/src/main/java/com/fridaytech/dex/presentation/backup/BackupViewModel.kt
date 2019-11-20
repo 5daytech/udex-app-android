@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import com.fridaytech.dex.App
 import com.fridaytech.dex.R
 import com.fridaytech.dex.core.ui.CoreViewModel
-import com.fridaytech.dex.core.ui.SingleLiveEvent
 import com.fridaytech.dex.data.manager.clipboard.ClipboardManager
 
 class BackupViewModel : CoreViewModel() {

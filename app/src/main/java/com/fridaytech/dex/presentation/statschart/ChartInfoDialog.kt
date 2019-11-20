@@ -11,13 +11,12 @@ import com.fridaytech.dex.presentation.dialogs.BaseBottomDialog
 import com.fridaytech.dex.utils.TimeUtils
 import com.fridaytech.dex.utils.bindChangePercent
 import com.fridaytech.dex.utils.listeners.SimpleChartListener
-import com.fridaytech.dex.utils.ui.NumberUtils
 import com.fridaytech.dex.utils.ui.toFiatDisplayFormat
-import com.fridaytech.dex.utils.visible
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.ChartTouchListener
 import kotlinx.android.synthetic.main.dialog_market_chart.*
+import kotlinx.android.synthetic.main.view_chart_stats.*
 
 class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_chart) {
 
@@ -49,12 +48,8 @@ class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_chart) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        chart_period_selector.addClickListener {
-            viewModel.onPeriodSelect(it)
-        }
 
-        market_info_chart.setOnChartValueSelectedListener(chartListener)
-        market_info_chart.onChartGestureListener = chartListener
+        chart_stats.bind(viewModel::onPeriodSelect, chartListener)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -67,23 +62,18 @@ class ChartInfoDialog : BaseBottomDialog(R.layout.dialog_market_chart) {
         })
 
         viewModel.chartData.observe(this, Observer {
-            market_info_chart.displayData(it.chartData, R.color.chart, R.drawable.bg_chart)
-
             chart_coin_price.text = "$${it.rateValue?.toFiatDisplayFormat()}"
-
             chart_change_percent.bindChangePercent(it.diffValue)
-            chart_market_cap.text = "$${NumberUtils.withSuffix(it.marketCap)}"
-            chart_high.text = "$${it.highValue.toFiatDisplayFormat()}"
-            chart_low.text = "$${it.lowValue.toFiatDisplayFormat()}"
+
+            chart_stats.showChartStats(it)
         })
 
         viewModel.currentPeriod.observe(this, Observer {
-            chart_period_selector.setSelectedView(it)
+            chart_stats.setPeriod(it)
         })
 
-        viewModel.loading.observe(this, Observer { loading ->
-            market_info_chart.visible = !loading
-            chart_progress.visible = loading
+        viewModel.loading.observe(this, Observer { isLoading ->
+            chart_stats.setLoading(isLoading)
         })
     }
 

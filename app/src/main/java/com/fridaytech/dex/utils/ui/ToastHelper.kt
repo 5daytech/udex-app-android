@@ -36,8 +36,6 @@ object ToastHelper {
 
         val toast = Toast.makeText(App.instance, text, Toast.LENGTH_SHORT)
 
-//        val toastText = toast.view.findViewById(android.R.id.message) as TextView
-
         val inflater = App.instance.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val customToast = inflater.inflate(R.layout.view_toast, null) as ViewGroup
         toast.view = customToast
@@ -45,9 +43,6 @@ object ToastHelper {
         val tv = customToast.findViewById<TextView>(R.id.toast_text)
         tv.setText(text)
         tv.background.setTint(ContextCompat.getColor(toast.view.context, backgroundColor))
-
-//        toastText.setTextColor(ContextCompat.getColor(toast.view.context, R.color.white))
-//        toast.view.background.setColorFilter(ContextCompat.getColor(toast.view.context, backgroundColor), PorterDuff.Mode.SRC_IN)
 
         toast.setGravity(Gravity.FILL_HORIZONTAL or Gravity.TOP, 0, 120)
         toast.show()
@@ -67,11 +62,6 @@ object ToastHelper {
         val tv = customToast.findViewById<TextView>(R.id.toast_text)
         tv.text = text
         tv.background.setTint(ContextCompat.getColor(toast.view.context, backgroundColor))
-
-//        val toastText = toast.view.findViewById(android.R.id.message) as TextView
-//        toastText.setTextColor(ContextCompat.getColor(toast.view.context, R.color.white))
-//        toast.view.background.setColorFilter(, PorterDuff.Mode.SRC_IN)
-
 
         toast.setGravity(Gravity.TOP, 0, 120)
         toast.show()
