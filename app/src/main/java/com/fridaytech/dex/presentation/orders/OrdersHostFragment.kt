@@ -98,7 +98,7 @@ class OrdersHostFragment : CoreFragment(R.layout.fragment_orders_host),
         override fun getCount(): Int = 2
 
         override fun getPageTitle(position: Int): CharSequence? = when (position) {
-            0 -> "My Orders"
+            0 -> "Open Orders"
             else -> "Trade History"
         }
     }
