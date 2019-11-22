@@ -1,4 +1,4 @@
-package com.fridaytech.dex.presentation.orders.market
+package com.fridaytech.dex.presentation.orders.orderbook
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -10,9 +10,9 @@ import com.fridaytech.dex.utils.ui.getAttr
 import com.fridaytech.dex.utils.ui.toDisplayFormat
 import com.fridaytech.dex.utils.ui.toFiatDisplayFormat
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_market_order.*
+import kotlinx.android.synthetic.main.item_order_book.*
 
-class MarketOrderViewHolder(
+class OrderBookViewHolder(
     override val containerView: View,
     private val listener: Listener
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {

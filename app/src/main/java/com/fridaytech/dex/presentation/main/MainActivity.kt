@@ -23,7 +23,7 @@ import com.fridaytech.dex.presentation.exchange.ExchangeFragment
 import com.fridaytech.dex.presentation.exchange.market.MarketOrderViewModel
 import com.fridaytech.dex.presentation.howitworks.guide.GuideDialog
 import com.fridaytech.dex.presentation.orders.OrdersHostFragment
-import com.fridaytech.dex.presentation.orders.market.MarketOrdersFragment
+import com.fridaytech.dex.presentation.orders.orderbook.OrderBookFragment
 import com.fridaytech.dex.presentation.orders.model.FillOrderInfo
 import com.fridaytech.dex.presentation.send.SendViewModel
 import com.fridaytech.dex.presentation.settings.SettingsFragment
@@ -204,7 +204,7 @@ class MainActivity :
             0 -> BalanceFragment.newInstance()
             1 -> OrdersHostFragment.newInstance()
             2 -> ExchangeFragment.newInstance()
-            3 -> MarketOrdersFragment.newInstance()
+            3 -> OrderBookFragment.newInstance()
             else -> SettingsFragment.newInstance()
         }
 

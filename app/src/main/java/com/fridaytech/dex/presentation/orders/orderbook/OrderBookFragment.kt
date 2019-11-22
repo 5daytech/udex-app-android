@@ -1,4 +1,4 @@
-package com.fridaytech.dex.presentation.orders.market
+package com.fridaytech.dex.presentation.orders.orderbook
 
 import android.os.Bundle
 import android.view.View
@@ -11,13 +11,13 @@ import com.fridaytech.dex.presentation.main.IFocusListener
 import com.fridaytech.dex.presentation.orders.OrdersHostFragment
 import com.fridaytech.dex.presentation.orders.OrdersViewModel
 import com.fridaytech.dex.utils.ui.toPercentFormat
-import kotlinx.android.synthetic.main.fragment_market_orders.*
+import kotlinx.android.synthetic.main.fragment_order_book.*
 
-class MarketOrdersFragment : CoreFragment(R.layout.fragment_market_orders), MarketOrderViewHolder.Listener,
+class OrderBookFragment : CoreFragment(R.layout.fragment_order_book), OrderBookViewHolder.Listener,
     IFocusListener {
 
-    private lateinit var buyAdapter: MarketOrdersAdapter
-    private lateinit var sellAdapter: MarketOrdersAdapter
+    private lateinit var buyAdapter: OrderBookAdapter
+    private lateinit var sellAdapter: OrderBookAdapter
     private lateinit var viewModel: OrdersViewModel
 
     //region Lifecycle
@@ -25,8 +25,8 @@ class MarketOrdersFragment : CoreFragment(R.layout.fragment_market_orders), Mark
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        buyAdapter = MarketOrdersAdapter(this)
-        sellAdapter = MarketOrdersAdapter(this)
+        buyAdapter = OrderBookAdapter(this)
+        sellAdapter = OrderBookAdapter(this)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -99,6 +99,6 @@ class MarketOrdersFragment : CoreFragment(R.layout.fragment_market_orders), Mark
     //endregion
 
     companion object {
-        fun newInstance() = MarketOrdersFragment()
+        fun newInstance() = OrderBookFragment()
     }
 }

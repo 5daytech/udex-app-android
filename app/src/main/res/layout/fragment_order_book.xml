@@ -15,7 +15,7 @@
         android:background="@color/transparent"
         app:elevation="0dp"
         app:layout_scrollFlags=""
-        app:mt_title="@string/title_markets"/>
+        app:mt_title="@string/title_order_book"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"

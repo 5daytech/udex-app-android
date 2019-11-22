@@ -1,4 +1,4 @@
-package com.fridaytech.dex.presentation.orders.market
+package com.fridaytech.dex.presentation.orders.orderbook
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -6,15 +6,15 @@ import com.fridaytech.dex.R
 import com.fridaytech.dex.data.zrx.model.SimpleOrder
 import com.fridaytech.dex.utils.inflate
 
-class MarketOrdersAdapter(
-    private val ordersListener: MarketOrderViewHolder.Listener
+class OrderBookAdapter(
+    private val ordersListener: OrderBookViewHolder.Listener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val mOrders = ArrayList<SimpleOrder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return MarketOrderViewHolder(
-            parent.inflate(R.layout.item_market_order),
+        return OrderBookViewHolder(
+            parent.inflate(R.layout.item_order_book),
             ordersListener
         )
     }
@@ -23,7 +23,7 @@ class MarketOrdersAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MarketOrderViewHolder -> holder.onBind(mOrders[position])
+            is OrderBookViewHolder -> holder.onBind(mOrders[position])
         }
     }
 

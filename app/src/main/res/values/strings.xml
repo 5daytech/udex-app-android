@@ -5,6 +5,7 @@
     <string name="title_wallet">Wallet</string>
     <string name="title_exchange">Exchange</string>
     <string name="title_orders">Orders</string>
+    <string name="title_order_book">Order Book</string>
     <string name="title_markets">Markets</string>
     <string name="title_settings">Settings</string>
 
