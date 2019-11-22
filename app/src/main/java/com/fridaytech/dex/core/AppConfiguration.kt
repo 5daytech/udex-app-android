@@ -12,6 +12,7 @@ import io.horizontalsystems.ethereumkit.core.EthereumKit.InfuraCredentials
 import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType
 import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType.MainNet
 import io.horizontalsystems.ethereumkit.core.EthereumKit.NetworkType.Ropsten
+import java.util.*
 
 class AppConfiguration(
     override val testMode: Boolean = BuildConfig.testMode
@@ -111,7 +112,7 @@ class AppConfiguration(
             0,
             "Ropsten Friday Tech",
             allExchangePairs,
-            listOf("0x2e8da0868e46fc943766a98b8d92a0380b29ce2a"),
+            listOf("0xA5004C8b2D64AD08A80d33Ad000820d63aa2cCC9".toLowerCase(Locale.US)),
             zrxNetworkType.exchangeAddress,
             RelayerConfig("https://relayer.ropsten.fridayte.ch", "", "v2")
         )
@@ -122,7 +123,7 @@ class AppConfiguration(
             0,
             "Friday Tech",
             allExchangePairs,
-            listOf("0x2e8da0868e46fc943766a98b8d92a0380b29ce2a"),
+            listOf("0xA5004C8b2D64AD08A80d33Ad000820d63aa2cCC9".toLowerCase(Locale.US)),
             zrxNetworkType.exchangeAddress,
             RelayerConfig("https://relayer.fridayte.ch", "", "v2")
         )
