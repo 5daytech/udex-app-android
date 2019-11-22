@@ -10,6 +10,7 @@ import com.fridaytech.dex.core.ui.CoreFragment
 import com.fridaytech.dex.presentation.main.IFocusListener
 import com.fridaytech.dex.presentation.orders.OrdersHostFragment
 import com.fridaytech.dex.presentation.orders.OrdersViewModel
+import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.utils.ui.toPercentFormat
 import kotlinx.android.synthetic.main.fragment_order_book.*
 
@@ -25,8 +26,16 @@ class OrderBookFragment : CoreFragment(R.layout.fragment_order_book), OrderBookV
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        buyAdapter = OrderBookAdapter(this)
-        sellAdapter = OrderBookAdapter(this)
+        buyAdapter = OrderBookAdapter(object : OrderBookViewHolder.Listener {
+            override fun onClick(position: Int) {
+                viewModel.onOrderClick(position, EOrderSide.BUY)
+            }
+        })
+        sellAdapter = OrderBookAdapter(object : OrderBookViewHolder.Listener {
+            override fun onClick(position: Int) {
+                viewModel.onOrderClick(position, EOrderSide.SELL)
+            }
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -73,17 +82,15 @@ class OrderBookFragment : CoreFragment(R.layout.fragment_order_book), OrderBookV
             viewModel.onPickPair(it)
         }
 
-        market_orders_sell.layoutManager = LinearLayoutManager(context)
+        market_orders_sell.layoutManager = object : LinearLayoutManager(context) {
+            override fun canScrollVertically(): Boolean = false
+        }
         market_orders_sell.adapter = sellAdapter
-        market_orders_sell.setOnTouchListener { v, event ->
-            true
-        }
 
-        market_orders_buy.layoutManager = LinearLayoutManager(context)
-        market_orders_buy.adapter = buyAdapter
-        market_orders_buy.setOnTouchListener { v, event ->
-            true
+        market_orders_buy.layoutManager = object : LinearLayoutManager(context) {
+            override fun canScrollVertically(): Boolean = false
         }
+        market_orders_buy.adapter = buyAdapter
     }
 
     //endregion
