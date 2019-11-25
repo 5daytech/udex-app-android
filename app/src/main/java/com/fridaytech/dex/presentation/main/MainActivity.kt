@@ -23,8 +23,8 @@ import com.fridaytech.dex.presentation.exchange.ExchangeFragment
 import com.fridaytech.dex.presentation.exchange.market.MarketOrderViewModel
 import com.fridaytech.dex.presentation.howitworks.guide.GuideDialog
 import com.fridaytech.dex.presentation.orders.OrdersHostFragment
-import com.fridaytech.dex.presentation.orders.orderbook.OrderBookFragment
 import com.fridaytech.dex.presentation.orders.model.FillOrderInfo
+import com.fridaytech.dex.presentation.orders.orderbook.OrderBookFragment
 import com.fridaytech.dex.presentation.send.SendViewModel
 import com.fridaytech.dex.presentation.settings.SettingsFragment
 import com.fridaytech.dex.presentation.widgets.statusinfo.StatusInfoView
@@ -127,9 +127,9 @@ class MainActivity :
         main_bottom_nav?.defaultBackgroundColor = theme.getAttr(R.attr.NavigationColor) ?: Color.BLACK
 
         main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_wallet, R.drawable.tab_balance, 0))
-        main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_orders, R.drawable.tab_orders, 0))
+        main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_order_book, R.drawable.ic_order_book, 0))
         main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_exchange, R.drawable.tab_exchange, 0))
-        main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_markets, R.drawable.ic_markets, 0))
+        main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_orders, R.drawable.tab_orders, 0))
         main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_settings, R.drawable.tab_settings, 0))
 
         main_bottom_nav?.accentColor = theme.getAttr(R.attr.AccentTextColor) ?: Color.WHITE
@@ -202,9 +202,9 @@ class MainActivity :
     private class MainPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(p0: Int): Fragment = when (p0) {
             0 -> BalanceFragment.newInstance()
-            1 -> OrdersHostFragment.newInstance()
+            1 -> OrderBookFragment.newInstance()
             2 -> ExchangeFragment.newInstance()
-            3 -> OrderBookFragment.newInstance()
+            3 -> OrdersHostFragment.newInstance()
             else -> SettingsFragment.newInstance()
         }
 

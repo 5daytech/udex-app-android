@@ -274,7 +274,9 @@
                     android:layout_height="44dp"
                     android:gravity="center"
                     android:text="Rate Stats"
+                    android:textAllCaps="true"
                     android:textColor="?AccentTextColor"
+                    android:textSize="12sp"
                     android:layout_marginStart="@dimen/element_margin"/>
             </LinearLayout>
 
