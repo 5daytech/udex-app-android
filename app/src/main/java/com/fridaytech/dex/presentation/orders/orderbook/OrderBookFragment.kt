@@ -53,8 +53,8 @@ class OrderBookFragment : CoreFragment(R.layout.fragment_order_book), OrderBookV
             })
 
             viewModel.exchangeCoinSymbol.observe(this, Observer { coinCode ->
-                market_orders_buy_title?.text = "Buy ($coinCode)"
-                market_orders_sell_title?.text = "Sell ($coinCode)"
+                market_orders_buy_title?.text = "Sell ($coinCode)"
+                market_orders_sell_title?.text = "Buy ($coinCode)"
             })
 
             viewModel.fillOrderEvent.observe(this, Observer { fillInfo ->
