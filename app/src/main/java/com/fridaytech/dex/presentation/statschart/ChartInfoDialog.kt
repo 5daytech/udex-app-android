@@ -10,7 +10,7 @@ import com.fridaytech.dex.R
 import com.fridaytech.dex.presentation.dialogs.BaseBottomDialog
 import com.fridaytech.dex.utils.TimeUtils
 import com.fridaytech.dex.utils.bindChangePercent
-import com.fridaytech.dex.utils.listeners.SimpleChartListener
+import com.fridaytech.dex.presentation.widgets.listeners.SimpleChartListener
 import com.fridaytech.dex.utils.ui.toFiatDisplayFormat
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight

@@ -5,7 +5,7 @@ import android.text.Editable
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.fridaytech.dex.R
-import com.fridaytech.dex.utils.listeners.SimpleTextWatcher
+import com.fridaytech.dex.presentation.widgets.listeners.SimpleTextWatcher
 import kotlinx.android.synthetic.main.view_word_input.view.*
 
 class WordInputView : LinearLayout {

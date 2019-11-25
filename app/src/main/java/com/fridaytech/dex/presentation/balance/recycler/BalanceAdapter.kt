@@ -22,8 +22,8 @@ class BalanceAdapter(
 
     override fun getItemCount(): Int = mBalances.size + 1
 
-    override fun getItemViewType(position: Int): Int = when {
-        position in 0 until mBalances.size -> TYPE_WALLET
+    override fun getItemViewType(position: Int): Int = when (position) {
+        in 0 until mBalances.size -> TYPE_WALLET
         else -> TYPE_MANAGE_COINS
     }
 
@@ -65,27 +65,11 @@ class BalanceAdapter(
 
     fun setCoins(coins: List<CoinBalance>) {
         val diffResult = DiffUtil.calculateDiff(
-            BalanceDiffCallback(
-                mBalances,
-                coins
-            )
+            BalanceDiffCallback(mBalances, coins)
         )
         mBalances.clear()
         mBalances.addAll(coins)
         diffResult.dispatchUpdatesTo(this)
-    }
-
-    fun expandViewHolder(position: Int) {
-        if (itemCount < position) return
-
-        mExpandedViewPosition?.let {
-            notifyItemChanged(it, false)
-        }
-
-        if (mExpandedViewPosition != position) {
-            notifyItemChanged(position, true)
-            mExpandedViewPosition = position
-        }
     }
 
     fun toggleViewHolder(position: Int) {

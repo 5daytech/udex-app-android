@@ -1,4 +1,4 @@
-package com.fridaytech.dex.utils.listeners
+package com.fridaytech.dex.presentation.widgets.listeners
 
 import android.text.Editable
 import android.text.TextWatcher

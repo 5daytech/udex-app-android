@@ -3,7 +3,7 @@ package com.fridaytech.dex.utils.ui
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.Transformation
-import com.fridaytech.dex.utils.listeners.SimpleAnimationListener
+import com.fridaytech.dex.presentation.widgets.listeners.SimpleAnimationListener
 import com.fridaytech.dex.utils.visible
 
 class ViewCollapseHelper(

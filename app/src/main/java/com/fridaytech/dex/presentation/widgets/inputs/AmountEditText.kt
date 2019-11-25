@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.widget.EditText
-import com.fridaytech.dex.utils.listeners.SimpleTextWatcher
+import com.fridaytech.dex.presentation.widgets.listeners.SimpleTextWatcher
 import java.math.BigDecimal
 import java.math.RoundingMode
 

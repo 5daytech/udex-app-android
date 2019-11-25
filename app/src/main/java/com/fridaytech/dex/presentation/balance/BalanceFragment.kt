@@ -19,6 +19,7 @@ import com.fridaytech.dex.presentation.send.SendDialog
 import com.fridaytech.dex.presentation.statschart.ChartInfoDialog
 import com.fridaytech.dex.presentation.transactions.TransactionsActivity
 import com.fridaytech.dex.presentation.widgets.MainToolbar
+import com.fridaytech.dex.presentation.widgets.listeners.RecyclerDiffListener
 import com.fridaytech.dex.utils.openUrl
 import com.fridaytech.dex.utils.ui.AnimationHelper
 import com.fridaytech.dex.utils.visible
@@ -144,6 +145,8 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
         top_up_add_coins?.setOnClickListener { viewModel.onAddCoinsClick() }
 
         top_up_buy_crypto?.setOnClickListener { viewModel.onBuyCryptoClick() }
+
+        adapter.registerAdapterDataObserver(RecyclerDiffListener(balance_recycler))
     }
 
     //region ViewHolder

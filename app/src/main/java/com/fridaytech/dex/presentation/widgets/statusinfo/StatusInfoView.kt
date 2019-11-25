@@ -24,7 +24,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.fridaytech.dex.R
 import com.fridaytech.dex.utils.*
-import com.fridaytech.dex.utils.listeners.SimpleAnimatorListener
+import com.fridaytech.dex.presentation.widgets.listeners.SimpleAnimatorListener
 import kotlin.math.absoluteValue
 
 @SuppressLint("ViewConstructor")

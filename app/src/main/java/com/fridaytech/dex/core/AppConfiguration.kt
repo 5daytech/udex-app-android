@@ -74,6 +74,7 @@ class AppConfiguration(
     // region Exchange pairs
 
     private val exchangePairs = listOf(
+        getExchangePair("USDC", "WETH"),
         getExchangePair("ZRX", "WETH"),
         getExchangePair("BAT", "WETH"),
         getExchangePair("LPT", "WETH"),
@@ -82,13 +83,12 @@ class AppConfiguration(
         getExchangePair("MKR", "WETH"),
         getExchangePair("OMG", "WETH"),
         getExchangePair("DAI", "WETH"),
-        getExchangePair("USDC", "WETH"),
         getExchangePair("USDC", "DAI")
     )
 
     private val testExchangePairs = listOf(
-        getExchangePair("WBTC", "WETH"),
         getExchangePair("ZRX", "WETH"),
+        getExchangePair("WBTC", "WETH"),
         getExchangePair("DAI", "WETH"),
         getExchangePair("USDT", "WETH"),
         getExchangePair("HT", "WETH"),
