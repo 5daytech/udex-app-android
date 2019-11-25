@@ -29,8 +29,7 @@ abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
     private val adapterManager = App.adapterManager
 
     protected abstract var state: T
-    protected val mReceiveInfo =
-        ExchangeAmountInfo(BigDecimal.ZERO)
+    protected val mReceiveInfo = ExchangeAmountInfo(BigDecimal.ZERO)
 
     protected val orderSide: EOrderSide
         get() {
@@ -170,10 +169,14 @@ abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
         }
     }
 
-    open fun onReceiveCoinPick(position: Int) {
+    open fun onReceiveCoinPick(position: Int, forceChange: Boolean = false) {
         if (state.receiveCoin?.code != mReceiveCoins[position].code) {
             state.receiveCoin = mReceiveCoins[position]
             updateReceiveAmount()
+
+            if (forceChange) {
+                viewState.value = state
+            }
         }
     }
 

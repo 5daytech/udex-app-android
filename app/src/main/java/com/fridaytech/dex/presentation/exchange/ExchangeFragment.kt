@@ -2,6 +2,7 @@ package com.fridaytech.dex.presentation.exchange
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -137,9 +138,19 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         // Market view
         exchange_market_view?.bind(
             onMaxClick = { marketOrderViewModel.onMaxClick() },
-            onSendCoinPick = { marketOrderViewModel.onSendCoinPick(it) },
-            onReceiveCoinPick = { marketOrderViewModel.onReceiveCoinPick(it) },
-            onSwitchClick = { marketOrderViewModel.onSwitchClick() }
+            onSendCoinPick = {
+                marketOrderViewModel.onSendCoinPick(it)
+                limitOrderViewModel.onSendCoinPick(it)
+            },
+            onReceiveCoinPick = {
+                Log.d("ololo", "On receive coin pick")
+                marketOrderViewModel.onReceiveCoinPick(it)
+                limitOrderViewModel.onReceiveCoinPick(it, forceChange = true)
+            },
+            onSwitchClick = {
+                marketOrderViewModel.onSwitchClick()
+                limitOrderViewModel.onSwitchClick()
+            }
         )
 
         exchange_market_view?.sendAmountChangeSubject?.subscribeToInput {
@@ -153,9 +164,18 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         // Limit view
         exchange_limit_view?.bind(
             onMaxClick = { limitOrderViewModel.onMaxClick() },
-            onSendCoinPick = { limitOrderViewModel.onSendCoinPick(it) },
-            onReceiveCoinPick = { limitOrderViewModel.onReceiveCoinPick(it) },
-            onSwitchClick = { limitOrderViewModel.onSwitchClick() }
+            onSendCoinPick = {
+                marketOrderViewModel.onSendCoinPick(it)
+                limitOrderViewModel.onSendCoinPick(it)
+            },
+            onReceiveCoinPick = {
+                marketOrderViewModel.onReceiveCoinPick(it, forceChange = true)
+                limitOrderViewModel.onReceiveCoinPick(it)
+            },
+            onSwitchClick = {
+                marketOrderViewModel.onSwitchClick()
+                limitOrderViewModel.onSwitchClick()
+            }
         )
 
         exchange_limit_view?.amountChangeSubject?.subscribeToInput {

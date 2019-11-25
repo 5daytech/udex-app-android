@@ -11,9 +11,9 @@ import com.fridaytech.dex.utils.setVisible
 import com.fridaytech.dex.utils.ui.toDisplayFormat
 import com.fridaytech.dex.utils.ui.toFiatDisplayFormat
 import com.fridaytech.dex.utils.visible
+import java.math.BigDecimal
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_balance.*
-import java.math.BigDecimal
 
 class BalanceViewHolder(
     override val containerView: View,

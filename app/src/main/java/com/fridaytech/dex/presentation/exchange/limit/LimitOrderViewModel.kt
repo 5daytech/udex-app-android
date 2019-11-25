@@ -57,8 +57,8 @@ class LimitOrderViewModel : BaseExchangeViewModel<LimitOrderViewState>() {
 
     //region Private
 
-    override fun onReceiveCoinPick(position: Int) {
-        super.onReceiveCoinPick(position)
+    override fun onReceiveCoinPick(position: Int, forceChange: Boolean) {
+        super.onReceiveCoinPick(position, forceChange)
         refreshAveragePrice()
     }
 

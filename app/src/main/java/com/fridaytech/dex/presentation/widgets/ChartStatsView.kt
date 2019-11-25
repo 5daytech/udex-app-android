@@ -5,8 +5,8 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.fridaytech.dex.R
 import com.fridaytech.dex.presentation.statschart.ChartViewItem
-import com.fridaytech.dex.utils.inflate
 import com.fridaytech.dex.presentation.widgets.listeners.SimpleChartListener
+import com.fridaytech.dex.utils.inflate
 import com.fridaytech.dex.utils.ui.NumberUtils
 import com.fridaytech.dex.utils.ui.toFiatDisplayFormat
 import com.fridaytech.dex.utils.visible
