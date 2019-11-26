@@ -2,7 +2,6 @@ package com.fridaytech.dex.presentation.exchange
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -33,10 +32,10 @@ import com.fridaytech.dex.utils.ui.ToastHelper
 import com.fridaytech.dex.utils.ui.toDisplayFormat
 import com.fridaytech.dex.utils.visible
 import io.reactivex.disposables.CompositeDisposable
-import java.math.BigDecimal
 import kotlinx.android.synthetic.main.fragment_exchange.*
 import kotlinx.android.synthetic.main.view_limit_order.*
 import kotlinx.android.synthetic.main.view_market_order.*
+import java.math.BigDecimal
 
 class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAdapter.Listener,
     IFocusListener {
@@ -143,7 +142,6 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
                 limitOrderViewModel.onSendCoinPick(it)
             },
             onReceiveCoinPick = {
-                Log.d("ololo", "On receive coin pick")
                 marketOrderViewModel.onReceiveCoinPick(it)
                 limitOrderViewModel.onReceiveCoinPick(it, forceChange = true)
             },
