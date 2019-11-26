@@ -19,6 +19,8 @@ Trading cryptocurrencies doesn't have to mean losing custody. Use UDEX to mainta
 
 More information - [Software-Design-Specifications](https://github.com/5daytech/dex-app-android/wiki/Software-Design-Specifications)
 
+Join to [builds Telegram channel](https://t.me/udexbuilds).
+
 ## Advantages
 
 * <b>No deposits</b> - Save time, avoid fees, and maintain custody of your tokens.
