@@ -148,11 +148,9 @@
                     android:id="@+id/balance_receive"
                     android:orientation="vertical"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="64dp"
                     android:layout_weight="1.0"
                     android:gravity="center"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
                     android:background="?selectableItemBackground">
                     <ImageView
                         android:layout_width="@dimen/action_icon_size"
@@ -168,6 +166,8 @@
                         android:layout_marginTop="4dp"
                         android:text="@string/balance_receive"
                         android:textSize="12sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:textColor="?AccentTextColor"/>
                 </LinearLayout>
 
@@ -175,11 +175,9 @@
                     android:id="@+id/balance_send"
                     android:orientation="vertical"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="64dp"
                     android:layout_weight="1.0"
                     android:gravity="center"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
                     android:background="?selectableItemBackground">
                     <ImageView
                         android:layout_width="@dimen/action_icon_size"
@@ -193,6 +191,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="@string/balance_send"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:textSize="12sp"
                         android:textColor="?attr/PrimaryLightColor"/>
                 </LinearLayout>
@@ -201,11 +201,9 @@
                     android:id="@+id/balance_transactions"
                     android:orientation="vertical"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="64dp"
                     android:layout_weight="1.0"
                     android:gravity="center"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
                     android:background="?selectableItemBackground">
                     <ImageView
                         android:layout_width="@dimen/action_icon_size"
@@ -221,6 +219,8 @@
                         android:layout_marginTop="4dp"
                         android:text="@string/balance_transactions"
                         android:textSize="12sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:textColor="?attr/PrimaryLightColor"/>
                 </LinearLayout>
 
@@ -228,11 +228,9 @@
                     android:id="@+id/balance_convert"
                     android:orientation="vertical"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="64dp"
                     android:layout_weight="1.0"
                     android:gravity="center"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
                     android:background="?selectableItemBackground">
                     <ImageView
                         android:layout_width="@dimen/action_icon_size"
@@ -250,6 +248,8 @@
                         android:layout_marginTop="4dp"
                         android:text="Convert"
                         android:textSize="12sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:textColor="?attr/PrimaryLightColor"/>
                 </LinearLayout>
 
@@ -259,9 +259,8 @@
                 android:id="@+id/balance_rate_stats"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
                 android:background="?selectableItemBackground"
-                android:layout_marginTop="@dimen/element_margin"
                 android:gravity="center">
                 <ImageView
                     android:layout_width="16dp"

@@ -86,29 +86,4 @@ object AnimationHelper {
         a.duration = (((initialHeight / v.context.resources.displayMetrics.density)) * 2 / speed).toLong()
         v.startAnimation(a)
     }
-
-    fun fixedExpand(v: View, speed: Float = 1f) {
-        v.measure(0, 0)
-        val targetHeight = v.measuredHeight
-
-        v.alpha = 0.3f
-        val a = object : Animation() {
-            override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
-                v.visibility = View.VISIBLE
-                v.layoutParams.height = if (interpolatedTime == 1f) targetHeight else (targetHeight * interpolatedTime).toInt()
-                v.requestLayout()
-                if (interpolatedTime > 0.3f) {
-                    v.alpha = interpolatedTime
-                }
-            }
-
-            override fun willChangeBounds(): Boolean {
-                return true
-            }
-        }
-
-        // 1dp/ms
-        a.duration = ((((targetHeight / v.context.resources.displayMetrics.density)) * 2) / speed).toLong()
-        v.startAnimation(a)
-    }
 }

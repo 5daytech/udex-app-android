@@ -51,7 +51,7 @@ fun View.showKeyboard(toggleKeyboard: Boolean = true) {
     }
 }
 
-fun View.setVisible(visible: Boolean, animated: Boolean = false, animationSpeed: Float = 1f) {
+fun ViewGroup.setVisible(visible: Boolean, animated: Boolean = false, animationSpeed: Float = 1f) {
     if (!animated) {
         this.visible = visible
         return
