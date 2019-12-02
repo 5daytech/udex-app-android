@@ -160,7 +160,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/small_margin"
                     android:textColor="?SecondaryHintTextColor"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:textAllCaps="true"
                     android:layout_gravity="center"
                     android:text="Friday Tech"/>
