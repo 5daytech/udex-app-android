@@ -37,9 +37,7 @@ class CoinManagerAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             typeEnabled -> ViewHolderEnabledCoin(
-                parent.inflate(
-                    R.layout.item_coin_enabled
-                )
+                parent.inflate(R.layout.item_coin_enabled)
             )
             typeDisabled -> ViewHolderDisabledCoin(
                 parent.inflate(R.layout.item_coin_disabled)

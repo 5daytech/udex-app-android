@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fridaytech.dex.R
 import com.fridaytech.dex.core.ui.SwipeableActivity
 import com.fridaytech.dex.presentation.widgets.MainToolbar
+import com.fridaytech.dex.presentation.widgets.SpaceItemDecoration
+import com.fridaytech.dex.utils.dpToPx
 import kotlinx.android.synthetic.main.activity_coin_manager.*
 
 class CoinManagerActivity : SwipeableActivity(),
@@ -38,6 +40,7 @@ class CoinManagerActivity : SwipeableActivity(),
             )
         )
         itemTouchHelper?.attachToRecyclerView(coin_manager_recycler)
+        coin_manager_recycler.addItemDecoration(SpaceItemDecoration(bottom = dpToPx(48)))
 
         toolbar?.bind(MainToolbar.getBackAction { viewModel.onBackPress() })
 
