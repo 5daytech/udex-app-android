@@ -37,7 +37,7 @@ class AppConfiguration(
     override val ipfsFallbackGateway = "ipfs.io"
 
     override val defaultCoinCodes: List<String>
-        get() = listOf("ETH", "WETH", "ZRX", "DAI")
+        get() = listOf("ETH", "WETH", "ZRX", "USDC")
 
     override val fixedCoinCodes = listOf("ETH", "WETH", "ZRX")
 
@@ -60,6 +60,7 @@ class AppConfiguration(
         Coin("0x", "ZRX", CoinType.Erc20("0xE41d2489571d322189246DaFA5ebDe1F4699F498", 18)),
         Coin("Dai", "DAI", CoinType.Erc20("0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359", 18)),
         Coin("USD Coin", "USDC", CoinType.Erc20("0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", 6)),
+        Coin("Tether USD", "USDT", CoinType.Erc20("0xdAC17F958D2ee523a2206206994597C13D831ec7", 6)),
         Coin("ChainLink", "LINK", CoinType.Erc20("0x514910771af9ca656af840dff83e8264ecf986ca", 18)),
         Coin("OmiseGO", "OMG", CoinType.Erc20("0xd26114cd6EE289AccF82350c8d8487fedB8A0C07", 18)),
         Coin("Maker", "MKR", CoinType.Erc20("0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2", 18)),
@@ -76,6 +77,7 @@ class AppConfiguration(
 
     private val exchangePairs = listOf(
         getExchangePair("USDC", "WETH"),
+        getExchangePair("USDT", "WETH"),
         getExchangePair("ZRX", "WETH"),
         getExchangePair("BAT", "WETH"),
         getExchangePair("LPT", "WETH"),
