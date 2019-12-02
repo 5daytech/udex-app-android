@@ -120,17 +120,50 @@
             <TextView
                 android:id="@+id/app_version"
                 style="@style/SmallHintText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/share_app"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textAllCaps="false"
                 android:gravity="center"
-                android:paddingBottom="@dimen/big_margin"
+                android:paddingTop="40dp"
+                android:paddingBottom="@dimen/element_margin"
                 android:layout_gravity="center|bottom"
                 android:text="v 1.0.0"/>
+
+            <View
+                style="@style/Divider"
+                android:layout_width="120dp"
+                android:layout_gravity="center"
+                android:layout_height="@dimen/divider_height" />
+
+            <LinearLayout
+                android:id="@+id/company_logo"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/element_margin"
+                android:background="?selectableItemBackground"
+                android:layout_gravity="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_friday_tech"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    style="@style/BoldText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?SecondaryHintTextColor"
+                    android:textSize="15sp"
+                    android:textAllCaps="true"
+                    android:layout_gravity="center"
+                    android:text="Friday Tech"/>
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>

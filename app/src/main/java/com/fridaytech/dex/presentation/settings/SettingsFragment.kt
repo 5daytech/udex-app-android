@@ -14,6 +14,7 @@ import com.fridaytech.dex.presentation.main.IFocusListener
 import com.fridaytech.dex.presentation.main.MainActivity
 import com.fridaytech.dex.presentation.settings.addressbook.AddressBookActivity
 import com.fridaytech.dex.presentation.settings.security.SecurityCenterActivity
+import com.fridaytech.dex.utils.openUrl
 import com.fridaytech.dex.utils.ui.ShareUtils
 import com.fridaytech.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -90,6 +91,10 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings),
 
         coin_manager?.setOnClickListener {
             activity?.let { CoinManagerActivity.start(it) }
+        }
+
+        company_logo?.setOnClickListener {
+            activity?.let { it.openUrl(viewModel.companyUrl) }
         }
     }
 

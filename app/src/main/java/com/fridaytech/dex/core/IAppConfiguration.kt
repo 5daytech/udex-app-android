@@ -16,6 +16,7 @@ interface IAppConfiguration {
     val merchantId: String
 
     val appShareUrl: String
+    val companySiteUrl: String
     val transactionExploreBaseUrl: String
 
     val ipfsId: String

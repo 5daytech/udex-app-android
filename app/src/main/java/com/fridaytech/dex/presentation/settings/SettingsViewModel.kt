@@ -8,9 +8,12 @@ import com.fridaytech.dex.core.ui.SingleLiveEvent
 class SettingsViewModel : CoreViewModel() {
 
     private val appPreferences = App.appPreferences
+    private val appConfiguration = App.appConfiguration
 
     val selectedTheme = MutableLiveData<Int>()
     val isBackedUp = MutableLiveData<Boolean>()
+    val companyUrl: String
+        get() = appConfiguration.companySiteUrl
 
     val openSecurityCenterEvent = SingleLiveEvent<Unit>()
     val openAboutAppEvent = SingleLiveEvent<Unit>()

@@ -28,6 +28,7 @@ class AppConfiguration(
     )
 
     override val appShareUrl = "https://github.com/5daytech/dex-app-android"
+    override val companySiteUrl: String = "https://fridayte.ch/"
     override val merchantId: String = BuildConfig.MERCHANT_ID
 
     override val transactionExploreBaseUrl = if (testMode) "https://ropsten.etherscan.io/tx/" else "https://etherscan.io/tx/"
