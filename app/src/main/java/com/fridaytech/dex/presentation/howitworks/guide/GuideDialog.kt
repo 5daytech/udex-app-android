@@ -27,6 +27,11 @@ class GuideDialog : BaseBottomDialog(R.layout.dialog_guide) {
             R.string.guide_page_3,
             R.string.guide_page_3_description,
             R.drawable.img_guide_3
+        ),
+        GuidePageConfig(
+            R.string.guide_page_4,
+            R.string.guide_page_4_description,
+            R.drawable.img_guide_4
         )
     )
 
