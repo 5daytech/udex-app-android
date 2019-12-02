@@ -46,7 +46,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:siv_action_switch="false"
                 app:siv_title="@string/settings_coin_manager"
-                app:siv_icon="@drawable/ic_dollar_sign"
+                app:siv_icon="@drawable/ic_coin_manager"
                 android:background="?selectableItemBackground" />
 
             <com.fridaytech.dex.presentation.settings.SettingsItemView
