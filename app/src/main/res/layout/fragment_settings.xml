@@ -151,12 +151,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_friday_tech"
+                    android:tint="?SecondaryHintTextColor"
                     android:layout_gravity="center"/>
 
                 <TextView
                     style="@style/BoldText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
                     android:textColor="?SecondaryHintTextColor"
                     android:textSize="15sp"
                     android:textAllCaps="true"

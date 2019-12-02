@@ -18,10 +18,9 @@ class SpaceItemDecoration(
         outRect.top = 0
         outRect.bottom = 0
 
-        when(parent.getChildAdapterPosition(view)) {
+        when (parent.getChildAdapterPosition(view)) {
             0 -> outRect.top = top
             (parent.adapter?.itemCount ?: 0) - 1 -> outRect.bottom = bottom
         }
     }
-
 }
