@@ -200,7 +200,7 @@
     <string name="guide_page_2">What is UDEX?</string>
     <string name="guide_page_3">How UDEX Works</string>
     <string name="guide_page_4">Any Fees?</string>
-    <string name="guide_page_1_description">Thanks for downloading UDEX. Let\'s take 20 seconds to learn how it works.</string>
+    <string name="guide_page_1_description">Thanks for downloading UDEX, let\'s take a few seconds to learn how it works.</string>
     <string name="guide_page_2_description">A decentralised, real-time, and non-custodial exchange.</string>
     <string name="guide_page_3_description">You need to fund your wallet with ERC-20 coins to get started.</string>
     <string name="guide_page_4_description">UDEX is free to use. However, you will have to pay gas and other fees associated with the 0x protocol.</string>
