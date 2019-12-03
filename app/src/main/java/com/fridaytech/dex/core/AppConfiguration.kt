@@ -27,7 +27,7 @@ class AppConfiguration(
         BuildConfig.INFURA_PROJECT_SECRET
     )
 
-    override val appShareUrl = "https://github.com/5daytech/dex-app-android"
+    override val appShareUrl = "https://udex.app/share"
     override val companySiteUrl: String = "https://fridayte.ch/"
     override val merchantId: String = BuildConfig.MERCHANT_ID
 
