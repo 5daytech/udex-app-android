@@ -50,7 +50,11 @@ class CoinManager(
                     it == coinCode.substring(1)
         }
 
-        return if (baseIndex >= 0) baseCoins[baseIndex] else coinCode
+        return when {
+            baseIndex >= 0 -> baseCoins[baseIndex]
+            coinCode == "SAI" -> "DAI"
+            else -> coinCode
+        }
     }
 
     override fun getCoin(code: String): Coin =
