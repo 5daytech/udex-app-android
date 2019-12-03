@@ -94,52 +94,30 @@ class App : Application() {
 
         appConfiguration = AppConfiguration.DEFAULT
 
-        sharedStorage =
-            SharedStorage(this)
-        appPreferences =
-            AppPreferences(sharedStorage)
+        sharedStorage = SharedStorage(this)
+        appPreferences = AppPreferences(sharedStorage)
         appDatabase = AppDatabase.getInstance(this)
 
-        enabledCoinsStorage =
-            EnabledCoinsStorage(appDatabase.enabledCoinsDao())
-        coinManager = CoinManager(
-            appConfiguration,
-            enabledCoinsStorage
-        )
-        feeRateProvider =
-            FeeRateProvider(this)
-        processingDurationProvider =
-            ProcessingDurationProvider()
+        enabledCoinsStorage = EnabledCoinsStorage(appDatabase.enabledCoinsDao())
+        coinManager = CoinManager(appConfiguration, enabledCoinsStorage)
+        feeRateProvider = FeeRateProvider(this)
+        processingDurationProvider = ProcessingDurationProvider()
 
         KeyStoreManager("MASTER_KEY").apply {
             keyStoreManager = this
             keyProvider = this
-            encryptionManager =
-                EncryptionManager(this)
+            encryptionManager = EncryptionManager(this)
         }
-        securedStorage =
-            SecuredStorage(
-                encryptionManager,
-                sharedStorage
-            )
+        securedStorage = SecuredStorage(encryptionManager, sharedStorage)
 
-        systemInfoManager =
-            SystemInfoManager()
-        backgroundManager =
-            BackgroundManager(this)
-        networkStateManager =
-            NetworkStateManager()
+        systemInfoManager = SystemInfoManager()
+        backgroundManager = BackgroundManager(this)
+        networkStateManager = NetworkStateManager()
 
         // Auth
-        wordsManager =
-            WordsManager(appPreferences)
-        authManager =
-            AuthManager(
-                securedStorage,
-                coinManager
-            )
-        pinManager =
-            PinManager(securedStorage)
+        wordsManager = WordsManager(appPreferences)
+        authManager = AuthManager(securedStorage, coinManager)
+        pinManager = PinManager(securedStorage)
 
         keyStoreChangeListener = KeyStoreChangeListener(
             systemInfoManager,
@@ -147,39 +125,22 @@ class App : Application() {
         ).apply {
             backgroundManager.registerListener(this)
         }
-        lockManager = LockManager(
-            pinManager
-        ).apply {
+        lockManager = LockManager(pinManager).apply {
             backgroundManager.registerListener(this)
         }
 
         // Init kits
-        ethereumKitManager =
-            EthereumKitManager(appConfiguration)
-        zrxKitManager = ZrxKitManager(
-            appConfiguration,
-            authManager,
-            feeRateProvider
-        )
+        ethereumKitManager = EthereumKitManager(appConfiguration)
+        zrxKitManager = ZrxKitManager(appConfiguration, authManager, feeRateProvider)
 
-        buyCryptoProvider =
-            BuyCryptoProvider(appConfiguration)
+        buyCryptoProvider = BuyCryptoProvider(appConfiguration)
 
         // Rates
-        ratesManager =
-            RatesManager(
-                this,
-                coinManager
-            )
-        ratesConverter =
-            RatesConverter(ratesManager = ratesManager)
+        ratesManager = RatesManager(this, coinManager)
+        ratesConverter = RatesConverter(ratesManager = ratesManager)
 
         // Init adapter managers
-        adapterFactory =
-            AdapterFactory(
-                ethereumKitManager,
-                feeRateProvider
-            )
+        adapterFactory = AdapterFactory(ethereumKitManager, feeRateProvider)
         adapterManager = AdapterManager(
             coinManager,
             adapterFactory,
@@ -196,14 +157,8 @@ class App : Application() {
         ).also {
             authManager.relayerAdapterManager = it
         }
-        exchangeHistoryManager =
-            ExchangeHistoryManager(adapterManager)
+        exchangeHistoryManager = ExchangeHistoryManager(adapterManager)
 
-        cleanupManager =
-            CleanupManager(
-                authManager,
-                appPreferences,
-                keyStoreManager
-            )
+        cleanupManager = CleanupManager(authManager, appPreferences, keyStoreManager)
     }
 }
