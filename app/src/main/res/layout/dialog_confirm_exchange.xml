@@ -155,6 +155,17 @@
         app:iiv_title="@string/info_duration"
         app:iiv_visible_divider="false"/>
 
+    <TextView
+        style="@style/RegularText"
+        android:id="@+id/exchange_confirm_lifetime_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_processing_time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="?AccentTextColor"
+        android:text="Order will be live next 24 hours."/>
+
     <Button
         android:id="@+id/exchange_confirm"
         style="@style/PrimaryButton"
@@ -163,7 +174,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_processing_time"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_confirm_lifetime_info"
         android:layout_marginTop="@dimen/page_margin"
         android:text="@string/action_confirm"/>
 

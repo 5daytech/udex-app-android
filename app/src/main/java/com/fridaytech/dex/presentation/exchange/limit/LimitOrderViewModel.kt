@@ -136,7 +136,8 @@ class LimitOrderViewModel : BaseExchangeViewModel<LimitOrderViewState>() {
             state.sendCoin?.code ?: "",
             state.receiveCoin?.code ?: "",
             state.sendAmount,
-            mReceiveInfo.amount
+            mReceiveInfo.amount,
+            showLifeTimeInfo = true
         ) { placeOrder() }
 
         confirmEvent.value = confirmInfo

@@ -10,8 +10,8 @@ import com.fridaytech.dex.presentation.dialogs.BaseDialog
 import com.fridaytech.dex.presentation.widgets.click.setSingleClickListener
 import com.fridaytech.dex.utils.ui.toDisplayFormat
 import com.fridaytech.dex.utils.visible
-import java.math.BigDecimal
 import kotlinx.android.synthetic.main.dialog_confirm_exchange.*
+import java.math.BigDecimal
 
 class ExchangeConfirmDialog : BaseDialog(R.layout.dialog_confirm_exchange) {
 
@@ -41,6 +41,8 @@ class ExchangeConfirmDialog : BaseDialog(R.layout.dialog_confirm_exchange) {
         super.onViewCreated(view, savedInstanceState)
 
         exchange_confirm.setSingleClickListener { viewModel.onConfirmClick() }
+
+        exchange_confirm_lifetime_info.visible = info.showLifeTimeInfo
     }
 
     private fun refreshState(state: ExchangeConfirmViewModel.ViewState) {

@@ -170,7 +170,8 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
             state.sendCoin?.code ?: "",
             state.receiveCoin?.code ?: "",
             estimatedSendAmount,
-            estimatedReceiveAmount
+            estimatedReceiveAmount,
+            showLifeTimeInfo = false
         ) { marketBuy() }
 
         confirmEvent.postValue(confirmInfo)
