@@ -78,7 +78,6 @@ class AppConfiguration(
 
     private val exchangePairs = listOf(
         getExchangePair("USDC", "WETH"),
-        getExchangePair("USDT", "WETH"),
         getExchangePair("ZRX", "WETH"),
         getExchangePair("BAT", "WETH"),
         getExchangePair("LPT", "WETH"),
@@ -87,6 +86,7 @@ class AppConfiguration(
         getExchangePair("MKR", "WETH"),
         getExchangePair("OMG", "WETH"),
         getExchangePair("DAI", "WETH"),
+        getExchangePair("USDT", "WETH"),
         getExchangePair("USDC", "DAI")
     )
 
