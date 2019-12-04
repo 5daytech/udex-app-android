@@ -28,8 +28,8 @@
     <string name="hint_available_balance">Available Balance</string>
     <string name="hint_equity_value">Equity Value (%1$s) ~</string>
     <string name="hint_you_send">You send $%1$s</string>
-    <string name="hint_i_have">I sell %1$s USD</string>
-    <string name="hint_i_want">I buy %1$s USD</string>
+    <string name="hint_i_have">~ $%1$s</string>
+    <string name="hint_i_want">~ $%1$s</string>
     <string name="subtitle_restore">Enter Secret Key</string>
     <string name="subtitle_transaction_sent">Transaction sent \u2713</string>
     <string name="markets_list_hint">market info (24h)</string>
@@ -96,7 +96,7 @@
     <string name="message_syncing">SYNCING…</string>
     <string name="message_empty_transactions">NO TRANSACTIONS YET</string>
     <string name="message_empty_exchange_history">NO HISTORY YET</string>
-    <string name="message_empty_orders">NO ORDERS YET</string>
+    <string name="message_empty_orders">NO OPEN ORDERS</string>
 
     <string name="top_up_title">Top-up Your Account</string>
     <string name="top_up_description">Add coins before starting\nto exchange</string>

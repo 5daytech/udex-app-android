@@ -272,10 +272,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="44dp"
                     android:gravity="center"
-                    android:text="Rate Info"
+                    android:text="Price History"
                     android:textAllCaps="true"
                     android:textColor="?AccentTextColor"
-                    android:letterSpacing="0.1"
+                    android:letterSpacing="0.05"
                     android:textSize="11sp"
                     android:layout_marginStart="@dimen/element_margin"/>
             </LinearLayout>
