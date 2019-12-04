@@ -13,6 +13,8 @@ import java.math.BigDecimal
 
 interface IZrxKitManager {
     fun zrxKit(): ZrxKit
+
+    fun unlink()
 }
 
 interface IAllowanceChecker {

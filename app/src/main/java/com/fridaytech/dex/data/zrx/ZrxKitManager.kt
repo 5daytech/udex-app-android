@@ -44,4 +44,8 @@ class ZrxKitManager(
 
         throw UnauthorizedException()
     }
+
+    override fun unlink() {
+        kit = null
+    }
 }

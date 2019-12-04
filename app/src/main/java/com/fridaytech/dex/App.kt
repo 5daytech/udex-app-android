@@ -159,6 +159,6 @@ class App : Application() {
         }
         exchangeHistoryManager = ExchangeHistoryManager(adapterManager)
 
-        cleanupManager = CleanupManager(authManager, appPreferences, keyStoreManager)
+        cleanupManager = CleanupManager(authManager, appPreferences, keyStoreManager, zrxKitManager)
     }
 }
