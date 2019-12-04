@@ -12,6 +12,8 @@ interface IAppConfiguration {
     val zrxNetworkType: ZrxKit.NetworkType
     val etherscanKey: String
     val infuraCredentials: EthereumKit.InfuraCredentials
+    val infuraProjectId: String?
+    val infuraProjectSecret: String?
 
     val merchantId: String
 

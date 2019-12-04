@@ -138,7 +138,7 @@ dependencies {
     implementation 'com.github.horizontalsystems:hd-wallet-kit-android:a3666d8'
 
     // FeeRateKit
-    implementation 'com.github.horizontalsystems:blockchain-fee-rate-kit-android:3b97961'
+    implementation 'com.github.horizontalsystems:blockchain-fee-rate-kit-android:15df939'
 
     // Rates
     implementation 'com.github.horizontalsystems:xrates-kit-android:bdf0901'

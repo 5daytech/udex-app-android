@@ -163,7 +163,7 @@ abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
     fun onMaxClick() {
         val adapter = adapterManager.adapters.firstOrNull { it.coin.code == state.sendCoin?.code }
         if (adapter != null) {
-            val amount = adapter.availableBalance(null, FeeRatePriority.HIGH)
+            val amount = adapter.availableBalance(null, FeeRatePriority.MEDIUM)
             onSendAmountChange(amount)
             viewState.value = state
         }

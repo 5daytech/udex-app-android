@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <attr name="PrimaryLightColor" format="reference|color"/>
     <attr name="PrimaryTextColor" format="reference|color"/>
@@ -24,23 +24,22 @@
     <attr name="NavigationColor" format="reference|color"/>
     <attr name="TransparentBackground" format="reference|color"/>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
         <item name="android:fontFamily">@font/sf_pro_display_regular</item>
         <item name="android:navigationBarColor">@color/dark_main</item>
         <item name="NavigationColor">@color/dark_main</item>
     </style>
 
-    <style name="AppTheme.LightMode">
+    <style name="LightMode" parent="AppTheme">
         <item name="colorAccent">@color/blue</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">@color/blue</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@color/light_main</item>
         <item name="android:windowBackground">@color/light_main</item>
-        <item name="MainBackground">@color/light_main</item>
+        <item name="MainBackground">@color/light_main</item>®
         <item name="PrimaryTextColor">@color/main_dark_text</item>
         <item name="PrimaryLightColor">@color/dark_text</item>
         <item name="HintTextColor">@color/light_hint</item>
@@ -63,8 +62,9 @@
         <item name="TransparentBackground">@color/light_accent_transparent</item>
     </style>
 
-    <style name="AppTheme.DarkMode">
+    <style name="DarkMode" parent="AppTheme">
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">@color/colorAccent</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:statusBarColor">@color/dark_main</item>
         <item name="android:windowBackground">@color/dark_main</item>
@@ -94,8 +94,9 @@
         <item name="TransparentBackground">@color/dark_accent_transparent</item>
     </style>
 
-    <style name="AppTheme.GoldMode">
+    <style name="GoldMode" parent="AppTheme">
         <item name="colorAccent">@color/yellow</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">@color/yellow</item>
         <item name="colorPrimary">@color/yellow</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:statusBarColor">@color/black</item>
@@ -128,9 +129,7 @@
         <item name="TransparentBackground">@color/gold_accent_transparent</item>
     </style>
 
-    <style name="AppTheme.DarkLaunchScreen">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="DarkLaunchScreen" parent="GoldMode">
         <item name="android:statusBarColor">@color/black</item>
         <item name="android:windowBackground">@drawable/bg_launch_screen</item>
         <item name="android:windowLightStatusBar">false</item>
@@ -138,7 +137,7 @@
     </style>
 
     <!-- Screens -->
-    <style name="AppTheme.FullScreen">
+    <style name="FullScreen" parent="AppTheme">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">false</item>
     </style>
@@ -157,6 +156,7 @@
 
     <style name="BaseBottomDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">?AccentTextColor</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">?AccentTextColor</item>
         <item name="android:navigationBarColor">?NavigationColor</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@color/transparent</item>
@@ -172,6 +172,7 @@
 
     <style name="BaseFloatingDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">?AccentTextColor</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">?AccentTextColor</item>
         <item name="android:windowBackground">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.5</item>
@@ -279,8 +280,9 @@
     </style>
 
     <style name="DialogTitleText" parent="BoldText">
+        <item name="android:fontFamily">@font/sf_pro_display_bold</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">?attr/PrimaryTextColor</item>
+        <item name="android:textColor">?PrimaryTextColor</item>
     </style>
 
     <style name="SmallHintText" parent="RegularText">
@@ -320,7 +322,7 @@
     </style>
 
     <!-- Base styles -->
-    <style name="BaseText">
+    <style name="BaseText" parent="TextAppearance.AppCompat">
         <item name="android:includeFontPadding">false</item>
     </style>
 

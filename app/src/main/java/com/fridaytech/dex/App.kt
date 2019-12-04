@@ -100,7 +100,7 @@ class App : Application() {
 
         enabledCoinsStorage = EnabledCoinsStorage(appDatabase.enabledCoinsDao())
         coinManager = CoinManager(appConfiguration, enabledCoinsStorage)
-        feeRateProvider = FeeRateProvider(this)
+        feeRateProvider = FeeRateProvider(this, appConfiguration)
         processingDurationProvider = ProcessingDurationProvider()
 
         KeyStoreManager("MASTER_KEY").apply {

@@ -14,11 +14,11 @@ object ThemeHelper {
     }
 
     fun getActivityTheme(): Int = when (selectedThemePosition) {
-        1 -> R.style.AppTheme_DarkMode
+        1 -> R.style.DarkMode
 
-        2 -> R.style.AppTheme_LightMode
+        2 -> R.style.LightMode
 
-        else -> R.style.AppTheme_GoldMode
+        else -> R.style.GoldMode
     }
 
     fun getBottomDialogTheme(): Int = when (selectedThemePosition) {

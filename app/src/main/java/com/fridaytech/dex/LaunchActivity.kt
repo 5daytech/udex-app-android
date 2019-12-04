@@ -24,6 +24,7 @@ class LaunchActivity : AppCompatActivity() {
             App.systemInfoManager.isSystemLockOff -> {
                 KeyStoreActivity.startForSystemLockOff(this)
                 ToastHelper.showInfoMessage("System lock is off")
+                finish()
             }
 
             App.keyStoreManager.isUserNotAuthenticated -> {

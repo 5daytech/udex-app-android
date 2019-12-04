@@ -3,7 +3,7 @@ package com.fridaytech.dex.utils
 import android.util.Log
 
 object Logger {
-    private val TAG = "bddex"
+    private val TAG = "logger"
 
     fun d(message: String?, tag: String = TAG) {
         if (message != null) {

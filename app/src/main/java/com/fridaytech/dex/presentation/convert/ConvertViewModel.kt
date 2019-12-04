@@ -34,7 +34,7 @@ class ConvertViewModel(
     private val ratesConverter: RatesConverter = App.ratesConverter,
     private val processingDurationProvider: IProcessingDurationProvider = App.processingDurationProvider
 ) : CoreViewModel() {
-    private val minRemainingAmount = 0.001.toBigDecimal()
+    private var minRemainingAmount = 0.001.toBigDecimal()
 
     private lateinit var config: ConvertConfig
     private lateinit var fromCoin: Coin
@@ -118,6 +118,7 @@ class ConvertViewModel(
             else -> BigDecimal.ZERO
         }
 
+        minRemainingAmount = transactionPrice.multiply(4.toBigDecimal())
         val transactionPriceFiat = ratesConverter.getCoinsPrice(adapter!!.coin.code, transactionPrice)
 
         feeInfo.value = FeeInfo(
@@ -135,7 +136,7 @@ class ConvertViewModel(
                 0
             )
 
-            adapter.validate(sendAmount, null, FeeRatePriority.HIGH)
+            adapter.validate(sendAmount, null, FeeRatePriority.MEDIUM)
                 .forEach {
                     when (it) {
                         is SendStateError.InsufficientAmount -> {

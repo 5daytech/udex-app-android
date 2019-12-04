@@ -26,6 +26,11 @@ class AppConfiguration(
         BuildConfig.INFURA_PROJECT_ID,
         BuildConfig.INFURA_PROJECT_SECRET
     )
+    override val infuraProjectId: String?
+        get() = infuraCredentials.projectId
+
+    override val infuraProjectSecret: String?
+        get() = infuraCredentials.secretKey
 
     override val appShareUrl = "https://udex.app/share"
     override val companySiteUrl: String = "https://fridayte.ch/"

@@ -9,6 +9,7 @@ import com.fridaytech.dex.data.manager.IAdapterManager
 import com.fridaytech.dex.data.manager.ICoinManager
 import com.fridaytech.dex.data.security.ISecuredStorage
 import com.fridaytech.dex.data.zrx.IRelayerAdapterManager
+import com.fridaytech.dex.utils.Logger
 import io.reactivex.subjects.PublishSubject
 
 class AuthManager(
@@ -19,7 +20,12 @@ class AuthManager(
     override var relayerAdapterManager: IRelayerAdapterManager? = null
 
     override var authData: AuthData? = null
-        get() = securedStorage.authData // TODO: Load via safeLoad
+        get() = try {
+            securedStorage.authData
+        } catch (e: Exception) {
+            Logger.e(e)
+            null
+        }// TODO: Load via safeLoad
 
     override var authDataSubject = PublishSubject.create<Unit>()
 

@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
+import com.fridaytech.dex.utils.Logger
 import com.fridaytech.dex.utils.ThemeHelper
 
 abstract class BaseDialog(
@@ -26,6 +27,10 @@ abstract class BaseDialog(
         return dialog
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = try {
         inflater.inflate(layoutId, container, false)
+    } catch (e: Exception) {
+        Logger.e(e)
+        null
+    }
 }
