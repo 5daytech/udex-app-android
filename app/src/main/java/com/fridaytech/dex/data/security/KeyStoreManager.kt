@@ -34,7 +34,6 @@ class KeyStoreManager(private val keyAlias: String) : IKeyStoreManager,
             ALGORITHM,
             ANDROID_KEY_STORE
         ).apply {
-
             init(KeyGenParameterSpec.Builder(
                 keyAlias,
                 KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
@@ -91,7 +90,14 @@ class KeyStoreManager(private val keyAlias: String) : IKeyStoreManager,
 
     override fun removeKey() {
         try {
-            keyStore.deleteEntry(keyAlias)
+            if (keyStore.containsAlias(keyAlias)) {
+                if (isKeyInvalidated) {
+                    createKey()
+                    keyStore.deleteEntry(keyAlias)
+                } else {
+                    keyStore.deleteEntry(keyAlias)
+                }
+            }
         } catch (e: KeyStoreException) {
             Logger.e(e)
         }
