@@ -6,6 +6,7 @@ import com.fridaytech.dex.R
 import com.fridaytech.dex.core.model.Coin
 import com.fridaytech.dex.core.ui.CoreViewModel
 import com.fridaytech.dex.core.ui.SingleLiveEvent
+import com.fridaytech.dex.core.utils.parser.IAddressParser
 import com.fridaytech.dex.data.adapter.FeeRatePriority
 import com.fridaytech.dex.data.adapter.IAdapter
 import com.fridaytech.dex.data.adapter.SendStateError
@@ -19,7 +20,6 @@ import com.fridaytech.dex.presentation.send.model.ReceiveAddressInfo
 import com.fridaytech.dex.presentation.send.model.SendUserInput
 import com.fridaytech.dex.utils.Logger
 import com.fridaytech.dex.utils.rx.uiObserve
-import java.lang.Exception
 import java.math.BigDecimal
 
 class SendViewModel(
@@ -28,6 +28,8 @@ class SendViewModel(
 ) : CoreViewModel() {
 
     private lateinit var adapter: IAdapter
+    private lateinit var addressParser: IAddressParser
+
     private var userInput = SendUserInput()
 
     var decimalSize: Int? = null
@@ -38,8 +40,7 @@ class SendViewModel(
     val amount = MutableLiveData<BigDecimal>()
     val sendInfo = MutableLiveData<AmountInfo>()
 
-    val confirmEvent =
-        SingleLiveEvent<SendConfirmDialog.SendConfirmData>()
+    val confirmEvent = SingleLiveEvent<SendConfirmDialog.SendConfirmData>()
     val dismissEvent = SingleLiveEvent<Unit>()
     val dismissWithSuccessEvent = SingleLiveEvent<Unit>()
     val openBarcodeScannerEvent = SingleLiveEvent<Unit>()
@@ -54,6 +55,8 @@ class SendViewModel(
         } else {
             this.adapter = adapter
         }
+
+        addressParser = App.addressParserFactory.getParser(adapter.coin)
 
         coin.value = adapter.coin
         decimalSize = adapter.decimal
@@ -165,7 +168,9 @@ class SendViewModel(
 
     fun onScanResult(contents: String?) {
         if (contents != null && contents.isNotEmpty()) {
-            setAddress(contents)
+            val parsedAddress = addressParser.parse(contents)
+
+            setAddress(parsedAddress.address)
         }
     }
 

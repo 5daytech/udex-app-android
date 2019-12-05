@@ -8,6 +8,7 @@ import com.fridaytech.dex.core.shared.AppPreferences
 import com.fridaytech.dex.core.shared.IAppPreferences
 import com.fridaytech.dex.core.shared.ISharedStorage
 import com.fridaytech.dex.core.shared.SharedStorage
+import com.fridaytech.dex.core.utils.parser.AddressParserFactory
 import com.fridaytech.dex.data.adapter.AdapterFactory
 import com.fridaytech.dex.data.buycrypto.BuyCryptoProvider
 import com.fridaytech.dex.data.buycrypto.IBuyCryptoProvider
@@ -76,6 +77,7 @@ class App : Application() {
 
         // Factories
         lateinit var adapterFactory: AdapterFactory
+        lateinit var addressParserFactory: AddressParserFactory
 
         // Storage
         lateinit var appDatabase: AppDatabase
@@ -125,6 +127,7 @@ class App : Application() {
         ).apply {
             backgroundManager.registerListener(this)
         }
+
         lockManager = LockManager(pinManager).apply {
             backgroundManager.registerListener(this)
         }
@@ -138,6 +141,8 @@ class App : Application() {
         // Rates
         ratesManager = RatesManager(this, coinManager)
         ratesConverter = RatesConverter(ratesManager = ratesManager)
+
+        addressParserFactory = AddressParserFactory()
 
         // Init adapter managers
         adapterFactory = AdapterFactory(ethereumKitManager, feeRateProvider)
