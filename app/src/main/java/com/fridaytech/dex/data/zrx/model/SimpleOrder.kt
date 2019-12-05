@@ -1,13 +1,10 @@
 package com.fridaytech.dex.data.zrx.model
 
 import com.fridaytech.dex.core.model.Coin
-import com.fridaytech.dex.core.model.CoinType
-import com.fridaytech.dex.data.manager.ICoinManager
 import com.fridaytech.dex.data.manager.rates.RatesConverter
 import com.fridaytech.dex.data.zrx.OrdersUtil
 import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.utils.TimeUtils
-import com.fridaytech.zrxkit.model.EAssetProxyId
 import com.fridaytech.zrxkit.model.OrderInfo
 import com.fridaytech.zrxkit.relayer.model.OrderRecord
 import java.math.BigDecimal
@@ -17,7 +14,9 @@ data class SimpleOrder(
     val takerCoin: Coin,
     val price: BigDecimal,
     val makerAmount: BigDecimal,
+    val remainingMakerAmount: BigDecimal,
     val takerAmount: BigDecimal,
+    val remainingTakerAmount: BigDecimal,
     val makerFiatAmount: BigDecimal,
     val takerFiatAmount: BigDecimal,
     val expireDate: String,
@@ -28,7 +27,6 @@ data class SimpleOrder(
 ) {
     companion object {
         fun fromOrder(
-            coinManager: ICoinManager,
             ratesConverter: RatesConverter,
             orderRecord: OrderRecord,
             side: EOrderSide,
@@ -37,17 +35,13 @@ data class SimpleOrder(
         ): SimpleOrder {
             val normalizedData = OrdersUtil.normalizeOrderData(orderRecord)
 
-            val takerCoin = coinManager.getErcCoinForAddress(EAssetProxyId.ERC20.decode(orderRecord.order.takerAssetData))!!
-
-            val filledAmount = orderInfo?.orderTakerAssetFilledAmount?.toBigDecimal()
-                ?.movePointLeft((takerCoin.type as CoinType.Erc20).decimal)
-                ?.stripTrailingZeros() ?: BigDecimal.ZERO
-
             return SimpleOrder(
                 normalizedData.makerCoin,
                 normalizedData.takerCoin,
                 normalizedData.price,
+                normalizedData.makerAmount,
                 normalizedData.remainingMakerAmount,
+                normalizedData.takerAmount,
                 normalizedData.remainingTakerAmount,
                 ratesConverter.getCoinsPrice(
                     normalizedData.makerCoin.code,
@@ -61,7 +55,7 @@ data class SimpleOrder(
                 side,
                 isMine,
                 orderInfo?.orderStatus ?: "unknown",
-                filledAmount
+                normalizedData.takerAmount - normalizedData.remainingTakerAmount
             )
         }
     }

@@ -30,19 +30,19 @@ class OrderViewHolder(
         )
 
         if (order.side == EOrderSide.BUY) {
-            order_amount.text = order.takerAmount.toDisplayFormat()
+            order_amount.text = order.remainingTakerAmount.toDisplayFormat()
             order_amount_coin.text = order.takerCoin.code
             order_amount_fiat.text = "~ $${order.takerFiatAmount.toFiatDisplayFormat()}"
 
-            order_total.text = order.makerAmount.toDisplayFormat()
+            order_total.text = order.remainingMakerAmount.toDisplayFormat()
             order_total_coin.text = order.makerCoin.code
             order_total_fiat.text = "~ $${order.makerFiatAmount.toFiatDisplayFormat()}"
         } else {
-            order_amount.text = order.makerAmount.toDisplayFormat()
+            order_amount.text = order.remainingMakerAmount.toDisplayFormat()
             order_amount_coin.text = order.makerCoin.code
             order_amount_fiat.text = "~ $${order.makerFiatAmount.toFiatDisplayFormat()}"
 
-            order_total.text = order.takerAmount.toDisplayFormat()
+            order_total.text = order.remainingTakerAmount.toDisplayFormat()
             order_total_coin.text = order.takerCoin.code
             order_total_fiat.text = "~ $${order.takerFiatAmount.toFiatDisplayFormat()}"
         }

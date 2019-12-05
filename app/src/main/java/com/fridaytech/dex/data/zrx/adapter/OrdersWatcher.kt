@@ -1,6 +1,5 @@
 package com.fridaytech.dex.data.zrx.adapter
 
-import com.fridaytech.dex.data.manager.ICoinManager
 import com.fridaytech.dex.data.manager.rates.RatesConverter
 import com.fridaytech.dex.data.zrx.IRelayerAdapter
 import com.fridaytech.dex.data.zrx.model.ExchangePair
@@ -15,7 +14,6 @@ import io.reactivex.subjects.BehaviorSubject
 import java.math.BigInteger
 
 class OrdersWatcher(
-    private val coinManager: ICoinManager,
     private val relayerAdapter: IRelayerAdapter,
     private val ratesConverter: RatesConverter
 ) {
@@ -86,7 +84,7 @@ class OrdersWatcher(
 
     private fun refreshBuyOrders(orders: List<OrderRecord>) {
         simpleBuyOrders = orders
-            .map { SimpleOrder.fromOrder(coinManager, ratesConverter, it, BUY) }
+            .map { SimpleOrder.fromOrder(ratesConverter, it, BUY) }
             .sortedBy { it.price }
 
         buyOrdersSubject.onNext(simpleBuyOrders)
@@ -94,7 +92,7 @@ class OrdersWatcher(
 
     private fun refreshSellOrders(orders: List<OrderRecord>) {
         simpleSellOrders = orders
-            .map { SimpleOrder.fromOrder(coinManager, ratesConverter, it, SELL) }
+            .map { SimpleOrder.fromOrder(ratesConverter, it, SELL) }
             .sortedBy { it.price }
 
         sellOrdersSubject.onNext(simpleSellOrders)
@@ -104,7 +102,6 @@ class OrdersWatcher(
         simpleMyOrders = myOrders.mapIndexed { index, it ->
             val orderInfo = OrderInfo("", "", BigInteger.ZERO)
             SimpleOrder.fromOrder(
-                coinManager,
                 ratesConverter,
                 it,
                 MY,

@@ -33,16 +33,16 @@ class OrderBookViewHolder(
         market_order_amount.setTextColorRes(if (order.side == EOrderSide.SELL) R.color.red else R.color.green)
 
         if (order.side == EOrderSide.BUY) {
-            market_order_amount.text = order.takerAmount.toDisplayFormat()
+            market_order_amount.text = order.remainingTakerAmount.toDisplayFormat()
             market_order_amount_fiat.text = "$${order.takerFiatAmount.toFiatDisplayFormat()}"
 
-            market_order_total.text = order.makerAmount.toDisplayFormat()
+            market_order_total.text = order.remainingMakerAmount.toDisplayFormat()
             market_order_total_fiat.text = "$${order.makerFiatAmount.toFiatDisplayFormat()}"
         } else {
-            market_order_amount.text = order.makerAmount.toDisplayFormat()
+            market_order_amount.text = order.remainingMakerAmount.toDisplayFormat()
             market_order_amount_fiat.text = "$${order.makerFiatAmount.toFiatDisplayFormat()}"
 
-            market_order_total.text = order.takerAmount.toDisplayFormat()
+            market_order_total.text = order.remainingTakerAmount.toDisplayFormat()
             market_order_total_fiat.text = "$${order.takerFiatAmount.toFiatDisplayFormat()}"
         }
     }

@@ -14,7 +14,7 @@ import com.fridaytech.dex.presentation.exchange.model.ExchangeAmountInfo
 import com.fridaytech.dex.presentation.exchange.model.ExchangeCoinItem
 import com.fridaytech.dex.presentation.exchange.model.ExchangePairsInfo
 import com.fridaytech.dex.presentation.exchange.model.IExchangeViewState
-import com.fridaytech.dex.presentation.models.AmountInfo
+import com.fridaytech.dex.presentation.model.AmountInfo
 import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.utils.rx.uiSubscribe
 import java.math.BigDecimal

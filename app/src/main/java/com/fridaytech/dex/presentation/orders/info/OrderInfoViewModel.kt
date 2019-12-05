@@ -15,7 +15,6 @@ import java.math.BigDecimal
 
 class OrderInfoViewModel : CoreViewModel() {
     private val adapterManager = App.adapterManager
-    private val coinManager = App.coinManager
     private val ratesConverter = App.ratesConverter
     private val processingTimeProvider = App.processingDurationProvider
     private val relayerAdapter: IRelayerAdapter?
@@ -34,7 +33,6 @@ class OrderInfoViewModel : CoreViewModel() {
 
         order?.let {
             this.orderInfo.value = SimpleOrder.fromOrder(
-                coinManager,
                 ratesConverter,
                 it.orderRecord,
                 it.side,

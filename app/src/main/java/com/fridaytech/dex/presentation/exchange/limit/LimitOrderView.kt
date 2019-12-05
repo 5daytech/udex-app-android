@@ -11,7 +11,7 @@ import com.fridaytech.dex.R
 import com.fridaytech.dex.presentation.exchange.model.ExchangeAmountInfo
 import com.fridaytech.dex.presentation.exchange.model.ExchangePairsInfo
 import com.fridaytech.dex.presentation.exchange.model.IExchangeViewState
-import com.fridaytech.dex.presentation.models.AmountInfo
+import com.fridaytech.dex.presentation.model.AmountInfo
 import com.fridaytech.dex.utils.getAttr
 import com.fridaytech.dex.utils.ui.AnimationHelper
 import com.fridaytech.dex.utils.ui.toFiatDisplayFormat

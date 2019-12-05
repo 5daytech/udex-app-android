@@ -11,7 +11,7 @@ import com.fridaytech.dex.R
 import com.fridaytech.dex.core.model.Coin
 import com.fridaytech.dex.core.ui.reObserve
 import com.fridaytech.dex.presentation.dialogs.BaseBottomDialog
-import com.fridaytech.dex.presentation.models.AmountInfo
+import com.fridaytech.dex.presentation.model.AmountInfo
 import com.fridaytech.dex.presentation.qrscanner.QRScannerActivity
 import com.fridaytech.dex.presentation.send.confirm.SendConfirmDialog
 import com.fridaytech.dex.presentation.send.model.ReceiveAddressInfo

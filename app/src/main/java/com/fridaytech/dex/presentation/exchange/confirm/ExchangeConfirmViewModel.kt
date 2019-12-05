@@ -6,7 +6,7 @@ import com.fridaytech.dex.core.model.Coin
 import com.fridaytech.dex.core.ui.CoreViewModel
 import com.fridaytech.dex.core.ui.SingleLiveEvent
 import com.fridaytech.dex.data.manager.duration.ETransactionType
-import com.fridaytech.dex.presentation.models.FeeInfo
+import com.fridaytech.dex.presentation.model.FeeInfo
 import com.fridaytech.dex.utils.normalizedDiv
 import com.fridaytech.dex.utils.rx.uiSubscribe
 import java.math.BigDecimal

@@ -13,7 +13,7 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.fridaytech.dex.R
-import com.fridaytech.dex.presentation.models.AmountInfo
+import com.fridaytech.dex.presentation.model.AmountInfo
 import com.fridaytech.dex.utils.ui.AnimationHelper
 import com.fridaytech.dex.utils.ui.DimenUtils
 import com.fridaytech.dex.utils.ui.toFiatDisplayFormat

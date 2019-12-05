@@ -18,8 +18,8 @@ import com.fridaytech.dex.data.manager.rates.RatesConverter
 import com.fridaytech.dex.presentation.convert.confirm.ConvertConfirmInfo
 import com.fridaytech.dex.presentation.convert.model.ConvertConfig
 import com.fridaytech.dex.presentation.convert.model.ConvertState
-import com.fridaytech.dex.presentation.models.AmountInfo
-import com.fridaytech.dex.presentation.models.FeeInfo
+import com.fridaytech.dex.presentation.model.AmountInfo
+import com.fridaytech.dex.presentation.model.FeeInfo
 import com.fridaytech.dex.presentation.widgets.balance.TotalBalanceInfo
 import com.fridaytech.dex.utils.Logger
 import com.fridaytech.dex.utils.rx.uiSubscribe

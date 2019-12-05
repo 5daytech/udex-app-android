@@ -8,7 +8,7 @@ import com.fridaytech.dex.presentation.exchange.BaseExchangeViewModel
 import com.fridaytech.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.fridaytech.dex.presentation.exchange.model.ExchangeCoinItem
 import com.fridaytech.dex.presentation.exchange.model.LimitOrderViewState
-import com.fridaytech.dex.presentation.models.AmountInfo
+import com.fridaytech.dex.presentation.model.AmountInfo
 import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.utils.Logger
 import com.fridaytech.dex.utils.normalizedDiv

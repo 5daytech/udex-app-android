@@ -1,4 +1,4 @@
-package com.fridaytech.dex.presentation.models
+package com.fridaytech.dex.presentation.model
 
 import java.math.BigDecimal
 

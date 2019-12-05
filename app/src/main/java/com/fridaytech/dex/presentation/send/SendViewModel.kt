@@ -14,7 +14,7 @@ import com.fridaytech.dex.data.manager.clipboard.ClipboardManager
 import com.fridaytech.dex.data.manager.duration.ETransactionType
 import com.fridaytech.dex.data.manager.duration.IProcessingDurationProvider
 import com.fridaytech.dex.data.manager.rates.RatesConverter
-import com.fridaytech.dex.presentation.models.AmountInfo
+import com.fridaytech.dex.presentation.model.AmountInfo
 import com.fridaytech.dex.presentation.send.confirm.SendConfirmDialog
 import com.fridaytech.dex.presentation.send.model.ReceiveAddressInfo
 import com.fridaytech.dex.presentation.send.model.SendUserInput

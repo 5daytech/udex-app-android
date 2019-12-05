@@ -63,11 +63,7 @@ class OrdersViewModel : CoreViewModel() {
         relayerManager.mainRelayerUpdatedSignal
             .subscribe {
                 relayer?.let {
-                    zrxOrdersWatcher = OrdersWatcher(
-                        coinManager,
-                        it,
-                        ratesConverter
-                    )
+                    zrxOrdersWatcher = OrdersWatcher(it, ratesConverter)
                     onRelayerInitialized()
                 }
             }.let { disposables.add(it) }
@@ -205,7 +201,7 @@ class OrdersViewModel : CoreViewModel() {
                         fillOrderEvent.postValue(
                             FillOrderInfo(
                                 it,
-                                buyOrders.value!![position].takerAmount,
+                                buyOrders.value!![position].remainingTakerAmount,
                                 side
                             )
                         )
@@ -218,7 +214,7 @@ class OrdersViewModel : CoreViewModel() {
                         fillOrderEvent.postValue(
                             FillOrderInfo(
                                 it,
-                                sellOrders.value!![position].takerAmount,
+                                sellOrders.value!![position].remainingTakerAmount,
                                 side
                             )
                         )

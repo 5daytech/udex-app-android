@@ -6,7 +6,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.fridaytech.dex.R
-import com.fridaytech.dex.presentation.models.AmountInfo
+import com.fridaytech.dex.presentation.model.AmountInfo
 import com.fridaytech.dex.utils.getAttr
 import com.fridaytech.dex.utils.ui.toFiatDisplayFormat
 import kotlinx.android.synthetic.main.view_amount_input.view.*
