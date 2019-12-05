@@ -141,7 +141,7 @@ dependencies {
     implementation 'com.github.horizontalsystems:blockchain-fee-rate-kit-android:15df939'
 
     // Rates
-    implementation 'com.github.horizontalsystems:xrates-kit-android:bdf0901'
+    implementation 'com.github.5daytech:xrates-kit-android:d913bcef31'
 
     // Qr
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
