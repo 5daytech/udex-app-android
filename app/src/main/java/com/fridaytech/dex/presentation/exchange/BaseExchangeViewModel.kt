@@ -17,12 +17,14 @@ import com.fridaytech.dex.presentation.exchange.model.IExchangeViewState
 import com.fridaytech.dex.presentation.model.AmountInfo
 import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.utils.rx.uiSubscribe
+import io.reactivex.disposables.Disposable
 import java.math.BigDecimal
 
 abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
     protected val ratesConverter = App.ratesConverter
     private val relayerManager = App.relayerAdapterManager
     private val coinManager = App.coinManager
+    private var adaptersDisposable: Disposable? = null
     protected val relayer: IRelayerAdapter?
         get() = relayerManager.mainRelayer
 
@@ -99,32 +101,41 @@ abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
 
         relayerManager.mainRelayerUpdatedSignal.subscribe {
             relayer?.pairsSyncSubject?.subscribe {
-                marketCodes = relayer?.exchangePairs?.map { it.baseCoinCode to it.quoteCoinCode } ?: listOf()
-
-                exchangeableCoins = coinManager.coins.filter { coin ->
-                    marketCodes.firstOrNull { pair ->
-                        pair.first.equals(coin.code, true) ||
-                                pair.second.equals(coin.code, true)
-                    } != null
-                }
-
-                refreshPairs(null)
-
-                initState(mSendCoins.firstOrNull(), mReceiveCoins.firstOrNull())
-
-                adapterManager.adaptersUpdatedSignal.subscribe {
-                        refreshPairs(viewState.value)
-                        exchangeableCoins.forEach { coin ->
-                            val adapter = adapterManager.adapters.firstOrNull { it.coin.code == coin.code }
-
-                            adapter?.balanceUpdatedFlowable
-                                ?.uiSubscribe(disposables, {
-                                    refreshPairs(viewState.value)
-                                })
-                        }
-                }.let { disposables.add(it) }
+                initData()
             }?.let { disposables.add(it) }
         }.let { disposables.add(it) }
+
+        initData()
+    }
+
+    private fun initData() {
+        adaptersDisposable?.dispose()
+        adaptersDisposable = null
+
+        marketCodes = relayer?.exchangePairs?.map { it.baseCoinCode to it.quoteCoinCode } ?: listOf()
+
+        exchangeableCoins = coinManager.coins.filter { coin ->
+            marketCodes.firstOrNull { pair ->
+                pair.first.equals(coin.code, true) ||
+                        pair.second.equals(coin.code, true)
+            } != null
+        }
+
+        refreshPairs(null)
+
+        initState(mSendCoins.firstOrNull(), mReceiveCoins.firstOrNull())
+
+        adapterManager.adaptersUpdatedSignal.subscribe {
+            refreshPairs(viewState.value)
+            exchangeableCoins.forEach { coin ->
+                val adapter = adapterManager.adapters.firstOrNull { it.coin.code == coin.code }
+
+                adapter?.balanceUpdatedFlowable
+                    ?.uiSubscribe(disposables, {
+                        refreshPairs(viewState.value)
+                    })
+            }
+        }.let { adaptersDisposable = it }
     }
 
     open fun onSendAmountChange(amount: BigDecimal) {
@@ -252,4 +263,9 @@ abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
     }
 
     //endregion
+
+    override fun onCleared() {
+        super.onCleared()
+        adaptersDisposable?.dispose()
+    }
 }

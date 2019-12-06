@@ -75,6 +75,9 @@ class OrdersViewModel : CoreViewModel() {
             .let { disposables.add(it) }
 
         spreadPercent.value = 0.0
+
+        refreshOrders()
+        onPairsRefresh()
     }
 
     //region Private
