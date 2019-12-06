@@ -86,7 +86,7 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings),
         }
 
         app_version?.text = "v ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})" +
-                if (App.appConfiguration.testMode) "\n" + BuildConfig.FLAVOR else ""
+                if (BuildConfig.DEBUG) "\n" + BuildConfig.FLAVOR else ""
 
         address_book?.setOnClickListener {
             activity?.let { AddressBookActivity.start(it) }
