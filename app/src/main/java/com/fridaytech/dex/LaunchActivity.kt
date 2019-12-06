@@ -1,5 +1,6 @@
 package com.fridaytech.dex
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,12 +12,66 @@ import com.fridaytech.dex.presentation.main.MainActivity
 import com.fridaytech.dex.presentation.pin.PinActivity
 import com.fridaytech.dex.utils.Logger
 import com.fridaytech.dex.utils.ui.ToastHelper
+import com.google.android.play.core.appupdate.AppUpdateInfo
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 
 class LaunchActivity : AppCompatActivity() {
 
+    private lateinit var appUpdateManager: AppUpdateManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        redirect()
+
+        if (BuildConfig.DEBUG || !App.networkStateManager.isConnected) {
+            redirect()
+        } else {
+            appUpdateManager = AppUpdateManagerFactory.create(this)
+            checkForUpdates()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            REQUEST_CODE_UNLOCK_PIN -> {
+                if (resultCode == PinActivity.RESULT_OK) {
+                    startMain()
+                } else {
+                    finish()
+                }
+            }
+
+            REQUEST_CODE_UPDATE -> {
+                if (resultCode != Activity.RESULT_OK) {
+                    checkForUpdates()
+                }
+            }
+        }
+    }
+
+    private fun checkForUpdates() {
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                requestUpdate(appUpdateInfo)
+            }
+        }.addOnFailureListener {
+            redirect()
+        }
+    }
+
+    private fun requestUpdate(appUpdateInfo: AppUpdateInfo) {
+        appUpdateManager.startUpdateFlowForResult(
+            appUpdateInfo,
+            AppUpdateType.IMMEDIATE,
+            this,
+            REQUEST_CODE_UPDATE
+        )
     }
 
     private fun redirect() {
@@ -91,18 +146,9 @@ class LaunchActivity : AppCompatActivity() {
     private fun showSomethingWentWrong() {
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_UNLOCK_PIN) {
-            when (resultCode) {
-                PinActivity.RESULT_OK -> startMain()
-                PinActivity.RESULT_CANCELLED -> finish()
-            }
-        }
-    }
-
     companion object {
-        const val REQUEST_CODE_UNLOCK_PIN = 1
+        private const val REQUEST_CODE_UNLOCK_PIN = 1
+        private const val REQUEST_CODE_UPDATE = 147
 
         fun start(context: Context) {
             val intent = Intent(context, LaunchActivity::class.java)
