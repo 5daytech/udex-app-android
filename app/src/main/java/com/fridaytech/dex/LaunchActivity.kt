@@ -59,6 +59,8 @@ class LaunchActivity : AppCompatActivity() {
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
                     && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
                 requestUpdate(appUpdateInfo)
+            } else {
+                redirect()
             }
         }.addOnFailureListener {
             redirect()
