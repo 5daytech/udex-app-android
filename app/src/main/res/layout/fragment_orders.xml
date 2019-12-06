@@ -6,7 +6,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/orders_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:overScrollMode="never"/>
 
     <com.fridaytech.dex.presentation.widgets.EmptyItemsView
         android:id="@+id/orders_empty"
