@@ -9,7 +9,7 @@ import com.fridaytech.dex.utils.ui.getAttr
 import com.fridaytech.dex.utils.ui.toDisplayFormat
 import com.fridaytech.dex.utils.ui.toFiatDisplayFormat
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_order.*
+import kotlinx.android.synthetic.main.item_my_order.*
 
 class OrderViewHolder(
     override val containerView: View,
@@ -30,21 +30,21 @@ class OrderViewHolder(
         )
 
         if (order.side == EOrderSide.BUY) {
-            order_amount.text = order.remainingTakerAmount.toDisplayFormat()
-            order_amount_coin.text = order.takerCoin.code
-            order_amount_fiat.text = "~ $${order.takerFiatAmount.toFiatDisplayFormat()}"
+            my_order_amount.text = order.remainingTakerAmount.toDisplayFormat()
+            my_order_amount_coin.text = order.takerCoin.code
+            my_order_amount_fiat.text = "~ $${order.takerFiatAmount.toFiatDisplayFormat()}"
 
-            order_total.text = order.remainingMakerAmount.toDisplayFormat()
-            order_total_coin.text = order.makerCoin.code
-            order_total_fiat.text = "~ $${order.makerFiatAmount.toFiatDisplayFormat()}"
+            my_order_total.text = order.remainingMakerAmount.toDisplayFormat()
+            my_order_total_coin.text = order.makerCoin.code
+            my_order_total_fiat.text = "~ $${order.makerFiatAmount.toFiatDisplayFormat()}"
         } else {
-            order_amount.text = order.remainingMakerAmount.toDisplayFormat()
-            order_amount_coin.text = order.makerCoin.code
-            order_amount_fiat.text = "~ $${order.makerFiatAmount.toFiatDisplayFormat()}"
+            my_order_amount.text = order.remainingMakerAmount.toDisplayFormat()
+            my_order_amount_coin.text = order.makerCoin.code
+            my_order_amount_fiat.text = "~ $${order.makerFiatAmount.toFiatDisplayFormat()}"
 
-            order_total.text = order.remainingTakerAmount.toDisplayFormat()
-            order_total_coin.text = order.takerCoin.code
-            order_total_fiat.text = "~ $${order.takerFiatAmount.toFiatDisplayFormat()}"
+            my_order_total.text = order.remainingTakerAmount.toDisplayFormat()
+            my_order_total_coin.text = order.takerCoin.code
+            my_order_total_fiat.text = "~ $${order.takerFiatAmount.toFiatDisplayFormat()}"
         }
     }
 

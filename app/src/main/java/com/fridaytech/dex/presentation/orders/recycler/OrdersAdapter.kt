@@ -32,7 +32,7 @@ class OrdersAdapter(
                 actionListener
             )
             else -> OrderViewHolder(
-                parent.inflate(R.layout.item_order),
+                parent.inflate(R.layout.item_my_order),
                 ordersListener
             )
         }
