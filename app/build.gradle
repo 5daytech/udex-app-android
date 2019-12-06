@@ -32,6 +32,19 @@ android {
         buildConfigField STRING, MERCHANT_ID, properties.getProperty("merchant_id", "\"\"")
     }
 
+    signingConfigs {
+        debug {
+            storeFile file("debug.keystore")
+        }
+
+        release {
+            storeFile file(properties.getProperty("keystore", "path_to_kestore_file"))
+            storePassword properties.getProperty("keystore_pass", "your_keystore_pass")
+            keyAlias properties.getProperty("key_alias", "your_key_alias")
+            keyPassword properties.getProperty("key_pass", "your_key_pass")
+        }
+    }
+
     buildTypes {
         debug {
             debuggable true
@@ -42,22 +55,14 @@ android {
         }
 
         release {
+            minifyEnabled false
             debuggable false
-            minifyEnabled true
+            useProguard false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField STRING, INFURA_PROJECT_ID, ""
-            buildConfigField STRING, INFURA_PROJECT_SECRET, ""
-            buildConfigField STRING, ETHERESCAN_KEY, ""
-        }
-    }
-
-    signingConfigs {
-        debug {
-            storeFile file("debug.keystore")
-        }
-
-        release {
-
+            buildConfigField STRING, INFURA_PROJECT_ID, "\"\""
+            buildConfigField STRING, INFURA_PROJECT_SECRET, "\"\""
+            buildConfigField STRING, ETHERESCAN_KEY, "\"\""
         }
     }
 

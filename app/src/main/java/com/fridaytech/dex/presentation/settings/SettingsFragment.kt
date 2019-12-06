@@ -1,5 +1,6 @@
 package com.fridaytech.dex.presentation.settings
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -24,6 +25,7 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings),
 
     private lateinit var viewModel: SettingsViewModel
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
@@ -83,7 +85,8 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings),
             light_mode?.toggleSwitch()
         }
 
-        app_version?.text = "v ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})\n${BuildConfig.FLAVOR}"
+        app_version?.text = "v ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})" +
+                if (App.appConfiguration.testMode) "\n" + BuildConfig.FLAVOR else ""
 
         address_book?.setOnClickListener {
             activity?.let { AddressBookActivity.start(it) }
