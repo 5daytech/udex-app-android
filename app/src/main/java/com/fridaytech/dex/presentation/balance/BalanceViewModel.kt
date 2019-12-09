@@ -22,6 +22,8 @@ class BalanceViewModel : CoreViewModel() {
             App.ratesConverter,
             disposables
         )
+    private val syncManager = App.syncManager
+
     private val baseCoinCode: String
         get() = balanceLoader.baseCoinCode
 
@@ -55,11 +57,14 @@ class BalanceViewModel : CoreViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { syncBalances() }
             .let { disposables.add(it) }
+
+        syncManager.start()
     }
 
     override fun onCleared() {
         super.onCleared()
         balanceLoader.clear()
+        syncManager.stop()
     }
 
     override fun onNetworkConnectionAvailable() {

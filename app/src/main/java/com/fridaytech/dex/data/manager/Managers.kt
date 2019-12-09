@@ -49,3 +49,9 @@ interface ICleanupManager {
     fun cleanUserData()
     fun removeKey()
 }
+
+interface ISyncManager {
+    fun start()
+
+    fun stop()
+}

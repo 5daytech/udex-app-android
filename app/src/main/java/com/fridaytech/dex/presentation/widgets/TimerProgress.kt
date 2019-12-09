@@ -34,7 +34,7 @@ class TimerProgress : RelativeLayout {
 
             override fun onTick(p0: Long) {
                 val remainingSeconds = (p0 / 1000).toInt()
-                progress_hint?.text = "$remainingSeconds"
+                progress_hint?.text = "Remaining time: ${remainingSeconds}s"
 
                 progress_bar?.progress = (milliseconds - p0).toInt()
             }

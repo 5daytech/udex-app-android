@@ -66,6 +66,7 @@ class App : Application() {
         lateinit var backgroundManager: BackgroundManager
         lateinit var cleanupManager: ICleanupManager
         lateinit var networkStateManager: NetworkStateManager
+        lateinit var syncManager: ISyncManager
         lateinit var buyCryptoProvider: IBuyCryptoProvider
 
         lateinit var feeRateProvider: IFeeRateProvider
@@ -163,6 +164,7 @@ class App : Application() {
             authManager.relayerAdapterManager = it
         }
         exchangeHistoryManager = ExchangeHistoryManager(adapterManager)
+        syncManager = SyncManager(adapterManager)
 
         cleanupManager = CleanupManager(authManager, appPreferences, keyStoreManager, zrxKitManager)
     }

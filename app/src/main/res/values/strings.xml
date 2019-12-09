@@ -163,7 +163,7 @@
 
 
     <!-- Settings About App -->
-    <string name="settings_about_app">About App</string>
+    <string name="settings_about_app">About UDEX</string>
     <string name="settings_about_app_title">UDEX</string>
     <string name="settings_about_app_subtitle">Decentralized App</string>
     <string name="settings_about_terms_subtitle">Terms &amp; Privacy:</string>
@@ -193,7 +193,7 @@
 
     <string name="orders_cancel_all">Cancel All Orders</string>
     <string name="orders_cancel">Cancel Order</string>
-    <string name="action_add_coin">Add Coin</string>
+    <string name="action_add_coin">Add Coins</string>
 
     <!-- Guide -->
     <string name="guide_page_1">Welcome to UDEX</string>
