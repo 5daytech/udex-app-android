@@ -19,6 +19,7 @@ import com.fridaytech.dex.presentation.orders.model.EOrderSide
 import com.fridaytech.dex.utils.rx.uiSubscribe
 import io.reactivex.disposables.Disposable
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
     protected val ratesConverter = App.ratesConverter
@@ -108,6 +109,10 @@ abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
         initData()
     }
 
+    protected fun BigDecimal.scaleToView(): BigDecimal = setScale(
+        9, RoundingMode.FLOOR
+    ).stripTrailingZeros()
+
     private fun initData() {
         adaptersDisposable?.dispose()
         adaptersDisposable = null
@@ -175,7 +180,7 @@ abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
         val adapter = adapterManager.adapters.firstOrNull { it.coin.code == state.sendCoin?.code }
         if (adapter != null) {
             val amount = adapter.availableBalance(null, FeeRatePriority.MEDIUM)
-            onSendAmountChange(amount)
+            onSendAmountChange(amount.scaleToView())
             viewState.value = state
         }
     }

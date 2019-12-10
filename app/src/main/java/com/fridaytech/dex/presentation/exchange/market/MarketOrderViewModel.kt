@@ -15,7 +15,6 @@ import com.fridaytech.dex.presentation.orders.model.EOrderSide.*
 import com.fridaytech.dex.utils.Logger
 import com.fridaytech.dex.utils.rx.uiSubscribe
 import java.math.BigDecimal
-import java.math.RoundingMode
 
 // TODO: This class needs refactoring
 class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
@@ -39,10 +38,6 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
     }
 
     //region Private
-
-    private fun BigDecimal.scaleToView(): BigDecimal = setScale(
-        9, RoundingMode.FLOOR
-    ).stripTrailingZeros()
 
     override fun initState(sendItem: ExchangeCoinItem?, receiveItem: ExchangeCoinItem?) {
         state = MarketOrderViewState(
