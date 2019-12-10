@@ -60,9 +60,9 @@ android {
             useProguard false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField STRING, INFURA_PROJECT_ID, "\"\""
-            buildConfigField STRING, INFURA_PROJECT_SECRET, "\"\""
-            buildConfigField STRING, ETHERESCAN_KEY, "\"\""
+            buildConfigField STRING, INFURA_PROJECT_ID, properties.getProperty("infura_project_id", "your_project_id")
+            buildConfigField STRING, INFURA_PROJECT_SECRET, properties.getProperty("infura_project_secret", "your_infura_project_secret")
+            buildConfigField STRING, ETHERESCAN_KEY, properties.getProperty("etherscan_key", "your_etherscan_key")
         }
     }
 
