@@ -19,7 +19,11 @@ Trading cryptocurrencies doesn't have to mean losing custody. Use UDEX to mainta
 
 More information - [Software-Design-Specifications](https://github.com/5daytech/dex-app-android/wiki/Software-Design-Specifications)
 
-Join our [Telegram channel for the latest builds](https://t.me/udexbuilds).
+Join our [Telegram channel](https://t.me/udexbuilds) for the latest builds.
+
+## Download
+
+https://play.google.com/store/apps/details?id=com.fridaytech.dex
 
 ## Advantages
 
