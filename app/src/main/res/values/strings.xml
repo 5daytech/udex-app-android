@@ -172,8 +172,7 @@
 \n\nYour funds are securely stored on your phone or tablet. Nobody including UDEX has access to them or can see them.
 \n\nIt’s your responsibility to back up your private key and keep it safe. Never show it to anyone. If it’s lost, forgotten, or stolen, your funds are at risk.
 \n\nDo not jailbreak your phone, do not install apps from unknown or untrusted sources, do not give your device to untrusted people, and keep the operating system on your phone up to date. Failure to follow this guidance will put your assets at risk.
-\n\nThe code powering UDEX is open to public scrutiny and has been since development began. The app is significantly more secure than proprietary smartphone exchanges, but we cannot guarantee an absence of bugs and security issues. The developers accept no liability for lost assets.
-\n\nSome non-private app data like currency exchange rates are stored on decentralized storage (IPFS).</string>
+\n\nThe code powering UDEX is open to public scrutiny and has been since development began. The app is significantly more secure than proprietary smartphone exchanges, but we cannot guarantee an absence of bugs and security issues. The developers accept no liability for lost assets.</string>
 
     <!-- Auth failed -->
     <string name="auth_load_error_title">Auth data decryption failed</string>
