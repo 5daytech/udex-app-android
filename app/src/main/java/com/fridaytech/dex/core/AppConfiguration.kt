@@ -119,22 +119,22 @@ class AppConfiguration(
     private val testRelayers: List<Relayer> = listOf(
         Relayer(
             0,
-            "Ropsten Friday Tech",
+            "Ropsten UDEX",
             allExchangePairs,
             listOf("0xA5004C8b2D64AD08A80d33Ad000820d63aa2cCC9".toLowerCase(Locale.US)),
             zrxNetworkType.exchangeAddress,
-            RelayerConfig("https://relayer.ropsten.fridayte.ch", "", "v2")
+            RelayerConfig("https://ropsten.api.udex.app", "sra", "v3")
         )
     )
 
     private val mainRelayers: List<Relayer> = listOf(
         Relayer(
             0,
-            "Friday Tech",
+            "UDEX",
             allExchangePairs,
             listOf("0xA5004C8b2D64AD08A80d33Ad000820d63aa2cCC9".toLowerCase(Locale.US)),
             zrxNetworkType.exchangeAddress,
-            RelayerConfig("https://relayer.fridayte.ch", "", "v2")
+            RelayerConfig("https://api.udex.app", "sra", "v3")
         )
     )
 

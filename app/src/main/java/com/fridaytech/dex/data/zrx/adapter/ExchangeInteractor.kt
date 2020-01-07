@@ -2,6 +2,7 @@ package com.fridaytech.dex.data.zrx.adapter
 
 import com.fridaytech.dex.core.CancelOrderException
 import com.fridaytech.dex.core.CreateOrderException
+import com.fridaytech.dex.core.IAppConfiguration
 import com.fridaytech.dex.core.model.CoinType
 import com.fridaytech.dex.data.manager.ICoinManager
 import com.fridaytech.dex.data.zrx.IAllowanceChecker
@@ -20,6 +21,7 @@ import java.math.BigInteger
 import java.util.*
 
 class ExchangeInteractor(
+    private val appConfiguration: IAppConfiguration,
     private val coinManager: ICoinManager,
     private val ethereumKit: EthereumKit,
     private val zrxKit: ZrxKit,
@@ -52,6 +54,7 @@ class ExchangeInteractor(
         }
 
         val order = Order(
+            chainId = appConfiguration.zrxNetworkType.id,
             makerAddress = ethereumKit.receiveAddress.toLowerCase(),
             exchangeAddress = exchangeWrapper.address,
             makerAssetData = makerAsset,
@@ -63,6 +66,8 @@ class ExchangeInteractor(
             takerAddress = "0x0000000000000000000000000000000000000000",
             makerFee = "0",
             takerFee = "0",
+            makerFeeAssetData = "0x",
+            takerFeeAssetData = "0x",
             feeRecipientAddress = feeRecipient,
             salt = Date().time.toString()
         )

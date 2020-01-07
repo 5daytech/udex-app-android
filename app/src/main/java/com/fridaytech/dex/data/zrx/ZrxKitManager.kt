@@ -31,10 +31,12 @@ class ZrxKitManager(
         kit?.let { return it }
 
         authManager.authData?.let { auth ->
+            val rpcProviderMode = ZrxKit.RpcProviderMode.Infura(appConfiguration.infuraCredentials.secretKey ?: "")
+
             kit = ZrxKit.getInstance(
                 appConfiguration.relayers,
                 auth.privateKey,
-                appConfiguration.infuraCredentials.secretKey ?: "",
+                rpcProviderMode,
                 appConfiguration.zrxNetworkType,
                 gasProvider
             )

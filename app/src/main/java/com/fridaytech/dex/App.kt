@@ -156,6 +156,7 @@ class App : Application() {
             authManager.adapterManager = it
         }
         relayerAdapterManager = RelayerAdapterManager(
+            appConfiguration,
             coinManager,
             ethereumKitManager,
             zrxKitManager,

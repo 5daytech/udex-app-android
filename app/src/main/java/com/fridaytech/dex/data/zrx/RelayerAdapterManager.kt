@@ -2,6 +2,7 @@ package com.fridaytech.dex.data.zrx
 
 import android.os.Handler
 import android.os.HandlerThread
+import com.fridaytech.dex.core.IAppConfiguration
 import com.fridaytech.dex.data.manager.ICoinManager
 import com.fridaytech.dex.data.manager.IEthereumKitManager
 import com.fridaytech.dex.data.manager.auth.IAuthManager
@@ -13,6 +14,7 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 
 class RelayerAdapterManager(
+    private val appConfiguration: IAppConfiguration,
     private val coinManager: ICoinManager,
     private val ethereumKitManager: IEthereumKitManager,
     private val zrxKitManager: IZrxKitManager,
@@ -53,6 +55,7 @@ class RelayerAdapterManager(
                     val zrxKit = zrxKitManager.zrxKit()
                     val exchangeWrapper = zrxKit.getExchangeInstance()
                     val exchangeInteractor = ExchangeInteractor(
+                        appConfiguration,
                         coinManager,
                         ethereumKit,
                         zrxKit,
