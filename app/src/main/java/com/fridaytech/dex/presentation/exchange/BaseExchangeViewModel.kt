@@ -21,6 +21,7 @@ import io.reactivex.disposables.Disposable
 import java.math.BigDecimal
 import java.math.RoundingMode
 
+// TODO: This class needs refactoring
 abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
     protected val ratesConverter = App.ratesConverter
     private val relayerManager = App.relayerAdapterManager
@@ -153,6 +154,7 @@ abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
         }
     }
 
+    //TODO: Add protocol fee to validation process
     protected fun updateSendHint(amount: BigDecimal) {
         val adapter = adapterManager.adapters
             .firstOrNull { it.coin.code == state.sendCoin?.code }
@@ -162,7 +164,7 @@ abstract class BaseExchangeViewModel<T : IExchangeViewState> : CoreViewModel() {
             0
         )
 
-        adapter?.validate(amount, null, FeeRatePriority.MEDIUM)?.forEach {
+        adapter?.validate(amount, null, FeeRatePriority.HIGHEST)?.forEach {
             when (it) {
                 is SendStateError.InsufficientFeeBalance -> {
                     info.error = R.string.error_insufficient_fee_balance

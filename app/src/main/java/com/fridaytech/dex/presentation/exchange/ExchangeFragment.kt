@@ -14,13 +14,14 @@ import com.fridaytech.dex.R
 import com.fridaytech.dex.core.ui.CoreFragment
 import com.fridaytech.dex.presentation.common.ProcessingDialog
 import com.fridaytech.dex.presentation.common.TransactionSentDialog
-import com.fridaytech.dex.presentation.exchange.ExchangeFragment.ExchangeType.LIMIT
-import com.fridaytech.dex.presentation.exchange.ExchangeFragment.ExchangeType.MARKET
 import com.fridaytech.dex.presentation.exchange.ExchangeFragment.InputField.*
 import com.fridaytech.dex.presentation.exchange.confirm.ExchangeConfirmDialog
 import com.fridaytech.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.fridaytech.dex.presentation.exchange.limit.LimitOrderViewModel
 import com.fridaytech.dex.presentation.exchange.market.MarketOrderViewModel
+import com.fridaytech.dex.presentation.exchange.model.ExchangeType
+import com.fridaytech.dex.presentation.exchange.model.ExchangeType.LIMIT
+import com.fridaytech.dex.presentation.exchange.model.ExchangeType.MARKET
 import com.fridaytech.dex.presentation.main.IFocusListener
 import com.fridaytech.dex.presentation.widgets.NumPadItem
 import com.fridaytech.dex.presentation.widgets.NumPadItemType
@@ -32,10 +33,10 @@ import com.fridaytech.dex.utils.ui.ToastHelper
 import com.fridaytech.dex.utils.ui.toDisplayFormat
 import com.fridaytech.dex.utils.visible
 import io.reactivex.disposables.CompositeDisposable
-import java.math.BigDecimal
 import kotlinx.android.synthetic.main.fragment_exchange.*
 import kotlinx.android.synthetic.main.view_limit_order.*
 import kotlinx.android.synthetic.main.view_market_order.*
+import java.math.BigDecimal
 
 class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAdapter.Listener,
     IFocusListener {
@@ -361,11 +362,6 @@ class ExchangeFragment : CoreFragment(R.layout.fragment_exchange), NumPadItemsAd
         MARKET_RECEIVE_AMOUNT,
         LIMIT_AMOUNT,
         LIMIT_PRICE
-    }
-
-    enum class ExchangeType {
-        MARKET,
-        LIMIT
     }
 
     private class ExchangeAdapter : PagerAdapter() {

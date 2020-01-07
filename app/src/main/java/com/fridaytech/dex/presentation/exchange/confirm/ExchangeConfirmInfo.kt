@@ -7,6 +7,7 @@ data class ExchangeConfirmInfo(
     val receiveCoin: String,
     val sendAmount: BigDecimal,
     val receiveAmount: BigDecimal,
+    val fee: BigDecimal,
     val showLifeTimeInfo: Boolean,
     val onConfirm: () -> Unit
 )

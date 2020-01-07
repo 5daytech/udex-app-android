@@ -1,6 +1,7 @@
 package com.fridaytech.dex.presentation.exchange.market
 
 import androidx.lifecycle.MutableLiveData
+import com.fridaytech.dex.App
 import com.fridaytech.dex.R
 import com.fridaytech.dex.data.zrx.model.FillOrderData
 import com.fridaytech.dex.data.zrx.model.FillResult
@@ -29,6 +30,7 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
 
     private var estimatedSendAmount = BigDecimal.ZERO
     private var estimatedReceiveAmount = BigDecimal.ZERO
+    private var fillOrdersCount = 0
 
     val sendAmount = MutableLiveData<ExchangeAmountInfo>()
     val receiveHintInfo = MutableLiveData<AmountInfo>()
@@ -54,6 +56,7 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
         receiveAmount.postValue(ExchangeAmountInfo(BigDecimal.ZERO))
         estimatedReceiveAmount = BigDecimal.ZERO
         estimatedSendAmount = BigDecimal.ZERO
+        fillOrdersCount = 0
     }
 
     override fun updateReceiveAmount() {
@@ -66,7 +69,9 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
                 orderSide,
                 amount
             ) ?: FillResult.empty()
+
             estimatedReceiveAmount = fillResult.receiveAmount
+            fillOrdersCount = fillResult.orders.size
 
             val roundedReceiveAmount = fillResult.receiveAmount.scaleToView()
 
@@ -99,6 +104,7 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
             ) ?: FillResult.empty()
 
             estimatedSendAmount = fillResult.sendAmount
+            fillOrdersCount = fillResult.orders.size
 
             val roundedSendAmount = fillResult.sendAmount.scaleToView()
 
@@ -161,15 +167,23 @@ class MarketOrderViewModel : BaseExchangeViewModel<MarketOrderViewState>() {
     }
 
     private fun confirmExchange() {
-        val confirmInfo = ExchangeConfirmInfo(
-            state.sendCoin?.code ?: "",
-            state.receiveCoin?.code ?: "",
-            estimatedSendAmount,
-            estimatedReceiveAmount,
-            showLifeTimeInfo = false
-        ) { marketBuy() }
+        App.zrxKitManager.zrxKit()
+            .marketBuyEstimatedPrice
+            .uiSubscribe(disposables, { updatedFee ->
+                val protocolFee = App.zrxKitManager.zrxKit().protocolFeeInEth(fillOrdersCount)
+                Logger.d("Protocol fee ${protocolFee.stripTrailingZeros()} - orders $fillOrdersCount")
 
-        confirmEvent.postValue(confirmInfo)
+                val confirmInfo = ExchangeConfirmInfo(
+                    state.sendCoin?.code ?: "",
+                    state.receiveCoin?.code ?: "",
+                    estimatedSendAmount,
+                    estimatedReceiveAmount,
+                    fee = updatedFee.plus(protocolFee),
+                    showLifeTimeInfo = false
+                ) { marketBuy() }
+
+                confirmEvent.postValue(confirmInfo)
+            })
     }
 
     //endregion

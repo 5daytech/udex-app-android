@@ -27,7 +27,12 @@ class ExchangeConfirmDialog : BaseDialog(R.layout.dialog_confirm_exchange) {
         viewModel.viewState.observe(this, Observer { refreshState(it) })
 
         viewModel.feeInfo.observe(this, Observer { feeInfo ->
-            exchange_confirm_fee?.setCoin(feeInfo.coinCode, feeInfo.amount, false)
+            if (feeInfo.amount > BigDecimal.ZERO) {
+                exchange_confirm_fee?.visible = true
+                exchange_confirm_fee?.setCoin(feeInfo.coinCode, feeInfo.amount, false)
+            } else {
+                exchange_confirm_fee?.visible = false
+            }
         })
 
         viewModel.processingTime.observe(this, Observer {

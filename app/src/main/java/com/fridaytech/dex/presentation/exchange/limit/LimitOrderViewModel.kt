@@ -15,6 +15,7 @@ import com.fridaytech.dex.utils.normalizedDiv
 import com.fridaytech.dex.utils.rx.uiSubscribe
 import java.math.BigDecimal
 
+// TODO: This class needs refactoring
 class LimitOrderViewModel : BaseExchangeViewModel<LimitOrderViewState>() {
     private val ratesManager = App.ratesManager
 
@@ -137,6 +138,7 @@ class LimitOrderViewModel : BaseExchangeViewModel<LimitOrderViewState>() {
             state.receiveCoin?.code ?: "",
             state.sendAmount,
             mReceiveInfo.amount,
+            fee = BigDecimal.ZERO,
             showLifeTimeInfo = true
         ) { placeOrder() }
 
