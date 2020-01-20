@@ -93,10 +93,8 @@ class KeyStoreManager(private val keyAlias: String) : IKeyStoreManager,
             if (keyStore.containsAlias(keyAlias)) {
                 if (isKeyInvalidated) {
                     createKey()
-                    keyStore.deleteEntry(keyAlias)
-                } else {
-                    keyStore.deleteEntry(keyAlias)
                 }
+                keyStore.deleteEntry(keyAlias)
             }
         } catch (e: KeyStoreException) {
             Logger.e(e)
