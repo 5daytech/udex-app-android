@@ -18,6 +18,7 @@
         <attr name="siv_icon" format="reference"/>
         <attr name="siv_tint" format="color|reference"/>
         <attr name="siv_action_switch" format="boolean" />
+        <attr name="siv_action_link" format="string" />
         <attr name="siv_divider_visible" format="boolean"/>
         <attr name="siv_tint_enabled" format="boolean" />
     </declare-styleable>

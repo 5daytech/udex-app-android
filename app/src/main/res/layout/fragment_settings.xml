@@ -137,6 +137,7 @@
                 app:siv_icon="@drawable/ic_twitter"
                 app:siv_tint_enabled="false"
                 app:siv_divider_visible="false"
+                app:siv_action_link="\@udexapp"
                 android:background="?selectableItemBackground" />
 
             <com.fridaytech.dex.presentation.settings.SettingsItemView
@@ -151,6 +152,7 @@
                 app:siv_icon="@drawable/ic_telegram"
                 app:siv_tint_enabled="false"
                 app:siv_divider_visible="false"
+                app:siv_action_link="\@t.me/udexapp"
                 android:background="?selectableItemBackground" />
 
             <com.fridaytech.dex.presentation.settings.SettingsItemView
@@ -165,6 +167,7 @@
                 app:siv_icon="@drawable/ic_telegram_bot"
                 app:siv_tint_enabled="false"
                 app:siv_divider_visible="false"
+                app:siv_action_link="\@udex_bot"
                 android:background="?selectableItemBackground" />
 
             <TextView

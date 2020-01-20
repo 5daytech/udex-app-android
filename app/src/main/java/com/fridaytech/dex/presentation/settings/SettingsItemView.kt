@@ -94,6 +94,13 @@ class SettingsItemView : ConstraintLayout {
 
                 val dividerVisible = ta.getBoolean(R.styleable.SettingsItemView_siv_divider_visible, false)
                 settings_item_divider.visible = dividerVisible
+
+                val link = ta.getString(R.styleable.SettingsItemView_siv_action_link)
+                link?.let {
+                    settings_item_chevron.visible = false
+                    settings_item_link.visible = true
+                    settings_item_link.text = it
+                }
             } finally {
                 ta.recycle()
             }
