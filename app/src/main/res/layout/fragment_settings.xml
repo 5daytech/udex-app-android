@@ -181,7 +181,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textAllCaps="false"
                 android:gravity="center"
-                android:paddingTop="40dp"
+                android:paddingTop="@dimen/big_margin"
                 android:paddingBottom="@dimen/element_margin"
                 android:layout_gravity="center|bottom"
                 android:text="v 1.0.0"/>
