@@ -15,8 +15,6 @@ interface IAppConfiguration {
     val infuraProjectId: String?
     val infuraProjectSecret: String?
 
-    val merchantId: String
-
     val appShareUrl: String
     val companySiteUrl: String
     val transactionExploreBaseUrl: String
