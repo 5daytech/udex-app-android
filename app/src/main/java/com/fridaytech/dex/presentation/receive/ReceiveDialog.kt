@@ -8,7 +8,7 @@ import com.fridaytech.dex.R
 import com.fridaytech.dex.data.manager.clipboard.ClipboardManager
 import com.fridaytech.dex.presentation.dialogs.BaseBottomDialog
 import com.fridaytech.dex.utils.ui.QrUtils
-import com.fridaytech.dex.utils.ui.ShareUtils
+import com.fridaytech.dex.utils.ui.SocialUtils
 import com.fridaytech.dex.utils.ui.ToastHelper
 import kotlinx.android.synthetic.main.dialog_receive.*
 
@@ -40,7 +40,7 @@ class ReceiveDialog private constructor() :
         }
 
         receive_forward?.setOnClickListener {
-            ShareUtils.shareMessage(activity, receiveAddress)
+            SocialUtils.shareMessage(activity, receiveAddress)
         }
 
         receive_address?.bind {

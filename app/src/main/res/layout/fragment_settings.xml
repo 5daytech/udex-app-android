@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
-        android:paddingBottom="@dimen/page_margin"
         app:elevation="0dp"
         app:mt_title="@string/title_settings"/>
 
@@ -33,10 +32,10 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="@dimen/element_margin"
                 app:siv_action_switch="false"
                 app:siv_title="@string/settings_security_center"
                 app:siv_icon="@drawable/ic_security"
+                app:siv_divider_visible="false"
                 android:background="?selectableItemBackground"/>
 
             <com.fridaytech.dex.presentation.settings.SettingsItemView
@@ -45,9 +44,11 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/security_center"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="1.5dp"
                 app:siv_action_switch="false"
                 app:siv_title="@string/settings_coin_manager"
                 app:siv_icon="@drawable/ic_coin_manager"
+                app:siv_divider_visible="false"
                 android:background="?selectableItemBackground" />
 
             <com.fridaytech.dex.presentation.settings.SettingsItemView
@@ -72,6 +73,7 @@
                 app:siv_action_switch="false"
                 app:siv_title="@string/settings_language"
                 app:siv_icon="@drawable/ic_language"
+                app:siv_divider_visible="false"
                 android:background="?selectableItemBackground"
                 android:visibility="gone"/>
 
@@ -90,10 +92,11 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/light_mode"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="@dimen/big_margin"
+                android:layout_marginTop="@dimen/page_margin"
                 app:siv_action_switch="false"
                 app:siv_title="@string/settings_how_it_works"
                 app:siv_icon="@drawable/ic_info"
+                app:siv_divider_visible="false"
                 android:background="?selectableItemBackground" />
 
             <com.fridaytech.dex.presentation.settings.SettingsItemView
@@ -102,9 +105,11 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/how_it_works"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="1.5dp"
                 app:siv_action_switch="false"
                 app:siv_title="@string/settings_about_app"
                 app:siv_icon="@drawable/ic_about"
+                app:siv_divider_visible="false"
                 android:background="?selectableItemBackground" />
 
             <com.fridaytech.dex.presentation.settings.SettingsItemView
@@ -113,9 +118,53 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/about_app"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="1.5dp"
                 app:siv_action_switch="false"
                 app:siv_title="@string/settings_share"
                 app:siv_icon="@drawable/ic_share"
+                app:siv_divider_visible="false"
+                android:background="?selectableItemBackground" />
+
+            <com.fridaytech.dex.presentation.settings.SettingsItemView
+                android:id="@+id/twitter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/share_app"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="@dimen/page_margin"
+                app:siv_action_switch="false"
+                app:siv_title="Twitter"
+                app:siv_icon="@drawable/ic_twitter"
+                app:siv_tint_enabled="false"
+                app:siv_divider_visible="false"
+                android:background="?selectableItemBackground" />
+
+            <com.fridaytech.dex.presentation.settings.SettingsItemView
+                android:id="@+id/telegram_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/twitter"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="1.5dp"
+                app:siv_action_switch="false"
+                app:siv_title="Telegram"
+                app:siv_icon="@drawable/ic_telegram"
+                app:siv_tint_enabled="false"
+                app:siv_divider_visible="false"
+                android:background="?selectableItemBackground" />
+
+            <com.fridaytech.dex.presentation.settings.SettingsItemView
+                android:id="@+id/telegram_bot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/telegram_group"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="1.5dp"
+                app:siv_action_switch="false"
+                app:siv_title="UDEX bot"
+                app:siv_icon="@drawable/ic_telegram_bot"
+                app:siv_tint_enabled="false"
+                app:siv_divider_visible="false"
                 android:background="?selectableItemBackground" />
 
             <TextView

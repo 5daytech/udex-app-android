@@ -308,7 +308,7 @@
     </style>
 
     <style name="SettingsText" parent="SemiboldText">
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">?attr/PrimaryTextColor</item>
     </style>
 

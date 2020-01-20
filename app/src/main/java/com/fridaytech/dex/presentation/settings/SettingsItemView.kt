@@ -1,15 +1,17 @@
 package com.fridaytech.dex.presentation.settings
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.util.AttributeSet
 import android.view.View
 import android.widget.CompoundButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.fridaytech.dex.R
+import com.fridaytech.dex.utils.getAttr
 import com.fridaytech.dex.utils.visible
-import kotlin.math.absoluteValue
 import kotlinx.android.synthetic.main.view_settings_item.view.*
+import kotlin.math.absoluteValue
 
 class SettingsItemView : ConstraintLayout {
     init { View.inflate(context, R.layout.view_settings_item, this) }
@@ -81,6 +83,17 @@ class SettingsItemView : ConstraintLayout {
                 iconRes = ta.getResourceId(R.styleable.SettingsItemView_siv_icon, R.drawable.ic_about)
                 actionSwitch = ta.getBoolean(R.styleable.SettingsItemView_siv_action_switch, false)
                 tint = ta.getColor(R.styleable.SettingsItemView_siv_tint, 0)
+
+                val tintEnabled = ta.getBoolean(R.styleable.SettingsItemView_siv_tint_enabled, true)
+                if (tintEnabled && tint == 0) {
+                    settings_item_icon?.setColorFilter(
+                        context.theme.getAttr(R.attr.AccentTextColor) ?: Color.BLACK,
+                        PorterDuff.Mode.SRC_IN
+                    )
+                }
+
+                val dividerVisible = ta.getBoolean(R.styleable.SettingsItemView_siv_divider_visible, false)
+                settings_item_divider.visible = dividerVisible
             } finally {
                 ta.recycle()
             }

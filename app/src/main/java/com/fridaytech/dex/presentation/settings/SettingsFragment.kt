@@ -16,7 +16,7 @@ import com.fridaytech.dex.presentation.main.MainActivity
 import com.fridaytech.dex.presentation.settings.addressbook.AddressBookActivity
 import com.fridaytech.dex.presentation.settings.security.SecurityCenterActivity
 import com.fridaytech.dex.utils.openUrl
-import com.fridaytech.dex.utils.ui.ShareUtils
+import com.fridaytech.dex.utils.ui.SocialUtils
 import com.fridaytech.dex.utils.visible
 import kotlinx.android.synthetic.main.fragment_settings.*
 
@@ -73,12 +73,24 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings),
 
         share_app?.setOnClickListener {
             activity?.let {
-                ShareUtils.shareMessage(it, App.appConfiguration.appShareUrl)
+                SocialUtils.shareMessage(it, App.appConfiguration.appShareUrl)
             }
         }
 
         how_it_works?.setOnClickListener {
             GuideDialog.show(childFragmentManager)
+        }
+
+        twitter?.setOnClickListener {
+            SocialUtils.openTwitter(activity)
+        }
+
+        telegram_group?.setOnClickListener {
+            SocialUtils.openTelegram(activity)
+        }
+
+        telegram_bot?.setOnClickListener {
+            SocialUtils.openTelegramBot(activity)
         }
 
         light_mode?.setOnClickListener {
