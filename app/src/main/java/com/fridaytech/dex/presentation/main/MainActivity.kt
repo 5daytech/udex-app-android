@@ -19,12 +19,12 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import com.fridaytech.dex.R
 import com.fridaytech.dex.core.ui.CoreActivity
 import com.fridaytech.dex.presentation.balance.BalanceFragment
-import com.fridaytech.dex.presentation.exchange.ExchangeFragment
+import com.fridaytech.dex.presentation.exchange.limit.LimitOrderFragment
+import com.fridaytech.dex.presentation.exchange.market.MarketOrderFragment
 import com.fridaytech.dex.presentation.exchange.market.MarketOrderViewModel
 import com.fridaytech.dex.presentation.howitworks.guide.GuideDialog
 import com.fridaytech.dex.presentation.orders.OrdersHostFragment
 import com.fridaytech.dex.presentation.orders.model.FillOrderInfo
-import com.fridaytech.dex.presentation.orders.orderbook.OrderBookFragment
 import com.fridaytech.dex.presentation.send.SendViewModel
 import com.fridaytech.dex.presentation.settings.SettingsFragment
 import com.fridaytech.dex.presentation.widgets.statusinfo.StatusInfoView
@@ -202,8 +202,8 @@ class MainActivity :
     private class MainPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(p0: Int): Fragment = when (p0) {
             0 -> BalanceFragment.newInstance()
-            1 -> OrderBookFragment.newInstance()
-            2 -> ExchangeFragment.newInstance()
+            1 -> MarketOrderFragment.newInstance()
+            2 -> LimitOrderFragment.newInstance()
             3 -> OrdersHostFragment.newInstance()
             else -> SettingsFragment.newInstance()
         }

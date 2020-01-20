@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:id="@+id/fragment_exchange_container"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    android:fillViewport="true">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/exchange_container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.fridaytech.dex.presentation.widgets.MainToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:paddingBottom="@dimen/element_margin"
+            app:mt_title="Swap"/>
+
+        <com.fridaytech.dex.presentation.exchange.market.MarketOrderView
+            android:id="@+id/exchange_market_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:cardBackgroundColor="?attr/AccentBackground"
+            app:cardElevation="0dp"
+            android:padding="@dimen/element_margin"/>
+
+        <TextView
+            style="@style/RegularText"
+            android:id="@+id/exchange_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/exchange_numpad"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exchange_market_view"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="1.0"
+            android:layout_marginBottom="@dimen/element_margin"
+            android:padding="@dimen/element_margin"
+            android:gravity="center"
+            android:textColor="?attr/PrimaryTextColor"
+            android:visibility="gone"
+            android:text="Exchange price info"/>
+
+        <com.fridaytech.dex.presentation.widgets.NumPadView
+            android:id="@+id/exchange_numpad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/exchange_confirm"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exchange_info"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="1.0"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin"
+            android:minHeight="200dp"/>
+
+        <Button
+            style="@style/PrimaryButton"
+            android:id="@+id/exchange_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_btn_height"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exchange_numpad"
+            android:textAllCaps="true"
+            android:text="Exchange"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
