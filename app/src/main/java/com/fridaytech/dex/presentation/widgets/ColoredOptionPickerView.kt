@@ -65,7 +65,11 @@ class ColoredOptionPickerView : LinearLayout {
             val circleView = getCircle(it)
             circleView.setOnClickListener {
                 val itemPosition = indexOfChild(it)
-                changeListener?.invoke(this, itemPosition)
+                if (itemPosition == activeItemPosition) {
+                    performClick()
+                } else {
+                    changeListener?.invoke(this, itemPosition)
+                }
             }
             addView(circleView)
         }
