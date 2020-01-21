@@ -127,8 +127,8 @@ class MainActivity :
         main_bottom_nav?.defaultBackgroundColor = theme.getAttr(R.attr.NavigationColor) ?: Color.BLACK
 
         main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_wallet, R.drawable.tab_balance, 0))
-        main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_order_book, R.drawable.ic_order_book, 0))
-        main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_exchange, R.drawable.tab_exchange, 0))
+        main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_exchange, R.drawable.ic_limit_order, 0))
+        main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_order_book, R.drawable.ic_market_buy, 0))
         main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_orders, R.drawable.tab_orders, 0))
         main_bottom_nav?.addItem(AHBottomNavigationItem(R.string.title_settings, R.drawable.tab_settings, 0))
 
@@ -202,8 +202,8 @@ class MainActivity :
     private class MainPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(p0: Int): Fragment = when (p0) {
             0 -> BalanceFragment.newInstance()
-            1 -> MarketOrderFragment.newInstance()
-            2 -> LimitOrderFragment.newInstance()
+            1 -> LimitOrderFragment.newInstance()
+            2 -> MarketOrderFragment.newInstance()
             3 -> OrdersHostFragment.newInstance()
             else -> SettingsFragment.newInstance()
         }
