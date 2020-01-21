@@ -32,28 +32,17 @@
         android:gravity="center_vertical"
         android:text="@string/settings_theme"/>
 
-    <com.rm.rmswitch.RMTristateSwitch
-        style="@style/SwitchStyle"
+    <com.fridaytech.dex.presentation.widgets.ColoredOptionPickerView
         android:id="@+id/settings_item_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:saveEnabled="false"
-        app:forceAspectRatio="true"
-        app:state="left"
-        app:enabled="true"
-        app:switchDesign="large"
-        app:switchBkgLeftColor="?SmallActionButtonColor"
-        app:switchBkgMiddleColor="?SmallActionButtonColor"
-        app:switchBkgRightColor="?SmallActionButtonColor"
-        app:switchToggleLeftColor="@color/yellow"
-        app:switchToggleLeftImage="@drawable/ic_filled_circle"
-        app:switchToggleMiddleColor="@color/turquoise"
-        app:switchToggleMiddleImage="@drawable/ic_filled_circle"
-        app:switchToggleRightColor="@color/blue"
-        app:switchToggleRightImage="@drawable/ic_filled_circle"/>
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp" />
 
     <View
         style="@style/Divider"

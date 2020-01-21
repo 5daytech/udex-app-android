@@ -7,6 +7,13 @@ object ThemeHelper {
     private val selectedThemePosition: Int
         get() = App.appPreferences.selectedTheme
 
+    val themesColors: List<Int>
+        get() = listOf(
+            App.instance.getColor(R.color.yellow),
+            App.instance.getColor(R.color.violet),
+            App.instance.getColor(R.color.blue)
+        )
+
     fun isLightTheme(): Boolean = when (selectedThemePosition) {
         1 -> true
 

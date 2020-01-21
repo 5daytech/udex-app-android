@@ -159,9 +159,6 @@ dependencies {
 
     // SwipeBack
     implementation 'me.imid.swipebacklayout.lib:library:1.1.0'
-
-    // Triple Switch
-    implementation 'com.rm:rmswitch:1.2.2'
 }
 
 androidExtensions {

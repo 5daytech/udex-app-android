@@ -15,6 +15,7 @@ import com.fridaytech.dex.presentation.main.IFocusListener
 import com.fridaytech.dex.presentation.main.MainActivity
 import com.fridaytech.dex.presentation.settings.addressbook.AddressBookActivity
 import com.fridaytech.dex.presentation.settings.security.SecurityCenterActivity
+import com.fridaytech.dex.utils.ThemeHelper
 import com.fridaytech.dex.utils.openUrl
 import com.fridaytech.dex.utils.ui.SocialUtils
 import com.fridaytech.dex.utils.visible
@@ -49,10 +50,10 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings),
 
                     switchOnCheckedChangeListener = object :
                         ThemeSwitchView.ThemeSwitchListener {
-                        override fun onChange(state: Int) {
-                            viewModel.onThemeChanged(state)
+                            override fun onChange(state: Int) {
+                                viewModel.onThemeChanged(state)
+                            }
                         }
-                    }
                 }
             }
         })
@@ -93,6 +94,7 @@ class SettingsFragment : CoreFragment(R.layout.fragment_settings),
             SocialUtils.openTelegramBot(activity)
         }
 
+        light_mode?.init(ThemeHelper.themesColors)
         light_mode?.setOnClickListener {
             light_mode?.toggleSwitch()
         }

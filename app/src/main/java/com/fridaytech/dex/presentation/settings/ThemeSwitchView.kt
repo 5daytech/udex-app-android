@@ -11,10 +11,10 @@ class ThemeSwitchView : ConstraintLayout {
     init { View.inflate(context, R.layout.view_theme_switch, this) }
 
     var selectedTheme: Int = 0
-        get() = settings_item_switch?.state ?: 0
+        get() = settings_item_switch?.activeItemPosition ?: 0
         set(value) {
             switchOnCheckedChangeListener = null
-            settings_item_switch?.state = value
+            settings_item_switch?.activeItemPosition = value
             field = value
             invalidate()
         }
@@ -22,9 +22,9 @@ class ThemeSwitchView : ConstraintLayout {
     var switchOnCheckedChangeListener: ThemeSwitchListener? = null
         set(value) {
             if (value == null) {
-                settings_item_switch.removeSwitchObservers()
+                settings_item_switch.removeChangeListener()
             } else {
-                settings_item_switch.addSwitchObserver { switchView, state ->
+                settings_item_switch.setChangeListener { _, state ->
                     switchOnCheckedChangeListener?.onChange(state)
                 }
             }
@@ -40,9 +40,8 @@ class ThemeSwitchView : ConstraintLayout {
         defStyleAttr
     )
 
-    fun setState(position: Int) {
-        settings_item_switch?.state = position
-        settings_item_switch?.toggle()
+    fun init(colors: List<Int>) {
+        settings_item_switch.init(colors)
     }
 
     fun toggleSwitch() {

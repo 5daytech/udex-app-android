@@ -3,6 +3,7 @@ package com.fridaytech.dex.utils
 import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Color
 import android.graphics.Point
 import android.net.Uri
 import android.os.Build
@@ -104,6 +105,10 @@ fun Context.pxToSp(px: Float) = px / scaledDensity
 fun Context.spToPx(sp: Float) = sp * scaledDensity
 
 fun Context.getColorRes(@ColorRes color: Int): Int = ContextCompat.getColor(this, color)
+
+fun Fragment.getColorRes(@ColorRes color: Int): Int = context?.let {
+    ContextCompat.getColor(it, color)
+} ?: Color.BLACK
 
 val Activity.isTranslucentStatus: Boolean
     get() {
