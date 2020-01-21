@@ -16,6 +16,7 @@ import com.fridaytech.dex.presentation.exchange.confirm.ExchangeConfirmInfo
 import com.fridaytech.dex.presentation.exchange.market.MarketOrderFragment.InputField.MARKET_AMOUNT
 import com.fridaytech.dex.presentation.exchange.market.MarketOrderFragment.InputField.MARKET_RECEIVE_AMOUNT
 import com.fridaytech.dex.presentation.main.IFocusListener
+import com.fridaytech.dex.presentation.widgets.MainToolbar
 import com.fridaytech.dex.presentation.widgets.NumPadItem
 import com.fridaytech.dex.presentation.widgets.NumPadItemType
 import com.fridaytech.dex.presentation.widgets.NumPadItemsAdapter
@@ -93,6 +94,12 @@ class MarketOrderFragment : CoreFragment(R.layout.fragment_market_exchange),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        toolbar.bind(leftActionButton = MainToolbar.ActionInfo(
+            R.drawable.ic_market_buy,
+            R.color.yellow,
+            0
+        ) {})
 
         exchange_numpad?.bind(this, NumPadItemType.DOT, false, scrollable = true)
 

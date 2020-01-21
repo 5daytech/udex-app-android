@@ -35,7 +35,7 @@ class BalanceFragment : CoreFragment(R.layout.fragment_balance),
 
     private val buyCryptoToolbarAction = MainToolbar.ActionInfo(
         R.drawable.ic_credit_card,
-        R.string.action_buy_crypto
+        textRes = R.string.action_buy_crypto
     ) { viewModel.onBuyCryptoClick() }
 
     override fun onCreate(savedInstanceState: Bundle?) {

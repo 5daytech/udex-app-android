@@ -1,10 +1,13 @@
 package com.fridaytech.dex.presentation.widgets
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.fridaytech.dex.R
+import com.fridaytech.dex.utils.getColorRes
 import com.fridaytech.dex.utils.visible
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.view_toolbar.view.*
@@ -47,17 +50,23 @@ class MainToolbar : AppBarLayout {
         rightActionButton: ActionInfo? = null
     ) {
         toolbar_left_action?.visible = leftActionButton != null
-
         leftActionButton?.let {
             toolbar_left_action?.setImageResource(it.iconRes)
+            if (it.iconTint != 0) {
+                toolbar_left_action?.imageTintList = ColorStateList.valueOf(context.getColorRes(it.iconTint))
+            }
             toolbar_left_action?.setOnClickListener { leftActionButton.onClick() }
         }
 
         toolbar_right_action?.visible = rightActionButton != null
-
         rightActionButton?.let {
-            toolbar_right_action_text?.setText(it.textRes)
+            if (it.textRes != 0) {
+                toolbar_right_action_text?.setText(it.textRes)
+            }
             toolbar_right_action_image?.setImageResource(it.iconRes)
+            if (it.iconTint != 0) {
+                toolbar_right_action_image?.imageTintList = ColorStateList.valueOf(context.getColorRes(it.iconTint))
+            }
             toolbar_right_action?.setOnClickListener { rightActionButton.onClick() }
         }
     }
@@ -68,6 +77,7 @@ class MainToolbar : AppBarLayout {
 
     data class ActionInfo(
         @DrawableRes val iconRes: Int,
+        @ColorRes val iconTint: Int = 0,
         @StringRes val textRes: Int = 0,
         val onClick: () -> Unit
     )
@@ -76,6 +86,7 @@ class MainToolbar : AppBarLayout {
         fun getBackAction(onClick: () -> Unit): ActionInfo =
             ActionInfo(
                 R.drawable.ic_back,
+                0,
                 0,
                 onClick
             )

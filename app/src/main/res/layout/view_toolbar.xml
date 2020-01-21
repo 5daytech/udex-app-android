@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="@dimen/medium_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         android:padding="8dp"
         android:src="@drawable/ic_back"
@@ -33,7 +33,7 @@
         app:layout_constraintLeft_toRightOf="@+id/toolbar_left_action"
         android:paddingTop="@dimen/page_margin"
         android:paddingBottom="@dimen/page_margin"
-        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginStart="@dimen/medium_margin"
         android:gravity="top"
         android:text="Wallet"/>
 
