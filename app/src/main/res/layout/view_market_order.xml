@@ -27,6 +27,19 @@
         android:layout_marginStart="@dimen/page_margin"
         android:layout_marginTop="@dimen/element_margin" />
 
+    <TextView
+        style="@style/SmallHintText"
+        android:id="@+id/market_send_warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/market_amount_input"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/orange"
+        android:textAllCaps="false"
+        android:text="Available: 1"/>
+
     <Button
         style="@style/ButtonSmallGrey"
         android:id="@+id/market_amount_max"
@@ -85,6 +98,19 @@
         android:ellipsize="end"
         android:hint="0.0"
         android:maxLines="1" />
+
+    <TextView
+        style="@style/SmallHintText"
+        android:id="@+id/market_receive_warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/market_receive_input"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/orange"
+        android:textAllCaps="false"
+        android:text="Available: 12"/>
 
     <com.fridaytech.dex.presentation.exchange.CoinDropDown
         android:id="@+id/market_base_spinner"

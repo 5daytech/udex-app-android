@@ -152,6 +152,14 @@ class MarketOrderFragment : CoreFragment(R.layout.fragment_market_exchange),
             exchange_market_view?.updateReceiveHint(it)
         })
 
+        marketOrderViewModel.sendAvailableAmount.observe(this, Observer {
+            exchange_market_view?.updateSendAvailableAmount(it)
+        })
+
+        marketOrderViewModel.receiveAvailableAmount.observe(this, Observer {
+            exchange_market_view?.updateReceiveAvailableAmount(it)
+        })
+
         marketOrderViewModel.viewState.observe(this, Observer {
             exchange_market_view?.updateState(it)
         })

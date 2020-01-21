@@ -14,10 +14,11 @@ import com.fridaytech.dex.presentation.exchange.model.MarketOrderViewState
 import com.fridaytech.dex.presentation.model.AmountInfo
 import com.fridaytech.dex.utils.bindFiatAmountInfo
 import com.fridaytech.dex.utils.ui.AnimationHelper
+import com.fridaytech.dex.utils.ui.toDisplayFormat
 import com.fridaytech.dex.utils.visible
 import io.reactivex.subjects.PublishSubject
-import java.math.BigDecimal
 import kotlinx.android.synthetic.main.view_market_order.view.*
+import java.math.BigDecimal
 
 class MarketOrderView : CardView {
     init { View.inflate(context, R.layout.view_market_order, this) }
@@ -99,6 +100,16 @@ class MarketOrderView : CardView {
             info,
             textRes = R.string.hint_i_want
         )
+    }
+
+    fun updateSendAvailableAmount(amountInfo: AmountInfo?) {
+        market_send_warning?.visible = amountInfo?.error == 1
+        market_send_warning?.text = "Available: ${amountInfo?.value?.toDisplayFormat()}"
+    }
+
+    fun updateReceiveAvailableAmount(amountInfo: AmountInfo?) {
+        market_receive_warning?.visible = amountInfo?.error == 1
+        market_receive_warning?.text = "Available: ${amountInfo?.value?.toDisplayFormat()}"
     }
 
     private fun updateAmount(amount: BigDecimal) {
