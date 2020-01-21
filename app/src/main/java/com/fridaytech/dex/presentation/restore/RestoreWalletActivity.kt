@@ -9,10 +9,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.fridaytech.dex.R
 import com.fridaytech.dex.core.ui.SwipeableActivity
+import com.fridaytech.dex.data.manager.clipboard.ClipboardManager
 import com.fridaytech.dex.presentation.main.MainActivity
 import com.fridaytech.dex.presentation.widgets.MainToolbar
 import com.fridaytech.dex.presentation.widgets.words.WordInputViewHolder
 import com.fridaytech.dex.presentation.widgets.words.WordsInputAdapter
+import com.fridaytech.dex.utils.Logger
 import com.fridaytech.dex.utils.removeFocus
 import com.fridaytech.dex.utils.showKeyboard
 import com.fridaytech.dex.utils.ui.ToastHelper
@@ -44,8 +46,7 @@ class RestoreWalletActivity : SwipeableActivity(), WordInputViewHolder.OnWordCha
 
         restore_recycler.isNestedScrollingEnabled = false
         restore_recycler.layoutManager = GridLayoutManager(this, 2)
-        restore_recycler.adapter =
-            WordsInputAdapter(this)
+        restore_recycler.adapter = WordsInputAdapter(this)
 
         restore_confirm.setOnClickListener {
             if (!restore_single_line_input?.text.isNullOrEmpty()) {
@@ -56,6 +57,15 @@ class RestoreWalletActivity : SwipeableActivity(), WordInputViewHolder.OnWordCha
 
             restore_single_line_input?.removeFocus()
             viewModel.onRestoreClick(words)
+        }
+
+        restore_paste.setOnClickListener {
+            try {
+                restore_single_line_input?.setText(ClipboardManager.getCopiedText())
+                restore_single_line_input?.setSelection(ClipboardManager.getCopiedText().length)
+            } catch (e: Exception) {
+                Logger.e(e)
+            }
         }
 
         focusInput()

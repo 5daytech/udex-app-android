@@ -57,6 +57,7 @@
     <string name="price">Price</string>
     <string name="amount">Amount</string>
     <string name="total">Total</string>
+
     <string name="settings_security_center">Security Center</string>
     <string name="settings_language">Language</string>
     <string name="settings_light_mode">Light Mode</string>
@@ -64,11 +65,13 @@
     <string name="settings_share">Tell Friends</string>
     <string name="settings_how_it_works">How it Works?</string>
     <string name="settings_address_book">Address Book</string>
-    <string name="title_trade_history">Trade History</string>
     <string name="settings_coin_manager">Coin Manager</string>
+
+    <string name="title_trade_history">Trade History</string>
     <string name="action_cancel_order">Cancel order</string>
     <string name="action_forward">Share</string>
     <string name="hint_your_address">Your address</string>
+
     <string name="action_convert">Convert</string>
     <string name="action_confirm">Confirm</string>
     <string name="action_restore_wallet">Restore</string>
@@ -77,6 +80,8 @@
     <string name="action_wrap">Wrap</string>
     <string name="action_unwrap">Unwrap</string>
     <string name="action_buy_crypto">Buy Ether</string>
+    <string name="action_add_coin">Add Coins</string>
+    <string name="action_paste">Paste</string>
 
     <string name="info_fee">Fee:</string>
     <string name="info_estimated_fee">Estimated Fee:</string>
@@ -192,7 +197,6 @@
 
     <string name="orders_cancel_all">Cancel All Orders</string>
     <string name="orders_cancel">Cancel Order</string>
-    <string name="action_add_coin">Add Coins</string>
 
     <!-- Guide -->
     <string name="guide_page_1">Welcome to UDEX</string>
