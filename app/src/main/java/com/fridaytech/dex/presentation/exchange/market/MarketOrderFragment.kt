@@ -97,7 +97,7 @@ class MarketOrderFragment : CoreFragment(R.layout.fragment_market_exchange),
 
         toolbar.bind(leftActionButton = MainToolbar.ActionInfo(
             R.drawable.ic_market_buy,
-            R.color.yellow,
+            0,
             0
         ) {})
 
