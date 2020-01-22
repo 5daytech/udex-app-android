@@ -13,7 +13,7 @@ import com.fridaytech.dex.utils.dp
 
 class ColoredOptionPickerView : LinearLayout {
 
-    private var circleSize = 28f
+    private var circleSize = 26f
     private var activeAlpha = 1f
     private var inactiveAlpha = 0.8f
     var activeItemPosition = 0
