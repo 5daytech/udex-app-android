@@ -37,7 +37,7 @@
     <string name="message_order_creating">Order processing…</string>
     <string name="message_exchange_in_progress">Exchange in Progress…</string>
     <string name="error_invalid_amount">Not enough funds</string>
-    <string name="error_insufficient_fee_balance">Insufficient fee balance!</string>
+    <string name="error_insufficient_fee_balance">Insufficient ETH balance for fee!</string>
     <string name="error_insufficient_balance">Insufficient balance!</string>
     <string name="error_invalid_mnemonic">Invalid mnemonic</string>
     <string name="error_exchange_failed">Exchange failed</string>
