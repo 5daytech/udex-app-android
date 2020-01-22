@@ -23,8 +23,8 @@ android {
         applicationId "com.fridaytech.dex"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 17
-        versionName "1.1.0"
+        versionCode 18
+        versionName "1.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
