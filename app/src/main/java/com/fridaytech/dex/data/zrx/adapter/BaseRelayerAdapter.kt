@@ -233,7 +233,6 @@ class BaseRelayerAdapter(
         amount: BigDecimal
     ): FillResult = try {
         val orders = getPairOrders(coinPair, side).orders
-        Logger.d("Fill ${orders.size}")
         calculateFillResult(orders, side, amount)
     } catch (e: Exception) {
         Logger.e(e)
