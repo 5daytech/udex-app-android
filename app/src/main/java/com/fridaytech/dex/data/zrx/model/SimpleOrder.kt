@@ -40,22 +40,22 @@ data class SimpleOrder(
                 normalizedData.takerCoin,
                 normalizedData.price,
                 normalizedData.makerAmount,
-                normalizedData.remainingMakerAmount,
+                normalizedData.remainingMakerAmount ?: normalizedData.makerAmount,
                 normalizedData.takerAmount,
-                normalizedData.remainingTakerAmount,
+                normalizedData.remainingTakerAmount ?: normalizedData.takerAmount,
                 ratesConverter.getCoinsPrice(
                     normalizedData.makerCoin.code,
-                    normalizedData.remainingMakerAmount
+                    normalizedData.remainingMakerAmount ?: normalizedData.makerAmount
                 ),
                 ratesConverter.getCoinsPrice(
                     normalizedData.takerCoin.code,
-                    normalizedData.remainingTakerAmount
+                    normalizedData.remainingTakerAmount ?: normalizedData.takerAmount
                 ),
                 TimeUtils.timestampToDisplay(orderRecord.order.expirationTimeSeconds.toLong()),
                 side,
                 isMine,
                 orderInfo?.orderStatus ?: "unknown",
-                normalizedData.takerAmount - normalizedData.remainingTakerAmount
+                normalizedData.takerAmount - (normalizedData.remainingTakerAmount ?: normalizedData.takerAmount)
             )
         }
     }

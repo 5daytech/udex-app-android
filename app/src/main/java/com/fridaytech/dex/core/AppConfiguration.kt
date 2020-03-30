@@ -127,13 +127,21 @@ class AppConfiguration(
     )
 
     private val mainRelayers: List<Relayer> = listOf(
+//        Relayer(
+//            0,
+//            "UDEX",
+//            allExchangePairs,
+//            listOf("0xA5004C8b2D64AD08A80d33Ad000820d63aa2cCC9".toLowerCase(Locale.US)),
+//            zrxNetworkType.exchangeAddress,
+//            RelayerConfig("https://api.udex.app", "sra", "v3")
+//        ),
         Relayer(
             0,
-            "UDEX",
+            "Radar Relay",
             allExchangePairs,
-            listOf("0xA5004C8b2D64AD08A80d33Ad000820d63aa2cCC9".toLowerCase(Locale.US)),
+            listOf("0xa258b39954cef5cb142fd567a46cddb31a670124".toLowerCase(Locale.US)),
             zrxNetworkType.exchangeAddress,
-            RelayerConfig("https://api.udex.app", "sra", "v3")
+            RelayerConfig("https://api.radarrelay.com", "0x", "v3")
         )
     )
 

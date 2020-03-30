@@ -9,9 +9,9 @@ data class NormalizedOrderData(
     val makerCoin: Coin,
     val takerCoin: Coin,
     val makerAmount: BigDecimal,
-    val remainingMakerAmount: BigDecimal,
+    val remainingMakerAmount: BigDecimal?,
     val takerAmount: BigDecimal,
-    val remainingTakerAmount: BigDecimal,
+    val remainingTakerAmount: BigDecimal?,
     val price: BigDecimal,
     val order: SignedOrder?
 )

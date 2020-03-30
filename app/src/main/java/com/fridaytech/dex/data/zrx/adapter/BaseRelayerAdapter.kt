@@ -116,7 +116,7 @@ class BaseRelayerAdapter(
 
             percent > 0.01
         } else {
-            false
+            true
         }
     }
 
@@ -125,21 +125,15 @@ class BaseRelayerAdapter(
             .ioSubscribe(disposables, {
                 val myAddress = ethereumKit.receiveAddress.toLowerCase()
 
-                buyOrders.updatePairOrders(
-                    baseAsset,
-                    quoteAsset,
-                    it.bids.records
-                        .filterNot { it.order.makerAddress.equals(myAddress, false) }
-                        .filter { isFillableOrder(it) }
-                )
+                val bids = it.bids.records
+                    .filterNot { it.order.makerAddress.equals(myAddress, false) }
+                    .filter { isFillableOrder(it) }
+                buyOrders.updatePairOrders(baseAsset, quoteAsset, bids)
 
-                sellOrders.updatePairOrders(
-                    baseAsset,
-                    quoteAsset,
-                    it.asks.records
-                        .filterNot { it.order.makerAddress.equals(myAddress, false) }
-                        .filter { isFillableOrder(it) }
-                )
+                val asks = it.asks.records
+                    .filterNot { it.order.makerAddress.equals(myAddress, false) }
+                    .filter { isFillableOrder(it) }
+                sellOrders.updatePairOrders(baseAsset, quoteAsset, asks)
             })
     }
 
@@ -170,17 +164,16 @@ class BaseRelayerAdapter(
             OrdersUtil.normalizeOrderDataPrice(it)
         }.apply { if (side == EOrderSide.BUY) sortedByDescending { it.price } else sortedBy { it.price } }
 
-        for (orderData in sortedOrders) {
+        for (normalizedOrder in sortedOrders) {
             if (requestedAmount != BigDecimal.ZERO) {
-                if (requestedAmount > orderData.remainingTakerAmount) {
-                    fillAmount += orderData.remainingMakerAmount
-                    requestedAmount -= orderData.remainingTakerAmount
+                if (requestedAmount > (normalizedOrder.remainingTakerAmount ?: normalizedOrder.takerAmount)) {
+                    fillAmount += normalizedOrder.remainingMakerAmount ?: normalizedOrder.makerAmount
+                    requestedAmount -= normalizedOrder.remainingTakerAmount ?: normalizedOrder.takerAmount
                 } else {
-                    fillAmount += requestedAmount.normalizedMul(orderData.price)
+                    fillAmount += requestedAmount.normalizedMul(normalizedOrder.price)
                     requestedAmount = BigDecimal.ZERO
                 }
-
-                orderData.order?.let { ordersToFill.add(it) }
+                normalizedOrder.order?.let { ordersToFill.add(it) }
             } else {
                 break
             }
@@ -240,6 +233,7 @@ class BaseRelayerAdapter(
         amount: BigDecimal
     ): FillResult = try {
         val orders = getPairOrders(coinPair, side).orders
+        Logger.d("Fill ${orders.size}")
         calculateFillResult(orders, side, amount)
     } catch (e: Exception) {
         Logger.e(e)
@@ -263,9 +257,9 @@ class BaseRelayerAdapter(
 
         for (normalizedOrder in sortedOrders) {
             if (requestedAmount != BigDecimal.ZERO) {
-                if (requestedAmount > normalizedOrder.remainingMakerAmount) {
-                    fillAmount += normalizedOrder.remainingTakerAmount
-                    requestedAmount -= normalizedOrder.remainingMakerAmount
+                if (requestedAmount > (normalizedOrder.remainingMakerAmount ?: normalizedOrder.makerAmount)) {
+                    fillAmount += normalizedOrder.remainingTakerAmount ?: normalizedOrder.takerAmount
+                    requestedAmount -= normalizedOrder.remainingMakerAmount ?: normalizedOrder.makerAmount
                 } else {
                     fillAmount += requestedAmount.normalizedMul(normalizedOrder.price)
                     requestedAmount = BigDecimal.ZERO

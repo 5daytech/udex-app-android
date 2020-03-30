@@ -31,12 +31,14 @@ object OrdersUtil {
 
         val remainingTakerAmount = orderRecord.metaData?.remainingFillableTakerAssetAmount?.toBigDecimal()
             ?.movePointLeft(takerCoin.type.decimal)
-            ?.stripTrailingZeros() ?: BigDecimal.ZERO
+            ?.stripTrailingZeros()
 
-        val remainingMakerAmount = if (remainingTakerAmount > BigDecimal.ZERO) {
-            makerAmount * remainingTakerAmount.normalizedDiv(takerAmount)
-        } else {
-            BigDecimal.ZERO
+        val remainingMakerAmount = remainingTakerAmount?.let {
+            if (remainingTakerAmount > BigDecimal.ZERO) {
+                makerAmount * remainingTakerAmount.normalizedDiv(takerAmount)
+            } else {
+                BigDecimal.ZERO
+            }
         }
 
         val price = takerAmount.normalizedDiv(makerAmount)
@@ -68,12 +70,14 @@ object OrdersUtil {
 
         val remainingTakerAmount = orderRecord.metaData?.remainingFillableTakerAssetAmount?.toBigDecimal()
             ?.movePointLeft(takerCoin.type.decimal)
-            ?.stripTrailingZeros() ?: BigDecimal.ZERO
+            ?.stripTrailingZeros()
 
-        val remainingMakerAmount = if (remainingTakerAmount > BigDecimal.ZERO) {
-            makerAmount * remainingTakerAmount.normalizedDiv(takerAmount)
-        } else {
-            BigDecimal.ZERO
+        val remainingMakerAmount = remainingTakerAmount?.let {
+            if (remainingTakerAmount > BigDecimal.ZERO) {
+                makerAmount * remainingTakerAmount.normalizedDiv(takerAmount)
+            } else {
+                BigDecimal.ZERO
+            }
         }
 
         val price = if (isSellPrice) {
